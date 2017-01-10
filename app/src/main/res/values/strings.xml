@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Aapkatrade</string>
+    <string name="app_name">AapkaTrade</string>
+
+    <string name="my_profile_heading">My Profile</string>
+    <string name="my_profile_detail_heading">Hello,<font color="#0000FF"> Arvind </font> - To Update your account information.</string>
+    <string name="save">Save</string>
+    <string name="login">Login</string>
+    <string name="my_company_profile_heading">My Company Profile</string>
+    <string name="change_password_heading">Change Password</string>
+    <string name="add_company_heading">Add Company</string>
+    <string name="user_name">Pawan</string>
+    <string name="date">31-2-2016</string>
+    <string name="edit">Edit</string>
+
+
 </resources>

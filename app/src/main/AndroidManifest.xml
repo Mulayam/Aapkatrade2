@@ -8,13 +8,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".dashboard.MyProfileActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".login.loginActivity"
+            />
+        <!-- <activity android:name=".dashboard.MyProfileActivity" /> -->
+        <activity android:name=".dashboard.MyCompanyProfile" />
+        <activity android:name=".dashboard.ChangePassword" />
+        <activity android:name=".dashboard.AddCompany" />
+        <activity android:name=".dashboard.CompanyList"></activity>
     </application>
 
 </manifest>
