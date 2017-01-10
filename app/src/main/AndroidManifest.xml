@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ppc09.aapkatrade">
+    package="com.example.pat.aapkatrade">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".dashboard.MyProfileActivity"
+            android:name="com.example.pat.aapkatrade.dashboard.MyProfileActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,13 +19,13 @@
         </activity>
 
         <activity
-            android:name=".login.loginActivity"
+            android:name="com.example.pat.aapkatrade.login.loginActivity"
             />
         <!-- <activity android:name=".dashboard.MyProfileActivity" /> -->
-        <activity android:name=".dashboard.MyCompanyProfile" />
-        <activity android:name=".dashboard.ChangePassword" />
-        <activity android:name=".dashboard.AddCompany" />
-        <activity android:name=".dashboard.CompanyList"></activity>
+        <activity android:name="com.example.pat.aapkatrade.dashboard.MyCompanyProfile" />
+        <activity android:name="com.example.pat.aapkatrade.dashboard.ChangePassword" />
+        <activity android:name="com.example.pat.aapkatrade.dashboard.AddCompany" />
+        <activity android:name="com.example.pat.aapkatrade.dashboard.CompanyList"></activity>
     </application>
 
 </manifest>

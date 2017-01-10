@@ -1,10 +1,10 @@
-package com.example.ppc09.aapkatrade.dashboard;
+package com.example.pat.aapkatrade.dashboard;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 
-import com.example.ppc09.aapkatrade.R;
+import com.example.pat.aapkatrade.R;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 

@@ -1,10 +1,10 @@
-package com.example.ppc09.aapkatrade.login;
+package com.example.pat.aapkatrade.login;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.example.ppc09.aapkatrade.R;
+import com.example.pat.aapkatrade.R;
 
 
 public class loginActivity extends AppCompatActivity {

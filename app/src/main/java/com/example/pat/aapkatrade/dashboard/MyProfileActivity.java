@@ -1,4 +1,4 @@
-package com.example.ppc09.aapkatrade.dashboard;
+package com.example.pat.aapkatrade.dashboard;
 
 
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.ppc09.aapkatrade.R;
+import com.example.pat.aapkatrade.R;
 
 
 public class MyProfileActivity extends AppCompatActivity implements View.OnClickListener
