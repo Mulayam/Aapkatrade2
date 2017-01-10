@@ -9,7 +9,6 @@
     android:weightSum="10"
     android:background="@color/white">
 
-
     <RelativeLayout
         android:id="@+id/relativeAddCompanyHeader"
         android:layout_width="match_parent"
@@ -21,27 +20,29 @@
         >
 
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linear_layout_image"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/orange"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/orange_back"
             >
 
 
             <ImageView
                 android:id="@+id/imgAddCompany"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_add_company"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
                 />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/orange"
+            android:background="@drawable/orange_back"
             android:layout_toRightOf="@+id/linear_layout_image"
             android:layout_marginLeft="3dp"
             android:padding="10dp"
@@ -78,7 +79,7 @@
             android:layout_height="0dp"
             android:layout_margin="10dp"
             android:textColor="@color/black"
-            android:layout_weight=".3"
+            android:layout_weight=".1"
             />
 
 
@@ -123,17 +124,73 @@
             android:padding="10dp"
             />
 
-
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spinner"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
+            android:background="@drawable/spinner_green_back"
             android:padding="10dp"
+            >
 
-            />
+          <Spinner
+              android:id="@+id/spCategory"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_alignParentLeft="true"
+              ></Spinner>
+
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_arrow"
+                android:scaleType="fitXY"
+                />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/spinner_green_back"
+            android:padding="10dp"
+            >
+
+            <Spinner
+                android:id="@+id/spSubCategory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                ></Spinner>
+
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_arrow"
+                android:scaleType="fitXY"
+                />
+
+        </RelativeLayout>
+
+
 
         <EditText
             android:id="@+id/etAddress"
@@ -167,9 +224,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.2"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             >
             <Button
+                android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -180,22 +238,10 @@
                 android:background="@drawable/button_orange_back"
                 />
 
-
         </RelativeLayout>
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            ></RelativeLayout>
-
-
-
-
     </LinearLayout>
-
-
 
 
 </LinearLayout>

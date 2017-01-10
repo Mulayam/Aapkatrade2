@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relativeCompanyListheader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/linear_layout_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/orange"
+            android:layout_alignParentLeft="true"
+            >
+
+
+            <ImageView
+                android:id="@+id/imgProfile"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_user"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/orange"
+            android:layout_toRightOf="@+id/linear_layout_image"
+            android:layout_marginLeft="3dp"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/compant_list_heading"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/relativeCompanyListheader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/screen_back"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        >
+
+        <RelativeLayout
+            android:id="@+id/relativeCompanyDetailsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            >
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/company_name_heading"
+                android:textColor="@color/black"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dateheading"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_alignParentRight="true"
+                android:text="@string/action_heading"
+                />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/companylist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeCompanyDetailsList"
+            android:layout_marginTop="10dp"
+            ></android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

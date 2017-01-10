@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.dashboard;
+package com.example.pat.aapkatrade.user_dashboard.my_company_profile;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

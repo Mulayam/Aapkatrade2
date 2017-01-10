@@ -8,24 +8,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="com.example.pat.aapkatrade.dashboard.MyProfileActivity"
-            >
+        <activity android:name=".user_dashboard.my_profile.MyProfileActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="com.example.pat.aapkatrade.login.loginActivity"
-            />
+        <activity android:name=".login.loginActivity" />
         <!-- <activity android:name=".dashboard.MyProfileActivity" /> -->
-        <activity android:name="com.example.pat.aapkatrade.dashboard.MyCompanyProfile" />
-        <activity android:name="com.example.pat.aapkatrade.dashboard.ChangePassword" />
-        <activity android:name="com.example.pat.aapkatrade.dashboard.AddCompany" />
-        <activity android:name="com.example.pat.aapkatrade.dashboard.CompanyList"></activity>
+        <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
+        <activity android:name=".user_dashboard.changepassword.ChangePassword" />
+        <activity android:name=".user_dashboard.addcompany.AddCompany" />
+        <activity android:name=".user_dashboard.companylist.CompanyList" />
+        <activity android:name=".user_dashboard.DashboardActivity"></activity>
     </application>
 
 </manifest>

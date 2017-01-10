@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.dashboard;
+package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
 
 import android.content.Intent;
@@ -10,9 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 
 
-public class MyProfileActivity extends AppCompatActivity implements View.OnClickListener
+public class MyProfileActivity extends AppCompatActivity
 {
 
     TextView  toolbar_title_txt;
@@ -33,22 +35,38 @@ public class MyProfileActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    private void setup_layout() {
+    private void setup_layout()
+    {
 
         btnsave = (Button) findViewById(R.id.btnSave);
 
         btnEdit = (Button) findViewById(R.id.btnEdit);
 
-        btnsave.setOnClickListener(this);
+        btnsave.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(MyProfileActivity.this, CompanyList.class);
+                startActivity(i);
+            }
+        });
 
-        btnEdit.setOnClickListener(this);
+       btnEdit.setOnClickListener(new View.OnClickListener()
+       {
+           @Override
+           public void onClick(View v)
+           {
+               Intent i = new Intent(MyProfileActivity.this, AddCompany.class);
+               startActivity(i);
+           }
+       });
     }
-
-
 
 
     private void setuptoolbar()
     {
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -59,25 +77,8 @@ public class MyProfileActivity extends AppCompatActivity implements View.OnClick
 
         toolbar_title_txt.setText("My Profile");
 
-    }
-
-    @Override
-    public void onClick(View v)
-    {
-
-        switch (v.getId()){
-
-            case R.id.btnEdit:
-                Intent i = new Intent(MyProfileActivity.this, AddCompany.class);
-                startActivity(i);
-
-
-            case R.id.btnSave:
-                Intent n = new Intent(MyProfileActivity.this, MyCompanyProfile.class);
-                startActivity(n);
-
-
-        }
 
     }
+
+
 }
