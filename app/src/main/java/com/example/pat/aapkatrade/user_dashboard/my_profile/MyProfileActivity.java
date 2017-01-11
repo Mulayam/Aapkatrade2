@@ -21,6 +21,7 @@ public class MyProfileActivity extends AppCompatActivity
     Button btnsave,btnEdit;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -29,7 +30,7 @@ public class MyProfileActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_my_profile);
 
-         setuptoolbar();
+        setuptoolbar();
 
         setup_layout();
 
@@ -66,7 +67,6 @@ public class MyProfileActivity extends AppCompatActivity
 
     private void setuptoolbar()
     {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -76,7 +76,6 @@ public class MyProfileActivity extends AppCompatActivity
         toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
 
         toolbar_title_txt.setText("My Profile");
-
 
     }
 
