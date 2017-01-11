@@ -27,4 +27,7 @@ dependencies {
     compile 'com.github.ganfra:material-spinner:1.1.1'
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.mikhaellopez:circularimageview:3.0.2'
 }
