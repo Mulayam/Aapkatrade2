@@ -185,7 +185,6 @@
         </RelativeLayout>
 
 
-
         <EditText
             android:id="@+id/etAddress"
             android:layout_width="match_parent"

@@ -19,7 +19,7 @@
 
     <string name="action_heading">Action</string>
     <string name="dashboard_heading">My Company Profile</string>
-
+  <string name="some_data">hi</string>
 
     <string name="forgotpassword">Forget Password?</string>
     <string name="new_user">New User?</string>
