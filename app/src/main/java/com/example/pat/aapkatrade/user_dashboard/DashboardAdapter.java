@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
+import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -68,11 +70,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             public void onClick(View v)
             {
 
-                if(itemList.get(position).dashboard_name.equals("My Account"))
-                {
-
-                }
-                else if(itemList.get(position).dashboard_name.equals("My Company"))
+                 if(itemList.get(position).dashboard_name.equals("My Company"))
                 {
 
                     Intent my_company = new Intent(context, MyCompanyProfile.class);
@@ -110,7 +108,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 else if (itemList.get(position).dashboard_name.equals("Add Product"))
                 {
 
-                    Intent add_product = new Intent(context, AddCompany.class);
+                    Intent add_product = new Intent(context, AddProductActivity.class);
                     context.startActivity(add_product);
 
 
@@ -118,7 +116,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 else if (itemList.get(position).dashboard_name.equals("List Product"))
                 {
 
-                    Intent list_product = new Intent(context, MyCompanyProfile.class);
+                    Intent list_product = new Intent(context, ProductListActivity.class);
                     context.startActivity(list_product);
 
 

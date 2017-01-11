@@ -8,10 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".user_dashboard.DashboardActivity">
-
-
-        </activity>
+        <activity android:name=".user_dashboard.DashboardActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,12 +22,13 @@
         <activity android:name=".user_dashboard.changepassword.ChangePassword" />
         <activity android:name=".user_dashboard.addcompany.AddCompany" />
         <activity android:name=".user_dashboard.companylist.CompanyList" />
-        <activity android:name=".user_dashboard.product_list.ProductListActivity"></activity>
+        <activity android:name=".user_dashboard.product_list.ProductListActivity" />
         <activity
             android:name=".login.logindashboard"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_logindashboard"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".user_dashboard.add_product.AddProductActivity"></activity>
     </application>
 
 </manifest>
