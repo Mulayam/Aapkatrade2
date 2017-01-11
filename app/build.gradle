@@ -25,4 +25,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.0.+'
     compile 'com.jaredrummler:material-spinner:1.1.0'
     compile 'com.github.ganfra:material-spinner:1.1.1'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

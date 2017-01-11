@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
 
     <RelativeLayout
         android:id="@+id/relativeCompanyListheader"
@@ -15,8 +17,8 @@
 
         <RelativeLayout
             android:id="@+id/linear_layout_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@color/orange"
             android:layout_alignParentLeft="true"
             >
@@ -24,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_user"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
@@ -35,7 +37,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:background="@color/orange"
             android:layout_toRightOf="@+id/linear_layout_image"
             android:layout_marginLeft="3dp"

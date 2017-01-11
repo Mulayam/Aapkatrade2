@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
 
-</LinearLayout>
+
+   <RelativeLayout
+       android:id="@+id/relativeDashboardStrip"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_margin="10dp"
+       android:padding="10dp"
+       android:background="@drawable/orange_back"
+
+       >
+
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="DASHBOARD"
+          android:layout_centerHorizontal="true"
+          android:textColor="@color/white"
+          android:textStyle="bold"
+          />
+
+   </RelativeLayout>
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/dashboardlist"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_margin="10dp"
+       android:layout_below="@+id/relativeDashboardStrip"
+       android:background="@color/screen_back"
+       >
+
+
+
+   </android.support.v7.widget.RecyclerView>
+
+
+
+</RelativeLayout>

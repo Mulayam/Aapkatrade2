@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.user_dashboard.companylist;
+package com.example.pat.aapkatrade.user_dashboard.product_list;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,24 +8,27 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by John on 10/31/2016.
+ * Created by PPC16 on 11-Jan-17.
  */
-public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+
+public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
     private final LayoutInflater inflater;
-    private List<CompanyData> itemList;
+    private List<ProductListData> itemList;
     private Context context;
-    CompanyListHolder viewHolder;
+    ProductListHolder viewHolder;
 
 
-    public CompanyListAdapter(Context context, List<CompanyData> itemList)
+    public ProductListAdapter(Context context, List<ProductListData> itemList)
     {
         this.itemList = itemList;
         this.context = context;
@@ -37,7 +40,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
 
         View view = inflater.inflate(R.layout.row_company_list, parent, false);
-        viewHolder = new CompanyListHolder(view);
+        viewHolder = new ProductListHolder(view);
 
 
         return viewHolder;
@@ -47,7 +50,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
 
-        CompanyListHolder homeHolder = (CompanyListHolder) holder;
+        ProductListHolder homeHolder = (ProductListHolder) holder;
 
     }
 

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="50dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/white">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        app:cardCornerRadius="4dp"
-        android:elevation="4dp"
+        card_view:cardCornerRadius="2dp"
         >
-
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="10dp"
+            android:padding="5dp"
             >
 
             <TextView
@@ -46,23 +46,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+
                 >
 
                 <ImageView
                     android:id="@+id/imgEdtCompanyName"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_profile"
-
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_edit"
                     />
+
+                <View
+                    android:id="@+id/View1"
+                    android:layout_toRightOf="@+id/imgEdtCompanyName"
+                    android:layout_width="1dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/orange"
+                    android:layout_marginRight="5dp"
+                    ></View>
 
                 <ImageView
                     android:id="@+id/imgDeleteCompany"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_profile"
-                    android:layout_toRightOf="@+id/imgEdtCompanyName"
-                    android:layout_marginLeft="5dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_delete"
+                    android:layout_toRightOf="@+id/View1"
+
                     />
 
 

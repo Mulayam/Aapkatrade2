@@ -31,8 +31,8 @@
 
             <ImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/ic_user"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
@@ -98,6 +98,7 @@
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
             android:inputType="text"
+            android:maxLines="1"
             />
 
 
@@ -113,6 +114,7 @@
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
             android:inputType="text"
+            android:maxLines="1"
             />
 
         <RelativeLayout
@@ -124,6 +126,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
+
             >
 
 
@@ -135,6 +138,7 @@
                 android:text="@string/date"
                 android:textSize="@dimen/textsize"
                 android:layout_alignParentLeft="true"
+
                 />
 
 
@@ -161,6 +165,7 @@
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
             android:inputType="textEmailAddress"
+            android:maxLines="1"
             />
 
 
@@ -176,6 +181,7 @@
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
             android:inputType="number"
+            android:maxLines="1"
             />
 
         <EditText
@@ -190,6 +196,7 @@
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
             android:inputType="text"
+            android:maxLines="1"
             />
 
 
