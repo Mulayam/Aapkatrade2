@@ -89,7 +89,7 @@
                             android:layout_height="match_parent">
                             <FrameLayout
                                 android:layout_width="90dp"
-                                android:background="@drawable/circle_voilet"
+                                android:background="@drawable/imageview_selector"
                                 android:id="@+id/fl_seller"
                                 android:layout_centerHorizontal="true"
                                 android:layout_height="90dp">
