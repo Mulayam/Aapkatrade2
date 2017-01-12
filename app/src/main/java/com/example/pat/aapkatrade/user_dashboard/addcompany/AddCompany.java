@@ -56,10 +56,8 @@ public class AddCompany extends AppCompatActivity
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Add Company");
 
-        toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
-
-        toolbar_title_txt.setText("Add Company");
 
     }
 

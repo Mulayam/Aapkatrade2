@@ -3,12 +3,14 @@ package com.example.pat.aapkatrade.Home.navigation;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -34,7 +37,7 @@ import javax.net.ssl.X509TrustManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment {
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
 
     public static final String preFile = "textFile";
     public static final String userKey = "key";
@@ -80,6 +83,9 @@ public class NavigationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         _progressDialog=new ProgressDialog(context);
         initView();
+
+
+
         return view;
     }
 
@@ -115,7 +121,7 @@ public class NavigationFragment extends Fragment {
         // setting list adapter
         expListView.setAdapter(listAdapter);
 
-        //listAdapter.setClickListner(this);
+        listAdapter.setClickListner(this);
     }
 
 
@@ -225,6 +231,52 @@ public class NavigationFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void itemClicked(View view, int groupview, int childview) {
+        try {
+            //showMessage("groupbiew: " + groupview + "\nchildview: " + childview);
+            if((groupview==1)&(childview==0))
+            {
+                Intent i=new Intent(getActivity(), ProductListActivity.class);
+//                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
+
+            }
+            else if(groupview==0)
+            {
+                Intent i=new Intent(getActivity(), ProductListActivity.class);
+                startActivity(i);
+            }
+            else if(groupview==2 &childview==1)
+            {
+                Intent i=new Intent(getActivity(),ProductListActivity.class);
+                startActivity(i);
+            }
+            else if(groupview==2 &childview==0)
+            {
+                // callSubscribedwebservice();
+            }
+            else if(groupview==5)
+            {
+                Intent i=new Intent(getActivity(),ProductListActivity.class);
+                startActivity(i);
+            }
+
+            listAdapter.notifyDataSetChanged();
+            mDrawerLayout.closeDrawers();
+
+
+        } catch (Exception e) {
+Log.e("Exception",e.toString());
+        }
+    }
+
 
     private static class Trust implements X509TrustManager {
 
@@ -283,12 +335,12 @@ public class NavigationFragment extends Fragment {
             listDataChild = new HashMap<String, List<String>>();
 
             // Adding child data
-            listDataHeader.add("Professionals");
-            listDataHeader.add("Travel");
-            listDataHeader.add("AutoMobile");
-            listDataHeader.add("Entertainment");
-            listDataHeader.add("Professionals");
-            listDataHeader.add("Travel");
+            listDataHeader.add("Groceries");
+            listDataHeader.add("Restaurant");
+            listDataHeader.add("Vegetables");
+            listDataHeader.add("Sweet shops");
+            listDataHeader.add("Tailors");
+            listDataHeader.add("Barber");
 
             // Adding child data
             List<String> top250 = new ArrayList<String>();
@@ -307,8 +359,8 @@ public class NavigationFragment extends Fragment {
             top250.add("VIEW ALL CATEGORIES");
 
             List<String> Settings_data = new ArrayList<String>();
-            Settings_data.add("Professionals");
-            Settings_data.add("Man's Clothings");
+            Settings_data.add("Groceries");
+            Settings_data.add("Restaurant");
 
             List<String> account = new ArrayList<String>();
             List<String> ratethisapp = new ArrayList<String>();
@@ -322,6 +374,10 @@ public class NavigationFragment extends Fragment {
             listDataChild.put(listDataHeader.get(4), Settings_data); // Header, Child data
             listDataChild.put(listDataHeader.get(5), Settings_data);
         }
+
+
+
+
 
 
     }

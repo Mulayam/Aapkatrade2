@@ -76,7 +76,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  click.itemClicked(finalConvertView, groupPosition, childPosition);
+               click.itemClicked(finalConvertView, groupPosition, childPosition);
             }
         });
        if(groupPosition==2  && childPosition==0)
@@ -149,11 +149,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                    // Toast.makeText(_context, "clicked", Toast.LENGTH_SHORT).show();
-                    //click.itemClicked(finalConvertView, groupPosition, 0);
+                    click.itemClicked(finalConvertView, groupPosition, 0);
                 }
             });
         } else {
+
             if (isExpanded) {
                 imageView.setImageResource(R.drawable.ic_chevron_primary);
                 notifyDataSetChanged();

@@ -1,15 +1,13 @@
 package com.example.pat.aapkatrade.user_dashboard.product_list;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListAdapter;
 
 import java.util.ArrayList;
 
@@ -29,11 +27,11 @@ public class ProductListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-        setuptoolbar();
-
-        setup_data();
-
-        setup_layout();
+//        setuptoolbar();
+//
+//        setup_data();
+//
+//        setup_layout();
 
     }
 
@@ -70,10 +68,9 @@ public class ProductListActivity extends AppCompatActivity
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Company List");
 
-        toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
 
-        toolbar_title_txt.setText("Company List");
 
 
     }

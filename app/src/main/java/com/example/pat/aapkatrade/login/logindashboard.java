@@ -1,7 +1,10 @@
 package com.example.pat.aapkatrade.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.example.pat.aapkatrade.R;
 
@@ -21,13 +24,59 @@ public class logindashboard extends AppCompatActivity {
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
-
+FrameLayout fl_seller,fl_buyer,fl_business_assoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_logindashboard);
+        Initview();
+
+        fl_seller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(logindashboard.this,loginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+
+        fl_buyer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(logindashboard.this,loginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+
+
+        fl_business_assoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(logindashboard.this,loginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private void Initview() {
+        fl_seller=(FrameLayout)findViewById(R.id.fl_seller)  ;
+        fl_buyer=(FrameLayout)findViewById(R.id.fl_buyer)  ;
+
+        fl_business_assoc=(FrameLayout)findViewById(R.id.fl_business_assoc)  ;
 
 
     }

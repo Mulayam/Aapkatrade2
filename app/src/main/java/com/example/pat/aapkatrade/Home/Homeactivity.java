@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.login.logindashboard;
 
 public class Homeactivity extends AppCompatActivity {
     private NavigationFragment drawer;
@@ -62,7 +63,7 @@ public class Homeactivity extends AppCompatActivity {
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
-//        ActionItemBadge.update(((AppCompatActivity) context), menu.findItem(R.id.add_to_cart), ContextCompat.getDrawable(context, R.drawable.ic_cart_black)
+//        ActionItemBadge.update(((AppCompatActivity) context), menu.findItem(R.id.login), ContextCompat.getDrawable(context, R.drawable.ic_cart_black)
 //                , ActionItemBadge.BadgeStyles.GREY, 3);
         return true;
     }
@@ -73,8 +74,10 @@ public class Homeactivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        String teams = "Home";
-//        getSupportActionBar().setTitle(teams);
+
+        String teams = "Home";
+        getSupportActionBar().setTitle("");
+      //  getSupportActionBar().setIcon(R.drawable.logo);
 
     }
 
@@ -97,14 +100,19 @@ public class Homeactivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-//            case R.id.add_to_cart:
+            case R.id.login:
+                //finish();
+                Intent i =new Intent(Homeactivity.this, logindashboard.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                return true;
+
+//            case R.id.language:
 //                //finish();
-//                Intent i =new Intent(DashboardActivity.this, Add_to_card_activity.class);
-//                startActivity(i);
+//                Intent i2 =new Intent(Homeactivity.this, logindashboard.class);
+//                startActivity(i2);
 //                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
 //                return true;
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }

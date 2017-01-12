@@ -30,4 +30,6 @@ dependencies {
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
+    compile 'com.mikepenz:iconics-core:2.6.6@aar'
+    compile 'com.mikepenz:actionitembadge:3.2.6@aar'
 }

@@ -69,10 +69,9 @@ public class CompanyList extends AppCompatActivity
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Company List");
 
-        toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
 
-        toolbar_title_txt.setText("Company List");
 
 
     }
