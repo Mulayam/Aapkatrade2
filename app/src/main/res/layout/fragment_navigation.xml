@@ -5,10 +5,20 @@
 
     android:background="@color/green"
     android:orientation="vertical">
+<View
+    android:layout_width="match_parent"
+    android:background="@color/orange"
+    android:layout_height="2dp">
 
+</View>
     <ExpandableListView
         android:id="@+id/lvExp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:groupIndicator="@null" />
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/orange"
+        android:layout_height="2dp">
+    </View>
 </LinearLayout>

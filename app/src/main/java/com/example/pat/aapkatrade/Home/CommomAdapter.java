@@ -1,7 +1,6 @@
 package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 
 import java.util.ArrayList;
 
@@ -55,8 +53,8 @@ public class CommomAdapter extends RecyclerView.Adapter<CommomHolder> {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context,ProductListActivity.class);
-                context.startActivity(intent);
+//                Intent intent = new Intent(context,ProductListActivity.class);
+//                context.startActivity(intent);
                 ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
@@ -66,7 +64,7 @@ public class CommomAdapter extends RecyclerView.Adapter<CommomHolder> {
 
     @Override
     public int getItemCount() {
-        return commomDatas.size();
+        return 2;
     }
 
 

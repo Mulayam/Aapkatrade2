@@ -42,7 +42,7 @@
     <string name="product_list_heading">List Product</string>
     <string name="add_product_heading">Add Products</string>
 
-    <string name="loginregisterfooter" > Please select one for Login/Register</string>
+    <string name="loginregisterfooter" > Please click one for Login/Register</string>
     <string name="near_by_you">Near by you</string>
     <string name="availability">Availability</string>
     <string name="product_name">LED TV</string>

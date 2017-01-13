@@ -28,28 +28,34 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_height="match_parent">
 
-                <!--<android.support.v4.view.ViewPager-->
-                    <!--android:id="@+id/viewpager_custom"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="150dp" />-->
 
-                    <!--<me.relex.circleindicator.CircleIndicator-->
-                        <!--android:id="@+id/indicator"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="48dp"/>-->
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager_custom"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="150dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/viewpagerindicator"
+android:layout_marginBottom="10dp"
+
+                        android:orientation="horizontal"
+                        android:layout_height="20dp">
+
+                    </LinearLayout>
                 </RelativeLayout>
-                <!--<android.support.v7.widget.RecyclerView-->
-                    <!--android:id="@+id/recyclerExpressDeal"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
 
-                <!--</android.support.v7.widget.RecyclerView>-->
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -68,7 +74,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="10dp"
                         android:text="LATEST PRODUCTS"
                         android:textColor="@color/black" />
 
@@ -78,8 +84,8 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:gravity="right"
-                        android:background="@color/color_voilet"
-                        android:layout_margin="4dp"
+                        android:background="@drawable/button_orange_back"
+                        android:layout_marginRight="10dp"
                         android:padding="5dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
@@ -89,7 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="View All >"
+                            android:text="View All "
                             android:textSize="10sp"
                             android:layout_marginRight="5dp"
                             android:textColor="@color/white"
@@ -100,36 +106,52 @@
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@color/cardview_background"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_height="match_parent">
 
-    <View
-        android:layout_width="30dp"
-        android:id="@+id/previous"
-        android:background="@drawable/prev"
-       android:layout_centerVertical="true"
+            <View
+                android:layout_width="0dp"
+                android:id="@+id/previous"
+                android:layout_weight="0.7"
+                android:background="@drawable/prev"
+               android:layout_gravity="center_vertical"
+                android:layout_height="30dp">
 
-        android:layout_alignParentLeft="true"
-        android:layout_height="30dp">
+            </View>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerBestSelling"
 
-    </View>
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerBestSelling"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/next"
-                    android:layout_toRightOf="@+id/previous"
-                    android:layout_marginRight="10dp"
-                    android:layout_toEndOf="@+id/previous">
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="8.6"
+                android:layout_toRightOf="@+id/previous"
+                >
 
-                </android.support.v7.widget.RecyclerView>
-    <View
-        android:layout_width="30dp"
-        android:id="@+id/next"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/previous"
-        android:background="@drawable/next"
-        android:layout_height="30dp"></View>
+            </android.support.v7.widget.RecyclerView>
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:id="@+id/next"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/recyclerBestSelling"
+                android:background="@drawable/next"
+                android:layout_height="30dp"></View>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
 </RelativeLayout>
             </LinearLayout>
 
@@ -156,7 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="LATEST DEALS"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/black" />
 
 
@@ -166,8 +188,8 @@
                         android:layout_width="wrap_content"
                         android:gravity="right"
 
-                        android:background="@color/color_voilet"
-                        android:layout_margin="4dp"
+                        android:background="@drawable/button_orange_back"
+                        android:layout_marginRight="10dp"
                         android:padding="5dp"
 
 
@@ -180,7 +202,7 @@
                             android:layout_width="wrap_content"
 
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="View All >"
+                            android:text="View All "
                             android:textSize="10sp"
                             android:layout_height="match_parent"
                             android:textColor="@color/white"
@@ -190,13 +212,18 @@
                             android:layout_alignParentStart="true" />
                     </RelativeLayout>
                 </RelativeLayout>
-
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@color/cardview_background"
+                    android:layout_height="match_parent">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerEclipseExpressCollection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </android.support.v7.widget.RecyclerView>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
 
             <LinearLayout
@@ -222,7 +249,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NEW ARRIVAL"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/black" />
 
 
@@ -232,8 +259,8 @@
                         android:layout_width="wrap_content"
                         android:gravity="right"
 
-                        android:background="@color/color_voilet"
-                        android:layout_margin="4dp"
+                        android:background="@drawable/button_orange_back"
+                        android:layout_marginRight="10dp"
                         android:padding="5dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
@@ -243,20 +270,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="View All >"
+                            android:text="View All "
                             android:textSize="10sp"
                             android:layout_marginRight="5dp"
                             android:textColor="@color/white"
                             android:id="@+id/textView68" />
                     </RelativeLayout>
                 </RelativeLayout>
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@color/cardview_background"
+                    android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerTrendingStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+
                 </android.support.v7.widget.RecyclerView>
+                    </android.support.v7.widget.CardView>
+
             </LinearLayout>
 
             <LinearLayout
@@ -281,7 +316,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="HOT DEALS"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="10dp"
                         android:textColor="@color/black" />
 
 
@@ -292,8 +327,8 @@
                         android:gravity="right"
 
                         android:layout_alignParentRight="true"
-                        android:background="@color/color_voilet"
-                        android:layout_margin="4dp"
+                        android:background="@drawable/button_orange_back"
+                        android:layout_marginRight="10dp"
                         android:padding="5dp"
                         android:layout_centerVertical="true"
                         android:layout_height="wrap_content">
@@ -302,13 +337,18 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="View All >"
+                            android:text="View All "
                             android:textSize="10sp"
                             android:layout_marginRight="5dp"
                             android:textColor="@color/white"
                             android:id="@+id/textView69" />
                     </RelativeLayout>
                 </RelativeLayout>
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@color/cardview_background"
+                    android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerAllSale"
@@ -316,6 +356,7 @@
                     android:layout_height="wrap_content">
 
                 </android.support.v7.widget.RecyclerView>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
