@@ -78,7 +78,7 @@ public class Homeactivity extends AppCompatActivity {
 
         String teams = "Home";
         getSupportActionBar().setTitle("");
-      //  getSupportActionBar().setIcon(R.drawable.logo);
+        getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

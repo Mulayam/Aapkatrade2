@@ -3,8 +3,8 @@ package com.example.pat.aapkatrade.Home.navigation;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -150,7 +149,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             @Override
             public void onDrawerOpened(View drawerView) {
                 hideSoftKeyboard(getActivity());
-
+                mDrawerLayout.setScrimColor(Color.TRANSPARENT);
                 super.onDrawerOpened(drawerView);
                 if (!mUserLearnedDrawer) {
                     mUserLearnedDrawer = true;
@@ -242,21 +241,21 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             //showMessage("groupbiew: " + groupview + "\nchildview: " + childview);
             if((groupview==1)&(childview==0))
             {
-                Intent i=new Intent(getActivity(), ProductListActivity.class);
+                //Intent i=new Intent(getActivity(), ProductListActivity.class);
 //                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
+                //startActivity(i);
 
             }
             else if(groupview==0)
             {
-                Intent i=new Intent(getActivity(), ProductListActivity.class);
-                startActivity(i);
+              //  Intent i=new Intent(getActivity(), ProductListActivity.class);
+                //startActivity(i);
             }
             else if(groupview==2 &childview==1)
             {
-                Intent i=new Intent(getActivity(),ProductListActivity.class);
-                startActivity(i);
+               // Intent i=new Intent(getActivity(),ProductListActivity.class);
+                //startActivity(i);
             }
             else if(groupview==2 &childview==0)
             {
@@ -264,8 +263,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             }
             else if(groupview==5)
             {
-                Intent i=new Intent(getActivity(),ProductListActivity.class);
-                startActivity(i);
+               // Intent i=new Intent(getActivity(),ProductListActivity.class);
+               // startActivity(i);
             }
 
             listAdapter.notifyDataSetChanged();

@@ -20,6 +20,8 @@
     <color name="item_details_color">#585858</color>
 
     <color name="brown_light">#F1EEE4</color>
-
+<color name="cardview_background">#EEEEEE</color>
     <color name="black_overlay">#66000000</color>
+    <color name="navigation_child_color">#AAE8DB</color>
+
 </resources>
