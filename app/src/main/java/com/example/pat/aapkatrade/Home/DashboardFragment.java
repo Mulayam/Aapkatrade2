@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
@@ -34,11 +36,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private LinearLayoutManager llManagerAllSale, llManagerTrendingStyle, llManagerEclipseCollection, llManagerExpressDeal, llManagerBestSelling;
     ArrayList<CommomData> commomDatas = new ArrayList<>();
     private CommomAdapter commomAdapter;
+   public latestproductadapter latestproductadapter;
+    int position=0;
     //private StikkyHeaderBuilder stikkyHeader;
     private Intent intent;
     AppCompatButton discover_category;
     TextView viewall_expressdeals,viewall_bestselling,viewall_expresscollection,viewall_trendingstyles,viewall_allsale;
-
+    View v1,v2;
     public DashboardFragment() {
         // Required empty public constructor
     }
@@ -58,26 +62,54 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerBestSelling = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
         commomAdapter = new CommomAdapter(context, commomDatas);
+        latestproductadapter=new latestproductadapter(context,commomDatas);
         setupDummyData();
         initializeview(view);
         setupView(view);
         setuprecyclers(view);
+
       //  GridLayoutManager gridLayoutManager=new GridLayoutManager(context,3);
         return view;
     }
 
     private void initializeview(View v) {
-        discover_category=(AppCompatButton)v.findViewById(R.id.buttonDiscover);
-        viewall_expressdeals=(TextView)v.findViewById(R.id.textView65);
+        v1=(View)v.findViewById(R.id.previous) ;
+        v2=(View)v.findViewById(R.id.next) ;
+       // discover_category=(AppCompatButton)v.findViewById(R.id.buttonDiscover);
+       // viewall_expressdeals=(TextView)v.findViewById(R.id.textView65);
         viewall_bestselling=(TextView)v.findViewById(R.id.textView66);
-        viewall_expresscollection=(TextView)v.findViewById(R.id.textView67);
+        //viewall_expresscollection=(TextView)v.findViewById(R.id.textView67);
         viewall_trendingstyles=(TextView)v.findViewById(R.id.textView68);
         viewall_allsale=(TextView)v.findViewById(R.id.textView69);
-        viewall_expressdeals.setOnClickListener(this);
+//        viewall_expressdeals.setOnClickListener(this);
         viewall_bestselling.setOnClickListener(this);
-        viewall_expresscollection.setOnClickListener(this);
+//        viewall_expresscollection.setOnClickListener(this);
         viewall_trendingstyles.setOnClickListener(this);
         viewall_allsale.setOnClickListener(this);
+        v1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int a=recyclerViewBestSelling.getChildCount();
+                if(position!=0)
+               position=position-1;
+                Log.e("position previous",""+position);
+                //llManagerBestSelling.scrollToPositionWithOffset(position,0);
+
+                recyclerViewBestSelling.smoothScrollToPosition(position);
+            }
+        });
+        v2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                position=position+1;
+                //position=position-1;
+               // llManagerBestSelling.scrollToPositionWithOffset(position,-0);
+
+
+                recyclerViewBestSelling.smoothScrollToPosition(position);
+                Log.e("position previous",""+position);
+            }
+        });
 
     }
 
@@ -93,12 +125,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
     private void setupDummyData() {
         for (int i = 0; i < 20; i++) {
-            commomDatas.add(new CommomData("", "", "", ""));
+            commomDatas.add(new CommomData("Latest Product", "Latest Deals", "", ""));
         }
     }
 
     private void setuprecyclers(View view) {
-        setupExpressDeal(view);
+        //setupExpressDeal(view);
         setupBestSelling(view);
         setupEclipseCollection(view);
         setupTrendingStyles(view);
@@ -127,19 +159,21 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private void setupBestSelling(View view) {
         recyclerViewBestSelling = (RecyclerView) view.findViewById(R.id.recyclerBestSelling);
         recyclerViewBestSelling.setLayoutManager(llManagerBestSelling);
-        recyclerViewBestSelling.setAdapter(commomAdapter);
+        recyclerViewBestSelling.setAdapter(latestproductadapter);
+
+
     }
 
-    private void setupExpressDeal(View view) {
-        recyclerViewExpressDeal = (RecyclerView) view.findViewById(R.id.recyclerExpressDeal);
-        recyclerViewExpressDeal.setLayoutManager(llManagerExpressDeal);
-        recyclerViewExpressDeal.setAdapter(commomAdapter);
-    }
+//    private void setupExpressDeal(View view) {
+//        recyclerViewExpressDeal = (RecyclerView) view.findViewById(R.id.recyclerExpressDeal);
+//        recyclerViewExpressDeal.setLayoutManager(llManagerExpressDeal);
+//        recyclerViewExpressDeal.setAdapter(commomAdapter);
+//    }
 
     private void setupView(View view) {
         scrollView= (ScrollView) view.findViewById(R.id.scrollView);
-        view.findViewById(R.id.relativeLayoutSearch).setOnClickListener(this);
-        view.findViewById(R.id.buttonDiscover).setOnClickListener(this);
+//        view.findViewById(R.id.relativeLayoutSearch).setOnClickListener(this);
+//        view.findViewById(R.id.buttonDiscover).setOnClickListener(this);
     }
 
     @Override

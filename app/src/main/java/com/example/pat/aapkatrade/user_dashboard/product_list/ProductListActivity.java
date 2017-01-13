@@ -27,11 +27,11 @@ public class ProductListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
-//        setuptoolbar();
-//
-//        setup_data();
-//
-//        setup_layout();
+        setuptoolbar();
+
+        setup_data();
+
+        setup_layout();
 
     }
 
@@ -52,7 +52,7 @@ public class ProductListActivity extends AppCompatActivity
 
     private void setup_layout()
     {
-        product_list = (RecyclerView) findViewById(R.id.companylist);
+        product_list = (RecyclerView) findViewById(R.id.product_list_recycler_view);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         productListAdapter = new ProductListAdapter(this, productListDatas);
