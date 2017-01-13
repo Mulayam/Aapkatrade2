@@ -15,8 +15,10 @@ import android.view.MenuItem;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.login.logindashboard;
+import com.example.pat.aapkatrade.user_dashboard.DashboardActivity;
 
-public class Homeactivity extends AppCompatActivity {
+public class Homeactivity extends AppCompatActivity
+{
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private DashboardFragment homeFragment;
@@ -24,7 +26,8 @@ public class Homeactivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homeactivity);
         context = this;
@@ -50,8 +53,6 @@ public class Homeactivity extends AppCompatActivity {
 //
 //        }
     }
-
-
 
 
     private void setupNavigationCustom() {
@@ -108,18 +109,19 @@ public class Homeactivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 return true;
 
-//            case R.id.language:
-//                //finish();
-//                Intent i2 =new Intent(Homeactivity.this, logindashboard.class);
-//                startActivity(i2);
-//                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-//                return true;
+           case R.id.language:
+                //finish();
+               Intent i2 =new Intent(Homeactivity.this, DashboardActivity.class);
+               startActivity(i2);
+               overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
+               return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
 
         finish();
     }

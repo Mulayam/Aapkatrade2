@@ -136,7 +136,7 @@
                                 android:layout_width="90dp"
                                 android:background="@drawable/circle_voilet"
                                 android:id="@+id/fl_buyer"
-android:layout_centerHorizontal="true"
+                                android:layout_centerHorizontal="true"
                                 android:layout_height="90dp">
                                 <ImageView
                                     android:layout_width="85dp"

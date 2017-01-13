@@ -6,7 +6,6 @@
         android:icon="@drawable/ic_login"
         android:orderInCategory="101"
         android:title="@string/login"
-
         app:showAsAction="always" />
     <item
         android:id="@+id/language"

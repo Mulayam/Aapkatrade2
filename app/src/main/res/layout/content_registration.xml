@@ -36,7 +36,6 @@
                     android:layout_alignParentLeft="true"
                     >
 
-
                     <ImageView
                         android:id="@+id/imgProfile"
                         android:layout_width="25dp"
@@ -61,7 +60,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/add_product_heading"
+                        android:text="Bussiness Details"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         />
@@ -73,31 +72,44 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/screen_back"
+                android:background="@drawable/screen_dark_gray_back"
                 android:orientation="vertical"
                 android:layout_margin="10dp"
                 >
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image"
-                    android:layout_width="86dp"
-                    android:layout_height="86dp"
-                    android:src="@drawable/ic_upload"
-                    app:civ_border_width="0dp"
-                    app:civ_border_color="@color/green"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    />
 
 
-                <android.support.v7.widget.RecyclerView
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    ></android.support.v7.widget.RecyclerView>
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spBussinessCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        ></Spinner>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
+                        />
+
+                </RelativeLayout>
 
 
                 <EditText
@@ -115,36 +127,6 @@
                     android:textSize="14dp"
                     />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    >
-
-                    <Spinner
-                        android:id="@+id/spCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
-                        android:layout_margin="1dp"
-                        ></Spinner>
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
-                        android:scaleType="fitXY"
-                        />
-
-                </RelativeLayout>
 
 
                 <RelativeLayout
@@ -158,7 +140,7 @@
                     >
 
                     <Spinner
-                        android:id="@+id/spSubCategory"
+                        android:id="@+id/spCountryCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -191,7 +173,7 @@
                     >
 
                     <Spinner
-                        android:id="@+id/spUnitCategory"
+                        android:id="@+id/spStateCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -211,87 +193,214 @@
                         />
 
                 </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    android:layout_marginBottom="20dp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spCityCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        ></Spinner>
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
+                        />
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personal Details"
+                android:layout_margin="10dp"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/screen_dark_gray_back"
+                android:layout_margin="10dp"
+                >
 
 
                 <EditText
-                    android:id="@+id/etDeliverday"
+                    android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
-                    android:hint="Deliver Day"
+                    android:layout_marginTop="20dp"
+                    android:hint="First Name"
+                    android:textColorHint="@color/hint_color"
                     android:background="@drawable/edit_text_green_back"
                     android:padding="10dp"
                     android:maxLines="1"
                     android:textSize="14dp"
-                    android:textColorHint="@color/hint_color"
                     />
 
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.2"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/edit_text_green_back"
-                    android:padding="8dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/tvDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="@string/date"
-                        android:textSize="@dimen/textsize"
-                        android:layout_alignParentLeft="true"
-                        android:textColor="@color/hint_color"
-                        />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_calendar"
-                        />
-
-
-                </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/etDiscription"
+                    android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
-                    android:hint="Description"
+                    android:layout_marginTop="10dp"
+                    android:hint="Last Name"
+                    android:textColorHint="@color/hint_color"
                     android:background="@drawable/edit_text_green_back"
                     android:padding="10dp"
+                    android:maxLines="1"
                     android:textSize="14dp"
-                    android:textColorHint="@color/hint_color"
                     />
 
 
-                <Button
-                    android:id="@+id/btnUpload"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/save"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:background="@drawable/button_orange_back"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
+                    android:hint="Email"
+                    android:textColorHint="@color/hint_color"
+                    android:background="@drawable/edit_text_green_back"
+                    android:padding="10dp"
+                    android:maxLines="1"
+                    android:textSize="14dp"
+                    />
+
+                <EditText
+                    android:id="@+id/etMobileNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Mobile Number"
+                    android:textColorHint="@color/hint_color"
+                    android:background="@drawable/edit_text_green_back"
+                    android:padding="10dp"
+                    android:maxLines="1"
+                    android:textSize="14dp"
+                    android:layout_marginBottom="20dp"
                     />
 
 
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New User Signup"
+                android:layout_margin="10dp"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/green"
+                android:orientation="vertical"
+                >
+
+                <EditText
+                    android:id="@+id/etUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="User Name"
+                    android:textColorHint="@color/hint_color"
+                    android:background="@drawable/edit_text_green_back"
+                    android:padding="10dp"
+                    android:maxLines="1"
+                    android:textSize="14dp"
+
+                    />
+
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter Your Password"
+                    android:textColorHint="@color/hint_color"
+                    android:background="@drawable/edit_text_green_back"
+                    android:padding="10dp"
+                    android:maxLines="1"
+                    android:textSize="14dp"
+
+                    />
+
+
+                <EditText
+                    android:id="@+id/etReenterPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Re Enter password"
+                    android:textColorHint="@color/hint_color"
+                    android:background="@drawable/edit_text_green_back"
+                    android:padding="10dp"
+                    android:maxLines="1"
+                    android:textSize="14dp"
+                   android:layout_marginBottom="20dp"
+                    />
+
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:background="@drawable/button_orange_back"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:textColor="@color/white"
+                />
+
 
 
         </LinearLayout>
