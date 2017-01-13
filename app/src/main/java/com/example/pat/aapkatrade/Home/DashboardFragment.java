@@ -4,8 +4,10 @@ package com.example.pat.aapkatrade.Home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,15 +15,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
-
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -32,17 +39,27 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     Context context;
     private View upAllSale;
     ScrollView scrollView;
+    int currentPage=0;
+    LinearLayout viewpagerindicator;
     private RecyclerView recyclerViewAllSale, recyclerViewTrendingStyle, recyclerViewEclipseCollection, recyclerViewExpressDeal, recyclerViewBestSelling;
     private LinearLayoutManager llManagerAllSale, llManagerTrendingStyle, llManagerEclipseCollection, llManagerExpressDeal, llManagerBestSelling;
     ArrayList<CommomData> commomDatas = new ArrayList<>();
     private CommomAdapter commomAdapter;
    public latestproductadapter latestproductadapter;
     int position=0;
+    private int dotsCount;
+    private List<Integer> imageIdList;
+    private ImageView[] dots;
+    private Handler mHandler;
+    public static final int DELAY = 5000;
     //private StikkyHeaderBuilder stikkyHeader;
     private Intent intent;
     AppCompatButton discover_category;
     TextView viewall_expressdeals,viewall_bestselling,viewall_expresscollection,viewall_trendingstyles,viewall_allsale;
     View v1,v2;
+    ViewPager vp;
+
+    viewpageradapter_home viewpageradapter;
     public DashboardFragment() {
         // Required empty public constructor
     }
@@ -53,6 +70,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
+        vp=(ViewPager)view.findViewById(R.id.viewpager_custom) ;
         context = getActivity();
         //llManagerAllSale,llManagerTrendingStyle,llManagerEclipseCollection,llManagerExpressDeal,llManagerBestSelling;
         llManagerAllSale = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -60,16 +78,90 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerEclipseCollection = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         llManagerExpressDeal = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         llManagerBestSelling = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-
+        viewpagerindicator=(LinearLayout)view.findViewById(R.id.viewpagerindicator);
         commomAdapter = new CommomAdapter(context, commomDatas);
         latestproductadapter=new latestproductadapter(context,commomDatas);
         setupDummyData();
         initializeview(view);
         setupView(view);
+        setupviewpager();
         setuprecyclers(view);
 
       //  GridLayoutManager gridLayoutManager=new GridLayoutManager(context,3);
         return view;
+    }
+
+    private void setupviewpager() {
+
+        imageIdList = new ArrayList<Integer>();
+        imageIdList.add(R.drawable.banner_home);
+        imageIdList.add(R.drawable.banner_home);
+        imageIdList.add(R.drawable.banner_home);
+        imageIdList.add(R.drawable.banner_home);
+
+
+
+
+
+
+        viewpageradapter  = new viewpageradapter_home(getActivity(), null);
+        vp.setAdapter(viewpageradapter);
+        vp.setCurrentItem(currentPage);
+        setUiPageViewController();
+
+        final Handler handler = new Handler();
+
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (currentPage == viewpageradapter.getCount() - 1) {
+                    currentPage = 0;
+                }
+                vp.setCurrentItem(currentPage++, true);
+            }
+        };
+
+
+        new Timer().schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 0, 3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < dotsCount; i++) {
+                    dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
+                }
+
+                dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initializeview(View v) {
@@ -112,6 +204,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         });
 
     }
+
+
+
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
@@ -163,6 +260,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
     }
+
+
+
+
+
 
 //    private void setupExpressDeal(View view) {
 //        recyclerViewExpressDeal = (RecyclerView) view.findViewById(R.id.recyclerExpressDeal);
@@ -226,6 +328,34 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private void showMessage(String clicked) {
         Toast.makeText(context, clicked, Toast.LENGTH_SHORT).show();
     }
+
+    private void setUiPageViewController() {
+
+        dotsCount = viewpageradapter.getCount();
+        dots = new ImageView[dotsCount];
+
+        for (int i = 0; i < dotsCount; i++) {
+            dots[i] = new ImageView(getActivity());
+            dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+
+            params.setMargins(4, 0, 4, 0);
+
+            viewpagerindicator.addView(dots[i], params);
+        }
+
+        dots[0].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
+    }
+
+
+
+
+
+
 
 
 }
