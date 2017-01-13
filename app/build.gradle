@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/menu'] } }
 }
 
 dependencies {
@@ -30,4 +31,5 @@ dependencies {
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

@@ -2,7 +2,7 @@
 
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="textAllCaps">false</item>

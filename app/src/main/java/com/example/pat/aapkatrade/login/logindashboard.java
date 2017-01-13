@@ -1,9 +1,13 @@
 package com.example.pat.aapkatrade.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.DashboardActivity;
 
 
 /**
@@ -22,12 +26,25 @@ public class logindashboard extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
 
+    FrameLayout fl_seller ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_logindashboard);
+
+        fl_seller = (FrameLayout) findViewById(R.id.fl_seller);
+
+
+        fl_seller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(logindashboard.this, DashboardActivity.class);
+                startActivity(i);
+
+            }
+        });
 
 
     }
