@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.DashboardActivity;
 
 
 /**
@@ -24,7 +25,12 @@ public class logindashboard extends AppCompatActivity {
      * Some older devices needs a small delay between UI widget updates
      * and a change of the status and navigation bar.
      */
+
 FrameLayout fl_seller,fl_buyer,fl_business_assoc;
+
+
+    FrameLayout fl_seller ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,18 @@ FrameLayout fl_seller,fl_buyer,fl_business_assoc;
         fl_buyer=(FrameLayout)findViewById(R.id.fl_buyer)  ;
 
         fl_business_assoc=(FrameLayout)findViewById(R.id.fl_business_assoc)  ;
+
+        fl_seller = (FrameLayout) findViewById(R.id.fl_seller);
+
+
+        fl_seller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(logindashboard.this, DashboardActivity.class);
+                startActivity(i);
+
+            }
+        });
 
 
     }

@@ -74,20 +74,13 @@
         android:weightSum="10"
         >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:textColor="@color/black"
-            android:layout_weight=".1"
-            />
 
 
         <EditText
             android:id="@+id/etCompanyName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.1"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
@@ -101,7 +94,7 @@
             android:id="@+id/etPEmail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.1"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
@@ -115,7 +108,7 @@
             android:id="@+id/etSEmail"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.1"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
@@ -127,12 +120,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginTop="15dp"
+            android:layout_weight="1.25"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/spinner_green_back"
-            android:padding="10dp"
+            android:padding="2.5dp"
             >
 
           <Spinner
@@ -140,8 +133,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_alignParentLeft="true"
+               android:background="@drawable/simple_spinner_back"
               ></Spinner>
-
 
 
             <ImageView
@@ -161,12 +154,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginTop="15dp"
+            android:layout_weight="1.25"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/spinner_green_back"
-            android:padding="10dp"
+            android:padding="2.5dp"
             >
 
             <Spinner
@@ -174,6 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
+                android:background="@drawable/simple_spinner_back"
                 ></Spinner>
 
 
@@ -191,12 +185,11 @@
         </RelativeLayout>
 
 
-
         <EditText
             android:id="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.1"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
@@ -210,7 +203,7 @@
             android:id="@+id/etDiscription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.1"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
@@ -223,7 +216,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1.1"
             android:layout_marginTop="15dp"
             >
             <Button

@@ -39,7 +39,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
-        View view = inflater.inflate(R.layout.row_company_list, parent, false);
+        View view = inflater.inflate(R.layout.row_productlist, parent, false);
         viewHolder = new ProductListHolder(view);
 
 

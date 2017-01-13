@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
@@ -70,7 +72,6 @@ public class DashboardActivity extends AppCompatActivity
         dashboardDatas.clear();
         try
         {
-            dashboardDatas.add(new DashboardData("","My Account",R.drawable.ic_myaccount));
             dashboardDatas.add(new DashboardData("","My Company",R.drawable.ic_companyprofile));
             dashboardDatas.add(new DashboardData("","My Profile",R.drawable.ic_myprofile));
             dashboardDatas.add(new DashboardData("","Change Password",R.drawable.ic_chngpswd));
@@ -82,6 +83,28 @@ public class DashboardActivity extends AppCompatActivity
         }catch (Exception  e){
 
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
