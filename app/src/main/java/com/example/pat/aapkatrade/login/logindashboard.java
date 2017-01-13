@@ -29,7 +29,7 @@ public class logindashboard extends AppCompatActivity {
 FrameLayout fl_seller,fl_buyer,fl_business_assoc;
 
 
-    FrameLayout fl_seller ;
+
 
 
     @Override

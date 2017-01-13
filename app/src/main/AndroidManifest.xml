@@ -12,22 +12,25 @@
         <activity android:name=".MainActivity">
 
 
-       
-       
-        <activity android:name=".productdetail.ProductListActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-      
+
+
+       
+       
+        <activity android:name=".productdetail.ProductListActivity">
+
+
+        </activity>
 
 
      
-        <activity android:name=".MainActivity">
-        </activity>
+
+
         <activity android:name=".login.loginActivity" />
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
         <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
@@ -45,7 +48,7 @@
 
         <activity android:name=".user_dashboard.add_product.AddProductActivity"></activity>
 
-            android:theme="@style/FullscreenTheme"></activity>
+
         <activity android:name=".productdetail.ProductDetail" />
 
     </application>

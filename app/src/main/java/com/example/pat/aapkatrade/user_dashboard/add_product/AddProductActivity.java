@@ -32,9 +32,9 @@ public class AddProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
 
-        toolbar_title_txt.setText("Add Products");
+
+        getSupportActionBar().setTitle("Add Products");
 
     }
 
