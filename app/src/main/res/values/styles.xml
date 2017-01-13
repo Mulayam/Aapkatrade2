@@ -39,5 +39,8 @@
     </style>
 
 
+    <style name="myRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingstars</item>
+    </style>
 
 </resources>
