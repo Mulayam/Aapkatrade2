@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
+import android.widget.Spinner;
 import com.example.pat.aapkatrade.R;
 
-public class AddProductActivity extends AppCompatActivity {
 
-    TextView toolbar_title_txt;
+public class AddProductActivity extends AppCompatActivity
+{
+
+    Spinner spSubCategory,spCategory,spUnitCategory;
+    String[] categoriesNames={"India","China","Australia","Portugle","America","New Zealand"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,6 +22,26 @@ public class AddProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_product);
 
         setuptoolbar();
+        setup_layout();
+
+    }
+
+    private void setup_layout()
+    {
+        spSubCategory = (Spinner) findViewById(R.id.spSubCategory);
+
+        spCategory = (Spinner) findViewById(R.id.spCategory);
+
+        spUnitCategory = (Spinner) findViewById(R.id.spUnitCategory);
+
+        SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),categoriesNames);
+
+        spSubCategory.setAdapter(customAdapter);
+
+        spCategory.setAdapter(customAdapter);
+
+        spUnitCategory.setAdapter(customAdapter);
+
 
     }
 
@@ -31,8 +53,6 @@ public class AddProductActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
 
         getSupportActionBar().setTitle("Add Products");
 

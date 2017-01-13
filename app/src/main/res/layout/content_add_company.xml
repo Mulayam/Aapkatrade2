@@ -87,6 +87,8 @@
             android:hint="Company Name"
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
             />
 
 
@@ -101,6 +103,8 @@
             android:hint="Primary Email"
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
             />
 
 
@@ -115,6 +119,8 @@
             android:hint="Secondary Email"
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
             />
 
         <RelativeLayout
@@ -125,7 +131,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/spinner_green_back"
-            android:padding="2.5dp"
+            android:padding="2dp"
             >
 
           <Spinner
@@ -159,7 +165,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/spinner_green_back"
-            android:padding="2.5dp"
+            android:padding="2dp"
             >
 
             <Spinner
@@ -197,6 +203,8 @@
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
             android:inputType="text"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
             />
 
         <EditText
@@ -210,6 +218,8 @@
             android:hint="Description"
             android:background="@drawable/edit_text_green_back"
             android:padding="10dp"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
             />
 
 

@@ -20,7 +20,6 @@
                 android:layout_weight="3"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
-
                 android:layout_height="0dp">
 
                 <RelativeLayout
@@ -37,7 +36,10 @@
                         app:srcCompat="@drawable/logo"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/logo" />
+                        android:id="@+id/logo"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitXY"
+                        />
 
 
                     <TextView
@@ -47,10 +49,8 @@
                         android:layout_marginTop="20dp"
                         android:text="@string/login"
                         android:id="@+id/tv_login"
-
-
+                        android:textSize="18sp"
                         android:textColor="@color/color_voilet"
-
                         android:layout_height="wrap_content" />
 
                 </RelativeLayout>
@@ -200,6 +200,7 @@
                     android:layout_height="0dp">
 
                     <RelativeLayout
+                        android:id="@+id/relativeRegister"
                         android:layout_width="match_parent"
                         android:background="@drawable/button_orange_back"
                         android:layout_marginRight="30dp"

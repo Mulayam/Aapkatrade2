@@ -14,18 +14,19 @@ import java.util.ArrayList;
 public class ProductListActivity extends AppCompatActivity
 {
 
-
     ArrayList<ProductListData> productListDatas = new ArrayList<>();
     RecyclerView product_list;
     ProductListAdapter productListAdapter;
-    TextView toolbar_title_txt;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_list);
+        setContentView(R.layout.activity_list_product);
 
         setuptoolbar();
 
@@ -53,7 +54,7 @@ public class ProductListActivity extends AppCompatActivity
     private void setup_layout()
     {
 
-        product_list = (RecyclerView) findViewById(R.id.productlist);
+        product_list = (RecyclerView) findViewById(R.id.product_list_recycler_view);
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

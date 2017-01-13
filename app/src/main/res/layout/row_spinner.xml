@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     >
 
@@ -12,10 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Electronics"
-        android:textColor="@color/black"
-        android:layout_margin="2dp"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"
+        android:textColor="@color/hint_color"
+        android:padding="7dp"
+        android:textSize="14sp"
         />
 
     <View
@@ -23,7 +22,7 @@
         android:layout_height="1dp"
         android:background="@color/orange"
         android:layout_below="@+id/tvSpCategory"
-
+        android:visibility="gone"
         ></View>
 
 

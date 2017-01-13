@@ -8,29 +8,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".user_dashboard.DashboardActivity"></activity>
+        <activity android:name=".user_dashboard.DashboardActivity" />
         <activity android:name=".MainActivity">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-       
-       
-        <activity android:name=".productdetail.ProductListActivity">
-
-
-        </activity>
-
-
-     
-
-
+        <activity android:name=".productdetail.ProductListActivity"></activity>
         <activity android:name=".login.loginActivity" />
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
         <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
@@ -43,14 +29,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_logindashboard"
             android:theme="@style/FullscreenTheme" />
-
-        <activity android:name=".Home.Homeactivity"></activity>
-
-        <activity android:name=".user_dashboard.add_product.AddProductActivity"></activity>
-
-
+        <activity android:name=".Home.Homeactivity" />
+        <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
-
+        <activity android:name=".Home.registration.RegistrationActivity"></activity>
     </application>
 
 </manifest>

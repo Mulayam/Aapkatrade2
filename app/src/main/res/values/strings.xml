@@ -38,11 +38,10 @@
     <string name="language">language</string>
 
 
-
     <string name="product_list_heading">List Product</string>
     <string name="add_product_heading">Add Products</string>
 
-    <string name="loginregisterfooter" > Please select one for Login/Register</string>
+
     <string name="near_by_you">Near by you</string>
     <string name="availability">Availability</string>
     <string name="product_name">LED TV</string>
@@ -59,7 +58,7 @@
     <string name="title_activity_product_list">ProductListActivity</string>
     <string name="category">Footwear</string>
     <string name="phone_number">+91 9696969696</string>
-
+    <string name="loginregisterfooter">Please Click one for Login/Register</string>
 
 
 </resources>

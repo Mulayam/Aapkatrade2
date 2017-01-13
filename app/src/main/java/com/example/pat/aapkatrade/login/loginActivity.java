@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
 
@@ -16,9 +18,11 @@ import com.example.pat.aapkatrade.general.Validation;
 public class loginActivity extends AppCompatActivity {
     TextView login_text;
     EditText username,password;
-    RelativeLayout rl_login;
+    RelativeLayout rl_login,relativeRegister;
     Validation vt;
     CoordinatorLayout cl;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +42,15 @@ public class loginActivity extends AppCompatActivity {
                 String input_username=username.getText().toString().trim();
                 String input_password=password.getText().toString().trim();
 
-                if (Validation.validate_edittext(username)) {
+                if (Validation.validate_edittext(username))
+                {
 
 
-                    if (Validation.validate_edittext(password)) {
+                    if (Validation.validate_edittext(password))
+                    {
 
-
-
-
-
+                        Intent i = new Intent(loginActivity.this, RegistrationActivity.class);
+                        startActivity(i);
 
                     }
                     else{
@@ -73,7 +77,26 @@ public class loginActivity extends AppCompatActivity {
         username= (EditText) findViewById(R.id.etusername);
         password=(EditText)findViewById(R.id.etpassword);
         rl_login=(RelativeLayout)findViewById(R.id.rl_login);
+
+        relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
+
+        relativeRegister.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent register = new  Intent(loginActivity.this, RegistrationActivity.class);
+                startActivity(register);
+
+
+
+            }
+        });
+
         vt=new Validation();
+
+
     }
 
 public void showmessage(String message)
