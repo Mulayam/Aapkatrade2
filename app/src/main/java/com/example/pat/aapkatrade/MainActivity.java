@@ -1,11 +1,11 @@
 package com.example.pat.aapkatrade;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.example.pat.aapkatrade.login.logindashboard;
+import com.example.pat.aapkatrade.Home.Homeactivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(MainActivity.this,logindashboard.class);
+                Intent mainIntent = new Intent(MainActivity.this,Homeactivity.class);
                 startActivity(mainIntent);
                 finish();
             }

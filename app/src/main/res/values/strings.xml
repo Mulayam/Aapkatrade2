@@ -19,7 +19,7 @@
 
     <string name="action_heading">Action</string>
     <string name="dashboard_heading">My Company Profile</string>
-  <string name="some_data">hi</string>
+
 
     <string name="forgotpassword">Forget Password?</string>
     <string name="new_user">New User?</string>
@@ -31,6 +31,12 @@
     <string name="seller">SELLER</string>
     <string name="buyer">BUYER</string>
     <string name="businessassociate">BUSINESS ASSOCIATE</string>
+
+    <string name="loginregisterfooter"> Please select one for Login/Register</string>
+    <string name="drawer_open">draweropen</string>
+    <string name="drawer_close">drawerclose</string>
+    <string name="language">language</string>
+
 
     <string name="loginregisterfooter"> Please select one for Login/Register</string>
     <string name="product_list_heading">List Product</string>
@@ -53,6 +59,7 @@
     <string name="title_activity_product_list">ProductListActivity</string>
     <string name="category">Footwear</string>
     <string name="phone_number">+91 9696969696</string>
+
 
 
 </resources>

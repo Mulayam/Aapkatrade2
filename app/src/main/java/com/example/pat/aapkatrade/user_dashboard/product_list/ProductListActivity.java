@@ -1,7 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.product_list;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -52,7 +52,9 @@ public class ProductListActivity extends AppCompatActivity
 
     private void setup_layout()
     {
+
         product_list = (RecyclerView) findViewById(R.id.productlist);
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         productListAdapter = new ProductListAdapter(this, productListDatas);
@@ -70,10 +72,8 @@ public class ProductListActivity extends AppCompatActivity
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Company List");
 
-        toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
-
-        toolbar_title_txt.setText("List Product");
 
 
     }

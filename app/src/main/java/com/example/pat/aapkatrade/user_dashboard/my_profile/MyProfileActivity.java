@@ -74,10 +74,10 @@ public class MyProfileActivity extends AppCompatActivity
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("My Profile");
 
-        toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
 
-        toolbar_title_txt.setText("My Profile");
+
 
     }
 

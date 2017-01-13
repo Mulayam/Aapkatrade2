@@ -33,9 +33,9 @@ public class MyCompanyProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        toolbar_title_txt = (TextView) findViewById(R.id.title_txt);
 
-        toolbar_title_txt.setText("My Company Profile");
+
+        getSupportActionBar().setTitle("My Company Profile");
 
     }
 

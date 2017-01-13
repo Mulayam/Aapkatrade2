@@ -26,13 +26,63 @@ public class logindashboard extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
 
+FrameLayout fl_seller,fl_buyer,fl_business_assoc;
+
+
     FrameLayout fl_seller ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_logindashboard);
+        Initview();
+
+        fl_seller.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(logindashboard.this,loginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+
+        fl_buyer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(logindashboard.this,loginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+
+
+        fl_business_assoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i =new Intent(logindashboard.this,loginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private void Initview() {
+        fl_seller=(FrameLayout)findViewById(R.id.fl_seller)  ;
+        fl_buyer=(FrameLayout)findViewById(R.id.fl_buyer)  ;
+
+        fl_business_assoc=(FrameLayout)findViewById(R.id.fl_business_assoc)  ;
 
         fl_seller = (FrameLayout) findViewById(R.id.fl_seller);
 
