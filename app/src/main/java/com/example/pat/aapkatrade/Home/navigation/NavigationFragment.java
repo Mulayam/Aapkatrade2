@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.productdetail.ProductListActivity;
+import com.example.pat.aapkatrade.productdetail.CategoryListFragment;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -55,7 +55,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public static final String PREFS_NAME = "call_recorder";
     private SharedPreferences loginPreferences;
     List<String> categoryids;
-   ProductListActivity productListActivity;
+    CategoryListFragment productListActivity;
     List<String> categoryname;
 
 
@@ -304,7 +304,7 @@ Log.e("Exception",e.toString());
         }
     private void setup_productlist_Fragment() {
         if (productListActivity == null) {
-            productListActivity = new ProductListActivity();
+            productListActivity = new CategoryListFragment();
         }
         String tagName = productListActivity.getClass().getName();
         replaceFragment(productListActivity, tagName);

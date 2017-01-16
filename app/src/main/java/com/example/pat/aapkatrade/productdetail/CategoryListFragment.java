@@ -13,7 +13,7 @@ import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
 
-public class ProductListActivity extends Fragment {
+public class CategoryListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -21,7 +21,7 @@ public class ProductListActivity extends Fragment {
 
     Toolbar toolbar;
 
-    public ProductListActivity() {
+    public CategoryListFragment() {
 
     }
 
