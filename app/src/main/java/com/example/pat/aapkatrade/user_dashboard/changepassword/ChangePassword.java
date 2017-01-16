@@ -31,16 +31,15 @@ public class ChangePassword extends AppCompatActivity
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().setTitle(null);
 
-getSupportActionBar().setTitle("Change Password");
-
-
+        getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
