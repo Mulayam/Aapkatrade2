@@ -258,7 +258,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             {
 
                 setup_productlist_Fragment();
-//                Intent i=new Intent(getActivity(), ProductListActivity.class);
+//                Intent i=new Intent(getActivity(), CategoryListFragment.class);
 ////                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 ////                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                startActivity(i);
@@ -267,7 +267,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             else if(groupview==0)
             {
                 setup_productlist_Fragment();
-//                Intent i=new Intent(getActivity(), ProductListActivity.class);
+//                Intent i=new Intent(getActivity(), CategoryListFragment.class);
 //                startActivity(i);
             }
             else if(groupview==2 &childview==1)

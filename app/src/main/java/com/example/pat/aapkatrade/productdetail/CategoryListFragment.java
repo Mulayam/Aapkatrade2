@@ -14,7 +14,7 @@ import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
 
 import java.util.ArrayList;
 
-public class ProductListActivity extends Fragment
+public class CategoryListFragment extends Fragment
 {
 
     private RecyclerView mRecyclerView;
@@ -25,7 +25,7 @@ public class ProductListActivity extends Fragment
 
 
 
-    public ProductListActivity()
+    public CategoryListFragment()
     {
 
     }
