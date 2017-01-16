@@ -136,7 +136,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 imageViewIcon.setImageResource(R.drawable.electronics_icon);
                 break;
             case 4:
-                imageViewIcon.setImageResource(R.drawable.flower);
+                imageViewIcon.setImageResource(R.drawable.ic_flower_demo);
                 break;
             case 5:
                 imageViewIcon.setImageResource(R.drawable.funeral_icon);
