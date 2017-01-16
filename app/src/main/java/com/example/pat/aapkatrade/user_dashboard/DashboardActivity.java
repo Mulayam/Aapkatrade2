@@ -20,7 +20,7 @@ public class DashboardActivity extends AppCompatActivity
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
-    TextView toolbar_title_txt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,17 +38,20 @@ public class DashboardActivity extends AppCompatActivity
         dashboardlist = (RecyclerView) findViewById(R.id.dashboardlist);
 
     }
+
+
+
+
     private void setuptoolbar()
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().setTitle(null);
 
-
-        getSupportActionBar().setTitle("Dashboard");
+        getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

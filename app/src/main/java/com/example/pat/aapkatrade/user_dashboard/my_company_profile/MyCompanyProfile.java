@@ -29,13 +29,12 @@ public class MyCompanyProfile extends AppCompatActivity {
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        getSupportActionBar().setTitle(null);
 
-
-        getSupportActionBar().setTitle("My Company Profile");
+        getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

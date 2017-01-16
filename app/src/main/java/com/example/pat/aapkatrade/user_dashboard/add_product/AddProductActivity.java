@@ -67,11 +67,12 @@ public class AddProductActivity extends AppCompatActivity
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setTitle("Add Products");
+        getSupportActionBar().setTitle(null);
+
+        getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 
