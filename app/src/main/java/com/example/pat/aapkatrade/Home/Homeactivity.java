@@ -122,8 +122,14 @@ public class Homeactivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
 
-        finish();
+
     }
 
 

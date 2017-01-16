@@ -11,37 +11,35 @@
             android:orientation="vertical">
 
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:descendantFocusability="blocksDescendants">
 
-            <android.support.v4.widget.NestedScrollView
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                >
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/banner" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical"
-                    android:descendantFocusability="blocksDescendants">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/product_list_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/banner" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/product_list_recycler_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:padding="10dp">
-
-                    </android.support.v7.widget.RecyclerView>
-                </LinearLayout>
-
-            </android.support.v4.widget.NestedScrollView>
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
 
 
 
