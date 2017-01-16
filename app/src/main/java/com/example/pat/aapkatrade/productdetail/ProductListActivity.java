@@ -10,60 +10,69 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
 
 import java.util.ArrayList;
 
-public class ProductListActivity extends Fragment {
+public class ProductListActivity extends Fragment
+{
+
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    CategoriesListAdapter categoriesListAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private static String LOG_TAG = "RecyclerViewActivity";
 
-    Toolbar toolbar;
+    ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
 
-    public ProductListActivity() {
+
+
+    public ProductListActivity()
+    {
 
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v=inflater.inflate(R.layout.activity_product_list, container, false);
 
-        //setuptoolbar();
+
+        setup_data();
+
         mRecyclerView = (RecyclerView)v.findViewById(R.id.product_list_recycler_view);
+
         mRecyclerView.setHasFixedSize(true);
+
         mLayoutManager = new LinearLayoutManager(getActivity());
+
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MyRecyclerViewAdapter(getDataSet());
-        mRecyclerView.setAdapter(mAdapter);
+
+        categoriesListAdapter = new CategoriesListAdapter(getActivity(),productListDatas);
+
+        mRecyclerView.setAdapter(categoriesListAdapter);
+
         mRecyclerView.setNestedScrollingEnabled(false);
-//        RecyclerView.ItemDecoration itemDecoration =
-//                new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-//        mRecyclerView.addItemDecoration(itemDecoration);
-return  v;
+
+        return  v;
     }
 
-//    private void setuptoolbar() {
-//
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setTitle(null);
-//        getSupportActionBar().setIcon(R.drawable.home_logo);
-//    }
 
-    public ArrayList<String> getDataSet() {
 
-        ArrayList<String> dataSet = new ArrayList<>();
-        dataSet.add("Item123");
-        dataSet.add("Item124");
-        dataSet.add("Item125");
-        dataSet.add("Item126");
-        dataSet.add("Item127");
-        dataSet.add("Item128");
-        dataSet.add("Item129");
-        dataSet.add("Item130");
+    private void setup_data()
+    {
+        productListDatas.clear();
+        try
+        {
+            productListDatas.add(new CategoriesListData("","",""));
+            productListDatas.add(new CategoriesListData("","",""));
+            productListDatas.add(new CategoriesListData("","",""));
+            productListDatas.add(new CategoriesListData("","",""));
 
-        return dataSet;
+        }catch (Exception  e){
+
+        }
     }
+
+
+
+
+
 }

@@ -55,7 +55,8 @@ public class MyRecyclerViewAdapter extends RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(DataObjectHolder holder, int position) {
+    public void onBindViewHolder(DataObjectHolder holder, int position)
+    {
 //        holder.label.setText(mDataset.get(position).getmText1());
 //        holder.dateTime.setText(mDataset.get(position).getmText2());
     }
