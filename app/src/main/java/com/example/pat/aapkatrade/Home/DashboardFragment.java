@@ -44,6 +44,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private RecyclerView recyclerViewAllSale, recyclerViewTrendingStyle, recyclerViewEclipseCollection, recyclerViewExpressDeal, recyclerViewBestSelling;
     private LinearLayoutManager llManagerAllSale, llManagerTrendingStyle, llManagerEclipseCollection, llManagerExpressDeal, llManagerBestSelling;
     ArrayList<CommomData> commomDatas = new ArrayList<>();
+    ArrayList<CommomData> commomDatas_latestdeals = new ArrayList<>();
+    ArrayList<CommomData> commomDatas_newarrival = new ArrayList<>();
+    ArrayList<CommomData> commomDatas_hotdeals = new ArrayList<>();
     private CommomAdapter commomAdapter;
    public latestproductadapter latestproductadapter;
     int position=0;
@@ -58,6 +61,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     TextView viewall_expressdeals,viewall_bestselling,viewall_expresscollection,viewall_trendingstyles,viewall_allsale;
     View v1,v2;
     ViewPager vp;
+    Timer banner_timer=new Timer();
 
     viewpageradapter_home viewpageradapter;
     public DashboardFragment() {
@@ -79,9 +83,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerExpressDeal = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         llManagerBestSelling = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         viewpagerindicator=(LinearLayout)view.findViewById(R.id.viewpagerindicator);
-        commomAdapter = new CommomAdapter(context, commomDatas);
+
         latestproductadapter=new latestproductadapter(context,commomDatas);
-        setupDummyData();
+
         initializeview(view);
         setupView(view);
         setupviewpager();
@@ -121,7 +125,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         };
 
 
-        new Timer().schedule(new TimerTask() {
+        banner_timer.schedule(new TimerTask() {
 
             @Override
             public void run() {
@@ -150,18 +154,25 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
             @Override
             public void onPageSelected(int position) {
-                for (int i = 0; i < dotsCount; i++) {
-                    dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
-                }
+                try {
+                    for (int i = 0; i < dotsCount; i++) {
+                        dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
+                    }
 
-                dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
+                    dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
+                }
+                catch (Exception e)
+                {
+                }
             }
+
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
             }
         });
+
     }
 
     private void initializeview(View v) {
@@ -220,13 +231,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 //                .animator(new ParallaxStikkyAnimator())
 //                .build();
     }
-    private void setupDummyData() {
-        for (int i = 0; i < 20; i++) {
-            commomDatas.add(new CommomData("Latest Product", "Latest Deals", "", ""));
-        }
-    }
+
 
     private void setuprecyclers(View view) {
+
+
+
+
+
         //setupExpressDeal(view);
         setupBestSelling(view);
         setupEclipseCollection(view);
@@ -235,28 +247,60 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     private void setupAllSale(View view) {
+
+        commomDatas_latestdeals.clear();
+        for(int i=0;i<20;i++) {
+            commomDatas_latestdeals.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
+        }
+        commomAdapter = new CommomAdapter(context, commomDatas_latestdeals);
         recyclerViewAllSale = (RecyclerView) view.findViewById(R.id.recyclerAllSale);
         recyclerViewAllSale.setLayoutManager(llManagerAllSale);
         recyclerViewAllSale.setAdapter(commomAdapter);
 
+
     }
 
     private void setupTrendingStyles(View view) {
+
+
+
+        commomDatas_hotdeals.clear();
+        for(int i=0;i<20;i++) {
+            commomDatas_hotdeals.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
+
+        }
+        commomAdapter = new CommomAdapter(context, commomDatas_hotdeals);
         recyclerViewTrendingStyle = (RecyclerView) view.findViewById(R.id.recyclerTrendingStyle);
         recyclerViewTrendingStyle.setLayoutManager(llManagerTrendingStyle);
         recyclerViewTrendingStyle.setAdapter(commomAdapter);
+
     }
 
     private void setupEclipseCollection(View view) {
+
+        commomDatas_newarrival.clear();
+        for(int i=0;i<2;i++) {
+            commomDatas_newarrival.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
+        }
+        commomAdapter = new CommomAdapter(context, commomDatas_newarrival);
         recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerEclipseExpressCollection);
         recyclerViewEclipseCollection.setLayoutManager(llManagerEclipseCollection);
         recyclerViewEclipseCollection.setAdapter(commomAdapter);
+
     }
 
     private void setupBestSelling(View view) {
+
+        commomDatas.clear();
+        for(int i=0;i<20;i++) {
+            commomDatas.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
+        }
+        commomAdapter = new CommomAdapter(context, commomDatas);
+
         recyclerViewBestSelling = (RecyclerView) view.findViewById(R.id.recyclerBestSelling);
         recyclerViewBestSelling.setLayoutManager(llManagerBestSelling);
         recyclerViewBestSelling.setAdapter(latestproductadapter);
+        recyclerViewBestSelling.getAdapter().notifyDataSetChanged();
 
 
     }
@@ -352,10 +396,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
 
-
-
-
-
-
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        banner_timer.cancel();
+    }
 }

@@ -23,5 +23,7 @@
 <color name="cardview_background">#EEEEEE</color>
     <color name="black_overlay">#66000000</color>
     <color name="navigation_child_color">#AAE8DB</color>
+    <color name="dark_green">#52A090</color>
+
 
 </resources>
