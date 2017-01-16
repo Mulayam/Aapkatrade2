@@ -41,7 +41,7 @@
                         android:id="@+id/imgProfile"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_user"
+                        android:src="@drawable/ic_adprdct"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         />

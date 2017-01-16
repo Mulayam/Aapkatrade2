@@ -6,22 +6,31 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Spinner;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.add_product.SpinnerAdapter;
+
 
 public class RegistrationActivity extends AppCompatActivity
 {
 
     Spinner spBussinessCategory,spCountry,spState,spCity;
-    String[] categoriesNames={"India","China","Australia","Portugle","America","New Zealand"};
+
+    String[] spBussinessName= {"Personal","Business"};
+
+    String[] spCountryName= {"Afghanistan","Angola","Brazil","Canada","Denmark", "England","France","Germany","India"};
+
+    String[] spStateName= {"Andhra Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Delhi","Goa","Gujrat"};
+
+    String[] spCityName= {"Delhi","New Delhi"};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_registration);
 
         setuptoolbar();
+
         setup_layout();
 
     }
@@ -49,15 +58,22 @@ public class RegistrationActivity extends AppCompatActivity
 
         spCity = (Spinner) findViewById(R.id.spCityCategory);
 
-        SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),categoriesNames);
+       SpBussinessAdapter spBussinessAdapter = new SpBussinessAdapter(getApplicationContext(),spBussinessName);
 
-        spBussinessCategory.setAdapter(customAdapter);
+        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
 
-        spCountry.setAdapter(customAdapter);
+        SpStateAdapter spStateAdapter = new SpStateAdapter(getApplicationContext(),spStateName);
 
-        spState.setAdapter(customAdapter);
+        SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),spCityName);
 
-        spCity.setAdapter(customAdapter);
+
+        spBussinessCategory.setAdapter(spBussinessAdapter);
+
+        spCountry.setAdapter(spCountrysAdapter);
+
+        spState.setAdapter(spStateAdapter);
+
+        spCity.setAdapter(spCityAdapter);
 
 
 

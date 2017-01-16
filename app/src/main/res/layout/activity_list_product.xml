@@ -47,7 +47,6 @@
                         android:layout_alignParentLeft="true"
                         >
 
-
                         <ImageView
                             android:id="@+id/imgProfile"
                             android:layout_width="25dp"

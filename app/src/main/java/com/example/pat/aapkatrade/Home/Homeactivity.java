@@ -113,7 +113,7 @@ public class Homeactivity extends AppCompatActivity
                 //finish();
                Intent i2 =new Intent(Homeactivity.this, DashboardActivity.class);
                startActivity(i2);
-               overridePendingTransition(R.anim.right_to_left, R.anim.left_to_right);
+               overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                return true;
             default:
                 return super.onOptionsItemSelected(item);

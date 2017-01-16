@@ -72,13 +72,11 @@ FrameLayout fl_seller,fl_buyer,fl_business_assoc;
 
 
 
-
-
-
-
     }
 
-    private void Initview() {
+    private void Initview()
+    {
+
         fl_seller=(FrameLayout)findViewById(R.id.fl_seller)  ;
         fl_buyer=(FrameLayout)findViewById(R.id.fl_buyer)  ;
 

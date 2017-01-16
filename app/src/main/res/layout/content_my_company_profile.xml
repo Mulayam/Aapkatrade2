@@ -33,7 +33,7 @@
                 android:id="@+id/imgProfile"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_user"
+                android:src="@drawable/ic_companyprofile"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 />
