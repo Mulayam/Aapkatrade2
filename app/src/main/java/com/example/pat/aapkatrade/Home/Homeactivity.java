@@ -75,18 +75,18 @@ public class Homeactivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      getSupportActionBar().setTitle(null);
 
-        String teams = "Home";
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+
+
+      getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 
     private void replaceFragment(Fragment newFragment, String tag) {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.drawer_layout, newFragment, tag);
+        transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
         transaction.commit();
     }
 
