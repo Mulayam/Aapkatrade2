@@ -4,18 +4,23 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/app_icon3"
+        android:icon="@drawable/ic_app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".user_dashboard.DashboardActivity" />
-        <activity android:name=".MainActivity">
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <activity android:name=".login.loginActivity" />
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
@@ -24,11 +29,14 @@
         <activity android:name=".user_dashboard.addcompany.AddCompany" />
         <activity android:name=".user_dashboard.companylist.CompanyList" />
         <activity android:name=".user_dashboard.product_list.ProductListActivity" />
+
         <activity
             android:name=".login.logindashboard"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_logindashboard"
             android:theme="@style/FullscreenTheme" />
+
+
         <activity android:name=".Home.Homeactivity" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />

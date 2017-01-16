@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
+
+import com.example.pat.aapkatrade.Home.registration.SpCityAdapter;
+import com.example.pat.aapkatrade.Home.registration.SpCountrysAdapter;
 import com.example.pat.aapkatrade.R;
 
 
@@ -13,7 +16,18 @@ public class AddProductActivity extends AppCompatActivity
 {
 
     Spinner spSubCategory,spCategory,spUnitCategory;
-    String[] categoriesNames={"India","China","Australia","Portugle","America","New Zealand"};
+
+    String[] categoriesNames={"Vegetables","Tailors","Barber","Shoe Repair","Hospitals","Transport","Pharmecy"};
+
+    String[] subcategories = {"Bus","Cabe","Auto","Bikes","E-Rikshwa","Church"};
+
+    String[] spCountryName= {"Afghanistan","Angola","Brazil","Canada","Denmark", "England","France","Germany","India"};
+
+    String[] spStateName= {"Andhra Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Delhi","Goa","Gujrat"};
+
+    String[] spCityName= {"Delhi","New Delhi"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,12 +50,15 @@ public class AddProductActivity extends AppCompatActivity
 
         SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),categoriesNames);
 
+        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
+
+        SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),subcategories);
+
         spSubCategory.setAdapter(customAdapter);
 
-        spCategory.setAdapter(customAdapter);
+        spCategory.setAdapter(spCityAdapter);
 
-        spUnitCategory.setAdapter(customAdapter);
-
+        spUnitCategory.setAdapter(spCountrysAdapter);
 
     }
 

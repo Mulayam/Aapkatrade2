@@ -15,6 +15,7 @@ import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
+import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -116,8 +117,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 else if (itemList.get(position).dashboard_name.equals("List Product"))
                 {
 
-//                    Intent list_product = new Intent(context, ProductListActivity.class);
-//                    context.startActivity(list_product);
+                   Intent list_product = new Intent(context, ProductListActivity.class);
+                    context.startActivity(list_product);
 
 
                 }
