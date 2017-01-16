@@ -1,27 +1,38 @@
 package com.example.pat.aapkatrade.productdetail;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
 
-public class ProductListActivity extends AppCompatActivity {
+public class ProductListActivity extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "RecyclerViewActivity";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_list);
-        mRecyclerView = (RecyclerView) findViewById(R.id.product_list_recycler_view);
+    Toolbar toolbar;
+
+    public ProductListActivity() {
+
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v=inflater.inflate(R.layout.activity_product_list, container, false);
+
+        //setuptoolbar();
+        mRecyclerView = (RecyclerView)v.findViewById(R.id.product_list_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MyRecyclerViewAdapter(getDataSet());
         mRecyclerView.setAdapter(mAdapter);
@@ -29,8 +40,17 @@ public class ProductListActivity extends AppCompatActivity {
 //        RecyclerView.ItemDecoration itemDecoration =
 //                new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
 //        mRecyclerView.addItemDecoration(itemDecoration);
-
+return  v;
     }
+
+//    private void setuptoolbar() {
+//
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setTitle(null);
+//        getSupportActionBar().setIcon(R.drawable.home_logo);
+//    }
 
     public ArrayList<String> getDataSet() {
 

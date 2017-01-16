@@ -3,11 +3,13 @@ package com.example.pat.aapkatrade.Home;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,8 @@ public class CommomAdapter extends RecyclerView.Adapter<CommomHolder> {
 
 
                 View v = inflater.inflate(R.layout.row_dashboard, parent, false);
+
+
                 viewHolder = new CommomHolder(v);
 
 
@@ -48,6 +52,15 @@ public class CommomAdapter extends RecyclerView.Adapter<CommomHolder> {
 
     @Override
     public void onBindViewHolder(CommomHolder holder, int position) {
+        Picasso.with(context).load(commomDatas.get(0).imageurl)
+                .error(R.drawable.banner)
+                .into(holder.cimageview);
+
+//        Ion.with(holder.cimageview)
+//                 .placeholder(R.drawable.ms__drawable)
+//
+//                .load(commomDatas.get(0).imageurl);
+        Log.e("imageurl",commomDatas.get(0).imageurl);
 
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +77,7 @@ public class CommomAdapter extends RecyclerView.Adapter<CommomHolder> {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return commomDatas.size();
     }
 
 
