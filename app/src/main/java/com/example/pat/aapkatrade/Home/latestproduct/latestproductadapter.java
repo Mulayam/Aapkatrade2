@@ -42,6 +42,10 @@ public class latestproductadapter extends RecyclerView.Adapter<Holder_latestprod
 
     @Override
     public void onBindViewHolder(Holder_latestproduct holder, int position) {
+//        Picasso.with(context).load("http://administrator.aapkatrade.com/public/upload/banner/dairy-product.jpg")
+//                .error(R.drawable.banner)
+//                .into(holder.profile_image);
+
 
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
