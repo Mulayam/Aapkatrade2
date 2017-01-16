@@ -46,7 +46,7 @@ public class viewpageradapter_home  extends PagerAdapter {
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.img_pager_item);
         Ion.with(imageView)
-               // .placeholder(R.drawable.placeholder_image)
+//               .placeholder(R.drawable.placeholder_image)
 
                 .load("http://aapkatrade.com/laraveldemo/public/image/demo/slider/3.jpg");
        // imageView.setImageResource(R.drawable.banner_home);

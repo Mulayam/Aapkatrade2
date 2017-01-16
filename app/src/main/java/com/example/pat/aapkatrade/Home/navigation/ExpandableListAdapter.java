@@ -124,22 +124,22 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         ImageView imageViewIcon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
         switch (groupPosition) {
             case 0:
-                imageViewIcon.setImageResource(R.drawable.business3);
+                imageViewIcon.setImageResource(R.drawable.automobile_icon);
                 break;
             case 1:
-                imageViewIcon.setImageResource(R.drawable.travel);
+                imageViewIcon.setImageResource(R.drawable.barber_icon);
                 break;
             case 2:
-                imageViewIcon.setImageResource(R.drawable.automobile);
+                imageViewIcon.setImageResource(R.drawable.dairy_icon);
                 break;
             case 3:
-                imageViewIcon.setImageResource(R.drawable.entertainment);
+                imageViewIcon.setImageResource(R.drawable.electronics_icon);
                 break;
             case 4:
-                imageViewIcon.setImageResource(R.drawable.repairing_tools);
+                imageViewIcon.setImageResource(R.drawable.flower);
                 break;
             case 5:
-                imageViewIcon.setImageResource(R.drawable.travel);
+                imageViewIcon.setImageResource(R.drawable.funeral_icon);
                 break;
 
         }
@@ -158,9 +158,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
 
             if (isExpanded) {
                 imageView.setImageResource(R.drawable.ic_chevron_primary);
+                convertView.setBackgroundResource(R.color.dark_green);
                 notifyDataSetChanged();
             } else {
-                imageView.setImageResource(R.drawable.ic_chevron_grey);
+                imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
                 notifyDataSetChanged();
             }
         }

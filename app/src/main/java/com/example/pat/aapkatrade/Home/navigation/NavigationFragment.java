@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.productdetail.ProductListActivity;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -49,10 +51,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     boolean mFromSavedInstance;
     View view;
     String Fname,Lname,Dob;
-
+    private int lastExpandedPosition = -1;
     public static final String PREFS_NAME = "call_recorder";
     private SharedPreferences loginPreferences;
     List<String> categoryids;
+   ProductListActivity productListActivity;
     List<String> categoryname;
 
 
@@ -119,6 +122,18 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         listAdapter = new ExpandableListAdapter(context, listDataHeader, listDataChild);
         // setting list adapter
         expListView.setAdapter(listAdapter);
+
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedPosition != -1
+                        && groupPosition != lastExpandedPosition) {
+                    expListView.collapseGroup(lastExpandedPosition);
+                }
+                lastExpandedPosition = groupPosition;
+
+            }
+        });
 
         listAdapter.setClickListner(this);
     }
@@ -241,30 +256,31 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             //showMessage("groupbiew: " + groupview + "\nchildview: " + childview);
             if((groupview==1)&(childview==0))
             {
-                //Intent i=new Intent(getActivity(), ProductListActivity.class);
-//                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                //startActivity(i);
+
+                setup_productlist_Fragment();
+//                Intent i=new Intent(getActivity(), ProductListActivity.class);
+////                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(i);
 
             }
             else if(groupview==0)
             {
-              //  Intent i=new Intent(getActivity(), ProductListActivity.class);
-                //startActivity(i);
+                setup_productlist_Fragment();
+//                Intent i=new Intent(getActivity(), ProductListActivity.class);
+//                startActivity(i);
             }
             else if(groupview==2 &childview==1)
             {
-               // Intent i=new Intent(getActivity(),ProductListActivity.class);
-                //startActivity(i);
+                setup_productlist_Fragment();
             }
             else if(groupview==2 &childview==0)
             {
-                // callSubscribedwebservice();
+                setup_productlist_Fragment();
             }
             else if(groupview==5)
             {
-               // Intent i=new Intent(getActivity(),ProductListActivity.class);
-               // startActivity(i);
+                setup_productlist_Fragment();
             }
 
             listAdapter.notifyDataSetChanged();
@@ -275,6 +291,25 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 Log.e("Exception",e.toString());
         }
     }
+
+
+
+
+
+        private void replaceFragment(Fragment newFragment, String tag) {
+
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
+            transaction.commit();
+        }
+    private void setup_productlist_Fragment() {
+        if (productListActivity == null) {
+            productListActivity = new ProductListActivity();
+        }
+        String tagName = productListActivity.getClass().getName();
+        replaceFragment(productListActivity, tagName);
+    }
+
 
 
     private static class Trust implements X509TrustManager {
@@ -334,12 +369,12 @@ Log.e("Exception",e.toString());
             listDataChild = new HashMap<String, List<String>>();
 
             // Adding child data
-            listDataHeader.add("Groceries");
-            listDataHeader.add("Restaurant");
-            listDataHeader.add("Vegetables");
-            listDataHeader.add("Sweet shops");
-            listDataHeader.add("Tailors");
+            listDataHeader.add("Automobile");
             listDataHeader.add("Barber");
+            listDataHeader.add("Dairy Product");
+            listDataHeader.add("Electronics Repair");
+            listDataHeader.add("Flower Shops");
+            listDataHeader.add("Funeral Places");
 
             // Adding child data
             List<String> top250 = new ArrayList<String>();
