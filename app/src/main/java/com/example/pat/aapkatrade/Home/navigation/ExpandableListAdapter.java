@@ -124,21 +124,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         ImageView imageViewIcon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
         switch (groupPosition) {
             case 0:
-                imageViewIcon.setImageResource(R.drawable.automobile_icon);
+                imageViewIcon.setImageResource(R.drawable.ic_navigation_home);
                 break;
             case 1:
-                imageViewIcon.setImageResource(R.drawable.barber_icon);
+                imageViewIcon.setImageResource(R.drawable.automobile_icon);
                 break;
             case 2:
-                imageViewIcon.setImageResource(R.drawable.dairy_icon);
+                imageViewIcon.setImageResource(R.drawable.barber_icon);
                 break;
             case 3:
-                imageViewIcon.setImageResource(R.drawable.electronics_icon);
+                imageViewIcon.setImageResource(R.drawable.dairy_icon);
                 break;
             case 4:
-                imageViewIcon.setImageResource(R.drawable.ic_flower_demo);
+                imageViewIcon.setImageResource(R.drawable.electronics_icon);
                 break;
             case 5:
+                imageViewIcon.setImageResource(R.drawable.ic_flower_demo);
+                break;
+            case 6:
                 imageViewIcon.setImageResource(R.drawable.funeral_icon);
                 break;
 

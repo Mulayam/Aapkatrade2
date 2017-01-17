@@ -13,8 +13,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/menu'] } }
@@ -38,7 +40,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
     compile 'me.relex:circleindicator:1.2.2@aar'
-
+    compile 'com.aurelhubert:ahbottomnavigation:2.0.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.koushikdutta.ion:ion:2.+'
 

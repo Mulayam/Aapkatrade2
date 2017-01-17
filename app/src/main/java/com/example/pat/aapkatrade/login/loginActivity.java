@@ -49,7 +49,7 @@ public class loginActivity extends AppCompatActivity {
                     if (Validation.validate_edittext(password))
                     {
 
-                        Intent i = new Intent(loginActivity.this, RegistrationActivity.class);
+                        Intent i = new Intent(loginActivity.this, activity_otpverify.class);
                         startActivity(i);
 
                     }

@@ -367,7 +367,7 @@ Log.e("Exception",e.toString());
 
             listDataHeader = new ArrayList<String>();
             listDataChild = new HashMap<String, List<String>>();
-
+            listDataHeader.add("Home");
             // Adding child data
             listDataHeader.add("Automobile");
             listDataHeader.add("Barber");
@@ -395,18 +395,19 @@ Log.e("Exception",e.toString());
             List<String> Settings_data = new ArrayList<String>();
             Settings_data.add("Groceries");
             Settings_data.add("Restaurant");
+        List<String> home = new ArrayList<String>();
 
             List<String> account = new ArrayList<String>();
             List<String> ratethisapp = new ArrayList<String>();
             List<String> help_center = new ArrayList<String>();
             List<String> share_app = new ArrayList<String>();
-
-            listDataChild.put(listDataHeader.get(0), Settings_data); // Header, Child data
+        listDataChild.put(listDataHeader.get(0), home);
             listDataChild.put(listDataHeader.get(1), Settings_data); // Header, Child data
-            listDataChild.put(listDataHeader.get(2), Settings_data);
-            listDataChild.put(listDataHeader.get(3), Settings_data); // Header, Child data
+            listDataChild.put(listDataHeader.get(2), Settings_data); // Header, Child data
+            listDataChild.put(listDataHeader.get(3), Settings_data);
             listDataChild.put(listDataHeader.get(4), Settings_data); // Header, Child data
-            listDataChild.put(listDataHeader.get(5), Settings_data);
+            listDataChild.put(listDataHeader.get(5), Settings_data); // Header, Child data
+            listDataChild.put(listDataHeader.get(6), Settings_data);
         }
 
 
