@@ -20,58 +20,53 @@
             app:layout_collapseParallaxMultiplier="0.7"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@drawable/banner_home"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                />
 
 
             <RelativeLayout
+                android:id="@+id/header_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="180dp"
+                android:animateLayoutChanges="true"
+                android:background="#BF4cbfa8"
                 >
 
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@drawable/banner_home"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    />
-
-
-                <RelativeLayout
-                    android:id="@+id/header_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:animateLayoutChanges="true"
-                    android:background="#BF4cbfa8"
-                    >
-
-
-                </RelativeLayout>
-
-                <include
-                    layout="@layout/toolbar_image_layout"
-                    ></include>
-
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="bottom"
-                    app:tabIndicatorColor="@android:color/white"
-                    app:tabSelectedTextColor="@color/white"
-                    app:tabIndicatorHeight="2dp"
-                    app:tabTextColor="@color/black"
-                    />
-
             </RelativeLayout>
+
+          <include
+              layout="@layout/toolbar_image_layout"
+              ></include>
 
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabSelectedTextColor="@color/white"
+                app:tabIndicatorHeight="2dp"
+                app:tabTextColor="@color/black"
+                />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
