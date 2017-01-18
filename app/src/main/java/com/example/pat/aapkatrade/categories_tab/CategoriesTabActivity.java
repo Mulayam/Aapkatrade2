@@ -77,8 +77,6 @@ public class CategoriesTabActivity extends AppCompatActivity implements  AppBarL
 
         getSupportActionBar().setTitle(null);
 
-
-
     }
 
 
