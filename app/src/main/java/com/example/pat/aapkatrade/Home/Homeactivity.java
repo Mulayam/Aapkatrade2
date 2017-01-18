@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.login.logindashboard;
 import com.example.pat.aapkatrade.user_dashboard.DashboardFragment;
 
@@ -31,6 +32,7 @@ public class Homeactivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        App_config.setLocaleFa(Homeactivity.this);
         setContentView(R.layout.activity_homeactivity);
         context = this;
 

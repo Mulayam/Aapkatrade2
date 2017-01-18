@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_connectivity_not_found"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="2"
+    android:orientation="vertical"
+    tools:context="com.example.pat.aapkatrade.general.Connectivity_not_found">
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_weight="1"
+    android:layout_height="0dp">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        app:srcCompat="@drawable/svg"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+       />
+
+</RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+
+        android:layout_height="0dp">
+
+
+        <TextView
+            android:text="@string/nointernetconnection"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tv_network_notfound" />
+        <TextView
+            android:text="@string/nointernetconnection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_network_notfound"
+            android:id="@+id/textView4" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_orange_back"
+android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/imageButton"
+            android:text="@string/retry"
+            android:textColor="@color/white"
+
+             />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

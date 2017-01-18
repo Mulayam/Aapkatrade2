@@ -1,8 +1,11 @@
 package com.example.pat.aapkatrade.Home;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -21,6 +24,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
@@ -38,7 +44,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     Context context;
     private View upAllSale;
-    ScrollView scrollView;
     int currentPage=0;
     LinearLayout viewpagerindicator;
     private RecyclerView recyclerViewAllSale, recyclerViewTrendingStyle, recyclerViewEclipseCollection, recyclerViewExpressDeal, recyclerViewBestSelling;
@@ -51,16 +56,20 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
    public latestproductadapter latestproductadapter;
     int position=0;
     private int dotsCount;
+    private int[] tabColors;
     private List<Integer> imageIdList;
     private ImageView[] dots;
     private Handler mHandler;
     public static final int DELAY = 5000;
+    AHBottomNavigationAdapter  bottom_menuAdapter;
     //private StikkyHeaderBuilder stikkyHeader;
     private Intent intent;
     AppCompatButton discover_category;
     TextView viewall_expressdeals,viewall_bestselling,viewall_expresscollection,viewall_trendingstyles,viewall_allsale;
     View v1,v2;
     ViewPager vp;
+    ScrollView scrollView;
+    AHBottomNavigation bottomNavigation;
     Timer banner_timer=new Timer();
 
     viewpageradapter_home viewpageradapter;
@@ -74,6 +83,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
+
+        setup_bottomNavigation(view);
         vp=(ViewPager)view.findViewById(R.id.viewpager_custom) ;
         context = getActivity();
         //llManagerAllSale,llManagerTrendingStyle,llManagerEclipseCollection,llManagerExpressDeal,llManagerBestSelling;
@@ -93,6 +104,91 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
       //  GridLayoutManager gridLayoutManager=new GridLayoutManager(context,3);
         return view;
+    }
+
+    private void setup_bottomNavigation(View view)
+    {
+
+        bottomNavigation = (AHBottomNavigation) view.findViewById(R.id.bottom_navigation);
+
+//        tabColors = getActivity().getResources().getIntArray(R.array.tab_colors);
+//        bottom_menuAdapter = new AHBottomNavigationAdapter(getActivity(), R.menu.button_menu);
+//        bottom_menuAdapter.setupWithBottomNavigation(bottomNavigation, tabColors);
+
+// Create items
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.ic_navigation_home, R.color.dark_green);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.ic_home_dashboard_aboutus, R.color.orange);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.ic_home_dashboard_rate_us, R.color.dark_green);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab_4, R.drawable.ic_home_bottom_account, R.color.dark_green);
+
+// Add items
+        bottomNavigation.addItem(item1);
+        bottomNavigation.addItem(item2);
+        bottomNavigation.addItem(item3);
+        bottomNavigation.addItem(item4);
+
+// Set background color
+        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.dark_green));
+
+// Disable the translation inside the CoordinatorLayout
+        bottomNavigation.setBehaviorTranslationEnabled(true);
+        bottomNavigation.setSelectedBackgroundVisible(true);
+
+
+// Enable the translation of the FloatingActionButton
+      //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
+
+// Change colors
+       bottomNavigation.setAccentColor(Color.parseColor("#FEFEFE"));
+       bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
+
+// Force to tint the drawable (useful for font with icon for example)
+        bottomNavigation.setForceTint(true);
+
+// Display color under navigation bar (API 21+)
+// Don't forget these lines in your style-v21
+// <item name="android:windowTranslucentNavigation">true</item>
+// <item name="android:fitsSystemWindows">true</item>
+        bottomNavigation.setTranslucentNavigationEnabled(true);
+
+// Manage titles
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+
+// Use colored navigation with circle reveal effect
+        bottomNavigation.setColored(false);
+
+// Set current item programmatically
+        bottomNavigation.setCurrentItem(0);
+
+// Customize notification (title, background, typeface)
+//       bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
+//
+//// Add or remove notification for each item
+//        bottomNavigation.setNotification("", 3);
+// OR
+//        AHNotification notification = new AHNotification.Builder()
+//                .setText("1")
+//                .setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_green))
+//                .setTextColor(ContextCompat.getColor(getActivity(), R.color.grey))
+//                .build();
+//        bottomNavigation.setNotification(notification, 1);
+
+// Set listeners
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                // Do something cool here...
+                return true;
+            }
+        });
+        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+            @Override public void onPositionChange(int y) {
+                // Manage the new y position
+            }
+        });
+
     }
 
     private void setupviewpager() {
@@ -176,6 +272,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     private void initializeview(View v) {
+        scrollView=(ScrollView)v.findViewById(R.id.scrollView);
+      //  setup_scrollview(scrollView);
         v1=(View)v.findViewById(R.id.previous) ;
         v2=(View)v.findViewById(R.id.next) ;
        // discover_category=(AppCompatButton)v.findViewById(R.id.buttonDiscover);
@@ -216,9 +314,42 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
+    private void setup_scrollview(final ScrollView scrollView) {
+
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+               int pos= scrollView.getChildCount()-1;
+                if(oldScrollY<scrollY)
+                {showOrHideBottomNavigation(true);
+//                    setForceTitleHide(true);
+
+                }
+
+                else{
+                    showOrHideBottomNavigation(false);
+                }
+
+                if(oldScrollY==scrollY)
+                {
+                    showOrHideBottomNavigation(true);
+
+                }
 
 
 
+            }
+        });
+
+    }
+
+    private void setForceTitleHide(boolean forceTitleHide) {
+
+
+        AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
+        bottomNavigation.setTitleState(state);
+    }
 
 
     @Override
@@ -401,4 +532,15 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         super.onDestroy();
         banner_timer.cancel();
     }
+
+    public void showOrHideBottomNavigation(boolean show) {
+        if (show) {
+            bottomNavigation.restoreBottomNavigation(true);
+        } else {
+            bottomNavigation.hideBottomNavigation(true);
+        }
+    }
+
+
+
 }

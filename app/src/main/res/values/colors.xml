@@ -6,6 +6,7 @@
     <color name="hint_color">#606060</color>
     <color name="color_voilet">#FF6600</color>
    <color name="green">#63BEAC</color>
+    <color name="green_transparent">#8063BEAC</color>
 
     <color name="orange">#FF6600</color>
     <color name="white">#FFFFFF</color>
@@ -24,6 +25,16 @@
     <color name="black_overlay">#66000000</color>
     <color name="navigation_child_color">#AAE8DB</color>
     <color name="dark_green">#52A090</color>
+    <color name="dark_green_black">#387266</color>
+
+
+    <array name="tab_colors">
+        <item name="tab_1">#455C65</item>
+        <item name="tab_2">#00886A</item>
+        <item name="tab_3">#8B6B62</item>
+        <item name="tab_4">#6C4A42</item>
+        <item name="tab_5">#F63D2B</item>
+    </array>
 
 
 </resources>
