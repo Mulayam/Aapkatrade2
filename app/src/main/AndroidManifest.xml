@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.loginActivity" />
+        <activity
+            android:name=".login.loginActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
         <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
         <activity android:name=".user_dashboard.changepassword.ChangePassword" />
@@ -29,12 +31,14 @@
             android:name=".login.logindashboard"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_logindashboard"
+            android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".Home.Homeactivity" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
         <activity android:name=".Home.registration.RegistrationActivity" />
-        <activity android:name=".login.activity_otpverify"></activity>
+        <activity android:name=".login.activity_otpverify" />
+        <activity android:name=".general.Connectivity_not_found"></activity>
     </application>
 
 </manifest>

@@ -273,7 +273,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private void initializeview(View v) {
         scrollView=(ScrollView)v.findViewById(R.id.scrollView);
-        setup_scrollview(scrollView);
+      //  setup_scrollview(scrollView);
         v1=(View)v.findViewById(R.id.previous) ;
         v2=(View)v.findViewById(R.id.next) ;
        // discover_category=(AppCompatButton)v.findViewById(R.id.buttonDiscover);

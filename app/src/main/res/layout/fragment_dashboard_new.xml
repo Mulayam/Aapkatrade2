@@ -75,7 +75,7 @@ android:layout_marginBottom="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="LATEST PRODUCTS"
+                        android:text="@string/latest_product"
                         android:textColor="@color/black" />
 
 
@@ -95,7 +95,7 @@ android:layout_marginBottom="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="View All "
+                            android:text="@string/viewall"
                             android:textSize="10sp"
                             android:layout_marginRight="5dp"
                             android:textColor="@color/white"
@@ -177,7 +177,8 @@ android:orientation="horizontal"
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="LATEST DEALS"
+
+                        android:text="@string/latest_deals"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black" />
 
@@ -202,7 +203,7 @@ android:orientation="horizontal"
                             android:layout_width="wrap_content"
 
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="View All "
+                            android:text="@string/viewall"
                             android:textSize="10sp"
                             android:layout_height="match_parent"
                             android:textColor="@color/white"
@@ -248,7 +249,8 @@ android:orientation="horizontal"
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NEW ARRIVAL"
+
+                        android:text="@string/new_arrival"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black" />
 
@@ -270,8 +272,9 @@ android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="View All "
+
                             android:textSize="10sp"
+                            android:text="@string/viewall"
                             android:layout_marginRight="5dp"
                             android:textColor="@color/white"
                             android:id="@+id/textView68" />
@@ -315,7 +318,8 @@ android:orientation="horizontal"
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="HOT DEALS"
+                        android:text="@string/hot_deals"
+
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/black" />
 
@@ -325,7 +329,7 @@ android:orientation="horizontal"
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:gravity="right"
-
+                        android:text="@string/viewall"
                         android:layout_alignParentRight="true"
                         android:background="@drawable/button_orange_back"
                         android:layout_marginRight="10dp"
