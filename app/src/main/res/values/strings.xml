@@ -61,5 +61,8 @@
     <string name="phone_number">+91 9696969696</string>
     <string name="loginregisterfooter">Please Click one for Login/Register</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

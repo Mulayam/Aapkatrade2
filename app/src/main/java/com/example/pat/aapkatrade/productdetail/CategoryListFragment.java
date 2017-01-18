@@ -20,7 +20,6 @@ public class CategoryListFragment extends Fragment
     private RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
 
 
@@ -33,7 +32,6 @@ public class CategoryListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v=inflater.inflate(R.layout.activity_product_list, container, false);
-
 
         setup_data();
 
@@ -65,8 +63,14 @@ public class CategoryListFragment extends Fragment
             productListDatas.add(new CategoriesListData("","",""));
             productListDatas.add(new CategoriesListData("","",""));
             productListDatas.add(new CategoriesListData("","",""));
+            productListDatas.add(new CategoriesListData("","",""));
+            productListDatas.add(new CategoriesListData("","",""));
+            productListDatas.add(new CategoriesListData("","",""));
+            productListDatas.add(new CategoriesListData("","",""));
 
-        }catch (Exception  e){
+        }
+        catch (Exception  e)
+        {
 
         }
     }
