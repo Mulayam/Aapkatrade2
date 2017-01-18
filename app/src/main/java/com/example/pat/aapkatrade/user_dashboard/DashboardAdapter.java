@@ -15,6 +15,7 @@ import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     DashboardHolder viewHolder;
 
 
+
     public DashboardAdapter(Context context, List<DashboardData> itemList)
     {
         this.itemList = itemList;
@@ -48,8 +50,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         View view = inflater.inflate(R.layout.row_user_dashboard, parent, false);
         viewHolder = new DashboardHolder(view);
-
-
 
 
         return viewHolder;
@@ -104,14 +104,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     Intent list_company = new Intent(context, CompanyList.class);
                     context.startActivity(list_company);
 
-
                 }
                 else if (itemList.get(position).dashboard_name.equals("Add Product"))
                 {
 
                     Intent add_product = new Intent(context, AddProductActivity.class);
                     context.startActivity(add_product);
-
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("List Product"))
@@ -120,8 +118,15 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                    Intent list_product = new Intent(context, ProductListActivity.class);
                     context.startActivity(list_product);
 
-
                 }
+                 else if (itemList.get(position).dashboard_name.equals("Order"))
+                 {
+
+                     Intent list_product = new Intent(context, OrderActivity.class);
+                     context.startActivity(list_product);
+
+                 }
+
 
             }
         });

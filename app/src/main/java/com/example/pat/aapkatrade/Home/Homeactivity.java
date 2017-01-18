@@ -16,13 +16,15 @@ import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.login.logindashboard;
-import com.example.pat.aapkatrade.user_dashboard.DashboardActivity;
+import com.example.pat.aapkatrade.user_dashboard.DashboardFragment;
 
 public class Homeactivity extends AppCompatActivity
 {
+
+
     private NavigationFragment drawer;
     private Toolbar toolbar;
-    private DashboardFragment homeFragment;
+    private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
     Context context;
 
 
@@ -41,6 +43,8 @@ public class Homeactivity extends AppCompatActivity
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
 
+
+
 //        if(b!=null)
 //        {
 //            username =(String) b.get("username");
@@ -54,10 +58,15 @@ public class Homeactivity extends AppCompatActivity
 //
 //
 //        }
+
+
+
+
     }
 
 
-    private void setupNavigationCustom() {
+    private void setupNavigationCustom()
+    {
         drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
     }
@@ -67,43 +76,46 @@ public class Homeactivity extends AppCompatActivity
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
-//        ActionItemBadge.update(((AppCompatActivity) context), menu.findItem(R.id.login), ContextCompat.getDrawable(context, R.drawable.ic_cart_black)
-//                , ActionItemBadge.BadgeStyles.GREY, 3);
+        // ActionItemBadge.update(((AppCompatActivity) context), menu.findItem(R.id.login), ContextCompat.getDrawable(context, R.drawable.ic_cart_black)
+        // , ActionItemBadge.BadgeStyles.GREY, 3);
         return true;
     }
 
 
-    private void setupToolBar() {
+    private void setupToolBar()
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
-      getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle(null);
 
-
-
-      getSupportActionBar().setIcon(R.drawable.home_logo);
-
+        getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
-    private void replaceFragment(Fragment newFragment, String tag) {
+    private void replaceFragment(Fragment newFragment, String tag)
+    {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
         transaction.commit();
     }
 
-    private void setupDashFragment() {
-        if (homeFragment == null) {
-            homeFragment = new DashboardFragment();
+    private void setupDashFragment()
+    {
+        if (homeFragment == null)
+        {
+            homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
         }
         String tagName = homeFragment.getClass().getName();
         replaceFragment(homeFragment, tagName);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle item selection
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case R.id.login:
                 //finish();
                 Intent i =new Intent(Homeactivity.this, logindashboard.class);
@@ -112,10 +124,12 @@ public class Homeactivity extends AppCompatActivity
                 return true;
 
            case R.id.language:
-                //finish();
-               Intent i2 =new Intent(Homeactivity.this, DashboardActivity.class);
-               startActivity(i2);
-               overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+
+               DashboardFragment dashboardFragment = new DashboardFragment();
+               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
+               transaction.commit();
+
                return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -124,10 +138,12 @@ public class Homeactivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1)
+        {
             finish();
         }
-        else {
+        else
+        {
             super.onBackPressed();
         }
 

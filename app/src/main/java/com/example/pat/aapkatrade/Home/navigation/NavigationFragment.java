@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home.navigation;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.CategoriesTabActivity;
 import com.example.pat.aapkatrade.productdetail.CategoryListFragment;
 
 import java.security.cert.CertificateException;
@@ -38,7 +40,9 @@ import javax.net.ssl.X509TrustManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner
+{
+
 
     public static final String preFile = "textFile";
     public static final String userKey = "key";
@@ -73,20 +77,21 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private HashMap<String, List<String>> listDataChild;
     ProgressDialog _progressDialog;
 
-    public NavigationFragment() {
+    public NavigationFragment()
+    {
         // Required empty public constructor
     }
 
 
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         _progressDialog=new ProgressDialog(context);
         initView();
-
-
 
         return view;
     }
@@ -95,29 +100,21 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
 
-    private void initView() {
+    private void initView()
+    {
         //prepare textviewdata
         categoryname=new ArrayList<>();
         categoryids=new ArrayList<>();
-
-
         //sharedprefrance
         loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         prepareListData();
         expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
 
-//circle imageview
-
+        //circle imageview
 
         //ImagePicker.setMinQuality(600, 600);
-
-
-
-
         // preparing list data
-
-
 
         listAdapter = new ExpandableListAdapter(context, listDataHeader, listDataChild);
         // setting list adapter
@@ -218,12 +215,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public static void hideSoftKeyboard(Activity activity) {
+    public static void hideSoftKeyboard(Activity activity)
+    {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 
     }
-
 
 
     private void showMessage(String clicked) {
@@ -231,8 +228,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-
-    public void setdata(String username, String mobno, String email,String Lastname,String dob) {
+    public void setdata(String username, String mobno, String email,String Lastname,String dob)
+    {
         Fname=username;
         Lname=Lastname;
         Dob=dob;
@@ -266,13 +263,14 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             }
             else if(groupview==0)
             {
-                setup_productlist_Fragment();
-//                Intent i=new Intent(getActivity(), CategoryListFragment.class);
-//                startActivity(i);
+               // setup_productlist_Fragment();
+               Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
+               startActivity(i);
             }
             else if(groupview==2 &childview==1)
             {
                 setup_productlist_Fragment();
+
             }
             else if(groupview==2 &childview==0)
             {
@@ -361,8 +359,8 @@ Log.e("Exception",e.toString());
 
 
 
-    private void prepareListData() {
-
+    private void prepareListData()
+    {
 
 
             listDataHeader = new ArrayList<String>();

@@ -7,13 +7,6 @@
     >
 
 
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout" />
-
-
-
     <include
         layout="@layout/content_dashboard"
         ></include>
