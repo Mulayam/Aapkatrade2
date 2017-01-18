@@ -27,7 +27,6 @@ public class Homeactivity extends AppCompatActivity
     Context context;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
