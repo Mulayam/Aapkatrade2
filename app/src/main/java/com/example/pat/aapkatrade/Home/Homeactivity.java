@@ -127,14 +127,14 @@ public  static  String shared_pref_name="aapkatrade";
         {
             case R.id.login:
                 //finish();
-                Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
+                Intent i =new Intent(HomeActivity.this, logindashboard.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 return true;
 
            case R.id.language:
                View menuItemView = findViewById(R.id.language);
-               PopupMenu popup = new PopupMenu(Homeactivity.this.context, menuItemView);
+               PopupMenu popup = new PopupMenu(HomeActivity.this.context, menuItemView);
                //Inflating the Popup using xml file
                popup.getMenuInflater().inflate(R.menu.menu_language_list, popup.getMenu());
 
@@ -198,7 +198,7 @@ public  static  String shared_pref_name="aapkatrade";
         SharedPreferences prefs = getSharedPreferences(shared_pref_name,
                 Activity.MODE_PRIVATE);
         String language = prefs.getString(langPref, "");
-        App_config.setLocaleFa(Homeactivity.this,language);
+        App_config.setLocaleFa(HomeActivity.this,language);
        Log.e("language",language);
        // changeLang(language);
     }

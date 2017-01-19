@@ -89,7 +89,7 @@ FrameLayout fl_seller,fl_buyer,fl_business_assoc;
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(logindashboard.this, User_DashboardFragment.class);
+                Intent i = new Intent(LoginDashboard.this, User_DashboardFragment.class);
 
                 startActivity(i);
 
