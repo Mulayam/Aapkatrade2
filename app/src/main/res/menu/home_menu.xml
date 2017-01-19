@@ -12,7 +12,7 @@
 
     <item
         android:id="@+id/language"
-        android:icon="@drawable/ic_language"
+        android:icon="@drawable/ic_language2"
         android:orderInCategory="102"
         android:title="@string/language"
         app:showAsAction="always" />

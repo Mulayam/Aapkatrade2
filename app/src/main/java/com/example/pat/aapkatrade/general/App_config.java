@@ -18,20 +18,16 @@ public class App_config extends Application {
 
     }
 
-    public static void setLocaleFa (Context context){
-        Locale locale = new Locale("hi");
+    public static void setLocaleFa(Context context, String language){
+        Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
-        context.getApplicationContext().getResources().updateConfiguration(config, null);
+        context.getApplicationContext().getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+
+
     }
 
-    public static void setLocaleEn (Context context){
-        Locale locale = new Locale("th");
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        context.getApplicationContext().getResources().updateConfiguration(config, null);
-    }
+
 
 }
