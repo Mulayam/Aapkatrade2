@@ -7,8 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Spinner;
 
-import com.example.pat.aapkatrade.Home.registration.SpCityAdapter;
-import com.example.pat.aapkatrade.Home.registration.SpCountrysAdapter;
 import com.example.pat.aapkatrade.R;
 
 

@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.Home.registration;
+package com.example.pat.aapkatrade.Home.registration.spinner_adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,41 +7,37 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.R;
-
-import java.util.ArrayList;
 
 /**
  * Created by PPC16 on 16-Jan-17.
  */
 
-public class SpCityAdapter  extends BaseAdapter {
+public class SpBussinessAdapter extends BaseAdapter {
     Context context;
-    private ArrayList<City> cityList = new ArrayList<>();
+    String[] categoriesNames;
     LayoutInflater inflter;
 
-    public SpCityAdapter(Context applicationContext, ArrayList<City> cityList) {
+    public SpBussinessAdapter(Context applicationContext, String[] categoriesNames) {
         this.context = applicationContext;
-        this.cityList = cityList;
+
+        this.categoriesNames = categoriesNames;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
-
-
     @Override
     public int getCount() {
-        return cityList.size();
+        return categoriesNames.length;
     }
 
     @Override
     public Object getItem(int i) {
-        return i;
+        return null;
     }
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return 0;
     }
 
     @Override
@@ -50,7 +46,7 @@ public class SpCityAdapter  extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
-        names.setText(cityList.get(i).cityName);
+        names.setText(categoriesNames[i]);
         return view;
     }
 }
