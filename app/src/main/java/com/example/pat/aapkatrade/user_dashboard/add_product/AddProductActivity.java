@@ -48,17 +48,17 @@ public class AddProductActivity extends AppCompatActivity
 
         spUnitCategory = (Spinner) findViewById(R.id.spUnitCategory);
 
-        SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),categoriesNames);
-
-        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
-
-        SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),subcategories);
-
-        spSubCategory.setAdapter(customAdapter);
-
-        spCategory.setAdapter(spCityAdapter);
-
-        spUnitCategory.setAdapter(spCountrysAdapter);
+//        SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),categoriesNames);
+//
+//       // SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
+//
+//       / SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),subcategories);
+//
+//        spSubCategory.setAdapter(customAdapter);
+//
+//        spCategory.setAdapter(spCityAdapter);
+//
+//        spUnitCategory.setAdapter(spCountrysAdapter);
 
     }
 

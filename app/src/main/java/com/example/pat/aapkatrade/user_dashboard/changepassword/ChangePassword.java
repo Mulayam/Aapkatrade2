@@ -10,14 +10,12 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
 
 
-public class ChangePassword extends AppCompatActivity
-{
+public class ChangePassword extends AppCompatActivity {
 
     TextView toolbar_title_txt;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_change_password);
@@ -27,8 +25,7 @@ public class ChangePassword extends AppCompatActivity
     }
 
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -48,10 +45,8 @@ public class ChangePassword extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
             case android.R.id.home:
                 finish();

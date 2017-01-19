@@ -26,9 +26,7 @@ public class AddCompany extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_company);
-
         setuptoolbar();
-
         setup_layout();
 
     }

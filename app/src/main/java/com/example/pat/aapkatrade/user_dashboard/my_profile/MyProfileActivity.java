@@ -29,11 +29,8 @@ public class MyProfileActivity extends AppCompatActivity
     {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_my_profile);
-
         setuptoolbar();
-
         setup_layout();
 
     }
@@ -42,9 +39,7 @@ public class MyProfileActivity extends AppCompatActivity
     {
 
         btnsave = (Button) findViewById(R.id.btnSave);
-
         btnEdit = (Button) findViewById(R.id.btnEdit);
-
         btnsave.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -54,8 +49,7 @@ public class MyProfileActivity extends AppCompatActivity
                 startActivity(i);
             }
         });
-
-       btnEdit.setOnClickListener(new View.OnClickListener()
+        btnEdit.setOnClickListener(new View.OnClickListener()
        {
            @Override
            public void onClick(View v)
@@ -73,9 +67,7 @@ public class MyProfileActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setTitle(null);
-
         getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
@@ -93,7 +85,6 @@ public class MyProfileActivity extends AppCompatActivity
     {
         switch (item.getItemId())
         {
-
             case android.R.id.home:
                 finish();
                 break;

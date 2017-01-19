@@ -15,10 +15,10 @@ import android.view.MenuItem;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.login.logindashboard;
+import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.DashboardFragment;
 
-public class Homeactivity extends AppCompatActivity
+public class HomeActivity extends AppCompatActivity
 {
 
 
@@ -32,7 +32,7 @@ public class Homeactivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        App_config.setLocaleFa(Homeactivity.this);
+        App_config.setLocaleFa(HomeActivity.this);
         setContentView(R.layout.activity_homeactivity);
         context = this;
 
@@ -118,7 +118,7 @@ public class Homeactivity extends AppCompatActivity
         {
             case R.id.login:
                 //finish();
-                Intent i =new Intent(Homeactivity.this, logindashboard.class);
+                Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 return true;

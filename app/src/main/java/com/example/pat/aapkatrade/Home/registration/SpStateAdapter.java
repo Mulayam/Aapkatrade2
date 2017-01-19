@@ -7,27 +7,29 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by PPC16 on 16-Jan-17.
  */
 
-public class SpStateAdapter  extends BaseAdapter {
+public class SpStateAdapter extends BaseAdapter {
     Context context;
-    String[] categoriesNames;
+    private ArrayList<State> stateList = new ArrayList<>();
     LayoutInflater inflter;
 
-    public SpStateAdapter(Context applicationContext, String[] categoriesNames) {
+    public SpStateAdapter(Context applicationContext, ArrayList<State> stateList) {
         this.context = applicationContext;
-
-        this.categoriesNames = categoriesNames;
+        this.stateList = stateList;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
     @Override
     public int getCount() {
-        return categoriesNames.length;
+        return stateList.size();
     }
 
     @Override
@@ -46,7 +48,7 @@ public class SpStateAdapter  extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
-        names.setText(categoriesNames[i]);
+        names.setText(stateList.get(i).stateName);
         return view;
     }
 }

@@ -6,7 +6,7 @@ import android.net.ConnectivityManager;
 /**
  * Created by abcd on 10/6/2016.
  */
-public class Connetivity_check {
+public class ConnetivityCheck {
 
 
     public static boolean isNetworkAvailable(final Context context) {

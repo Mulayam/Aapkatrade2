@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.R;
+
+import java.util.ArrayList;
 
 /**
  * Created by PPC16 on 16-Jan-17.
@@ -15,29 +18,30 @@ import com.example.pat.aapkatrade.R;
 
 public class SpCityAdapter  extends BaseAdapter {
     Context context;
-    String[] categoriesNames;
+    private ArrayList<City> cityList = new ArrayList<>();
     LayoutInflater inflter;
 
-    public SpCityAdapter(Context applicationContext, String[] categoriesNames) {
+    public SpCityAdapter(Context applicationContext, ArrayList<City> cityList) {
         this.context = applicationContext;
-
-        this.categoriesNames = categoriesNames;
+        this.cityList = cityList;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
+
+
     @Override
     public int getCount() {
-        return categoriesNames.length;
+        return cityList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return i;
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -46,7 +50,7 @@ public class SpCityAdapter  extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
-        names.setText(categoriesNames[i]);
+        names.setText(cityList.get(i).cityName);
         return view;
     }
 }

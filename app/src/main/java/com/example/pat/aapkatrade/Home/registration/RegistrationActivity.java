@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.Home.registration;
 
+import android.app.ProgressDialog;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,71 +16,169 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.pat.aapkatrade.Home.registration.entity.City;
+import com.example.pat.aapkatrade.Home.registration.entity.Country;
+import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-
-public class RegistrationActivity extends AppCompatActivity
-{
-
-    Spinner spBussinessCategory,spCountry,spState,spCity;
-
-    String[] spBussinessName= {"-Please Select-","Personal","Business"};
-
-    String[] spCountryName= {"-Please Select-","Afghanistan","Angola","Brazil","Canada","Denmark", "England","France","Germany","India"};
-
-    String[] spStateName= {"-Please Select-","Andhra Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Delhi","Goa","Gujrat"};
-
-    String[] spCityName= {"-Please Select-","Delhi","New Delhi"};
-
-    EditText etProductName,etFirstName,etLastName,etEmail,etMobileNo,etUserName,etPassword,etReenterPassword;
-    Button btnSave;
-    CoordinatorLayout cl;
+import java.util.ArrayList;
 
 
+public class RegistrationActivity extends AppCompatActivity {
+
+    private Spinner spBussinessCategory, spCountry, spState, spCity;
+    private String[] spBussinessName = {"-Please Select-", "Personal", "Business"};
+    private String[] spCityName = {"-Please Select-", "Delhi", "New Delhi"};
+    private EditText etProductName, etFirstName, etLastName, etEmail, etMobileNo, etUserName, etPassword, etReenterPassword;
+    private Button btnSave;
+    private CoordinatorLayout cl;
+    private ProgressDialog dialog;
+    private ArrayList<Country> countryList = new ArrayList<>();
+    private ArrayList<State> stateList = new ArrayList<>();
+    private ArrayList<City> cityList = new ArrayList<>();
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_registration);
-
         setuptoolbar();
-
         setup_layout();
-
-       // getCountry();
+        dialog = ProgressDialog.show(RegistrationActivity.this, "", "Loading. Please wait...", true);
+        getCountry();
 
     }
 
-    private void getCountry()
-    {
+    private void getCountry() {
+        dialog.show();
         Ion.with(getApplicationContext())
-                .load("http://aapkatrade.com/slim/countries")
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "country")
-                .setBodyParameter("id", "101")
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
 
                         JsonObject jsonObject = result.getAsJsonObject();
-                        Log.d("data",result.toString());
-                       // System.out.println("result--------"+result.toString());
+                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                        for (int i = 0; i < jsonResultArray.size(); i++) {
+                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                            Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                            countryList.add(countryEntity);
+                        }
+                        dialog.hide();
+                        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
+                        spCountry.setAdapter(spCountrysAdapter);
+
+                        spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view,
+                                                       int position, long id) {
+                                stateList = new ArrayList<State>();
+                                getState(countryList.get(position).countryId);
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+
+
+                        });
+                    }
+
+
+                });
+    }
+
+    public void getState(String countryId) {
+        Log.d("data", countryId);
+        dialog.show();
+        Ion.with(getApplicationContext())
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("id", countryId)
+                .setBodyParameter("type", "state")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.d("data", result.toString());
+                        JsonObject jsonObject = result.getAsJsonObject();
+                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                        for (int i = 0; i < jsonResultArray.size(); i++) {
+                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                            State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                            stateList.add(stateEntity);
+//                                            Log.d("data", stateEntity.stateName);
+                        }
+                        dialog.hide();
+                        SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
+                        spState.setAdapter(spStateAdapter);
+
+                        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view,
+                                                       int position, long id) {
+                                cityList = new ArrayList<City>();
+                                getCity(stateList.get(position).stateId);
+
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+
+
+                        });
                     }
                 });
     }
 
-    private void setuptoolbar()
-    {
+    public void getCity(String stateId) {
+        Log.d("data", stateId);
+        dialog.show();
+        Ion.with(getApplicationContext())
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("id", stateId)
+                .setBodyParameter("type", "city")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.d("data", result.toString());
+                        JsonObject jsonObject = result.getAsJsonObject();
+                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                        for (int i = 0; i < jsonResultArray.size(); i++) {
+                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                            City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                            cityList.add(cityEntity);
+//                                            Log.d("data", stateEntity.stateName);
+                        }
+                        dialog.hide();
+                        SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
+                        spCity.setAdapter(spCityAdapter);
+                    }
+                });
+    }
+
+
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -91,19 +190,15 @@ public class RegistrationActivity extends AppCompatActivity
 
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -113,10 +208,9 @@ public class RegistrationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
 
-        cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout) ;
+        cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
 
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
 
@@ -128,11 +222,11 @@ public class RegistrationActivity extends AppCompatActivity
 
         btnSave = (Button) findViewById(R.id.btnSave);
 
-        etProductName = (EditText)  findViewById(R.id.etProductName);
+        etProductName = (EditText) findViewById(R.id.etProductName);
 
         etFirstName = (EditText) findViewById(R.id.etFirstName);
 
-        etLastName  = (EditText) findViewById(R.id.etLastName);
+        etLastName = (EditText) findViewById(R.id.etLastName);
 
         etEmail = (EditText) findViewById(R.id.etEmail);
 
@@ -144,15 +238,14 @@ public class RegistrationActivity extends AppCompatActivity
 
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
 
-        SpBussinessAdapter spBussinessAdapter = new SpBussinessAdapter(getApplicationContext(),spBussinessName);
+        SpBussinessAdapter spBussinessAdapter = new SpBussinessAdapter(getApplicationContext(), spBussinessName);
 
-        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
 
-        SpStateAdapter spStateAdapter = new SpStateAdapter(getApplicationContext(),spStateName);
+        // SpStateAdapter spStateAdapter = new SpStateAdapter(getApplicationContext(), spStateName);
 
-        SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),spCityName);
+//        SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, spCityName);
 
-        spBussinessCategory.setAdapter(spBussinessAdapter);
+//        spBussinessCategory.setAdapter(spBussinessAdapter);
 
        /* spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
@@ -188,145 +281,116 @@ public class RegistrationActivity extends AppCompatActivity
             }
         });*/
 
-        spCountry.setAdapter(spCountrysAdapter);
 
-        spState.setAdapter(spStateAdapter);
+        // spState.setAdapter(spStateAdapter);
 
-        spCity.setAdapter(spCityAdapter);
+//        spCity.setAdapter(spCityAdapter);
 
-        btnSave.setOnClickListener(new View.OnClickListener()
-        {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(),"Hi Dear",Toast.LENGTH_SHORT).show();
-               check_validation();
+                Toast.makeText(getApplicationContext(), "Hi Dear", Toast.LENGTH_SHORT).show();
+                check_validation();
             }
         });
 
     }
 
-    private void check_validation()
-    {
+    private void check_validation() {
 
-                        if(etProductName.getText().toString().equals(""))
-                        {
+        if (etProductName.getText().toString().equals("")) {
 
-                            if(etFirstName.getText().toString().equals(""))
-                            {
+            if (etFirstName.getText().toString().equals("")) {
 
-                                if(etLastName.getText().toString().equals(""))
-                                {
+                if (etLastName.getText().toString().equals("")) {
 
-                                    if(etEmail.getText().toString().equals(""))
-                                    {
+                    if (etEmail.getText().toString().equals("")) {
 
-                                        if(Validation.isValidEmail(etEmail.getText().toString()))
-                                        {
+                        if (Validation.isValidEmail(etEmail.getText().toString())) {
 
-                                            if(etMobileNo.getText().toString().equals(""))
+                            if (etMobileNo.getText().toString().equals("")) {
+
+                                if (etMobileNo.getText().toString().length() == 10) {
+
+
+                                    if (etUserName.getText().toString().equals("")) {
+
+                                        if (etPassword.getText().toString().equals("")) {
+
+
+                                            if (etReenterPassword.getText().toString().equals("")) {
+
+
+                                            }
                                             {
 
-                                                if(etMobileNo.getText().toString().length() == 10)
-                                                {
-
-
-                                                    if(etUserName.getText().toString().equals(""))
-                                                    {
-
-                                                        if(etPassword.getText().toString().equals(""))
-                                                        {
-
-
-                                                            if(etReenterPassword.getText().toString().equals(""))
-                                                            {
-
-
-
-                                                            }
-                                                            {
-
-                                                                showmessage("Please ReEnter Password");
-
-                                                            }
-
-
-                                                        }
-                                                        {
-
-                                                            showmessage("Please Enter Password");
-
-                                                        }
-
-                                                    }
-                                                    {
-
-                                                        showmessage("Please Enter User Name");
-
-                                                    }
-
-
-                                                }
-                                                else
-                                                {
-
-                                                    showmessage("Please Enter 10 Digit Mobile Number");
-
-                                                }
+                                                showmessage("Please ReEnter Password");
 
                                             }
 
+
                                         }
-                                        else
                                         {
 
-                                            showmessage("Please Enter Valid Email Address");
-
+                                            showmessage("Please Enter Password");
 
                                         }
 
                                     }
-                                    else
                                     {
 
-                                        showmessage("Please Enter Email");
+                                        showmessage("Please Enter User Name");
 
                                     }
 
 
+                                } else {
 
-                                }
-                                else
-                                {
-
-                                    showmessage("Please Enter Last Name");
+                                    showmessage("Please Enter 10 Digit Mobile Number");
 
                                 }
 
-
                             }
-                            else
-                            {
 
-                                showmessage("Please Enter First Name");
+                        } else {
 
-                            }
+                            showmessage("Please Enter Valid Email Address");
 
 
                         }
-                        else
-                        {
 
-                            showmessage("Please Enter Shop Name");
+                    } else {
 
-                        }
+                        showmessage("Please Enter Email");
+
+                    }
+
+
+                } else {
+
+                    showmessage("Please Enter Last Name");
+
+                }
+
+
+            } else {
+
+                showmessage("Please Enter First Name");
+
+            }
+
+
+        } else {
+
+            showmessage("Please Enter Shop Name");
+
+        }
 
 
     }
 
-    public void showmessage(String message)
-    {
+    public void showmessage(String message) {
 
         Snackbar snackbar = Snackbar
                 .make(cl, message, Snackbar.LENGTH_LONG)
@@ -339,9 +403,7 @@ public class RegistrationActivity extends AppCompatActivity
                 });
 
 
-
     }
-
 
 
 }

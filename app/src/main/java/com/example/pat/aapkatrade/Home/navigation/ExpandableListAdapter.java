@@ -205,7 +205,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
 //    private void callSubscribedwebservice() {
 //        SharedPreferences sharedpreferences = _context.getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
 //        String emailid=sharedpreferences.getString("email",null);
-//        if (Connetivity_check.isNetworkAvailable(_context) == true) {
+//        if (ConnetivityCheck.isNetworkAvailable(_context) == true) {
 //
 //            if (emailid != null) {
 //                _progressDialog.show();
