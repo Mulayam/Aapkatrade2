@@ -15,54 +15,49 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
 
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     TextView login_text;
-    EditText username,password;
-    RelativeLayout rl_login,relativeRegister;
+    EditText username, password;
+    RelativeLayout rl_login, relativeRegister;
     Validation vt;
     CoordinatorLayout cl;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Initview();
-        putvalues();
+        InitView();
+        putValues();
     }
 
-    private void putvalues() {
+    private void putValues() {
 
         login_text.setTextSize(getResources().getDimension(R.dimen.textsize));
         rl_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String input_username=username.getText().toString().trim();
-                String input_password=password.getText().toString().trim();
+                String input_username = username.getText().toString().trim();
+                String input_password = password.getText().toString().trim();
 
-                if (Validation.validate_edittext(username))
-                {
+                if (Validation.validate_edittext(username)) {
 
 
-                    if (Validation.validate_edittext(password))
-                    {
+                    if (Validation.validate_edittext(password)) {
 
-                        Intent i = new Intent(loginActivity.this, activity_otpverify.class);
-                        startActivity(i);
+                        Intent activityOTPVerify = new Intent(LoginActivity.this, ActivityOTPVerify.class);
+                        startActivity(activityOTPVerify);
 
-                    }
-                    else{
-                        showmessage("");
+                    } else {
+                        showMessage("");
                         password.setError("Invalid Password");
                     }
 
 
-                }
-                else{
+                } else {
                     username.setError("");
-                    showmessage("Invalid Username");
+                    showMessage("Invalid Username");
                 }
 
             }
@@ -70,51 +65,44 @@ public class loginActivity extends AppCompatActivity {
 
     }
 
-    private void Initview() {
+    private void InitView() {
 
-        login_text=(TextView)findViewById(R.id.tv_login);
-        cl=(CoordinatorLayout)findViewById(R.id.coordinator_layout);
-        username= (EditText) findViewById(R.id.etusername);
-        password=(EditText)findViewById(R.id.etpassword);
-        rl_login=(RelativeLayout)findViewById(R.id.rl_login);
+        login_text = (TextView) findViewById(R.id.tv_login);
+        cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
+        username = (EditText) findViewById(R.id.etusername);
+        password = (EditText) findViewById(R.id.etpassword);
+        rl_login = (RelativeLayout) findViewById(R.id.rl_login);
 
         relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
 
-        relativeRegister.setOnClickListener(new View.OnClickListener()
-        {
+        relativeRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                Intent register = new  Intent(loginActivity.this, RegistrationActivity.class);
-                startActivity(register);
-
-
+                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(registerUserActivity);
 
             }
         });
 
-        vt=new Validation();
-
+        vt = new Validation();
 
     }
 
-public void showmessage(String message)
-{
+    public void showMessage(String message) {
 
-    Snackbar snackbar = Snackbar
-            .make(cl, message, Snackbar.LENGTH_LONG)
-            .setAction("", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        Snackbar snackbar = Snackbar
+                .make(cl, message, Snackbar.LENGTH_LONG)
+                .setAction("", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 //                    Snackbar snackbar1 = Snackbar.make(cl, "", Snackbar.LENGTH_SHORT);
 //                    snackbar1.show();
-                }
-            });
+                    }
+                });
 
 
-
-}
+    }
 
 
 }

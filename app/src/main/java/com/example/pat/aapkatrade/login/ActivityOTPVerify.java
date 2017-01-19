@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.Homeactivity;
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 
-public class activity_otpverify extends AppCompatActivity {
+public class ActivityOTPVerify extends AppCompatActivity {
 
     Button retryotp;
     TextView toolbar_title_txt,tittleTxt,otpNotRespond,couter_textview;
@@ -100,7 +100,7 @@ public class activity_otpverify extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent otp = new Intent(activity_otpverify.this, Homeactivity.class);
+                Intent otp = new Intent(ActivityOTPVerify.this, HomeActivity.class);
                 otp.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(otp);
                 overridePendingTransition(R.anim.enter, R.anim.exit);

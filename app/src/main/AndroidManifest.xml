@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pat.aapkatrade">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".login.loginActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
         
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
@@ -30,18 +31,18 @@
         <activity android:name=".user_dashboard.companylist.CompanyList" />
         <activity android:name=".user_dashboard.product_list.ProductListActivity" />
         <activity
-            android:name=".login.logindashboard"
+            android:name=".login.LoginDashboard"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_logindashboard"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".Home.Homeactivity" />
+        <activity android:name=".Home.HomeActivity" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
         <activity android:name=".Home.registration.RegistrationActivity" />
 
-        <activity android:name=".login.activity_otpverify" />
-        <activity android:name=".general.Connectivity_not_found"></activity>
+        <activity android:name=".login.ActivityOTPVerify" />
+        <activity android:name=".general.ConnectivityNotFound"></activity>
 
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
         <activity android:name=".user_dashboard.order_list.order_details.OrderDetailsActivity" />
