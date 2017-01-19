@@ -73,6 +73,9 @@
     <string name="latest_deals">LATEST DEALS</string>
     <string name="new_arrival">NEW ARRIVAL</string>
     <string name="hot_deals">HOT DEALS</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    english
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

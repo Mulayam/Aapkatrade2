@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.DashboardFragment;
+import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 
 
 /**
@@ -88,7 +88,7 @@ FrameLayout fl_seller,fl_buyer,fl_business_assoc;
         fl_seller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(logindashboard.this, DashboardFragment.class);
+                Intent i = new Intent(logindashboard.this, User_DashboardFragment.class);
                 startActivity(i);
 
             }

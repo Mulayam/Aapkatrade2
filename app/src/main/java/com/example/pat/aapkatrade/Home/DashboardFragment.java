@@ -9,7 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +32,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     Context context;
     private View upAllSale;
     int currentPage=0;
+    private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
     LinearLayout viewpagerindicator;
     private RecyclerView recyclerViewAllSale, recyclerViewTrendingStyle, recyclerViewEclipseCollection, recyclerViewExpressDeal, recyclerViewBestSelling;
     private LinearLayoutManager llManagerAllSale, llManagerTrendingStyle, llManagerEclipseCollection, llManagerExpressDeal, llManagerBestSelling;
@@ -58,6 +62,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private int dotsCount;
     private int[] tabColors;
     private List<Integer> imageIdList;
+    User_DashboardFragment user_dashboardFragment;
     private ImageView[] dots;
     private Handler mHandler;
     public static final int DELAY = 5000;
@@ -71,6 +76,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     ScrollView scrollView;
     AHBottomNavigation bottomNavigation;
     Timer banner_timer=new Timer();
+    CoordinatorLayout coordinatorLayout;
 
     viewpageradapter_home viewpageradapter;
     public DashboardFragment() {
@@ -108,6 +114,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private void setup_bottomNavigation(View view)
     {
+        coordinatorLayout=(CoordinatorLayout)view.findViewById(R.id.coordination_home);
 
         bottomNavigation = (AHBottomNavigation) view.findViewById(R.id.bottom_navigation);
 
@@ -179,6 +186,30 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
+
+
+
+                switch (position)
+                {case 0:
+                    if (homeFragment == null)
+                    {
+                        homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+                    }
+                    String tagName = homeFragment.getClass().getName();
+                    replaceFragment(homeFragment, tagName);
+                    break;
+
+
+
+                    case 3:
+                        if (user_dashboardFragment == null)
+                        {
+                            user_dashboardFragment = new User_DashboardFragment();
+                        }
+                        //String tagName_dashboardFragment = User_DashboardFragment.getClass().getName();
+                        replaceFragment(user_dashboardFragment,"");
+                        break;
+                }
                 // Do something cool here...
                 return true;
             }
@@ -272,8 +303,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     private void initializeview(View v) {
+
         scrollView=(ScrollView)v.findViewById(R.id.scrollView);
-      //  setup_scrollview(scrollView);
+        setup_scrollview(scrollView);
         v1=(View)v.findViewById(R.id.previous) ;
         v2=(View)v.findViewById(R.id.next) ;
        // discover_category=(AppCompatButton)v.findViewById(R.id.buttonDiscover);
@@ -540,6 +572,27 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             bottomNavigation.hideBottomNavigation(true);
         }
     }
+
+    private void replaceFragment(Fragment newFragment, String tag)
+    {
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void setupDashFragment()
+    {
+        if (homeFragment == null)
+        {
+            homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+        }
+        String tagName = homeFragment.getClass().getName();
+        replaceFragment(homeFragment, tagName);
+    }
+
+
+
 
 
 

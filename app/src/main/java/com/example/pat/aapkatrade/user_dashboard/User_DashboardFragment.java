@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.pat.aapkatrade.R;
 import java.util.ArrayList;
 
-public class DashboardFragment extends Fragment
+public class User_DashboardFragment extends Fragment
 {
 
 
@@ -20,7 +20,7 @@ public class DashboardFragment extends Fragment
 
 
 
-    public DashboardFragment()
+    public User_DashboardFragment()
     {
 
     }

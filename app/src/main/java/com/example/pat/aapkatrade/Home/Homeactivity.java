@@ -1,22 +1,26 @@
 package com.example.pat.aapkatrade.Home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.login.logindashboard;
-import com.example.pat.aapkatrade.user_dashboard.DashboardFragment;
 
 public class Homeactivity extends AppCompatActivity
 {
@@ -26,13 +30,14 @@ public class Homeactivity extends AppCompatActivity
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
     Context context;
-
+public  static  String shared_pref_name="aapkatrade";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        App_config.setLocaleFa(Homeactivity.this);
+
+       loadLocale();
         setContentView(R.layout.activity_homeactivity);
         context = this;
 
@@ -96,7 +101,7 @@ public class Homeactivity extends AppCompatActivity
     {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
+        transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(null);
         transaction.commit();
     }
 
@@ -124,11 +129,44 @@ public class Homeactivity extends AppCompatActivity
                 return true;
 
            case R.id.language:
+               View menuItemView = findViewById(R.id.language);
+               PopupMenu popup = new PopupMenu(Homeactivity.this.context, menuItemView);
+               //Inflating the Popup using xml file
+               popup.getMenuInflater().inflate(R.menu.menu_language_list, popup.getMenu());
 
-               DashboardFragment dashboardFragment = new DashboardFragment();
-               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
-               transaction.commit();
+
+               //registering popup with OnMenuItemClickListener
+               popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                   public boolean onMenuItemClick(MenuItem item) {
+                       switch (item.getItemId())
+                       {
+                           case R.id.english_language:
+                               saveLocale("en");
+
+
+                              // getIntent().start
+                               return true;
+
+                           case R.id.hindi_language:
+                               saveLocale("hi");
+
+                               return true;
+                       }
+
+
+                       return true;
+                   }
+               });
+
+               popup.show();//showing popup menu
+
+
+
+
+//               User_DashboardFragment dashboardFragment = new User_DashboardFragment();
+//               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
+//               transaction.commit();
 
                return true;
             default:
@@ -149,6 +187,32 @@ public class Homeactivity extends AppCompatActivity
 
 
     }
+
+
+    public void loadLocale() {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences(shared_pref_name,
+                Activity.MODE_PRIVATE);
+        String language = prefs.getString(langPref, "");
+        App_config.setLocaleFa(Homeactivity.this,language);
+       Log.e("language",language);
+       // changeLang(language);
+    }
+
+    public void saveLocale(String lang)
+    {
+        String langPref = "Language";
+        SharedPreferences prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(langPref, lang);
+        editor.commit();
+        Log.e("language_pref",langPref+"****"+lang);
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+
 
 
 
