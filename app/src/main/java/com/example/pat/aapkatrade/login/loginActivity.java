@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
+import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
 
@@ -21,7 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout rl_login, relativeRegister;
     Validation vt;
     CoordinatorLayout cl;
-
+    private static String shared_pref_name = "aapkatrade";
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         InitView();
         putValues();
+
+        relativeRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sharedPreferences != null) {
+                    if (sharedPreferences.getInt("user", 0) == 3) {
+                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
+                        startActivity(registerUserActivity);
+                    } else if((sharedPreferences.getInt("user", 0) == 1) || (sharedPreferences.getInt("user", 0) == 2)) {
+                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                        startActivity(registerUserActivity);
+                    }
+                }
+            }
+        });
     }
 
     private void putValues() {
@@ -72,21 +90,9 @@ public class LoginActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.etusername);
         password = (EditText) findViewById(R.id.etpassword);
         rl_login = (RelativeLayout) findViewById(R.id.rl_login);
-
         relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
-
-        relativeRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(registerUserActivity);
-
-            }
-        });
-
         vt = new Validation();
-
+        sharedPreferences = getSharedPreferences(shared_pref_name, MODE_PRIVATE);
     }
 
     public void showMessage(String message) {

@@ -1,6 +1,8 @@
 package com.example.pat.aapkatrade.Home.registration;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,7 +48,9 @@ public class RegistrationActivity extends AppCompatActivity {
     private ArrayList<Country> countryList = new ArrayList<>();
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
-
+    private static  String shared_pref_name = "aapkatrade";
+    private SharedPreferences prefs;
+    private LinearLayout businessDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,15 @@ public class RegistrationActivity extends AppCompatActivity {
         setuptoolbar();
         setup_layout();
         dialog = ProgressDialog.show(RegistrationActivity.this, "", "Loading. Please wait...", true);
-        getCountry();
+        if(prefs!=null){
+            if(prefs.getInt("user",0)==1){
+                getCountry();
+            }if(prefs.getInt("user",0)==2){
+                dialog.hide();
+                businessDetails.setVisibility(View.GONE);
+            }
+        }
+
 
     }
 
@@ -240,11 +253,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
         etPassword = (EditText) findViewById(R.id.etPassword);
 
+        businessDetails = (LinearLayout) findViewById(R.id.businessDetails);
+
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
 
         SpBussinessAdapter spBussinessAdapter = new SpBussinessAdapter(getApplicationContext(), spBussinessName);
 
-
+        prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
         // SpStateAdapter spStateAdapter = new SpStateAdapter(getApplicationContext(), spStateName);
 
 //        SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, spCityName);
