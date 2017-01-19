@@ -20,8 +20,7 @@ import android.view.View;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
-
-import com.example.pat.aapkatrade.login.logindashboard;
+import com.example.pat.aapkatrade.login.LoginDashboard;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -127,7 +126,7 @@ public  static  String shared_pref_name="aapkatrade";
         {
             case R.id.login:
                 //finish();
-                Intent i =new Intent(HomeActivity.this, logindashboard.class);
+                Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                 return true;
