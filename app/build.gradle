@@ -14,11 +14,7 @@ android {
 
 
     }
-    dexOptions {
-        incremental = true;
-        preDexLibraries = false
-        javaMaxHeapSize "2g"
-    }
+
 
 
     buildTypes {
