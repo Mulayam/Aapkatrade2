@@ -1,12 +1,18 @@
 package com.example.pat.aapkatrade.Home;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -21,14 +27,16 @@ import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 
+
 import com.example.pat.aapkatrade.login.LoginDashboard;
+
+
+
 
 
 
 public class HomeActivity extends AppCompatActivity
 {
-
-
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
@@ -53,8 +61,8 @@ public class HomeActivity extends AppCompatActivity
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
 
-
     }
+
 
 
     private void setupNavigationCustom()
