@@ -20,7 +20,13 @@ import android.view.View;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
+
+
 import com.example.pat.aapkatrade.login.LoginDashboard;
+
+
+
+
 
 
 public class HomeActivity extends AppCompatActivity
@@ -31,7 +37,7 @@ public class HomeActivity extends AppCompatActivity
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
     Context context;
-public  static  String shared_pref_name="aapkatrade";
+    public  static  String shared_pref_name="aapkatrade";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,24 +56,6 @@ public  static  String shared_pref_name="aapkatrade";
         setupDashFragment();
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
-
-
-
-//        if(b!=null)
-//        {
-//            username =(String) b.get("username");
-//            mobno =(String) b.get("mobno");
-//            email =(String) b.get("email");
-//            Lastname=(String) b.get("lname");
-//            dob=(String) b.get("dob");
-//
-//            drawer.setdata(username,mobno,email,Lastname,dob);
-//
-//
-//
-//        }
-
-
 
 
     }

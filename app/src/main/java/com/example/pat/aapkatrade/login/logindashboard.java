@@ -1,6 +1,8 @@
 package com.example.pat.aapkatrade.login;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,21 +17,9 @@ import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
  * status bar and navigation/system bar) with user interaction.
  */
 public class LoginDashboard extends AppCompatActivity {
-    /**
-     * Whether or not the system UI should be auto-hidden after
-     * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
-     */
-
-
-    /**
-     * Some older devices needs a small delay between UI widget updates
-     * and a change of the status and navigation bar.
-     */
-
-FrameLayout fl_seller,fl_buyer,fl_business_assoc;
-
-
-
+    FrameLayout fl_seller, fl_buyer, fl_business_assoc;
+    private static  String shared_pref_name = "aapkatrade";
+    SharedPreferences prefs;
 
 
     @Override
@@ -42,7 +32,9 @@ FrameLayout fl_seller,fl_buyer,fl_business_assoc;
         fl_seller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(LoginDashboard.this,LoginActivity.class);
+                if(prefs!= null)
+                prefs.edit().putInt("user", 1).commit();
+                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
@@ -51,7 +43,9 @@ FrameLayout fl_seller,fl_buyer,fl_business_assoc;
         fl_buyer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(LoginDashboard.this,LoginActivity.class);
+                if(prefs!= null)
+                prefs.edit().putInt("user", 2).commit();
+                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
@@ -61,38 +55,35 @@ FrameLayout fl_seller,fl_buyer,fl_business_assoc;
         fl_business_assoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(LoginDashboard.this,LoginActivity.class);
+                if(prefs!= null)
+                prefs.edit().putInt("user", 3).commit();
+                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
 
 
-
-
-
-
     }
 
-    private void Initview()
-    {
-
-        fl_seller=(FrameLayout)findViewById(R.id.fl_seller)  ;
-        fl_buyer=(FrameLayout)findViewById(R.id.fl_buyer)  ;
-
-        fl_business_assoc=(FrameLayout)findViewById(R.id.fl_business_assoc)  ;
+    private void Initview() {
 
         fl_seller = (FrameLayout) findViewById(R.id.fl_seller);
-
-
+        fl_buyer = (FrameLayout) findViewById(R.id.fl_buyer);
+        fl_business_assoc = (FrameLayout) findViewById(R.id.fl_business_assoc);
+        fl_seller = (FrameLayout) findViewById(R.id.fl_seller);
+        prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
         fl_seller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+               
+
+
                 Intent i = new Intent(LoginDashboard.this, User_DashboardFragment.class);
 
-                startActivity(i);
 
+                startActivity(i);
             }
         });
 

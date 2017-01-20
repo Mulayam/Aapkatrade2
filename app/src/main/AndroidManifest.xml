@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pat.aapkatrade">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -9,7 +10,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -19,11 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
-        
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
         <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
         <activity android:name=".user_dashboard.changepassword.ChangePassword" />
@@ -40,14 +38,12 @@
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
         <activity android:name=".Home.registration.RegistrationActivity" />
-
         <activity android:name=".login.ActivityOTPVerify" />
-        <activity android:name=".general.ConnectivityNotFound"></activity>
-
+        <activity android:name=".general.ConnectivityNotFound" />
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
         <activity android:name=".user_dashboard.order_list.order_details.OrderDetailsActivity" />
-        <activity android:name=".categories_tab.CategoriesTabActivity"></activity>
-
+        <activity android:name=".categories_tab.CategoriesTabActivity" />
+        <activity android:name=".Home.registration.RegistrationBusinessAssociateActivity"></activity>
     </application>
 
 </manifest>

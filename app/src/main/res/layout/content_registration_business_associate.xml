@@ -68,184 +68,32 @@
                 </LinearLayout>
 
             </RelativeLayout>
-            
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center">
-                
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_upload"/>
-                
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/businessDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/screen_dark_gray_back"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
-                >
+                android:layout_gravity="center_vertical"
+                android:gravity="center">
 
-
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    >
-
-                    <Spinner
-                        android:id="@+id/spBussinessCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
-                        android:layout_margin="1dp"
-                        ></Spinner>
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
-                        android:scaleType="fitXY"
-                        />
-
-                </RelativeLayout>
-
-
-                <EditText
-                    android:id="@+id/etProductName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:hint="Shop Name"
-                    android:textColorHint="@color/hint_color"
-                    android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:textSize="14dp"
-                    />
-
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    >
-
-                    <Spinner
-                        android:id="@+id/spCountryCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
-                        android:layout_margin="1dp"
-                        ></Spinner>
-
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
-                        android:scaleType="fitXY"
-                        />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    >
-
-                    <Spinner
-                        android:id="@+id/spStateCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
-                        android:layout_margin="1dp"
-                        ></Spinner>
-
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
-                        android:scaleType="fitXY"
-                        />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    android:layout_marginBottom="20dp"
-                    >
-
-                    <Spinner
-                        android:id="@+id/spCityCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
-                        android:layout_margin="1dp"
-                        ></Spinner>
-
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
-                        android:scaleType="fitXY"
-                        />
-
-                </RelativeLayout>
-
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -294,8 +142,8 @@
                     android:padding="10dp"
                     android:maxLines="1"
                     android:textSize="14dp"
-                    />
 
+                    />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -311,6 +159,8 @@
                     android:maxLines="1"
                     android:textSize="14dp"
                     />
+
+
 
                 <EditText
                     android:id="@+id/etMobileNo"
@@ -396,7 +246,7 @@
                     android:padding="10dp"
                     android:maxLines="1"
                     android:textSize="14dp"
-                   android:layout_marginBottom="20dp"
+                    android:layout_marginBottom="20dp"
                     />
 
 

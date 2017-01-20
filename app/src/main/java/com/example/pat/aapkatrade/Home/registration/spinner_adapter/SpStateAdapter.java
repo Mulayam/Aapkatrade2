@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.Home.registration;
+package com.example.pat.aapkatrade.Home.registration.spinner_adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.registration.entity.Country;
+import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
@@ -16,21 +16,20 @@ import java.util.ArrayList;
  * Created by PPC16 on 16-Jan-17.
  */
 
-public class SpCountrysAdapter extends BaseAdapter {
+public class SpStateAdapter extends BaseAdapter {
     Context context;
-    ArrayList<Country> categoriesNames;
+    private ArrayList<State> stateList = new ArrayList<>();
     LayoutInflater inflter;
 
-    public SpCountrysAdapter(Context applicationContext, ArrayList<Country> categoriesNames) {
+    public SpStateAdapter(Context applicationContext, ArrayList<State> stateList) {
         this.context = applicationContext;
-
-        this.categoriesNames = categoriesNames;
+        this.stateList = stateList;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
     @Override
     public int getCount() {
-        return categoriesNames.size();
+        return stateList.size();
     }
 
     @Override
@@ -49,7 +48,7 @@ public class SpCountrysAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
-        names.setText(categoriesNames.get(i).countryName);
+        names.setText(stateList.get(i).stateName);
         return view;
     }
 }
