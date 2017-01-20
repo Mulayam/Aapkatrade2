@@ -253,8 +253,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             //showMessage("groupbiew: " + groupview + "\nchildview: " + childview);
             if((groupview==1)&(childview==0))
             {
-
-                setup_productlist_Fragment();
+                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
+                startActivity(i);
+                //setup_productlist_Fragment();
 //                Intent i=new Intent(getActivity(), CategoryListFragment.class);
 ////                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 ////                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -269,16 +270,19 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             }
             else if(groupview==2 &childview==1)
             {
-                setup_productlist_Fragment();
+                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
+                startActivity(i);
 
             }
             else if(groupview==2 &childview==0)
             {
-                setup_productlist_Fragment();
+                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
+                startActivity(i);
             }
             else if(groupview==5)
             {
-                setup_productlist_Fragment();
+                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
+                startActivity(i);
             }
 
             listAdapter.notifyDataSetChanged();

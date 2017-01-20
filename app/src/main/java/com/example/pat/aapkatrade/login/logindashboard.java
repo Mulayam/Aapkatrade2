@@ -76,7 +76,13 @@ public class LoginDashboard extends AppCompatActivity {
         fl_seller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+               
+
+
                 Intent i = new Intent(LoginDashboard.this, User_DashboardFragment.class);
+
+
                 startActivity(i);
             }
         });
