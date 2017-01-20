@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,13 +21,8 @@ import android.view.View;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
-
-
+import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.login.LoginDashboard;
-
-
-
-
 
 
 public class HomeActivity extends AppCompatActivity
@@ -39,6 +35,12 @@ public class HomeActivity extends AppCompatActivity
     Context context;
     public  static  String shared_pref_name="aapkatrade";
 
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -49,6 +51,8 @@ public class HomeActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_homeactivity);
         context = this;
+        if (CheckPermission.checkPermissions(HomeActivity.this))
+        //  permissions  granted.
 
         setupToolBar();
         //setupNavigation();
@@ -206,7 +210,21 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CheckPermission.MULTIPLE_PERMISSIONS:{
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Log.e("permission_granted","permission_granted");
+                    // permissions granted.
+                } else {
+                    Log.e("permission_requried","permission_requried");
+                    // no permissions granted.
+                }
+                return;
+            }
+        }
+    }
 }
 
 
