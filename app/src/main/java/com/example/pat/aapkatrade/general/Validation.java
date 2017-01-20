@@ -1,5 +1,7 @@
 package com.example.pat.aapkatrade.general;
 
+import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.widget.EditText;
 
 import java.util.regex.Matcher;
@@ -22,24 +24,64 @@ public class Validation {
         return false;
     }
 
+    public static boolean isEmptyStr(String s){
+        return s.trim().equals("") || TextUtils.isEmpty(s);
+    }
+
+    public static boolean isNonEmptyStr(String s){
+        return !isEmptyStr(s);
+    }
+
 
 
 
 
     public static  boolean isValidEmail(String email) {
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        if(isNonEmptyStr(email)) {
+            String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    // validating password with retype password
-    public static  boolean isValidPassword(String pass) {
-        if (pass != null && pass.length() > 6) {
-            return true;
+            Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+            Matcher matcher = pattern.matcher(email);
+            return matcher.matches();
         }
         return false;
     }
+
+    public static  boolean isValidPassword(String password) {
+        return isNonEmptyStr(password) && password.length() > 6;
+    }
+
+    public static boolean isPasswordMatching(String password, String confirmPassword) {
+        if(isValidPassword(password) && isValidPassword(confirmPassword)) {
+            if(password.equals(confirmPassword))
+                return true;
+        }
+        return false;
+    }
+
+    public static String getNumberPrefix(String number) {
+        if (number != null) {
+            if (number.length() > 9) {
+                return number.substring(0, number.length() - 9);
+            }
+        }
+        return "";
+    }
+    public static boolean isValidNumber(String number, String prefix) {
+        if(isNonEmptyStr(number)) {
+            if (prefix == null) {
+                prefix = "";
+            }
+            if (number != null) {
+                if (number.length() > 0) {
+                    if ((number.length() == 9 + prefix.length()) && (getNumberPrefix(number).equals(prefix))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }

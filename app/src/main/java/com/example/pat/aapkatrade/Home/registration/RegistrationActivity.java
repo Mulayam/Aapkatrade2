@@ -2,9 +2,18 @@ package com.example.pat.aapkatrade.Home.registration;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,9 +24,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.Country;
@@ -28,12 +37,21 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAd
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -48,28 +66,84 @@ public class RegistrationActivity extends AppCompatActivity {
     private ArrayList<Country> countryList = new ArrayList<>();
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
-    private static  String shared_pref_name = "aapkatrade";
+    private static String shared_pref_name = "aapkatrade";
     private SharedPreferences prefs;
-    private LinearLayout businessDetails;
+    private LinearLayout businessDetails, uploadView;
+    private static final int rcCC = 33;
+    private boolean isCC = false;
+    private ImageView uploadImage;
+    private CircleImageView circleImageView;
+    private Bitmap imageForPreview;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_registration);
         setuptoolbar();
-        setup_layout();
+        initView();
         dialog = ProgressDialog.show(RegistrationActivity.this, "", "Loading. Please wait...", true);
-        if(prefs!=null){
-            if(prefs.getInt("user",0)==1){
+        saveUserTypeInSharedPreferences();
+        setUpBusinessCategory();
+        saveProfile();
+        uploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picPhoto();
+            }
+        });
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    private void saveUserTypeInSharedPreferences() {
+        if (prefs != null) {
+            if (prefs.getInt("user", 0) == 1) {
                 getCountry();
-            }if(prefs.getInt("user",0)==2){
+            }
+            if (prefs.getInt("user", 0) == 2) {
                 dialog.hide();
                 businessDetails.setVisibility(View.GONE);
             }
         }
+    }
 
+    private void saveProfile() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                validateFields(etFirstName.getText().toString(), etLastName.getText().toString(), etEmail.getText().toString(),
+                        etMobileNo.getText().toString(), etPassword.getText().toString(), etReenterPassword.getText().toString()
+                );
+            }
+        });
+    }
+
+    private void setUpBusinessCategory() {
+        spBussinessCategory.setAdapter(new SpBussinessAdapter(getApplicationContext(), spBussinessName));
+        spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (spBussinessName[position].equalsIgnoreCase("Personal")) {
+                    uploadView.setVisibility(View.GONE);
+                } else if (spBussinessName[position].equalsIgnoreCase("Business")) {
+                    uploadView.setVisibility(View.VISIBLE);
+                    etProductName.setHint(getString(R.string.company_name_heading));
+                } else {
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getCountry() {
@@ -185,7 +259,6 @@ public class RegistrationActivity extends AppCompatActivity {
                             JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                             City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                             cityList.add(cityEntity);
-//                                            Log.d("data", stateEntity.stateName);
                         }
                         dialog.hide();
                         SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
@@ -200,11 +273,8 @@ public class RegistrationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setTitle(null);
-
         getSupportActionBar().setIcon(R.drawable.home_logo);
-
     }
 
     @Override
@@ -225,188 +295,72 @@ public class RegistrationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setup_layout() {
-
+    private void initView() {
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
-
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
-
         spCountry = (Spinner) findViewById(R.id.spCountryCategory);
-
         spState = (Spinner) findViewById(R.id.spStateCategory);
-
         spCity = (Spinner) findViewById(R.id.spCityCategory);
-
         btnSave = (Button) findViewById(R.id.btnSave);
-
         etProductName = (EditText) findViewById(R.id.etProductName);
-
         etFirstName = (EditText) findViewById(R.id.etFirstName);
-
         etLastName = (EditText) findViewById(R.id.etLastName);
-
         etEmail = (EditText) findViewById(R.id.etEmail);
-
         etMobileNo = (EditText) findViewById(R.id.etMobileNo);
-
         etUserName = (EditText) findViewById(R.id.etUserName);
-
         etPassword = (EditText) findViewById(R.id.etPassword);
-
         businessDetails = (LinearLayout) findViewById(R.id.businessDetails);
-
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
-
-        SpBussinessAdapter spBussinessAdapter = new SpBussinessAdapter(getApplicationContext(), spBussinessName);
-
+        uploadView = (LinearLayout) findViewById(R.id.uploadView);
         prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-        // SpStateAdapter spStateAdapter = new SpStateAdapter(getApplicationContext(), spStateName);
-
-//        SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, spCityName);
-
-//        spBussinessCategory.setAdapter(spBussinessAdapter);
-
-       /* spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
-
-                if (spBussinessCategory.getSelectedItem().equals("Personal"))
-                {
-
-                    etProductName.setVisibility(View.VISIBLE);
-
-                }
-                else if(spBussinessCategory.getSelectedItem().equals("Business"))
-                {
-
-                    etProductName.setVisibility(View.VISIBLE);
-
-                }
-                else
-                {
-
-                    etProductName.setVisibility(View.GONE);
-
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent)
-            {
-
-            }
-        });*/
-
-
-        // spState.setAdapter(spStateAdapter);
-
-//        spCity.setAdapter(spCityAdapter);
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(getApplicationContext(), "Hi Dear", Toast.LENGTH_SHORT).show();
-                check_validation();
-            }
-        });
-
+        circleImageView = (CircleImageView) findViewById(R.id.previewImage);
+        uploadImage = (ImageView) findViewById(R.id.uploadButton);
     }
 
-    private void check_validation() {
+    private void validateFields(String fName, String lName, String email, String mobileNumber, String password, String confirmPassword) {
+        if (Validation.isNonEmptyStr(fName)) {
+            if (Validation.isNonEmptyStr(lName)) {
+                if (Validation.isValidEmail(email)) {
+                    if (Validation.isValidNumber(mobileNumber, Validation.getNumberPrefix(mobileNumber))) {
+                        if (Validation.isValidPassword(password)) {
+                            if (Validation.isPasswordMatching(password, confirmPassword)) {
 
-        if (etProductName.getText().toString().equals("")) {
-
-            if (etFirstName.getText().toString().equals("")) {
-
-                if (etLastName.getText().toString().equals("")) {
-
-                    if (etEmail.getText().toString().equals("")) {
-
-                        if (Validation.isValidEmail(etEmail.getText().toString())) {
-
-                            if (etMobileNo.getText().toString().equals("")) {
-
-                                if (etMobileNo.getText().toString().length() == 10) {
-
-
-                                    if (etUserName.getText().toString().equals("")) {
-
-                                        if (etPassword.getText().toString().equals("")) {
-
-
-                                            if (etReenterPassword.getText().toString().equals("")) {
-
-
-                                            }
-                                            {
-
-                                                showmessage("Please ReEnter Password");
-
-                                            }
-
-
-                                        }
-                                        {
-
-                                            showmessage("Please Enter Password");
-
-                                        }
-
-                                    }
-                                    {
-
-                                        showmessage("Please Enter User Name");
-
-                                    }
-
-
-                                } else {
-
-                                    showmessage("Please Enter 10 Digit Mobile Number");
-
-                                }
-
+                            } else {
+                                putError(5);
                             }
-
                         } else {
-
-                            showmessage("Please Enter Valid Email Address");
-
-
+                            putError(4);
                         }
-
                     } else {
-
-                        showmessage("Please Enter Email");
-
+                        putError(3);
                     }
-
-
                 } else {
-
-                    showmessage("Please Enter Last Name");
-
+                    putError(2);
                 }
-
-
             } else {
-
-                showmessage("Please Enter First Name");
-
+                putError(1);
             }
-
-
         } else {
+            putError(0);
+        }
+    }
 
-            showmessage("Please Enter Shop Name");
+    private void putError(int id) {
+        switch (id) {
+            case 0:
+                etFirstName.setError("First Name Can't be empty");
+            case 1:
+                etLastName.setError("Last Name Can't be empty");
+            case 2:
+                etEmail.setError("Please Enter Valid Email");
+            case 3:
+                etMobileNo.setError("Please Enter Valid Mobile Number");
+            case 4:
+                etPassword.setError("Password must be greater than 6 digits");
+            case 5:
+                etReenterPassword.setError("Password did not matched");
 
         }
-
-
     }
 
     public void showmessage(String message) {
@@ -424,5 +378,119 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+    void picPhoto() {
+        String str[] = new String[]{"Camera", "Gallery"};
+        new AlertDialog.Builder(this).setItems(str,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        performImgPicAction(which);
+                    }
+                }).show();
+    }
 
+    void performImgPicAction(int which) {
+        Intent in;
+        if (which == 1) {
+            in = new Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        } else {
+            in = new Intent();
+            in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        }
+        startActivityForResult(Intent.createChooser(in, "Select profile picture"), which);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        try {
+            if (rcCC == requestCode) {
+                if (resultCode == Activity.RESULT_OK) {
+                    isCC = true;
+                }
+            } else if (resultCode == Activity.RESULT_OK) {
+                BitmapFactory.Options option = new BitmapFactory.Options();
+                option.inDither = false;
+                option.inPurgeable = true;
+                option.inInputShareable = true;
+                option.inTempStorage = new byte[32 * 1024];
+                option.inPreferredConfig = Bitmap.Config.RGB_565;
+                if (Build.VERSION.SDK_INT < 19) {
+                    Uri selectedImageURI = data.getData();
+                    imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
+                } else {
+
+                    ParcelFileDescriptor pfd;
+                    try {
+                        pfd = getContentResolver()
+                                .openFileDescriptor(data.getData(), "r");
+                        if(pfd!=null) {
+                            FileDescriptor fileDescriptor = pfd
+                                    .getFileDescriptor();
+
+                            imageForPreview = BitmapFactory.decodeFileDescriptor(
+                                    fileDescriptor, null, option);
+                        }
+                        pfd.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    circleImageView.setImageBitmap(imageForPreview);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Registration Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }
