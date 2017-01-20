@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_my_profile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
 
     <ScrollView
@@ -15,103 +16,133 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
 
             <RelativeLayout
                 android:id="@+id/relativeCompanyListheader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                >
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
 
                 <RelativeLayout
                     android:id="@+id/linear_layout_image"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@color/orange"
                     android:layout_alignParentLeft="true"
-                    >
+                    android:background="@color/orange">
 
                     <ImageView
                         android:id="@+id/imgProfile"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_user"
-                        android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
-                        />
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_user" />
 
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@color/orange"
-                    android:layout_toRightOf="@+id/linear_layout_image"
                     android:layout_marginLeft="3dp"
-                    android:padding="10dp"
+                    android:layout_toRightOf="@+id/linear_layout_image"
+                    android:background="@color/orange"
                     android:gravity="center_vertical"
-                    >
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bussiness Details"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </RelativeLayout>
-            
+
             <LinearLayout
+                android:id="@+id/uploadView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="center">
-                
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
                 <ImageView
+                    android:id="@+id/uploadButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_upload"/>
-                
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_upload" />
+
+                <TextView
+                    android:id="@+id/uploadMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/uploadImage"
+                    android:textSize="@dimen/textsize"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/cross"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/previewImage"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/flower"
+                        app:civ_border_color="@color/green"
+                        app:civ_border_width="2dp" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/businessDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:layout_marginTop="25dp"
                 android:background="@drawable/screen_dark_gray_back"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
-                >
-
-
+                android:orientation="vertical">
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    >
+                    android:padding="2dp">
 
                     <Spinner
                         android:id="@+id/spBussinessCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
                         android:layout_margin="1dp"
-                        ></Spinner>
+                        android:background="@drawable/simple_spinner_back"></Spinner>
 
                     <ImageView
                         android:layout_width="20dp"
@@ -119,9 +150,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
                         android:scaleType="fitXY"
-                        />
+                        android:src="@drawable/ic_arrow" />
 
                 </RelativeLayout>
 
@@ -130,37 +160,33 @@
                     android:id="@+id/etProductName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
-                    android:hint="Shop Name"
-                    android:textColorHint="@color/hint_color"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
+                    android:hint="@string/shop_name"
                     android:maxLines="1"
-                    android:textSize="14dp"
-                    />
-
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="14dp" />
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    >
+                    android:padding="2dp">
 
                     <Spinner
                         android:id="@+id/spCountryCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
                         android:layout_margin="1dp"
-                        ></Spinner>
+                        android:background="@drawable/simple_spinner_back"></Spinner>
 
 
                     <ImageView
@@ -169,9 +195,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
                         android:scaleType="fitXY"
-                        />
+                        android:src="@drawable/ic_arrow" />
 
                 </RelativeLayout>
 
@@ -179,21 +204,19 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
-                    >
+                    android:padding="2dp">
 
                     <Spinner
                         android:id="@+id/spStateCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
                         android:layout_margin="1dp"
-                        ></Spinner>
+                        android:background="@drawable/simple_spinner_back"></Spinner>
 
 
                     <ImageView
@@ -202,9 +225,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
                         android:scaleType="fitXY"
-                        />
+                        android:src="@drawable/ic_arrow" />
 
                 </RelativeLayout>
 
@@ -212,22 +234,20 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
                     android:layout_marginBottom="20dp"
-                    >
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp">
 
                     <Spinner
                         android:id="@+id/spCityCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
                         android:layout_margin="1dp"
-                        ></Spinner>
+                        android:background="@drawable/simple_spinner_back"></Spinner>
 
 
                     <ImageView
@@ -236,12 +256,10 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/ic_arrow"
                         android:scaleType="fitXY"
-                        />
+                        android:src="@drawable/ic_arrow" />
 
                 </RelativeLayout>
-
 
 
             </LinearLayout>
@@ -249,85 +267,78 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Personal Details"
                 android:layout_margin="10dp"
+                android:text="Personal Details"
                 android:textColor="@color/orange"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/screen_dark_gray_back"
                 android:layout_margin="10dp"
-                >
+                android:background="@drawable/screen_dark_gray_back"
+                android:orientation="vertical">
 
 
                 <EditText
                     android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
-                    android:hint="First Name"
-                    android:textColorHint="@color/hint_color"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
+                    android:hint="First Name"
                     android:maxLines="1"
-                    android:textSize="14dp"
-                    />
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="14dp" />
 
 
                 <EditText
                     android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
-                    android:hint="Last Name"
-                    android:textColorHint="@color/hint_color"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
+                    android:hint="Last Name"
                     android:maxLines="1"
-                    android:textSize="14dp"
-                    />
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="14dp" />
 
 
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
-                    android:hint="Email"
-                    android:textColorHint="@color/hint_color"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
+                    android:hint="Email"
                     android:maxLines="1"
-                    android:textSize="14dp"
-                    />
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="14dp" />
 
                 <EditText
                     android:id="@+id/etMobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="Mobile Number"
-                    android:textColorHint="@color/hint_color"
-                    android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:textSize="14dp"
                     android:layout_marginBottom="20dp"
-                    />
-
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_green_back"
+                    android:hint="Mobile Number"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="14dp" />
 
 
             </LinearLayout>
@@ -335,32 +346,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New User Signup"
                 android:layout_margin="10dp"
+                android:text="New User Signup"
                 android:textColor="@color/orange"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/green"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/etUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
-                    android:hint="User Name"
-                    android:textColorHint="@color/hint_color"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
+                    android:hint="User Name"
                     android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
                     android:textSize="14dp"
 
                     />
@@ -370,14 +379,15 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
-                    android:hint="Enter Your Password"
-                    android:textColorHint="@color/hint_color"
+                    android:inputType="textPassword"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
+                    android:hint="@string/password"
                     android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
                     android:textSize="14dp"
 
                     />
@@ -387,18 +397,17 @@
                     android:id="@+id/etReenterPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
-                    android:hint="Re Enter password"
-                    android:textColorHint="@color/hint_color"
+                    android:inputType="textPassword"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
+                    android:hint="@string/confirm_password"
                     android:maxLines="1"
-                    android:textSize="14dp"
-                   android:layout_marginBottom="20dp"
-                    />
-
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="14dp" />
 
 
             </LinearLayout>
@@ -408,13 +417,11 @@
                 android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
-                android:background="@drawable/button_orange_back"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
-                android:textColor="@color/white"
-                />
-
+                android:background="@drawable/button_orange_back"
+                android:text="Save"
+                android:textColor="@color/white" />
 
 
         </LinearLayout>
