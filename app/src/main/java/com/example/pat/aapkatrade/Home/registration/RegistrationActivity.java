@@ -37,6 +37,7 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAd
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -71,11 +72,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private ImageView uploadImage;
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -418,6 +414,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
                 if (Build.VERSION.SDK_INT < 19) {
                     Uri selectedImageURI = data.getData();
+
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
                 } else {
 
