@@ -153,37 +153,37 @@ public class RegistrationActivity extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        if (result != null) {
+                            JsonObject jsonObject = result.getAsJsonObject();
+                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                countryList.add(countryEntity);
+                            }
+                            dialog.hide();
+                            SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
+                            spCountry.setAdapter(spCountrysAdapter);
 
-                        JsonObject jsonObject = result.getAsJsonObject();
-                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                        for (int i = 0; i < jsonResultArray.size(); i++) {
-                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                            Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                            countryList.add(countryEntity);
+                            spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view,
+                                                           int position, long id) {
+                                    stateList = new ArrayList<State>();
+                                    getState(countryList.get(position).countryId);
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+
+
+                            });
                         }
-                        dialog.hide();
-                        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
-                        spCountry.setAdapter(spCountrysAdapter);
-
-                        spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view,
-                                                       int position, long id) {
-                                stateList = new ArrayList<State>();
-                                getState(countryList.get(position).countryId);
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-
-
-                        });
                     }
-
 
                 });
     }
@@ -420,25 +420,56 @@ public class RegistrationActivity extends AppCompatActivity {
                     Uri selectedImageURI = data.getData();
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
                 } else {
+                    if(data.getData()!=null) {
 
-                    ParcelFileDescriptor pfd;
-                    try {
-                        pfd = getContentResolver()
-                                .openFileDescriptor(data.getData(), "r");
-                        if(pfd!=null) {
-                            FileDescriptor fileDescriptor = pfd
-                                    .getFileDescriptor();
+                        ParcelFileDescriptor pfd;
+                        try {
+                            pfd = getContentResolver()
+                                    .openFileDescriptor(data.getData(), "r");
+                            if (pfd != null) {
+                                FileDescriptor fileDescriptor = pfd
+                                        .getFileDescriptor();
 
-                            imageForPreview = BitmapFactory.decodeFileDescriptor(
-                                    fileDescriptor, null, option);
+                                imageForPreview = BitmapFactory.decodeFileDescriptor(
+                                        fileDescriptor, null, option);
+                            }
+                            pfd.close();
+
+
+                        } catch (FileNotFoundException e) {
+                           Log.e("FileNotFoundException",e.toString());
+                        } catch (IOException e) {
+                            Log.e("IOException",e.toString());
                         }
-                        pfd.close();
-
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+
+                    else{
+
+                        ParcelFileDescriptor pfd;
+//                        try {
+   imageForPreview = (Bitmap)data.getExtras().get("data");
+
+
+//                                imageForPreview = BitmapFactory.decodeFileDescriptor(
+//                                        fileDescriptor, null, option);
+
+
+
+
+//                        } catch (FileNotFoundException e) {
+//                            Log.e("FileNotFoundException",e.toString());
+//                        } catch (IOException e) {
+//                            Log.e("IOException",e.toString());
+//                        }
+
+
+
+
+
+
+                        Log.e("data_not_found","data_not_found");
+                    }
+
                 }
                 try {
                     circleImageView.setImageBitmap(imageForPreview);

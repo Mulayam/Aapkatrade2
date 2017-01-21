@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -16,18 +15,14 @@ import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 
 
 public class LoginActivity extends AppCompatActivity {
-    TextView login_text;
+    TextView login_text,forgot_password;
     EditText username, password;
     RelativeLayout rl_login, relativeRegister;
     Validation vt;
+
     CoordinatorLayout cl;
     private static String shared_pref_name = "aapkatrade";
     private SharedPreferences sharedPreferences;
@@ -90,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void InitView() {
+        forgot_password=(TextView)findViewById(R.id.tv_forgotpassword);
 
         login_text = (TextView) findViewById(R.id.tv_login);
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -99,12 +95,16 @@ public class LoginActivity extends AppCompatActivity {
         relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
         vt = new Validation();
         sharedPreferences = getSharedPreferences(shared_pref_name, MODE_PRIVATE);
-        username.setOnClickListener(new View.OnClickListener() {
+
+
+        forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent forgotpassword_activity = new Intent(LoginActivity.this, Forgot_Password.class);
+                startActivity(forgotpassword_activity);
             }
         });
+
     }
 
     public void showMessage(String message) {
