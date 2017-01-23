@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.productdetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,10 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.pat.aapkatrade.R;
 import java.util.ArrayList;
-
 
 
 public class CategoryListFragment extends AppCompatActivity
@@ -23,8 +22,8 @@ public class CategoryListFragment extends AppCompatActivity
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     ImageView imageView;
     Toolbar toolbar;
-    MaterialDialog materialDialog;
     boolean wrapInScrollView = true;
+
 
 
 
@@ -52,10 +51,6 @@ public class CategoryListFragment extends AppCompatActivity
 
         mRecyclerView.setNestedScrollingEnabled(false);
 
-
-
-
-
     }
 
 
@@ -70,6 +65,7 @@ public class CategoryListFragment extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle(null);
+
 
     }
 
@@ -98,7 +94,7 @@ public class CategoryListFragment extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.menu_filtre, menu);
         return true;
     }
 
@@ -107,15 +103,11 @@ public class CategoryListFragment extends AppCompatActivity
     {
         switch (item.getItemId())
         {
-            case android.R.id.home:
+            case R.id.login:
 
-                new MaterialDialog.Builder(this)
-                        .title(R.string.app_name)
-                        .customView(R.layout.dailog_filter, wrapInScrollView)
-                        .show();
-
+                Intent i = new Intent(CategoryListFragment.this,FilterActivity.class);
+                startActivity(i);
                 break;
-
 
             default:
                 return super.onOptionsItemSelected(item);
