@@ -59,7 +59,9 @@
         <activity android:name=".Home.registration.RegistrationBusinessAssociateActivity" />
         <activity android:name=".login.Forgot_Password"
             android:theme="@style/myedittext"
-            ></activity>
+            >
+
+        </activity>
     </application>
 
 </manifest>

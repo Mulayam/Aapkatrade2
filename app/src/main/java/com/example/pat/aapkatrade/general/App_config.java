@@ -15,12 +15,12 @@ public class App_config extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        set_defaultfont();
+
 
     }
 
-    private void set_defaultfont() {
-        TypefaceUtil.overrideFont(getApplicationContext(), "serif", "OpenSans_Regular.ttf");
+    public static void set_defaultfont(Context c) {
+        TypefaceUtil.overrideFont(c, "SERIF", "OpenSans_Regular.ttf");
 
 
     }

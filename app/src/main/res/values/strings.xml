@@ -91,6 +91,9 @@
     <string name="or">OR</string>
     <string name="mobile_no">mobile no</string>
     <string name="send_otp">SEND OTP</string>
-
+    <string name="otp_data_1">Make sure your information is</string>
+    <string name="otp_data_2">correct before continuing</string>
+    <string name="verify">VERIFY</string>
+    <string name="otp_not_recived">OTP Not Received?</string>
 
 </resources>
