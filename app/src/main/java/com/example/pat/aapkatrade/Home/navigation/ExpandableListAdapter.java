@@ -124,16 +124,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                     }
                 });
 
-//        if (_listDataChild.get(_listDataHeader.get(groupPosition).getCategoryName()).size() == 0) {
-//            imageView.setVisibility(View.GONE);
-//            final View finalConvertView = convertView;
-//            convertView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    click.itemClicked(finalConvertView, groupPosition, 0);
-//                }
-//            });
-//        } else {
+        if (_listDataHeader.get(groupPosition).getSubCategoryList().size() == 0) {
+            imageView.setVisibility(View.GONE);
+            final View finalConvertView = convertView;
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    click.itemClicked(finalConvertView, groupPosition, 0);
+                }
+            });
+        } else {
             if (isExpanded) {
                 imageView.setImageResource(R.drawable.ic_chevron_primary);
                 convertView.setBackgroundResource(R.color.dark_green);
@@ -142,7 +142,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
                 notifyDataSetChanged();
             }
-//        }
+        }
 
 
         TextView lblListHeader = (TextView) convertView
