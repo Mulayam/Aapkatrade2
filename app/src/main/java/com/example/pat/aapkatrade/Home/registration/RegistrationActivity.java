@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.Country;
@@ -58,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private String[] spBussinessName = {"-Please Select-", "Personal", "Business"};
     private String[] spCityName = {"-Please Select-", "Delhi", "New Delhi"};
     private EditText etProductName, etFirstName, etLastName, etEmail, etMobileNo, etUserName, etPassword, etReenterPassword;
-    private Button btnSave;
+    private TextView btnSave;
     private CoordinatorLayout cl;
     private ProgressDialog dialog;
     private ArrayList<Country> countryList = new ArrayList<>();
@@ -293,7 +294,7 @@ public class RegistrationActivity extends AppCompatActivity {
         spCountry = (Spinner) findViewById(R.id.spCountryCategory);
         spState = (Spinner) findViewById(R.id.spStateCategory);
         spCity = (Spinner) findViewById(R.id.spCityCategory);
-        btnSave = (Button) findViewById(R.id.btnSave);
+        btnSave = (TextView) findViewById(R.id.btnSave);
         etProductName = (EditText) findViewById(R.id.etProductName);
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
