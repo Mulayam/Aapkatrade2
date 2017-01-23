@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -27,6 +28,7 @@ import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesTabActivity;
+import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.productdetail.CategoryListFragment;
 import com.google.gson.JsonArray;
@@ -66,6 +68,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     List<String> categoryids;
     CategoryListFragment productListActivity;
     List<String> categoryname;
+    private Snackbar snackbar;
 
 
     public static SharedPreferences.Editor loginPrefsEditor;
@@ -227,8 +230,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     @Override
     public void itemClicked(View view, int groupview, int childview) {
         try {
-
-
             Intent i = new Intent(getActivity(), CategoriesTabActivity.class);
             startActivity(i);
         } catch (Exception e) {
@@ -238,7 +239,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     private void replaceFragment(Fragment newFragment, String tag) {
-
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
         transaction.commit();
@@ -252,86 +252,20 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         replaceFragment(productListActivity, tagName);
     }
 
-
-    private static class Trust implements X509TrustManager {
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
-                throws CertificateException {
-
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
-                throws CertificateException {
-
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-
-    }
-
     private void prepareListData() {
-        getCategory();
-
-//            listDataHeader = new ArrayList<String>();
-//            listDataChild = new HashMap<String, List<String>>();
-//            listDataHeader.add("Home");
-//            listDataHeader.add("Automobile");
-//            listDataHeader.add("Barber");
-//            listDataHeader.add("Dairy Product");
-//            listDataHeader.add("Electronics Repair");
-//            listDataHeader.add("Flower Shops");
-//            listDataHeader.add("Funeral Places");
-//
-//            // Adding child data
-//            List<String> top250 = new ArrayList<String>();
-//            top250.add("Woman's Clothings");
-//            top250.add("Man's Clothings");
-//            top250.add("Electronics");
-//            top250.add("Home and Garden");
-//            top250.add("Jwellery and Health");
-//            top250.add("Automotive");
-//            top250.add("Beauty and Health");
-//            top250.add("Toys, Kids and Baby");
-//            top250.add("Bags and Shoes");
-//            top250.add("Sports and Outdoor");
-//            top250.add("Phone and Accessories");
-//            top250.add("Computer and Networking");
-//            top250.add("VIEW ALL CATEGORIES");
-//
-//            List<String> Settings_data = new ArrayList<String>();
-//            Settings_data.add("Groceries");
-//            Settings_data.add("Restaurant");
-//        List<String> home = new ArrayList<String>();
-//
-//            List<String> account = new ArrayList<String>();
-//            List<String> ratethisapp = new ArrayList<String>();
-//            List<String> help_center = new ArrayList<String>();
-//            List<String> share_app = new ArrayList<String>();
-//            listDataChild.put(listDataHeader.get(0), home);
-//        //listDataChild = new HashMap<String, List<String>>();
-////            for (int i = 0; i < listDataHeader.size(); i++) {
-////                listDataChild.put(listDataHeader.get(i), Settings_data);
-////            }
-//            listDataChild.put(listDataHeader.get(1), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(2), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(3), Settings_data);
-//            listDataChild.put(listDataHeader.get(4), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(5), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(6), Settings_data);
+//        if(ConnetivityCheck.isNetworkAvailable(getContext())){
+            getCategory();
+//        }else{
+//            snackbar = Snackbar.make(getView().findViewById(R.id.snakBar), "Please Check your Network Connection", Snackbar.LENGTH_LONG);
+//            snackbar.setActionTextColor(getResources().getColor(android.R.color.holo_red_dark));
+//            snackbar.setAction("Retry", new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    getCategory();
+//                }
+//            });
+//            snackbar.show();
+//        }
     }
 
 
@@ -346,18 +280,24 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        JsonObject jsonObject = result.getAsJsonObject();
-                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                        listDataHeader = new ArrayList<>();
-                        for (int i = 0; i < jsonResultArray.size(); i++) {
-                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                            CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
-                            categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
-                            listDataHeader.add(categoryHome);
-                            Log.e("hi", categoryHome.getCategoryName());
-                        }
-                        set_expandable_adapter_data();
+                        if (result != null) {
+                            JsonObject jsonObject = result.getAsJsonObject();
+                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                            listDataHeader = new ArrayList<>();
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
+                                categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
+                                listDataHeader.add(categoryHome);
+                                Log.e("hi", categoryHome.getCategoryName());
+                            }
+                            set_expandable_adapter_data();
 //                        dialog.hide();
+                        }
+                        else{
+                            Log.e("Exception_webservice",e.toString());
+
+                        }
                     }
                 });
     }
