@@ -84,8 +84,8 @@ public class CategoriesTabActivity extends AppCompatActivity implements  AppBarL
     private void setupViewPager(ViewPager viewPager)
     {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new CategoryListFragment(), "Groceries");
-        adapter.addFragment(new CategoryListFragment(), "Restaurant");
+       // adapter.addFragment(new CategoryListFragment(), "Groceries");
+       // adapter.addFragment(new CategoryListFragment(), "Restaurant");
         viewPager.setAdapter(adapter);
     }
 

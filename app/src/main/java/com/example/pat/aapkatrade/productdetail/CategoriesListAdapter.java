@@ -23,6 +23,8 @@ import java.util.List;
 public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
+
+
     private final LayoutInflater inflater;
     private List<CategoriesListData> itemList;
     private Context context;
@@ -43,7 +45,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         View view = inflater.inflate(R.layout.product_list_item, parent, false);
         viewHolder = new CategoriesListHolder(view);
 
-
         return viewHolder;
     }
 
@@ -58,11 +59,10 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             public void onClick(View v)
             {
                 Intent intent = new Intent(context,ProductDetail.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });
-
-
 
     }
 
