@@ -77,9 +77,6 @@ public class LoginDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               
-
-
                 Intent i = new Intent(LoginDashboard.this, User_DashboardFragment.class);
 
 

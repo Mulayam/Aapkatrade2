@@ -142,7 +142,6 @@ public class HomeActivity extends AppCompatActivity
                            case R.id.english_language:
                                saveLocale("en");
 
-
                               // getIntent().start
                                return true;
 
