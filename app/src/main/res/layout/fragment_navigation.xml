@@ -70,6 +70,7 @@ android:padding="10dp"
         android:layout_marginBottom="20dp"
         android:groupIndicator="@null" />
     <View
+        android:id="@+id/snakBar1"
         android:layout_width="match_parent"
         android:background="@color/orange"
         android:layout_height="2dp">
