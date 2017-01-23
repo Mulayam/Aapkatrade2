@@ -26,23 +26,27 @@
             android:layout_marginBottom="40dp"
             >
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/tv_aapkatrade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/aapka_data"
-                android:textSize="30sp"
+                android:textSize="45sp"
                 android:textColor="@color/orange"
                 />
 
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_aapkatrade_description"
                 android:layout_width="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="yaha par sab kucch milta hai"
                 android:textColor="@color/black"
-                android:layout_below="@+id/textView1"
-                android:textSize="16sp"
+                android:layout_alignLeft="@+id/tv_aapkatrade"
+                android:layout_alignRight="@+id/tv_aapkatrade"
+                android:layout_below="@+id/tv_aapkatrade"
+                android:textSize="@dimen/textsize_medium"
                 />
 
 

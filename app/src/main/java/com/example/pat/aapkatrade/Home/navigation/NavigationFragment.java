@@ -27,7 +27,6 @@ import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesTabActivity;
-import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.productdetail.CategoryListFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -37,7 +36,6 @@ import com.koushikdutta.ion.Ion;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.net.ssl.X509TrustManager;
@@ -346,7 +344,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        JsonObject jsonObject = result.getAsJsonObject();
+                        if(result!=null){
+                                JsonObject jsonObject = result.getAsJsonObject();
                         JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
                         listDataHeader = new ArrayList<>();
                         for (int i = 0; i < jsonResultArray.size(); i++) {
@@ -358,7 +357,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                         }
                         set_expandable_adapter_data();
 //                        dialog.hide();
-                    }
+                    }}
                 });
     }
 

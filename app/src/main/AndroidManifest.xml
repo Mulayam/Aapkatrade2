@@ -57,7 +57,9 @@
         <activity android:name=".user_dashboard.order_list.order_details.OrderDetailsActivity" />
         <activity android:name=".categories_tab.CategoriesTabActivity" />
         <activity android:name=".Home.registration.RegistrationBusinessAssociateActivity" />
-        <activity android:name=".login.Forgot_Password"></activity>
+        <activity android:name=".login.Forgot_Password"
+            android:theme="@style/myedittext"
+            ></activity>
     </application>
 
 </manifest>
