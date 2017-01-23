@@ -56,7 +56,7 @@
     <string name="brand">Brand : Apple</string>
     <string name="product_code">Product Code : Product15</string>
     <string name="quantity">Quantity</string>
-    <string name="buy">Buy Now!</string>
+    <string name="buy"> Buy Now! </string>
     <string name="title_activity_product_list">ProductListActivity</string>
     <string name="category">Footwear</string>
     <string name="phone_number">+91 9696969696</string>

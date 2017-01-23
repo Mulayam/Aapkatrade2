@@ -41,6 +41,10 @@
 
     <style name="myRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingstars</item>
+        <item name="android:numStars">5</item>
+        <item name="android:rating">3</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:layout_gravity">center_vertical</item>
     </style>
 
 </resources>

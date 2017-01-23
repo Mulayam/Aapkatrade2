@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,7 +38,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
-        View view = inflater.inflate(R.layout.product_list_item, parent, false);
+        View view = inflater.inflate(R.layout.row_product_list, parent, false);
         viewHolder = new CategoriesListHolder(view);
 
 

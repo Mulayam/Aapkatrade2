@@ -29,9 +29,10 @@ public class ProductDetail extends AppCompatActivity
         setuptoolbar();
 
         String[] ITEMS = {"1", "2", "3", "4", "5", "6"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ProductDetail.this, android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner = (MaterialSpinner) findViewById(R.id.spinner_qty);
+        spinner.setItems(ITEMS);
         spinner.setAdapter(adapter);
 
 
