@@ -19,42 +19,75 @@
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
+                android:weightSum="5"
+                android:background="@drawable/loginbg"
 
                 android:layout_height="0dp">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:background="@drawable/loginbg"
-                    android:gravity="center_vertical"
-                    android:layout_height="match_parent">
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
 
-
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/logo"
-                        android:layout_marginTop="10dp"
+
                         android:layout_centerHorizontal="true"
+
                         android:id="@+id/logo"
                         tools:ignore="ContentDescription" />
 
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
 
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_below="@+id/logo"
+
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="20dp"
+
+                android:layout_centerVertical="true"
+
                         android:text="@string/login"
                         android:id="@+id/tv_login"
-
+                        android:textSize="@dimen/textsize_medium"
+                        android:textStyle="bold"
 
                         android:textColor="@color/color_voilet"
 
                         android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_horizontal"
+
+
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+
+
+
+
+
+
 
                 </RelativeLayout>
 
@@ -63,9 +96,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="7"
+                android:layout_weight="6"
                 android:orientation="vertical"
-                android:weightSum="5"
+                android:weightSum="4"
                 android:background="@color/brown_light"
                 android:layout_height="0dp">
                 <LinearLayout
@@ -121,6 +154,7 @@
                                 android:layout_marginTop="10dp"
                                 android:textColor="@color/black"
                                 android:gravity="center_horizontal"
+                                android:textSize="@dimen/textsize_small"
                                 android:layout_height="wrap_content" />
 
 
@@ -169,6 +203,7 @@
                                 android:layout_marginTop="10dp"
                                 android:textColor="@color/black"
                                 android:gravity="center_horizontal"
+                                android:textSize="@dimen/textsize_small"
                                 android:layout_height="wrap_content" />
 
                         </RelativeLayout>
@@ -220,6 +255,7 @@
                                 android:text="@string/businessassociate"
                                 android:layout_marginTop="10dp"
                                 android:textColor="@color/black"
+                                android:textSize="@dimen/textsize_small"
                                 android:gravity="center_horizontal"
                                 android:layout_height="wrap_content" />
 
@@ -233,7 +269,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:weightSum="2"
                     android:layout_gravity="center_vertical|center_horizontal"
                     android:orientation="horizontal"
