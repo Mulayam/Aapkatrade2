@@ -19,6 +19,7 @@ public class TypefaceUtil {
             final Field defaultFontTypefaceField = Typeface.class.getDeclaredField(defaultFontNameToOverride);
             defaultFontTypefaceField.setAccessible(true);
             defaultFontTypefaceField.set(null, customFontTypeface);
+          //  Log.e("working  " ,""+ customFontFileNameInAssets + " instead of " + defaultFontNameToOverride);
         } catch (Exception e) {
             Log.e("Can  " ,""+ customFontFileNameInAssets + " instead of " + defaultFontNameToOverride);
         }

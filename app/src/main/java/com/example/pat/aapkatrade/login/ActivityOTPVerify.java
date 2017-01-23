@@ -92,7 +92,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
         retryotp = (Button) findViewById(R.id.retryButton);
 
-        tittleTxt = (TextView) findViewById(R.id.tittleTxt);
+        //tittleTxt = (TextView) findViewById(R.id.tittleTxt);
 
         otpNotRespond = (TextView) findViewById(R.id.otpNotRespond);
 
