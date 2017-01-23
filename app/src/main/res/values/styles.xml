@@ -56,4 +56,11 @@
 
     </style>
 
+    <style name="MyAppTheme" parent="@android:style/Theme.Holo.Light">
+        <!-- you should set typeface which you want to override with TypefaceUtil -->
+        <item name="android:typeface">serif</item>
+    </style>
+
+
+
 </resources>
