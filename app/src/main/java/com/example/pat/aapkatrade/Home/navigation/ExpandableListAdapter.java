@@ -66,12 +66,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
 
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
+
         tg_button = (ToggleButton) convertView.findViewById(R.id.toggleButton);
         tg_button.setOnCheckedChangeListener(this);
 
         txtListChild.setText(childText);
         final View finalConvertView = convertView;
-        convertView.setOnClickListener(new View.OnClickListener() {
+
+
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                 click.itemClicked(finalConvertView, groupPosition, childPosition);

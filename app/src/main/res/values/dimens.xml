@@ -9,4 +9,5 @@
     <dimen name="textsize_small">12sp</dimen>
     <dimen name="textsize_medium">16sp</dimen>
     <dimen name="textsize_large">20sp</dimen>
+    <dimen name="Button_small" >30dp</dimen>
 </resources>

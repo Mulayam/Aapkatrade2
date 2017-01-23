@@ -16,6 +16,13 @@ public class App_config extends Application {
     public void onCreate() {
         super.onCreate();
 
+
+    }
+
+    public static void set_defaultfont(Context c) {
+        TypefaceUtil.overrideFont(c, "SERIF", "OpenSans_Regular.ttf");
+
+
     }
 
     public static void setLocaleFa(Context context, String language){

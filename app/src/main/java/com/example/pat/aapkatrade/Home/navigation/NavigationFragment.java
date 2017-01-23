@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     List<String> categoryids;
     CategoryListFragment productListActivity;
     List<String> categoryname;
-
 
     public static SharedPreferences.Editor loginPrefsEditor;
     private Context context;
@@ -223,15 +223,23 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void itemClicked(View view, int groupview, int childview) {
+    public void itemClicked(View view, int groupview, int childview)
+    {
+
         try {
 
-
-            Intent i = new Intent(getActivity(), CategoriesTabActivity.class);
+            Intent i = new Intent(getActivity(), CategoryListFragment.class);
             startActivity(i);
         } catch (Exception e) {
             Log.e("Exception", e.toString());
         }
+
+
+      /*  CategoryListFragment categoryListFragment = new CategoryListFragment();
+        replaceFragment(categoryListFragment,null);
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+*/
+
     }
 
 
@@ -247,7 +255,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             productListActivity = new CategoryListFragment();
         }
         String tagName = productListActivity.getClass().getName();
-        replaceFragment(productListActivity, tagName);
+        //replaceFragment(productListActivity, tagName);
     }
 
 

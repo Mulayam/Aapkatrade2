@@ -41,12 +41,14 @@
         <activity android:name=".user_dashboard.addcompany.AddCompany" />
         <activity android:name=".user_dashboard.companylist.CompanyList" />
         <activity android:name=".user_dashboard.product_list.ProductListActivity" />
+
         <activity
             android:name=".login.LoginDashboard"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_logindashboard"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
+
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
@@ -57,9 +59,12 @@
         <activity android:name=".user_dashboard.order_list.order_details.OrderDetailsActivity" />
         <activity android:name=".categories_tab.CategoriesTabActivity" />
         <activity android:name=".Home.registration.RegistrationBusinessAssociateActivity" />
-        <activity android:name=".login.Forgot_Password"
-            android:theme="@style/myedittext"
-            ></activity>
+
+        <activity android:name=".login.Forgot_Password" android:theme="@style/myedittext"></activity>
+
+        <activity android:name=".productdetail.CategoryListFragment"></activity>
+
+
     </application>
 
 </manifest>

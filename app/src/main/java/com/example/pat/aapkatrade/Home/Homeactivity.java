@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
     Context context;
     public  static  String shared_pref_name="aapkatrade";
+    App_config aa;
 
 
 
@@ -49,6 +50,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
 
+        App_config.set_defaultfont(HomeActivity.this);
        loadLocale();
 
         setContentView(R.layout.activity_homeactivity);
@@ -139,7 +141,6 @@ public class HomeActivity extends AppCompatActivity
                        {
                            case R.id.english_language:
                                saveLocale("en");
-
 
                               // getIntent().start
                                return true;
