@@ -98,7 +98,40 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
                     ></android.support.v7.widget.RecyclerView>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
 
+
+
+
+
+                    <Spinner
+                        android:id="@+id/spcountryname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        ></Spinner>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
+                        />
+
+                </RelativeLayout>
 
                 <EditText
                     android:id="@+id/etProductName"
@@ -179,6 +212,42 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                <Spinner
+                    android:id="@+id/spcountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/simple_spinner_back"
+                    android:layout_margin="1dp"
+                    ></Spinner>
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_arrow"
+                    android:scaleType="fitXY"
+                    />
+
+
+
+
+</RelativeLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -191,7 +260,7 @@
                     >
 
                     <Spinner
-                        android:id="@+id/spUnitCategory"
+                        android:id="@+id/spstateCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -212,34 +281,185 @@
 
                 </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/etDeliver_location"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
-                    android:hint="Enter Location"
-                    android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:textSize="14dp"
-                    android:textColorHint="@color/hint_color"
-                    />
-                <EditText
-                    android:id="@+id/etDeliverday"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spcityCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        ></Spinner>
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
+                        />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
-                    android:hint="Deliver Day"
-                    android:background="@drawable/edit_text_green_back"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/etDeliver_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="Enter Location"
+
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:textSize="14dp"
+                        android:textColorHint="@color/hint_color"
+                        />
+
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spdeliverydistance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        ></Spinner>
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
+                        />
+
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                <EditText
+                    android:id="@+id/etprice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:hint="@string/price"
+
                     android:padding="10dp"
                     android:maxLines="1"
                     android:textSize="14dp"
                     android:textColorHint="@color/hint_color"
                     />
+</RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/etcrossedprice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="@string/cross_price"
+
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:textSize="14dp"
+                        android:textColorHint="@color/hint_color"
+                        />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spratingbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        >
+
+                    </Spinner>
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
+                        />
+
+
+
+                </RelativeLayout>
 
 
                 <RelativeLayout
@@ -253,40 +473,95 @@
                     android:padding="8dp"
                     >
 
-                    <TextView
-                        android:id="@+id/tvDate"
-                        android:layout_width="wrap_content"
+                    <Spinner
+                        android:id="@+id/spunit"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="@string/date"
-                        android:textSize="@dimen/textsize"
                         android:layout_alignParentLeft="true"
-                        android:textColor="@color/hint_color"
-                        />
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        >
+
+                    </Spinner>
+
 
                     <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_calendar"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
                         />
+
 
 
                 </RelativeLayout>
 
-                <EditText
-                    android:id="@+id/etDiscription"
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.2"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_green_back"
+                    android:padding="8dp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spdeliverydays"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:background="@drawable/simple_spinner_back"
+                        android:layout_margin="1dp"
+                        >
+
+                    </Spinner>
+
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_arrow"
+                        android:scaleType="fitXY"
+                        />
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
-                    android:hint="Description"
-                    android:background="@drawable/edit_text_green_back"
-                    android:padding="10dp"
-                    android:textSize="14dp"
-                    android:textColorHint="@color/hint_color"
-                    />
+                    android:background="@drawable/spinner_green_back"
+                    android:padding="2dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/etDiscription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:hint="Description"
+
+                        android:padding="10dp"
+                        android:textSize="14dp"
+                        android:textColorHint="@color/hint_color"
+                        />
+                </RelativeLayout>
+
+
+
 
 
                 <Button

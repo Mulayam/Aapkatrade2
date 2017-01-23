@@ -9,13 +9,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -37,8 +37,6 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAd
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
-
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -152,8 +150,13 @@ public class RegistrationActivity extends AppCompatActivity {
                         if (result != null) {
                             JsonObject jsonObject = result.getAsJsonObject();
                             JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                            Country countryEntity_init = new Country("-1","Select country");
+                            countryList.add(countryEntity_init);
+                            for (int i = 0; i < jsonResultArray.size(); i++)
+                            {
+
                                 JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+
                                 Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                                 countryList.add(countryEntity);
                             }
