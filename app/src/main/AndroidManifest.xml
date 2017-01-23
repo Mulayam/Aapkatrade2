@@ -52,7 +52,8 @@
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
-        <activity android:name=".Home.registration.RegistrationActivity" />
+        <activity android:name=".Home.registration.RegistrationActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".login.ActivityOTPVerify" />
         <activity android:name=".general.ConnectivityNotFound" />
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
