@@ -95,5 +95,7 @@
     <string name="otp_data_2">correct before continuing</string>
     <string name="verify">VERIFY</string>
     <string name="otp_not_recived">OTP Not Received?</string>
+    <string name="price">price</string>
+    <string name="cross_price">Cross Price</string>
 
 </resources>

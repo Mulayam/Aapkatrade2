@@ -1,6 +1,8 @@
 package com.example.pat.aapkatrade.user_dashboard.add_product;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +21,10 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 
 public class AddProductActivity extends AppCompatActivity
@@ -85,7 +91,7 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
 
         spCategory = (Spinner) findViewById(R.id.spCategory);
 
-        spUnitCategory = (Spinner) findViewById(R.id.spUnitCategory);
+        //spUnitCategory = (Spinner) findViewById(R.id.spUnitCategory);
         product_delivery_location=(EditText)findViewById(R.id.etDeliver_location);
 
         Add_product=(Button)findViewById(R.id.btnUpload);
@@ -119,16 +125,16 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
 
         SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),categoriesNames);
         SpinnerAdapter spsubcategory=new SpinnerAdapter(getApplicationContext(),subcategories);
-        SpinnerAdapter spunites=new SpinnerAdapter(getApplicationContext(),units);
+        //SpinnerAdapter spunites=new SpinnerAdapter(getApplicationContext(),units);
 
        // SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
 
        // SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),subcategories);
 
-        spSubCategory.setAdapter(customAdapter);
+        spSubCategory.setAdapter(spsubcategory );
 
-        spCategory.setAdapter(spsubcategory);
-        spUnitCategory.setAdapter(spunites);
+        spCategory.setAdapter(customAdapter);
+        //spUnitCategory.setAdapter(spunites);
        // spUnitCategory.setAdapter(spCountrysAdapter);
 
     }
@@ -178,10 +184,29 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
                 // retrive the data by using getPlace() method.
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 Log.e("Tag", "Place: " + place.getAddress()  +place.getLatLng());
+              Geocoder mGeocoder = new Geocoder(AddProductActivity.this, Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = mGeocoder.getFromLocation(place.getLatLng().latitude,place.getLatLng().longitude, 1);
+
+                    String cityName = addresses.get(0).getAddressLine(0);
+                    String stateName = addresses.get(0).getAddressLine(1);
+                    String countryName = addresses.get(0).getAddressLine(2);
+                    String countryName2 = addresses.get(0).getAddressLine(3);
+                    product_delivery_location.setText(place.getName()+",\n"+
+                            place.getAddress());
+                    Log.e("cityName",cityName);
+                    Log.e("stateName",stateName);
+                    Log.e("countryName",countryName);
+                   // Log.e("countryName2",countryName2);
 
 
-                product_delivery_location.setText(place.getName()+",\n"+
-                        place.getAddress());
+
+                } catch (IOException e) {
+                    Log.e("IOException",e.toString());
+                }
+
+
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
