@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
@@ -99,7 +98,7 @@ public class AddCompany extends AppCompatActivity {
         subcategory.setAdapter(customAdapter);
         companyName = (EditText) findViewById(R.id.etCompanyName);
         address = (EditText) findViewById(R.id.etAddress);
-        linearLayout = (LinearLayout) findViewById(R.id.snakBar);
+       // linearLayout = (LinearLayout) findViewById(R.id.snakBar);
     }
 
 
