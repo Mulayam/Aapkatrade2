@@ -348,6 +348,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     @TargetApi(Build.VERSION_CODES.M)
     private void setup_scrollview(final ScrollView scrollView) {
+        if (Build.VERSION.SDK_INT >= 23) {
+            // Marshmallow+
+
 
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
@@ -373,6 +376,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
             }
         });
+        }
+
+        else {
+            // Pre-Marshmallow
+        }
+
+
 
     }
 

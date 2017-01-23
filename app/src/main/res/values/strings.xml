@@ -34,6 +34,7 @@
     <string name="businessassociate">BUSINESS ASSOCIATE</string>
 
 
+    <string name="uploadImage">Upload Pan Card, Aadhar Card, Election ID</string>
     <string name="drawer_open">draweropen</string>
     <string name="drawer_close">drawerclose</string>
     <string name="language">language</string>
@@ -75,14 +76,21 @@
     <string name="hot_deals">HOT DEALS</string>
     <string name="english">English</string>
     <string name="hindi">Hindi</string>
+    <string name="shop_name">Shop Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
     english
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="uploadImage">Upload Pan Card, Aadhar Card, Election ID</string>
-    <string name="shop_name">Shop Name</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="password">Password</string>
+    <string name="google_api">AIzaSyDWzYV_jHxhQ8y6sdEV3cILJIo0sxYNNQ4</string>
+    <string name="forgot_your_password">Forgot your Password?</string>
+    <string name="forgot_your_password_instruction1">Enter your Email/Mobile number below to receive OTP</string>
+    <string name="forgot_your_password_instruction2">  </string>
+    <string name="email">Email</string>
+    <string name="or">OR</string>
+    <string name="mobile_no">mobile no</string>
+    <string name="send_otp">SEND OTP</string>
 
 
 </resources>

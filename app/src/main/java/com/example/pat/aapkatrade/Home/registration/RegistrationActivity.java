@@ -37,9 +37,7 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAd
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Validation;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
+
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -74,11 +72,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private ImageView uploadImage;
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +89,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 picPhoto();
             }
         });
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void saveUserTypeInSharedPreferences() {
@@ -157,37 +149,37 @@ public class RegistrationActivity extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        if (result != null) {
+                            JsonObject jsonObject = result.getAsJsonObject();
+                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                countryList.add(countryEntity);
+                            }
+                            dialog.hide();
+                            SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
+                            spCountry.setAdapter(spCountrysAdapter);
 
-                        JsonObject jsonObject = result.getAsJsonObject();
-                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                        for (int i = 0; i < jsonResultArray.size(); i++) {
-                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                            Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                            countryList.add(countryEntity);
+                            spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view,
+                                                           int position, long id) {
+                                    stateList = new ArrayList<State>();
+                                    getState(countryList.get(position).countryId);
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+
+
+                            });
                         }
-                        dialog.hide();
-                        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
-                        spCountry.setAdapter(spCountrysAdapter);
-
-                        spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view,
-                                                       int position, long id) {
-                                stateList = new ArrayList<State>();
-                                getState(countryList.get(position).countryId);
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-
-
-                        });
                     }
-
 
                 });
     }
@@ -422,27 +414,59 @@ public class RegistrationActivity extends AppCompatActivity {
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
                 if (Build.VERSION.SDK_INT < 19) {
                     Uri selectedImageURI = data.getData();
+
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
                 } else {
+                    if(data.getData()!=null) {
 
-                    ParcelFileDescriptor pfd;
-                    try {
-                        pfd = getContentResolver()
-                                .openFileDescriptor(data.getData(), "r");
-                        if(pfd!=null) {
-                            FileDescriptor fileDescriptor = pfd
-                                    .getFileDescriptor();
+                        ParcelFileDescriptor pfd;
+                        try {
+                            pfd = getContentResolver()
+                                    .openFileDescriptor(data.getData(), "r");
+                            if (pfd != null) {
+                                FileDescriptor fileDescriptor = pfd
+                                        .getFileDescriptor();
 
-                            imageForPreview = BitmapFactory.decodeFileDescriptor(
-                                    fileDescriptor, null, option);
+                                imageForPreview = BitmapFactory.decodeFileDescriptor(
+                                        fileDescriptor, null, option);
+                            }
+                            pfd.close();
+
+
+                        } catch (FileNotFoundException e) {
+                           Log.e("FileNotFoundException",e.toString());
+                        } catch (IOException e) {
+                            Log.e("IOException",e.toString());
                         }
-                        pfd.close();
-
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+
+                    else{
+
+                        ParcelFileDescriptor pfd;
+//                        try {
+   imageForPreview = (Bitmap)data.getExtras().get("data");
+
+
+//                                imageForPreview = BitmapFactory.decodeFileDescriptor(
+//                                        fileDescriptor, null, option);
+
+
+
+
+//                        } catch (FileNotFoundException e) {
+//                            Log.e("FileNotFoundException",e.toString());
+//                        } catch (IOException e) {
+//                            Log.e("IOException",e.toString());
+//                        }
+
+
+
+
+
+
+                        Log.e("data_not_found","data_not_found");
+                    }
+
                 }
                 try {
                     circleImageView.setImageBitmap(imageForPreview);
@@ -458,39 +482,5 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("Registration Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 }

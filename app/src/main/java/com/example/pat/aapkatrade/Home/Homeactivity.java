@@ -25,10 +25,12 @@ import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 
 
+
+
+
+
 public class HomeActivity extends AppCompatActivity
 {
-
-
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
@@ -61,8 +63,8 @@ public class HomeActivity extends AppCompatActivity
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
 
-
     }
+
 
 
     private void setupNavigationCustom()

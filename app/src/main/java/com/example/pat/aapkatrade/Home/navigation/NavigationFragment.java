@@ -23,25 +23,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
+import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesTabActivity;
 import com.example.pat.aapkatrade.productdetail.CategoryListFragment;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.net.ssl.X509TrustManager;
 
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner
-{
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
 
 
     public static final String preFile = "textFile";
@@ -54,7 +57,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private static final int IMAGE_PICKER_SELECT = 999;
     boolean mFromSavedInstance;
     View view;
-    String Fname,Lname,Dob;
+    String Fname, Lname, Dob;
     private int lastExpandedPosition = -1;
     public static final String PREFS_NAME = "call_recorder";
     private SharedPreferences loginPreferences;
@@ -68,43 +71,35 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     TextView footer;
     RelativeLayout header;
 
-    TextView textViewName,textViewmobile_no,textView_email;
+    TextView textViewName, textViewmobile_no, textView_email;
     private ImageView imageViewGB;
     private ExpandableListView expListView;
     private ImageView edit_profile_imgview;
     private ExpandableListAdapter listAdapter;
-    private ArrayList<String> listDataHeader;
-    private HashMap<String, List<String>> listDataChild;
+    private ArrayList<CategoryHome> listDataHeader;
     ProgressDialog _progressDialog;
 
-    public NavigationFragment()
-    {
+    public NavigationFragment() {
         // Required empty public constructor
     }
 
 
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
-        _progressDialog=new ProgressDialog(context);
+        _progressDialog = new ProgressDialog(context);
+
         initView();
 
         return view;
     }
 
 
-
-
-
-    private void initView()
-    {
+    private void initView() {
         //prepare textviewdata
-        categoryname=new ArrayList<>();
-        categoryids=new ArrayList<>();
+        categoryname = new ArrayList<>();
+        categoryids = new ArrayList<>();
         //sharedprefrance
         loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
@@ -116,30 +111,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         //ImagePicker.setMinQuality(600, 600);
         // preparing list data
 
-        listAdapter = new ExpandableListAdapter(context, listDataHeader, listDataChild);
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
-
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (lastExpandedPosition != -1
-                        && groupPosition != lastExpandedPosition) {
-                    expListView.collapseGroup(lastExpandedPosition);
-                }
-                lastExpandedPosition = groupPosition;
-
-            }
-        });
-
-        listAdapter.setClickListner(this);
     }
 
 
     private void Showmessage(String message) {
 
 
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -215,8 +193,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public static void hideSoftKeyboard(Activity activity)
-    {
+    public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 
@@ -228,16 +205,14 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public void setdata(String username, String mobno, String email,String Lastname,String dob)
-    {
-        Fname=username;
-        Lname=Lastname;
-        Dob=dob;
+    public void setdata(String username, String mobno, String email, String Lastname, String dob) {
+        Fname = username;
+        Lname = Lastname;
+        Dob = dob;
 
         textViewName.setText(username);
         textViewmobile_no.setText(mobno);
         textView_email.setText(email);
-
 
 
     }
@@ -250,60 +225,23 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     @Override
     public void itemClicked(View view, int groupview, int childview) {
         try {
-            //showMessage("groupbiew: " + groupview + "\nchildview: " + childview);
-            if((groupview==1)&(childview==0))
-            {
-                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
-                startActivity(i);
-                //setup_productlist_Fragment();
-//                Intent i=new Intent(getActivity(), CategoryListFragment.class);
-////                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(i);
-
-            }
-            else if(groupview==0)
-            {
-               // setup_productlist_Fragment();
-               Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
-               startActivity(i);
-            }
-            else if(groupview==2 &childview==1)
-            {
-                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
-                startActivity(i);
-
-            }
-            else if(groupview==2 &childview==0)
-            {
-                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
-                startActivity(i);
-            }
-            else if(groupview==5)
-            {
-                Intent i=new Intent(getActivity(), CategoriesTabActivity.class);
-                startActivity(i);
-            }
-
-            listAdapter.notifyDataSetChanged();
-            mDrawerLayout.closeDrawers();
 
 
+            Intent i = new Intent(getActivity(), CategoriesTabActivity.class);
+            startActivity(i);
         } catch (Exception e) {
-Log.e("Exception",e.toString());
+            Log.e("Exception", e.toString());
         }
     }
 
 
+    private void replaceFragment(Fragment newFragment, String tag) {
 
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
+        transaction.commit();
+    }
 
-
-        private void replaceFragment(Fragment newFragment, String tag) {
-
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
-            transaction.commit();
-        }
     private void setup_productlist_Fragment() {
         if (productListActivity == null) {
             productListActivity = new CategoryListFragment();
@@ -311,7 +249,6 @@ Log.e("Exception",e.toString());
         String tagName = productListActivity.getClass().getName();
         replaceFragment(productListActivity, tagName);
     }
-
 
 
     private static class Trust implements X509TrustManager {
@@ -344,80 +281,138 @@ Log.e("Exception",e.toString());
 
     }
 
-//    public  void setupSelfSSLCert() {
-//        final Trust trust = new Trust();
-//        final TrustManager[] trustmanagers = new TrustManager[]{trust};
-//        SSLContext sslContext;
-//        try {
-//            sslContext = SSLContext.getInstance("TLS");
-//            sslContext.init(null, trustmanagers, new SecureRandom());
-//            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
-//            Ion.getInstance(context, "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
-//        } catch (final NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        } catch (final KeyManagementException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void prepareListData() {
+        getCategory();
 
-
-
-
-    private void prepareListData()
-    {
-
-
-            listDataHeader = new ArrayList<String>();
-            listDataChild = new HashMap<String, List<String>>();
-            listDataHeader.add("Home");
-            // Adding child data
-            listDataHeader.add("Automobile");
-            listDataHeader.add("Barber");
-            listDataHeader.add("Dairy Product");
-            listDataHeader.add("Electronics Repair");
-            listDataHeader.add("Flower Shops");
-            listDataHeader.add("Funeral Places");
-
-            // Adding child data
-            List<String> top250 = new ArrayList<String>();
-            top250.add("Woman's Clothings");
-            top250.add("Man's Clothings");
-            top250.add("Electronics");
-            top250.add("Home and Garden");
-            top250.add("Jwellery and Health");
-            top250.add("Automotive");
-            top250.add("Beauty and Health");
-            top250.add("Toys, Kids and Baby");
-            top250.add("Bags and Shoes");
-            top250.add("Sports and Outdoor");
-            top250.add("Phone and Accessories");
-            top250.add("Computer and Networking");
-            top250.add("VIEW ALL CATEGORIES");
-
-            List<String> Settings_data = new ArrayList<String>();
-            Settings_data.add("Groceries");
-            Settings_data.add("Restaurant");
-        List<String> home = new ArrayList<String>();
-
-            List<String> account = new ArrayList<String>();
-            List<String> ratethisapp = new ArrayList<String>();
-            List<String> help_center = new ArrayList<String>();
-            List<String> share_app = new ArrayList<String>();
-        listDataChild.put(listDataHeader.get(0), home);
-            listDataChild.put(listDataHeader.get(1), Settings_data); // Header, Child data
-            listDataChild.put(listDataHeader.get(2), Settings_data); // Header, Child data
-            listDataChild.put(listDataHeader.get(3), Settings_data);
-            listDataChild.put(listDataHeader.get(4), Settings_data); // Header, Child data
-            listDataChild.put(listDataHeader.get(5), Settings_data); // Header, Child data
-            listDataChild.put(listDataHeader.get(6), Settings_data);
-        }
-
-
-
-
-
-
+//            listDataHeader = new ArrayList<String>();
+//            listDataChild = new HashMap<String, List<String>>();
+//            listDataHeader.add("Home");
+//            listDataHeader.add("Automobile");
+//            listDataHeader.add("Barber");
+//            listDataHeader.add("Dairy Product");
+//            listDataHeader.add("Electronics Repair");
+//            listDataHeader.add("Flower Shops");
+//            listDataHeader.add("Funeral Places");
+//
+//            // Adding child data
+//            List<String> top250 = new ArrayList<String>();
+//            top250.add("Woman's Clothings");
+//            top250.add("Man's Clothings");
+//            top250.add("Electronics");
+//            top250.add("Home and Garden");
+//            top250.add("Jwellery and Health");
+//            top250.add("Automotive");
+//            top250.add("Beauty and Health");
+//            top250.add("Toys, Kids and Baby");
+//            top250.add("Bags and Shoes");
+//            top250.add("Sports and Outdoor");
+//            top250.add("Phone and Accessories");
+//            top250.add("Computer and Networking");
+//            top250.add("VIEW ALL CATEGORIES");
+//
+//            List<String> Settings_data = new ArrayList<String>();
+//            Settings_data.add("Groceries");
+//            Settings_data.add("Restaurant");
+//        List<String> home = new ArrayList<String>();
+//
+//            List<String> account = new ArrayList<String>();
+//            List<String> ratethisapp = new ArrayList<String>();
+//            List<String> help_center = new ArrayList<String>();
+//            List<String> share_app = new ArrayList<String>();
+//            listDataChild.put(listDataHeader.get(0), home);
+//        //listDataChild = new HashMap<String, List<String>>();
+////            for (int i = 0; i < listDataHeader.size(); i++) {
+////                listDataChild.put(listDataHeader.get(i), Settings_data);
+////            }
+//            listDataChild.put(listDataHeader.get(1), Settings_data); // Header, Child data
+//            listDataChild.put(listDataHeader.get(2), Settings_data); // Header, Child data
+//            listDataChild.put(listDataHeader.get(3), Settings_data);
+//            listDataChild.put(listDataHeader.get(4), Settings_data); // Header, Child data
+//            listDataChild.put(listDataHeader.get(5), Settings_data); // Header, Child data
+//            listDataChild.put(listDataHeader.get(6), Settings_data);
     }
+
+
+    private void getCategory() {
+//        dialog.show();
+        Ion.with(getContext())
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "category")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if(result!=null){
+                                JsonObject jsonObject = result.getAsJsonObject();
+                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                        listDataHeader = new ArrayList<>();
+                        for (int i = 0; i < jsonResultArray.size(); i++) {
+                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                            CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
+                            categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
+                            listDataHeader.add(categoryHome);
+                            Log.e("hi", categoryHome.getCategoryName());
+                        }
+                        set_expandable_adapter_data();
+//                        dialog.hide();
+                    }}
+                });
+    }
+
+
+    private ArrayList<SubCategory> getSubCategoryArrayList(String categoryId) {
+        final ArrayList<SubCategory> listDataChild = new ArrayList<>();
+        Ion.with(getContext())
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "subcategory")
+                .setBodyParameter("id", categoryId)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result != null) {
+                            JsonObject jsonObject = result.getAsJsonObject();
+                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                            if (jsonResultArray != null) {
+                                for (int i = 0; i < jsonResultArray.size(); i++) {
+                                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                    SubCategory subCategory = new SubCategory(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                    listDataChild.add(subCategory);
+                                }
+                            }
+                        }
+                    }
+                });
+        return listDataChild;
+    }
+
+    private void set_expandable_adapter_data() {
+
+        if (listDataHeader.size() != 0) {
+            listAdapter = new ExpandableListAdapter(context, listDataHeader);
+            // setting list adapter
+            expListView.setAdapter(listAdapter);
+
+            expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (lastExpandedPosition != -1
+                            && groupPosition != lastExpandedPosition) {
+                        expListView.collapseGroup(lastExpandedPosition);
+                    }
+                    lastExpandedPosition = groupPosition;
+                }
+            });
+            listAdapter.setClickListner(this);
+        }
+    }
+
+
+}
 
 
 
