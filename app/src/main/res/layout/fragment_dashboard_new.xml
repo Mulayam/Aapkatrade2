@@ -370,6 +370,7 @@ android:orientation="horizontal"
         android:layout_width="match_parent"
         android:forceHasOverlappingRendering="false"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_gravity="bottom" />
 
 

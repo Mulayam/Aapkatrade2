@@ -97,5 +97,6 @@
     <string name="otp_not_recived">OTP Not Received?</string>
     <string name="price">price</string>
     <string name="cross_price">Cross Price</string>
+    <string name="webservice_base_url">http://aapkatrade.com/slim</string>
 
 </resources>
