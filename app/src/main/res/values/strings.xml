@@ -65,6 +65,7 @@
     <string name="tab_2">About Us</string>
     <string name="tab_3">Rate Us</string>
     <string name="tab_4">Account</string>
+    <string name="tab_5">Contact Us</string>
     <string name="welcomeguest">Welcome Guest</string>
     <string name="nointernetconnection">No Internet connection found.</string>
     <string name="nointernetconnection2">Check your connection.</string>

@@ -153,18 +153,120 @@ public class Call_webservice  {
                 }
             }
 
+        }
 
 
 
 
 
 
+        else if(webservicetype.equals("category"))
+        {
+            HashMap<String, String> webservice_body_parameter = body_parameter;
+            String authorization = webservice_body_parameter.get("authorization");
+            if (authorization.equals(null)) {
+                Log.e("authorization null", "authorization null");
+            } else {
+
+                String get_webservice_body_parameter = webservice_body_parameter.get("type");
+                String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
 
 
+                if (get_webservice_body_parameter.equals(null)) {
+                    Log.e("body_parameter null", "body_parameter null");
 
+                }
+                else {
+
+
+                    HashMap<String, String> webservice_header_type = headers;
+                    webservice_header_type.get("authorization");
+
+
+                    Ion.with(c)
+                            .load(webservice_url)
+                            .setHeader("authorization", authorization)
+                            .setBodyParameter("authorization", authorization)
+                            .setBodyParameter("type", get_webservice_body_parameter)
+
+                            .asJsonObject()
+                            .setCallback(new FutureCallback<JsonObject>() {
+                                @Override
+                                public void onCompleted(Exception e, JsonObject result) {
+                                    if(result!=null)
+
+                                    {
+                                        taskCompleteReminder.Taskcomplete(result);
+                                        Log.e("result_json", result.toString());
+                                        //taskCompleteReminder.Taskcomplete("complete");
+                                    }
+                                    else{
+                                        Log.e("result_error", e.toString());
+                                    }
+//
+                                }
+
+                            });
+                }
+            }
 
         }
 
+
+
+
+        else if(webservicetype.equals("subcategory"))
+        {
+            HashMap<String, String> webservice_body_parameter = body_parameter;
+            String authorization = webservice_body_parameter.get("authorization");
+            if (authorization.equals(null)) {
+                Log.e("authorization null", "authorization null");
+            } else {
+
+                String get_webservice_body_parameter = webservice_body_parameter.get("type");
+                String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
+                String categoryid = webservice_body_parameter.get("id");
+
+
+                if (get_webservice_body_parameter.equals(null)) {
+                    Log.e("body_parameter null", "body_parameter null");
+
+                }
+                else {
+
+
+                    HashMap<String, String> webservice_header_type = headers;
+                    webservice_header_type.get("authorization");
+
+
+                    Ion.with(c)
+                            .load(webservice_url)
+                            .setHeader("authorization", authorization)
+                            .setBodyParameter("authorization", authorization)
+                            .setBodyParameter("type", get_webservice_body_parameter)
+                            .setBodyParameter("id", categoryid)
+                            .asJsonObject()
+                            .setCallback(new FutureCallback<JsonObject>() {
+                                @Override
+                                public void onCompleted(Exception e, JsonObject result) {
+                                    if(result!=null)
+
+                                    {
+                                        taskCompleteReminder.Taskcomplete(result);
+                                        Log.e("result_json", result.toString());
+                                        //taskCompleteReminder.Taskcomplete("complete");
+                                    }
+                                    else{
+                                        Log.e("result_error", e.toString());
+                                    }
+//
+                                }
+
+                            });
+                }
+            }
+
+        }
 
 
 
