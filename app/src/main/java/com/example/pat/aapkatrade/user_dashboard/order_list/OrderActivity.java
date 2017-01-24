@@ -14,8 +14,7 @@ import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
 
 import java.util.ArrayList;
 
-public class OrderActivity extends AppCompatActivity
-{
+public class OrderActivity extends AppCompatActivity {
 
     ArrayList<OrderListData> orderListDatas = new ArrayList<>();
     RecyclerView order_list;
@@ -23,8 +22,7 @@ public class OrderActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
@@ -36,23 +34,20 @@ public class OrderActivity extends AppCompatActivity
 
     }
 
-    private void setup_data()
-    {
+    private void setup_data() {
         orderListDatas.clear();
-        try
-        {
-            orderListDatas.add(new OrderListData("","",""));
-            orderListDatas.add(new OrderListData("","",""));
-            orderListDatas.add(new OrderListData("","",""));
-            orderListDatas.add(new OrderListData("","",""));
+        try {
+            orderListDatas.add(new OrderListData("", "", ""));
+            orderListDatas.add(new OrderListData("", "", ""));
+            orderListDatas.add(new OrderListData("", "", ""));
+            orderListDatas.add(new OrderListData("", "", ""));
 
-        }catch (Exception  e){
+        } catch (Exception e) {
 
         }
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
 
         order_list = (RecyclerView) findViewById(R.id.order_list);
 
@@ -65,8 +60,7 @@ public class OrderActivity extends AppCompatActivity
 
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -85,10 +79,8 @@ public class OrderActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
             case android.R.id.home:
                 finish();

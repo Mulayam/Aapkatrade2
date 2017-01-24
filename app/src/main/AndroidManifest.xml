@@ -26,11 +26,13 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity
             android:name=".login.LoginActivity"
@@ -50,8 +52,9 @@
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
-        <activity android:name=".Home.registration.RegistrationActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".Home.registration.RegistrationActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".login.ActivityOTPVerify" />
         <activity android:name=".general.ConnectivityNotFound" />
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
@@ -62,7 +65,13 @@
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
         <activity android:name=".productdetail.CategoryListFragment" />
-        <activity android:name=".productdetail.FilterActivity"></activity>
+        <activity android:name=".productdetail.FilterActivity" />
+        <activity android:name=".user_dashboard.address.AddressActivity">
+
+        </activity>
+        <activity android:name=".user_dashboard.address.viewpager.CartCheckoutActivity">
+
+        </activity>
     </application>
 
 </manifest>
