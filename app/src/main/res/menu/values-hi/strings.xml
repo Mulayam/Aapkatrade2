@@ -10,7 +10,7 @@
     <string name="my_company_profile_heading">मेरे कंपनी प्रोफाइल</string>
     <string name="change_password_heading">पासवर्ड बदलें</string>
     <string name="add_company_heading">कंपनी जोड़ें</string>
-    <string name="user_name">पवन</string>
+    <string name="user_name"></string>
     <string name="date">31-2-2016</string>
     <string name="edit">संपादित करें</string>
     <string name="compant_list_heading">कंपनी सूची</string>
@@ -67,7 +67,7 @@
     <string name="tab_2">हमारे बारे में</string>
     <string name="tab_3">हमें रेटिंग दें</string>
     <string name="tab_4">लेखा</string>
-    <string name="welcomeguest">इच्छित अतिथि</string>
+    <string name="welcomeguest">इच्छित</string>
     <string name="nointernetconnection">कोई इंटरनेट कनेक्शन मिल गया।</string>
     <string name="nointernetconnection2">अपने कनेक्शन की जाँच करें।</string>
     <string name="retry">पुनः प्रयास करें</string>
