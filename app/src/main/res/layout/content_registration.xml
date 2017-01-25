@@ -320,7 +320,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="DOB eg. 15-12-1990"
+                    android:hint="DOB eg. 1990-11-12"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
