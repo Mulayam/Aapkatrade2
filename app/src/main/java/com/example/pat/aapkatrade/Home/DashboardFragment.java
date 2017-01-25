@@ -25,11 +25,7 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
-
-
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
@@ -115,96 +111,96 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
 
-
-// Enable the translation of the FloatingActionButton
-      //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
-
-// Change colors
-       bottomNavigation.setAccentColor(Color.parseColor("#FEFEFE"));
-       bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
-
-// Force to tint the drawable (useful for font with icon for example)
-        bottomNavigation.setForceTint(true);
-
-// Display color under navigation bar (API 21+)
-// Don't forget these lines in your style-v21
-// <item name="android:windowTranslucentNavigation">true</item>
-// <item name="android:fitsSystemWindows">true</item>
-        bottomNavigation.setTranslucentNavigationEnabled(true);
-
-// Manage titles
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-
-// Use colored navigation with circle reveal effect
-        bottomNavigation.setColored(false);
-
-// Set current item programmatically
-        bottomNavigation.setCurrentItem(0);
-
-// Customize notification (title, background, typeface)
-//       bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
 //
-//// Add or remove notification for each item
-//        bottomNavigation.setNotification("", 3);
-// OR
-//        AHNotification notification = new AHNotification.Builder()
-//                .setText("1")
-//                .setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_green))
-//                .setTextColor(ContextCompat.getColor(getActivity(), R.color.grey))
-//                .build();
-//        bottomNavigation.setNotification(notification, 1);
-
-// Set listeners
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
-            @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-
-
-
-                switch (position)
-                {
-                    case 0:
-                    if (homeFragment == null)
-                    {
-                        homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
-                    }
-
-                    String tagName = homeFragment.getClass().getName();
-                    replaceFragment(homeFragment, tagName);
-                    break;
-
-
-                    case 1:
-                        if (aboutUsFragment == null)
-                        {
-                            aboutUsFragment = new AboutUsFragment();
-                        }
-                        replaceFragment(aboutUsFragment,"");
-                        break;
-
-
-                    case 3:
-                        if (user_dashboardFragment == null)
-                        {
-                            user_dashboardFragment = new User_DashboardFragment();
-                        }
-                        //String tagName_dashboardFragment = User_DashboardFragment.getClass().getName();
-                        replaceFragment(user_dashboardFragment,"");
-                        break;
-                }
-                // Do something cool here...
-                return true;
-            }
-        });
-        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-            @Override public void onPositionChange(int y) {
-                // Manage the new y position
-            }
-        });
-
-    }
+//// Enable the translation of the FloatingActionButton
+//      //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
+//
+//// Change colors
+//       bottomNavigation.setAccentColor(Color.parseColor("#FEFEFE"));
+//       bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
+//
+//// Force to tint the drawable (useful for font with icon for example)
+//        bottomNavigation.setForceTint(true);
+//
+//// Display color under navigation bar (API 21+)
+//// Don't forget these lines in your style-v21
+//// <item name="android:windowTranslucentNavigation">true</item>
+//// <item name="android:fitsSystemWindows">true</item>
+//        bottomNavigation.setTranslucentNavigationEnabled(true);
+//
+//// Manage titles
+//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+//
+//// Use colored navigation with circle reveal effect
+//        bottomNavigation.setColored(false);
+//
+//// Set current item programmatically
+//        bottomNavigation.setCurrentItem(0);
+//
+//// Customize notification (title, background, typeface)
+////       bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
+////
+////// Add or remove notification for each item
+////        bottomNavigation.setNotification("", 3);
+//// OR
+////        AHNotification notification = new AHNotification.Builder()
+////                .setText("1")
+////                .setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_green))
+////                .setTextColor(ContextCompat.getColor(getActivity(), R.color.grey))
+////                .build();
+////        bottomNavigation.setNotification(notification, 1);
+//
+//// Set listeners
+//        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+//            @Override
+//            public boolean onTabSelected(int position, boolean wasSelected) {
+//
+//
+//
+//                switch (position)
+//                {
+//                    case 0:
+//                    if (homeFragment == null)
+//                    {
+//                        homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+//                    }
+//
+//                    String tagName = homeFragment.getClass().getName();
+//                    replaceFragment(homeFragment, tagName);
+//                    break;
+//
+//
+//                    case 1:
+//                        if (aboutUsFragment == null)
+//                        {
+//                            aboutUsFragment = new AboutUsFragment();
+//                        }
+//                        replaceFragment(aboutUsFragment,"");
+//                        break;
+//
+//
+//                    case 3:
+//                        if (user_dashboardFragment == null)
+//                        {
+//                            user_dashboardFragment = new User_DashboardFragment();
+//                        }
+//                        //String tagName_dashboardFragment = User_DashboardFragment.getClass().getName();
+//                        replaceFragment(user_dashboardFragment,"");
+//                        break;
+//                }
+//                // Do something cool here...
+//                return true;
+//            }
+//        });
+//        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+//            @Override public void onPositionChange(int y) {
+//                // Manage the new y position
+//            }
+//        });
+//
+//    }
 
 
 

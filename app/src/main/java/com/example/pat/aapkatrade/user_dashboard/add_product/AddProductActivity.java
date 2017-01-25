@@ -42,7 +42,7 @@ public class AddProductActivity extends AppCompatActivity
     Button Add_product;
 
 
-    String selected_productname,selectcategory,selected_subcategory,selected_unit;
+
 
     private ArrayList<String> name_category,ids_category,name_subcategory,ids_subcategory;
 
