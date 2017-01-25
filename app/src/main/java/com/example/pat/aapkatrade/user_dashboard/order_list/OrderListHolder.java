@@ -17,7 +17,7 @@ public class OrderListHolder extends RecyclerView.ViewHolder
 
     RelativeLayout relativeOrderlist;
     View view;
-    TextView tvUsername,tvDate;
+    TextView tvProductName,tvOrderId;
 
 
     public OrderListHolder(View itemView)
@@ -26,9 +26,9 @@ public class OrderListHolder extends RecyclerView.ViewHolder
 
         relativeOrderlist = (RelativeLayout) itemView.findViewById(R.id.relativeOrderlist);
 
-        tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
+        tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
-        tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+        tvOrderId = (TextView) itemView.findViewById(R.id.tvOrderId);
 
         view = itemView;
     }

@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:text="Electronics"
         android:textColor="@color/hint_color"
-        android:padding="7dp"
         android:textSize="14sp"
         />
 

@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;

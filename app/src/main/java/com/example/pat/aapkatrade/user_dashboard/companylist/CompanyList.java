@@ -8,9 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -22,11 +25,11 @@ import java.util.ArrayList;
 public class CompanyList extends AppCompatActivity
 {
 
-
-    RecyclerView companylist;
+    CircularProgressView progressView;
+    RecyclerView recyclerViewcompanylist;
     CompanyListAdapter companyListAdapter;
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
-
+    RelativeLayout relativeCompanylist;
 
 
     @Override
@@ -37,15 +40,15 @@ public class CompanyList extends AppCompatActivity
 
         setuptoolbar();
 
-        get_web_data();
-        setup_data();
-
         setup_layout();
 
     }
 
-    private void get_web_data()
+    public void get_company_list_data()
     {
+        relativeCompanylist.setVisibility(View.INVISIBLE);
+        progressView.startAnimation();
+        companyDatas.clear();
         Ion.with(CompanyList.this)
                 .load("http://aapkatrade.com/slim/listCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -58,21 +61,52 @@ public class CompanyList extends AppCompatActivity
                     @Override
                     public void onCompleted(Exception e, JsonObject result)
                     {
-
-                        Log.e("data===============",result.toString());
-
-                        JsonObject jsonObject = result.getAsJsonObject();
-
-                        JsonArray jsonArray = jsonObject.getAsJsonArray("");
-
-                        for(int i = 0; i>jsonArray.size(); i++)
+                        if(result ==null)
                         {
 
-                            JsonObject js = jsonArray.get(i).getAsJsonObject();
+                            progressView.stopAnimation();
 
-                          //  companyDatas.add(js.get("dfgd").getAsString(),js.get("").getAsString(),js.get("").getAsString());
                         }
+                        else
+                        {
+                            Log.e("data===============",result.toString());
 
+                            JsonObject jsonObject = result.getAsJsonObject();
+
+                            JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+
+                            System.out.println("jsonArray11111111111111111"+jsonArray.toString());
+
+                            for(int i = 0; i<jsonArray.size(); i++)
+                            {
+
+                                JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
+
+                                System.out.println("jsonArray jsonObject2"+jsonObject2.toString());
+
+                                String country_id = jsonObject2.get("companyId").getAsString();
+
+                                String name = jsonObject2.get("name").getAsString();
+
+                                String creation_date = jsonObject2.get("created").getAsString();
+
+                                System.out.println("ferhgjerk"+country_id+name+creation_date);
+
+                                companyDatas.add(new CompanyData(country_id,name,creation_date));
+
+                            }
+
+                            companyListAdapter = new CompanyListAdapter(CompanyList.this, companyDatas , CompanyList.this);
+
+                            recyclerViewcompanylist.setAdapter(companyListAdapter);
+
+                            companyListAdapter.notifyDataSetChanged();
+
+                            progressView.stopAnimation();
+                           // progressView.setVisibility(View.INVISIBLE);
+                            relativeCompanylist.setVisibility(View.VISIBLE);
+
+                        }
 
                     }
 
@@ -80,38 +114,25 @@ public class CompanyList extends AppCompatActivity
 
     }
 
-    private void setup_data()
-    {
-        companyDatas.clear();
-        try
-        {
-            companyDatas.add(new CompanyData("","",""));
-            companyDatas.add(new CompanyData("","",""));
-            companyDatas.add(new CompanyData("","",""));
-            companyDatas.add(new CompanyData("","",""));
-
-        }catch (Exception  e){
-
-        }
-    }
 
     private void setup_layout()
     {
-        companylist = (RecyclerView) findViewById(R.id.companylist);
+
+        progressView = (CircularProgressView) findViewById(R.id.progress_view);
+
+        relativeCompanylist = (RelativeLayout) findViewById(R.id.relativeCompanylist);
+
+        recyclerViewcompanylist = (RecyclerView) findViewById(R.id.companylist);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
-        companyListAdapter = new CompanyListAdapter(this, companyDatas);
+        recyclerViewcompanylist.setLayoutManager(mLayoutManager);
 
-        companylist.setAdapter(companyListAdapter);
-
-        companylist.setLayoutManager(mLayoutManager);
-
+        get_company_list_data();
     }
 
     private void setuptoolbar()
     {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -120,9 +141,7 @@ public class CompanyList extends AppCompatActivity
         getSupportActionBar().setTitle(null);
 
         getSupportActionBar().setIcon(R.drawable.home_logo);
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

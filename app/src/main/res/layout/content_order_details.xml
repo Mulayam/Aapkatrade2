@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/screen_back">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:background="@color/white"
             >
 
             <RelativeLayout
@@ -39,7 +39,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="220dp"
-
+                                 android:src="@drawable/banner"
                                 android:scaleType="fitXY"
                                 />
 
@@ -62,7 +62,9 @@
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
+                        >
 
 
                         <RelativeLayout
@@ -175,6 +177,80 @@
                     </android.support.v7.widget.CardView>
 
 
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/relativeOrder"
+                    android:layout_margin="10dp"
+                    >
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
+                        >
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            >
+
+
+                            <ImageView
+                                android:id="@+id/imageAddress"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/location_green" />
+
+                            <TextView
+                                style="@style/myAddress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="Shipping Address"
+                                android:layout_toRightOf="@+id/imageAddress"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/textView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="JMD Megapolis Sohna road"
+                                android:layout_below="@+id/imageAddress"
+                                android:layout_marginTop="5dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="JMD Megapolis Sohna road"
+                                android:layout_below="@+id/textView1"
+                                />
+
+                            <TextView
+                                android:id="@+id/textView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PinCode 201301"
+                                android:layout_below="@+id/textView2"
+
+                                />
+
+
+                        </RelativeLayout>
+
+
+
+                        </android.support.v7.widget.CardView>
 
                 </RelativeLayout>
 
