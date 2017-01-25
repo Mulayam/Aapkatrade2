@@ -116,11 +116,16 @@ public class RegistrationActivity extends AppCompatActivity {
         if (prefs != null) {
             if (prefs.getInt("user", 0) == 1) {
                 getCountry();
+                Log.e("user","user");
             }
             if (prefs.getInt("user", 0) == 2) {
+                Log.e("user2","user2");
                // dialog.hide();
                 businessDetails.setVisibility(View.GONE);
             }
+        }
+        else{
+            Log.e("user3","user3");
         }
     }
 
@@ -264,6 +269,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
                             });
+                        }
+                else{
+                            Log.e("webservice_null","null");
                         }
 
             }
