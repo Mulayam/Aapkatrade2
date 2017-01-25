@@ -23,7 +23,7 @@ public class AddressViewPagerAdapter extends PagerAdapter {
     ArrayList<String> imageurl;
 
 
-
+//this is adapterview
     public AddressViewPagerAdapter(Context mContext, ArrayList<String>productImage_url) {
         this. imageurl=productImage_url;
         this.mContext=mContext;
