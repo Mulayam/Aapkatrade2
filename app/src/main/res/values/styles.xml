@@ -35,6 +35,7 @@
         <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
+
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
@@ -53,14 +54,27 @@
         <item name="colorControlNormal">@color/grey</item>
 
 
+    </style>
 
+    <style name="myAddress" parent="android:Widget.TextView">
+        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textSize">@dimen/textsize_medium</item>
+    </style>
+
+    <style name="myRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="colorAccent">@color/green</item>
+        <item name="colorControlHighlight">@color/green</item>
+        <item name="android:colorPressedHighlight">@color/green</item>
+        <item name="colorPrimaryDark">@color/green</item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorControlActivated">@color/green</item>
     </style>
 
     <style name="MyAppTheme" parent="@android:style/Theme.Holo.Light">
         <!-- you should set typeface which you want to override with TypefaceUtil -->
         <item name="android:typeface">serif</item>
     </style>
-
 
 
 </resources>

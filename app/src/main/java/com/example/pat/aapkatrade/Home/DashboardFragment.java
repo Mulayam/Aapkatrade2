@@ -96,7 +96,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerExpressDeal = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         llManagerBestSelling = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         viewpagerindicator=(LinearLayout)view.findViewById(R.id.viewpagerindicator);
-
         latestproductadapter=new latestproductadapter(context,commomDatas);
 
         initializeview(view);
@@ -112,7 +111,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private void setupviewpager() {
 
-        imageIdList = new ArrayList<Integer>();
+        imageIdList = new ArrayList<>();
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);

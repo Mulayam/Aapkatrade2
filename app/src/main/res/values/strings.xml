@@ -38,8 +38,10 @@
     <string name="drawer_open">draweropen</string>
     <string name="drawer_close">drawerclose</string>
     <string name="language">language</string>
+    <string name="product">Product:</string>
+    <string name="qty">QTY:</string>
 
-
+    <string name="qty_def">05</string>
     <string name="product_list_heading">List Product</string>
     <string name="add_product_heading">Add Products</string>
 
@@ -98,6 +100,18 @@
     <string name="otp_not_recived">OTP Not Received?</string>
     <string name="price">price</string>
     <string name="cross_price">Cross Price</string>
+
+    <string name="address_line1">3rd Floor, Tower B, JMD Megapolis</string>
+    <string name="address_line2">Sohna Road, Sector 48</string>
+    <string name="address_line3">Gurugram, Haryana 122001</string>
+    <string name="item_price">18,941</string>
+    <string name="item_subtotal_price">19,689</string>
+    <string name="product_detail">Product Detail:</string>
+    <string name="express_delivery">Express Delivery:   99</string>
+    <string name="delivery_date">Delivery date: 19 Jan to 20 Jan</string>
+    <string name="subtotal">Subtotal:</string>
+
     <string name="webservice_base_url">http://aapkatrade.com/slim</string>
+
 
 </resources>
