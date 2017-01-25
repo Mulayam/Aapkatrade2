@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.order_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListHolder;
-
+import com.example.pat.aapkatrade.user_dashboard.order_list.order_details.OrderDetailsActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +50,17 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
 
         OrderListHolder homeHolder = (OrderListHolder) holder;
+
+        homeHolder.relativeOrderlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent i = new Intent(context, OrderDetailsActivity.class);
+                context.startActivity(i);
+
+            }
+        });
 
     }
 

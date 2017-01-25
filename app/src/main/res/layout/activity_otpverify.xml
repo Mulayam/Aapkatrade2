@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:background="@color/brown_light"
     android:layout_height="match_parent"
-
     tools:context="com.example.pat.aapkatrade.login.ActivityOTPVerify">
 
     <LinearLayout
@@ -33,6 +32,8 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:gravity="center_horizontal|center_vertical"
                 android:layout_height="0dp">
+
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     app:srcCompat="@drawable/ic_otp_icn"

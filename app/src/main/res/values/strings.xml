@@ -100,6 +100,8 @@
     <string name="otp_not_recived">OTP Not Received?</string>
     <string name="price">price</string>
     <string name="cross_price">Cross Price</string>
+    <string name="company_profile_heading">Company Profile</string>
+    <string name="company_profile_data1">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type speciman book.</string>
 
     <string name="address_line1">3rd Floor, Tower B, JMD Megapolis</string>
     <string name="address_line2">Sohna Road, Sector 48</string>

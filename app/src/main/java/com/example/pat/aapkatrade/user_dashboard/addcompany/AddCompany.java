@@ -21,7 +21,8 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 
-public class AddCompany extends AppCompatActivity {
+public class AddCompany extends AppCompatActivity
+{
 
     String[] categoriesNames = {"India", "China", "Australia", "Portugle", "America", "New Zealand"};
     Spinner category, subcategory;
@@ -34,7 +35,8 @@ public class AddCompany extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_company);
         setuptoolbar();
@@ -47,8 +49,10 @@ public class AddCompany extends AppCompatActivity {
         });
     }
 
-    private void addCompany() {
-        if(ConnetivityCheck.isNetworkAvailable(AddCompany.this)){
+    private void addCompany()
+    {
+        if(ConnetivityCheck.isNetworkAvailable(AddCompany.this))
+        {
             dialog=new ProgressDialog(AddCompany.this);
             dialog.setMessage("Loading...\nPlease Wait");
             dialog.setCancelable(false);
@@ -56,7 +60,9 @@ public class AddCompany extends AppCompatActivity {
             dialog.show();
             callAddCompanyWebService("1", companyName.getText().toString(), address.getText().toString());
             dialog.hide();
-        }else {
+        }
+        else
+        {
             linearLayout.setVisibility(View.VISIBLE);
             snackbar = Snackbar.make(linearLayout, "Please Check your Network Connection", Snackbar.LENGTH_LONG);
             snackbar.setActionTextColor(getResources().getColor(android.R.color.holo_red_dark));

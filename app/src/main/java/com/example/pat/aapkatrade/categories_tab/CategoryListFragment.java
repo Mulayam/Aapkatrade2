@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail;
+package com.example.pat.aapkatrade.categories_tab;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.productdetail.*;
+
 import java.util.ArrayList;
 
 
@@ -54,18 +56,15 @@ public class CategoryListFragment extends AppCompatActivity
     }
 
 
-    private void setuptoolbar()
-    {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        imageView = (ImageView) findViewById(R.id.imageView1) ;
-
+    private void setuptoolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle(null);
 
+        getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 
@@ -103,9 +102,14 @@ public class CategoryListFragment extends AppCompatActivity
     {
         switch (item.getItemId())
         {
+
+            case android.R.id.home:
+                finish();
+                break;
+
             case R.id.login:
 
-                Intent i = new Intent(CategoryListFragment.this,FilterActivity.class);
+                Intent i = new Intent(CategoryListFragment.this, FilterActivity.class);
                 startActivity(i);
                 break;
 

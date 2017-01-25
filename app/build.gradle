@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+
     defaultConfig {
         applicationId "com.example.ppc09.aapkatrade"
         minSdkVersion 15
@@ -14,8 +16,6 @@ android {
 
 
     }
-
-
 
     buildTypes {
         release {
@@ -29,7 +29,6 @@ android {
 }
 
 dependencies {
-
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
 

@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail;
+package com.example.pat.aapkatrade.categories_tab;
 
 /**
  * Created by PPC16 on 16-Jan-17.
