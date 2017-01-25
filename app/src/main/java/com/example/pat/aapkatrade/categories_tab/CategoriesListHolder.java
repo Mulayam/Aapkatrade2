@@ -1,9 +1,8 @@
-package com.example.pat.aapkatrade.productdetail;
+package com.example.pat.aapkatrade.categories_tab;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 

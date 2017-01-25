@@ -41,6 +41,9 @@ public class AddProductActivity extends AppCompatActivity
     EditText product_delivery_location,product_name;
     Button Add_product;
 
+
+
+
     private ArrayList<String> name_category,ids_category,name_subcategory,ids_subcategory;
 
 
@@ -152,9 +155,6 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
                 {
                     if(Validation.validate_edittext(product_delivery_location))
                     {
-
-
-
 
                     }
                     else{

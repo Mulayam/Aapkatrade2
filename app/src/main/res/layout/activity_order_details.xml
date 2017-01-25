@@ -1,112 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity">
+    android:background="@color/white"
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
 
-
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout" />
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:background="@color/white"
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                >
+    <include
+        layout="@layout/content_order_details"
+        ></include>
 
 
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-
-
-                        <RelativeLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/imgEmail"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_edit"
-                                android:layout_alignParentLeft="true"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="arviondkumaryadav937@gmail.com"
-                                android:layout_toRightOf="@+id/imgEmail"
-
-                                />
-
-
-                        </RelativeLayout>
-
-
-
-                        <RelativeLayout
-                            android:layout_alignParentRight="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
-
-                            <ImageView
-                                android:id="@+id/imgPhone"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_edit"
-                                android:layout_alignParentRight="true"
-
-                                />
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="9811531065"
-                                android:layout_toRightOf="@+id/imgPhone"
-                                />
-
-
-                        </RelativeLayout>
-
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.CardView>
-
-
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
-    </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
-
-
-
-
+</LinearLayout>

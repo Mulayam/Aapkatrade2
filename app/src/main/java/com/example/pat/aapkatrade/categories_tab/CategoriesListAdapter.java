@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.productdetail;
+package com.example.pat.aapkatrade.categories_tab;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListHolder;
+import com.example.pat.aapkatrade.productdetail.ProductDetail;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

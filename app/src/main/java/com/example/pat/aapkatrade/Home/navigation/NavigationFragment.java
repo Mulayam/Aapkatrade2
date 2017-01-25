@@ -13,7 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +26,7 @@ import android.widget.Toast;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoriesTabActivity;
-import com.example.pat.aapkatrade.productdetail.CategoryListFragment;
+import com.example.pat.aapkatrade.categories_tab.CategoryListFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -40,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.X509TrustManager;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -71,13 +71,16 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     TextView footer;
     RelativeLayout header;
 
-    TextView textViewName, textViewmobile_no, textView_email;
+    TextView textViewName,emailid;
     private ImageView imageViewGB;
     private ExpandableListView expListView;
     private ImageView edit_profile_imgview;
     private ExpandableListAdapter listAdapter;
     private ArrayList<CategoryHome> listDataHeader;
+    public
     ProgressDialog _progressDialog;
+    private static  String shared_pref_name = "aapkatrade";
+    SharedPreferences sharedPreferences;
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -90,21 +93,40 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         _progressDialog = new ProgressDialog(context);
 
-        initView();
+        initView(view);
 
         return view;
     }
 
 
-    private void initView() {
+    private void initView(View view) {
+        sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
         //prepare textviewdata
         categoryname = new ArrayList<>();
         categoryids = new ArrayList<>();
         //sharedprefrance
-        loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        textViewName=(TextView)view.findViewById(R.id.welcome_guest) ;
+        emailid=(TextView)view.findViewById(R.id.tv_email) ;
         loginPrefsEditor = loginPreferences.edit();
         prepareListData();
-        expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
+        expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
+
+
+
+        if(sharedPreferences.getString("username","not")!=null) {
+            String Username = sharedPreferences.getString("username", "not");
+            String Emailid = sharedPreferences.getString("emailid", "not");
+            if (Username.equals("not")) {
+                Log.e("Shared_pref2","null"+Username);
+            } else {
+
+                setdata(Username,Emailid);
+            }
+        }
+        else{
+            Log.e("Shared_pref1","null");
+        }
 
         //circle imageview
 
@@ -181,14 +203,14 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     public static void savedInstances(Context context, String preferenceName, String preferenceValue) {
-        SharedPreferences sharePreference = context.getSharedPreferences(preFile, Context.MODE_PRIVATE);
+        SharedPreferences sharePreference = context.getSharedPreferences(preFile, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharePreference.edit();
         editor.putString(preferenceName, preferenceValue);
         editor.apply();
     }
 
     public static String readFromPreferences(Context context, String preferenceName, String defaultValue) {
-        SharedPreferences sharePreference = context.getSharedPreferences(preFile, Context.MODE_PRIVATE);
+        SharedPreferences sharePreference = context.getSharedPreferences(preFile, MODE_PRIVATE);
         return sharePreference.getString(preferenceName, defaultValue);
     }
 
@@ -205,14 +227,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    public void setdata(String username, String mobno, String email, String Lastname, String dob) {
+    public void setdata(String username, String email) {
         Fname = username;
-        Lname = Lastname;
-        Dob = dob;
 
+Log.e("Username",username);
         textViewName.setText(username);
-        textViewmobile_no.setText(mobno);
-        textView_email.setText(email);
+emailid.setText(email);
 
 
     }
