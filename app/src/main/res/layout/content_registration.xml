@@ -313,6 +313,21 @@
 
 
                 <EditText
+                    android:id="@+id/etDOB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_text_green_back"
+                    android:hint="DOB eg. 1990-11-12"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColorHint="@color/hint_color"
+                    android:textSize="14dp" />
+
+
+                <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -419,7 +434,7 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/btnSave"
+                    android:id="@+id/tvSave"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"

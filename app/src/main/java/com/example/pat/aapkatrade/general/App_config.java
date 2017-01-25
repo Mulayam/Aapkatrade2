@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.general;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.provider.Settings.Secure;
 
 import java.util.Locale;
 
@@ -31,10 +32,10 @@ public class App_config extends Application {
         Configuration config = new Configuration();
         config.locale = locale;
         context.getApplicationContext().getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-
-
     }
 
-
+    public static String getCurrentDeviceId(Context context){
+        return Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
+    }
 
 }

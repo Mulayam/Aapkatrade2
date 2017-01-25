@@ -44,15 +44,23 @@ public class LoginActivity extends AppCompatActivity {
         relativeRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(registerUserActivity);
+
+              /*  if (sharedPreferences != null) {
+                    if (sharedPreferences.getInt("user", 0) == 3)
                 if (sharedPreferences != null) {
                     if (sharedPreferences.getInt("user_type", 0) == 3) {
+
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
                     } else if((sharedPreferences.getInt("user_type", 0) == 1) || (sharedPreferences.getInt("user_type", 0) == 2)) {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
-                }
+                }*/
             }
         });
     }

@@ -27,20 +27,26 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.Country;
+import com.example.pat.aapkatrade.Home.registration.entity.SellerRegistration;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpBussinessAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -52,12 +58,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class RegistrationActivity extends AppCompatActivity {
-
+    private static SellerRegistration formData = null;
+    private boolean isAllFieldSet = false;
     private Spinner spBussinessCategory, spCountry, spState, spCity;
-    private String[] spBussinessName = {"-Please Select-", "Personal", "Business"};
+    private String[] spBussinessName = {"-Please Select-", "Licence", "Personal"};
     private String[] spCityName = {"-Please Select-", "Delhi", "New Delhi"};
-    private EditText etProductName, etFirstName, etLastName, etEmail, etMobileNo, etUserName, etPassword, etReenterPassword;
-    private TextView btnSave;
+    private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etUserName, etPassword, etReenterPassword;
+    private TextView tvSave;
     private CoordinatorLayout cl;
     private ProgressDialog dialog;
     private ArrayList<Country> countryList = new ArrayList<>();
@@ -72,23 +79,35 @@ public class RegistrationActivity extends AppCompatActivity {
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
+    private String busiType, countryID, stateID, cityID;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         setuptoolbar();
         initView();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-       // dialog = ProgressDialog.show(RegistrationActivity.this, "", "Loading. Please wait...", true);
         saveUserTypeInSharedPreferences();
         setUpBusinessCategory();
-        saveProfile();
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 picPhoto();
+            }
+        });
+
+        tvSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                Toast.makeText(RegistrationActivity.this, "Hi registration", Toast.LENGTH_SHORT).show();
+                getFormData();
+                Log.d("dataload", getFormData().toString());
+                callWebServiceForRegistration();
             }
         });
     }
@@ -105,16 +124,54 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private void saveProfile() {
-        btnSave.setOnClickListener(new View.OnClickListener() {
+   /* private void saveProfile() {
+        tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                validateFields(etFirstName.getText().toString(), etLastName.getText().toString(), etEmail.getText().toString(),
-                        etMobileNo.getText().toString(), etPassword.getText().toString(), etReenterPassword.getText().toString()
-                );
+              //  getFormData();
+                //validateFields();
+                Toast.makeText(RegistrationActivity.this, "fsg fsvfvshgvfahsgvf"+getSellerRegistrationInstance().toString(), Toast.LENGTH_SHORT).show();
+//                Log.d("checkData", getSellerRegistrationInstance().toString());
+//                if(isAllFieldSet)
+                callWebServiceForRegistration();
             }
         });
+    }*/
+
+    private void callWebServiceForRegistration() {
+        Ion.with(RegistrationActivity.this)
+                .load("http://aapkatrade.com/slim/sellerregister")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "sellerregister")
+                .setBodyParameter("business_type", getFormData().getBusinessType())
+                .setBodyParameter("companyname", getFormData().getCompanyName())
+                .setBodyParameter("name", getFormData().getFirstName())
+                .setBodyParameter("lastname", getFormData().getLastName())
+                .setBodyParameter("dob", getFormData().getDOB())
+                .setBodyParameter("mobile", getFormData().getMobile())
+                .setBodyParameter("email", getFormData().getEmail())
+                .setBodyParameter("password", getFormData().getPassword())
+                .setBodyParameter("country_id", getFormData().getCountryId())
+                .setBodyParameter("state_id", getFormData().getStateId())
+                .setBodyParameter("city_id", getFormData().getCityId())
+                .setBodyParameter("client_id", getFormData().getClientId())
+                .setBodyParameter("shopname", getFormData().getCompanyName())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        Log.e("data",result.toString());
+                        if(result.get("error").getAsString().equals("false")){
+                            Log.d("registration_seller", "done");
+                            startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                        }
+                    }
+
+                });
     }
 
     private void setUpBusinessCategory() {
@@ -122,10 +179,11 @@ public class RegistrationActivity extends AppCompatActivity {
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+//                getSellerRegistrationInstance().setBusinessType(spBussinessName[position]);
+                busiType = String.valueOf(position);
                 if (spBussinessName[position].equalsIgnoreCase("Personal")) {
                     uploadView.setVisibility(View.GONE);
-                } else if (spBussinessName[position].equalsIgnoreCase("Business")) {
+                } else if (spBussinessName[position].equalsIgnoreCase("Licence")) {
                     uploadView.setVisibility(View.VISIBLE);
                     etProductName.setHint(getString(R.string.company_name_heading));
                 } else {
@@ -184,8 +242,12 @@ public class RegistrationActivity extends AppCompatActivity {
                             spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                                 @Override
-                                public void onItemSelected(AdapterView<?> parent, View view,
-                                                           int position, long id) {
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+                                {
+                                    Log.d("datacountry", countryList.get(position).countryId);
+                                    countryID = countryList.get(position).countryId;
+//                                    Log.d("datacountryobj", getSellerRegistrationInstance().getCountryId());
+//                                    getSellerRegistrationInstance().setCountryId(countryList.get(position).countryId);
                                     stateList = new ArrayList<State>();
                                     if(position>0) {
                                         getState(countryList.get(position).countryId);
@@ -248,6 +310,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
+//                        getSellerRegistrationInstance().setStateId(stateList.get(position).stateId);
+                        stateID = stateList.get(position).stateId;
+                        Log.d("datastate", stateList.get(position).stateId);
+//                        Log.d("datastateobj", getSellerRegistrationInstance().getStateId());
                         cityList = new ArrayList<City>();
                         if(position>0) {
                             getCity(stateList.get(position).stateId);
@@ -299,7 +365,20 @@ public class RegistrationActivity extends AppCompatActivity {
                 SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
                 spCity.setAdapter(spCityAdapter);
 
+                spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                        getSellerRegistrationInstance().setCityId(cityList.get(position).cityId);
+                        cityID = cityList.get(position).cityId;
+                        Log.d("datacity", cityList.get(position).cityId);
+//                        Log.d("datacityobj", getSellerRegistrationInstance().getCityId());
+                    }
 
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
             }
         };
 
@@ -347,10 +426,14 @@ public class RegistrationActivity extends AppCompatActivity {
         spCountry = (Spinner) findViewById(R.id.spCountryCategory);
         spState = (Spinner) findViewById(R.id.spStateCategory);
         spCity = (Spinner) findViewById(R.id.spCityCategory);
-        btnSave = (TextView) findViewById(R.id.btnSave);
+        tvSave = (TextView) findViewById(R.id.tvSave);
+
+
+
         etProductName = (EditText) findViewById(R.id.etProductName);
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
+        etDOB = (EditText) findViewById(R.id.etDOB);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etMobileNo = (EditText) findViewById(R.id.etMobileNo);
         etUserName = (EditText) findViewById(R.id.etUserName);
@@ -361,34 +444,38 @@ public class RegistrationActivity extends AppCompatActivity {
         prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
         circleImageView = (CircleImageView) findViewById(R.id.previewImage);
         uploadImage = (ImageView) findViewById(R.id.uploadButton);
+
+
     }
 
-    private void validateFields(String fName, String lName, String email, String mobileNumber, String password, String confirmPassword) {
-        if (Validation.isNonEmptyStr(fName)) {
-            if (Validation.isNonEmptyStr(lName)) {
-                if (Validation.isValidEmail(email)) {
-                    if (Validation.isValidNumber(mobileNumber, Validation.getNumberPrefix(mobileNumber))) {
-                        if (Validation.isValidPassword(password)) {
-                            if (Validation.isPasswordMatching(password, confirmPassword)) {
-
+    private void validateFields() {
+        if(getSellerRegistrationInstance()!=null) {
+            if (Validation.isNonEmptyStr(getSellerRegistrationInstance().getFirstName())) {
+                if (Validation.isNonEmptyStr(getSellerRegistrationInstance().getLastName())) {
+                    if (Validation.isValidEmail(getSellerRegistrationInstance().getEmail())) {
+                        if (Validation.isValidNumber(getSellerRegistrationInstance().getMobile(), Validation.getNumberPrefix(getSellerRegistrationInstance().getMobile()))) {
+                            if (Validation.isValidPassword(getSellerRegistrationInstance().getPassword())) {
+                                if (Validation.isPasswordMatching(getSellerRegistrationInstance().getPassword(), getSellerRegistrationInstance().getConfirmPassword())) {
+                                    isAllFieldSet = true;
+                                } else {
+                                    putError(5);
+                                }
                             } else {
-                                putError(5);
+                                putError(4);
                             }
                         } else {
-                            putError(4);
+                            putError(3);
                         }
                     } else {
-                        putError(3);
+                        putError(2);
                     }
                 } else {
-                    putError(2);
+                    putError(1);
                 }
             } else {
-                putError(1);
+                putError(0);
             }
-        } else {
-            putError(0);
-        }
+        } Log.d("error", "error Null");
     }
 
     private void putError(int id) {
@@ -537,4 +624,42 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
 
+    public SellerRegistration getFormData() {
+        SellerRegistration sellerRegistration = getSellerRegistrationInstance();
+        setUpBusinessCategory();
+        sellerRegistration.setCompanyName(etProductName.getText().toString());
+        sellerRegistration.setShopName(etProductName.getText().toString());
+        sellerRegistration.setFirstName(etFirstName.getText().toString());
+        sellerRegistration.setLastName(etLastName.getText().toString());
+        sellerRegistration.setEmail(etEmail.getText().toString());
+        sellerRegistration.setDOB(etDOB.getText()==null?"1992-10-10":etDOB.getText().toString());
+        sellerRegistration.setMobile(etMobileNo.getText().toString());
+        sellerRegistration.setPassword(etPassword.getText().toString());
+        sellerRegistration.setConfirmPassword(etPassword.getText().toString());
+        sellerRegistration.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
+        sellerRegistration.setBusinessType(busiType==null?"":busiType);
+        sellerRegistration.setCountryId(countryID==null?"":countryID);
+        sellerRegistration.setStateId(stateID==null?"":stateID);
+        sellerRegistration.setCityId(cityID==null?"":cityID);
+        return sellerRegistration;
+    }
+
+    public static SellerRegistration getSellerRegistrationInstance() {
+        if(formData == null){
+            Log.d("datacall", "^^^^^^^^^^");
+            return new SellerRegistration();
+        }
+        return formData;
+    }
+
+    private String[] getDOBArray(String s){
+        String dob[] = new String[3];
+        if(Validation.isNonEmptyStr(s)){
+            dob = s.split("-");
+            if(dob.length == 3){
+                return dob;
+            }
+        }
+        return dob = new String[]{"15","11","1994"};
+    }
 }
