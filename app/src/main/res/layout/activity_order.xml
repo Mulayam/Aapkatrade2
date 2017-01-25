@@ -7,12 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity">
+    tools:context="com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity"
+    android:background="@color/white"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+
+        >
 
         <include
             android:id="@+id/toolbar"
@@ -28,7 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:descendantFocusability="blocksDescendants">
+                android:descendantFocusability="blocksDescendants"
+                android:background="@color/white"
+                >
 
                 <RelativeLayout
                     android:id="@+id/relativeCompanyListheader"
@@ -84,7 +90,9 @@
                     android:id="@+id/order_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:background="@color/white"
+                    >
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>

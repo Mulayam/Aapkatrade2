@@ -13,14 +13,14 @@ public class ProductListHolder extends RecyclerView.ViewHolder
 
 
     View view;
-    TextView tvUsername,tvDate;
+    TextView tvProductName,tvDate;
 
 
     public ProductListHolder(View itemView)
     {
         super(itemView);
 
-        tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
+        tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
         tvDate = (TextView) itemView.findViewById(R.id.tvDate);
 

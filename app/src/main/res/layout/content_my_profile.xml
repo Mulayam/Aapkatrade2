@@ -85,30 +85,44 @@
             />
 
 
-        <EditText
-            android:id="@+id/etFName"
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
             android:layout_marginTop="10dp"
-            android:hint="First Name"
-            android:background="@drawable/edit_text_green_back"
-            android:padding="10dp"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColorHint="@color/hint_color"
-            android:textSize="14sp"
-            />
+            >
+
+            <EditText
+                android:id="@+id/etFName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:hint="First Name"
+                android:background="@drawable/edit_text_green_back"
+                android:padding="10dp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@color/hint_color"
+                android:textSize="14sp"
+                />
 
 
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            >
         <EditText
             android:id="@+id/etLName"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:hint="Last Name"
@@ -120,10 +134,12 @@
             android:textSize="14sp"
             />
 
+        </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
@@ -155,12 +171,17 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            >
+
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:hint="Email"
@@ -172,13 +193,20 @@
             android:textSize="14sp"
             />
 
+        </RelativeLayout>
 
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            >
         <EditText
             android:id="@+id/etMobileNo"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:hint="Mobile "
@@ -189,13 +217,19 @@
             android:textColorHint="@color/hint_color"
             android:textSize="14sp"
             />
+        </RelativeLayout>
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            >
         <EditText
             android:id="@+id/etCity"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
             android:hint="Address"
@@ -207,11 +241,12 @@
             android:textSize="14sp"
             />
 
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2"
+            android:layout_weight="1"
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp"
