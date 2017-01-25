@@ -51,7 +51,8 @@ public class CommomAdapter extends RecyclerView.Adapter<CommomHolder> {
     }
 
     @Override
-    public void onBindViewHolder(CommomHolder holder, int position) {
+    public void onBindViewHolder(CommomHolder holder, int position)
+    {
         Picasso.with(context).load(commomDatas.get(0).imageurl)
                 .error(R.drawable.banner)
                 .into(holder.cimageview);
@@ -71,6 +72,8 @@ public class CommomAdapter extends RecyclerView.Adapter<CommomHolder> {
                 ((AppCompatActivity)context).overridePendingTransition(R.anim.enter, R.anim.exit);
             }
         });
+
+        holder.tvProductName.setText(commomDatas.get(position).name);
 
 
     }
