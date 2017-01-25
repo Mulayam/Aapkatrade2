@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,16 +36,17 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapte
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -71,6 +71,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private ImageView uploadImage;
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
+    HashMap<String, String> webservice_header_type = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,8 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         setuptoolbar();
         initView();
-        dialog = ProgressDialog.show(RegistrationActivity.this, "", "Loading. Please wait...", true);
+        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+       // dialog = ProgressDialog.show(RegistrationActivity.this, "", "Loading. Please wait...", true);
         saveUserTypeInSharedPreferences();
         setUpBusinessCategory();
         saveProfile();
@@ -96,7 +99,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 getCountry();
             }
             if (prefs.getInt("user", 0) == 2) {
-                dialog.hide();
+               // dialog.hide();
                 businessDetails.setVisibility(View.GONE);
             }
         }
@@ -138,19 +141,32 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void getCountry() {
-        dialog.show();
-        Ion.with(getApplicationContext())
-                .load("http://aapkatrade.com/slim/dropdown")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "country")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result != null) {
-                            JsonObject jsonObject = result.getAsJsonObject();
+       // dialog.show();
+        HashMap<String,String> webservice_body_parameter=new HashMap<>();
+        webservice_body_parameter.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type","country");
+
+        HashMap<String,String> webservice_header_type=new HashMap<>();
+        webservice_header_type.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+
+
+
+
+
+        Call_webservice.getcountrystatedata(RegistrationActivity.this,"country",getResources().getString(R.string.webservice_base_url)+"/dropdown",webservice_body_parameter,webservice_header_type);
+
+         Call_webservice.taskCompleteReminder=new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject webservice_returndata) {
+
+                Log.e("data2",webservice_returndata.toString());
+
+                        if (webservice_returndata != null)
+                        {
+                            Log.e("webservice_returndata",webservice_returndata.toString());
+                            JsonObject jsonObject = webservice_returndata.getAsJsonObject();
                             JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                            countryList.clear();
                             Country countryEntity_init = new Country("-1","Select country");
                             countryList.add(countryEntity_init);
                             for (int i = 0; i < jsonResultArray.size(); i++)
@@ -161,17 +177,21 @@ public class RegistrationActivity extends AppCompatActivity {
                                 Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                                 countryList.add(countryEntity);
                             }
-                            dialog.hide();
+                   //        dialog.hide();
                             SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
                             spCountry.setAdapter(spCountrysAdapter);
-
+//
                             spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                                 @Override
                                 public void onItemSelected(AdapterView<?> parent, View view,
                                                            int position, long id) {
                                     stateList = new ArrayList<State>();
-                                    getState(countryList.get(position).countryId);
+                                    if(position>0) {
+                                        getState(countryList.get(position).countryId);
+                                    }
+
+
 
                                 }
 
@@ -183,84 +203,114 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             });
                         }
-                    }
 
-                });
+            }
+         };
+
     }
 
     public void getState(String countryId) {
-        Log.d("data", countryId);
-        dialog.show();
-        Ion.with(getApplicationContext())
-                .load("http://aapkatrade.com/slim/dropdown")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("id", countryId)
-                .setBodyParameter("type", "state")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        Log.d("data", result.toString());
-                        JsonObject jsonObject = result.getAsJsonObject();
-                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                        for (int i = 0; i < jsonResultArray.size(); i++) {
-                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                            State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                            stateList.add(stateEntity);
+
+
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "state");
+        webservice_body_parameter.put("id", countryId);
+
+
+
+
+        Call_webservice.getcountrystatedata(RegistrationActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject state_data_webservice) {
+
+                JsonObject jsonObject = state_data_webservice.getAsJsonObject();
+                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                stateList.clear();
+                State stateEntity_init = new State("-1", "Select state");
+                stateList.add(stateEntity_init);
+
+
+                for (int i = 0; i < jsonResultArray.size(); i++) {
+                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                    State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                    stateList.add(stateEntity);
 //                                            Log.d("data", stateEntity.stateName);
+                }
+//                dialog.hide();
+                SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
+                spState.setAdapter(spStateAdapter);
+
+                spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                        cityList = new ArrayList<City>();
+                        if(position>0) {
+                            getCity(stateList.get(position).stateId);
                         }
-                        dialog.hide();
-                        SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
-                        spState.setAdapter(spStateAdapter);
 
-                        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                            @Override
-                            public void onItemSelected(AdapterView<?> parent, View view,
-                                                       int position, long id) {
-                                cityList = new ArrayList<City>();
-                                getCity(stateList.get(position).stateId);
-
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> parent) {
-
-                            }
-
-
-                        });
                     }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+
+
                 });
+            }
+
+        };
     }
 
+
+
+//
     public void getCity(String stateId) {
         Log.d("data", stateId);
-        dialog.show();
-        Ion.with(getApplicationContext())
-                .load("http://aapkatrade.com/slim/dropdown")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("id", stateId)
-                .setBodyParameter("type", "city")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        Log.d("data", result.toString());
-                        JsonObject jsonObject = result.getAsJsonObject();
-                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                        for (int i = 0; i < jsonResultArray.size(); i++) {
-                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                            City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                            cityList.add(cityEntity);
-                        }
-                        dialog.hide();
-                        SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
-                        spCity.setAdapter(spCityAdapter);
-                    }
-                });
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "city");
+        webservice_body_parameter.put("id", stateId);
+
+
+
+
+        Call_webservice.getcountrystatedata(RegistrationActivity.this, "city", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject city_data_webservice) {
+
+
+                Log.d("data", city_data_webservice.toString());
+                JsonObject jsonObject = city_data_webservice.getAsJsonObject();
+                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                for (int i = 0; i < jsonResultArray.size(); i++) {
+                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                    City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                    cityList.add(cityEntity);
+                }
+                // dialog.hide();
+                SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
+                spCity.setAdapter(spCityAdapter);
+
+
+            }
+        };
+
+
+
+
+
+
+
+        //dialog.show();
+
     }
 
 

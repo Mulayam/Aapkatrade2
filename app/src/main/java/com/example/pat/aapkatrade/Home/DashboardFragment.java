@@ -1,11 +1,8 @@
 package com.example.pat.aapkatrade.Home;
 
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -28,8 +25,11 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
+
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
+
+
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
@@ -92,7 +92,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
 
-        setup_bottomNavigation(view);
+
         vp=(ViewPager)view.findViewById(R.id.viewpager_custom) ;
         context = getActivity();
         //llManagerAllSale,llManagerTrendingStyle,llManagerEclipseCollection,llManagerExpressDeal,llManagerBestSelling;
@@ -102,7 +102,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerExpressDeal = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         llManagerBestSelling = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         viewpagerindicator=(LinearLayout)view.findViewById(R.id.viewpagerindicator);
-
         latestproductadapter=new latestproductadapter(context,commomDatas);
 
         initializeview(view);
@@ -114,34 +113,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         return view;
     }
 
-    private void setup_bottomNavigation(View view)
-    {
-        coordinatorLayout=(CoordinatorLayout)view.findViewById(R.id.coordination_home);
 
-        bottomNavigation = (AHBottomNavigation) view.findViewById(R.id.bottom_navigation);
-
-//        tabColors = getActivity().getResources().getIntArray(R.array.tab_colors);
-//        bottom_menuAdapter = new AHBottomNavigationAdapter(getActivity(), R.menu.button_menu);
-//        bottom_menuAdapter.setupWithBottomNavigation(bottomNavigation, tabColors);
-
-// Create items
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.ic_navigation_home, R.color.dark_green);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.ic_home_dashboard_aboutus, R.color.orange);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.ic_home_dashboard_rate_us, R.color.dark_green);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab_4, R.drawable.ic_home_bottom_account, R.color.dark_green);
-
-// Add items
-        bottomNavigation.addItem(item1);
-        bottomNavigation.addItem(item2);
-        bottomNavigation.addItem(item3);
-        bottomNavigation.addItem(item4);
-
-// Set background color
-        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.dark_green));
-
-// Disable the translation inside the CoordinatorLayout
-        bottomNavigation.setBehaviorTranslationEnabled(true);
-        bottomNavigation.setSelectedBackgroundVisible(true);
 
 
 // Enable the translation of the FloatingActionButton
@@ -234,9 +206,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     }
 
+
+
     private void setupviewpager() {
 
-        imageIdList = new ArrayList<Integer>();
+        imageIdList = new ArrayList<>();
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
@@ -316,8 +290,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private void initializeview(View v) {
 
-        scrollView=(ScrollView)v.findViewById(R.id.scrollView);
-        setup_scrollview(scrollView);
+
         v1=(View)v.findViewById(R.id.previous) ;
         v2=(View)v.findViewById(R.id.next) ;
        // discover_category=(AppCompatButton)v.findViewById(R.id.buttonDiscover);
@@ -358,52 +331,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
-    private void setup_scrollview(final ScrollView scrollView) {
-        if (Build.VERSION.SDK_INT >= 23) {
-            // Marshmallow+
 
-
-        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-               int pos= scrollView.getChildCount()-1;
-                if(oldScrollY<scrollY)
-                {showOrHideBottomNavigation(true);
-//                    setForceTitleHide(true);
-
-                }
-
-                else{
-                    showOrHideBottomNavigation(false);
-                }
-
-                if(oldScrollY==scrollY)
-                {
-                    showOrHideBottomNavigation(true);
-
-                }
-
-
-
-            }
-        });
-        }
-
-        else {
-            // Pre-Marshmallow
-        }
-
-
-
-    }
-
-    private void setForceTitleHide(boolean forceTitleHide) {
-
-
-        AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
-        bottomNavigation.setTitleState(state);
-    }
 
 
     @Override
@@ -584,13 +512,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         banner_timer.cancel();
     }
 
-    public void showOrHideBottomNavigation(boolean show) {
-        if (show) {
-            bottomNavigation.restoreBottomNavigation(true);
-        } else {
-            bottomNavigation.hideBottomNavigation(true);
-        }
-    }
+
 
     private void replaceFragment(Fragment newFragment, String tag)
     {
@@ -600,15 +522,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         transaction.commit();
     }
 
-    private void setupDashFragment()
-    {
-        if (homeFragment == null)
-        {
-            homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
-        }
-        String tagName = homeFragment.getClass().getName();
-        replaceFragment(homeFragment, tagName);
-    }
+
 
 
 
