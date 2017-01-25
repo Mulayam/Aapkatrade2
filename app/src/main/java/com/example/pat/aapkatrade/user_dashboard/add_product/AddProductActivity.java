@@ -10,19 +10,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,9 +37,12 @@ import java.util.Locale;
 public class AddProductActivity extends AppCompatActivity
 {
 
-    Spinner spSubCategory,spCategory,spUnitCategory;
+    Spinner  spCompanyList,spSubCategory,spCategory,spUnitCategory;
     EditText product_delivery_location,product_name;
     Button Add_product;
+
+    private ArrayList<String> name_category,ids_category,name_subcategory,ids_subcategory;
+
 
 
 String selected_productname,selectcategory,selected_subcategory,selected_unit;
@@ -61,6 +71,61 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
         setuptoolbar();
         setup_layout();
 
+
+
+
+    }
+
+    private void setup_layout()
+    {
+
+        product_name=(EditText)findViewById(R.id.etProductName);
+        spSubCategory = (Spinner) findViewById(R.id.spSubCategory_Add_product);
+        spCategory = (Spinner) findViewById(R.id.spCategory);
+
+
+
+        call_category_webservice();
+
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0)
+                {
+                    call_subcategory_webservice(ids_category.get(position).toString());
+                }
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
+        //spUnitCategory = (Spinner) findViewById(R.id.spUnitCategory);
+        product_delivery_location=(EditText)findViewById(R.id.etDeliver_location);
+
+        SpinnerAdapter spsubcategory=new SpinnerAdapter(getApplicationContext(),subcategories);
+        //SpinnerAdapter spunites=new SpinnerAdapter(getApplicationContext(),units);
+
+        // SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
+
+        // SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),subcategories);
+
+        spSubCategory.setAdapter(spsubcategory );
+
+
+        //spUnitCategory.setAdapter(spunites);
+        // spUnitCategory.setAdapter(spCountrysAdapter);
+
+        Add_product=(Button)findViewById(R.id.btnUpload);
+
         product_delivery_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,24 +144,6 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
                 }
             }
         });
-
-
-    }
-
-    private void setup_layout()
-    {
-
-        product_name=(EditText)findViewById(R.id.etProductName);
-        spSubCategory = (Spinner) findViewById(R.id.spSubCategory);
-
-        spCategory = (Spinner) findViewById(R.id.spCategory);
-
-        //spUnitCategory = (Spinner) findViewById(R.id.spUnitCategory);
-        product_delivery_location=(EditText)findViewById(R.id.etDeliver_location);
-
-        Add_product=(Button)findViewById(R.id.btnUpload);
-
-
 
         Add_product.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,22 +169,118 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
 
 
 
+    }
 
-        SpinnerAdapter customAdapter=new SpinnerAdapter(getApplicationContext(),categoriesNames);
-        SpinnerAdapter spsubcategory=new SpinnerAdapter(getApplicationContext(),subcategories);
-        //SpinnerAdapter spunites=new SpinnerAdapter(getApplicationContext(),units);
+    private void call_category_webservice() {
 
-       // SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(getApplicationContext(),spCountryName);
+        HashMap<String, String> webservice_header = new HashMap<>();
+        webservice_header.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
-       // SpCityAdapter spCityAdapter = new SpCityAdapter(getApplicationContext(),subcategories);
 
-        spSubCategory.setAdapter(spsubcategory );
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "category");
 
-        spCategory.setAdapter(customAdapter);
-        //spUnitCategory.setAdapter(spunites);
-       // spUnitCategory.setAdapter(spCountrysAdapter);
+        Call_webservice.getcountrystatedata(AddProductActivity.this,"category",getResources().getString(R.string.webservice_base_url)+"/dropdown"
+                , webservice_body_parameter,webservice_header);
+        Call_webservice.taskCompleteReminder=new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject data) {
+
+                JsonObject jsonObject = data.getAsJsonObject();
+                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                name_category = new ArrayList<>();
+                ids_category = new ArrayList<>();
+                name_category.clear();
+                ids_category.clear();
+
+                for (int i = 0; i < jsonResultArray.size(); i++) {
+                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                    name_category.add("Select Category");
+                    name_category.add(jsonObject1.get("name").getAsString());
+                    ids_category.add("");
+                    ids_category.add(jsonObject1.get("id").getAsString());
+                    //Log.e("hi", categoryHome.getCategoryName());
+
+
+                }
+
+                CustomSpinnerAdapter categoryadapter = new CustomSpinnerAdapter(getApplicationContext(), name_category, ids_category);
+                spCategory.setAdapter(categoryadapter);
+
+            }
+
+
+
+
+        };
 
     }
+
+    private void call_subcategory_webservice(String category_id) {
+
+        HashMap<String, String> webservice_header = new HashMap<>();
+        webservice_header.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+
+
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "subcategory");
+        webservice_body_parameter.put("id", category_id);
+
+
+        Call_webservice.getcountrystatedata(AddProductActivity.this,"subcategory",getResources().getString(R.string.webservice_base_url)+"/dropdown"
+                , webservice_body_parameter,webservice_header);
+        Call_webservice.taskCompleteReminder=new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject data) {
+
+                JsonObject jsonObject = data.getAsJsonObject();
+                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                name_subcategory = new ArrayList<>();
+                ids_subcategory  = new ArrayList<>();
+                for (int i = 0; i < jsonResultArray.size(); i++) {
+                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+
+                    name_subcategory.add(jsonObject1.get("name").getAsString());
+                    ids_subcategory.add(jsonObject1.get("id").getAsString());
+                    //Log.e("hi", categoryHome.getCategoryName());
+
+
+                }
+
+                CustomSpinnerAdapter subcategoryadapter = new CustomSpinnerAdapter(getApplicationContext(), name_subcategory, ids_subcategory);
+                spSubCategory.setAdapter(subcategoryadapter);
+
+            }
+
+
+
+
+        };
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private void setuptoolbar()
