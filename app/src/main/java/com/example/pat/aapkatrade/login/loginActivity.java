@@ -46,24 +46,59 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(registerUserActivity);
+////                if (sharedPreferences != null) {
+////                    if (sharedPreferences.getInt("user", 0) == 3)
+//                        if (sharedPreferences != null) {
+//                            if (sharedPreferences.getInt("user_type", 0) == 3) {
+//
+//                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
+//                                startActivity(registerUserActivity);
+//                            } else if ((sharedPreferences.getInt("user_type", 0) == 1) || (sharedPreferences.getInt("user_type", 0) == 2)) {
+//                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+//                                startActivity(registerUserActivity);
+//                            }
+//                        }
+//                else{
+//                          Log.e("null_sharedPreferences","sharedPreferences") ;
+//                        }
 
-              /*  if (sharedPreferences != null) {
-                    if (sharedPreferences.getInt("user", 0) == 3)
+
+
                 if (sharedPreferences != null) {
-                    if (sharedPreferences.getInt("user_type", 0) == 3) {
-
+                    if (sharedPreferences.getInt("user", 0) == 3) {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
-                    } else if((sharedPreferences.getInt("user_type", 0) == 1) || (sharedPreferences.getInt("user_type", 0) == 2)) {
+                    } else if((sharedPreferences.getInt("user", 0) == 1) || (sharedPreferences.getInt("user", 0) == 2)) {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
-                }*/
-            }
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
         });
+
     }
+
 
     private void putValues() {
 
@@ -89,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                            } else if((sharedPreferences.getInt("user_type", 0) == 1) ) {
+                            } else if((sharedPreferences.getInt("user_type", 0) == 2) ) {
 
                                 String login_url="http://aapkatrade.com/slim/buyerlogin";
 
@@ -97,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             }
-                            else if(sharedPreferences.getInt("user_type", 0) == 2)
+                            else if(sharedPreferences.getInt("user_type", 0) == 1)
                             {
 
                                 String login_url="http://aapkatrade.com/slim/sellerlogin";
