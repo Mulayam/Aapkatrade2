@@ -34,11 +34,7 @@ public class AddProductActivity extends AppCompatActivity
     EditText product_delivery_location,product_name;
     Button Add_product;
 
-
-String selected_productname,selectcategory,selected_subcategory,selected_unit;
-
-
-
+    String selected_productname,selectcategory,selected_subcategory,selected_unit;
 
     String[] categoriesNames={"Vegetables","Tailors","Barber","Shoe Repair","Hospitals","Transport","Pharmecy"};
 
@@ -105,9 +101,6 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
                 {
                     if(Validation.validate_edittext(product_delivery_location))
                     {
-
-
-
 
                     }
                     else{

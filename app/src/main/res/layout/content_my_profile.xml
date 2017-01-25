@@ -24,10 +24,9 @@
         <RelativeLayout
             android:id="@+id/linear_layout_image"
             android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:background="@drawable/orange_back"
             >
-
 
             <ImageView
                 android:id="@+id/imgProfile"

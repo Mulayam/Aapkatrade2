@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
@@ -63,6 +64,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private int[] tabColors;
     private List<Integer> imageIdList;
     User_DashboardFragment user_dashboardFragment;
+    AboutUsFragment aboutUsFragment;
     private ImageView[] dots;
     private Handler mHandler;
     public static final int DELAY = 5000;
@@ -190,15 +192,25 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
                 switch (position)
-                {case 0:
+                {
+                    case 0:
                     if (homeFragment == null)
                     {
                         homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
                     }
+
                     String tagName = homeFragment.getClass().getName();
                     replaceFragment(homeFragment, tagName);
                     break;
 
+
+                    case 1:
+                        if (aboutUsFragment == null)
+                        {
+                            aboutUsFragment = new AboutUsFragment();
+                        }
+                        replaceFragment(aboutUsFragment,"");
+                        break;
 
 
                     case 3:
@@ -406,11 +418,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    private void setuprecyclers(View view) {
-
-
-
-
+    private void setuprecyclers(View view)
+    {
 
         //setupExpressDeal(view);
         setupBestSelling(view);

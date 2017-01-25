@@ -61,8 +61,11 @@
         <activity
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
-        <activity android:name=".productdetail.CategoryListFragment" />
-        <activity android:name=".productdetail.FilterActivity"></activity>
+
+        <activity android:name=".categories_tab.CategoryListFragment"></activity>
+
+        <activity android:name=".categories_tab.FilterActivity"></activity>
+
     </application>
 
 </manifest>

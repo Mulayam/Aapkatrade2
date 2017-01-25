@@ -17,7 +17,6 @@ import android.widget.ImageView;
 
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.productdetail.CategoryListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
