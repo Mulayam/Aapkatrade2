@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,23 +12,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 
 
 public class MyProfileActivity extends AppCompatActivity
-{
+{ SharedPreferences prefs;
 
     TextView  toolbar_title_txt;
-    Button btnsave,btnEdit;
+    Button btnsave,btnEdit,btnLogout;
+    public static String shared_pref_name = "aapkatrade";
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
+        prefs = getSharedPreferences(shared_pref_name, MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
         setuptoolbar();
@@ -40,6 +43,7 @@ public class MyProfileActivity extends AppCompatActivity
 
         btnsave = (Button) findViewById(R.id.btnSave);
         btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnLogout=(Button)findViewById(R.id.btnlogout);
         btnsave.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -58,6 +62,23 @@ public class MyProfileActivity extends AppCompatActivity
                startActivity(i);
            }
        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save_shared_pref("notlogin","notlogin","notlogin");
+                Intent Homedashboard = new Intent(MyProfileActivity.this, HomeActivity.class);
+                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(Homedashboard);
+            }
+        });
+
+
+
+
+
+
+
     }
 
 
@@ -94,5 +115,17 @@ public class MyProfileActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void save_shared_pref(String user_id, String user_name, String email_id) {
 
+        SharedPreferences.Editor editor=prefs.edit();
+        editor.putString("userid",user_id);
+        editor.putString("username",user_name);
+        editor.putString("emailid",email_id);
+        editor.commit();
+
+
+
+
+
+    }
 }

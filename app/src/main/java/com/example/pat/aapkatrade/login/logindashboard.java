@@ -33,7 +33,7 @@ public class LoginDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(prefs!= null)
-                prefs.edit().putInt("user", 1).commit();
+                prefs.edit().putInt("user_type", 2).commit();
                 Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -44,7 +44,7 @@ public class LoginDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(prefs!= null)
-                prefs.edit().putInt("user", 2).commit();
+                prefs.edit().putInt("user_type", 1).commit();
                 Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -55,10 +55,15 @@ public class LoginDashboard extends AppCompatActivity {
         fl_business_assoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(prefs!= null)
-                prefs.edit().putInt("user", 3).commit();
-                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
+//                if(prefs!= null)
+//                prefs.edit().putInt("user_type", 3).commit();
+//                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
+//                startActivity(i);
+
+                Intent i = new Intent(LoginDashboard.this, ActivityOTPVerify.class);
                 startActivity(i);
+
+
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
