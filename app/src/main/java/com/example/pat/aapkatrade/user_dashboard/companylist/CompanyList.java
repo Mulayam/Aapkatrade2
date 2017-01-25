@@ -106,6 +106,8 @@ public class CompanyList extends AppCompatActivity
                            // progressView.setVisibility(View.INVISIBLE);
                             relativeCompanylist.setVisibility(View.VISIBLE);
 
+
+
                         }
 
                     }
