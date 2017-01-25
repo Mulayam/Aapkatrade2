@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.my_company_profile;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -59,4 +60,11 @@ public class MyCompanyProfile extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
+
 }
