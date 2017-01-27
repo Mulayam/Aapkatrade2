@@ -23,24 +23,15 @@ public class Call_webservice  {
         if (webservicetype.equals("country"))
 
         {
-
-
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
-            if (authorization.equals(null)) {
-                Log.e("authorization null", "authorization null");
-            } else {
+            String get_webservice_body_parameter = webservice_body_parameter.get("type");
+            String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
 
-                String get_webservice_body_parameter = webservice_body_parameter.get("type");
-                String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
 
-                if (get_webservice_body_parameter.equals(null)) {
                     Log.e("body_parameter null", "body_parameter null");
 
-                } else {
-
-
-                    HashMap<String, String> webservice_header_type = headers;
+            HashMap<String, String> webservice_header_type = headers;
                     webservice_header_type.get("authorization");
 
 
@@ -48,21 +39,21 @@ public class Call_webservice  {
                             .load(webservice_url)
                             .setHeader("authorization", authorization)
                             .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
-                            .setBodyParameter("type", webservicetype)
+                            .setBodyParameter("type", get_webservice_body_parameter)
                             .asJsonObject()
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
 
                                     taskCompleteReminder.Taskcomplete(result);
-                                    Log.e("jsonobject", jsonObject.toString());
+                                 //   Log.e("jsonobject", result.toString());
                                     //taskCompleteReminder.Taskcomplete("complete");
 //
                                 }
 
                             });
-                }
-            }
+
+
 
 
         }

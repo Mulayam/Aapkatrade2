@@ -1,7 +1,6 @@
 package com.example.pat.aapkatrade.login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -16,6 +15,7 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
@@ -29,15 +29,16 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     RelativeLayout rl_login, relativeRegister;
     Validation vt;
-
+App_sharedpreference app_sharedpreference;
     CoordinatorLayout cl;
-    public static String shared_pref_name = "aapkatrade";
-    public static SharedPreferences sharedPreferences;
+//    public static String shared_pref_name = "aapkatrade";
+//    public static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        app_sharedpreference=new App_sharedpreference(LoginActivity.this);
         InitView();
         putValues();
 
@@ -49,11 +50,11 @@ public class LoginActivity extends AppCompatActivity {
 ////                if (sharedPreferences != null) {
 ////                    if (sharedPreferences.getInt("user", 0) == 3)
 //                        if (sharedPreferences != null) {
-//                            if (sharedPreferences.getInt("user_type", 0) == 3) {
+//                            if (sharedPreferences.getInt("usertype", 0) == 3) {
 //
 //                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
 //                                startActivity(registerUserActivity);
-//                            } else if ((sharedPreferences.getInt("user_type", 0) == 1) || (sharedPreferences.getInt("user_type", 0) == 2)) {
+//                            } else if ((sharedPreferences.getInt("usertype", 0) == 1) || (sharedPreferences.getInt("usertype", 0) == 2)) {
 //                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
 //                                startActivity(registerUserActivity);
 //                            }
@@ -64,14 +65,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
                 Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
                 startActivity(registerUserActivity);
 
                /* if (sharedPreferences != null) {
                     if (sharedPreferences.getInt("user", 0) == 3) {
+
+                if (app_sharedpreference.shared_pref!= null) {
+                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
-                    } else if((sharedPreferences.getInt("user", 0) == 1) || (sharedPreferences.getInt("user", 0) == 2)) {
+                    } else if(app_sharedpreference.getsharedpref("usertype", "0").equals("1") || app_sharedpreference.getsharedpref("usertype", "0").equals("2") ) {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
@@ -118,8 +124,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (Validation.validate_edittext(password)) {
 
-                        if (sharedPreferences != null) {
-                            if (sharedPreferences.getInt("user_type", 0) == 3) {
+                        if (app_sharedpreference.shared_pref!= null) {
+                            if (app_sharedpreference.getsharedpref("usertype","0").equals("3")) {
 
                                 String login_url="http://aapkatrade.com/slim/businesslogin";
 
@@ -127,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                            } else if((sharedPreferences.getInt("user_type", 0) == 2) ) {
+                            } else if(app_sharedpreference.getsharedpref("usertype", "0").equals("2") ) {
 
                                 String login_url="http://aapkatrade.com/slim/buyerlogin";
 
@@ -135,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                             }
-                            else if(sharedPreferences.getInt("user_type", 0) == 1)
+                            else if(app_sharedpreference.getsharedpref("usertype", "0").equals("1"))
                             {
 
                                 String login_url="http://aapkatrade.com/slim/sellerlogin";
@@ -234,12 +240,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void save_shared_pref(String user_id, String user_name, String email_id) {
+        app_sharedpreference .setsharedpref("userid",user_id);
+        app_sharedpreference .setsharedpref("username",user_name);
+        app_sharedpreference .setsharedpref("emailid",email_id);
 
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString("userid",user_id);
-        editor.putString("username",user_name);
-        editor.putString("emailid",email_id);
-        editor.commit();
+
 
 
 
@@ -257,7 +262,7 @@ public class LoginActivity extends AppCompatActivity {
         rl_login = (RelativeLayout) findViewById(R.id.rl_login);
         relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
         vt = new Validation();
-        sharedPreferences = getSharedPreferences(shared_pref_name, MODE_PRIVATE);
+
 
 
         forgot_password.setOnClickListener(new View.OnClickListener() {

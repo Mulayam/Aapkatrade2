@@ -2,7 +2,6 @@ package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,25 +13,25 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 
 
 public class MyProfileActivity extends AppCompatActivity
-{ SharedPreferences prefs;
+{
 
     TextView  toolbar_title_txt;
     Button btnsave,btnEdit,btnLogout;
     public static String shared_pref_name = "aapkatrade";
 
-
+App_sharedpreference app_sharedpreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
-    {
-        prefs = getSharedPreferences(shared_pref_name, MODE_PRIVATE);
-        super.onCreate(savedInstanceState);
+    {super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+        app_sharedpreference=new App_sharedpreference(this);
         setuptoolbar();
         setup_layout();
 
@@ -116,12 +115,11 @@ public class MyProfileActivity extends AppCompatActivity
     }
 
     public void save_shared_pref(String user_id, String user_name, String email_id) {
+        app_sharedpreference.setsharedpref("userid",user_id);
+        app_sharedpreference.setsharedpref("username",user_name);
+        app_sharedpreference.setsharedpref("emailid",email_id);
 
-        SharedPreferences.Editor editor=prefs.edit();
-        editor.putString("userid",user_id);
-        editor.putString("username",user_name);
-        editor.putString("emailid",email_id);
-        editor.commit();
+
 
 
 
