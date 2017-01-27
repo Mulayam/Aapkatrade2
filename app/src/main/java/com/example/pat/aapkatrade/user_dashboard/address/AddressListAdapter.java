@@ -20,12 +20,12 @@ import java.util.List;
 public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private List<Address> itemList;
+    private List<AddressData> itemList;
     private Context context;
     AddressListViewHolder viewHolder;
 
 
-    public AddressListAdapter(Context context, List<Address> itemList) {
+    public AddressListAdapter(Context context, List<AddressData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);

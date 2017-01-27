@@ -13,6 +13,7 @@
     </View>
 
 
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,10 +29,26 @@
             android:layout_gravity="center_vertical"
 
             android:scaleType="fitCenter"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+    android:padding="10dp"
+        android:background="@color/dark_green"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatImageView
+
+            android:id="@+id/circular_profile_image_home"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
             app:srcCompat="@drawable/svg"
 
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitCenter"
 
             />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,12 +59,14 @@
             android:layout_toRightOf="@+id/circular_profile_image_home"
             android:gravity="center_vertical">
 
+
             <TextView
                 android:id="@+id/welcome_guest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/welcomeguest"
                 android:textColor="@color/white" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,6 +77,33 @@
 
 
         </RelativeLayout>
+
+            />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/circular_profile_image_home"
+        android:gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/welcome_guest"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:text="@string/welcomeguest"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_below="@+id/welcome_guest"
+            android:text="@string/user_name"
+            android:id="@+id/tv_email" />
+
+
+    </RelativeLayout>
+
 
     </RelativeLayout>
 

@@ -7,15 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutFragment;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
 
 import java.util.ArrayList;
 
 public class AddressActivity extends AppCompatActivity {
 
-    ArrayList<Address> addressList = new ArrayList<>();
+    ArrayList<AddressData> addressList = new ArrayList<>();
     RecyclerView addressRecyclerView;
     AddressListAdapter addressListAdapter;
 
@@ -43,12 +40,12 @@ public class AddressActivity extends AppCompatActivity {
     private void setup_data() {
         addressList.clear();
         try {
-            addressList.add(new Address("Line 1", "Line 2", "Line 3"));
-            addressList.add(new Address("Line 1", "Line 2", "Line 3"));
-            addressList.add(new Address("Line 1", "Line 2", "Line 3"));
-            addressList.add(new Address("Line 1", "Line 2", "Line 3"));
-            addressList.add(new Address("Line 1", "Line 2", "Line 3"));
-            addressList.add(new Address("Line 1", "Line 2", "Line 3"));
+            addressList.add(new AddressData("Line 1", "Line 2", "Line 3"));
+            addressList.add(new AddressData("Line 1", "Line 2", "Line 3"));
+            addressList.add(new AddressData("Line 1", "Line 2", "Line 3"));
+            addressList.add(new AddressData("Line 1", "Line 2", "Line 3"));
+            addressList.add(new AddressData("Line 1", "Line 2", "Line 3"));
+            addressList.add(new AddressData("Line 1", "Line 2", "Line 3"));
         } catch (Exception e) {
 
         }

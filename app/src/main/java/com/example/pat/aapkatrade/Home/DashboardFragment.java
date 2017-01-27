@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -25,10 +26,18 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
+import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListAdapter;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,16 +58,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private RecyclerView recyclerViewAllSale, recyclerViewTrendingStyle, recyclerViewEclipseCollection, recyclerViewExpressDeal, recyclerViewBestSelling;
     private LinearLayoutManager llManagerAllSale, llManagerTrendingStyle, llManagerEclipseCollection, llManagerExpressDeal, llManagerBestSelling;
     ArrayList<CommomData> commomDatas = new ArrayList<>();
-    ArrayList<CommomData> commomDatas_latestdeals = new ArrayList<>();
-    ArrayList<CommomData> commomDatas_newarrival = new ArrayList<>();
+    ArrayList<CommomData> commomDatas_latestpost= new ArrayList<>();
+    ArrayList<CommomData> commomDatas_latestupdate = new ArrayList<>();
     ArrayList<CommomData> commomDatas_hotdeals = new ArrayList<>();
     private CommomAdapter commomAdapter;
-   public latestproductadapter latestproductadapter;
+    public latestproductadapter latestproductadapter;
     int position=0;
     private int dotsCount;
     private int[] tabColors;
     private List<Integer> imageIdList;
     User_DashboardFragment user_dashboardFragment;
+    AboutUsFragment aboutUsFragment;
     private ImageView[] dots;
     private Handler mHandler;
     public static final int DELAY = 5000;
@@ -98,6 +108,18 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         viewpagerindicator=(LinearLayout)view.findViewById(R.id.viewpagerindicator);
         latestproductadapter=new latestproductadapter(context,commomDatas);
 
+
+        recyclerViewAllSale = (RecyclerView) view.findViewById(R.id.recyclerAllSale);
+        recyclerViewAllSale.setLayoutManager(llManagerAllSale);
+
+
+        recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerEclipseExpressCollection);
+        recyclerViewEclipseCollection.setLayoutManager(llManagerEclipseCollection);
+
+
+
+
+
         initializeview(view);
         setupView(view);
         setupviewpager();
@@ -109,6 +131,99 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
 
+//
+//// Enable the translation of the FloatingActionButton
+//      //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
+//
+//// Change colors
+//       bottomNavigation.setAccentColor(Color.parseColor("#FEFEFE"));
+//       bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
+//
+//// Force to tint the drawable (useful for font with icon for example)
+//        bottomNavigation.setForceTint(true);
+//
+//// Display color under navigation bar (API 21+)
+//// Don't forget these lines in your style-v21
+//// <item name="android:windowTranslucentNavigation">true</item>
+//// <item name="android:fitsSystemWindows">true</item>
+//        bottomNavigation.setTranslucentNavigationEnabled(true);
+//
+//// Manage titles
+//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+//
+//// Use colored navigation with circle reveal effect
+//        bottomNavigation.setColored(false);
+//
+//// Set current item programmatically
+//        bottomNavigation.setCurrentItem(0);
+//
+//// Customize notification (title, background, typeface)
+////       bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
+////
+////// Add or remove notification for each item
+////        bottomNavigation.setNotification("", 3);
+//// OR
+////        AHNotification notification = new AHNotification.Builder()
+////                .setText("1")
+////                .setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_green))
+////                .setTextColor(ContextCompat.getColor(getActivity(), R.color.grey))
+////                .build();
+////        bottomNavigation.setNotification(notification, 1);
+//
+//// Set listeners
+//        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+//            @Override
+//            public boolean onTabSelected(int position, boolean wasSelected) {
+//
+//
+//
+//                switch (position)
+//                {
+//                    case 0:
+//                    if (homeFragment == null)
+//                    {
+//                        homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+//                    }
+//
+//                    String tagName = homeFragment.getClass().getName();
+//                    replaceFragment(homeFragment, tagName);
+//                    break;
+//
+//
+//                    case 1:
+//                        if (aboutUsFragment == null)
+//                        {
+//                            aboutUsFragment = new AboutUsFragment();
+//                        }
+//                        replaceFragment(aboutUsFragment,"");
+//                        break;
+//
+//
+//                    case 3:
+//                        if (user_dashboardFragment == null)
+//                        {
+//                            user_dashboardFragment = new User_DashboardFragment();
+//                        }
+//                        //String tagName_dashboardFragment = User_DashboardFragment.getClass().getName();
+//                        replaceFragment(user_dashboardFragment,"");
+//                        break;
+//                }
+//                // Do something cool here...
+//                return true;
+//            }
+//        });
+//        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+//            @Override public void onPositionChange(int y) {
+//                // Manage the new y position
+//            }
+//        });
+//
+//    }
+
+
+
     private void setupviewpager() {
 
         imageIdList = new ArrayList<>();
@@ -116,9 +231,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
-
-
-
 
 
 
@@ -146,14 +258,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 handler.post(update);
             }
         }, 0, 3000);
-
-
-
-
-
-
-
-
 
 
 
@@ -230,9 +334,89 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             }
         });
 
+
+        get_home_data();
+
     }
 
+    public void get_home_data()
+    {
+        Ion.with(getActivity())
+                .load("http://aapkatrade.com/slim/home")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("city_id", "")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+                        if(result ==null)
+                        {
 
+                        }
+                        else
+                        {
+                            Log.e("data===============",result.toString());
+
+
+                            JsonObject jsonResult = result.getAsJsonObject("result");
+
+                            JsonArray latest_post = jsonResult.getAsJsonArray("latest_post");
+
+                            JsonArray latest_update = jsonResult.getAsJsonArray("latest_update");
+
+                            System.out.println("jsonArray---------"+latest_post.toString());
+
+                            for(int i = 0; i<latest_post.size(); i++)
+                            {
+
+                                JsonObject jsonObject_latest_post = (JsonObject) latest_post.get(i);
+
+                                System.out.println("jsonArray jsonObject2"+jsonObject_latest_post.toString());
+
+                                String product_id = jsonObject_latest_post.get("id").getAsString();
+
+                                String product_name = jsonObject_latest_post.get("prodname").getAsString();
+
+                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
+
+                            }
+
+                            commomAdapter = new CommomAdapter(context, commomDatas_latestpost);
+                            recyclerViewAllSale.setAdapter(commomAdapter);
+                            commomAdapter.notifyDataSetChanged();
+
+
+                            for(int i = 0; i<latest_update.size(); i++)
+                            {
+
+                                JsonObject jsonObject_latest_update = (JsonObject) latest_post.get(i);
+
+                                System.out.println("jsonArray jsonObject2"+jsonObject_latest_update.toString());
+
+                                String update_product_id = jsonObject_latest_update.get("id").getAsString();
+
+                                String update_product_name = jsonObject_latest_update.get("prodname").getAsString();
+
+                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
+
+                            }
+
+                            commomAdapter = new CommomAdapter(context, commomDatas_latestupdate);
+                            recyclerViewEclipseCollection.setAdapter(commomAdapter);
+                            commomAdapter.notifyDataSetChanged();
+
+                        }
+
+                    }
+
+                });
+
+
+
+    }
 
 
     @Override
@@ -247,11 +431,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    private void setuprecyclers(View view) {
-
-
-
-
+    private void setuprecyclers(View view)
+    {
 
         //setupExpressDeal(view);
         setupBestSelling(view);
@@ -262,21 +443,15 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private void setupAllSale(View view) {
 
-        commomDatas_latestdeals.clear();
+       /* commomDatas_latestdeals.clear();
         for(int i=0;i<20;i++) {
             commomDatas_latestdeals.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
-        }
-        commomAdapter = new CommomAdapter(context, commomDatas_latestdeals);
-        recyclerViewAllSale = (RecyclerView) view.findViewById(R.id.recyclerAllSale);
-        recyclerViewAllSale.setLayoutManager(llManagerAllSale);
-        recyclerViewAllSale.setAdapter(commomAdapter);
-
+        }*/
 
     }
 
-    private void setupTrendingStyles(View view) {
-
-
+    private void setupTrendingStyles(View view)
+    {
 
         commomDatas_hotdeals.clear();
         for(int i=0;i<20;i++) {
@@ -292,14 +467,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private void setupEclipseCollection(View view) {
 
-        commomDatas_newarrival.clear();
+       /* commomDatas_latestupdate.clear();
         for(int i=0;i<2;i++) {
-            commomDatas_newarrival.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
-        }
-        commomAdapter = new CommomAdapter(context, commomDatas_newarrival);
-        recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerEclipseExpressCollection);
-        recyclerViewEclipseCollection.setLayoutManager(llManagerEclipseCollection);
-        recyclerViewEclipseCollection.setAdapter(commomAdapter);
+            commomDatas_latestupdate.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
+        }*/
+
+
 
     }
 
@@ -318,8 +491,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
     }
-
-
 
 
 

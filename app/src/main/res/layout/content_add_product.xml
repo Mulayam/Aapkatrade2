@@ -105,7 +105,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
 
@@ -155,7 +155,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -187,7 +187,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -219,7 +219,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
                 <Spinner
@@ -256,7 +256,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -288,7 +288,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -321,7 +321,6 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
                     >
 
                     <EditText
@@ -349,7 +348,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -384,22 +383,20 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+
                     >
 
                 <EditText
                     android:id="@+id/etprice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:hint="@string/price"
-
                     android:padding="10dp"
                     android:maxLines="1"
                     android:textSize="14dp"
                     android:textColorHint="@color/hint_color"
                     />
-</RelativeLayout>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -408,19 +405,16 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
                     >
 
                     <EditText
                         android:id="@+id/etcrossedprice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:hint="@string/cross_price"
-
-                        android:padding="10dp"
                         android:maxLines="1"
                         android:textSize="14dp"
+                        android:padding="10dp"
                         android:textColorHint="@color/hint_color"
                         />
                 </RelativeLayout>
@@ -432,7 +426,7 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -464,13 +458,12 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.2"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="8dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -502,13 +495,12 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.2"
+                    android:layout_height="wrap_content"
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:padding="8dp"
+                    android:padding="10dp"
                     >
 
                     <Spinner
@@ -544,31 +536,26 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/spinner_green_back"
-                    android:padding="2dp"
                     >
 
                     <EditText
                         android:id="@+id/etDiscription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:hint="Description"
-
                         android:padding="10dp"
                         android:textSize="14dp"
+                        android:maxLines="3"
                         android:textColorHint="@color/hint_color"
                         />
                 </RelativeLayout>
-
-
-
 
 
                 <Button
                     android:id="@+id/btnUpload"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/save"
+                    android:text="@string/submit"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:background="@drawable/button_orange_back"

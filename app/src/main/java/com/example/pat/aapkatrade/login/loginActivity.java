@@ -1,20 +1,27 @@
 package com.example.pat.aapkatrade.login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
+import com.google.gson.JsonObject;
+
+import java.util.HashMap;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -22,15 +29,16 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     RelativeLayout rl_login, relativeRegister;
     Validation vt;
-
+App_sharedpreference app_sharedpreference;
     CoordinatorLayout cl;
-    private static String shared_pref_name = "aapkatrade";
-    private SharedPreferences sharedPreferences;
+//    public static String shared_pref_name = "aapkatrade";
+//    public static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        app_sharedpreference=new App_sharedpreference(LoginActivity.this);
         InitView();
         putValues();
 
@@ -38,21 +46,79 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
 //                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
 //                startActivity(registerUserActivity);
 
                 if (sharedPreferences != null) {
+
+
+////                if (sharedPreferences != null) {
+////                    if (sharedPreferences.getInt("user", 0) == 3)
+//                        if (sharedPreferences != null) {
+//                            if (sharedPreferences.getInt("usertype", 0) == 3) {
+//
+//                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
+//                                startActivity(registerUserActivity);
+//                            } else if ((sharedPreferences.getInt("usertype", 0) == 1) || (sharedPreferences.getInt("usertype", 0) == 2)) {
+//                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+//                                startActivity(registerUserActivity);
+//                            }
+//                        }
+//                else{
+//                          Log.e("null_sharedPreferences","sharedPreferences") ;
+//                        }
+
+
+
+
+                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(registerUserActivity);
+
+               /* if (sharedPreferences != null) {
+
                     if (sharedPreferences.getInt("user", 0) == 3) {
+
+                if (app_sharedpreference.shared_pref!= null) {
+                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
-                    } else if((sharedPreferences.getInt("user", 0) == 1) || (sharedPreferences.getInt("user", 0) == 2)) {
+                    } else if(app_sharedpreference.getsharedpref("usertype", "0").equals("1") || app_sharedpreference.getsharedpref("usertype", "0").equals("2") ) {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
                 }
+
             }
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
         });
+
     }
+
 
     private void putValues() {
 
@@ -69,8 +135,39 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (Validation.validate_edittext(password)) {
 
-                        Intent activityOTPVerify = new Intent(LoginActivity.this, ActivityOTPVerify.class);
-                        startActivity(activityOTPVerify);
+                        if (app_sharedpreference.shared_pref!= null) {
+                            if (app_sharedpreference.getsharedpref("usertype","0").equals("3")) {
+
+                                String login_url="http://aapkatrade.com/slim/businesslogin";
+
+                                callwebservice_login(login_url,input_username,input_password);
+
+
+
+                            } else if(app_sharedpreference.getsharedpref("usertype", "0").equals("2") ) {
+
+                                String login_url="http://aapkatrade.com/slim/buyerlogin";
+
+                                callwebservice_login(login_url,input_username,input_password);
+
+
+                            }
+                            else if(app_sharedpreference.getsharedpref("usertype", "0").equals("1"))
+                            {
+
+                                String login_url="http://aapkatrade.com/slim/sellerlogin";
+
+                                callwebservice_login(login_url,input_username,input_password);
+
+
+
+                            }
+                        }
+
+
+
+
+
 
                     } else {
                         showMessage("");
@@ -88,6 +185,84 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void callwebservice_login(String login_url,String input_username,String input_password) {
+
+        // dialog.show();
+        HashMap<String,String> webservice_body_parameter=new HashMap<>();
+        webservice_body_parameter.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type","login");
+        webservice_body_parameter.put("email",input_username);
+        webservice_body_parameter.put("password",input_password);
+
+
+        HashMap<String,String> webservice_header_type=new HashMap<>();
+        webservice_header_type.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+
+
+
+
+
+        Call_webservice.call_login_webservice(LoginActivity.this,login_url,"login",webservice_body_parameter,webservice_header_type);
+
+        Call_webservice.taskCompleteReminder=new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject webservice_returndata) {
+
+                Log.e("data2",webservice_returndata.toString());
+
+                if (webservice_returndata != null)
+                {
+                    Log.e("webservice_returndata",webservice_returndata.toString());
+                    JsonObject jsonObject = webservice_returndata.getAsJsonObject();
+
+                    String error=jsonObject.get("error").getAsString();
+                    String message=jsonObject.get("message").getAsString();
+                    if(error.equals("false"))
+                    {
+                        String user_id=jsonObject.get("user_id").getAsString();
+                        String name=jsonObject.get("name").getAsString();
+
+                        String email_id=jsonObject.get("email").getAsString();
+
+                        showMessage(message);
+                        save_shared_pref(user_id,name,email_id);
+
+                        Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(Homedashboard);
+
+                    }
+                    else{
+                        showMessage(message);
+                    }
+
+
+
+                }
+
+            }
+        };
+
+
+
+
+
+
+    }
+
+    public void save_shared_pref(String user_id, String user_name, String email_id) {
+        app_sharedpreference .setsharedpref("userid",user_id);
+        app_sharedpreference .setsharedpref("username",user_name);
+        app_sharedpreference .setsharedpref("emailid",email_id);
+
+
+
+
+
+
+
+    }
+
     private void InitView() {
         forgot_password=(TextView)findViewById(R.id.tv_forgotpassword);
 
@@ -98,7 +273,7 @@ public class LoginActivity extends AppCompatActivity {
         rl_login = (RelativeLayout) findViewById(R.id.rl_login);
         relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
         vt = new Validation();
-        sharedPreferences = getSharedPreferences(shared_pref_name, MODE_PRIVATE);
+
 
 
         forgot_password.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +298,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-
+        snackbar.show();
     }
 
 

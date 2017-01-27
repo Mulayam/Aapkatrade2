@@ -6,9 +6,11 @@
     android:background="@color/white"
     >
 
+
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_layout" />
+
 
     <include
         layout="@layout/content_my_company_profile"

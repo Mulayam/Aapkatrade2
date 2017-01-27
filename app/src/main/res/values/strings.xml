@@ -4,6 +4,7 @@
     <string name="my_profile_heading">My Profile</string>
     <string name="my_profile_detail_heading">Hello,<font color="#0000FF"> Arvind </font> - To Update your account information.</string>
     <string name="save">Save</string>
+    <string name="submit">Submit</string>
     <string name="aapka_data">AAPKA <font color='white'>TRADE</font></string>
     <string name="login">Login</string>
     <string name="my_company_profile_heading">My Company Profile</string>
@@ -74,7 +75,7 @@
     <string name="retry">RETRY</string>
     <string name="viewall">View All</string>
     <string name="latest_product">LATEST PRODUCTS</string>
-    <string name="latest_deals">LATEST DEALS</string>
+    <string name="latest_deals">LATEST POST</string>
     <string name="new_arrival">NEW ARRIVAL</string>
     <string name="hot_deals">HOT DEALS</string>
     <string name="english">English</string>
@@ -101,6 +102,8 @@
     <string name="otp_not_recived">OTP Not Received?</string>
     <string name="price">price</string>
     <string name="cross_price">Cross Price</string>
+    <string name="company_profile_heading">Company Profile</string>
+    <string name="company_profile_data1">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type speciman book.</string>
 
     <string name="address_line1">3rd Floor, Tower B, JMD Megapolis</string>
     <string name="address_line2">Sohna Road, Sector 48</string>
@@ -113,6 +116,9 @@
     <string name="subtotal">Subtotal:</string>
 
     <string name="webservice_base_url">http://aapkatrade.com/slim</string>
+    <string name="msg_sender">VM-ICICIB</string>
+    <string name="logout">Logout</string>
+    <string name="latest_update">LATEST UPDATE</string>
 
 
 </resources>

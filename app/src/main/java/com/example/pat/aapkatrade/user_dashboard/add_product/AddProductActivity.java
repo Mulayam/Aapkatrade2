@@ -37,18 +37,13 @@ import java.util.Locale;
 public class AddProductActivity extends AppCompatActivity
 {
 
-    Spinner  spCompanyList,spSubCategory,spCategory,spUnitCategory;
+    Spinner spCompanyList,spSubCategory,spCategory,spUnitCategory;
     EditText product_delivery_location,product_name;
     Button Add_product;
 
     private ArrayList<String> name_category,ids_category,name_subcategory,ids_subcategory;
 
-
-
-String selected_productname,selectcategory,selected_subcategory,selected_unit;
-
-
-
+    String selected_productname,selectcategory,selected_subcategory,selected_unit;
 
     String[] categoriesNames={"Vegetables","Tailors","Barber","Shoe Repair","Hospitals","Transport","Pharmecy"};
 
@@ -152,9 +147,6 @@ String selected_productname,selectcategory,selected_subcategory,selected_unit;
                 {
                     if(Validation.validate_edittext(product_delivery_location))
                     {
-
-
-
 
                     }
                     else{

@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
@@ -14,17 +15,20 @@ public class OrderListHolder extends RecyclerView.ViewHolder
 {
 
 
+    RelativeLayout relativeOrderlist;
     View view;
-    TextView tvUsername,tvDate;
+    TextView tvProductName,tvOrderId;
 
 
     public OrderListHolder(View itemView)
     {
         super(itemView);
 
-        tvUsername = (TextView) itemView.findViewById(R.id.tvUsername);
+        relativeOrderlist = (RelativeLayout) itemView.findViewById(R.id.relativeOrderlist);
 
-        tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+        tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
+
+        tvOrderId = (TextView) itemView.findViewById(R.id.tvOrderId);
 
         view = itemView;
     }

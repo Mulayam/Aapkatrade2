@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -40,7 +39,10 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAd
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.ConnectivityNotFound;
+import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
@@ -72,12 +74,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private ArrayList<Country> countryList = new ArrayList<>();
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
-    private static String shared_pref_name = "aapkatrade";
-    private SharedPreferences prefs;
+//    private static String shared_pref_name = "aapkatrade";
+//    private SharedPreferences prefs;
     private LinearLayout businessDetails, uploadView;
     private static final int rcCC = 33;
     private boolean isCC = false;
     private ImageView uploadImage;
+    App_sharedpreference app_sharedpreference;
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
@@ -89,6 +92,7 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        app_sharedpreference=new App_sharedpreference(RegistrationActivity.this);
         setuptoolbar();
         initView();
         saveUserTypeInSharedPreferences();
@@ -99,6 +103,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 picPhoto();
             }
         });
+        saveProfile();
+
 
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,11 +128,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     private void saveUserTypeInSharedPreferences() {
+
+
+        getCountry();
         if (prefs != null) {
             if (prefs.getInt("user", 0) == 1) {
+
                 etAddress.setVisibility(View.GONE);
                 setUpBusinessCategory();
             }
@@ -135,9 +147,26 @@ public class RegistrationActivity extends AppCompatActivity {
                 spBussinessCategoryLayout.setVisibility(View.GONE);
                 etProductName.setVisibility(View.GONE);
                 etDOB.setVisibility(View.GONE);
+
+
+        if (app_sharedpreference != null) {
+            if (app_sharedpreference.getsharedpref("usertype", "0") .equals("1") ) {
+
+                getCountry();
+                Log.e("user","user");
+            }
+            if (app_sharedpreference.getsharedpref("usertype", "0") .equals("2")) {
+                Log.e("user2","user2");
+               // dialog.hide();
+                businessDetails.setVisibility(View.GONE);
+
             }
         }
+        else{
+            Log.e("user3","user3");
+        }
     }
+
 
 
     private void callWebServiceForSellerRegistration() {
@@ -169,9 +198,70 @@ public class RegistrationActivity extends AppCompatActivity {
                             Log.d("registration_seller", "done");
                             startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
                         }
-                    }
 
-                });
+    private void saveProfile() {
+        tvSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //getFormData();
+               // validateFields();
+                Toast.makeText(RegistrationActivity.this, "fsg fsvfvshgvfahsgvf"+getSellerRegistrationInstance().toString(), Toast.LENGTH_SHORT).show();
+//                Log.d("checkData", getSellerRegistrationInstance().toString());
+                //if(isAllFieldSet)
+                callWebServiceForRegistration();
+            }
+        });
+    }
+
+    private void callWebServiceForRegistration() {
+
+
+
+
+if(ConnetivityCheck.isNetworkAvailable(RegistrationActivity.this))
+
+{
+
+    Ion.with(RegistrationActivity.this)
+            .load("http://aapkatrade.com/slim/sellerregister")
+            .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+            .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+            .setBodyParameter("type", "sellerregister")
+            .setBodyParameter("business_type", getFormData().getBusinessType())
+            .setBodyParameter("companyname", getFormData().getCompanyName())
+            .setBodyParameter("name", getFormData().getFirstName())
+            .setBodyParameter("lastname", getFormData().getLastName())
+            .setBodyParameter("dob", getFormData().getDOB())
+            .setBodyParameter("mobile", getFormData().getMobile())
+            .setBodyParameter("email", getFormData().getEmail())
+            .setBodyParameter("password", getFormData().getPassword())
+            .setBodyParameter("country_id", getFormData().getCountryId())
+            .setBodyParameter("state_id", getFormData().getStateId())
+            .setBodyParameter("city_id", getFormData().getCityId())
+            .setBodyParameter("client_id", getFormData().getClientId())
+            .setBodyParameter("shopname", getFormData().getCompanyName())
+            .asJsonObject()
+            .setCallback(new FutureCallback<JsonObject>() {
+                @Override
+                public void onCompleted(Exception e, JsonObject result) {
+
+                    Log.e("data", result.toString());
+                    if (result.get("error").getAsString().equals("false")) {
+                        Log.d("registration_seller", "done");
+                        startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+
+                    }
+                }
+
+            });
+}
+        else{
+
+
+
+    Log.e("network not found","network not found");
+}
     }
 
 
@@ -233,14 +323,22 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void getCountry() {
-        // dialog.show();
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "country");
 
-        HashMap<String, String> webservice_header_type = new HashMap<>();
-        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+    
 
+        if(ConnetivityCheck.isNetworkAvailable(RegistrationActivity.this))
+
+        {
+            // dialog.show();
+            HashMap<String, String> webservice_body_parameter = new HashMap<>();
+            webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+            webservice_body_parameter.put("type", "country");
+
+            HashMap<String, String> webservice_header_type = new HashMap<>();
+            webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+
+
+     
 
         Call_webservice.getcountrystatedata(RegistrationActivity.this, "country", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
@@ -282,12 +380,22 @@ public class RegistrationActivity extends AppCompatActivity {
                             }
 
 
+                            }
+
+
                         }
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
 
                         }
+
+                           
+
+
+
+                        });
+                    }
 
 
                     });
@@ -296,6 +404,22 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
 
+                    else {
+                        Log.e("webservice_null", "null");
+                    }
+
+                }
+            };
+        }
+        else{
+            Intent network_prob=new Intent(RegistrationActivity.this, ConnectivityNotFound.class);
+            startActivity(network_prob);
+
+            Log.e(" notwork not found","network not found");
+
+
+
+        }
     }
 
     public void getState(String countryId) {
@@ -444,7 +568,12 @@ public class RegistrationActivity extends AppCompatActivity {
         spState = (Spinner) findViewById(R.id.spStateCategory);
         spCity = (Spinner) findViewById(R.id.spCityCategory);
         tvSave = (TextView) findViewById(R.id.tvSave);
-        etProductName = (EditText) findViewById(R.id.etProductName);
+
+
+
+
+        etProductName = (EditText) findViewById(R.id.etshopname);
+
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
         etDOB = (EditText) findViewById(R.id.etDOB);
@@ -457,7 +586,7 @@ public class RegistrationActivity extends AppCompatActivity {
         spBussinessCategoryLayout = (RelativeLayout) findViewById(R.id.spBussinessCategoryLayout);
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
         uploadView = (LinearLayout) findViewById(R.id.uploadView);
-        prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+        //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
         circleImageView = (CircleImageView) findViewById(R.id.previewImage);
         uploadImage = (ImageView) findViewById(R.id.uploadButton);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");

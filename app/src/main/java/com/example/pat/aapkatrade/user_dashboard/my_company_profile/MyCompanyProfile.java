@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.my_company_profile;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +11,11 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
 
 
-public class MyCompanyProfile extends AppCompatActivity {
+public class MyCompanyProfile extends AppCompatActivity
+{
 
     TextView toolbar_title_txt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -21,9 +24,7 @@ public class MyCompanyProfile extends AppCompatActivity {
         setContentView(R.layout.activity_my_company_profile);
 
         setuptoolbar();
-
     }
-
 
     private void setuptoolbar()
     {
@@ -39,7 +40,8 @@ public class MyCompanyProfile extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
@@ -58,4 +60,11 @@ public class MyCompanyProfile extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
+
 }
