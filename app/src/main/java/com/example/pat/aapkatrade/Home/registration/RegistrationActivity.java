@@ -107,8 +107,15 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void saveUserTypeInSharedPreferences() {
+
+
+        getCountry();
+        if (prefs != null) {
+            if (prefs.getInt("user", 0) == 1) {
+
         if (app_sharedpreference != null) {
             if (app_sharedpreference.getsharedpref("usertype", "0") .equals("1") ) {
+
                 getCountry();
                 Log.e("user","user");
             }

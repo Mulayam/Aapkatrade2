@@ -65,8 +65,16 @@ App_sharedpreference app_sharedpreference;
 
 
 
+
+                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(registerUserActivity);
+
+               /* if (sharedPreferences != null) {
+                    if (sharedPreferences.getInt("user", 0) == 3) {
+
                 if (app_sharedpreference.shared_pref!= null) {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
                     } else if(app_sharedpreference.getsharedpref("usertype", "0").equals("1") || app_sharedpreference.getsharedpref("usertype", "0").equals("2") ) {
@@ -74,7 +82,7 @@ App_sharedpreference app_sharedpreference;
                         startActivity(registerUserActivity);
                     }
                 }
-
+*/
 
 
 

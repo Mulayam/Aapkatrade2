@@ -32,6 +32,8 @@ public class CompanyList extends AppCompatActivity
     RelativeLayout relativeCompanylist;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

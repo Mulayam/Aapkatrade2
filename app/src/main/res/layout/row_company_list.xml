@@ -4,24 +4,25 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:background="@color/white">
+   >
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        card_view:cardCornerRadius="2dp"
+        card_view:cardCornerRadius="5dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        >
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:padding="5dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:background="#F1EFE3"
             >
 
             <TextView
@@ -29,9 +30,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/user_name"
-                android:textColor="@color/orange"
+                android:textColor="@color/black"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 />
 
 
@@ -40,48 +42,94 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:visibility="invisible"
+                android:layout_below="@+id/tvCompanyname"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/green"
                 />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-
+                android:layout_below="@+id/tvDate"
+                android:layout_marginTop="10dp"
+                 android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 >
 
-                <ImageView
-                    android:id="@+id/imgEdtCompanyName"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_edit"
-                    />
 
-                <View
-                    android:id="@+id/View1"
-                    android:layout_toRightOf="@+id/imgEdtCompanyName"
-                    android:layout_width="1dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@color/orange"
-                    android:layout_marginRight="5dp"
-                    ></View>
-
-                <ImageView
-                    android:id="@+id/imgDeleteCompany"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_delete"
-                    android:layout_toRightOf="@+id/View1"
-
-                    />
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:padding="5dp"
+                   android:background="@drawable/row_company_list_border"
+                   android:weightSum="1"
+                   android:orientation="horizontal"
+                   >
 
 
+                   <ImageView
+                       android:id="@+id/imgEdtCompanyName"
+                       android:layout_width="0dp"
+                       android:layout_height="25dp"
+                       android:layout_weight="0.4"
+                       android:src="@drawable/ic_edit"
+                       />
 
-            </RelativeLayout>
+                   <TextView
+                       android:layout_width="0dp"
+                       android:layout_height="wrap_content"
+                       android:text="Edit"
+                       android:layout_weight="0.6"
+                       android:layout_gravity="center_vertical"
+                       android:layout_toRightOf="@+id/imgEdtCompanyName"
+                       android:textColor="@color/black"
+
+                       />
+
+               </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/row_company_list_border"
+                    android:padding="5dp"
+                    android:weightSum="1"
+                    android:orientation="horizontal"
+                    >
+
+
+                    <ImageView
+                        android:id="@+id/imgDeleteCompany"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.4"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_delete"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.6"
+                        android:layout_height="wrap_content"
+                        android:text="Delete"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toRightOf="@+id/imgDeleteCompany"
+                        android:textColor="@color/black"
+
+                        />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
 
 
 
