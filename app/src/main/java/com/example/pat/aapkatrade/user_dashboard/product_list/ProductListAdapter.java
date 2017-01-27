@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.product_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
 
@@ -51,6 +53,19 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
 
         ProductListHolder homeHolder = (ProductListHolder) holder;
+
+
+        homeHolder.relativeProductList.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+
+                Intent product_detail = new Intent(context, ProductDetail.class);
+                context.startActivity(product_detail);
+
+            }
+        });
+
 
     }
 

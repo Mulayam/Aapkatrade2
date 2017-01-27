@@ -4,6 +4,7 @@
     <string name="my_profile_heading">My Profile</string>
     <string name="my_profile_detail_heading">Hello,<font color="#0000FF"> Arvind </font> - To Update your account information.</string>
     <string name="save">Save</string>
+    <string name="submit">Submit</string>
     <string name="aapka_data">AAPKA <font color='white'>TRADE</font></string>
     <string name="login">Login</string>
     <string name="my_company_profile_heading">My Company Profile</string>

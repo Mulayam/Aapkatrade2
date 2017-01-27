@@ -113,6 +113,8 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void saveUserTypeInSharedPreferences() {
+
+        getCountry();
         if (prefs != null) {
             if (prefs.getInt("user", 0) == 1) {
                 getCountry();

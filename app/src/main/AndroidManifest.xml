@@ -27,13 +27,11 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".login.LoginActivity"
@@ -41,7 +39,9 @@
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
         <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
         <activity android:name=".user_dashboard.changepassword.ChangePassword" />
-        <activity android:name=".user_dashboard.addcompany.AddCompany" />
+        <activity
+            android:name=".user_dashboard.addcompany.AddCompany"
+            android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity android:name=".user_dashboard.companylist.CompanyList" />
         <activity android:name=".user_dashboard.product_list.ProductListActivity" />
         <activity
@@ -65,21 +65,12 @@
         <activity
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
-
-
-        <activity android:name=".categories_tab.CategoryListFragment"></activity>
-
-        <activity android:name=".categories_tab.FilterActivity"></activity>
-
-        <activity android:name=".productdetail.CategoryListFragment" />
-        <activity android:name=".productdetail.FilterActivity" />
-        <activity android:name=".user_dashboard.address.AddressActivity">
-
-        </activity>
-        <activity android:name=".user_dashboard.address.viewpager.CartCheckoutActivity">
-
-        </activity>
-
+        <activity android:name=".categories_tab.CategoryListFragment" />
+        <activity android:name=".categories_tab.FilterActivity" />
+        <activity android:name=".user_dashboard.address.AddressActivity" />
+        <activity android:name=".user_dashboard.address.viewpager.CartCheckoutActivity" />
+        <activity android:name=".user_dashboard.companylist.compant_details.CompanyDetailActivity" />
+        <activity android:name=".user_dashboard.product_list.listproduct_detail.ListProductDetailActivity"></activity>
     </application>
 
 </manifest>

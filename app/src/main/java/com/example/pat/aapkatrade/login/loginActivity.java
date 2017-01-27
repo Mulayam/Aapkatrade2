@@ -64,7 +64,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-                if (sharedPreferences != null) {
+                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(registerUserActivity);
+
+               /* if (sharedPreferences != null) {
                     if (sharedPreferences.getInt("user", 0) == 3) {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
@@ -73,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(registerUserActivity);
                     }
                 }
-
+*/
 
 
 
