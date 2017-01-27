@@ -1,10 +1,8 @@
 package com.example.pat.aapkatrade.Home;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -28,6 +26,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
@@ -48,19 +47,20 @@ public class HomeActivity extends AppCompatActivity
     User_DashboardFragment user_dashboardFragment;
     public static String  userid,username;
     ScrollView scrollView;
-    SharedPreferences prefs;
+    App_sharedpreference app_sharedpreference;
+   // SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-
+        app_sharedpreference=new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
        loadLocale();
 
         setContentView(R.layout.activity_homeactivity);
-prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+//prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
 
 
 
@@ -132,7 +132,11 @@ prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
         switch (item.getItemId())
         {
             case R.id.login:
-                if(prefs.getString("userid","notlogin").equals("notlogin"))
+
+
+
+
+                if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
                 {
                     Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
@@ -213,9 +217,8 @@ prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
 
     public void loadLocale() {
         String langPref = "Language";
-        SharedPreferences prefs = getSharedPreferences(shared_pref_name,
-                Activity.MODE_PRIVATE);
-        String language = prefs.getString(langPref, "");
+
+        String language = app_sharedpreference.getsharedpref(langPref,"");
         App_config.setLocaleFa(HomeActivity.this,language);
        Log.e("language",language);
        // changeLang(language);
@@ -224,10 +227,7 @@ prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
     public void saveLocale(String lang)
     {
         String langPref = "Language";
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(langPref, lang);
-        editor.commit();
+        app_sharedpreference.setsharedpref(langPref,lang);
         Log.e("language_pref",langPref+"****"+lang);
         Intent intent = getIntent();
         finish();

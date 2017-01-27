@@ -27,6 +27,7 @@ import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListFragment;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -60,13 +61,15 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     View view;
     String Fname, Lname, Dob;
     private int lastExpandedPosition = -1;
+
+    App_sharedpreference app_sharedpreference;
     public static final String PREFS_NAME = "call_recorder";
-    private SharedPreferences loginPreferences;
+   // private SharedPreferences loginPreferences;
     List<String> categoryids;
     CategoryListFragment productListActivity;
     List<String> categoryname;
 
-    public static SharedPreferences.Editor loginPrefsEditor;
+
     private Context context;
     TextView footer;
     RelativeLayout header;
@@ -80,7 +83,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public
     ProgressDialog _progressDialog;
     private static  String shared_pref_name = "aapkatrade";
-    SharedPreferences sharedPreferences;
+
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -92,7 +95,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         _progressDialog = new ProgressDialog(context);
-
+        app_sharedpreference=new App_sharedpreference(getActivity());
         initView(view);
 
         return view;
@@ -100,23 +103,23 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     private void initView(View view) {
-        sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
+     //   sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
         //prepare textviewdata
         categoryname = new ArrayList<>();
         categoryids = new ArrayList<>();
         //sharedprefrance
-        loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+       // loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         textViewName=(TextView)view.findViewById(R.id.welcome_guest) ;
         emailid=(TextView)view.findViewById(R.id.tv_email) ;
-        loginPrefsEditor = loginPreferences.edit();
+       // loginPrefsEditor = loginPreferences.edit();
         prepareListData();
         expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
 
 
 
-        if(sharedPreferences.getString("username","not")!=null) {
-            String Username = sharedPreferences.getString("username", "not");
-            String Emailid = sharedPreferences.getString("emailid", "not");
+        if(app_sharedpreference.getsharedpref("username","notlogin")!=null) {
+            String Username = app_sharedpreference.getsharedpref("username", "not");
+            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
             if (Username.equals("not")) {
                 Log.e("Shared_pref2","null"+Username);
             } else {
