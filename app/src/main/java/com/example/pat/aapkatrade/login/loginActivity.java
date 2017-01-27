@@ -38,10 +38,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(registerUserActivity);
+//                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+//                startActivity(registerUserActivity);
 
-              /*  if (sharedPreferences != null) {
+                if (sharedPreferences != null) {
                     if (sharedPreferences.getInt("user", 0) == 3) {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
-                }*/
+                }
             }
         });
     }
