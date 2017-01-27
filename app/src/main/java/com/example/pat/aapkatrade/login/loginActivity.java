@@ -50,30 +50,28 @@ App_sharedpreference app_sharedpreference;
 //                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
 //                startActivity(registerUserActivity);
 
-                if (sharedPreferences != null) {
 
 
-////                if (sharedPreferences != null) {
-////                    if (sharedPreferences.getInt("user", 0) == 3)
-//                        if (sharedPreferences != null) {
-//                            if (sharedPreferences.getInt("usertype", 0) == 3) {
+
 //
-//                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
-//                                startActivity(registerUserActivity);
-//                            } else if ((sharedPreferences.getInt("usertype", 0) == 1) || (sharedPreferences.getInt("usertype", 0) == 2)) {
-//                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-//                                startActivity(registerUserActivity);
-//                            }
-//                        }
-//                else{
-//                          Log.e("null_sharedPreferences","sharedPreferences") ;
-//                        }
+                        if (app_sharedpreference.shared_pref != null) {
+                            if (app_sharedpreference.getsharedpref("usertype", "0") .equals("3")) {
+
+                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
+                                startActivity(registerUserActivity);
+                            } else if ((app_sharedpreference.getsharedpref("usertype", "0") .equals("1")) || app_sharedpreference.getsharedpref("usertype", "0") .equals("2")) {
+                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                                startActivity(registerUserActivity);
+                            }
+                        }
+                else{
+                          Log.e("null_sharedPreferences","sharedPreferences") ;
+                        }
 
 
 
 
-                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(registerUserActivity);
+
 
                /* if (sharedPreferences != null) {
 

@@ -12,24 +12,6 @@
 
     </View>
 
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@color/dark_green"
-        android:padding="10dp">
-
-        <android.support.v7.widget.AppCompatImageView
-
-            android:id="@+id/circular_profile_image_home"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center_vertical"
-
-            android:scaleType="fitCenter"
-
     <RelativeLayout
         android:layout_width="wrap_content"
     android:padding="10dp"
@@ -50,35 +32,7 @@
             />
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/circular_profile_image_home"
-            android:gravity="center_vertical">
 
-
-            <TextView
-                android:id="@+id/welcome_guest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/welcomeguest"
-                android:textColor="@color/white" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/welcome_guest"
-                android:text="@string/user_name"
-                android:textColor="@color/white" />
-
-
-        </RelativeLayout>
-
-            />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_toRightOf="@+id/circular_profile_image_home"
