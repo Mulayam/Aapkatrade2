@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     Intent mainIntent = new Intent(MainActivity.this,ConnectivityNotFound.class);
+                    mainIntent.putExtra("callerActivity", MainActivity.class.getName());
                     startActivity(mainIntent);
                     finish();
                 }

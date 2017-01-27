@@ -47,6 +47,12 @@ App_sharedpreference app_sharedpreference;
             public void onClick(View v) {
 
 
+//                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+//                startActivity(registerUserActivity);
+
+                if (sharedPreferences != null) {
+
+
 ////                if (sharedPreferences != null) {
 ////                    if (sharedPreferences.getInt("user", 0) == 3)
 //                        if (sharedPreferences != null) {
@@ -70,6 +76,7 @@ App_sharedpreference app_sharedpreference;
                 startActivity(registerUserActivity);
 
                /* if (sharedPreferences != null) {
+
                     if (sharedPreferences.getInt("user", 0) == 3) {
 
                 if (app_sharedpreference.shared_pref!= null) {
@@ -82,6 +89,9 @@ App_sharedpreference app_sharedpreference;
                         startActivity(registerUserActivity);
                     }
                 }
+
+            }
+
 */
 
 
@@ -103,6 +113,7 @@ App_sharedpreference app_sharedpreference;
 
 
                 }
+
 
         });
 

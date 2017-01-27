@@ -81,6 +81,7 @@
     <string name="english">English</string>
     <string name="hindi">Hindi</string>
     <string name="shop_name">Shop Name</string>
+    <string name="address">Address</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
     english
