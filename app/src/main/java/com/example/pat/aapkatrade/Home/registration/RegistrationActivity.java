@@ -389,7 +389,7 @@ getCountry();
             public void Taskcomplete(JsonObject city_data_webservice) {
 
 
-                Log.d("data", city_data_webservice.toString());
+             //   Log.d("data", city_data_webservice.toString());
                 JsonObject jsonObject = city_data_webservice.getAsJsonObject();
                 JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
                 for (int i = 0; i < jsonResultArray.size(); i++) {

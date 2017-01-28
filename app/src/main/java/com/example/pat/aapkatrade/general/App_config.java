@@ -38,4 +38,5 @@ public class App_config extends Application {
         return Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
     }
 
+
 }

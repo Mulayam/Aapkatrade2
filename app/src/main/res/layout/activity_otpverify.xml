@@ -124,6 +124,7 @@
                         android:maxLength="1"
                         android:singleLine="true"
                         android:textSize="18sp"
+                        android:textColor="@color/black"
                         android:layout_marginRight="5dp"
 
                         android:layout_marginLeft="5dp"

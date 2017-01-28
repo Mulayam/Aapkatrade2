@@ -1,11 +1,12 @@
 package com.example.pat.aapkatrade.login;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -19,25 +20,23 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.google.gson.JsonObject;
-import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
-import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
 
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ActivityOTPVerify extends AppCompatActivity {
 
     Button retryotp,verifyotp;
     TextView toolbar_title_txt,tittleTxt,otpNotRespond,couter_textview;
-    EditText editText1,editText2,editText3,editText4;
+   public static EditText editText1,editText2,editText3,editText4;
     int count = 00;
-    SmsVerifyCatcher smsVerifyCatcher;
-    CoordinatorLayout coordinatorLayout;
 
+    CoordinatorLayout coordinatorLayout;
+    BroadcastReceiver receiver;
+    LocalBroadcastManager bManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,36 +47,55 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
         setup_layout();
 
+       // bManager = LocalBroadcastManager.getInstance(this);
 
-        call_auto_retrive_sms(ActivityOTPVerify.this);
+
+
+
+       // call_auto_retrive_sms(ActivityOTPVerify.this);
+
+
+
+
+
     }
+    public  void update_otp(String message)
+    {
 
-    private void call_auto_retrive_sms(ActivityOTPVerify activityOTPVerify) {
+        //String code = parseCode(message).trim();//Parse verification code
 
+        message=message.replace("Your otp is ","").trim();
+        String a=message.substring(0,1).trim();
+        String b=message.substring(1,2).trim();
+        String c=message.substring(2,3).trim();
+        String d=message.substring(3,4).trim();
+        editText1 = (EditText) findViewById(R.id.etotp1);
 
-        smsVerifyCatcher = new SmsVerifyCatcher(activityOTPVerify, new OnSmsCatchListener<String>() {
-            @Override
-            public void onSmsCatch(String message) {
-                String code = parseCode(message);//Parse verification code
+        editText2 = (EditText) findViewById(R.id.etotp2);
 
-                Character a=code.charAt(1);
-                Character b=code.charAt(2);
-                Character c=code.charAt(3);
-                Character d=code.charAt(4);
+        editText3 = (EditText) findViewById(R.id.etotp3);
+
+        editText4 = (EditText) findViewById(R.id.etotp4);
+
+//        Character b=code.charAt(1);
+//        Character c=code.charAt(2);
+//        Character d=code.charAt(3);
 
                 editText1.setText(a);
                 editText2.setText(b);
                 editText3.setText(c);
                 editText4.setText(d);
-                Log.e("a",""+a+"****"+b+"******"+c+"****"+d+"******");
-                //etCode.setText();//set code in edit text
-                //then you can send verification code to server
-            }
-        });
-        smsVerifyCatcher.setPhoneNumberFilter(getResources().getString(R.string.msg_sender));
-
-
+        Log.e("message412354235",message);
     }
+
+
+
+
+
+
+
+
+
 
 
     private void setuptoolbar()
@@ -98,15 +116,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
     }
 
 
-    private String parseCode(String message) {
-        Pattern p = Pattern.compile("\\b\\d{4}\\b");
-        Matcher m = p.matcher(message);
-        String code = "";
-        while (m.find()) {
-            code = m.group(0);
-        }
-        return code;
-    }
+
 
 
 
@@ -168,10 +178,19 @@ public class ActivityOTPVerify extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+if(editText1.getText().length()!=0)
 
-               String otp=editText1.getText().toString().trim()+editText2.getText().toString().trim()+editText3.getText().toString().trim()+editText4.getText().toString().trim();
+{
+    String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
 
-                call_verifyotp_webservice(otp);
+    Log.e("otp ",otp);
+    call_verifyotp_webservice(otp);
+}
+                else {
+
+    Log.e("otp null","*****");
+
+}
             }
         });
 
@@ -280,12 +299,12 @@ public class ActivityOTPVerify extends AppCompatActivity {
     }
 
     private void call_verifyotp_webservice(String otp) {
-
+        String getCurrentDeviceId= App_config.getCurrentDeviceId(ActivityOTPVerify.this);
 
         // dialog.show();
         HashMap<String,String> webservice_body_parameter=new HashMap<>();
         webservice_body_parameter.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("client_id","564735473442373");
+        webservice_body_parameter.put("client_id",getCurrentDeviceId);
         webservice_body_parameter.put("otp",otp);
 
 
@@ -341,6 +360,12 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
 
     private void call_otp_retry_webservice() {
 
@@ -428,22 +453,18 @@ String otp_url="http://aapkatrade.com/slim/resend_otp";
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        smsVerifyCatcher.onStart();
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        smsVerifyCatcher.onStart();
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        smsVerifyCatcher.onStop();
+//    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        smsVerifyCatcher.onStop();
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        smsVerifyCatcher.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
 }
