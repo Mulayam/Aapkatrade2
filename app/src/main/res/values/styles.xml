@@ -47,10 +47,8 @@
 
 
     <style name="myedittext" parent="Theme.AppCompat.Light.NoActionBar">
-
         <item name="colorPrimaryDark">@color/green</item>
         <item name="colorAccent">@color/green</item>
-
         <item name="colorControlNormal">@color/grey</item>
 
 
@@ -70,6 +68,23 @@
         <item name="colorPrimary">@color/green</item>
         <item name="colorControlActivated">@color/green</item>
     </style>
+
+    <style name="busiAssocHeaderText" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">@dimen/textsize_small</item>
+        <item name="android:padding">@dimen/five_dip</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="busiAssocHeaderTab" parent="busiAssocHeaderText">
+        <item name="android:textSize">@dimen/textsize_large</item>
+        <item name="android:paddingLeft">@dimen/ten_dip</item>
+        <item name="android:paddingRight">@dimen/ten_dip</item>
+        <item name="android:paddingTop">@dimen/ten_dip</item>
+        <item name="android:paddingBottom">@dimen/ten_dip</item>
+        <item name="android:background">@drawable/green_circle_border</item>
+    </style>
+
 
     <style name="MyAppTheme" parent="@android:style/Theme.Holo.Light">
         <!-- you should set typeface which you want to override with TypefaceUtil -->
