@@ -1,13 +1,17 @@
 package com.example.pat.aapkatrade.productdetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class ProductDetail extends AppCompatActivity
@@ -15,7 +19,7 @@ public class ProductDetail extends AppCompatActivity
 
 
     MaterialSpinner spinner;
-
+    private TextView buyProductButton;
 
 
     @Override
@@ -27,15 +31,24 @@ public class ProductDetail extends AppCompatActivity
 
 
         setuptoolbar();
+        initView();
+        buyProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProductDetail.this, AddressActivity.class));
+            }
+        });
 
+
+    }
+
+    private void initView() {
         String[] ITEMS = {"1", "2", "3", "4", "5", "6"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner = (MaterialSpinner) findViewById(R.id.spinner_qty);
         spinner.setAdapter(adapter);
-
-
-
+        buyProductButton = (TextView) findViewById(R.id.buyProductButton);
     }
 
     private void setuptoolbar()
