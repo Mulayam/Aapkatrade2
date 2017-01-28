@@ -64,6 +64,9 @@
 
             </RelativeLayout>
 
+
+            <include layout="@layout/upload_image_layout" />
+
             <LinearLayout
                 android:id="@+id/businessDetails"
                 android:layout_width="match_parent"
@@ -214,11 +217,16 @@
                 <EditText
                     android:id="@+id/etAddress"
                     android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
                     android:layout_height="@dimen/thirty_five_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
+
                     android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
                     android:hint="@string/address"
                     android:maxLines="1"
@@ -402,14 +410,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
+                    android:background="@drawable/button_orange_back"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/button_orange_back"
                     android:text="Save"
-                    android:textSize="@dimen/textsize_medium"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_medium" />
             </LinearLayout>
 
 

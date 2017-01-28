@@ -95,6 +95,7 @@
     <string name="forgot_your_password_instruction1">Enter your Email/Mobile number below to receive OTP</string>
     <string name="forgot_your_password_instruction2">  </string>
     <string name="email">Email</string>
+    <string name="emailId">Email ID*</string>
     <string name="or">OR</string>
     <string name="mobile_no">mobile no</string>
     <string name="send_otp">SEND OTP</string>
@@ -121,6 +122,23 @@
     <string name="msg_sender">IM-SMSEZY</string>
     <string name="logout">Logout</string>
     <string name="latest_update">LATEST UPDATE</string>
+    <string name="personalInfo">Personal\nInformation</string>
+    <string name="professionalDetails">Professional\nDetails</string>
+    <string name="bankDetails">Bank\nDetails</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="user_name1">User Name*</string>
+    <string name="first_name">First Name*</string>
+    <string name="last_name">Last Name*</string>
+    <string name="father_name">Father Name*</string>
+    <string name="password1">Password*</string>
+    <string name="confirm_password1">Confirm Password*</string>
+    <string name="mobile">Mobile*</string>
+    <string name="date_of_birth">Date Of Birth*</string>
+    <string name="pincode">Pincode</string>
+    <string name="accept_t_and_c">Accept Terms and Conditions</string>
+    <string name="save_and_next">Save &amp; Next</string>
 
 
 </resources>
