@@ -104,7 +104,7 @@ public class HomeActivity extends AppCompatActivity
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
 
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+       // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
     private void replaceFragment(Fragment newFragment, String tag)
