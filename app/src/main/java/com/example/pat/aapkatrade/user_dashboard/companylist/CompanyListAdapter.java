@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.companylist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.companylist.compant_details.CompanyDetailActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -31,6 +33,9 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      CompanyList companylist;
 
 
+    
+
+
     public CompanyListAdapter(Context context, List<CompanyData> itemList,CompanyList companylist)
     {
         this.companylist = companylist;
@@ -46,8 +51,9 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         View view = inflater.inflate(R.layout.row_company_list, parent, false);
         viewHolder = new CompanyListHolder(view);
 
-
         System.out.println("data-----------"+itemList);
+
+
 
         return viewHolder;
     }
@@ -65,6 +71,19 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         homeHolder.tvDate.setText(itemList.get(position).company_creation_date.toString());
 
+
+        homeHolder.relativecompanyList.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent i = new Intent(context, CompanyDetailActivity.class);
+                context.startActivity(i);
+
+
+            }
+        });
 
         homeHolder.imgDeleteCompany.setOnClickListener(new View.OnClickListener()
         {
@@ -86,19 +105,14 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v)
             {
 
-
-
             }
         });
-
-
 
 
     }
 
     private void delete_company(String company_id)
     {
-
             Ion.with(context)
                     .load("http://aapkatrade.com/slim/listCompany")
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -111,8 +125,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         @Override
                         public void onCompleted(Exception e, JsonObject result)
                         {
-
-
 
                         }
 
@@ -132,7 +144,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemCount()
     {
         return itemList.size();
-        // return itemList.size();
+        //return itemList.size();
     }
 
     public String getCurrentTimeStamp()

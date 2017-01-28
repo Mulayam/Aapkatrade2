@@ -48,7 +48,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
-        View view = inflater.inflate(R.layout.row_user_dashboard, parent, false);
+        View view = inflater.inflate(R.layout.row_dashboard2, parent, false);
         viewHolder = new DashboardHolder(view);
 
 
@@ -64,6 +64,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         homeHolder.tvDashboard.setText(itemList.get(position).dashboard_name.toString());
 
         Picasso.with(context).load(itemList.get(position).image).into(homeHolder.imageView);
+
+        ((DashboardHolder) holder).imageView.setBackground(context.getResources().getDrawable(itemList.get(position).color));
+
 
 
         homeHolder.relativeDashboard.setOnClickListener(new View.OnClickListener() {

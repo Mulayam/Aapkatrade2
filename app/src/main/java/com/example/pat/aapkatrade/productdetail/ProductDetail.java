@@ -17,7 +17,6 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 public class ProductDetail extends AppCompatActivity
 {
 
-
     MaterialSpinner spinner;
     private TextView buyProductButton;
 
@@ -42,7 +41,8 @@ public class ProductDetail extends AppCompatActivity
 
     }
 
-    private void initView() {
+    private void initView()
+    {
         String[] ITEMS = {"1", "2", "3", "4", "5", "6"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -53,14 +53,18 @@ public class ProductDetail extends AppCompatActivity
 
     private void setuptoolbar()
     {
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle(null);
 
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+       // getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

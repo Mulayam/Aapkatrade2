@@ -88,7 +88,7 @@ App_sharedpreference app_sharedpreference;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+      //  getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

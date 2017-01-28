@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.user_dashboard;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +13,22 @@ import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
 
-public class User_DashboardFragment extends Fragment {
-
+public class User_DashboardFragment extends Fragment
+{
 
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
 
+    public User_DashboardFragment()
+    {
 
-    public User_DashboardFragment() {
+
 
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
 
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
 
@@ -32,12 +36,11 @@ public class User_DashboardFragment extends Fragment {
 
         dashboardlist = (RecyclerView) v.findViewById(R.id.dashboardlist);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         dashboardlist.setLayoutManager(layoutManager);
 
         dashboardAdapter = new DashboardAdapter(getActivity(), dashboardDatas);
         dashboardlist.setAdapter(dashboardAdapter);
-
 
         return v;
     }
@@ -47,14 +50,14 @@ public class User_DashboardFragment extends Fragment {
         dashboardDatas.clear();
         try {
 
-            dashboardDatas.add(new DashboardData("", "My Company", R.drawable.ic_companyprofile));
-            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile));
-            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd));
-            dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company));
-            dashboardDatas.add(new DashboardData("", "Company List", R.drawable.ic_lstcmpny));
-            dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct));
-            dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct));
-            dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct));
+            dashboardDatas.add(new DashboardData("", "My Company", R.drawable.ic_companyprofile,R.drawable.circle_voilet));
+            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile,R.drawable.circle_teal));
+            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd,R.drawable.circle_purple));
+            dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company,R.drawable.circle_cherry_red));
+            dashboardDatas.add(new DashboardData("", "Company List", R.drawable.ic_lstcmpny,R.drawable.circle_deep_pink));
+            dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct,R.drawable.circle_turquoise));
+            dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct,R.drawable.circle_slate_gray));
+            dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct,R.drawable.circle_sienna));
 
         } catch (Exception e) {
 

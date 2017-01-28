@@ -12,9 +12,13 @@ import java.util.ArrayList;
 
 public class AddressActivity extends AppCompatActivity {
 
+
+
     ArrayList<AddressData> addressList = new ArrayList<>();
     RecyclerView addressRecyclerView;
     AddressListAdapter addressListAdapter;
+
+
 
 
     @Override

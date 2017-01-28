@@ -87,6 +87,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private RelativeLayout spBussinessCategoryLayout;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_registration);
         app_sharedpreference=new App_sharedpreference(RegistrationActivity.this);
         setuptoolbar();
