@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.categories_tab;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,15 +9,23 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.productdetail.*;
+import com.mikepenz.iconics.utils.Utils;
 
 import java.util.ArrayList;
+
+import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
 public class CategoryListFragment extends AppCompatActivity
 {
+
+
 
     private RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
@@ -25,7 +34,8 @@ public class CategoryListFragment extends AppCompatActivity
     ImageView imageView;
     Toolbar toolbar;
     boolean wrapInScrollView = true;
-
+    Context context;
+    LinearLayout linearLayout;
 
 
 
@@ -35,9 +45,13 @@ public class CategoryListFragment extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
+        context = this;
+
         setuptoolbar();
 
         setup_data();
+
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.product_list_recycler_view);
 
@@ -51,12 +65,23 @@ public class CategoryListFragment extends AppCompatActivity
 
         mRecyclerView.setAdapter(categoriesListAdapter);
 
-        mRecyclerView.setNestedScrollingEnabled(false);
+
+       /* mRecyclerView.setHasFixedSize(true);
+
+        StikkyHeaderBuilder.stickTo(mRecyclerView)
+
+                .setHeader(R.id.header,linearLayout)
+                .minHeightHeaderDim(R.dimen.min_height_header)
+                .build();
+      */
+
+
 
     }
 
 
-    private void setuptoolbar() {
+    private void setuptoolbar()
+    {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -64,7 +89,7 @@ public class CategoryListFragment extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
 
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+        //getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

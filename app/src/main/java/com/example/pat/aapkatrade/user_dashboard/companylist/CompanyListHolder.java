@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.user_dashboard.companylist;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
 
@@ -16,11 +17,13 @@ public class CompanyListHolder extends RecyclerView.ViewHolder
     View view;
     TextView tvCompanyname,tvDate;
     ImageView imgEdtCompanyName,imgDeleteCompany;
-
+    RelativeLayout relativecompanyList;
 
     public CompanyListHolder(View itemView)
     {
         super(itemView);
+
+        relativecompanyList = (RelativeLayout) itemView.findViewById(R.id.relativecompanyList);
 
         imgEdtCompanyName = (ImageView) itemView.findViewById(R.id.imgEdtCompanyName);
 

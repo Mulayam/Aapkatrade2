@@ -29,7 +29,7 @@ public class OrderDetailsActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+        //getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

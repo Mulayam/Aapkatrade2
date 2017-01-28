@@ -37,6 +37,7 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpBussinessA
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -86,6 +87,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private RelativeLayout spBussinessCategoryLayout;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_registration);
         app_sharedpreference=new App_sharedpreference(RegistrationActivity.this);
         setuptoolbar();

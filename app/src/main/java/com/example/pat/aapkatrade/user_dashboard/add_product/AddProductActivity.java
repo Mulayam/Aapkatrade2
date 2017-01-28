@@ -66,9 +66,6 @@ public class AddProductActivity extends AppCompatActivity
         setuptoolbar();
         setup_layout();
 
-
-
-
     }
 
     private void setup_layout()
@@ -77,8 +74,6 @@ public class AddProductActivity extends AppCompatActivity
         product_name=(EditText)findViewById(R.id.etProductName);
         spSubCategory = (Spinner) findViewById(R.id.spSubCategory_Add_product);
         spCategory = (Spinner) findViewById(R.id.spCategory);
-
-
 
         call_category_webservice();
 
@@ -256,25 +251,6 @@ public class AddProductActivity extends AppCompatActivity
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void setuptoolbar()
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -284,7 +260,7 @@ public class AddProductActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
 
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+        //getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

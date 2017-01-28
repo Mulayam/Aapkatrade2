@@ -95,7 +95,9 @@
                 android:padding="10dp"
                 android:textColorHint="@color/hint_color"
                 android:inputType="text"
-                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:singleLine="false"
                 />
 
         </RelativeLayout>

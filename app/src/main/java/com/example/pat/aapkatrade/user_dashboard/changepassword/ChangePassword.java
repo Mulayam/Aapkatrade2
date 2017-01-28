@@ -99,7 +99,7 @@ public class ChangePassword extends AppCompatActivity {
 
         getSupportActionBar().setTitle(null);
 
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+       // getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 

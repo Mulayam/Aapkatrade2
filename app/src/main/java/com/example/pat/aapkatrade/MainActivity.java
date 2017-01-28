@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-
                 if(ConnetivityCheck.isNetworkAvailable(MainActivity.this))
                 {
                     Intent mainIntent = new Intent(MainActivity.this,HomeActivity.class);
                     startActivity(mainIntent);
                     finish();
                 }
-                else{
+                else
+                {
                     Intent mainIntent = new Intent(MainActivity.this,ConnectivityNotFound.class);
                     mainIntent.putExtra("callerActivity", MainActivity.class.getName());
                     startActivity(mainIntent);

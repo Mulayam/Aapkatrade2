@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -666,6 +666,19 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
 
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/personalInfo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+
+            <TextView
+                android:id="@+id/professionalDetails"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
                 <TextView
                     android:id="@+id/tvSave"
                     android:layout_width="wrap_content"
@@ -681,9 +694,12 @@
                     android:textSize="@dimen/textsize_medium" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/bankDetails"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
 
-        </LinearLayout>
-
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

@@ -1,32 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
 
 
    <RelativeLayout
        android:id="@+id/relativeDashboardStrip"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_margin="10dp"
        android:padding="10dp"
-       android:background="@drawable/orange_back"
-
+       android:background="@color/green"
        >
 
-
-      <TextView
+      <RelativeLayout
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="DASHBOARD"
-          android:layout_centerHorizontal="true"
-          android:textColor="@color/white"
-          android:textStyle="bold"
-          />
+          android:padding="10dp"
+          android:layout_gravity="center_vertical"
+          android:layout_height="wrap_content">
+
+
+         <ImageView
+             android:id="@+id/circular_profile_image_home"
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:layout_gravity="center_vertical"
+             android:scaleType="fitCenter"
+             android:background="@drawable/circle_voilet"
+             />
+
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_toRightOf="@+id/circular_profile_image_home"
+             android:gravity="center_vertical"
+             android:layout_marginRight="10dp"
+             android:layout_marginLeft="10dp"
+             android:layout_centerVertical="true"
+             android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/welcome_guest"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:text="@string/welcomeguest"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_below="@+id/welcome_guest"
+                android:text="@string/user_name"
+                android:id="@+id/tv_email" />
+
+
+         </RelativeLayout>
+
+
+      </RelativeLayout>
 
    </RelativeLayout>
 
@@ -34,12 +70,9 @@
        android:id="@+id/dashboardlist"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:layout_margin="10dp"
        android:layout_below="@+id/relativeDashboardStrip"
-       android:background="@color/screen_back"
+       android:background="@color/white"
        >
-
-
 
    </android.support.v7.widget.RecyclerView>
 
