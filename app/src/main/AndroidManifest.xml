@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -70,7 +71,20 @@
         <activity android:name=".user_dashboard.address.AddressActivity" />
         <activity android:name=".user_dashboard.address.viewpager.CartCheckoutActivity" />
         <activity android:name=".user_dashboard.companylist.compant_details.CompanyDetailActivity" />
-        <activity android:name=".user_dashboard.product_list.listproduct_detail.ListProductDetailActivity"></activity>
+        <activity android:name=".user_dashboard.product_list.listproduct_detail.ListProductDetailActivity" />
+
+        <receiver
+            android:name=".general.IncomingSms"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter android:priority="1000">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
+        </receiver>
     </application>
 
 </manifest>

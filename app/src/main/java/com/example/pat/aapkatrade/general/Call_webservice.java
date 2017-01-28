@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.general;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -18,11 +19,15 @@ public class Call_webservice  {
     static JsonObject jsonObject = new JsonObject();
    public  static TaskCompleteReminder taskCompleteReminder=null;
 
+    public static ProgressDialog pd;
+
     public static void getcountrystatedata(Context c,String webservicetype, String webservice_url, HashMap<String,String> body_parameter,HashMap<String,String> headers) {
 
         if (webservicetype.equals("country"))
 
         {
+            pd=new ProgressDialog(c);
+            pd.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             String get_webservice_body_parameter = webservice_body_parameter.get("type");
@@ -44,6 +49,10 @@ public class Call_webservice  {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
+                                    if(pd!=null)
+                                    {
+                                        pd.dismiss();
+                                    }
 
                                     taskCompleteReminder.Taskcomplete(result);
                                  //   Log.e("jsonobject", result.toString());
@@ -59,6 +68,10 @@ public class Call_webservice  {
         }
         else if(webservicetype.equals("state"))
         {
+            pd=new ProgressDialog(c);
+            pd.show();
+
+
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             if (authorization.equals(null)) {
@@ -72,7 +85,8 @@ public class Call_webservice  {
                 if (get_webservice_body_parameter.equals(null)) {
                     Log.e("body_parameter null", "body_parameter null");
 
-                } else {
+                }
+                else {
 
 
                     HashMap<String, String> webservice_header_type = headers;
@@ -90,6 +104,14 @@ public class Call_webservice  {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
 
+
+
+
+
+                                    if(pd!=null)
+                                    {
+                                        pd.dismiss();
+                                    }
                                     taskCompleteReminder.Taskcomplete(result);
                                     Log.e("jsonobject_state", jsonObject.toString());
                                     //taskCompleteReminder.Taskcomplete("complete");
@@ -103,6 +125,11 @@ public class Call_webservice  {
         }
         else if(webservicetype.equals("city"))
         {
+            pd=new ProgressDialog(c);
+            pd.show();
+
+
+
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             if (authorization.equals(null)) {
@@ -133,6 +160,10 @@ public class Call_webservice  {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
+                                    if(pd!=null)
+                                    {
+                                        pd.dismiss();
+                                    }
 
                                     taskCompleteReminder.Taskcomplete(result);
                                     Log.e("jsonobject_city", jsonObject.toString());
@@ -153,6 +184,8 @@ public class Call_webservice  {
 
         else if(webservicetype.equals("category"))
         {
+            pd=new ProgressDialog(c);
+            pd.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             if (authorization.equals(null)) {
@@ -187,6 +220,12 @@ public class Call_webservice  {
                                     if(result!=null)
 
                                     {
+                                        if(pd!=null)
+                                        {
+                                            pd.dismiss();
+                                        }
+
+
                                         taskCompleteReminder.Taskcomplete(result);
                                         Log.e("result_json", result.toString());
                                         //taskCompleteReminder.Taskcomplete("complete");
@@ -208,6 +247,8 @@ public class Call_webservice  {
 
         else if(webservicetype.equals("subcategory"))
         {
+            pd=new ProgressDialog(c);
+            pd.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             if (authorization.equals(null)) {
@@ -240,9 +281,19 @@ public class Call_webservice  {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
+                                    if(pd!=null)
+                                    {
+                                        pd.dismiss();
+                                    }
+
+
+
                                     if(result!=null)
 
                                     {
+
+
+
                                         taskCompleteReminder.Taskcomplete(result);
                                         Log.e("result_json", result.toString());
                                         //taskCompleteReminder.Taskcomplete("complete");
@@ -278,7 +329,8 @@ public class Call_webservice  {
     public static void call_login_webservice(Context context,String url,String webservicetype,HashMap<String,String> body_parameter,HashMap<String,String> headers)
     {
 
-
+pd=new ProgressDialog(context);
+        pd.show();
         HashMap<String, String> webservice_body_parameter = body_parameter;
         String authorization = webservice_body_parameter.get("authorization");
         if (authorization.equals(null)) {
@@ -315,6 +367,11 @@ public class Call_webservice  {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
+
+                                if(pd!=null)
+                                {
+                                    pd.dismiss();
+                                }
 
                                 taskCompleteReminder.Taskcomplete(result);
                                 Log.e("jsonobject", jsonObject.toString());
