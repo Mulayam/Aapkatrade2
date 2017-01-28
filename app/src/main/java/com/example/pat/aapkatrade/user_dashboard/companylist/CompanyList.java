@@ -144,7 +144,7 @@ public class CompanyList extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
 
-        getSupportActionBar().setIcon(R.drawable.home_logo);
+       // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
     @Override

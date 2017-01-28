@@ -12,6 +12,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
+import com.example.pat.aapkatrade.user_dashboard.product_list.listproduct_detail.ListProductDetailActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View v) {
 
-                Intent product_detail = new Intent(context, ProductDetail.class);
+                Intent product_detail = new Intent(context, ListProductDetailActivity.class);
                 context.startActivity(product_detail);
 
             }
@@ -71,7 +72,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void showMessage(String s)
     {
-
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 

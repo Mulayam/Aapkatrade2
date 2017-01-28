@@ -19,6 +19,8 @@
     <string name="some">Aapka data</string>
     <string name="some2">Aapka data</string>
 
+    <string name="rs">\u20A8</string>
+
     <string name="action_heading">Action</string>
     <string name="dashboard_heading">My Company Profile</string>
 
@@ -50,7 +52,7 @@
     <string name="near_by_you">Near by you</string>
     <string name="availability">Availability</string>
     <string name="product_name">LED TV</string>
-    <string name="product_name1">Campus Shoes</string>
+    <string name="product_name1">Interior Decoration</string>
 
     <string name="offer_price">$74.0</string>
 

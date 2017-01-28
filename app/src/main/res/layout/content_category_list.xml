@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/screen_back"
+    android:background="#EEEEEE"
     >
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_margin="10dp"
         >
 
         <LinearLayout
@@ -20,31 +20,29 @@
             android:orientation="vertical"
             android:descendantFocusability="blocksDescendants">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/banner"
-                />
 
-            <TextView
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Feature Products"
-                android:textColor="@color/orange"
-                android:background="@color/white"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:textSize="18dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                />
+                app:cardCornerRadius="5dp"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/banner"
+                    />
+
+
+
+            </android.support.v7.widget.CardView>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/product_list_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 >
 
             </android.support.v7.widget.RecyclerView>
