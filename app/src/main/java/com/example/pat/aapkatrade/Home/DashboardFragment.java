@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,10 +30,8 @@ import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.SpacesItemDecoration;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -63,6 +61,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     ArrayList<CommomData> commomDatas_hotdeals = new ArrayList<>();
     private CommomAdapter commomAdapter;
     public latestproductadapter latestproductadapter;
+    SpacesItemDecoration itemDecoration;
     int position=0;
     private int dotsCount;
     private int[] tabColors;
@@ -93,6 +92,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
 
@@ -107,14 +110,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerBestSelling = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         viewpagerindicator=(LinearLayout)view.findViewById(R.id.viewpagerindicator);
         latestproductadapter=new latestproductadapter(context,commomDatas);
+        recyclerViewAllSale = (RecyclerView) view.findViewById(R.id.recyclerlatestpost);
+        recyclerViewAllSale.setLayoutManager(llManagerEclipseCollection);
 
 
-        recyclerViewAllSale = (RecyclerView) view.findViewById(R.id.recyclerAllSale);
-        recyclerViewAllSale.setLayoutManager(llManagerAllSale);
 
 
-        recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerEclipseExpressCollection);
-        recyclerViewEclipseCollection.setLayoutManager(llManagerEclipseCollection);
+        recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
+        recyclerViewEclipseCollection.setLayoutManager(llManagerAllSale);
+
+
 
 
 
@@ -125,102 +130,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         setupviewpager();
         setuprecyclers(view);
 
-      //  GridLayoutManager gridLayoutManager=new GridLayoutManager(context,3);
+
+        GridLayoutManager gridLayoutManager=new GridLayoutManager (context,2);
+        recyclerViewEclipseCollection.setLayoutManager(gridLayoutManager);
         return view;
     }
 
 
 
-//
-//// Enable the translation of the FloatingActionButton
-//      //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
-//
-//// Change colors
-//       bottomNavigation.setAccentColor(Color.parseColor("#FEFEFE"));
-//       bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
-//
-//// Force to tint the drawable (useful for font with icon for example)
-//        bottomNavigation.setForceTint(true);
-//
-//// Display color under navigation bar (API 21+)
-//// Don't forget these lines in your style-v21
-//// <item name="android:windowTranslucentNavigation">true</item>
-//// <item name="android:fitsSystemWindows">true</item>
-//        bottomNavigation.setTranslucentNavigationEnabled(true);
-//
-//// Manage titles
-//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-//        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-//
-//// Use colored navigation with circle reveal effect
-//        bottomNavigation.setColored(false);
-//
-//// Set current item programmatically
-//        bottomNavigation.setCurrentItem(0);
-//
-//// Customize notification (title, background, typeface)
-////       bottomNavigation.setNotificationBackgroundColor(Color.parseColor("#F63D2B"));
-////
-////// Add or remove notification for each item
-////        bottomNavigation.setNotification("", 3);
-//// OR
-////        AHNotification notification = new AHNotification.Builder()
-////                .setText("1")
-////                .setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.dark_green))
-////                .setTextColor(ContextCompat.getColor(getActivity(), R.color.grey))
-////                .build();
-////        bottomNavigation.setNotification(notification, 1);
-//
-//// Set listeners
-//        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
-//            @Override
-//            public boolean onTabSelected(int position, boolean wasSelected) {
-//
-//
-//
-//                switch (position)
-//                {
-//                    case 0:
-//                    if (homeFragment == null)
-//                    {
-//                        homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
-//                    }
-//
-//                    String tagName = homeFragment.getClass().getName();
-//                    replaceFragment(homeFragment, tagName);
-//                    break;
-//
-//
-//                    case 1:
-//                        if (aboutUsFragment == null)
-//                        {
-//                            aboutUsFragment = new AboutUsFragment();
-//                        }
-//                        replaceFragment(aboutUsFragment,"");
-//                        break;
-//
-//
-//                    case 3:
-//                        if (user_dashboardFragment == null)
-//                        {
-//                            user_dashboardFragment = new User_DashboardFragment();
-//                        }
-//                        //String tagName_dashboardFragment = User_DashboardFragment.getClass().getName();
-//                        replaceFragment(user_dashboardFragment,"");
-//                        break;
-//                }
-//                // Do something cool here...
-//                return true;
-//            }
-//        });
-//        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-//            @Override public void onPositionChange(int y) {
-//                // Manage the new y position
-//            }
-//        });
-//
-//    }
 
 
 
@@ -384,7 +301,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                             }
 
-                            commomAdapter = new CommomAdapter(context, commomDatas_latestpost);
+                            commomAdapter = new CommomAdapter(context, commomDatas_latestpost,"list","latestdeals");
                             recyclerViewAllSale.setAdapter(commomAdapter);
                             commomAdapter.notifyDataSetChanged();
 
@@ -404,7 +321,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
                             }
 
-                            commomAdapter = new CommomAdapter(context, commomDatas_latestupdate);
+                            commomAdapter = new CommomAdapter(context, commomDatas_latestupdate,"gridtype","latestupdate");
                             recyclerViewEclipseCollection.setAdapter(commomAdapter);
                             commomAdapter.notifyDataSetChanged();
 
@@ -458,8 +375,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
             commomDatas_hotdeals.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
 
         }
-        commomAdapter = new CommomAdapter(context, commomDatas_hotdeals);
-        recyclerViewTrendingStyle = (RecyclerView) view.findViewById(R.id.recyclerTrendingStyle);
+        commomAdapter = new CommomAdapter(context, commomDatas_hotdeals,"list","hotdeals");
+
+
+        recyclerViewTrendingStyle = (RecyclerView) view.findViewById(R.id.recyclerhotdeals);
+
         recyclerViewTrendingStyle.setLayoutManager(llManagerTrendingStyle);
         recyclerViewTrendingStyle.setAdapter(commomAdapter);
 
@@ -482,10 +402,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         for(int i=0;i<20;i++) {
             commomDatas.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
         }
-        commomAdapter = new CommomAdapter(context, commomDatas);
+        commomAdapter = new CommomAdapter(context, commomDatas,"list","hotdeals");
+       // itemDecoration=new SpacesItemDecoration(2,3);
 
         recyclerViewBestSelling = (RecyclerView) view.findViewById(R.id.recyclerBestSelling);
         recyclerViewBestSelling.setLayoutManager(llManagerBestSelling);
+        //recyclerViewBestSelling.addItemDecoration(itemDecoration);
         recyclerViewBestSelling.setAdapter(latestproductadapter);
         recyclerViewBestSelling.getAdapter().notifyDataSetChanged();
 
