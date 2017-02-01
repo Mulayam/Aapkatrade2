@@ -139,6 +139,9 @@
     <string name="pincode">Pincode</string>
     <string name="accept_t_and_c">Accept Terms and Conditions</string>
     <string name="save_and_next">Save &amp; Next</string>
+
+    <string name="search_data">Search Products,Brands</string>
+
     <string name="aacount_no">Account No.*</string>
     <string name="branch_code">Branch Code*</string>
     <string name="branch_name">Branch Name</string>
@@ -147,6 +150,7 @@
     <string name="account_holder_name">Account Holder Name*</string>
     <string name="registered_mobile">Registered Mobile*</string>
     <string name="new_user_signup">New User Signup</string>
+
 
 
 </resources>

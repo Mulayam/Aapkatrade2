@@ -8,11 +8,6 @@
     android:background="#EEEEEE"
     >
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_margin="10dp"
-        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,12 +22,9 @@
                 app:cardCornerRadius="5dp"
                 >
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/banner"
-                    />
+               <include
+                   layout="@layout/simple_header"
+                   ></include>
 
 
 
@@ -48,7 +40,6 @@
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
 
 
