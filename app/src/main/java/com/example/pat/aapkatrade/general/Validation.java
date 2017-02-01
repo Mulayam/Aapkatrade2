@@ -25,7 +25,7 @@ public class Validation {
     }
 
     public static boolean isEmptyStr(String s){
-        return s.trim().equals("") || TextUtils.isEmpty(s);
+        return TextUtils.isEmpty(s) || s.trim().equals("");
     }
 
     public static boolean isNonEmptyStr(String s){

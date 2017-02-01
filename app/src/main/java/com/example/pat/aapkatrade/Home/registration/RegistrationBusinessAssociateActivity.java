@@ -9,6 +9,7 @@ import com.example.pat.aapkatrade.R;
 public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     private TextView uploadMsg;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
