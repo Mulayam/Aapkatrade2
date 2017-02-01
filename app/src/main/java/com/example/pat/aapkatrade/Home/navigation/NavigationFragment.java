@@ -392,38 +392,9 @@ emailid.setText(email);
                                 set_expandable_adapter_data();
 //                        dialog.hide();
                             }
+                        } catch (Exception e1) {
                         }
-                        catch (Exception e1)
-                        {}
                     }
-=======
-                        if(result!=null)
-                        {
-                            Log.e("error data==========",result.toString());
-
-                            JsonObject jsonObject = result.getAsJsonObject();
-                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-
-                        listDataHeader = new ArrayList<>();
-                        for (int i = 0; i < jsonResultArray.size(); i++)
-                        {
-                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                            try {
-
-                                CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
-                                categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
-                                listDataHeader.add(categoryHome);
-                                Log.e("hi", categoryHome.getCategoryName());
-                            }
-                            catch (Exception v){
-
-
-                            }
-
-                        }
-                        set_expandable_adapter_data();
-                        //dialog.hide();
-                    }}
 
                 });
 
