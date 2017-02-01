@@ -69,6 +69,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     User_DashboardFragment user_dashboardFragment;
     AboutUsFragment aboutUsFragment;
     private ImageView[] dots;
+    ImageView home_ads;
     private Handler mHandler;
     public static final int DELAY = 5000;
     AHBottomNavigationAdapter  bottom_menuAdapter;
@@ -82,6 +83,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     AHBottomNavigation bottomNavigation;
     Timer banner_timer=new Timer();
     CoordinatorLayout coordinatorLayout;
+    GridLayoutManager gridLayoutManager;
 
     viewpageradapter_home viewpageradapter;
     public DashboardFragment() {
@@ -99,7 +101,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
 
+        home_ads=(ImageView)view.findViewById(R.id.home_ads) ;
+        home_ads.setImageResource(R.drawable.ic_home_ads_banner);
 
+//                .load("http://aapkatrade.com/laraveldemo/public/image/demo/slider/3.jpg");
         vp=(ViewPager)view.findViewById(R.id.viewpager_custom) ;
         context = getActivity();
         //llManagerAllSale,llManagerTrendingStyle,llManagerEclipseCollection,llManagerExpressDeal,llManagerBestSelling;
@@ -116,8 +121,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
 
-        recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
-        recyclerViewEclipseCollection.setLayoutManager(llManagerAllSale);
+
 
 
 
@@ -130,9 +134,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         setupviewpager();
         setuprecyclers(view);
 
+        recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
 
-        GridLayoutManager gridLayoutManager=new GridLayoutManager (context,2);
+
+         gridLayoutManager=new GridLayoutManager (context,2);
         recyclerViewEclipseCollection.setLayoutManager(gridLayoutManager);
+        recyclerViewEclipseCollection.setHasFixedSize(true);
+
         return view;
     }
 
@@ -371,7 +379,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     {
 
         commomDatas_hotdeals.clear();
-        for(int i=0;i<20;i++) {
+        for(int i=0;i<3;i++) {
             commomDatas_hotdeals.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
 
         }
@@ -380,7 +388,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         recyclerViewTrendingStyle = (RecyclerView) view.findViewById(R.id.recyclerhotdeals);
 
-        recyclerViewTrendingStyle.setLayoutManager(llManagerTrendingStyle);
+        recyclerViewTrendingStyle.setLayoutManager(gridLayoutManager);
         recyclerViewTrendingStyle.setAdapter(commomAdapter);
 
     }
@@ -399,14 +407,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private void setupBestSelling(View view) {
 
         commomDatas.clear();
-        for(int i=0;i<20;i++) {
+        for(int i=0;i<3;i++) {
             commomDatas.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
         }
         commomAdapter = new CommomAdapter(context, commomDatas,"list","hotdeals");
        // itemDecoration=new SpacesItemDecoration(2,3);
 
         recyclerViewBestSelling = (RecyclerView) view.findViewById(R.id.recyclerBestSelling);
-        recyclerViewBestSelling.setLayoutManager(llManagerBestSelling);
+        recyclerViewBestSelling.setLayoutManager(gridLayoutManager);
         //recyclerViewBestSelling.addItemDecoration(itemDecoration);
         recyclerViewBestSelling.setAdapter(latestproductadapter);
         recyclerViewBestSelling.getAdapter().notifyDataSetChanged();

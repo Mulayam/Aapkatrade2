@@ -37,8 +37,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         CommomHolder viewHolder1;
         CommonHolder_grid viewHolder2;
 
-
-
         //RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if(arrangementtype=="list")
@@ -79,9 +77,15 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             CommomHolder holder = new CommomHolder(v);
 
 
-            Picasso.with(context).load(commomDatas.get(0).imageurl)
+            Picasso.with(context).load("http://vignette3.wikia.nocookie.net/zombie/images/5/53/5878297_orig.jpg/revision/latest?cb=20160330012009")
                     .error(R.drawable.banner)
+                    .placeholder(R.drawable.default_noimage)
+                    .error(R.drawable.default_noimage)
                     .into(holder.cimageview);
+//            Animation a = AnimationUtils.loadAnimation(context, R.anim.show_progress);
+//            a.setDuration(1000);
+//            holder.cimageview.startAnimation(a);
+
 
 //        Ion.with(holder.cimageview)
 //                 .placeholder(R.drawable.ms__drawable)
@@ -98,15 +102,40 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }
             });
-
-            holder.tvProductName.setText(commomDatas.get(position).name);
+            //holder.tvProductName.setText(commomDatas.get(position).name);
+            holder.tvProductName.setText("Demo");
         }
         else{
+
             final CommonHolder_grid grid_holder=new CommonHolder_grid(v);
 
+
             Picasso.with(context).load("http://vignette3.wikia.nocookie.net/zombie/images/5/53/5878297_orig.jpg/revision/latest?cb=20160330012009")
-                    .error(R.drawable.banner)
+                    .error(R.drawable.default_noimage)
+                    .placeholder(R.drawable.default_noimage)
                     .into(grid_holder.product_imageview);
+//            Animation a = AnimationUtils.loadAnimation(context, R.anim.show_progress);
+//            a.setDuration(1000);
+//            grid_holder.product_imageview.startAnimation(a);
+
+
+
+
+
+            if(position%2==0)
+            {
+
+grid_holder.view_grid_left.setVisibility(View.GONE);
+                grid_holder.view_grid_right.setVisibility(View.GONE);
+
+
+            }
+            else{
+                grid_holder.view_grid_left.setVisibility(View.VISIBLE);
+                grid_holder.view_grid_right.setVisibility(View.GONE);
+            }
+
+
 
 
 
@@ -125,11 +154,5 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return commomDatas.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
 
-
-
-        return super.getItemViewType(position);
-    }
 }

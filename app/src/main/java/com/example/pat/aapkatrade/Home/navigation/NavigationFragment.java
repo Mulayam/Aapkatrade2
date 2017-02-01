@@ -375,21 +375,27 @@ emailid.setText(email);
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if(result!=null){
+                        try {
+                            if (result != null) {
                                 JsonObject jsonObject = result.getAsJsonObject();
-                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                        listDataHeader = new ArrayList<>();
-                        for (int i = 0; i < jsonResultArray.size(); i++) {
-                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                            CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
-                            categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
-                            listDataHeader.add(categoryHome);
-                            Log.e("hi", categoryHome.getCategoryName());
-                        }
-                        set_expandable_adapter_data();
+                                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                                listDataHeader = new ArrayList<>();
+                                for (int i = 0; i < jsonResultArray.size(); i++) {
+                                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                    CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
+                                    categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
+                                    listDataHeader.add(categoryHome);
+                                    Log.e("hi", categoryHome.getCategoryName());
+                                }
+                                set_expandable_adapter_data();
 //                        dialog.hide();
-                    }}
+                            }
+                        }
+                        catch (Exception e1)
+                        {}
+                    }
                 });
+
     }
 
 

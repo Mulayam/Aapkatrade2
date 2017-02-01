@@ -19,6 +19,7 @@ public class CommonHolder_grid extends RecyclerView.ViewHolder {
     TextView tvProductName,tvproductprize;
     ImageView product_imageview;
     RatingBar ratingbar;
+    View view_grid_left,view_grid_right;
 
 
 
@@ -30,6 +31,9 @@ public class CommonHolder_grid extends RecyclerView.ViewHolder {
 
         tvProductName = (TextView) itemView.findViewById(R.id.tv_productname);
         tvproductprize=(TextView) itemView.findViewById(R.id.tv_productprize);
+        view_grid_left=(View)itemView.findViewById(R.id.view_left);
+        view_grid_right=(View)itemView.findViewById(R.id.view_right);
+
         //ratingbar=(RatingBar)itemView.findViewById(R.id.ratingBar_products);
     }
 }
