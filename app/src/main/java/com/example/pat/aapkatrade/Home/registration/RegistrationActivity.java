@@ -6,11 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.annotation.IntegerRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -64,17 +66,15 @@ public class RegistrationActivity extends AppCompatActivity {
     private static BuyerRegistration formBuyerData = null;
     private boolean isAllFieldSet = false;
     private Spinner spBussinessCategory, spCountry, spState, spCity;
-    private String[] spBussinessName = {"-Please Select-", "Licence", "Personal"};
+    private String[] spBussinessName = {"-Please Select Business Type-", "Licence", "Personal"};
     private String[] spCityName = {"-Please Select-", "Delhi", "New Delhi"};
-    private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etUserName,etAddress, etPassword, etReenterPassword;
+    private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etUserName, etAddress, etPassword, etReenterPassword;
     private TextView tvSave;
-    private CoordinatorLayout cl;
+    private LinearLayout registrationLayout;
     private ProgressDialog dialog;
     private ArrayList<Country> countryList = new ArrayList<>();
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
-    //    private static String shared_pref_name = "aapkatrade";
-//    private SharedPreferences prefs;
     private LinearLayout businessDetails, uploadView;
     private static final int rcCC = 33;
     private boolean isCC = false;
@@ -85,41 +85,50 @@ public class RegistrationActivity extends AppCompatActivity {
     HashMap<String, String> webservice_header_type = new HashMap<>();
     private String busiType, countryID, stateID, cityID;
     private RelativeLayout spBussinessCategoryLayout;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
         setContentView(R.layout.activity_registration);
-        app_sharedpreference=new App_sharedpreference(RegistrationActivity.this);
+        app_sharedpreference = new App_sharedpreference(RegistrationActivity.this);
         setuptoolbar();
         initView();
+        setProgressDialogue();
         saveUserTypeInSharedPreferences();
-getCountry();
+        getCountry();
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 picPhoto();
             }
         });
-        //saveProfile();
-
-
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Log.e("reach", "reach");
                 if (app_sharedpreference.shared_pref != null) {
+
+                    Log.e("reach", "reach1");
                     /*
                     Seller Registration
                      */
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
+
+                        Log.e("reach", "reach2");
                         getSellerFormData();
+                        validateFields(String.valueOf(1));
                         callWebServiceForSellerRegistration();
                     }
                     /*
                     Buyer Registration
                      */
                     else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+
+                        Log.e("reach", "reach3");
                         getBuyerFormData();
+                        validateFields(String.valueOf(2));
                         callWebServiceForBuyerRegistration();
                     }
                 }
@@ -130,26 +139,28 @@ getCountry();
 
     }
 
+    private void setProgressDialogue() {
+        dialog = new ProgressDialog(RegistrationActivity.this);
+        dialog.setMessage("Please Wait\nLoading.....");
+    }
+
     private void saveUserTypeInSharedPreferences() {
         if (app_sharedpreference != null) {
-            if (app_sharedpreference.getsharedpref("usertype", "0") .equals("1") ) {
+            if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
                 etAddress.setVisibility(View.GONE);
                 setUpBusinessCategory();
-
-                Log.e("user","user");
+                Log.e("user", "user");
             }
-            if (app_sharedpreference.getsharedpref("usertype", "0") .equals("2")) {
-                Log.e("user2","user2");
-                // dialog.hide();
+            if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+                Log.e("user2", "user2");
                 uploadView.setVisibility(View.GONE);
                 spBussinessCategoryLayout.setVisibility(View.GONE);
                 etProductName.setVisibility(View.GONE);
                 etDOB.setVisibility(View.GONE);
 
             }
-        }
-        else{
-            Log.e("user3","user3");
+        } else {
+            Log.e("user3", "user3");
         }
     }
 
@@ -221,16 +232,15 @@ getCountry();
     }
 
 
-
     private void setUpBusinessCategory() {
         spBussinessCategory.setAdapter(new SpBussinessAdapter(getApplicationContext(), spBussinessName));
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                getSellerRegistrationInstance().setBusinessType(spBussinessName[position]);
                 busiType = String.valueOf(position);
                 if (spBussinessName[position].equalsIgnoreCase("Personal")) {
                     uploadView.setVisibility(View.GONE);
+                    etProductName.setHint(getString(R.string.shop_name));
                 } else if (spBussinessName[position].equalsIgnoreCase("Licence")) {
                     uploadView.setVisibility(View.VISIBLE);
                     etProductName.setHint(getString(R.string.company_name_heading));
@@ -247,7 +257,7 @@ getCountry();
     }
 
     private void getCountry() {
-        // dialog.show();
+        dialog.show();
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("type", "country");
@@ -269,7 +279,7 @@ getCountry();
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
                     countryList.clear();
-                    Country countryEntity_init = new Country("-1", "Select country");
+                    Country countryEntity_init = new Country("-1", "-Please Select Country-");
                     countryList.add(countryEntity_init);
                     for (int i = 0; i < jsonResultArray.size(); i++) {
 
@@ -278,19 +288,16 @@ getCountry();
                         Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                         countryList.add(countryEntity);
                     }
-                    //        dialog.hide();
+                    dialog.hide();
                     SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
                     spCountry.setAdapter(spCountrysAdapter);
-//
                     spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             Log.d("datacountry", countryList.get(position).countryId);
                             countryID = countryList.get(position).countryId;
-//                                    Log.d("datacountryobj", getSellerRegistrationInstance().getCountryId());
-//                                    getSellerRegistrationInstance().setCountryId(countryList.get(position).countryId);
-                            stateList = new ArrayList<State>();
+                            stateList = new ArrayList<>();
                             if (position > 0) {
                                 getState(countryList.get(position).countryId);
                             }
@@ -320,7 +327,7 @@ getCountry();
         webservice_body_parameter.put("type", "state");
         webservice_body_parameter.put("id", countryId);
 
-
+        dialog.show();
         Call_webservice.getcountrystatedata(RegistrationActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
@@ -330,17 +337,15 @@ getCountry();
                 JsonObject jsonObject = state_data_webservice.getAsJsonObject();
                 JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
                 stateList.clear();
-                State stateEntity_init = new State("-1", "Select state");
+                State stateEntity_init = new State("-1", "-Pleas Select State-");
                 stateList.add(stateEntity_init);
-
 
                 for (int i = 0; i < jsonResultArray.size(); i++) {
                     JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                     State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                     stateList.add(stateEntity);
-//                                            Log.d("data", stateEntity.stateName);
                 }
-//                dialog.hide();
+                dialog.hide();
                 SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
                 spState.setAdapter(spStateAdapter);
 
@@ -349,11 +354,8 @@ getCountry();
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int position, long id) {
-//                        getSellerRegistrationInstance().setStateId(stateList.get(position).stateId);
                         stateID = stateList.get(position).stateId;
-                        Log.d("datastate", stateList.get(position).stateId);
-//                        Log.d("datastateobj", getSellerRegistrationInstance().getStateId());
-                        cityList = new ArrayList<City>();
+                        cityList = new ArrayList<>();
                         if (position > 0) {
                             getCity(stateList.get(position).stateId);
                         }
@@ -375,39 +377,39 @@ getCountry();
 
     //
     public void getCity(String stateId) {
-        Log.d("data", stateId);
+
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("type", "city");
         webservice_body_parameter.put("id", stateId);
 
-
+        dialog.show();
         Call_webservice.getcountrystatedata(RegistrationActivity.this, "city", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject city_data_webservice) {
 
-
-             //   Log.d("data", city_data_webservice.toString());
                 JsonObject jsonObject = city_data_webservice.getAsJsonObject();
                 JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+
+                City cityEntity_init = new City("-1", "-Please Select City-");
+                cityList.add(cityEntity_init);
+
                 for (int i = 0; i < jsonResultArray.size(); i++) {
                     JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                     City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                     cityList.add(cityEntity);
                 }
-                // dialog.hide();
+
+                dialog.hide();
                 SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
                 spCity.setAdapter(spCityAdapter);
 
                 spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                        getSellerRegistrationInstance().setCityId(cityList.get(position).cityId);
                         cityID = cityList.get(position).cityId;
-                        Log.d("datacity", cityList.get(position).cityId);
-//                        Log.d("datacityobj", getSellerRegistrationInstance().getCityId());
                     }
 
                     @Override
@@ -417,10 +419,6 @@ getCountry();
                 });
             }
         };
-
-
-        //dialog.show();
-
     }
 
 
@@ -452,7 +450,7 @@ getCountry();
     }
 
     private void initView() {
-        cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
+        registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
         spCountry = (Spinner) findViewById(R.id.spCountryCategory);
         spState = (Spinner) findViewById(R.id.spStateCategory);
@@ -477,35 +475,106 @@ getCountry();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
     }
 
-    private void validateFields() {
-        if (getSellerRegistrationInstance() != null) {
-            if (Validation.isNonEmptyStr(getSellerRegistrationInstance().getFirstName())) {
+    private void validateFields(String userType) {
+        Log.e("reach", "validateFiledsCalled");
+        if (userType.equals("1")) {
+            if (getSellerRegistrationInstance() != null) {
+                if (Validation.isEmptyStr(getSellerRegistrationInstance().getBusinessType())
+                        || getSellerRegistrationInstance().getBusinessType().equals("-Please Select Business Type-")) {
+                    putError(13);
+                }
+                if (Validation.isEmptyStr(etProductName.getText().toString())) {
+                    putError(12);
+                }
+                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCountryId()) ||
+                        Integer.parseInt(getSellerRegistrationInstance().getCountryId()) > 0) {
+                    putError(6);
+                }
+
+                if (Validation.isEmptyStr(getSellerRegistrationInstance().getStateId()) ||
+                        Integer.parseInt(getSellerRegistrationInstance().getStateId()) > 0) {
+                    putError(7);
+                }
+
+                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCityId()) ||
+                        Integer.parseInt(getSellerRegistrationInstance().getCityId()) > 0) {
+
+                    putError(8);
+                }
+                if (Validation.isNonEmptyStr(getSellerRegistrationInstance().getFirstName())) {
+                    putError(0);
+                }
                 if (Validation.isNonEmptyStr(getSellerRegistrationInstance().getLastName())) {
-                    if (Validation.isValidEmail(getSellerRegistrationInstance().getEmail())) {
-                        if (Validation.isValidNumber(getSellerRegistrationInstance().getMobile(), Validation.getNumberPrefix(getSellerRegistrationInstance().getMobile()))) {
-                            if (Validation.isValidPassword(getSellerRegistrationInstance().getPassword())) {
-                                if (Validation.isPasswordMatching(getSellerRegistrationInstance().getPassword(), getSellerRegistrationInstance().getConfirmPassword())) {
-                                    isAllFieldSet = true;
-                                } else {
-                                    putError(5);
-                                }
-                            } else {
-                                putError(4);
-                            }
-                        } else {
-                            putError(3);
-                        }
-                    } else {
-                        putError(2);
-                    }
-                } else {
                     putError(1);
                 }
-            } else {
-                putError(0);
+                if (Validation.isValidEmail(getSellerRegistrationInstance().getEmail())) {
+                    putError(2);
+                }
+                if (Validation.isValidNumber(getSellerRegistrationInstance().getMobile(), Validation.getNumberPrefix(getSellerRegistrationInstance().getMobile()))) {
+                    putError(3);
+                }
+                if (Validation.isValidPassword(getSellerRegistrationInstance().getPassword())) {
+                    putError(4);
+                }
+                if (Validation.isPasswordMatching(getSellerRegistrationInstance().getPassword(), getSellerRegistrationInstance().getConfirmPassword())) {
+                    putError(5);
+                }
+
+                if (Validation.isNonEmptyStr(etUserName.getText().toString())) {
+                    putError(10);
+                }
+            }
+            Log.d("error", "error Null");
+        }
+        if (userType.equals("2")) {
+            Log.e("reach", "BuyerValidate Called");
+            if (getBuyerRegistrationInstance() != null) {
+                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCountryId()) ||
+                        Integer.parseInt(getBuyerRegistrationInstance().getCountryId()) > 0) {
+                    putError(6);
+                }
+
+                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getStateId()) ||
+                        Integer.parseInt(getBuyerRegistrationInstance().getStateId()) > 0) {
+                    putError(7);
+                }
+
+                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCityId()) ||
+                        Integer.parseInt(getBuyerRegistrationInstance().getCityId()) > 0) {
+
+                    putError(8);
+                }
+
+                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getAddress())) {
+                    putError(9);
+                }
+
+                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getFirstName())) {
+                    putError(0);
+                }
+                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getLastName())) {
+                    putError(1);
+                }
+                if (!Validation.isValidEmail(getBuyerRegistrationInstance().getEmail())) {
+                    putError(2);
+                }
+                if (!Validation.isValidNumber(getBuyerRegistrationInstance().getMobile(), Validation.getNumberPrefix(getBuyerRegistrationInstance().getMobile()))) {
+                    putError(3);
+                }
+                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getUserName())) {
+                    putError(10);
+                }
+                if (!Validation.isValidPassword(getBuyerRegistrationInstance().getPassword())) {
+                    putError(4);
+                }
+                if (!Validation.isPasswordMatching(getBuyerRegistrationInstance().getPassword(), getBuyerRegistrationInstance().getConfirmPassword())) {
+                    putError(5);
+                }
+
             }
         }
-        Log.d("error", "error Null");
+
+
     }
 
     private void putError(int id) {
@@ -522,14 +591,31 @@ getCountry();
                 etPassword.setError("Password must be greater than 6 digits");
             case 5:
                 etReenterPassword.setError("Password did not matched");
+            case 6:
+                showmessage("Please Select Country");
+            case 7:
+                showmessage("Please Select State");
+            case 8:
+                showmessage("Please Select City");
+            case 9:
+                etAddress.setError("Address Can't be empty");
+            case 10:
+                etUserName.setError("Please Enter Valid UserName");
+            case 12:
+                if (etProductName.getHint().toString().equals("Personal")) {
+                    etProductName.setError("Please Enter Shop Name");
+                } else if (etProductName.getHint().toString().equals("Licence")) {
+                    etProductName.setError("Please Enter Company Name");
+                }
 
+            case 13: showmessage("Please chose Correct Business Type");
         }
     }
 
     public void showmessage(String message) {
 
         Snackbar snackbar = Snackbar
-                .make(cl, message, Snackbar.LENGTH_LONG)
+                .make(registrationLayout, message, Snackbar.LENGTH_SHORT)
                 .setAction("", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -537,6 +623,7 @@ getCountry();
 //                    snackbar1.show();
                     }
                 });
+        snackbar.show();
 
 
     }
@@ -684,14 +771,13 @@ getCountry();
     }
 
 
-
-
     public static SellerRegistration getSellerRegistrationInstance() {
         if (formSellerData == null) {
             return new SellerRegistration();
         }
         return formSellerData;
     }
+
     public static BuyerRegistration getBuyerRegistrationInstance() {
         if (formBuyerData == null) {
             return new BuyerRegistration();
