@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header_busi_assoc"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/minus_three_dip"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/fifty_dip"
+                    android:layout_marginRight="@dimen/minus_three_dip"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_circle_border"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/one" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_line" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="@dimen/hundred_dip"
+                android:layout_height="50dp"
+                android:textColor="@color/green"
+                android:textSize="@dimen/textsize_small"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/personalInfo" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/minus_three_dip"
+                android:layout_marginLeft="@dimen/minus_three_dip"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/minus_three_dip"
+                    android:background="@drawable/green_line" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/fifty_dip"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/minus_three_dip"
+                    android:background="@drawable/green_circle_border"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/two"
+                    android:id="@+id/textView5" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_line" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="@dimen/hundred_dip"
+                android:layout_height="50dp"
+                android:textColor="@color/green"
+                android:textSize="@dimen/textsize_small"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/professionalDetails" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/minus_three_dip"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_line" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/fifty_dip"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/minus_three_dip"
+                    android:background="@drawable/green_circle_border"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/three" />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="@dimen/hundred_dip"
+                android:layout_height="50dp"
+                android:textColor="@color/green"
+                android:textSize="@dimen/textsize_small"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/bankDetails" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
