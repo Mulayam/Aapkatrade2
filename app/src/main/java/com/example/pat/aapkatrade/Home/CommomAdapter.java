@@ -19,15 +19,15 @@ import java.util.ArrayList;
 public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     ArrayList<CommomData> commomDatas;
-    String arrangementtype,categorytype;
+    String arrangementtype, categorytype;
     View v;
 
 
-    CommomAdapter(Context context, ArrayList<CommomData> commomDatas,String arrangementtype,String categorytype) {
+    CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype) {
         this.context = context;
         this.commomDatas = commomDatas;
-        this.arrangementtype=arrangementtype;
-        this.categorytype=categorytype;
+        this.arrangementtype = arrangementtype;
+        this.categorytype = categorytype;
     }
 
     @Override
@@ -39,39 +39,24 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         //RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        if(arrangementtype=="list")
-        {v = inflater.inflate(R.layout.row_dashboard, parent, false);
-            viewHolder2=new CommonHolder_grid(v);
+        if (arrangementtype == "list") {
+            v = inflater.inflate(R.layout.row_dashboard, parent, false);
+            viewHolder2 = new CommonHolder_grid(v);
             return viewHolder2;
 
 
-        }
-        else{
+        } else {
             v = inflater.inflate(R.layout.row_dashboard_grid, parent, false);
-            viewHolder1=new CommomHolder(v);
+            viewHolder1 = new CommomHolder(v);
             return viewHolder1;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewholder , int position)
-    {
-        if(arrangementtype=="list")
+    public void onBindViewHolder(RecyclerView.ViewHolder viewholder, int position) {
+        if (arrangementtype == "list")
 
         {
             CommomHolder holder = new CommomHolder(v);
@@ -104,10 +89,9 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
             //holder.tvProductName.setText(commomDatas.get(position).name);
             holder.tvProductName.setText("Demo");
-        }
-        else{
+        } else {
 
-            final CommonHolder_grid grid_holder=new CommonHolder_grid(v);
+            final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
 
             Picasso.with(context).load("http://vignette3.wikia.nocookie.net/zombie/images/5/53/5878297_orig.jpg/revision/latest?cb=20160330012009")
@@ -119,29 +103,16 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //            grid_holder.product_imageview.startAnimation(a);
 
 
+            if (position % 2 == 0) {
 
-
-
-            if(position%2==0)
-            {
-
-grid_holder.view_grid_left.setVisibility(View.GONE);
+                grid_holder.view_grid_left.setVisibility(View.GONE);
                 grid_holder.view_grid_right.setVisibility(View.GONE);
 
 
-            }
-            else{
+            } else {
                 grid_holder.view_grid_left.setVisibility(View.VISIBLE);
                 grid_holder.view_grid_right.setVisibility(View.GONE);
             }
-
-
-
-
-
-
-
-
 
 
         }

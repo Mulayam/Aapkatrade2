@@ -1,9 +1,9 @@
 package com.example.pat.aapkatrade.general;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -19,15 +19,16 @@ public class Call_webservice  {
     static JsonObject jsonObject = new JsonObject();
    public  static TaskCompleteReminder taskCompleteReminder=null;
 
-    public static ProgressDialog pd;
+
 
     public static void getcountrystatedata(Context c,String webservicetype, String webservice_url, HashMap<String,String> body_parameter,HashMap<String,String> headers) {
-
+        final ProgressBarHandler progressBarHandler=new ProgressBarHandler(c);
         if (webservicetype.equals("country"))
 
         {
-            pd=new ProgressDialog(c);
-            pd.show();
+            progressBarHandler.show();
+
+
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             String get_webservice_body_parameter = webservice_body_parameter.get("type");
@@ -49,10 +50,7 @@ public class Call_webservice  {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    if(pd!=null)
-                                    {
-                                        pd.dismiss();
-                                    }
+                                    progressBarHandler.hide();
 
                                     taskCompleteReminder.Taskcomplete(result);
                                  //   Log.e("jsonobject", result.toString());
@@ -68,8 +66,7 @@ public class Call_webservice  {
         }
         else if(webservicetype.equals("state"))
         {
-            pd=new ProgressDialog(c);
-            pd.show();
+            progressBarHandler.show();
 
 
             HashMap<String, String> webservice_body_parameter = body_parameter;
@@ -108,10 +105,7 @@ public class Call_webservice  {
 
 
 
-                                    if(pd!=null)
-                                    {
-                                        pd.dismiss();
-                                    }
+                                    progressBarHandler.hide();
                                     taskCompleteReminder.Taskcomplete(result);
                                     Log.e("jsonobject_state", jsonObject.toString());
                                     //taskCompleteReminder.Taskcomplete("complete");
@@ -125,8 +119,7 @@ public class Call_webservice  {
         }
         else if(webservicetype.equals("city"))
         {
-            pd=new ProgressDialog(c);
-            pd.show();
+            progressBarHandler.show();
 
 
 
@@ -160,10 +153,7 @@ public class Call_webservice  {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    if(pd!=null)
-                                    {
-                                        pd.dismiss();
-                                    }
+                                    progressBarHandler.hide();
 
                                     taskCompleteReminder.Taskcomplete(result);
                                     Log.e("jsonobject_city", jsonObject.toString());
@@ -184,8 +174,7 @@ public class Call_webservice  {
 
         else if(webservicetype.equals("category"))
         {
-            pd=new ProgressDialog(c);
-            pd.show();
+            progressBarHandler.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             if (authorization.equals(null)) {
@@ -220,10 +209,7 @@ public class Call_webservice  {
                                     if(result!=null)
 
                                     {
-                                        if(pd!=null)
-                                        {
-                                            pd.dismiss();
-                                        }
+                                        progressBarHandler.hide();
 
 
                                         taskCompleteReminder.Taskcomplete(result);
@@ -247,8 +233,7 @@ public class Call_webservice  {
 
         else if(webservicetype.equals("subcategory"))
         {
-            pd=new ProgressDialog(c);
-            pd.show();
+            progressBarHandler.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             if (authorization.equals(null)) {
@@ -281,10 +266,7 @@ public class Call_webservice  {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    if(pd!=null)
-                                    {
-                                        pd.dismiss();
-                                    }
+                                    progressBarHandler.hide();
 
 
 
@@ -328,9 +310,9 @@ public class Call_webservice  {
 
     public static void call_login_webservice(Context context,String url,String webservicetype,HashMap<String,String> body_parameter,HashMap<String,String> headers)
     {
+        final ProgressBarHandler progressBarHandler=new ProgressBarHandler(context);
 
-pd=new ProgressDialog(context);
-        pd.show();
+        progressBarHandler.show();
         HashMap<String, String> webservice_body_parameter = body_parameter;
         String authorization = webservice_body_parameter.get("authorization");
         if (authorization.equals(null)) {
@@ -368,10 +350,7 @@ pd=new ProgressDialog(context);
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
 
-                                if(pd!=null)
-                                {
-                                    pd.dismiss();
-                                }
+                                progressBarHandler.hide();
 
                                 taskCompleteReminder.Taskcomplete(result);
                                 Log.e("jsonobject", jsonObject.toString());
