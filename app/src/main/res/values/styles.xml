@@ -133,4 +133,12 @@
 
 
 
+    <style name="CircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/color_voilet</item>
+        <item name="android:minHeight">1dp</item>
+        <item name="android:maxHeight">1dp</item>
+    </style>
+
+
+
 </resources>

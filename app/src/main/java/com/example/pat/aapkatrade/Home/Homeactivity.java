@@ -18,7 +18,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -29,10 +31,7 @@ import com.example.pat.aapkatrade.categories_tab.CategoryListFragment;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
-import com.example.pat.aapkatrade.login.LoginDashboard;
-import com.example.pat.aapkatrade.parallax_recyclerview.ParallaxActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -46,8 +45,12 @@ public class HomeActivity extends AppCompatActivity {
     AHBottomNavigation bottomNavigation;
     CoordinatorLayout coordinatorLayout;
     User_DashboardFragment user_dashboardFragment;
+
+    ProgressBar progressBar;
+
     public static String userid, username;
     ScrollView scrollView;
+    float initialX, initialY;
     App_sharedpreference app_sharedpreference;
     // SharedPreferences prefs;
 
@@ -60,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
         App_config.set_defaultfont(HomeActivity.this);
         loadLocale();
 
-        setContentView(R.layout.activity_homeactivity);
+
+      setContentView(R.layout.activity_homeactivity);
         //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
 
         context = this;
@@ -360,22 +364,65 @@ public class HomeActivity extends AppCompatActivity {
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                     int pos = scrollView.getChildCount() - 1;
                     if (oldScrollY < scrollY) {
+
                         showOrHideBottomNavigation(true);
 //                    setForceTitleHide(true);
+
+
+
+//                    setForceTitleHide(true);
+
 
                     } else {
                         showOrHideBottomNavigation(false);
                     }
 
                     if (oldScrollY == scrollY) {
+
                         showOrHideBottomNavigation(true);
 
-                    }
 
+
+                    }
 
                 }
             });
         } else {
+
+
+
+scrollView.setOnTouchListener(new View.OnTouchListener() {
+    float height;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+
+
+        int action = event.getAction();
+        float height2 = event.getY();
+        if(action == MotionEvent.ACTION_DOWN){
+            height = height2;
+        }else if(action == MotionEvent.ACTION_UP){
+            if(this.height < height2){
+                Log.e("up", "Scrolled up");
+                showOrHideBottomNavigation(false);
+            }else if(this.height > height2){
+                Log.e("down", "Scrolled down");
+                showOrHideBottomNavigation(true);
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+});
+
+
+
             // Pre-Marshmallow
         }
 
