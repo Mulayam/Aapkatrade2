@@ -22,15 +22,6 @@ public class IncomingSms extends BroadcastReceiver {
     }
 
 
-
-
-
-
-
-
-
-
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -50,18 +41,17 @@ public class IncomingSms extends BroadcastReceiver {
 
                 for (SmsMessage currentMessage : messages) {
 
-                  String   sender = currentMessage.getDisplayOriginatingAddress();
-                  String  msg = currentMessage.getDisplayMessageBody();
-                    activityOTPVerify=new ActivityOTPVerify();
+                    String sender = currentMessage.getDisplayOriginatingAddress();
+                    String msg = currentMessage.getDisplayMessageBody();
+                    activityOTPVerify = new ActivityOTPVerify();
                     activityOTPVerify.update_otp(msg);
 
-                    Log.e("Sender::",sender);
-                    Log.e("Msg::",msg);
+                    Log.e("Sender::", sender);
+                    Log.e("Msg::", msg);
                     Intent myIntent = new Intent("otp");
-                    myIntent.putExtra("message",msg);
+                    myIntent.putExtra("message", msg);
                     LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                 }
-
 
 
 //                for (int i = 0; i < pdusObj.length; i++) {
@@ -84,11 +74,9 @@ public class IncomingSms extends BroadcastReceiver {
             } // bundle is null
 
         } catch (Exception e) {
-            Log.e("SmsReceiver", "Exception smsReceiver" +e);
+            Log.e("SmsReceiver", "Exception smsReceiver" + e);
 
         }
-
-
 
 
         // TODO: This method is called when the BroadcastReceiver is receiving

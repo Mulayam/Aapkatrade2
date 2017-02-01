@@ -45,7 +45,9 @@ public class HomeActivity extends AppCompatActivity {
     AHBottomNavigation bottomNavigation;
     CoordinatorLayout coordinatorLayout;
     User_DashboardFragment user_dashboardFragment;
+
     ProgressBar progressBar;
+
     public static String userid, username;
     ScrollView scrollView;
     float initialX, initialY;
@@ -62,8 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         loadLocale();
 
 
-
-        setContentView(R.layout.activity_homeactivity);
+      setContentView(R.layout.activity_homeactivity);
         //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
 
         context = this;
@@ -364,7 +365,13 @@ public class HomeActivity extends AppCompatActivity {
                     int pos = scrollView.getChildCount() - 1;
                     if (oldScrollY < scrollY) {
 
+                        showOrHideBottomNavigation(true);
 //                    setForceTitleHide(true);
+
+
+
+//                    setForceTitleHide(true);
+
 
                     } else {
                         showOrHideBottomNavigation(false);
@@ -372,13 +379,17 @@ public class HomeActivity extends AppCompatActivity {
 
                     if (oldScrollY == scrollY) {
 
+                        showOrHideBottomNavigation(true);
+
+
 
                     }
-
 
                 }
             });
         } else {
+
+
 
 scrollView.setOnTouchListener(new View.OnTouchListener() {
     float height;
@@ -409,6 +420,7 @@ scrollView.setOnTouchListener(new View.OnTouchListener() {
 
 
 });
+
 
 
             // Pre-Marshmallow

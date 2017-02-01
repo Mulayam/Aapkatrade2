@@ -20,7 +20,6 @@ public class SpBussinessAdapter extends BaseAdapter {
 
     public SpBussinessAdapter(Context applicationContext, String[] categoriesNames) {
         this.context = applicationContext;
-
         this.categoriesNames = categoriesNames;
         inflter = (LayoutInflater.from(applicationContext));
     }
