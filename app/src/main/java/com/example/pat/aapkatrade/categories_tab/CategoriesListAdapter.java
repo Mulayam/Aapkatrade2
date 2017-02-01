@@ -54,7 +54,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         CategoriesListHolder homeHolder = (CategoriesListHolder) holder;
 
-        homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
+       /* homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -65,7 +65,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 context.startActivity(intent);
             }
         });
-
+*/
     }
 
     private void showMessage(String s)

@@ -14,7 +14,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
-
     }
 
     buildTypes {
@@ -28,14 +27,20 @@ android {
 
     repositories {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        jcenter()
+        maven {
+            url "https://jitpack.io"
+
+        }
+
     }
     sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/menu'] } }
 }
 
 dependencies {
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
 
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.iarcuschin:simpleratingbar:0.1.5'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:cardview-v7:25.1.0'
@@ -60,5 +65,8 @@ dependencies {
     compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     compile 'com.github.carlonzo.stikkyheader:core:0.0.3-SNAPSHOT'
     compile 'com.github.stfalcon:smsverifycatcher:0.2'
-
+    compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
+    compile 'com.aurelhubert:simpleratingbar:0.1.5'
+    compile 'com.github.techery:properratingbar:0.0.5'
+    compile 'com.github.kanytu:android-parallax-recyclerview:v1.2'
 }

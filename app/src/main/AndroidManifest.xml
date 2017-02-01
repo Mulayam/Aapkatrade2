@@ -62,8 +62,9 @@
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
         <activity android:name=".user_dashboard.order_list.order_details.OrderDetailsActivity" />
         <activity android:name=".categories_tab.CategoriesTabActivity" />
-        <activity android:name=".Home.registration.RegistrationBusinessAssociateActivity"
-            android:theme="@style/myedittext"/>
+        <activity
+            android:name=".Home.registration.RegistrationBusinessAssociateActivity"
+            android:theme="@style/myedittext" />
         <activity
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
@@ -78,14 +79,14 @@
             android:name=".general.IncomingSms"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter android:priority="1000">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
         </receiver>
+
+        <activity android:name=".parallax_recyclerview.ParallaxActivity"></activity>
     </application>
 
 </manifest>

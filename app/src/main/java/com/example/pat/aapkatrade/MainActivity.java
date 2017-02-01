@@ -12,13 +12,17 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
 
     private final int SPLASH_DISPLAY_LENGTH = 3000;
     ConnetivityCheck connetivity_check;
     TextView tv_aapkatrade;
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(ConnetivityCheck.isNetworkAvailable(MainActivity.this))
                 {
+
                     Intent mainIntent = new Intent(MainActivity.this,HomeActivity.class);
                     startActivity(mainIntent);
                     finish();

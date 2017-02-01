@@ -48,7 +48,8 @@ import java.util.TimerTask;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements View.OnClickListener {
+public class DashboardFragment extends Fragment implements View.OnClickListener
+{
 
     Context context;
     private View upAllSale;
@@ -115,8 +116,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         recyclerViewEclipseCollection = (RecyclerView) view.findViewById(R.id.recyclerEclipseExpressCollection);
         recyclerViewEclipseCollection.setLayoutManager(llManagerEclipseCollection);
-
-
 
 
 
@@ -224,14 +223,14 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
 
-    private void setupviewpager() {
+    private void setupviewpager()
+    {
 
         imageIdList = new ArrayList<>();
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
-
 
 
         viewpageradapter  = new viewpageradapter_home(getActivity(), null);
@@ -258,9 +257,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 handler.post(update);
             }
         }, 0, 3000);
-
-
-
 
 
 
@@ -476,10 +472,12 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    private void setupBestSelling(View view) {
+    private void setupBestSelling(View view)
+    {
 
         commomDatas.clear();
-        for(int i=0;i<20;i++) {
+        for(int i=0;i<20;i++)
+        {
             commomDatas.add(new CommomData("Latest Product", "Latest Deals", "", "http://administrator.aapkatrade.com/public/upload/noimg.jpg"));
         }
         commomAdapter = new CommomAdapter(context, commomDatas);
@@ -501,10 +499,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 //        recyclerViewExpressDeal.setAdapter(commomAdapter);
 //    }
 
-    private void setupView(View view) {
+    private void setupView(View view)
+    {
         scrollView= (ScrollView) view.findViewById(R.id.scrollView);
-//        view.findViewById(R.id.relativeLayoutSearch).setOnClickListener(this);
-//        view.findViewById(R.id.buttonDiscover).setOnClickListener(this);
+          //        view.findViewById(R.id.relativeLayoutSearch).setOnClickListener(this);
+          //        view.findViewById(R.id.buttonDiscover).setOnClickListener(this);
     }
 
     @Override
@@ -558,7 +557,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         Toast.makeText(context, clicked, Toast.LENGTH_SHORT).show();
     }
 
-    private void setUiPageViewController() {
+    private void setUiPageViewController()
+    {
 
         dotsCount = viewpageradapter.getCount();
         dots = new ImageView[dotsCount];
@@ -595,6 +595,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(null);
         transaction.commit();
+
+
+
     }
 
 

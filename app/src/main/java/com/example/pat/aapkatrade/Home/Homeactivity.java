@@ -25,10 +25,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.CategoryListFragment;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.login.LoginDashboard;
+import com.example.pat.aapkatrade.parallax_recyclerview.ParallaxActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
@@ -50,6 +52,8 @@ public class HomeActivity extends AppCompatActivity
     App_sharedpreference app_sharedpreference;
    // SharedPreferences prefs;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -60,9 +64,7 @@ public class HomeActivity extends AppCompatActivity
        loadLocale();
 
         setContentView(R.layout.activity_homeactivity);
-//prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-
-
+       //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
 
         context = this;
         setup_bottomNavigation();
@@ -133,25 +135,28 @@ public class HomeActivity extends AppCompatActivity
         {
             case R.id.login:
 
+                CategoryListFragment dashboardFragment = new CategoryListFragment();
+               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
+               transaction.commit();
 
+            /*    Intent i =new Intent(HomeActivity.this, ParallaxActivity.class);
+                startActivity(i);*/
 
-
-                if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+/* if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
                 {
                     Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
                 }
-                else{
+                else
+                {
                     Intent i =new Intent(HomeActivity.this, MyProfileActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
-
-
-                }
-
+                }*/
                 //finish();
 
 
