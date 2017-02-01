@@ -60,5 +60,4 @@ dependencies {
     compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     compile 'com.github.carlonzo.stikkyheader:core:0.0.3-SNAPSHOT'
     compile 'com.github.stfalcon:smsverifycatcher:0.2'
-
 }

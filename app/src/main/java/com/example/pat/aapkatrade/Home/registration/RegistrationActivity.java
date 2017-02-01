@@ -1,19 +1,17 @@
 package com.example.pat.aapkatrade.Home.registration;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.annotation.IntegerRes;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +43,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.ImageUtils.ImageUtils;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
@@ -56,6 +56,7 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -77,19 +78,18 @@ public class RegistrationActivity extends AppCompatActivity {
     private ArrayList<City> cityList = new ArrayList<>();
     private LinearLayout businessDetails, uploadView;
     private static final int rcCC = 33;
-    private boolean isCC = false;
-    private ImageView uploadImage;
+    private boolean isCC = false, flagCountry = false;
+    private ImageView uploadImage, openCalander, cancelImage;
     App_sharedpreference app_sharedpreference;
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
     private String busiType, countryID, stateID, cityID;
-    private RelativeLayout spBussinessCategoryLayout;
+    private RelativeLayout spBussinessCategoryLayout, previewImageLayout, dobLayout;
+    private DatePickerDialog datePickerDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_registration);
         app_sharedpreference = new App_sharedpreference(RegistrationActivity.this);
         setuptoolbar();
@@ -136,7 +136,34 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+        openCalander.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar newCalendar = Calendar.getInstance();
+                datePickerDialog = new DatePickerDialog(RegistrationActivity.this, R.style.myCalTheme,  new DatePickerDialog.OnDateSetListener() {
 
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        showDate(year, month+1, day);
+                    }
+
+                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+            }
+        });
+
+        cancelImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previewImageLayout.setVisibility(View.GONE);
+            }
+        });
+
+
+    }
+
+
+    private void showDate(int year, int month, int day) {
+        etDOB.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
 
     private void setProgressDialogue() {
@@ -156,7 +183,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 uploadView.setVisibility(View.GONE);
                 spBussinessCategoryLayout.setVisibility(View.GONE);
                 etProductName.setVisibility(View.GONE);
-                etDOB.setVisibility(View.GONE);
+                dobLayout.setVisibility(View.GONE);
 
             }
         } else {
@@ -244,7 +271,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else if (spBussinessName[position].equalsIgnoreCase("Licence")) {
                     uploadView.setVisibility(View.VISIBLE);
                     etProductName.setHint(getString(R.string.company_name_heading));
-                } else {
+                } else if (spBussinessName[position].equalsIgnoreCase("-Please Select Business Type-")) {
+                    showmessage("Please Select Business Type");
                 }
 
             }
@@ -300,6 +328,9 @@ public class RegistrationActivity extends AppCompatActivity {
                             stateList = new ArrayList<>();
                             if (position > 0) {
                                 getState(countryList.get(position).countryId);
+                            }
+                            if (!(Integer.parseInt(countryID) > 0)) {
+                                showmessage("Please Select Country");
                             }
 
 
@@ -359,6 +390,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         if (position > 0) {
                             getCity(stateList.get(position).stateId);
                         }
+                        if (!(Integer.parseInt(stateID) > 0)) {
+                            showmessage("Please Select State");
+                        }
 
                     }
 
@@ -410,6 +444,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         cityID = cityList.get(position).cityId;
+                        if (!(Integer.parseInt(cityID) > 0)) {
+                            showmessage("Please Select City");
+                        }
                     }
 
                     @Override
@@ -428,7 +465,6 @@ public class RegistrationActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
-        getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
     @Override
@@ -469,9 +505,12 @@ public class RegistrationActivity extends AppCompatActivity {
         spBussinessCategoryLayout = (RelativeLayout) findViewById(R.id.spBussinessCategoryLayout);
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
         uploadView = (LinearLayout) findViewById(R.id.uploadView);
-        // prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
         circleImageView = (CircleImageView) findViewById(R.id.previewImage);
         uploadImage = (ImageView) findViewById(R.id.uploadButton);
+        openCalander = (ImageView) findViewById(R.id.openCalander);
+        previewImageLayout = (RelativeLayout) findViewById(R.id.previewImageLayout);
+        cancelImage = (ImageView) findViewById(R.id.cancelImage);
+        dobLayout = (RelativeLayout) findViewById(R.id.dobLayout);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
     }
 
@@ -479,32 +518,31 @@ public class RegistrationActivity extends AppCompatActivity {
         Log.e("reach", "validateFiledsCalled");
         if (userType.equals("1")) {
             if (getSellerRegistrationInstance() != null) {
-                if (Validation.isEmptyStr(getSellerRegistrationInstance().getBusinessType())
-                        || getSellerRegistrationInstance().getBusinessType().equals("-Please Select Business Type-")) {
-                    putError(13);
-                }
+//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getBusinessType())
+//                        || getSellerRegistrationInstance().getBusinessType().equals("-Please Select Business Type-")) {
+//                    showmessage("Please Select Business Category");
+//                }
                 if (Validation.isEmptyStr(etProductName.getText().toString())) {
                     putError(12);
                 }
-                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCountryId()) ||
-                        Integer.parseInt(getSellerRegistrationInstance().getCountryId()) > 0) {
-                    putError(6);
-                }
-
-                if (Validation.isEmptyStr(getSellerRegistrationInstance().getStateId()) ||
-                        Integer.parseInt(getSellerRegistrationInstance().getStateId()) > 0) {
-                    putError(7);
-                }
-
-                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCityId()) ||
-                        Integer.parseInt(getSellerRegistrationInstance().getCityId()) > 0) {
-
-                    putError(8);
-                }
-                if (Validation.isNonEmptyStr(getSellerRegistrationInstance().getFirstName())) {
+//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCountryId()) ||
+//                        Integer.parseInt(getSellerRegistrationInstance().getCountryId()) > 0) {
+//                    showmessage("Please Select Country");
+//                }
+//
+//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getStateId()) ||
+//                        Integer.parseInt(getSellerRegistrationInstance().getStateId()) > 0) {
+//                    showmessage("Please Select State");
+//                }
+//
+//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCityId()) ||
+//                        Integer.parseInt(getSellerRegistrationInstance().getCityId()) > 0) {
+//                    showmessage("Please Select City");
+//                }
+                if (Validation.isEmptyStr(getSellerRegistrationInstance().getFirstName())) {
                     putError(0);
                 }
-                if (Validation.isNonEmptyStr(getSellerRegistrationInstance().getLastName())) {
+                if (Validation.isEmptyStr(getSellerRegistrationInstance().getLastName())) {
                     putError(1);
                 }
                 if (Validation.isValidEmail(getSellerRegistrationInstance().getEmail())) {
@@ -520,7 +558,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     putError(5);
                 }
 
-                if (Validation.isNonEmptyStr(etUserName.getText().toString())) {
+                if (Validation.isEmptyStr(etUserName.getText().toString())) {
                     putError(10);
                 }
             }
@@ -529,21 +567,21 @@ public class RegistrationActivity extends AppCompatActivity {
         if (userType.equals("2")) {
             Log.e("reach", "BuyerValidate Called");
             if (getBuyerRegistrationInstance() != null) {
-                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCountryId()) ||
-                        Integer.parseInt(getBuyerRegistrationInstance().getCountryId()) > 0) {
-                    putError(6);
-                }
-
-                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getStateId()) ||
-                        Integer.parseInt(getBuyerRegistrationInstance().getStateId()) > 0) {
-                    putError(7);
-                }
-
-                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCityId()) ||
-                        Integer.parseInt(getBuyerRegistrationInstance().getCityId()) > 0) {
-
-                    putError(8);
-                }
+//                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCountryId()) ||
+//                        Integer.parseInt(getBuyerRegistrationInstance().getCountryId()) > 0) {
+//                    showmessage("Please Select Country");
+//                }
+//
+//
+//                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getStateId()) ||
+//                        Integer.parseInt(getBuyerRegistrationInstance().getStateId()) > 0) {
+//                    showmessage("Please Select State");
+//                }
+//
+//                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCityId()) ||
+//                        Integer.parseInt(getBuyerRegistrationInstance().getCityId()) > 0) {
+//                    showmessage("Please Select City");
+//                }
 
                 if (Validation.isEmptyStr(getBuyerRegistrationInstance().getAddress())) {
                     putError(9);
@@ -578,6 +616,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void putError(int id) {
+        Log.e("reach", "       )))))))))"+id);
         switch (id) {
             case 0:
                 etFirstName.setError("First Name Can't be empty");
@@ -591,24 +630,19 @@ public class RegistrationActivity extends AppCompatActivity {
                 etPassword.setError("Password must be greater than 6 digits");
             case 5:
                 etReenterPassword.setError("Password did not matched");
-            case 6:
-                showmessage("Please Select Country");
-            case 7:
-                showmessage("Please Select State");
-            case 8:
-                showmessage("Please Select City");
             case 9:
                 etAddress.setError("Address Can't be empty");
             case 10:
                 etUserName.setError("Please Enter Valid UserName");
             case 12:
-                if (etProductName.getHint().toString().equals("Personal")) {
+                if (etProductName.getHint().toString().equals("Shop Name")) {
                     etProductName.setError("Please Enter Shop Name");
-                } else if (etProductName.getHint().toString().equals("Licence")) {
+                } else if (etProductName.getHint().toString().equals("Company Name")) {
                     etProductName.setError("Please Enter Company Name");
                 }
 
-            case 13: showmessage("Please chose Correct Business Type");
+            default:
+                break;
         }
     }
 
@@ -719,7 +753,12 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 }
                 try {
-                    circleImageView.setImageBitmap(imageForPreview);
+                    previewImageLayout.setVisibility(View.VISIBLE);
+                    if(ImageUtils.sizeOf(imageForPreview)>2048){
+                        circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight()/2, imageForPreview.getWidth()/2));
+                    }else{
+                        circleImageView.setImageBitmap(imageForPreview);
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -784,4 +823,5 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         return formBuyerData;
     }
+
 }

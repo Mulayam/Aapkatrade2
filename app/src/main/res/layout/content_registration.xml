@@ -121,8 +121,7 @@
                     android:background="@drawable/edit_text_green_back"
                     android:hint="@string/shop_name"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-
+                    android:padding="10dp"
                     android:textColorHint="@color/hint_color"
                     android:textSize="@dimen/textsize_small" />
 
@@ -266,11 +265,11 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="First Name"
+                    android:hint="@string/first_name"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize_small" />
 
 
                 <EditText
@@ -281,27 +280,46 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="Last Name"
+                    android:hint="@string/last_name"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize_small" />
 
 
-                <EditText
-                    android:id="@+id/etDOB"
+
+                <RelativeLayout
+                    android:id="@+id/dobLayout"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/thirty_five_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/edit_text_green_back"
-                    android:hint="DOB eg. 1990-11-12"
-                    android:maxLines="1"
-                    android:padding="10dp"
-                    android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:gravity="center_vertical|center_horizontal">
 
+                    <EditText
+                        android:id="@+id/etDOB"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:background="@drawable/edit_text_green_back"
+                        android:hint="DOB eg. 1990-11-12"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:textColorHint="@color/hint_color"
+                        android:textSize="@dimen/textsize_small" />
+
+
+
+                    <ImageView
+                        android:id="@+id/openCalander"
+                        android:layout_width="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:padding="@dimen/five_dip"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_calendar" />
+
+
+                </RelativeLayout>
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -310,12 +328,13 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
+                    android:inputType="textEmailAddress"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="Email"
+                    android:hint="@string/emailId"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize_small" />
 
                 <EditText
                     android:id="@+id/etMobileNo"
@@ -326,11 +345,11 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="Mobile Number"
+                    android:hint="@string/mobile"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize_small" />
 
 
             </LinearLayout>
@@ -339,7 +358,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/thirty_five_dip"
                 android:layout_margin="10dp"
-                android:text="New User Signup"
+                android:text="@string/new_user_signup"
                 android:textColor="@color/orange"
                 android:textStyle="bold" />
 
@@ -358,11 +377,11 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="User Name"
+                    android:hint="@string/user_name1"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp"
+                    android:textSize="@dimen/textsize_small"
 
                     />
 
@@ -375,12 +394,12 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="@string/password"
+                    android:hint="@string/password1"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp"
+                    android:textSize="@dimen/textsize_small"
 
                     />
 
@@ -394,12 +413,12 @@
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_text_green_back"
-                    android:hint="@string/confirm_password"
+                    android:hint="@string/confirm_password1"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize_small" />
 
 
             </LinearLayout>
@@ -419,7 +438,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="5dp"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:textColor="@color/white"
                     android:textSize="@dimen/textsize_medium" />
             </LinearLayout>
@@ -429,7 +448,7 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/uploadView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -488,6 +507,6 @@
 
 
     </LinearLayout>
-
+-->
 
 </LinearLayout>

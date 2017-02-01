@@ -20,11 +20,11 @@ public class CategoryHome {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryIconName = categoryIconName;
-        setCategoryIconPath(createIconPath(categoryName));
+        setCategoryIconPath(createIconPath(categoryIconName));
     }
 
-    private String createIconPath(String categoryName){
-        return Validation.isNonEmptyStr(categoryName)? basePath+categoryName.replaceAll(" |/", "")+iconExtention: "";
+    private String createIconPath(String iconName){
+        return Validation.isNonEmptyStr(iconName)? basePath+iconExtention: "";
     }
 
     public String getCategoryId() {

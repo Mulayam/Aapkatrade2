@@ -14,7 +14,7 @@
     <string name="date">31-2-2016</string>
     <string name="edit">Edit</string>
     <string name="compant_list_heading">Company List</string>
-    <string name="company_name_heading">Company Name</string>
+    <string name="company_name_heading">Company Name*</string>
     <string name="dateheading">Date</string>
     <string name="some">Aapka data</string>
     <string name="some2">Aapka data</string>
@@ -82,7 +82,7 @@
     <string name="hot_deals">HOT DEALS</string>
     <string name="english">English</string>
     <string name="hindi">Hindi</string>
-    <string name="shop_name">Shop Name</string>
+    <string name="shop_name">Shop Name*</string>
     <string name="address">Address</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
@@ -146,6 +146,7 @@
     <string name="micr_code">MICR Code*</string>
     <string name="account_holder_name">Account Holder Name*</string>
     <string name="registered_mobile">Registered Mobile*</string>
+    <string name="new_user_signup">New User Signup</string>
 
 
 </resources>
