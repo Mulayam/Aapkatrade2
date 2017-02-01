@@ -35,62 +35,56 @@ import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 
-public class HomeActivity extends AppCompatActivity
-{
+public class HomeActivity extends AppCompatActivity {
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
 
     Context context;
-    public  static  String shared_pref_name="aapkatrade";
+    public static String shared_pref_name = "aapkatrade";
     App_config aa;
     AHBottomNavigation bottomNavigation;
     CoordinatorLayout coordinatorLayout;
     User_DashboardFragment user_dashboardFragment;
-    public static String  userid,username;
+    public static String userid, username;
     ScrollView scrollView;
     App_sharedpreference app_sharedpreference;
-   // SharedPreferences prefs;
-
+    // SharedPreferences prefs;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        app_sharedpreference=new App_sharedpreference(HomeActivity.this);
+        app_sharedpreference = new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
-       loadLocale();
+        loadLocale();
 
         setContentView(R.layout.activity_homeactivity);
-       //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+        //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
 
         context = this;
         setup_bottomNavigation();
         if (CheckPermission.checkPermissions(HomeActivity.this))
-        //  permissions  granted.
+            //  permissions  granted.
 
-        setupToolBar();
+            setupToolBar();
         //setupNavigation();
         setupNavigationCustom();
         setupDashFragment();
-        Intent iin= getIntent();
+        Intent iin = getIntent();
         Bundle b = iin.getExtras();
 
     }
 
 
-
-    private void setupNavigationCustom()
-    {
+    private void setupNavigationCustom() {
         drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.home_menu, menu);
         // ActionItemBadge.update(((AppCompatActivity) context), menu.findItem(R.id.login), ContextCompat.getDrawable(context, R.drawable.ic_cart_black)
@@ -99,28 +93,24 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    private void setupToolBar()
-    {
+    private void setupToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
 
-       // getSupportActionBar().setIcon(R.drawable.home_logo);
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
-    private void replaceFragment(Fragment newFragment, String tag)
-    {
+    private void replaceFragment(Fragment newFragment, String tag) {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(null);
         transaction.commit();
     }
 
-    private void setupDashFragment()
-    {
-        if (homeFragment == null)
-        {
+    private void setupDashFragment() {
+        if (homeFragment == null) {
             homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
         }
         String tagName = homeFragment.getClass().getName();
@@ -128,17 +118,15 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.login:
 
                 CategoryListFragment dashboardFragment = new CategoryListFragment();
-               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
-               transaction.commit();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
+                transaction.commit();
 
             /*    Intent i =new Intent(HomeActivity.this, ParallaxActivity.class);
                 startActivity(i);*/
@@ -160,38 +148,35 @@ public class HomeActivity extends AppCompatActivity
                 //finish();
 
 
-           case R.id.language:
-               View menuItemView = findViewById(R.id.language);
-               PopupMenu popup = new PopupMenu(HomeActivity.this.context, menuItemView);
-               //Inflating the Popup using xml file
-               popup.getMenuInflater().inflate(R.menu.menu_language_list, popup.getMenu());
+            case R.id.language:
+                View menuItemView = findViewById(R.id.language);
+                PopupMenu popup = new PopupMenu(HomeActivity.this.context, menuItemView);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.menu_language_list, popup.getMenu());
 
 
-               //registering popup with OnMenuItemClickListener
-               popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                   public boolean onMenuItemClick(MenuItem item) {
-                       switch (item.getItemId())
-                       {
-                           case R.id.english_language:
-                               saveLocale("en");
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.english_language:
+                                saveLocale("en");
 
-                              // getIntent().start
-                               return true;
+                                // getIntent().start
+                                return true;
 
-                           case R.id.hindi_language:
-                               saveLocale("hi");
+                            case R.id.hindi_language:
+                                saveLocale("hi");
 
-                               return true;
-                       }
-
-
-                       return true;
-                   }
-               });
-
-               popup.show();//showing popup menu
+                                return true;
+                        }
 
 
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
 
 
 //               User_DashboardFragment dashboardFragment = new User_DashboardFragment();
@@ -199,20 +184,17 @@ public class HomeActivity extends AppCompatActivity
 //               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
 //               transaction.commit();
 
-               return true;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
     @Override
-    public void onBackPressed()
-    {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1)
-        {
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             finish();
-        }
-        else
-        {
+        } else {
             super.onBackPressed();
         }
 
@@ -223,34 +205,31 @@ public class HomeActivity extends AppCompatActivity
     public void loadLocale() {
         String langPref = "Language";
 
-        String language = app_sharedpreference.getsharedpref(langPref,"");
-        App_config.setLocaleFa(HomeActivity.this,language);
-       Log.e("language",language);
-       // changeLang(language);
+        String language = app_sharedpreference.getsharedpref(langPref, "");
+        App_config.setLocaleFa(HomeActivity.this, language);
+        Log.e("language", language);
+        // changeLang(language);
     }
 
-    public void saveLocale(String lang)
-    {
+    public void saveLocale(String lang) {
         String langPref = "Language";
-        app_sharedpreference.setsharedpref(langPref,lang);
-        Log.e("language_pref",langPref+"****"+lang);
+        app_sharedpreference.setsharedpref(langPref, lang);
+        Log.e("language_pref", langPref + "****" + lang);
         Intent intent = getIntent();
         finish();
         startActivity(intent);
     }
 
 
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case CheckPermission.MULTIPLE_PERMISSIONS:{
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    Log.e("permission_granted","permission_granted");
+            case CheckPermission.MULTIPLE_PERMISSIONS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("permission_granted", "permission_granted");
                     // permissions granted.
                 } else {
-                    Log.e("permission_requried","permission_requried");
+                    Log.e("permission_requried", "permission_requried");
                     // no permissions granted.
                 }
                 return;
@@ -259,12 +238,11 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    private void setup_bottomNavigation()
-    {
-        coordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordination_home_activity);
+    private void setup_bottomNavigation() {
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordination_home_activity);
 
-        bottomNavigation = (AHBottomNavigation)findViewById(R.id.bottom_navigation);
-        scrollView=(ScrollView)findViewById(R.id.scroll_main);
+        bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
+        scrollView = (ScrollView) findViewById(R.id.scroll_main);
         setup_scrollview(scrollView);
 
 //        tabColors = getActivity().getResources().getIntArray(R.array.tab_colors);
@@ -339,26 +317,22 @@ public class HomeActivity extends AppCompatActivity
             public boolean onTabSelected(int position, boolean wasSelected) {
 
 
-
-                switch (position)
-                {case 0:
-                    if (homeFragment == null)
-                    {
-                        homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
-                    }
-                    String tagName = homeFragment.getClass().getName();
-                    replaceFragment(homeFragment, tagName);
-                    break;
-
+                switch (position) {
+                    case 0:
+                        if (homeFragment == null) {
+                            homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+                        }
+                        String tagName = homeFragment.getClass().getName();
+                        replaceFragment(homeFragment, tagName);
+                        break;
 
 
                     case 3:
-                        if (user_dashboardFragment == null)
-                        {
+                        if (user_dashboardFragment == null) {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
                         //String tagName_dashboardFragment = User_DashboardFragment.getClass().getName();
-                        replaceFragment(user_dashboardFragment,"");
+                        replaceFragment(user_dashboardFragment, "");
                         break;
                 }
                 // Do something cool here...
@@ -366,13 +340,13 @@ public class HomeActivity extends AppCompatActivity
             }
         });
         bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-            @Override public void onPositionChange(int y) {
+            @Override
+            public void onPositionChange(int y) {
                 // Manage the new y position
             }
         });
 
     }
-
 
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -384,33 +358,26 @@ public class HomeActivity extends AppCompatActivity
             scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    int pos= scrollView.getChildCount()-1;
-                    if(oldScrollY<scrollY)
-                    {showOrHideBottomNavigation(true);
+                    int pos = scrollView.getChildCount() - 1;
+                    if (oldScrollY < scrollY) {
+                        showOrHideBottomNavigation(true);
 //                    setForceTitleHide(true);
 
-                    }
-
-                    else{
+                    } else {
                         showOrHideBottomNavigation(false);
                     }
 
-                    if(oldScrollY==scrollY)
-                    {
+                    if (oldScrollY == scrollY) {
                         showOrHideBottomNavigation(true);
 
                     }
 
 
-
                 }
             });
-        }
-
-        else {
+        } else {
             // Pre-Marshmallow
         }
-
 
 
     }
@@ -421,11 +388,6 @@ public class HomeActivity extends AppCompatActivity
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
     }
-
-
-
-
-
 
 
     public void showOrHideBottomNavigation(boolean show) {

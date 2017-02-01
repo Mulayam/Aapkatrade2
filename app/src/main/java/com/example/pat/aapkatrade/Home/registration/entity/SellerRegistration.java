@@ -61,6 +61,7 @@ public class SellerRegistration {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+        setShopName(companyName);
     }
 
     public String getFirstName() {
