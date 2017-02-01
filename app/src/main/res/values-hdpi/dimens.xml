@@ -14,5 +14,6 @@
     <dimen name="minus_three_dip">-5dp</dimen>
     <dimen name="fifty_dip">70dp</dimen>
     <dimen name="hundred_dip">130dp</dimen>
+    <!-- view*0.8 -->
 
 </resources>

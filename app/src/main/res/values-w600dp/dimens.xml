@@ -15,4 +15,7 @@
     <dimen name="fifty_dip">70dp</dimen>
     <dimen name="hundred_dip">130dp</dimen>
 
+
+    <!-- view*1.3 -->
+
 </resources>
