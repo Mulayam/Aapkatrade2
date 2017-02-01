@@ -49,7 +49,7 @@ public class Validation {
     }
 
     public static  boolean isValidPassword(String password) {
-        return isNonEmptyStr(password) && password.length() > 6;
+        return isNonEmptyStr(password) && password.length() >= 6;
     }
 
     public static boolean isPasswordMatching(String password, String confirmPassword) {

@@ -520,6 +520,7 @@
                                 <ImageView
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
+                                    android:layout_marginTop="@dimen/five_dip"
                                     android:layout_alignParentRight="true"
                                     android:src="@drawable/ic_calendar" />
 

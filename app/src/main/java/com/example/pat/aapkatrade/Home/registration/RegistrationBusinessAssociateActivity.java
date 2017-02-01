@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.Home.registration;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
@@ -19,8 +20,18 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
+        setuptoolbar();
         uploadMsg = (TextView) findViewById(R.id.uploadMsg);
 
     }
+
+    private void setuptoolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(null);
+//        getSupportActionBar().setIcon(R.drawable.home_logo);
+    }
+
 }
