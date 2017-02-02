@@ -51,13 +51,20 @@
             android:label="@string/title_activity_logindashboard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/FullscreenTheme">
+     <!--   <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>--></activity>
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".user_dashboard.add_product.AddProductActivity" />
         <activity android:name=".productdetail.ProductDetail" />
         <activity
+
             android:name=".Home.registration.RegistrationActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden">
+         </activity>
         <activity android:name=".login.ActivityOTPVerify" />
         <activity android:name=".general.ConnectivityNotFound" />
         <activity android:name=".user_dashboard.order_list.OrderActivity" />
