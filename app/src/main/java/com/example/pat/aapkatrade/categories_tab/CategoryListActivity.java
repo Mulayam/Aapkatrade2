@@ -35,7 +35,7 @@ public class CategoryListActivity extends AppCompatActivity
 {
 
 
-    CategoriesProductFragment categoriesProductFragment;
+
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
@@ -64,7 +64,6 @@ public class CategoryListActivity extends AppCompatActivity
                 .minHeightHeaderDim(R.dimen.min_header_height)
                 .build();
 
-
         categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
 
         mRecyclerView.setAdapter(categoriesListAdapter);
@@ -87,23 +86,6 @@ public class CategoryListActivity extends AppCompatActivity
     }
 
 
-    /*private void setupCategoriesProductFragment()
-    {
-
-        categoriesProductFragment = new CategoriesProductFragment();
-        String tagName = categoriesProductFragment.getClass().getName();
-        replaceFragment(categoriesProductFragment, tagName);
-    }
-
-
-    private void replaceFragment(Fragment newFragment, String tag)
-    {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, newFragment, tag).addToBackStack(null);
-        transaction.commit();
-    }
-
-*/
 
     private void setup_data()
     {
@@ -137,7 +119,6 @@ public class CategoryListActivity extends AppCompatActivity
     {
         switch (item.getItemId())
         {
-
             case android.R.id.home:
                 finish();
                 break;
