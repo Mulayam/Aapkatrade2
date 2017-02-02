@@ -76,8 +76,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
     private LinearLayout businessDetails, uploadView;
-    private static final int rcCC = 33;
-    private boolean isCC = false, flagCountry = false;
+    private static final int reqCode = 33;
+    private boolean isReqCode = false;
     private ImageView uploadImage, openCalander, cancelImage;
     App_sharedpreference app_sharedpreference;
     private CircleImageView circleImageView;
@@ -120,8 +120,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("reach", "reach2");
                         setSellerFormData();
                         validateFields(String.valueOf(1));
-                        if (isAllFieldSet>0)
-                        callWebServiceForSellerRegistration();
+                        if (isAllFieldSet > 0)
+                            callWebServiceForSellerRegistration();
                     }
                     /*
                     Buyer Registration
@@ -131,8 +131,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("reach", "reach3");
                         getBuyerFormData();
                         validateFields(String.valueOf(2));
-                        if (isAllFieldSet>0)
-                        callWebServiceForBuyerRegistration();
+                        if (isAllFieldSet > 0)
+                            callWebServiceForBuyerRegistration();
                     }
                 }
 
@@ -200,7 +200,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 .load("http://aapkatrade.com/slim/sellerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "sellerregister")
+                .setBodyParameter("type", "2")
                 .setBodyParameter("business_type", getBusiType(formSellerData.getBusinessType()))
                 .setBodyParameter("companyname", formSellerData.getCompanyName())
                 .setBodyParameter("name", formSellerData.getFirstName())
@@ -235,7 +235,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 .load("http://aapkatrade.com/slim/buyerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "buyerregister")
+                .setBodyParameter("type", "1")
                 .setBodyParameter("country_id", formBuyerData.getCountryId())
                 .setBodyParameter("state_id", formBuyerData.getStateId())
                 .setBodyParameter("city_id", formBuyerData.getCityId())
@@ -286,7 +286,6 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void getCountry() {
-        dialog.show();
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("type", "country");
@@ -317,7 +316,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                         countryList.add(countryEntity);
                     }
-                    dialog.hide();
                     SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
                     spCountry.setAdapter(spCountrysAdapter);
                     spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -548,10 +546,10 @@ public class RegistrationActivity extends AppCompatActivity {
                 } else if (Validation.isEmptyStr(formSellerData.getLastName())) {
                     putError(1);
                     isAllFieldSet++;
-                } else if(!Validation.isValidDOB(formSellerData.getDOB())) {
+                } else if (!Validation.isValidDOB(formSellerData.getDOB())) {
                     putError(6);
                     isAllFieldSet++;
-                }else if (!Validation.isValidEmail(formSellerData.getEmail())) {
+                } else if (!Validation.isValidEmail(formSellerData.getEmail())) {
                     putError(2);
                     isAllFieldSet++;
                 } else if (!Validation.isValidNumber(formSellerData.getMobile(), Validation.getNumberPrefix(formSellerData.getMobile()))) {
@@ -581,44 +579,32 @@ public class RegistrationActivity extends AppCompatActivity {
                         Integer.parseInt(formBuyerData.getStateId()) > 0)) {
                     showmessage("Please Select State");
                     isAllFieldSet++;
-                }
-
-                else if (!(Validation.isEmptyStr(formBuyerData.getCityId()) ||
+                } else if (!(Validation.isEmptyStr(formBuyerData.getCityId()) ||
                         Integer.parseInt(formBuyerData.getCityId()) > 0)) {
                     showmessage("Please Select City");
                     isAllFieldSet++;
-                }
-
-                else if (Validation.isEmptyStr(formBuyerData.getAddress())) {
+                } else if (Validation.isEmptyStr(formBuyerData.getAddress())) {
                     putError(9);
                     isAllFieldSet++;
-                }
-
-                else if (Validation.isEmptyStr(formBuyerData.getFirstName())) {
+                } else if (Validation.isEmptyStr(formBuyerData.getFirstName())) {
                     putError(0);
                     isAllFieldSet++;
-                }
-                else if (Validation.isEmptyStr(formBuyerData.getLastName())) {
+                } else if (Validation.isEmptyStr(formBuyerData.getLastName())) {
                     putError(1);
                     isAllFieldSet++;
-                }
-                else if (!Validation.isValidEmail(formBuyerData.getEmail())) {
+                } else if (!Validation.isValidEmail(formBuyerData.getEmail())) {
                     putError(2);
                     isAllFieldSet++;
-                }
-                else if (!Validation.isValidNumber(formBuyerData.getMobile(), Validation.getNumberPrefix(formBuyerData.getMobile()))) {
+                } else if (!Validation.isValidNumber(formBuyerData.getMobile(), Validation.getNumberPrefix(formBuyerData.getMobile()))) {
                     putError(3);
                     isAllFieldSet++;
-                }
-                else if (!Validation.isEmptyStr(formBuyerData.getUserName())) {
+                } else if (!Validation.isEmptyStr(formBuyerData.getUserName())) {
                     putError(10);
                     isAllFieldSet++;
-                }
-                else if (!Validation.isValidPassword(formBuyerData.getPassword())) {
+                } else if (!Validation.isValidPassword(formBuyerData.getPassword())) {
                     putError(4);
                     isAllFieldSet++;
-                }
-                else if (!Validation.isPasswordMatching(formBuyerData.getPassword(), formBuyerData.getConfirmPassword())) {
+                } else if (!Validation.isPasswordMatching(formBuyerData.getPassword(), formBuyerData.getConfirmPassword())) {
                     putError(5);
                     isAllFieldSet++;
                 }
@@ -701,9 +687,7 @@ public class RegistrationActivity extends AppCompatActivity {
     void performImgPicAction(int which) {
         Intent in;
         if (which == 1) {
-            in = new Intent(
-                    Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            in = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         } else {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -718,9 +702,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         try {
-            if (rcCC == requestCode) {
+            if (reqCode == requestCode) {
                 if (resultCode == Activity.RESULT_OK) {
-                    isCC = true;
+                    isReqCode = true;
                 }
             } else if (resultCode == Activity.RESULT_OK) {
                 BitmapFactory.Options option = new BitmapFactory.Options();
@@ -756,23 +740,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             Log.e("IOException", e.toString());
                         }
                     } else {
-
-                        ParcelFileDescriptor pfd;
-//                        try {
                         imageForPreview = (Bitmap) data.getExtras().get("data");
-
-
-//                                imageForPreview = BitmapFactory.decodeFileDescriptor(
-//                                        fileDescriptor, null, option);
-
-
-//                        } catch (FileNotFoundException e) {
-//                            Log.e("FileNotFoundException",e.toString());
-//                        } catch (IOException e) {
-//                            Log.e("IOException",e.toString());
-//                        }
-
-
                         Log.e("data_not_found", "data_not_found");
                     }
 

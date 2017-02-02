@@ -15,7 +15,7 @@ public class SellerRegistration {
     private String email;
     private String password;
     private String confirmPassword;
-    private String countryId ;
+    private String countryId;
     private String stateId;
     private String cityId;
     private String clientId;
