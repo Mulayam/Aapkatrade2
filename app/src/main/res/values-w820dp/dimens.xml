@@ -6,6 +6,7 @@
 
 
 
-
+    <dimen name="imageview_height">300dp</dimen>
+    <dimen name="imageview_weight">300dp</dimen>
     <!-- view*2 -->
 </resources>

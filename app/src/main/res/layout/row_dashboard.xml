@@ -30,8 +30,8 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/imageview_weight"
+                android:layout_height="@dimen/imageview_height"
                 android:id="@+id/img_product_image_list"
                 android:scaleType="fitXY"
                 android:layout_gravity="center_horizontal"

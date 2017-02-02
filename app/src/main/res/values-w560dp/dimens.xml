@@ -15,8 +15,8 @@
     <dimen name="minus_three_dip">-5dp</dimen>
     <dimen name="fifty_dip">70dp</dimen>
     <dimen name="hundred_dip">130dp</dimen>
-    <dimen name="imageview_height">180dp</dimen>
-    <dimen name="imageview_weight">180dp</dimen>
+    <dimen name="imageview_height">150dp</dimen>
+    <dimen name="imageview_weight">150dp</dimen>
 
     <!-- view*1.1 -->
 
