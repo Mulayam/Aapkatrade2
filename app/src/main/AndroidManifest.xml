@@ -69,7 +69,7 @@
         <activity
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
-        <activity android:name=".categories_tab.CategoryListFragment" />
+        <activity android:name=".categories_tab.CategoryListActivity" />
         <activity android:name=".categories_tab.FilterActivity" />
         <activity android:name=".user_dashboard.address.AddressActivity" />
         <activity android:name=".user_dashboard.address.viewpager.CartCheckoutActivity" />

@@ -27,11 +27,12 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoryListFragment;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -127,15 +128,10 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.login:
 
-                CategoryListFragment dashboardFragment = new CategoryListFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
-                transaction.commit();
 
-            /*    Intent i =new Intent(HomeActivity.this, ParallaxActivity.class);
-                startActivity(i);*/
 
-/* if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+
+ if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
                 {
                     Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
@@ -148,7 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
-                }*/
+                }
                 //finish();
 
 
