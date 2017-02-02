@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
-import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -28,8 +27,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        ProgressBarHandler phandler=new ProgressBarHandler(MainActivity.this);
-        phandler.show();
+
 
 
 

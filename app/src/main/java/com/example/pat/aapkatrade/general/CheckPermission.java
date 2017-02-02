@@ -39,6 +39,9 @@ public class CheckPermission {
             ActivityCompat.requestPermissions(c, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),MULTIPLE_PERMISSIONS );
             return false;
         }
+        else{
+
+        }
         return true;
     }
 

@@ -66,8 +66,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
-                    android:fitsSystemWindows="true"
-                    android:forceHasOverlappingRendering="false" />
+                    app:selectedBackgroundVisible="false"
+
+                     />
             </android.support.design.widget.CoordinatorLayout>
 
             <FrameLayout

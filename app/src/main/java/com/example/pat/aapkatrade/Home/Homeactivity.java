@@ -40,6 +40,10 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
 
+
+
+
+
     Context context;
     public static String shared_pref_name = "aapkatrade";
     App_config aa;
@@ -48,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
     User_DashboardFragment user_dashboardFragment;
 
     ProgressBar progressBar;
+    Boolean permission_status;
 
     public static String userid, username;
     ScrollView scrollView;
@@ -63,22 +68,43 @@ public class HomeActivity extends AppCompatActivity {
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
         loadLocale();
+        permission_status=CheckPermission.checkPermissions(HomeActivity.this);
+        if (permission_status)
+
+        {
+            setContentView(R.layout.activity_homeactivity);
+            //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+
+            context = this;
 
 
-      setContentView(R.layout.activity_homeactivity);
-        //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-
-        context = this;
-        setup_bottomNavigation();
-        if (CheckPermission.checkPermissions(HomeActivity.this))
             //  permissions  granted.
 
             setupToolBar();
-        //setupNavigation();
-        setupNavigationCustom();
-        setupDashFragment();
-        Intent iin = getIntent();
-        Bundle b = iin.getExtras();
+            //setupNavigation();
+            setupNavigationCustom();
+            setupDashFragment();
+            Intent iin = getIntent();
+            Bundle b = iin.getExtras();
+            setup_bottomNavigation();
+        }
+        else{
+            setContentView(R.layout.activity_homeactivity);
+            //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+
+            context = this;
+
+
+            //  permissions  granted.
+
+            setupToolBar();
+            //setupNavigation();
+            setupNavigationCustom();
+            setupDashFragment();
+            Intent iin = getIntent();
+            Bundle b = iin.getExtras();
+            setup_bottomNavigation();
+        }
 
     }
 
@@ -242,8 +268,10 @@ public class HomeActivity extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordination_home_activity);
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
+
         scrollView = (ScrollView) findViewById(R.id.scroll_main);
-        setup_scrollview(scrollView);
+
+       // setup_scrollview(scrollView);
 
 //        tabColors = getActivity().getResources().getIntArray(R.array.tab_colors);
 //        bottom_menuAdapter = new AHBottomNavigationAdapter(getActivity(), R.menu.button_menu);
@@ -257,6 +285,13 @@ public class HomeActivity extends AppCompatActivity {
         AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.tab_5, R.drawable.ic_about_us, R.color.dark_green);
 
 // Add items
+
+
+		bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+			@Override public void onPositionChange(int y) {
+				Log.d("DemoActivity", "BottomNavigation Position: " + y);
+			}
+		});
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -264,7 +299,7 @@ public class HomeActivity extends AppCompatActivity {
         bottomNavigation.addItem(item5);
 
 // Set background color
-        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.dark_green));
+        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
 
 // Disable the translation inside the CoordinatorLayout
         bottomNavigation.setBehaviorTranslationEnabled(true);
@@ -275,7 +310,7 @@ public class HomeActivity extends AppCompatActivity {
         //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
 
 // Change colors
-        bottomNavigation.setAccentColor(Color.parseColor("#FEFEFE"));
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.green));
         bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
 
 // Force to tint the drawable (useful for font with icon for example)
@@ -440,6 +475,10 @@ scrollView.setOnTouchListener(new View.OnTouchListener() {
             bottomNavigation.hideBottomNavigation(true);
         }
     }
+
+
+
+
 
 
 }

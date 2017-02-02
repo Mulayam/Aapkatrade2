@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordination_home"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -9,6 +10,7 @@
 
     <ScrollView
         android:id="@+id/scrollView"
+
         android:layout_width="match_parent"
         android:background="@color/grey_light"
         android:layout_height="match_parent">
@@ -22,11 +24,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
+
                 android:orientation="vertical">
 <android.support.v7.widget.CardView
     android:layout_width="match_parent"
-    android:layout_margin="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
     android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -57,116 +61,12 @@
 </android.support.v7.widget.CardView>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:layout_marginTop="5dp"
-                android:visibility="gone"
-                android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:gravity="left|center_vertical"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="@string/latest_product"
-                            android:textColor="@color/black" />
-
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/button_orange_back"
-                        android:gravity="right"
-                        android:padding="5dp">
-
-                        <TextView
-                            android:id="@+id/textView66"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:text="@string/viewall"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:background="@color/cardview_background">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal"
-                            android:weightSum="10">
-
-                            <View
-                                android:id="@+id/previous"
-                                android:layout_width="0dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_weight="0.7"
-                                android:background="@drawable/prev">
-
-                            </View>
-
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/recyclerBestSelling"
-
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_toRightOf="@+id/previous"
-                                android:layout_weight="8.6">
-
-                            </android.support.v7.widget.RecyclerView>
-
-                            <View
-                                android:id="@+id/next"
-                                android:layout_width="0dp"
-                                android:layout_height="30dp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_toRightOf="@+id/recyclerBestSelling"
-                                android:layout_weight="0.7"
-                                android:background="@drawable/next"></View>
-
-                        </LinearLayout>
-
-                    </android.support.v7.widget.CardView>
-
-
-                </RelativeLayout>
-            </LinearLayout>
            <RelativeLayout
                android:layout_width="wrap_content"
-               android:layout_margin="10dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+
                android:layout_height="wrap_content">
 
                <include
@@ -186,7 +86,9 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -340,83 +242,11 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                android:visibility="gone"
-                android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:gravity="left"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-
-                            android:text="@string/hot_deals"
-                            android:textColor="@color/black" />
-
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/button_orange_back"
-                        android:gravity="right"
-                        android:padding="5dp"
-                        android:text="@string/viewall">
-
-                        <TextView
-                            android:id="@+id/textView69"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:text="View All "
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="@color/white"
-                            android:textSize="10sp" />
-                    </RelativeLayout>
-                </RelativeLayout>
-
-
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerhotdeals"
-                        android:layout_width="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_height="wrap_content">
-
-                    </android.support.v7.widget.RecyclerView>
-
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:layout_gravity="bottom"
-        android:forceHasOverlappingRendering="false" />
-
-        android:visibility="gone"
-        android:layout_gravity="bottom" />
 
 
 
