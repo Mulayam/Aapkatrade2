@@ -29,7 +29,7 @@ public class ProgressBarHandler {
 
         ViewGroup layout = (ViewGroup) ((Activity) context).findViewById(android.R.id.content).getRootView();
 
-        mProgressBar = new ProgressBar(context, null, android.R.attr.progressBarStyleLarge);
+        mProgressBar = new ProgressBar(context, null, android.R.attr.progressBarStyleSmall);
         mProgressBar.setIndeterminate(true);
         mProgressBar.invalidateDrawable(mContext.getResources().getDrawable(R.drawable.progress_bar_animation));
 
