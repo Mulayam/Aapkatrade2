@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoryListFragment;
+import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -67,7 +67,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public static final String PREFS_NAME = "call_recorder";
    // private SharedPreferences loginPreferences;
     List<String> categoryids;
-    CategoryListFragment productListActivity;
+    CategoryListActivity productListActivity;
     List<String> categoryname;
 
 
@@ -252,14 +252,14 @@ emailid.setText(email);
 
         try {
 
-            Intent i = new Intent(getActivity(), CategoryListFragment.class);
+            Intent i = new Intent(getActivity(), CategoryListActivity.class);
             startActivity(i);
         } catch (Exception e) {
             Log.e("Exception", e.toString());
         }
 
 
-      /*  CategoryListFragment categoryListFragment = new CategoryListFragment();
+      /*  CategoryListActivity categoryListFragment = new CategoryListActivity();
         replaceFragment(categoryListFragment,null);
         mDrawerLayout.closeDrawer(Gravity.LEFT);
 */
@@ -276,7 +276,7 @@ emailid.setText(email);
 
     private void setup_productlist_Fragment() {
         if (productListActivity == null) {
-            productListActivity = new CategoryListFragment();
+            productListActivity = new CategoryListActivity();
         }
         String tagName = productListActivity.getClass().getName();
         //replaceFragment(productListActivity, tagName);

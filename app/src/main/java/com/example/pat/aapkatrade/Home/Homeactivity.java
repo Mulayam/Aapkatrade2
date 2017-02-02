@@ -20,27 +20,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ScrollView;
-
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoryListFragment;
+import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.login.LoginDashboard;
-import com.example.pat.aapkatrade.parallax_recyclerview.ParallaxActivity;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 
 public class HomeActivity extends AppCompatActivity
 {
+
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
-
     Context context;
     public  static  String shared_pref_name="aapkatrade";
     App_config aa;
@@ -50,8 +48,7 @@ public class HomeActivity extends AppCompatActivity
     public static String  userid,username;
     ScrollView scrollView;
     App_sharedpreference app_sharedpreference;
-   // SharedPreferences prefs;
-
+    // SharedPreferences prefs;
 
 
     @Override
@@ -61,7 +58,7 @@ public class HomeActivity extends AppCompatActivity
 
         app_sharedpreference=new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
-       loadLocale();
+        loadLocale();
 
         setContentView(R.layout.activity_homeactivity);
        //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
@@ -135,15 +132,7 @@ public class HomeActivity extends AppCompatActivity
         {
             case R.id.login:
 
-                CategoryListFragment dashboardFragment = new CategoryListFragment();
-               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-               transaction.replace(R.id.drawer_layout, dashboardFragment, null).addToBackStack(null);
-               transaction.commit();
-
-            /*    Intent i =new Intent(HomeActivity.this, ParallaxActivity.class);
-                startActivity(i);*/
-
-/* if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+             if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
                 {
                     Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
@@ -156,9 +145,8 @@ public class HomeActivity extends AppCompatActivity
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
-                }*/
+                }
                 //finish();
-
 
            case R.id.language:
                View menuItemView = findViewById(R.id.language);

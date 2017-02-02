@@ -97,7 +97,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View view) {
 
-//                Intent intent = new Intent(context,CategoryListFragment.class);
+//                Intent intent = new Intent(context,CategoryListActivity.class);
 //                context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }
