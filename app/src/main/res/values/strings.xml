@@ -150,7 +150,13 @@
     <string name="account_holder_name">Account Holder Name*</string>
     <string name="registered_mobile">Registered Mobile*</string>
     <string name="new_user_signup">New User Signup</string>
-
+    <string name="stock_heading">Stock:</string>
+    <string name="stock_availability">Availabilty</string>
+    <string name="duration">Duration: 1-2</string>
+    <string name="description_heading">Description</string>
+    <string name="description">Department Stores, Chocolate Retailers, Soft Drink Retailers,Grocery Stores, Beverage Dealers, General Stores, Deparmental Stores Home Delivery</string>
+    <string name="specification_heading">Specification</string>
+    <string name="review_heading"><![CDATA[Ratings & Review]]></string>
 
 
 </resources>

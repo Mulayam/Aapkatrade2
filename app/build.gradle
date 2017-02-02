@@ -69,5 +69,6 @@ dependencies {
     compile 'com.aurelhubert:simpleratingbar:0.1.5'
     compile 'com.github.techery:properratingbar:0.0.5'
     compile 'com.github.kanytu:android-parallax-recyclerview:v1.2'
+    compile 'com.github.nisrulz:stackedhorizontalprogressbar:1.0.3'
 
 }
