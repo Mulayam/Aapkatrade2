@@ -14,15 +14,14 @@ import java.util.HashMap;
  * Created by PPC21 on 24-Jan-17.
  */
 
-public class Call_webservice  {
+public class Call_webservice {
 
     static JsonObject jsonObject = new JsonObject();
-   public  static TaskCompleteReminder taskCompleteReminder=null;
+    public static TaskCompleteReminder taskCompleteReminder = null;
 
 
-
-    public static void getcountrystatedata(Context c,String webservicetype, String webservice_url, HashMap<String,String> body_parameter,HashMap<String,String> headers) {
-        final ProgressBarHandler progressBarHandler=new ProgressBarHandler(c);
+    public static void getcountrystatedata(Context c, String webservicetype, String webservice_url, HashMap<String, String> body_parameter, HashMap<String, String> headers) {
+        final ProgressBarHandler progressBarHandler = new ProgressBarHandler(c);
         if (webservicetype.equals("country"))
 
         {
@@ -35,37 +34,32 @@ public class Call_webservice  {
             String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
 
 
-                    Log.e("body_parameter null", "body_parameter null");
+            Log.e("body_parameter null", "body_parameter null");
 
             HashMap<String, String> webservice_header_type = headers;
-                    webservice_header_type.get("authorization");
+            webservice_header_type.get("authorization");
 
 
-                    Ion.with(c)
-                            .load(webservice_url)
-                            .setHeader("authorization", authorization)
-                            .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
-                            .setBodyParameter("type", get_webservice_body_parameter)
-                            .asJsonObject()
-                            .setCallback(new FutureCallback<JsonObject>() {
-                                @Override
-                                public void onCompleted(Exception e, JsonObject result) {
-                                    progressBarHandler.hide();
-
-                                    taskCompleteReminder.Taskcomplete(result);
-                                 //   Log.e("jsonobject", result.toString());
-                                    //taskCompleteReminder.Taskcomplete("complete");
+            Ion.with(c)
+                    .load(webservice_url)
+                    .setHeader("authorization", authorization)
+                    .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
+                    .setBodyParameter("type", get_webservice_body_parameter)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            progressBarHandler.hide();
+                            taskCompleteReminder.Taskcomplete(result);
+                            //   Log.e("jsonobject", result.toString());
+                            //taskCompleteReminder.Taskcomplete("complete");
 //
-                                }
+                        }
 
-                            });
-
-
+                    });
 
 
-        }
-        else if(webservicetype.equals("state"))
-        {
+        } else if (webservicetype.equals("state")) {
             progressBarHandler.show();
 
 
@@ -82,8 +76,7 @@ public class Call_webservice  {
                 if (get_webservice_body_parameter.equals(null)) {
                     Log.e("body_parameter null", "body_parameter null");
 
-                }
-                else {
+                } else {
 
 
                     HashMap<String, String> webservice_header_type = headers;
@@ -102,9 +95,6 @@ public class Call_webservice  {
                                 public void onCompleted(Exception e, JsonObject result) {
 
 
-
-
-
                                     progressBarHandler.hide();
                                     taskCompleteReminder.Taskcomplete(result);
                                     Log.e("jsonobject_state", jsonObject.toString());
@@ -116,11 +106,8 @@ public class Call_webservice  {
                 }
             }
 
-        }
-        else if(webservicetype.equals("city"))
-        {
+        } else if (webservicetype.equals("city")) {
             progressBarHandler.show();
-
 
 
             HashMap<String, String> webservice_body_parameter = body_parameter;
@@ -165,15 +152,7 @@ public class Call_webservice  {
                 }
             }
 
-        }
-
-
-
-
-
-
-        else if(webservicetype.equals("category"))
-        {
+        } else if (webservicetype.equals("category")) {
             progressBarHandler.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
@@ -188,8 +167,7 @@ public class Call_webservice  {
                 if (get_webservice_body_parameter.equals(null)) {
                     Log.e("body_parameter null", "body_parameter null");
 
-                }
-                else {
+                } else {
 
 
                     HashMap<String, String> webservice_header_type = headers;
@@ -206,7 +184,7 @@ public class Call_webservice  {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
-                                    if(result!=null)
+                                    if (result != null)
 
                                     {
                                         progressBarHandler.hide();
@@ -215,8 +193,7 @@ public class Call_webservice  {
                                         taskCompleteReminder.Taskcomplete(result);
                                         Log.e("result_json", result.toString());
                                         //taskCompleteReminder.Taskcomplete("complete");
-                                    }
-                                    else{
+                                    } else {
                                         Log.e("result_error", e.toString());
                                     }
 //
@@ -226,13 +203,7 @@ public class Call_webservice  {
                 }
             }
 
-        }
-
-
-
-
-        else if(webservicetype.equals("subcategory"))
-        {
+        } else if (webservicetype.equals("subcategory")) {
             progressBarHandler.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
@@ -248,8 +219,7 @@ public class Call_webservice  {
                 if (get_webservice_body_parameter.equals(null)) {
                     Log.e("body_parameter null", "body_parameter null");
 
-                }
-                else {
+                } else {
 
 
                     HashMap<String, String> webservice_header_type = headers;
@@ -269,18 +239,15 @@ public class Call_webservice  {
                                     progressBarHandler.hide();
 
 
-
-                                    if(result!=null)
+                                    if (result != null)
 
                                     {
-
 
 
                                         taskCompleteReminder.Taskcomplete(result);
                                         Log.e("result_json", result.toString());
                                         //taskCompleteReminder.Taskcomplete("complete");
-                                    }
-                                    else{
+                                    } else {
                                         Log.e("result_error", e.toString());
                                     }
 //
@@ -293,24 +260,11 @@ public class Call_webservice  {
         }
 
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
-
-
-    public static void call_login_webservice(Context context,String url,String webservicetype,HashMap<String,String> body_parameter,HashMap<String,String> headers)
-    {
-        final ProgressBarHandler progressBarHandler=new ProgressBarHandler(context);
+    public static void call_login_webservice(Context context, String url, String webservicetype, HashMap<String, String> body_parameter, HashMap<String, String> headers) {
+        final ProgressBarHandler progressBarHandler = new ProgressBarHandler(context);
 
         progressBarHandler.show();
         HashMap<String, String> webservice_body_parameter = body_parameter;
@@ -323,9 +277,6 @@ public class Call_webservice  {
             String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
             String get_webservice_body_parameter_emailid = webservice_body_parameter.get("email");
             String get_webservice_body_parameter_password = webservice_body_parameter.get("password");
-
-
-
 
 
             if (get_webservice_body_parameter.equals(null)) {
@@ -363,16 +314,9 @@ public class Call_webservice  {
         }
 
 
-
-
-
-
-
-
     }
 
-    public static void resend_otp(Context context,String url,String webservicetype,HashMap<String,String> body_parameter,HashMap<String,String> headers)
-    {
+    public static void resend_otp(Context context, String url, String webservicetype, HashMap<String, String> body_parameter, HashMap<String, String> headers) {
 
 
         HashMap<String, String> webservice_body_parameter = body_parameter;
@@ -383,11 +327,6 @@ public class Call_webservice  {
 
             String get_webservice_body_parameter_client_id = webservice_body_parameter.get("client_id");
             String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
-
-
-
-
-
 
 
             if (get_webservice_body_parameter_client_id.equals(null)) {
@@ -422,17 +361,10 @@ public class Call_webservice  {
         }
 
 
-
-
-
-
-
-
     }
 
 
-    public static void verify_otp(Context context,String url,String webservicetype,HashMap<String,String> body_parameter,HashMap<String,String> headers)
-    {
+    public static void verify_otp(Context context, String url, String webservicetype, HashMap<String, String> body_parameter, HashMap<String, String> headers) {
 
 
         HashMap<String, String> webservice_body_parameter = body_parameter;
@@ -444,11 +376,6 @@ public class Call_webservice  {
             String get_webservice_body_parameter_client_id = webservice_body_parameter.get("client_id");
             String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
             String get_webservice_body_parameter_otp = webservice_body_parameter.get("otp");
-
-
-
-
-
 
 
             if (get_webservice_body_parameter_client_id.equals(null)) {
@@ -483,20 +410,7 @@ public class Call_webservice  {
         }
 
 
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
 
 
 }
