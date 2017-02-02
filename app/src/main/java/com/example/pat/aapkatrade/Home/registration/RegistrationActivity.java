@@ -63,12 +63,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class RegistrationActivity extends AppCompatActivity {
-    private static SellerRegistration formSellerData = null;
-    private static BuyerRegistration formBuyerData = null;
-    private boolean isAllFieldSet = false;
+    private static SellerRegistration formSellerData = new SellerRegistration();
+    private static BuyerRegistration formBuyerData = new BuyerRegistration();
+    private int isAllFieldSet = 0;
     private Spinner spBussinessCategory, spCountry, spState, spCity;
     private String[] spBussinessName = {"-Please Select Business Type-", "Licence", "Personal"};
-    private String[] spCityName = {"-Please Select-", "Delhi", "New Delhi"};
     private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etUserName, etAddress, etPassword, etReenterPassword;
     private TextView tvSave;
     private LinearLayout registrationLayout;
@@ -84,7 +83,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
-    private String busiType, countryID, stateID, cityID;
+    private String busiType = "", countryID, stateID, cityID;
     private RelativeLayout spBussinessCategoryLayout, previewImageLayout, dobLayout;
     private DatePickerDialog datePickerDialog;
 
@@ -96,6 +95,8 @@ public class RegistrationActivity extends AppCompatActivity {
         initView();
         setProgressDialogue();
         saveUserTypeInSharedPreferences();
+
+        setUpBusinessCategory();
         getCountry();
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +118,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
                         Log.e("reach", "reach2");
-                        getSellerFormData();
+                        setSellerFormData();
                         validateFields(String.valueOf(1));
+                        if (isAllFieldSet>0)
                         callWebServiceForSellerRegistration();
                     }
                     /*
@@ -129,6 +131,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("reach", "reach3");
                         getBuyerFormData();
                         validateFields(String.valueOf(2));
+                        if (isAllFieldSet>0)
                         callWebServiceForBuyerRegistration();
                     }
                 }
@@ -140,10 +143,10 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar newCalendar = Calendar.getInstance();
-                datePickerDialog = new DatePickerDialog(RegistrationActivity.this, R.style.myCalTheme,  new DatePickerDialog.OnDateSetListener() {
+                datePickerDialog = new DatePickerDialog(RegistrationActivity.this, R.style.myCalTheme, new DatePickerDialog.OnDateSetListener() {
 
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        showDate(year, month+1, day);
+                        showDate(year, month + 1, day);
                     }
 
                 }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
@@ -175,7 +178,6 @@ public class RegistrationActivity extends AppCompatActivity {
         if (app_sharedpreference != null) {
             if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
                 etAddress.setVisibility(View.GONE);
-                setUpBusinessCategory();
                 Log.e("user", "user");
             }
             if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
@@ -193,24 +195,25 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void callWebServiceForSellerRegistration() {
+        Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "sellerregister")
-                .setBodyParameter("business_type", getSellerFormData().getBusinessType())
-                .setBodyParameter("companyname", getSellerFormData().getCompanyName())
-                .setBodyParameter("name", getSellerFormData().getFirstName())
-                .setBodyParameter("lastname", getSellerFormData().getLastName())
-                .setBodyParameter("dob", getSellerFormData().getDOB())
-                .setBodyParameter("mobile", getSellerFormData().getMobile())
-                .setBodyParameter("email", getSellerFormData().getEmail())
-                .setBodyParameter("password", getSellerFormData().getPassword())
-                .setBodyParameter("country_id", getSellerFormData().getCountryId())
-                .setBodyParameter("state_id", getSellerFormData().getStateId())
-                .setBodyParameter("city_id", getSellerFormData().getCityId())
-                .setBodyParameter("client_id", getSellerFormData().getClientId())
-                .setBodyParameter("shopname", getSellerFormData().getCompanyName())
+                .setBodyParameter("business_type", getBusiType(formSellerData.getBusinessType()))
+                .setBodyParameter("companyname", formSellerData.getCompanyName())
+                .setBodyParameter("name", formSellerData.getFirstName())
+                .setBodyParameter("lastname", formSellerData.getLastName())
+                .setBodyParameter("dob", formSellerData.getDOB())
+                .setBodyParameter("mobile", formSellerData.getMobile())
+                .setBodyParameter("email", formSellerData.getEmail())
+                .setBodyParameter("password", formSellerData.getPassword())
+                .setBodyParameter("country_id", formSellerData.getCountryId())
+                .setBodyParameter("state_id", formSellerData.getStateId())
+                .setBodyParameter("city_id", formSellerData.getCityId())
+                .setBodyParameter("client_id", formSellerData.getClientId())
+                .setBodyParameter("shopname", formSellerData.getShopName())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -233,16 +236,16 @@ public class RegistrationActivity extends AppCompatActivity {
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "buyerregister")
-                .setBodyParameter("country_id", getBuyerFormData().getCountryId())
-                .setBodyParameter("state_id", getBuyerFormData().getStateId())
-                .setBodyParameter("city_id", getBuyerFormData().getCityId())
-                .setBodyParameter("address", getBuyerFormData().getAddress())
-                .setBodyParameter("name", getBuyerFormData().getFirstName())
-                .setBodyParameter("lastname", getBuyerFormData().getLastName())
-                .setBodyParameter("email", getBuyerFormData().getEmail())
-                .setBodyParameter("mobile", getBuyerFormData().getMobile())
-                .setBodyParameter("password", getBuyerFormData().getPassword())
-                .setBodyParameter("client_id", getBuyerFormData().getClientId())
+                .setBodyParameter("country_id", formBuyerData.getCountryId())
+                .setBodyParameter("state_id", formBuyerData.getStateId())
+                .setBodyParameter("city_id", formBuyerData.getCityId())
+                .setBodyParameter("address", formBuyerData.getAddress())
+                .setBodyParameter("name", formBuyerData.getFirstName())
+                .setBodyParameter("lastname", formBuyerData.getLastName())
+                .setBodyParameter("email", formBuyerData.getEmail())
+                .setBodyParameter("mobile", formBuyerData.getMobile())
+                .setBodyParameter("password", formBuyerData.getPassword())
+                .setBodyParameter("client_id", formBuyerData.getClientId())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -264,17 +267,14 @@ public class RegistrationActivity extends AppCompatActivity {
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                busiType = String.valueOf(position);
+                busiType = spBussinessName[position];
                 if (spBussinessName[position].equalsIgnoreCase("Personal")) {
                     uploadView.setVisibility(View.GONE);
                     etProductName.setHint(getString(R.string.shop_name));
                 } else if (spBussinessName[position].equalsIgnoreCase("Licence")) {
                     uploadView.setVisibility(View.VISIBLE);
                     etProductName.setHint(getString(R.string.company_name_heading));
-                } else if (spBussinessName[position].equalsIgnoreCase("-Please Select Business Type-")) {
-                    showmessage("Please Select Business Type");
                 }
-
             }
 
             @Override
@@ -282,6 +282,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void getCountry() {
@@ -329,11 +330,6 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (position > 0) {
                                 getState(countryList.get(position).countryId);
                             }
-                            if (!(Integer.parseInt(countryID) > 0)) {
-                                showmessage("Please Select Country");
-                            }
-
-
                         }
 
                         @Override
@@ -390,9 +386,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         if (position > 0) {
                             getCity(stateList.get(position).stateId);
                         }
-                        if (!(Integer.parseInt(stateID) > 0)) {
-                            showmessage("Please Select State");
-                        }
+//                        if (!(Integer.parseInt(stateID) > 0)) {
+//                            showmessage("Please Select State");
+//                        }
 
                     }
 
@@ -444,9 +440,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         cityID = cityList.get(position).cityId;
-                        if (!(Integer.parseInt(cityID) > 0)) {
-                            showmessage("Please Select City");
-                        }
+//                        if (!(Integer.parseInt(cityID) > 0)) {
+//                            showmessage("Please Select City");
+//                        }
                     }
 
                     @Override
@@ -512,101 +508,119 @@ public class RegistrationActivity extends AppCompatActivity {
         cancelImage = (ImageView) findViewById(R.id.cancelImage);
         dobLayout = (RelativeLayout) findViewById(R.id.dobLayout);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+
+
     }
 
     private void validateFields(String userType) {
+        isAllFieldSet = 0;
         Log.e("reach", "validateFiledsCalled");
         if (userType.equals("1")) {
-            if (getSellerRegistrationInstance() != null) {
-//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getBusinessType())
-//                        || getSellerRegistrationInstance().getBusinessType().equals("-Please Select Business Type-")) {
-//                    showmessage("Please Select Business Category");
-//                }
-                if (Validation.isEmptyStr(etProductName.getText().toString())) {
-                    putError(12);
-                }
-//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCountryId()) ||
-//                        Integer.parseInt(getSellerRegistrationInstance().getCountryId()) > 0) {
-//                    showmessage("Please Select Country");
-//                }
-//
-//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getStateId()) ||
-//                        Integer.parseInt(getSellerRegistrationInstance().getStateId()) > 0) {
-//                    showmessage("Please Select State");
-//                }
-//
-//                if (Validation.isEmptyStr(getSellerRegistrationInstance().getCityId()) ||
-//                        Integer.parseInt(getSellerRegistrationInstance().getCityId()) > 0) {
-//                    showmessage("Please Select City");
-//                }
-                if (Validation.isEmptyStr(getSellerRegistrationInstance().getFirstName())) {
-                    putError(0);
-                }
-                if (Validation.isEmptyStr(getSellerRegistrationInstance().getLastName())) {
-                    putError(1);
-                }
-                if (Validation.isValidEmail(getSellerRegistrationInstance().getEmail())) {
-                    putError(2);
-                }
-                if (Validation.isValidNumber(getSellerRegistrationInstance().getMobile(), Validation.getNumberPrefix(getSellerRegistrationInstance().getMobile()))) {
-                    putError(3);
-                }
-                if (Validation.isValidPassword(getSellerRegistrationInstance().getPassword())) {
-                    putError(4);
-                }
-                if (Validation.isPasswordMatching(getSellerRegistrationInstance().getPassword(), getSellerRegistrationInstance().getConfirmPassword())) {
-                    putError(5);
-                }
+            if (formSellerData != null) {
 
-                if (Validation.isEmptyStr(etUserName.getText().toString())) {
+                Log.e("reach", formSellerData.toString() + "            DATAAAAAAAAA");
+                if (Validation.isEmptyStr(formSellerData.getBusinessType())
+                        || formSellerData.getBusinessType().equals(spBussinessName[0])) {
+//                    Log.e("reach", formSellerData.getBusinessType()+"))))))))"+busiType+"\n(((((("+formSellerData.toString());
+                    showmessage("Please Select Business Category");
+                    isAllFieldSet++;
+                } else if (Validation.isEmptyStr(etProductName.getText().toString())) {
+                    putError(12);
+                    isAllFieldSet++;
+                } else if (!(Validation.isNonEmptyStr(formSellerData.getCountryId()) &&
+                        Integer.parseInt(formSellerData.getCountryId()) > 0)) {
+
+                    Log.e("reach", formSellerData.getCountryId() + "            DATAAAAAAAAA" + !(Validation.isEmptyStr(formSellerData.getCountryId()) ||
+                            Integer.parseInt(formSellerData.getCountryId()) > 0));
+                    showmessage("Please Select Country");
+                    isAllFieldSet++;
+                } else if (!(Validation.isNonEmptyStr(formSellerData.getStateId()) &&
+                        Integer.parseInt(formSellerData.getStateId()) > 0)) {
+                    showmessage("Please Select State");
+                    isAllFieldSet++;
+                } else if (!(Validation.isNonEmptyStr(formSellerData.getCityId()) &&
+                        Integer.parseInt(formSellerData.getCityId()) > 0)) {
+                    showmessage("Please Select City");
+                    isAllFieldSet++;
+                } else if (Validation.isEmptyStr(formSellerData.getFirstName())) {
+                    putError(0);
+                    isAllFieldSet++;
+                } else if (Validation.isEmptyStr(formSellerData.getLastName())) {
+                    putError(1);
+                    isAllFieldSet++;
+                } else if(!Validation.isValidDOB(formSellerData.getDOB())) {
+                    putError(6);
+                    isAllFieldSet++;
+                }else if (!Validation.isValidEmail(formSellerData.getEmail())) {
+                    putError(2);
+                    isAllFieldSet++;
+                } else if (!Validation.isValidNumber(formSellerData.getMobile(), Validation.getNumberPrefix(formSellerData.getMobile()))) {
+                    putError(3);
+                    isAllFieldSet++;
+                } else if (Validation.isEmptyStr(etUserName.getText().toString())) {
                     putError(10);
+                    isAllFieldSet++;
+                } else if (!Validation.isValidPassword(formSellerData.getPassword())) {
+                    putError(4);
+                    isAllFieldSet++;
+                } else if (!Validation.isPasswordMatching(formSellerData.getPassword(), formSellerData.getConfirmPassword())) {
+                    putError(5);
+                    isAllFieldSet++;
                 }
             }
             Log.d("error", "error Null");
         }
         if (userType.equals("2")) {
             Log.e("reach", "BuyerValidate Called");
-            if (getBuyerRegistrationInstance() != null) {
-//                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCountryId()) ||
-//                        Integer.parseInt(getBuyerRegistrationInstance().getCountryId()) > 0) {
-//                    showmessage("Please Select Country");
-//                }
-//
-//
-//                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getStateId()) ||
-//                        Integer.parseInt(getBuyerRegistrationInstance().getStateId()) > 0) {
-//                    showmessage("Please Select State");
-//                }
-//
-//                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getCityId()) ||
-//                        Integer.parseInt(getBuyerRegistrationInstance().getCityId()) > 0) {
-//                    showmessage("Please Select City");
-//                }
+            if (formBuyerData != null) {
+                if (!(Validation.isNonEmptyStr(formBuyerData.getCountryId()) &&
+                        Integer.parseInt(formBuyerData.getCountryId()) > 0)) {
+                    showmessage("Please Select Country");
+                    isAllFieldSet++;
+                } else if (!(Validation.isNonEmptyStr(formBuyerData.getStateId()) &&
+                        Integer.parseInt(formBuyerData.getStateId()) > 0)) {
+                    showmessage("Please Select State");
+                    isAllFieldSet++;
+                }
 
-                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getAddress())) {
+                else if (!(Validation.isEmptyStr(formBuyerData.getCityId()) ||
+                        Integer.parseInt(formBuyerData.getCityId()) > 0)) {
+                    showmessage("Please Select City");
+                    isAllFieldSet++;
+                }
+
+                else if (Validation.isEmptyStr(formBuyerData.getAddress())) {
                     putError(9);
+                    isAllFieldSet++;
                 }
 
-                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getFirstName())) {
+                else if (Validation.isEmptyStr(formBuyerData.getFirstName())) {
                     putError(0);
+                    isAllFieldSet++;
                 }
-                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getLastName())) {
+                else if (Validation.isEmptyStr(formBuyerData.getLastName())) {
                     putError(1);
+                    isAllFieldSet++;
                 }
-                if (!Validation.isValidEmail(getBuyerRegistrationInstance().getEmail())) {
+                else if (!Validation.isValidEmail(formBuyerData.getEmail())) {
                     putError(2);
+                    isAllFieldSet++;
                 }
-                if (!Validation.isValidNumber(getBuyerRegistrationInstance().getMobile(), Validation.getNumberPrefix(getBuyerRegistrationInstance().getMobile()))) {
+                else if (!Validation.isValidNumber(formBuyerData.getMobile(), Validation.getNumberPrefix(formBuyerData.getMobile()))) {
                     putError(3);
+                    isAllFieldSet++;
                 }
-                if (Validation.isEmptyStr(getBuyerRegistrationInstance().getUserName())) {
+                else if (!Validation.isEmptyStr(formBuyerData.getUserName())) {
                     putError(10);
+                    isAllFieldSet++;
                 }
-                if (!Validation.isValidPassword(getBuyerRegistrationInstance().getPassword())) {
+                else if (!Validation.isValidPassword(formBuyerData.getPassword())) {
                     putError(4);
+                    isAllFieldSet++;
                 }
-                if (!Validation.isPasswordMatching(getBuyerRegistrationInstance().getPassword(), getBuyerRegistrationInstance().getConfirmPassword())) {
+                else if (!Validation.isPasswordMatching(formBuyerData.getPassword(), formBuyerData.getConfirmPassword())) {
                     putError(5);
+                    isAllFieldSet++;
                 }
 
             }
@@ -616,30 +630,41 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void putError(int id) {
-        Log.e("reach", "       )))))))))"+id);
+        Log.e("reach", "       )))))))))" + id);
         switch (id) {
             case 0:
                 etFirstName.setError("First Name Can't be empty");
+                break;
             case 1:
                 etLastName.setError("Last Name Can't be empty");
+                break;
             case 2:
                 etEmail.setError("Please Enter Valid Email");
+                break;
             case 3:
                 etMobileNo.setError("Please Enter Valid Mobile Number");
+                break;
             case 4:
                 etPassword.setError("Password must be greater than 6 digits");
+                break;
             case 5:
                 etReenterPassword.setError("Password did not matched");
+                break;
+            case 6:
+                etDOB.setError("Please Select Date");
             case 9:
                 etAddress.setError("Address Can't be empty");
+                break;
             case 10:
                 etUserName.setError("Please Enter Valid UserName");
+                break;
             case 12:
-                if (etProductName.getHint().toString().equals("Shop Name")) {
+                if (etProductName.getHint().toString().equals("Shop Name*")) {
                     etProductName.setError("Please Enter Shop Name");
-                } else if (etProductName.getHint().toString().equals("Company Name")) {
+                } else if (etProductName.getHint().toString().equals("Company Name*")) {
                     etProductName.setError("Please Enter Company Name");
                 }
+                break;
 
             default:
                 break;
@@ -754,9 +779,9 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
                 try {
                     previewImageLayout.setVisibility(View.VISIBLE);
-                    if(ImageUtils.sizeOf(imageForPreview)>2048){
-                        circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight()/2, imageForPreview.getWidth()/2));
-                    }else{
+                    if (ImageUtils.sizeOf(imageForPreview) > 2048) {
+                        circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
+                    } else {
                         circleImageView.setImageBitmap(imageForPreview);
                     }
 
@@ -772,56 +797,46 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
 
-    public SellerRegistration getSellerFormData() {
-        SellerRegistration sellerRegistration = getSellerRegistrationInstance();
-        setUpBusinessCategory();
-        sellerRegistration.setCompanyName(etProductName.getText().toString());
-        sellerRegistration.setShopName(etProductName.getText().toString());
-        sellerRegistration.setFirstName(etFirstName.getText().toString());
-        sellerRegistration.setLastName(etLastName.getText().toString());
-        sellerRegistration.setEmail(etEmail.getText().toString());
-        sellerRegistration.setDOB(etDOB.getText() == null ? "1992-10-10" : etDOB.getText().toString());
-        sellerRegistration.setMobile(etMobileNo.getText().toString());
-        sellerRegistration.setPassword(etPassword.getText().toString());
-        sellerRegistration.setConfirmPassword(etPassword.getText().toString());
-        sellerRegistration.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
-        sellerRegistration.setBusinessType(busiType == null ? "" : busiType);
-        sellerRegistration.setCountryId(countryID == null ? "" : countryID);
-        sellerRegistration.setStateId(stateID == null ? "" : stateID);
-        sellerRegistration.setCityId(cityID == null ? "" : cityID);
-        return sellerRegistration;
+    public void setSellerFormData() {
+        formSellerData.setBusinessType(busiType);
+        formSellerData.setCompanyName(etProductName.getText().toString());
+        formSellerData.setShopName(etProductName.getText().toString());
+        formSellerData.setFirstName(etFirstName.getText().toString());
+        formSellerData.setLastName(etLastName.getText().toString());
+        formSellerData.setEmail(etEmail.getText().toString());
+        formSellerData.setDOB(etDOB.getText() == null ? "1992-10-10" : etDOB.getText().toString());
+        formSellerData.setMobile(etMobileNo.getText().toString());
+        formSellerData.setPassword(etPassword.getText().toString());
+        formSellerData.setConfirmPassword(etPassword.getText().toString());
+        formSellerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
+        formSellerData.setBusinessType(busiType == null ? "" : busiType);
+        formSellerData.setCountryId(countryID == null ? "" : countryID);
+        formSellerData.setStateId(stateID == null ? "" : stateID);
+        formSellerData.setCityId(cityID == null ? "" : cityID);
     }
 
 
-    public BuyerRegistration getBuyerFormData() {
-        BuyerRegistration buyerRegistration = getBuyerRegistrationInstance();
-        buyerRegistration.setCountryId(countryID == null ? "" : countryID);
-        buyerRegistration.setStateId(stateID == null ? "" : stateID);
-        buyerRegistration.setCityId(cityID == null ? "" : cityID);
-        buyerRegistration.setAddress(etAddress.getText().toString());
-        buyerRegistration.setFirstName(etFirstName.getText().toString());
-        buyerRegistration.setLastName(etLastName.getText().toString());
-        buyerRegistration.setEmail(etEmail.getText().toString());
-        buyerRegistration.setMobile(etMobileNo.getText().toString());
-        buyerRegistration.setPassword(etPassword.getText().toString());
-        buyerRegistration.setConfirmPassword(etPassword.getText().toString());
-        buyerRegistration.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
-        return buyerRegistration;
+    public void getBuyerFormData() {
+        formBuyerData.setCountryId(countryID == null ? "" : countryID);
+        formBuyerData.setStateId(stateID == null ? "" : stateID);
+        formBuyerData.setCityId(cityID == null ? "" : cityID);
+        formBuyerData.setAddress(etAddress.getText().toString());
+        formBuyerData.setFirstName(etFirstName.getText().toString());
+        formBuyerData.setLastName(etLastName.getText().toString());
+        formBuyerData.setEmail(etEmail.getText().toString());
+        formBuyerData.setMobile(etMobileNo.getText().toString());
+        formBuyerData.setPassword(etPassword.getText().toString());
+        formBuyerData.setConfirmPassword(etPassword.getText().toString());
+        formBuyerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
     }
 
-
-    public static SellerRegistration getSellerRegistrationInstance() {
-        if (formSellerData == null) {
-            return new SellerRegistration();
-        }
-        return formSellerData;
+    private String getBusiType(String busyType) {
+        if (busyType.equalsIgnoreCase(spBussinessName[1]))
+            return "1";
+        else if (busyType.equalsIgnoreCase(spBussinessName[2]))
+            return "2";
+        return "";
     }
 
-    public static BuyerRegistration getBuyerRegistrationInstance() {
-        if (formBuyerData == null) {
-            return new BuyerRegistration();
-        }
-        return formBuyerData;
-    }
 
 }

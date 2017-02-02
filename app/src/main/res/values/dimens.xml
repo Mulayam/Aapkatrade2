@@ -22,5 +22,7 @@
     <dimen name="thirty_five_dip">35dp</dimen>
     <dimen name="fifty_dip">50dp</dimen>
     <dimen name="hundred_dip">100dp</dimen>
+    <dimen name="imageview_height">100dp</dimen>
+    <dimen name="imageview_weight">100dp</dimen>
 
 </resources>

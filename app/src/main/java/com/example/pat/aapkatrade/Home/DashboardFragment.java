@@ -31,7 +31,9 @@ import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.SpacesItemDecoration;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -41,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 
 /**
@@ -64,6 +67,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     public latestproductadapter latestproductadapter;
     SpacesItemDecoration itemDecoration;
     int position=0;
+ProgressBarHandler progress_handler;
     private int dotsCount;
     private int[] tabColors;
     private List<Integer> imageIdList;
@@ -87,17 +91,24 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     GridLayoutManager gridLayoutManager;
 
     viewpageradapter_home viewpageradapter;
+    CircularProgressView progressView;
     public DashboardFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
+        progress_handler=new ProgressBarHandler(getActivity());
+        coordinatorLayout=(CoordinatorLayout)view.findViewById(R.id.coordination_home);
+        coordinatorLayout.setVisibility(View.INVISIBLE);
 
         home_ads=(ImageView)view.findViewById(R.id.home_ads) ;
         home_ads.setImageResource(R.drawable.ic_home_ads_banner);
@@ -115,6 +126,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         latestproductadapter=new latestproductadapter(context,commomDatas);
         recyclerViewAllSale = (RecyclerView) view.findViewById(R.id.recyclerlatestpost);
         recyclerViewAllSale.setLayoutManager(llManagerEclipseCollection);
+
+
+
+
+
+
+
 
 
 
@@ -252,6 +270,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
     public void get_home_data()
     {
+        progress_handler.show();
+        coordinatorLayout.setVisibility(View.INVISIBLE);
+
         Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/home")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -318,8 +339,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                             commomAdapter = new CommomAdapter(context, commomDatas_latestupdate,"gridtype","latestupdate");
                             recyclerViewEclipseCollection.setAdapter(commomAdapter);
                             commomAdapter.notifyDataSetChanged();
+                            coordinatorLayout.setVisibility(View.VISIBLE);
+                            progress_handler.hide();
 
                         }
+
 
                     }
 

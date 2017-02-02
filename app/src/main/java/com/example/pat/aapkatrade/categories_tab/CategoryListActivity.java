@@ -35,10 +35,10 @@ public class CategoryListActivity extends AppCompatActivity
 {
 
 
-
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
+
 
 
     @Override
@@ -51,7 +51,6 @@ public class CategoryListActivity extends AppCompatActivity
         setuptoolbar();
 
         setup_data();
-       // setupCategoriesProductFragment();
 
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
 
@@ -74,6 +73,7 @@ public class CategoryListActivity extends AppCompatActivity
 
     private void setuptoolbar()
     {
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -82,7 +82,6 @@ public class CategoryListActivity extends AppCompatActivity
         getSupportActionBar().setTitle(null);
 
         //getSupportActionBar().setIcon(R.drawable.home_logo);
-
     }
 
 
@@ -109,7 +108,8 @@ public class CategoryListActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }

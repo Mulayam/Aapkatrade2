@@ -3,16 +3,15 @@ package com.example.pat.aapkatrade;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -29,20 +28,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        ProgressBarHandler phandler=new ProgressBarHandler(MainActivity.this);
+        phandler.show();
 
 
 
-        pd=new ProgressDialog(this);
-
-        pd.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-        pd.setIndeterminateDrawable(getResources().getDrawable(R.drawable.progress_bar_animation));
-        pd.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        pd.setProgressStyle(android.R.style.Widget_ProgressBar_Small);
-
-
-
-
-        pd.show();
 
 
         String fontPath = "impact.ttf";

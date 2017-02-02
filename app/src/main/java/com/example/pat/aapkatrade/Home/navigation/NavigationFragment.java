@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
+
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.google.gson.JsonArray;
@@ -67,7 +68,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public static final String PREFS_NAME = "call_recorder";
    // private SharedPreferences loginPreferences;
     List<String> categoryids;
-    CategoryListActivity productListActivity;
+
     List<String> categoryname;
 
 
@@ -259,7 +260,7 @@ emailid.setText(email);
         }
 
 
-      /*  CategoryListActivity categoryListFragment = new CategoryListActivity();
+      /*  CategoryListFragment categoryListFragment = new CategoryListFragment();
         replaceFragment(categoryListFragment,null);
         mDrawerLayout.closeDrawer(Gravity.LEFT);
 */
@@ -274,13 +275,6 @@ emailid.setText(email);
         transaction.commit();
     }
 
-    private void setup_productlist_Fragment() {
-        if (productListActivity == null) {
-            productListActivity = new CategoryListActivity();
-        }
-        String tagName = productListActivity.getClass().getName();
-        //replaceFragment(productListActivity, tagName);
-    }
 
 
     private static class Trust implements X509TrustManager {

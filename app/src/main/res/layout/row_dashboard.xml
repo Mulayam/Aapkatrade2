@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
-    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:layout_margin="6dp"
+    android:layout_margin="10dp"
 
 
     android:gravity="center">
@@ -15,7 +15,7 @@
         android:background="@color/grey"
         android:id="@+id/cardview"
         android:layout_margin="1dp"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
 
@@ -27,7 +27,7 @@
             android:layout_margin="1dp"
 
 
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:layout_width="100dp"
@@ -55,18 +55,20 @@
                 android:textColor="@color/color_voilet"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_productprize" />
-            <RatingBar
-                android:id="@+id/ratingBar_products"
-                style="@style/myRatingBar"
-                android:layout_width="wrap_content"
-
+            <io.techery.properratingbar.ProperRatingBar
+                android:id="@+id/lowerRatingBar"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_centerHorizontal="true"
+                app:prb_defaultRating="3"
+                app:prb_tickNormalDrawable="@drawable/ic_white_star"
+                app:prb_tickSelectedDrawable="@drawable/ic_orange_star"
+                app:prb_totalTicks="5"
+                app:prb_clickable="false"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="20dp"
-
-                android:numStars="5"
-
-                android:rating="3"
-
+                android:gravity="center_horizontal"
+                app:prb_tickSpacing="0dp"
+                android:layout_marginTop="2dp"
                 />
 
 

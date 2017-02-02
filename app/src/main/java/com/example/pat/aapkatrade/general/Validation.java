@@ -4,6 +4,7 @@ import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.widget.EditText;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +51,15 @@ public class Validation {
 
     public static  boolean isValidPassword(String password) {
         return isNonEmptyStr(password) && password.length() >= 6;
+    }
+
+    public static boolean isValidDOB(String dob){
+        if(isNonEmptyStr(dob)){
+            if(dob.split("-").length == 3){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean isPasswordMatching(String password, String confirmPassword) {
