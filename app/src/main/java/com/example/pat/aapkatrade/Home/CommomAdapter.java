@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -62,7 +64,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             CommomHolder holder = new CommomHolder(v);
 
 
-            Picasso.with(context).load("http://vignette3.wikia.nocookie.net/zombie/images/5/53/5878297_orig.jpg/revision/latest?cb=20160330012009")
+            Picasso.with(context).load(commomDatas.get(position).imageurl)
                     .error(R.drawable.banner)
                     .placeholder(R.drawable.default_noimage)
                     .error(R.drawable.default_noimage)
@@ -82,22 +84,30 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View view) {
 
-//                Intent intent = new Intent(context,CategoryListFragment.class);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context,ProductDetail.class);
+                context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }
             });
-            //holder.tvProductName.setText(commomDatas.get(position).name);
-            holder.tvProductName.setText("Demo");
+            holder.tvProductName.setText(commomDatas.get(position).name);
+
         } else {
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
-
-            Picasso.with(context).load("http://vignette3.wikia.nocookie.net/zombie/images/5/53/5878297_orig.jpg/revision/latest?cb=20160330012009")
+            Picasso.with(context).load(commomDatas.get(position).imageurl)
                     .error(R.drawable.default_noimage)
                     .placeholder(R.drawable.default_noimage)
                     .into(grid_holder.product_imageview);
+            grid_holder.tvProductName.setText(commomDatas.get(position).name);
+            grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,ProductDetail.class);
+                    context.startActivity(intent);
+                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+                }
+            });
 //            Animation a = AnimationUtils.loadAnimation(context, R.anim.show_progress);
 //            a.setDuration(1000);
 //            grid_holder.product_imageview.startAnimation(a);

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
@@ -20,6 +21,7 @@ public class CommonHolder_grid extends RecyclerView.ViewHolder {
     ImageView product_imageview;
     RatingBar ratingbar;
     View view_grid_left,view_grid_right;
+    RelativeLayout rl_grid_row_parent;
 
 
 
@@ -27,7 +29,7 @@ public class CommonHolder_grid extends RecyclerView.ViewHolder {
     {
         super(itemView);
         product_imageview=(ImageView)itemView.findViewById(R.id.img_product_image) ;
-
+        rl_grid_row_parent=(RelativeLayout)itemView.findViewById(R.id.rl_grid_row_parent);
 
         tvProductName = (TextView) itemView.findViewById(R.id.tv_productname);
         tvproductprize=(TextView) itemView.findViewById(R.id.tv_productprize);
