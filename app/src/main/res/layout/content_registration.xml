@@ -302,7 +302,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/thirty_five_dip"
                         android:background="@drawable/edit_text_green_back"
-                        android:hint="DOB eg. 1990-11-12"
+                        android:enabled="false"
                         android:maxLines="1"
                         android:padding="10dp"
                         android:textColorHint="@color/hint_color"

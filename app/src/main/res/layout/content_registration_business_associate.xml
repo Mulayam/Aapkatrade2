@@ -276,10 +276,11 @@
 
                                 <EditText
                                     android:id="@+id/et_dob"
-                                    style="myedittext"
+                                    style="@style/myedittext"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="@string/date_of_birth"
+                                    android:enabled="false"
                                     android:textColorHint="@color/green" />
 
 
@@ -320,7 +321,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:padding="@dimen/five_dip">
 
                             <RelativeLayout
                                 android:id="@+id/spStateLayout"
@@ -354,7 +356,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:padding="@dimen/five_dip">
 
                             <RelativeLayout
                                 android:id="@+id/spcityLayout"
