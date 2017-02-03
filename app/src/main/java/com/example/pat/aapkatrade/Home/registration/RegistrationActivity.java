@@ -46,6 +46,7 @@ import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.ImageUtils.ImageUtils;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -86,6 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private String busiType = "", countryID, stateID, cityID;
     private RelativeLayout spBussinessCategoryLayout, previewImageLayout, dobLayout;
     private DatePickerDialog datePickerDialog;
+    ProgressBarHandler progressBarHandler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,11 +119,16 @@ public class RegistrationActivity extends AppCompatActivity {
                      */
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
-                        Log.e("reach", "reach2");
+
                         setSellerFormData();
                         validateFields(String.valueOf(1));
-                        if (isAllFieldSet > 0)
+                        if (isAllFieldSet > 0) {
                             callWebServiceForSellerRegistration();
+                        }
+                        else{
+                            callWebServiceForSellerRegistration();
+                            Log.e("isAllFieldSet",isAllFieldSet+"");
+                        }
                     }
                     /*
                     Buyer Registration
@@ -195,6 +202,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void callWebServiceForSellerRegistration() {
+        progressBarHandler.show();
+
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
@@ -222,6 +231,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("data", result.toString());
                         if (result.get("error").getAsString().equals("false")) {
                             Log.d("registration_seller", "done");
+                            progressBarHandler.hide();
                             startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
                         }
                     }
@@ -231,6 +241,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void callWebServiceForBuyerRegistration() {
+        progressBarHandler.show();
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/buyerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -254,6 +265,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("data", result.toString());
                         if (result.get("error").getAsString().equals("false")) {
                             Log.d("registration_buyer", "done");
+                            progressBarHandler.hide();
                             startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
                         }
                     }
@@ -300,7 +312,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
-                Log.e("data2", webservice_returndata.toString());
+
 
                 if (webservice_returndata != null) {
                     Log.e("webservice_returndata", webservice_returndata.toString());
@@ -480,6 +492,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        progressBarHandler=new ProgressBarHandler(this);
         registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
         spCountry = (Spinner) findViewById(R.id.spCountryCategory);
