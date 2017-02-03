@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.user_dashboard.address.viewpager;
+package com.example.pat.aapkatrade.user_dashboard.address;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
