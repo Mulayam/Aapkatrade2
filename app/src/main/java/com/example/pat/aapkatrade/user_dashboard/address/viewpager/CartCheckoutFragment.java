@@ -1,12 +1,8 @@
 package com.example.pat.aapkatrade.user_dashboard.address.viewpager;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.address.AddressViewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 
 public class CartCheckoutFragment extends Fragment {
     ViewPager vp;
@@ -33,14 +28,19 @@ public class CartCheckoutFragment extends Fragment {
     private AddressViewPagerAdapter viewpageradapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.shopping_cart_address_layout, container, false);
+
         vp=(ViewPager)view.findViewById(R.id.cartCheckOutViewPager);
         relativeLayout = (RelativeLayout) view.findViewById(R.id.cartViewPagerContainer);
         viewpagerindicator = (LinearLayout) view.findViewById(R.id.viewpager_indicator);
         Toast.makeText(getContext(), "new fragment", Toast.LENGTH_SHORT).show();
         setupviewpager();
         view.findViewById(R.id.radioButtonContainer).setVisibility(View.GONE);
+
+
+
         return view;
     }
 
