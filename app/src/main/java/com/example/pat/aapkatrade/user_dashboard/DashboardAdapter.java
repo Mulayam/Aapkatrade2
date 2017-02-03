@@ -3,12 +3,15 @@ package com.example.pat.aapkatrade.user_dashboard;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
@@ -34,7 +37,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<DashboardData> itemList;
     private Context context;
     DashboardHolder viewHolder;
-
+App_sharedpreference app_sharedpreference;
 
 
     public DashboardAdapter(Context context, List<DashboardData> itemList)
@@ -42,11 +45,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
+        app_sharedpreference=new App_sharedpreference(context);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
+
 
         View view = inflater.inflate(R.layout.row_dashboard2, parent, false);
         viewHolder = new DashboardHolder(view);
@@ -76,57 +81,195 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                  if(itemList.get(position).dashboard_name.equals("My Company"))
                 {
+                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                    {
+                        Intent i =new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
 
-                    Intent my_company = new Intent(context, MyCompanyProfile.class);
-                    context.startActivity(my_company);
+
+
+                    }
+                    else
+                    {
+                        Log.e("login_status",app_sharedpreference.getsharedpref("userid","notlogin"));
+                        Intent my_company = new Intent(context, MyCompanyProfile.class);
+
+
+                    }
+
+
+
+
+
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("My Profile"))
                 {
-                    Intent my_profile = new Intent(context, MyProfileActivity.class);
-                    context.startActivity(my_profile);
+                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                    {
+                        Intent i =new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    }
+                    else
+                    {
+                        Intent my_profile = new Intent(context, MyProfileActivity.class);
+                        context.startActivity(my_profile);
+
+                    }
+
+
+
+
+
+
+
+
+
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("Change Password"))
+                {
+                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                {
+                    Intent i =new Intent(context, LoginDashboard.class);
+                    context.startActivity(i);
+
+
+                }
+                else
                 {
 
                     Intent change_password = new Intent(context, ChangePassword.class);
                     context.startActivity(change_password);
 
                 }
+
+
+
+
+
+
+                }
                 else if (itemList.get(position).dashboard_name.equals("Add Company"))
+                { if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                {
+                    Intent i =new Intent(context, LoginDashboard.class);
+                    context.startActivity(i);
+
+
+                }
+                else
                 {
 
                     Intent add_company = new Intent(context, AddCompany.class);
                     context.startActivity(add_company);
 
                 }
+
+
+
+
+
+
+
+
+
+
+
+
+                }
                 else if (itemList.get(position).dashboard_name.equals("Company List"))
                 {
 
-                    Intent list_company = new Intent(context, CompanyList.class);
-                    context.startActivity(list_company);
+
+
+                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                    {
+                        Intent i =new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    }
+                    else
+                    {
+
+                        Intent list_company = new Intent(context, CompanyList.class);
+                        context.startActivity(list_company);
+
+                    }
+
+
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("Add Product"))
                 {
+                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                    {
+                        Intent i =new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
 
-                    Intent add_product = new Intent(context, AddProductActivity.class);
-                    context.startActivity(add_product);
+
+                    }
+                    else
+                    {
+
+                        Intent add_product = new Intent(context, AddProductActivity.class);
+                        context.startActivity(add_product);
+
+                    }
+
+
+
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("List Product"))
                 {
 
-                   Intent list_product = new Intent(context, ProductListActivity.class);
-                    context.startActivity(list_product);
+                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                    {
+                        Intent i =new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    }
+                    else
+                    {
+
+                        Intent list_product = new Intent(context, ProductListActivity.class);
+                        context.startActivity(list_product);
+
+                    }
+
+
+
+
+
+
 
                 }
                  else if (itemList.get(position).dashboard_name.equals("Order"))
                  {
+                     if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                     {
+                         Intent i =new Intent(context, LoginDashboard.class);
+                         context.startActivity(i);
 
-                     Intent list_product = new Intent(context, OrderActivity.class);
-                     context.startActivity(list_product);
+
+                     }
+                     else
+                     {
+
+                         Intent list_product = new Intent(context, OrderActivity.class);
+                         context.startActivity(list_product);
+
+                     }
+
+
+
+
+
 
                  }
 

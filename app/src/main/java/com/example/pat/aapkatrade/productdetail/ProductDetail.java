@@ -1,6 +1,5 @@
 package com.example.pat.aapkatrade.productdetail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -8,29 +7,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+
 import android.view.View;
-import android.widget.ArrayAdapter;
+
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 
+
+import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
+import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
+
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
-
-import static com.example.pat.aapkatrade.R.id.viewpagerindicator;
 
 public class ProductDetail extends AppCompatActivity
 {
-
 
     LinearLayout viewpagerindicator;
     MaterialSpinner spinner;
@@ -46,6 +46,7 @@ public class ProductDetail extends AppCompatActivity
     private int dotsCount;
     private ImageView[] dots;
     Timer banner_timer=new Timer();
+    RelativeLayout relativeBuyNow;
 
 
 
@@ -62,8 +63,6 @@ public class ProductDetail extends AppCompatActivity
         setup_layout();
 
         setupviewpager();
-
-
 
 
        // initView();
@@ -172,12 +171,17 @@ public class ProductDetail extends AppCompatActivity
 
     }
 
+
+
     private void setup_layout()
     {
+
+        relativeBuyNow = (RelativeLayout) findViewById(R.id.relativeBuyNow);
 
         vp=(ViewPager)  findViewById(R.id.viewpager_custom) ;
 
         viewpagerindicator=(LinearLayout)findViewById(R.id.viewpagerindicator);
+
 
         progressbarFive = (StackedHorizontalProgressBar) findViewById(R.id.progressbarFive);
         progressbarFive.setMax(max);
@@ -208,8 +212,24 @@ public class ProductDetail extends AppCompatActivity
         progressbarOne.setProgress(7);
         progressbarOne.setSecondaryProgress(3);
 
+        relativeBuyNow.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent i = new Intent(ProductDetail.this, AddressActivity.class);
+                startActivity(i);
+
+
+
+            }
+        });
+
 
     }
+
+
 
    /* private void initView()
     {
@@ -220,6 +240,9 @@ public class ProductDetail extends AppCompatActivity
         spinner.setAdapter(adapter);
         buyProductButton = (TextView) findViewById(R.id.buyProductButton);
     }*/
+
+
+
 
     private void setuptoolbar()
     {
@@ -236,8 +259,10 @@ public class ProductDetail extends AppCompatActivity
 
        // getSupportActionBar().setIcon(R.drawable.home_logo);
 
-
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -251,7 +276,6 @@ public class ProductDetail extends AppCompatActivity
     {
         switch (item.getItemId())
         {
-
             case android.R.id.home:
                 finish();
                 break;
