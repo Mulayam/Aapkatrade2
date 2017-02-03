@@ -272,7 +272,7 @@ public class HomeActivity extends AppCompatActivity {
 
         scrollView = (ScrollView) findViewById(R.id.scroll_main);
 
-       // setup_scrollview(scrollView);
+        setup_scrollview(scrollView);
 
 //        tabColors = getActivity().getResources().getIntArray(R.array.tab_colors);
 //        bottom_menuAdapter = new AHBottomNavigationAdapter(getActivity(), R.menu.button_menu);
