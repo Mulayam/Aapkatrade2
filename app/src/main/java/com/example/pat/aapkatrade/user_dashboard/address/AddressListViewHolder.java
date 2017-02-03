@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.user_dashboard.address;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -17,9 +18,14 @@ public class AddressListViewHolder extends RecyclerView.ViewHolder {
     private TextView addressLine2;
     private TextView addressLine3;
     private RadioButton isSelected;
+    LinearLayout linearAddress;
 
-    public AddressListViewHolder(View view) {
+    public AddressListViewHolder(View view)
+    {
         super(view);
+
+        linearAddress = (LinearLayout) view.findViewById(R.id.linearAddress);
+
         addressLine1 = (TextView) view.findViewById(R.id.addressLine1);
         addressLine2 = (TextView) view.findViewById(R.id.addressLine2);
         addressLine3 = (TextView) view.findViewById(R.id.addressLine3);
