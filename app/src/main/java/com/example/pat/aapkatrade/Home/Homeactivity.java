@@ -25,6 +25,7 @@ import android.widget.ScrollView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
@@ -41,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
 
 
-
+    private AboutUsFragment aboutUsFragment;
 
 
     Context context;
@@ -359,6 +360,13 @@ public class HomeActivity extends AppCompatActivity {
                         }
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
+                        break;
+                    case 1:
+                        if (aboutUsFragment == null) {
+                            aboutUsFragment = new AboutUsFragment();
+                        }
+                        String aboutUsFragment_tagName = aboutUsFragment.getClass().getName();
+                        replaceFragment(aboutUsFragment, aboutUsFragment_tagName);
                         break;
 
 

@@ -1,6 +1,5 @@
 package com.example.pat.aapkatrade.Home;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +8,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,19 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.SpacesItemDecoration;
+import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -46,48 +40,40 @@ import java.util.TimerTask;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment  {
+public class DashboardFragment extends Fragment implements View.OnClickListener {
 
     Context context;
-    private View upAllSale;
+
     int currentPage = 0;
-    private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
+
     LinearLayout viewpagerindicator;
     private RecyclerView recyclerlatestpost, recyclerlatestupdate;
-    private LinearLayoutManager llManagerAllSale, llManagerTrendingStyle, llManagerEclipseCollection, llManagerExpressDeal, llManagerBestSelling;
+    private LinearLayoutManager llManagerEclipseCollection;
     ArrayList<CommomData> commomDatas = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestpost = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestupdate = new ArrayList<>();
-    ArrayList<CommomData> commomDatas_hotdeals = new ArrayList<>();
+
     private CommomAdapter commomAdapter;
     public latestproductadapter latestproductadapter;
-    SpacesItemDecoration itemDecoration;
-    int position = 0;
+
     ProgressBarHandler progress_handler;
     private int dotsCount;
-    private int[] tabColors;
+
     private List<Integer> imageIdList;
-    User_DashboardFragment user_dashboardFragment;
-    AboutUsFragment aboutUsFragment;
+
     private ImageView[] dots;
     ImageView home_ads;
-    private Handler mHandler;
-    public static final int DELAY = 5000;
-    AHBottomNavigationAdapter bottom_menuAdapter;
-    //private StikkyHeaderBuilder stikkyHeader;
-    private Intent intent;
-    AppCompatButton discover_category;
-    TextView viewall_expressdeals, viewall_bestselling, viewall_expresscollection, viewall_trendingstyles, viewall_allsale;
-    View v1, v2;
+
+RelativeLayout view_all_latest_post,view_all_latest_update;
     ViewPager vp;
     ScrollView scrollView;
-    AHBottomNavigation bottomNavigation;
+
     Timer banner_timer = new Timer();
     CoordinatorLayout coordinatorLayout;
     GridLayoutManager gridLayoutManager;
 
     viewpageradapter_home viewpageradapter;
-    CircularProgressView progressView;
+
     View view;
 
     public DashboardFragment() {
@@ -104,18 +90,10 @@ public class DashboardFragment extends Fragment  {
         view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
 
 
-
         initializeview(view);
 
-        setupviewpager();
 
 
-        recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
-
-
-        gridLayoutManager = new GridLayoutManager(context, 2);
-        recyclerlatestupdate.setLayoutManager(gridLayoutManager);
-        recyclerlatestupdate.setHasFixedSize(true);
 
         return view;
     }
@@ -188,32 +166,41 @@ public class DashboardFragment extends Fragment  {
         progress_handler = new ProgressBarHandler(getActivity());
 
 
-
         coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordination_home);
         coordinatorLayout.setVisibility(View.INVISIBLE);
 
         home_ads = (ImageView) v.findViewById(R.id.home_ads);
         home_ads.setImageResource(R.drawable.ic_home_ads_banner);
 
-//                .load("http://aapkatrade.com/laraveldemo/public/image/demo/slider/3.jpg");
+
         vp = (ViewPager) view.findViewById(R.id.viewpager_custom);
         context = getActivity();
-        //llManagerAllSale,llManagerTrendingStyle,llManagerEclipseCollection,llManagerExpressDeal,llManagerBestSelling;
-        llManagerAllSale = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        llManagerTrendingStyle = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
         llManagerEclipseCollection = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        llManagerExpressDeal = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        llManagerBestSelling = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
         viewpagerindicator = (LinearLayout) view.findViewById(R.id.viewpagerindicator);
         latestproductadapter = new latestproductadapter(context, commomDatas);
         recyclerlatestpost = (RecyclerView) view.findViewById(R.id.recyclerlatestpost);
         recyclerlatestpost.setLayoutManager(llManagerEclipseCollection);
 
 
-
-
-
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+
+        recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
+
+
+        gridLayoutManager = new GridLayoutManager(context, 2);
+        recyclerlatestupdate.setLayoutManager(gridLayoutManager);
+        recyclerlatestupdate.setHasFixedSize(true);
+
+        view_all_latest_post=(RelativeLayout)view.findViewById(R.id.rl_viewall_latest_post);
+        view_all_latest_post.setOnClickListener(this);
+
+
+        view_all_latest_update=(RelativeLayout)view.findViewById(R.id.rl_viewall_latest_update);
+        view_all_latest_update.setOnClickListener(this);
+        setupviewpager();
+
         get_home_data();
 
     }
@@ -281,8 +268,9 @@ public class DashboardFragment extends Fragment  {
                             commomAdapter = new CommomAdapter(context, commomDatas_latestupdate, "gridtype", "latestupdate");
                             recyclerlatestupdate.setAdapter(commomAdapter);
                             commomAdapter.notifyDataSetChanged();
-                            if(scrollView.getVisibility()==View.INVISIBLE)
-                            { scrollView.setVisibility(View.VISIBLE);}
+                            if (scrollView.getVisibility() == View.INVISIBLE) {
+                                scrollView.setVisibility(View.VISIBLE);
+                            }
 
                             progress_handler.hide();
 
@@ -295,13 +283,6 @@ public class DashboardFragment extends Fragment  {
 
 
     }
-
-
-
-
-
-
-
 
 
     private void setUiPageViewController() {
@@ -344,9 +325,43 @@ public class DashboardFragment extends Fragment  {
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+
+        switch (v.getId())
+        {
+            case R.id.rl_viewall_latest_post:
+
+
+                go_to_product_list_activity();
+
+
+
+                break;
+
+            case R.id.rl_viewall_latest_update:
+
+                go_to_product_list_activity();
 
 
 
 
+                break;
 
+
+
+        }
+
+    }
+
+    private void go_to_product_list_activity() {
+        Intent go_to_product_listactivity=new Intent(getActivity(), CategoryListActivity.class);
+        startActivity(go_to_product_listactivity);
+        ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+
+
+
+
+    }
 }
