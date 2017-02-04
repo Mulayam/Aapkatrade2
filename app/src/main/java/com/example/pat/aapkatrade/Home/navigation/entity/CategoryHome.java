@@ -24,7 +24,7 @@ public class CategoryHome {
     }
 
     private String createIconPath(String iconName){
-        return Validation.isNonEmptyStr(iconName)? basePath+iconName+iconExtention: "";
+        return Validation.isNonEmptyStr(iconName)? basePath+iconName.replaceAll(" |/|&","")+iconExtention: "";
     }
 
     public String getCategoryId() {

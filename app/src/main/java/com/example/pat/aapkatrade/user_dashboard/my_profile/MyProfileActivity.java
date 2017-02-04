@@ -18,54 +18,48 @@ import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 
 
-public class MyProfileActivity extends AppCompatActivity
-{
+public class MyProfileActivity extends AppCompatActivity {
 
-    TextView  toolbar_title_txt;
-    Button btnsave,btnEdit,btnLogout;
+    TextView toolbar_title_txt;
+    Button btnsave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
 
-App_sharedpreference app_sharedpreference;
+    App_sharedpreference app_sharedpreference;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
-        app_sharedpreference=new App_sharedpreference(this);
+        app_sharedpreference = new App_sharedpreference(this);
         setuptoolbar();
         setup_layout();
 
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
 
         btnsave = (Button) findViewById(R.id.btnSave);
         btnEdit = (Button) findViewById(R.id.btnEdit);
-        btnLogout=(Button)findViewById(R.id.btnlogout);
-        btnsave.setOnClickListener(new View.OnClickListener()
-        {
+        btnLogout = (Button) findViewById(R.id.btnlogout);
+        btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent i = new Intent(MyProfileActivity.this, CompanyList.class);
                 startActivity(i);
             }
         });
-        btnEdit.setOnClickListener(new View.OnClickListener()
-       {
-           @Override
-           public void onClick(View v)
-           {
-               Intent i = new Intent(MyProfileActivity.this, AddCompany.class);
-               startActivity(i);
-           }
-       });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MyProfileActivity.this, AddCompany.class);
+                startActivity(i);
+            }
+        });
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save_shared_pref("notlogin","notlogin","notlogin");
+                save_shared_pref("notlogin", "notlogin", "notlogin");
                 Intent Homedashboard = new Intent(MyProfileActivity.this, HomeActivity.class);
                 Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(Homedashboard);
@@ -73,25 +67,18 @@ App_sharedpreference app_sharedpreference;
         });
 
 
-
-
-
-
-
     }
 
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
-      //  getSupportActionBar().setIcon(R.drawable.home_logo);
+        //  getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
-
 
 
     @Override
@@ -101,10 +88,8 @@ App_sharedpreference app_sharedpreference;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -115,14 +100,9 @@ App_sharedpreference app_sharedpreference;
     }
 
     public void save_shared_pref(String user_id, String user_name, String email_id) {
-        app_sharedpreference.setsharedpref("userid",user_id);
-        app_sharedpreference.setsharedpref("username",user_name);
-        app_sharedpreference.setsharedpref("emailid",email_id);
-
-
-
-
-
+        app_sharedpreference.setsharedpref("userid", user_id);
+        app_sharedpreference.setsharedpref("username", user_name);
+        app_sharedpreference.setsharedpref("emailid", email_id);
 
 
     }

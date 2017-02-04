@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -172,6 +174,8 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("hi", "stepnumber"+stepNumber);
+                setBusinessFormData(stepNumber);
                 validateFields(stepNumber);
                 if(step1FieldsSet == 0){
                     setBusinessFormData(1);
@@ -249,6 +253,25 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setuptoolbar() {
@@ -502,19 +525,19 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     public void setBusinessFormData(int stepNo) {
 
         if (stepNo == 1) {
-            formBusinessData.setEmail(et_email == null ? "" : et_email.getText().toString());
-            formBusinessData.setPassword(et_password == null ? "" : et_password.getText().toString());
-            formBusinessData.setConfirmPassword(et_confirm_password == null ? "" : et_confirm_password.getText().toString());
-            formBusinessData.setFirstName(et_first_name == null ? "" : et_first_name.getText().toString());
-            formBusinessData.setLastName(et_last_name == null ? "" : et_last_name.getText().toString());
-            formBusinessData.setFatherName(et_father_name == null ? "" : et_father_name.getText().toString());
-            formBusinessData.setMobile_no(et_mobile == null ? "" : et_mobile.getText().toString());
-            formBusinessData.setDob(etDOB == null ? "" : etDOB.getText().toString());
-            formBusinessData.setAddress(et_address == null ? "" : et_address.getText().toString());
+            formBusinessData.setEmail(et_email.getText() == null ? "" : et_email.getText().toString());
+            formBusinessData.setPassword(et_password.getText() == null ? "" : et_password.getText().toString());
+            formBusinessData.setConfirmPassword(et_confirm_password.getText() == null ? "" : et_confirm_password.getText().toString());
+            formBusinessData.setFirstName(et_first_name.getText() == null ? "" : et_first_name.getText().toString());
+            formBusinessData.setLastName(et_last_name.getText() == null ? "" : et_last_name.getText().toString());
+            formBusinessData.setFatherName(et_father_name.getText() == null ? "" : et_father_name.getText().toString());
+            formBusinessData.setMobile_no(et_mobile.getText() == null ? "" : et_mobile.getText().toString());
+            formBusinessData.setDob(etDOB.getText() == null ? "" : etDOB.getText().toString());
+            formBusinessData.setAddress(et_address.getText() == null ? "" : et_address.getText().toString());
             formBusinessData.setStateID(stateID);
             formBusinessData.setCityID(cityID);
-            formBusinessData.setPinCode(et_pincode.getText().toString());
-            formBusinessData.setAgreementAccepted(agreement_check.isChecked() ? true : false);
+            formBusinessData.setPinCode(et_pincode.getText() == null ? "" : et_pincode.getText().toString());
+            formBusinessData.setAgreementAccepted(agreement_check.isChecked());
         } else if (stepNo == 2) {
 
             formBusinessData.setQualification(qualification == null ? "" : qualification);
@@ -536,6 +559,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     private void validateFields(int stepNo) {
         if (formBusinessData != null) {
             if (stepNo == 1) {
+                step1FieldsSet = 0;
                 if (Validation.isEmptyStr(formBusinessData.getEmail())) {
                     putError(2);
                     step1FieldsSet++;
@@ -585,6 +609,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                     stepNo = 2;
                 }
             } else if (stepNo == 2) {
+                step1FieldsSet = 0;
                 if(!(Validation.isNonEmptyStr(formBusinessData.getQualification()) &&
                         Integer.parseInt(formBusinessData.getQualification()) > 0)) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Qualification");
@@ -603,6 +628,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                 }
 
             } else if (stepNo == 3) {
+                step1FieldsSet = 0;
                 if(!(Validation.isNonEmptyStr(formBusinessData.getBankName()) &&
                         Integer.parseInt(formBusinessData.getBankName()) >= 0)) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Bank Name");

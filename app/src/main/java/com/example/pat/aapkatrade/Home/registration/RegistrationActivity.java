@@ -121,7 +121,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("reach", "reach2");
                         setSellerFormData();
                         validateFields(String.valueOf(1));
-                        if (isAllFieldSet > 0)
+                        if (isAllFieldSet == 0)
                             callWebServiceForSellerRegistration();
                     }
                     /*
@@ -132,7 +132,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("reach", "reach3");
                         getBuyerFormData();
                         validateFields(String.valueOf(2));
-                        if (isAllFieldSet > 0)
+                        if (isAllFieldSet == 0)
                             callWebServiceForBuyerRegistration();
                     }
                 }
@@ -517,7 +517,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if (userType.equals("1")) {
             if (formSellerData != null) {
 
-                Log.e("reach", formSellerData.toString() + "            DATAAAAAAAAA");
+                Log.e("reach", formSellerData.toString() + "            Data For Validation");
                 if (Validation.isEmptyStr(formSellerData.getBusinessType())
                         || formSellerData.getBusinessType().equals(spBussinessName[0])) {
 //                    Log.e("reach", formSellerData.getBusinessType()+"))))))))"+busiType+"\n(((((("+formSellerData.toString());
@@ -528,9 +528,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     isAllFieldSet++;
                 } else if (!(Validation.isNonEmptyStr(formSellerData.getCountryId()) &&
                         Integer.parseInt(formSellerData.getCountryId()) > 0)) {
-
-                    Log.e("reach", formSellerData.getCountryId() + "            DATAAAAAAAAA" + !(Validation.isEmptyStr(formSellerData.getCountryId()) ||
-                            Integer.parseInt(formSellerData.getCountryId()) > 0));
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Country");
                     isAllFieldSet++;
                 } else if (!(Validation.isNonEmptyStr(formSellerData.getStateId()) &&
