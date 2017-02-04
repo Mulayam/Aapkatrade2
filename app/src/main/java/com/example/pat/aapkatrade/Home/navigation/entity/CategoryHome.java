@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * Created by PPC09 on 20-Jan-17.
  */
 
-public class CategoryHome {
+public class CategoryHome
+{
     private String categoryId;
     private String categoryName;
     private String categoryIconName;

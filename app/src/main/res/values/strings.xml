@@ -19,7 +19,7 @@
     <string name="some">Aapka data</string>
     <string name="some2">Aapka data</string>
     <string name="arvind_data">data</string>
-    <string name="rs">\u20A8</string>
+    <string name="rs">\u20B9</string>
 
     <string name="action_heading">Action</string>
     <string name="dashboard_heading">My Company Profile</string>
@@ -157,6 +157,11 @@
     <string name="description">Department Stores, Chocolate Retailers, Soft Drink Retailers,Grocery Stores, Beverage Dealers, General Stores, Deparmental Stores Home Delivery</string>
     <string name="specification_heading">Specification</string>
     <string name="review_heading"><![CDATA[Ratings & Review]]></string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="rupees_deatils">\u20B9 200</string>
+    <string name="delivery_area_heading">Delivery Area</string>
+    <string name="deliveryArea">Indrapuram,Noida,New Delhi</string>
 
 
 </resources>
