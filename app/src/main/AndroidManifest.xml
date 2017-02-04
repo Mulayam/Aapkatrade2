@@ -37,7 +37,6 @@
         </activity>
         <activity
             android:name=".login.LoginActivity"
-
             android:screenOrientation="portrait" />
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
         <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
@@ -90,7 +89,8 @@
         </receiver>
 
         <activity android:name=".parallax_recyclerview.ParallaxActivity" />
-        <activity android:name=".user_dashboard.address.add_address.AddAddressActivity"></activity>
+        <activity android:name=".user_dashboard.address.add_address.AddAddressActivity" />
+        <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity"></activity>
     </application>
 
 </manifest>

@@ -43,8 +43,10 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_height="match_parent"
-
                 >
+
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -64,7 +66,6 @@
                         android:layout_height="20dp"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
-
                         android:layout_marginBottom="10dp"
                         android:orientation="horizontal">
 
@@ -291,24 +292,23 @@
 
 
                             <RelativeLayout
-                                android:layout_width="70dp"
-                                android:layout_height="wrap_content"
+                                android:layout_width="60dp"
+                                android:layout_height="35dp"
                                 android:background="@drawable/spinner_black_border"
-                                android:padding="8dp"
+                                android:padding="2dp"
                                 android:layout_alignTop="@+id/tvQtyHeading"
                                 android:layout_toRightOf="@+id/tvQtyHeading"
                                 android:layout_toEndOf="@+id/tvQtyHeading"
                                 android:layout_marginLeft="5dp"
-
                                 >
 
                                 <Spinner
                                     android:id="@+id/spQuantity"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="35dp"
                                     android:layout_alignParentLeft="true"
-                                    android:background="@drawable/simple_spinner_back"
                                     android:layout_toLeftOf="@+id/imgView"
+                                    android:background="@drawable/simple_spinner_back"
                                     ></Spinner>
 
 
@@ -321,6 +321,7 @@
                                     android:src="@drawable/ic_arrow"
                                     android:scaleType="fitXY"
                                     />
+
 
                             </RelativeLayout>
                             </RelativeLayout>
@@ -355,7 +356,6 @@
                             android:layout_below="@+id/tvStockHeading"
                             android:text="@string/duration"
                             android:layout_marginTop="5dp"
-
                             />
 
 
@@ -544,10 +544,21 @@
 
                             </RelativeLayout>
 
+
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:background="#E6E2E3"
+                                android:layout_weight="0.01"
+                                ></View>
+
+
                             <RelativeLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1.2"
+                                android:layout_weight="1.19"
+                                android:layout_marginLeft="5dp"
                                 >
 
                                 <TextView
@@ -578,7 +589,6 @@
                                     android:layout_marginTop="7dp"
                                     />
 
-
                                 <TextView
                                     android:id="@+id/tvfourStar"
                                     android:layout_width="wrap_content"
@@ -597,7 +607,6 @@
                                     android:layout_toRightOf="@+id/tvfourStar"
                                     android:layout_below="@+id/imgFiveStar"
                                     android:layout_marginTop="7dp"
-
                                     />
 
 
@@ -630,7 +639,6 @@
                                     android:layout_toRightOf="@+id/tvthreeStar"
                                     android:layout_below="@+id/imgFourStar"
                                     android:layout_marginTop="7dp"
-
                                     />
 
 
@@ -776,8 +784,6 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 />
-
-
 
 
         </RelativeLayout>

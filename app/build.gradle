@@ -13,7 +13,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
     }
 
     buildTypes {
@@ -39,6 +38,11 @@ android {
 
 dependencies {
 
+
+    compile('com.github.florent37:androidparallax:1.0.1@aar')
+            {
+                transitive = true
+            }
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.iarcuschin:simpleratingbar:0.1.5'
     compile 'de.hdodenhof:circleimageview:2.1.0'

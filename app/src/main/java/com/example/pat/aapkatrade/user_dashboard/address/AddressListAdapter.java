@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
 
 import java.text.SimpleDateFormat;
@@ -53,6 +54,33 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
         AddressListViewHolder addressListViewHolder = (AddressListViewHolder) holder;
+
+
+        addressListViewHolder.linearLayoutDelete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent editAddress = new Intent(context, AddAddressActivity.class);
+                context.startActivity(editAddress);
+
+
+            }
+        });
+
+        addressListViewHolder.linearLayoutEdit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent editAddress = new Intent(context, AddAddressActivity.class);
+                context.startActivity(editAddress);
+
+
+            }
+        });
 
 
         addressListViewHolder.addressRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()

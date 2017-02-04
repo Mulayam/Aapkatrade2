@@ -25,6 +25,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 
+
+
 public class ProductDetail extends AppCompatActivity
 {
 
@@ -184,7 +186,6 @@ public class ProductDetail extends AppCompatActivity
 
         viewpagerindicator=(LinearLayout)findViewById(R.id.viewpagerindicator);
 
-
         progressbarFive = (StackedHorizontalProgressBar) findViewById(R.id.progressbarFive);
         progressbarFive.setMax(max);
         progressbarFive.setProgress(10);
@@ -240,7 +241,6 @@ public class ProductDetail extends AppCompatActivity
         spinner.setAdapter(adapter);
 
     }
-
 
 
 
