@@ -11,6 +11,9 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="android:typeface">serif</item>
         <item name="android:alertDialogStyle">@style/CustomDialogTheme</item>
+        <item name="android:colorPrimary">@color/green_shad</item>
+        <item name="android:colorPrimaryDark">@color/green_shad</item>
+        <item name="android:navigationBarColor">@color/green_shad</item>
 
     </style>
 
@@ -160,8 +163,5 @@
     </style>
 
 
-
-
-
-
+    <color name="dark_orange">#ff623c</color>
 </resources>
