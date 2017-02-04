@@ -84,13 +84,17 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(view==null)
 
 
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
+        {
+            view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
 
 
-        initializeview(view);
+            initializeview(view);
+        }
+
 
 
 

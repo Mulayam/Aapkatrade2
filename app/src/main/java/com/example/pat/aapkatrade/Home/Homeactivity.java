@@ -357,9 +357,11 @@ public class HomeActivity extends AppCompatActivity {
                     case 0:
                         if (homeFragment == null) {
                             homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+
                         }
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
+
                         break;
                     case 1:
                         if (aboutUsFragment == null) {
@@ -374,8 +376,8 @@ public class HomeActivity extends AppCompatActivity {
                         if (user_dashboardFragment == null) {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
-                        //String tagName_dashboardFragment = User_DashboardFragment.getClass().getName();
-                        replaceFragment(user_dashboardFragment, "");
+                        String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
+                        replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
                         break;
                 }
                 // Do something cool here...
