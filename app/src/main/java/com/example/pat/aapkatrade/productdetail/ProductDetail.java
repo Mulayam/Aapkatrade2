@@ -218,8 +218,6 @@ public class ProductDetail extends AppCompatActivity
                 Intent i = new Intent(ProductDetail.this, AddressActivity.class);
                 startActivity(i);
 
-
-
             }
         });
 

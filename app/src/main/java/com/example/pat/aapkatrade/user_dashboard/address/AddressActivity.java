@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
 
 import java.util.ArrayList;
@@ -19,11 +20,11 @@ import java.util.ArrayList;
 public class AddressActivity extends AppCompatActivity
 {
 
-    
+
     ArrayList<AddressData> addressList = new ArrayList<>();
     RecyclerView addressRecyclerView;
     AddressListAdapter addressListAdapter;
-    RelativeLayout relativeAddress;
+    RelativeLayout relativeAddress,relativeAddNewAddress;
 
 
 
@@ -78,6 +79,8 @@ public class AddressActivity extends AppCompatActivity
 
         relativeAddress = (RelativeLayout) findViewById(R.id.relativeAddress);
 
+        relativeAddNewAddress = (RelativeLayout) findViewById(R.id.relativeAddNewAddress);
+
         addressRecyclerView = (RecyclerView) findViewById(R.id.addressRecyclerView);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -97,6 +100,22 @@ public class AddressActivity extends AppCompatActivity
 
             }
         });
+
+
+        relativeAddNewAddress.setOnClickListener(new View.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                Intent i = new Intent(AddressActivity.this, AddAddressActivity.class);
+                startActivity(i);
+            }
+
+        });
+
+
+
 
     }
 
