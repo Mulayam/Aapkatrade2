@@ -8,26 +8,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-
 import android.view.View;
-
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
-
-
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
-import com.example.pat.aapkatrade.user_dashboard.address.viewpager.CartCheckoutActivity;
-
 import com.jaredrummler.materialspinner.MaterialSpinner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 
 public class ProductDetail extends AppCompatActivity

@@ -43,10 +43,10 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.general.Utils.ImageUtils;
+import com.example.pat.aapkatrade.general.ImageUtils.ImageUtils;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -87,6 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private String busiType = "", countryID, stateID, cityID;
     private RelativeLayout spBussinessCategoryLayout, previewImageLayout, dobLayout;
     private DatePickerDialog datePickerDialog;
+    ProgressBarHandler progressBarHandler;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,8 +122,13 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("reach", "reach2");
                         setSellerFormData();
                         validateFields(String.valueOf(1));
-                        if (isAllFieldSet == 0)
+                        if (isAllFieldSet > 0)
                             callWebServiceForSellerRegistration();
+                        }
+                        else{
+                            callWebServiceForSellerRegistration();
+                            Log.e("isAllFieldSet",isAllFieldSet+"");
+                        }
                     }
                     /*
                     Buyer Registration
@@ -132,7 +138,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("reach", "reach3");
                         getBuyerFormData();
                         validateFields(String.valueOf(2));
-                        if (isAllFieldSet == 0)
+                        if (isAllFieldSet > 0)
                             callWebServiceForBuyerRegistration();
                     }
                 }
@@ -196,6 +202,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void callWebServiceForSellerRegistration() {
+        progressBarHandler.show();
+
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
@@ -223,6 +231,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("data", result.toString());
                         if (result.get("error").getAsString().equals("false")) {
                             Log.d("registration_seller", "done");
+                            progressBarHandler.hide();
                             startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
                         }
                     }
@@ -232,6 +241,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void callWebServiceForBuyerRegistration() {
+        progressBarHandler.show();
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/buyerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -255,6 +265,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Log.e("data", result.toString());
                         if (result.get("error").getAsString().equals("false")) {
                             Log.d("registration_buyer", "done");
+                            progressBarHandler.hide();
                             startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
                         }
                     }
@@ -301,7 +312,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
-                Log.e("data2", webservice_returndata.toString());
+
 
                 if (webservice_returndata != null) {
                     Log.e("webservice_returndata", webservice_returndata.toString());
@@ -481,6 +492,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        progressBarHandler=new ProgressBarHandler(this);
         registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
         spCountry = (Spinner) findViewById(R.id.spCountryCategory);
@@ -517,26 +529,29 @@ public class RegistrationActivity extends AppCompatActivity {
         if (userType.equals("1")) {
             if (formSellerData != null) {
 
-                Log.e("reach", formSellerData.toString() + "            Data For Validation");
+                Log.e("reach", formSellerData.toString() + "            DATAAAAAAAAA");
                 if (Validation.isEmptyStr(formSellerData.getBusinessType())
                         || formSellerData.getBusinessType().equals(spBussinessName[0])) {
 //                    Log.e("reach", formSellerData.getBusinessType()+"))))))))"+busiType+"\n(((((("+formSellerData.toString());
-                    AndroidUtils.showSnackBar(registrationLayout, "Please Select Business Category");
+                    showmessage("Please Select Business Category");
                     isAllFieldSet++;
                 } else if (Validation.isEmptyStr(etProductName.getText().toString())) {
                     putError(12);
                     isAllFieldSet++;
                 } else if (!(Validation.isNonEmptyStr(formSellerData.getCountryId()) &&
                         Integer.parseInt(formSellerData.getCountryId()) > 0)) {
-                    AndroidUtils.showSnackBar(registrationLayout, "Please Select Country");
+
+                    Log.e("reach", formSellerData.getCountryId() + "            DATAAAAAAAAA" + !(Validation.isEmptyStr(formSellerData.getCountryId()) ||
+                            Integer.parseInt(formSellerData.getCountryId()) > 0));
+                    showmessage("Please Select Country");
                     isAllFieldSet++;
                 } else if (!(Validation.isNonEmptyStr(formSellerData.getStateId()) &&
                         Integer.parseInt(formSellerData.getStateId()) > 0)) {
-                    AndroidUtils.showSnackBar(registrationLayout, "Please Select State");
+                    showmessage("Please Select State");
                     isAllFieldSet++;
                 } else if (!(Validation.isNonEmptyStr(formSellerData.getCityId()) &&
                         Integer.parseInt(formSellerData.getCityId()) > 0)) {
-                    AndroidUtils.showSnackBar(registrationLayout, "Please Select City");
+                    showmessage("Please Select City");
                     isAllFieldSet++;
                 } else if (Validation.isEmptyStr(formSellerData.getFirstName())) {
                     putError(0);
@@ -571,15 +586,15 @@ public class RegistrationActivity extends AppCompatActivity {
             if (formBuyerData != null) {
                 if (!(Validation.isNonEmptyStr(formBuyerData.getCountryId()) &&
                         Integer.parseInt(formBuyerData.getCountryId()) > 0)) {
-                    AndroidUtils.showSnackBar(registrationLayout, "Please Select Country");
+                    showmessage("Please Select Country");
                     isAllFieldSet++;
                 } else if (!(Validation.isNonEmptyStr(formBuyerData.getStateId()) &&
                         Integer.parseInt(formBuyerData.getStateId()) > 0)) {
-                    AndroidUtils.showSnackBar(registrationLayout, "Please Select State");
+                    showmessage("Please Select State");
                     isAllFieldSet++;
                 } else if (!(Validation.isEmptyStr(formBuyerData.getCityId()) ||
                         Integer.parseInt(formBuyerData.getCityId()) > 0)) {
-                    AndroidUtils.showSnackBar(registrationLayout, "Please Select City");
+                    showmessage("Please Select City");
                     isAllFieldSet++;
                 } else if (Validation.isEmptyStr(formBuyerData.getAddress())) {
                     putError(9);
@@ -655,19 +670,21 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-//    public void showmessage(String message) {
-//
-//        Snackbar snackbar = Snackbar
-//                .make(registrationLayout, message, Snackbar.LENGTH_SHORT)
-//                .setAction("", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                    }
-//                });
-//        snackbar.show();
-//
-//
-//    }
+    public void showmessage(String message) {
+
+        Snackbar snackbar = Snackbar
+                .make(registrationLayout, message, Snackbar.LENGTH_SHORT)
+                .setAction("", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                    Snackbar snackbar1 = Snackbar.make(cl, "", Snackbar.LENGTH_SHORT);
+//                    snackbar1.show();
+                    }
+                });
+        snackbar.show();
+
+
+    }
 
     void picPhoto() {
         String str[] = new String[]{"Camera", "Gallery"};
