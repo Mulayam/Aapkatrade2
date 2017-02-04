@@ -266,7 +266,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvProductName"
-                            android:text="250"
+                            android:text="@string/rupees_deatils"
                             android:textColor="@color/orange"
                             android:layout_marginTop="5dp"
                             />
@@ -292,9 +292,9 @@
 
                             <RelativeLayout
                                 android:layout_width="70dp"
-                                android:layout_height="25dp"
+                                android:layout_height="wrap_content"
                                 android:background="@drawable/spinner_black_border"
-                                android:padding="7dp"
+                                android:padding="8dp"
                                 android:layout_alignTop="@+id/tvQtyHeading"
                                 android:layout_toRightOf="@+id/tvQtyHeading"
                                 android:layout_toEndOf="@+id/tvQtyHeading"
@@ -303,12 +303,11 @@
                                 >
 
                                 <Spinner
-                                    android:id="@+id/spcompanyname"
+                                    android:id="@+id/spQuantity"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentLeft="true"
                                     android:background="@drawable/simple_spinner_back"
-                                    android:layout_margin="1dp"
                                     android:layout_toLeftOf="@+id/imgView"
                                     ></Spinner>
 

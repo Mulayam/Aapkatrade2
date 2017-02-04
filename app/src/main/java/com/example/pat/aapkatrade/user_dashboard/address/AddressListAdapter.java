@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
@@ -22,10 +24,13 @@ import java.util.List;
 public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
+
     private final LayoutInflater inflater;
     private List<AddressData> itemList;
     private Context context;
     AddressListViewHolder viewHolder;
+    private RadioButton lastCheckedRB = null;
+
 
 
 
@@ -37,7 +42,8 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         View view = inflater.inflate(R.layout.content_address, parent, false);
         viewHolder = new AddressListViewHolder(view);
         return viewHolder;
@@ -48,6 +54,24 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
         AddressListViewHolder addressListViewHolder = (AddressListViewHolder) holder;
 
+
+        addressListViewHolder.addressRadioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+
+                RadioButton checked_rb = (RadioButton) buttonView.findViewById(R.id.addressRadioButton);
+                if (lastCheckedRB != null)
+                {
+                    lastCheckedRB.setChecked(false);
+                }
+                //store the clicked radiobutton
+                lastCheckedRB = checked_rb;
+
+            }
+        });
+
         addressListViewHolder.linearAddress.setOnClickListener(new View.OnClickListener()
         {
 
@@ -55,11 +79,13 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v)
             {
 
+
                /* Intent i = new Intent(context, CartCheckoutActivity.class);
                 context.startActivity(i);*/
 
-            }
 
+
+            }
 
         });
 
@@ -71,13 +97,22 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return itemList.size();
         // return itemList.size();
     }
 
-    public String getCurrentTimeStamp() {
+    public String getCurrentTimeStamp()
+    {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
+
+
+
+
+
+
+
 }
 

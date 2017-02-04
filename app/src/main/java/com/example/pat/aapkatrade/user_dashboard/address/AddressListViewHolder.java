@@ -19,12 +19,18 @@ public class AddressListViewHolder extends RecyclerView.ViewHolder {
     private TextView addressLine3;
     private RadioButton isSelected;
     LinearLayout linearAddress;
+    RadioButton addressRadioButton;
+
+
+
 
     public AddressListViewHolder(View view)
     {
         super(view);
 
         linearAddress = (LinearLayout) view.findViewById(R.id.linearAddress);
+
+        addressRadioButton = (RadioButton) view.findViewById(R.id.addressRadioButton);
 
         addressLine1 = (TextView) view.findViewById(R.id.addressLine1);
         addressLine2 = (TextView) view.findViewById(R.id.addressLine2);

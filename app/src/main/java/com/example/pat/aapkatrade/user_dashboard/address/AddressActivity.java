@@ -24,7 +24,7 @@ public class AddressActivity extends AppCompatActivity
     ArrayList<AddressData> addressList = new ArrayList<>();
     RecyclerView addressRecyclerView;
     AddressListAdapter addressListAdapter;
-    RelativeLayout relativeAddress,relativeAddNewAddress;
+    RelativeLayout relativeDeliverAddress,relativeAddNewAddress;
 
 
 
@@ -77,7 +77,7 @@ public class AddressActivity extends AppCompatActivity
     private void setup_layout()
     {
 
-        relativeAddress = (RelativeLayout) findViewById(R.id.relativeAddress);
+        relativeDeliverAddress = (RelativeLayout) findViewById(R.id.relativeDeliverAddress);
 
         relativeAddNewAddress = (RelativeLayout) findViewById(R.id.relativeAddNewAddress);
 
@@ -91,7 +91,7 @@ public class AddressActivity extends AppCompatActivity
 
         addressRecyclerView.setLayoutManager(mLayoutManager);
 
-        relativeAddress.setOnClickListener(new View.OnClickListener() {
+        relativeDeliverAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -108,8 +108,11 @@ public class AddressActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+
                 Intent i = new Intent(AddressActivity.this, AddAddressActivity.class);
                 startActivity(i);
+
+
             }
 
         });
