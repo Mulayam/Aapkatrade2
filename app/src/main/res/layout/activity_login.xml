@@ -92,10 +92,8 @@
                             android:layout_marginLeft="5dp"
                             android:background="@android:color/transparent"
                             android:padding="10dp"
-                            android:hint="Username"
-
-
-                            android:inputType="text" />
+                            android:hint="Email"
+                            android:inputType="textEmailAddress" />
                         <ImageView
                             android:layout_width="30dp"
                             android:id="@+id/imgview_password"

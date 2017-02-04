@@ -352,6 +352,7 @@
                     android:inputType="number"
                     android:maxLines="1"
                     android:padding="10dp"
+                    android:inputType="number"
                     android:textColorHint="@color/hint_color"
                     android:textSize="@dimen/textsize_small" />
 
