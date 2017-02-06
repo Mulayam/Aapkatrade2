@@ -43,11 +43,12 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.ImageUtils.ImageUtils;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
+import com.example.pat.aapkatrade.utils.Utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -143,7 +144,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
                 }
 
-            }
+
         });
 
         openCalander.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +174,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
     private void showDate(int year, int month, int day) {
+        etDOB.setTextColor(getColor(R.color.black));
         etDOB.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
 

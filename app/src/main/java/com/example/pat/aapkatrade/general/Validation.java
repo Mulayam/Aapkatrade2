@@ -103,4 +103,8 @@ public class Validation {
         return false;
     }
 
+    public static boolean isNumber(String s){
+        return TextUtils.isDigitsOnly(s);
+    }
+
 }
