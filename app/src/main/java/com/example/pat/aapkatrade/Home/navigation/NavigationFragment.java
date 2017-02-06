@@ -380,7 +380,7 @@ emailid.setText(email);
                                     CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
                                     categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
                                     listDataHeader.add(categoryHome);
-                                    Log.e("hi", categoryHome.getCategoryName());
+                                    Log.e("hi", categoryHome.getCategoryName()+"<<<<>>>>"+categoryHome.getCategoryIconName());
                                 }
                                 set_expandable_adapter_data();
 //                        dialog.hide();
