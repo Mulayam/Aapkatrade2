@@ -1,9 +1,7 @@
-package com.example.pat.aapkatrade.general.ImageUtils;
+package com.example.pat.aapkatrade.general.Utils;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.util.Log;
 
 /**
  * Created by PPC09 on 31-Jan-17.

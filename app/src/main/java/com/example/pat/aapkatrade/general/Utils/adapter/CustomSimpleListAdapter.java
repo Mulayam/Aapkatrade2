@@ -1,4 +1,4 @@
-package com.example.pat.aapkatrade.user_dashboard.addcompany;
+package com.example.pat.aapkatrade.general.Utils.adapter;
 
 /**
  * Created by PPC16 on 10-Jan-17.
@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 
-class CustomAdapter extends BaseAdapter {
+import java.util.ArrayList;
+
+public class CustomSimpleListAdapter extends BaseAdapter {
     Context context;
-    String[] categoriesNames;
+    ArrayList<String> categoriesNames;
     LayoutInflater inflter;
 
-    public CustomAdapter(Context applicationContext, String[] categoriesNames) {
+    public CustomSimpleListAdapter(Context applicationContext, ArrayList<String> categoriesNames) {
         this.context = applicationContext;
 
         this.categoriesNames = categoriesNames;
@@ -27,7 +29,7 @@ class CustomAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return categoriesNames.length;
+        return categoriesNames.size();
     }
 
     @Override
@@ -46,7 +48,7 @@ class CustomAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
-        names.setText(categoriesNames[i]);
+        names.setText(categoriesNames.get(i));
         return view;
     }
 }

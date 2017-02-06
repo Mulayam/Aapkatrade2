@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,28 +19,31 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.registration.entity.BusinessAssociateRegistration;
-import com.example.pat.aapkatrade.Home.registration.entity.BuyerRegistration;
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.ImageUtils.ImageUtils;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -74,14 +78,17 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     private String stateID, cityID, qualification, totalExperience, relaventExperience, bankName;
     private RelativeLayout previewImageLayout;
     private CardView step1aLayout, step1bLayout, step1cLayout, step2Layout, step3Layout;
-
+    private LinearLayout registrationLayout;
+    private int step1FieldsSet = -1, step2FieldsSet = -1, step3FieldsSet = -1;
+    private int stepNumber = 1;
+    private ArrayList<String> qualificationList = new ArrayList<>(), totalExpList = new ArrayList<>(), relaventExpList = new ArrayList<>(), bankList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_business_associate);
         initView();
-        getState();
+        setStepLayout(1);
         uploadImageCall();
         saveAndContinue();
         openCalender();
@@ -165,7 +172,19 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.e("hi", "-->stepnumber" + stepNumber);
+                Log.e("hi", "-->step1FieldsSet" + step1FieldsSet);
+                Log.e("hi", "-->step2FieldsSet" + step2FieldsSet);
+                Log.e("hi", "-->step3FieldsSet" + step3FieldsSet);
+                setBusinessFormData(stepNumber);
+                validateFields(stepNumber);
+                if (stepNumber == 2 || stepNumber == 3) {
+                    if (step1FieldsSet == 0 && stepNumber == 2) {
+                        setStepLayout(2);
+                    } else if (step1FieldsSet == 0 && step2FieldsSet == 0) {
+                        setStepLayout(3);
+                    }
+                }
             }
         });
     }
@@ -174,6 +193,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         context = RegistrationBusinessAssociateActivity.this;
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         setuptoolbar();
+        registrationLayout = (LinearLayout) findViewById(R.id.register_busi_assoc_layout);
         uploadMsg = (TextView) findViewById(R.id.uploadMsg);
         uploadMsg.setText("Attach Your Photo");
         step1HeaderCircle = (TextView) findViewById(R.id.step1Circle);
@@ -182,7 +202,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         step1HeaderText = (TextView) findViewById(R.id.step1HeaderText);
         step2HeaderText = (TextView) findViewById(R.id.step2HeaderText);
         step3HeaderText = (TextView) findViewById(R.id.step3HeaderText);
-        setStepHeader(1);
         uploadImage = (ImageView) findViewById(R.id.uploadButton);
         openCalander = (ImageView) findViewById(R.id.openCalander);
         circleImageView = (CircleImageView) findViewById(R.id.previewImage);
@@ -219,6 +238,35 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         step2Layout = (CardView) findViewById(R.id.step2Layout);
         step3Layout = (CardView) findViewById(R.id.step3Layout);
 
+        State stateEntity_init = new State("-1", "Please Select State");
+        stateList.add(stateEntity_init);
+        SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
+        spState.setAdapter(spStateAdapter);
+
+        City cityEntity_init = new City("-1", "Please Select City");
+        cityList.add(cityEntity_init);
+        SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
+        spCity.setAdapter(spCityAdapter);
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setuptoolbar() {
@@ -229,8 +277,10 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(null);
     }
 
-    private void setStepHeader(int stepNo) {
+    private void setStepLayout(int stepNo) {
         if (stepNo == 1) {
+            getState();
+            step1HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border));
             step1HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step1HeaderText.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step2HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border_solid));
@@ -239,7 +289,16 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
             step3HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border_solid));
             step3HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.white));
             step3HeaderText.setTextColor(ContextCompat.getColor(context, R.color.green));
+            step1aLayout.setVisibility(View.VISIBLE);
+            step1bLayout.setVisibility(View.VISIBLE);
+            step1cLayout.setVisibility(View.VISIBLE);
+            step2Layout.setVisibility(View.GONE);
+            step3Layout.setVisibility(View.GONE);
         } else if (stepNo == 2) {
+            setQualificationAdapter();
+            setTotalExperienceAdapter();
+            setRelaventExperienceAdapter();
+            step2HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border));
             step2HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step2HeaderText.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step1HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border_solid));
@@ -248,8 +307,15 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
             step3HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border_solid));
             step3HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.white));
             step3HeaderText.setTextColor(ContextCompat.getColor(context, R.color.green));
+            step1aLayout.setVisibility(View.GONE);
+            step1bLayout.setVisibility(View.GONE);
+            step1cLayout.setVisibility(View.GONE);
+            step2Layout.setVisibility(View.VISIBLE);
+            step3Layout.setVisibility(View.GONE);
 
         } else if (stepNo == 3) {
+            setBankListAdapter();
+            step3HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border));
             step3HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step3HeaderText.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step2HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border_solid));
@@ -258,10 +324,17 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
             step1HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border_solid));
             step1HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.white));
             step1HeaderText.setTextColor(ContextCompat.getColor(context, R.color.green));
+            step1aLayout.setVisibility(View.GONE);
+            step1bLayout.setVisibility(View.GONE);
+            step1cLayout.setVisibility(View.GONE);
+            step2Layout.setVisibility(View.GONE);
+            step3Layout.setVisibility(View.VISIBLE);
+
         }
     }
 
     private void showDate(int year, int month, int day) {
+        etDOB.setTextColor(getColor(R.color.black));
         etDOB.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
 
@@ -283,7 +356,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                 JsonObject jsonObject = state_data_webservice.getAsJsonObject();
                 JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
                 stateList.clear();
-                State stateEntity_init = new State("-1", "-Pleas Select State-");
+                State stateEntity_init = new State("-1", "Please Select State");
                 stateList.add(stateEntity_init);
 
                 for (int i = 0; i < jsonResultArray.size(); i++) {
@@ -304,10 +377,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                         if (position > 0) {
                             getCity(stateList.get(position).stateId);
                         }
-//                        if (!(Integer.parseInt(stateID) > 0)) {
-//                            showmessage("Please Select State");
-//                        }
-
                     }
 
                     @Override
@@ -322,8 +391,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         };
     }
 
-
-    //
     public void getCity(String stateId) {
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
@@ -340,7 +407,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                 JsonObject jsonObject = city_data_webservice.getAsJsonObject();
                 JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-                City cityEntity_init = new City("-1", "-Please Select City-");
+                City cityEntity_init = new City("-1", "Please Select City");
                 cityList.add(cityEntity_init);
 
                 for (int i = 0; i < jsonResultArray.size(); i++) {
@@ -356,9 +423,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         cityID = cityList.get(position).cityId;
-//                        if (!(Integer.parseInt(cityID) > 0)) {
-//                            showmessage("Please Select City");
-//                        }
                     }
 
                     @Override
@@ -411,8 +475,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                 option.inTempStorage = new byte[32 * 1024];
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
                 if (Build.VERSION.SDK_INT < 19) {
-                    Uri selectedImageURI = data.getData();
-
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
                 } else {
                     if (data.getData() != null) {
@@ -465,25 +527,25 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     public void setBusinessFormData(int stepNo) {
 
         if (stepNo == 1) {
-            formBusinessData.setEmail(et_email == null ? "" : et_email.getText().toString());
-            formBusinessData.setPassword(et_password == null ? "" : et_password.getText().toString());
-            formBusinessData.setConfirmPassword(et_confirm_password == null ? "" : et_confirm_password.getText().toString());
-            formBusinessData.setFirstName(et_first_name == null ? "" : et_first_name.getText().toString());
-            formBusinessData.setLastName(et_last_name == null ? "" : et_last_name.getText().toString());
-            formBusinessData.setFatherName(et_father_name == null ? "" : et_father_name.getText().toString());
-            formBusinessData.setMobile_no(et_mobile == null ? "" : et_mobile.getText().toString());
-            formBusinessData.setDob(etDOB == null ? "" : etDOB.getText().toString());
-            formBusinessData.setAddress(et_address == null ? "" : et_address.getText().toString());
+            formBusinessData.setEmail(et_email.getText() == null ? "" : et_email.getText().toString());
+            formBusinessData.setPassword(et_password.getText() == null ? "" : et_password.getText().toString());
+            formBusinessData.setConfirmPassword(et_confirm_password.getText() == null ? "" : et_confirm_password.getText().toString());
+            formBusinessData.setFirstName(et_first_name.getText() == null ? "" : et_first_name.getText().toString());
+            formBusinessData.setLastName(et_last_name.getText() == null ? "" : et_last_name.getText().toString());
+            formBusinessData.setFatherName(et_father_name.getText() == null ? "" : et_father_name.getText().toString());
+            formBusinessData.setMobile_no(et_mobile.getText() == null ? "" : et_mobile.getText().toString());
+            formBusinessData.setDob(etDOB.getText() == null ? "" : etDOB.getText().toString());
+            formBusinessData.setAddress(et_address.getText() == null ? "" : et_address.getText().toString());
             formBusinessData.setStateID(stateID);
             formBusinessData.setCityID(cityID);
-            formBusinessData.setPinCode(et_pincode.getText().toString());
-            formBusinessData.setAgreementAccepted(agreement_check.isChecked() ? true : false);
+            formBusinessData.setPinCode(et_pincode.getText() == null ? "" : et_pincode.getText().toString());
+            formBusinessData.setAgreementAccepted(agreement_check.isChecked());
         } else if (stepNo == 2) {
-
             formBusinessData.setQualification(qualification == null ? "" : qualification);
             formBusinessData.setTotalExperience(totalExperience == null ? "" : totalExperience);
             formBusinessData.setRelaventExperience(relaventExperience == null ? "" : relaventExperience);
         } else if (stepNo == 3) {
+            tvSave.setText("Save");
             formBusinessData.setBankName(bankName == null ? "" : bankName);
             formBusinessData.setAccountNumber(et_account_no == null ? "" : et_account_no.getText().toString());
             formBusinessData.setBranchCode(et_branch_code == null ? "" : et_branch_code.getText().toString());
@@ -496,9 +558,243 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     }
 
 
-    private void validateFields(String userType) {
+    private void setQualificationAdapter() {
+        if (qualificationList != null && qualificationList.size() > 0) {
+            qualificationList.clear();
+        }
+        qualificationList.add("Please Select Qualification");
+        qualificationList.add("10th");
+        qualificationList.add("12th");
+        qualificationList.add("Graduate");
+        qualificationList.add("Post Graduate");
 
+        CustomSimpleListAdapter qualificationAdapter = new CustomSimpleListAdapter(context, qualificationList);
+        spQualification.setAdapter(qualificationAdapter);
 
+        spQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("hi", "Selected Qualification is " + qualificationList.get(position) + System.currentTimeMillis());
+//                formBusinessData.setQualification(qualificationList.get(position));
+                if (position > 0) {
+                    qualification = qualificationList.get(position);
+                }
+                Log.e("hi", formBusinessData.getQualification() + System.currentTimeMillis());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setTotalExperienceAdapter() {
+        if (totalExpList != null && totalExpList.size() > 0) {
+            totalExpList.clear();
+        }
+        totalExpList.add("Please Select Total Experience");
+        totalExpList.add("0 yrs");
+        totalExpList.add("1 yrs");
+        totalExpList.add("2 yrs");
+        totalExpList.add("3 yrs");
+        totalExpList.add("4 yrs");
+        totalExpList.add("5 yrs");
+        totalExpList.add("6 yrs");
+        totalExpList.add("7 yrs");
+        totalExpList.add("8 yrs");
+        totalExpList.add("9 yrs");
+        totalExpList.add("10 yrs");
+
+        final CustomSimpleListAdapter totalExpAdapter = new CustomSimpleListAdapter(context, totalExpList);
+        spTotalExp.setAdapter(totalExpAdapter);
+
+        spTotalExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    totalExperience = totalExpList.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setRelaventExperienceAdapter() {
+        if (relaventExpList != null && relaventExpList.size() > 0) {
+            relaventExpList.clear();
+        }
+        relaventExpList.add("Please Select Relavent Experience");
+        relaventExpList.add("0 yrs");
+        relaventExpList.add("1 yrs");
+        relaventExpList.add("2 yrs");
+        relaventExpList.add("3 yrs");
+        relaventExpList.add("4 yrs");
+        relaventExpList.add("5 yrs");
+        relaventExpList.add("6 yrs");
+        relaventExpList.add("7 yrs");
+        relaventExpList.add("8 yrs");
+        relaventExpList.add("9 yrs");
+        relaventExpList.add("10 yrs");
+
+        CustomSimpleListAdapter relaventExpAdapter = new CustomSimpleListAdapter(context, relaventExpList);
+        spRelExp.setAdapter(relaventExpAdapter);
+
+        spRelExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0){
+                    relaventExperience = relaventExpList.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void setBankListAdapter() {
+        if (bankList != null && bankList.size() > 0) {
+            bankList.clear();
+        }
+        bankList.add("Please Select Bank");
+        bankList.add("American Express");
+        bankList.add("Royal Bank of Scotland");
+        bankList.add("HDFC Bank");
+        bankList.add("City Bank");
+        bankList.add("Axis Bank");
+        bankList.add("Punjab National Bank");
+        bankList.add("Others");
+        CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
+        spSelectBank.setAdapter(bankListAdapter);
+
+        spSelectBank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position>0){
+                    bankName = bankList.get(position);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void validateFields(int stepNo) {
+        if (formBusinessData != null) {
+            Log.e("hi", formBusinessData.toString());
+            if (stepNo == 1) {
+                step1FieldsSet = 0;
+                if (!Validation.isValidEmail(formBusinessData.getEmail())) {
+                    putError(2);
+                    step1FieldsSet++;
+                } else if (!Validation.isValidPassword(formBusinessData.getPassword())) {
+                    putError(4);
+                    step1FieldsSet++;
+                } else if (!Validation.isPasswordMatching(formBusinessData.getPassword(), formBusinessData.getConfirmPassword())) {
+                    putError(5);
+                    step1FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getFirstName())) {
+                    putError(0);
+                    step1FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getLastName())) {
+                    putError(1);
+                    step1FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getFatherName())) {
+                    putError(10);
+                    step1FieldsSet++;
+                } else if (!Validation.isValidNumber(formBusinessData.getMobile_no(), Validation.getNumberPrefix(formBusinessData.getMobile_no()))) {
+                    putError(3);
+                    step1FieldsSet++;
+                } else if (!Validation.isValidDOB(formBusinessData.getDob())) {
+                    putError(6);
+                    step1FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getAddress())) {
+                    putError(9);
+                    step1FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getLastName())) {
+                    putError(1);
+                    step1FieldsSet++;
+                } else if (!(Validation.isNonEmptyStr(formBusinessData.getStateID()) &&
+                        Integer.parseInt(formBusinessData.getStateID()) > 0)) {
+                    AndroidUtils.showSnackBar(registrationLayout, "Please Select State");
+                    step1FieldsSet++;
+                } else if (!(Validation.isNonEmptyStr(formBusinessData.getCityID()) &&
+                        Integer.parseInt(formBusinessData.getCityID()) > 0)) {
+                    AndroidUtils.showSnackBar(registrationLayout, "Please Select City");
+                    step1FieldsSet++;
+                } else if (!Validation.isPincode(formBusinessData.getPinCode())) {
+                    putError(11);
+                    step1FieldsSet++;
+                } else if (!formBusinessData.isAgreementAccepted()) {
+                    putError(7);
+                    step1FieldsSet++;
+                }
+                Log.e("hi", "step1FieldsSet=" + step1FieldsSet);
+
+                if (step1FieldsSet == 0) {
+                    stepNumber = 2;
+                }
+            } else if (stepNo == 2) {
+                step2FieldsSet = 0;
+                if (Validation.isEmptyStr(formBusinessData.getQualification())) {
+                    AndroidUtils.showSnackBar(registrationLayout, "Please Select Qualification");
+                    step2FieldsSet++;
+                } else if (!(Validation.isNonEmptyStr(formBusinessData.getTotalExperience()) &&
+                        Validation.isNumber(formBusinessData.getTotalExperience().split(" ")[0]))) {
+                    AndroidUtils.showSnackBar(registrationLayout, "Please Select Total Experience");
+                    step2FieldsSet++;
+                } else if (!(Validation.isNonEmptyStr(formBusinessData.getRelaventExperience()) &&
+                        Validation.isNumber(formBusinessData.getRelaventExperience().split(" ")[0]))) {
+                    AndroidUtils.showSnackBar(registrationLayout, "Please Select Relavent Experience");
+                    step2FieldsSet++;
+                }
+                if (step2FieldsSet == 0) {
+                    stepNumber = 3;
+                }
+
+            } else if (stepNo == 3) {
+                step3FieldsSet = 0;
+                if (!(Validation.isNonEmptyStr(formBusinessData.getBankName()) &&
+                        Integer.parseInt(formBusinessData.getBankName()) >= 0)) {
+                    AndroidUtils.showSnackBar(registrationLayout, "Please Select Bank Name");
+                    step3FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getAccountNumber())) {
+                    putError(12);
+                    step3FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getBranchCode())) {
+                    putError(13);
+                    step3FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getBranchName())) {
+                    putError(14);
+                    step3FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getIfscCode())) {
+                    putError(15);
+                    step3FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getMicrCode())) {
+                    putError(16);
+                    step3FieldsSet++;
+                } else if (Validation.isEmptyStr(formBusinessData.getAccountHolderName())) {
+                    putError(17);
+                    step3FieldsSet++;
+                } else if (!Validation.isValidNumber(formBusinessData.getRegisteredMobileWithBank(), Validation.getNumberPrefix(formBusinessData.getRegisteredMobileWithBank()))) {
+                    putError(18);
+                    step3FieldsSet++;
+                }
+
+            }
+        } else {
+            AndroidUtils.showSnackBar(registrationLayout, "Please fill the registration form");
+        }
     }
 
     private void putError(int id) {
@@ -537,11 +833,31 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
             case 11:
                 et_pincode.setError("Please Enter Valid PINCODE");
                 break;
+            case 12:
+                et_account_no.setError("Please Enter Valid Account Number");
+                break;
+            case 13:
+                et_branch_code.setError("Please Enter Branch Code");
+                break;
+            case 14:
+                et_branch_name.setError("Please Enter Branch Name");
+                break;
+            case 15:
+                et_ifsc_code.setError("Please Enter IFSC Code");
+                break;
+            case 16:
+                et_micr_code.setError("Please Enter MICR Code");
+                break;
+            case 17:
+                et_account_holder_name.setError("Please Enter Account Holder Name");
+                break;
+            case 18:
+                et_registered_mobile_with_bank.setError("Please Enter Your Registered mobile number");
+                break;
 
             default:
                 break;
         }
     }
-
 
 }

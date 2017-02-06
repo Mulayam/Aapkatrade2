@@ -94,4 +94,17 @@ public class Validation {
         return false;
     }
 
+    public static boolean isPincode(String pincode){
+        if(isNonEmptyStr(pincode)){
+            if(pincode.length() == 6  && !pincode.startsWith("0")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isNumber(String s){
+        return TextUtils.isDigitsOnly(s);
+    }
+
 }
