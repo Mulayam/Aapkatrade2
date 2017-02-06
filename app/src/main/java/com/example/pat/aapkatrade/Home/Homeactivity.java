@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -70,6 +69,9 @@ public class HomeActivity extends AppCompatActivity
         {
 
             setContentView(R.layout.activity_homeactivity);
+
+
+
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
             //  permissions  granted.
@@ -87,6 +89,7 @@ public class HomeActivity extends AppCompatActivity
         else
         {
             setContentView(R.layout.activity_homeactivity);
+
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
             //  permissions  granted.
@@ -97,9 +100,29 @@ public class HomeActivity extends AppCompatActivity
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
+
+
+
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private void setupNavigationCustom() {
@@ -289,7 +312,7 @@ public class HomeActivity extends AppCompatActivity
         bottomNavigation.addItem(item5);
 
 // Set background color
-        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
+        bottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.dark_green));
 
 // Disable the translation inside the CoordinatorLayout
         bottomNavigation.setBehaviorTranslationEnabled(true);
@@ -300,7 +323,7 @@ public class HomeActivity extends AppCompatActivity
         //  bottomNavigation.manageFloatingActionButtonBehavior(floatingActionButton);
 
 // Change colors
-        bottomNavigation.setAccentColor(getResources().getColor(R.color.green));
+        bottomNavigation.setAccentColor(getResources().getColor(R.color.white));
         bottomNavigation.setInactiveColor(Color.parseColor("#000000"));
 
 // Force to tint the drawable (useful for font with icon for example)
@@ -421,35 +444,35 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-scrollView.setOnTouchListener(new View.OnTouchListener() {
-    float height;
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-
-
-        int action = event.getAction();
-        float height2 = event.getY();
-        if(action == MotionEvent.ACTION_DOWN){
-            height = height2;
-        }else if(action == MotionEvent.ACTION_UP){
-            if(this.height < height2){
-                Log.e("up", "Scrolled up");
-                showOrHideBottomNavigation(false);
-            }else if(this.height > height2){
-                Log.e("down", "Scrolled down");
-                showOrHideBottomNavigation(true);
-            }
-        }
-        return false;
-    }
-
-
-
-
-
-});
+//scrollView.setOnTouchListener(new View.OnTouchListener() {
+//    float height;
+//
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event) {
+//
+//
+//
+//        int action = event.getAction();
+//        float height2 = event.getY();
+//        if(action == MotionEvent.ACTION_DOWN){
+//            height = height2;
+//        }else if(action == MotionEvent.ACTION_UP){
+//            if(this.height < height2){
+//                Log.e("up", "Scrolled up");
+//                showOrHideBottomNavigation(false);
+//            }else if(this.height > height2){
+//                Log.e("down", "Scrolled down");
+//                showOrHideBottomNavigation(true);
+//            }
+//        }
+//        return false;
+//    }
+//
+//
+//
+//
+//
+//});
 
 
 

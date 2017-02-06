@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +65,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     private ImageView[] dots;
     ImageView home_ads;
+    private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
 
 RelativeLayout view_all_latest_post,view_all_latest_update;
     ViewPager vp;
@@ -92,7 +95,7 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
 
 
-            initializeview(view);
+            initializeview(view,container);
         }
 
 
@@ -165,7 +168,7 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
 
     }
 
-    private void initializeview(View v) {
+    private void initializeview(View v ,ViewGroup v2) {
 
         progress_handler = new ProgressBarHandler(getActivity());
 
@@ -193,6 +196,12 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
         recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
 
 
+
+
+
+
+
+
         gridLayoutManager = new GridLayoutManager(context, 2);
         recyclerlatestupdate.setLayoutManager(gridLayoutManager);
         recyclerlatestupdate.setHasFixedSize(true);
@@ -206,6 +215,11 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
         setupviewpager();
 
         get_home_data();
+//        StikkyHeaderBuilder.stickTo(scrollView)
+//                .setHeader(R.id.coordination_home, v2)
+//                .minHeightHeaderDim(R.dimen.min_header_height)
+//                .build();
+
 
     }
 
@@ -368,4 +382,8 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
 
 
     }
+
+
+
+
 }
