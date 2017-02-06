@@ -35,25 +35,20 @@ import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
-
-
     private AboutUsFragment aboutUsFragment;
-
-
     Context context;
     public static String shared_pref_name = "aapkatrade";
     App_config aa;
     AHBottomNavigation bottomNavigation;
     CoordinatorLayout coordinatorLayout;
     User_DashboardFragment user_dashboardFragment;
-
     ProgressBar progressBar;
     Boolean permission_status;
-
     public static String userid, username;
     ScrollView scrollView;
     float initialX, initialY;
@@ -62,7 +57,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
@@ -70,19 +66,15 @@ public class HomeActivity extends AppCompatActivity {
         loadLocale();
         permission_status=CheckPermission.checkPermissions(HomeActivity.this);
         if (permission_status)
-
         {
+
             setContentView(R.layout.activity_homeactivity);
 
 
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-
             context = this;
-
-
             //  permissions  granted.
-
             setupToolBar();
             //setupNavigation();
             setupNavigationCustom();
@@ -92,17 +84,15 @@ public class HomeActivity extends AppCompatActivity {
             setup_bottomNavigation();
 
 
+
         }
-        else{
+        else
+        {
             setContentView(R.layout.activity_homeactivity);
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-
             context = this;
-
-
             //  permissions  granted.
-
             setupToolBar();
             //setupNavigation();
             setupNavigationCustom();
@@ -180,10 +170,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.login:
 
-
-
-
- if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
+                 if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
                 {
                     Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);

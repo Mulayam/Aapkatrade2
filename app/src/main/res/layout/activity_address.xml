@@ -32,13 +32,15 @@
             android:paddingBottom="15dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:background="@drawable/orange_back"
             >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add new address"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 />
 
 
@@ -55,14 +57,14 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_below="@+id/cardAddressNew"
-        android:layout_above="@+id/relativeAddress"
+        android:layout_above="@+id/relativeDeliverAddress"
 
         >
 
     </android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
-        android:id="@+id/relativeAddress"
+        android:id="@+id/relativeDeliverAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -73,7 +75,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DELIVER HERE"
+            android:text="Deliver Here"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
             />

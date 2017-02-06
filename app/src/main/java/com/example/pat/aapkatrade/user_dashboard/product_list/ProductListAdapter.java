@@ -56,7 +56,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ProductListHolder homeHolder = (ProductListHolder) holder;
 
 
-        homeHolder.relativeProductList.setOnClickListener(new View.OnClickListener()
+        homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
