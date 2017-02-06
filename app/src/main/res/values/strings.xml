@@ -159,9 +159,9 @@
     <string name="review_heading"><![CDATA[Ratings & Review]]></string>
     <string name="country">Country</string>
     <string name="state">State</string>
-    <string name="rupees_deatils">\u20B9 200</string>
+    <string name="rupees_deatils">\u20B9 600</string>
     <string name="delivery_area_heading">Delivery Area</string>
     <string name="deliveryArea">Indrapuram,Noida,New Delhi</string>
-
+    <string name="et_data">Et Data</string>
 
 </resources>

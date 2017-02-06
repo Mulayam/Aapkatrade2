@@ -1,6 +1,4 @@
 package com.example.pat.aapkatrade.user_dashboard.product_list.listproduct_detail;
-
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,24 +6,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.productdetail.ProductDetail;
-import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
-import com.jaredrummler.materialspinner.MaterialSpinner;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 
 public class ListProductDetailActivity extends AppCompatActivity {
 
