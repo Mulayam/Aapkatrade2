@@ -15,8 +15,7 @@ import com.example.pat.aapkatrade.R;
 
 public class App_animation {
 
-    public static void circularanimation(View v)
-    {
+    public static void circularanimation(View v) {
         RotateAnimation rotate = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(5000);
         rotate.setInterpolator(new LinearInterpolator());
@@ -24,25 +23,12 @@ public class App_animation {
     }
 
 
-    public static  void left_animation(View v, Context c)
-    {
-
-        v.startAnimation(
-                AnimationUtils.loadAnimation(c, R.anim.slide_left));
-
+    public static void left_animation(View v, Context c) {
+        v.startAnimation(AnimationUtils.loadAnimation(c, R.anim.slide_left));
     }
 
-    public static  void right_animation(View v, Context c)
-    {
-
-        v.startAnimation(
-                AnimationUtils.loadAnimation(c, R.anim.slide_right));
-
+    public static void right_animation(View v, Context c) {
+        v.startAnimation(AnimationUtils.loadAnimation(c, R.anim.slide_right));
     }
-
-
-
-
-
 
 }

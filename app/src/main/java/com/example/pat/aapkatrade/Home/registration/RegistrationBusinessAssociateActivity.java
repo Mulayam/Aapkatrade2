@@ -38,6 +38,7 @@ import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
@@ -95,40 +96,49 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
     }
 
     private void callWebServiceForRegistration() {
+        Log.e("hi", "webservice invoked");
         Ion.with(context)
                 .load("http://aapkatrade.com/slim/businessregister")
                 .setHeader("authorization", webservice_header_type.get("authorization"))
                 .setBodyParameter("authorization", webservice_header_type.get("authorization"))
-                .setBodyParameter("type", "3")
+                .setBodyParameter("business_type", "3")
+                .setBodyParameter("photo", "photo")
                 .setBodyParameter("email", formBusinessData.getEmail())
                 .setBodyParameter("password", formBusinessData.getPassword())
                 .setBodyParameter("confirm_password", formBusinessData.getConfirmPassword())
-                .setBodyParameter("first_name", formBusinessData.getFirstName())
+                .setBodyParameter("name", formBusinessData.getFirstName())
                 .setBodyParameter("last_name", formBusinessData.getLastName())
                 .setBodyParameter("father_name", formBusinessData.getFatherName())
                 .setBodyParameter("mobile", formBusinessData.getMobile_no())
                 .setBodyParameter("dob", formBusinessData.getDob())
                 .setBodyParameter("address", formBusinessData.getAddress())
-                .setBodyParameter("stateId", formBusinessData.getStateID())
-                .setBodyParameter("cityId", formBusinessData.getCityID())
+                .setBodyParameter("state_id", formBusinessData.getStateID())
+                .setBodyParameter("city_id", formBusinessData.getCityID())
                 .setBodyParameter("pincode", formBusinessData.getPinCode())
-                .setBodyParameter("isAgree", String.valueOf(formBusinessData.isAgreementAccepted()))
+                .setBodyParameter("term", String.valueOf(formBusinessData.isAgreementAccepted()))
+                .setBodyParameter("id_proof", "")
                 .setBodyParameter("qualification", formBusinessData.getQualification())
-                .setBodyParameter("total_experience", formBusinessData.getTotalExperience())
-                .setBodyParameter("relavent_experience", formBusinessData.getRelaventExperience())
+                .setBodyParameter("total_exp", formBusinessData.getTotalExperience())
+                .setBodyParameter("relevant_exp", formBusinessData.getRelaventExperience())
                 .setBodyParameter("bank_name", formBusinessData.getBankName())
-                .setBodyParameter("account_number", formBusinessData.getEmail())
+                .setBodyParameter("account_no", formBusinessData.getEmail())
                 .setBodyParameter("branch_code", formBusinessData.getEmail())
                 .setBodyParameter("branch_name", formBusinessData.getEmail())
                 .setBodyParameter("ifsc_code", formBusinessData.getEmail())
                 .setBodyParameter("micr_code", formBusinessData.getEmail())
-                .setBodyParameter("account_holder_name", formBusinessData.getEmail())
-                .setBodyParameter("registered_mobile_number", formBusinessData.getEmail())
+                .setBodyParameter("account_holder", formBusinessData.getEmail())
+                .setBodyParameter("register_mobile", formBusinessData.getEmail())
+                .setBodyParameter("client_id", App_config.getCurrentDeviceId(RegistrationBusinessAssociateActivity.this))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        Log.d("result", result.getAsString());
+                        if (result == null) {
+                            Log.e("result", "null found in response");
+                        } else {
+                            Log.e("result", result.toString());
+                        }
+
                     }
 
                 });
@@ -178,11 +188,16 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
                 Log.e("hi", "-->step3FieldsSet" + step3FieldsSet);
                 setBusinessFormData(stepNumber);
                 validateFields(stepNumber);
-                if (stepNumber == 2 || stepNumber == 3) {
-                    if (step1FieldsSet == 0 && stepNumber == 2) {
-                        setStepLayout(2);
-                    } else if (step1FieldsSet == 0 && step2FieldsSet == 0) {
-                        setStepLayout(3);
+                if (stepNumber == 3 && step1FieldsSet == 0 && step2FieldsSet == 0 && step3FieldsSet == 0) {
+                    callWebServiceForRegistration();
+                } else {
+
+                    if (stepNumber == 2 || stepNumber == 3) {
+                        if (step1FieldsSet == 0 && stepNumber == 2) {
+                            setStepLayout(2);
+                        } else if (step1FieldsSet == 0 && step2FieldsSet == 0) {
+                            setStepLayout(3);
+                        }
                     }
                 }
             }
@@ -315,6 +330,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
 
         } else if (stepNo == 3) {
             setBankListAdapter();
+            tvSave.setText(getString(R.string.save));
             step3HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border));
             step3HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step3HeaderText.setTextColor(ContextCompat.getColor(context, R.color.orange));
@@ -352,40 +368,45 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject state_data_webservice) {
-                Log.e("Taskcomplete", "TaskcompleteError" + state_data_webservice.toString());
-                JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                stateList.clear();
-                State stateEntity_init = new State("-1", "Please Select State");
-                stateList.add(stateEntity_init);
 
-                for (int i = 0; i < jsonResultArray.size(); i++) {
-                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                    State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                    stateList.add(stateEntity);
-                }
-                SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
-                spState.setAdapter(spStateAdapter);
+                if (state_data_webservice != null) {
+                    Log.e("Taskcomplete", "TaskcompleteError" + state_data_webservice.toString());
+                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
+                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                    stateList.clear();
+                    State stateEntity_init = new State("-1", "Please Select State");
+                    stateList.add(stateEntity_init);
 
-                spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
+                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                        stateList.add(stateEntity);
+                    }
+                    SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
+                    spState.setAdapter(spStateAdapter);
 
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view,
-                                               int position, long id) {
-                        stateID = stateList.get(position).stateId;
-                        cityList = new ArrayList<>();
-                        if (position > 0) {
-                            getCity(stateList.get(position).stateId);
+                    spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view,
+                                                   int position, long id) {
+                            stateID = stateList.get(position).stateId;
+                            cityList = new ArrayList<>();
+                            if (position > 0) {
+                                getCity(stateList.get(position).stateId);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
+                        }
 
 
-                });
+                    });
+                } else {
+                    AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
+                }
             }
 
         };
@@ -403,33 +424,38 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject city_data_webservice) {
+                if (city_data_webservice != null) {
 
-                JsonObject jsonObject = city_data_webservice.getAsJsonObject();
-                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                    JsonObject jsonObject = city_data_webservice.getAsJsonObject();
+                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-                City cityEntity_init = new City("-1", "Please Select City");
-                cityList.add(cityEntity_init);
+                    City cityEntity_init = new City("-1", "Please Select City");
+                    cityList.add(cityEntity_init);
 
-                for (int i = 0; i < jsonResultArray.size(); i++) {
-                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                    City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                    cityList.add(cityEntity);
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
+                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                        City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                        cityList.add(cityEntity);
+                    }
+
+                    SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
+                    spCity.setAdapter(spCityAdapter);
+
+                    spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            cityID = cityList.get(position).cityId;
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                } else {
+                    AndroidUtils.showSnackBar(registrationLayout, "No City Found");
                 }
 
-                SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
-                spCity.setAdapter(spCityAdapter);
-
-                spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        cityID = cityList.get(position).cityId;
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
             }
         };
     }
@@ -647,7 +673,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         spRelExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position>0){
+                if (position > 0) {
                     relaventExperience = relaventExpList.get(position);
                 }
             }
@@ -677,7 +703,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         spSelectBank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position>0){
+                if (position > 0) {
                     bankName = bankList.get(position);
                 }
             }
@@ -764,11 +790,11 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
 
             } else if (stepNo == 3) {
                 step3FieldsSet = 0;
-                if (!(Validation.isNonEmptyStr(formBusinessData.getBankName()) &&
-                        Integer.parseInt(formBusinessData.getBankName()) >= 0)) {
+                if (Validation.isEmptyStr(formBusinessData.getBankName())) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Bank Name");
                     step3FieldsSet++;
-                } else if (Validation.isEmptyStr(formBusinessData.getAccountNumber())) {
+                } else if (!(Validation.isNonEmptyStr(formBusinessData.getAccountNumber()) &&
+                        Validation.isNumber(formBusinessData.getAccountNumber()))) {
                     putError(12);
                     step3FieldsSet++;
                 } else if (Validation.isEmptyStr(formBusinessData.getBranchCode())) {

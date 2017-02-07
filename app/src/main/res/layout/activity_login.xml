@@ -11,7 +11,10 @@
     <RelativeLayout
         android:id="@+id/activity_login"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -92,7 +95,7 @@
                             android:layout_marginLeft="5dp"
                             android:background="@android:color/transparent"
                             android:padding="10dp"
-                            android:hint="Email"
+                             android:hint="Email"
                             android:inputType="textEmailAddress" />
                         <ImageView
                             android:layout_width="30dp"

@@ -12,4 +12,12 @@ public class SubCategory {
         this.subCategoryId = subCategoryId;
         this.subCategoryName = subCategoryName;
     }
+
+    @Override
+    public String toString() {
+        return "SubCategory{" +
+                "subCategoryId='" + subCategoryId + '\'' +
+                ", subCategoryName='" + subCategoryName + '\'' +
+                '}';
+    }
 }

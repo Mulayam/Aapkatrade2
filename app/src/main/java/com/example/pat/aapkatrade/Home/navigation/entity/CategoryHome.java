@@ -55,4 +55,17 @@ public class CategoryHome
     public void setSubCategoryList(ArrayList<SubCategory> subCategoryList) {
         this.subCategoryList = subCategoryList;
     }
+
+    @Override
+    public String toString() {
+        return "CategoryHome{" +
+                "categoryId='" + categoryId + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", categoryIconName='" + categoryIconName + '\'' +
+                ", categoryIconPath='" + categoryIconPath + '\'' +
+                ", subCategoryList=" + subCategoryList +
+                ", basePath='" + basePath + '\'' +
+                ", iconExtention='" + iconExtention + '\'' +
+                '}';
+    }
 }
