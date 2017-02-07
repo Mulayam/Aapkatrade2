@@ -44,6 +44,7 @@ import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -351,6 +352,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
                     });
+                } else {
+                    AndroidUtils.showSnackBar(registrationLayout, "Country Not Found");
                 }
 
             }
@@ -372,45 +375,48 @@ public class RegistrationActivity extends AppCompatActivity {
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject state_data_webservice) {
+                if (state_data_webservice == null) {
+                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
+                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                    stateList.clear();
+                    State stateEntity_init = new State("-1", "-Pleas Select State-");
+                    stateList.add(stateEntity_init);
 
-                JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                stateList.clear();
-                State stateEntity_init = new State("-1", "-Pleas Select State-");
-                stateList.add(stateEntity_init);
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
+                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                        stateList.add(stateEntity);
+                    }
+                    dialog.hide();
+                    SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
+                    spState.setAdapter(spStateAdapter);
 
-                for (int i = 0; i < jsonResultArray.size(); i++) {
-                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                    State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                    stateList.add(stateEntity);
-                }
-                dialog.hide();
-                SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
-                spState.setAdapter(spStateAdapter);
+                    spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-                spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view,
-                                               int position, long id) {
-                        stateID = stateList.get(position).stateId;
-                        cityList = new ArrayList<>();
-                        if (position > 0) {
-                            getCity(stateList.get(position).stateId);
-                        }
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view,
+                                                   int position, long id) {
+                            stateID = stateList.get(position).stateId;
+                            cityList = new ArrayList<>();
+                            if (position > 0) {
+                                getCity(stateList.get(position).stateId);
+                            }
 //                        if (!(Integer.parseInt(stateID) > 0)) {
 //                            showmessage("Please Select State");
 //                        }
 
-                    }
+                        }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
+                        }
 
 
-                });
+                    });
+                } else {
+                    AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
+                }
             }
 
         };
@@ -431,37 +437,40 @@ public class RegistrationActivity extends AppCompatActivity {
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject city_data_webservice) {
+                if (city_data_webservice != null) {
+                    JsonObject jsonObject = city_data_webservice.getAsJsonObject();
+                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-                JsonObject jsonObject = city_data_webservice.getAsJsonObject();
-                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                    City cityEntity_init = new City("-1", "-Please Select City-");
+                    cityList.add(cityEntity_init);
 
-                City cityEntity_init = new City("-1", "-Please Select City-");
-                cityList.add(cityEntity_init);
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
+                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                        City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                        cityList.add(cityEntity);
+                    }
 
-                for (int i = 0; i < jsonResultArray.size(); i++) {
-                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                    City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                    cityList.add(cityEntity);
-                }
+                    dialog.hide();
+                    SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
+                    spCity.setAdapter(spCityAdapter);
 
-                dialog.hide();
-                SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
-                spCity.setAdapter(spCityAdapter);
-
-                spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        cityID = cityList.get(position).cityId;
+                    spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            cityID = cityList.get(position).cityId;
 //                        if (!(Integer.parseInt(cityID) > 0)) {
 //                            showmessage("Please Select City");
 //                        }
-                    }
+                        }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
+                        }
+                    });
+                } else {
+                    AndroidUtils.showSnackBar(registrationLayout, "No City Found");
+                }
             }
         };
     }

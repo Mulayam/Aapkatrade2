@@ -25,11 +25,11 @@ import java.util.HashMap;
 
 
 public class LoginActivity extends AppCompatActivity {
-    TextView login_text,forgot_password;
+    TextView login_text, forgot_password;
     EditText username, password;
     RelativeLayout rl_login, relativeRegister;
     Validation vt;
-App_sharedpreference app_sharedpreference;
+    App_sharedpreference app_sharedpreference;
     CoordinatorLayout cl;
 //    public static String shared_pref_name = "aapkatrade";
 //    public static SharedPreferences sharedPreferences;
@@ -38,7 +38,7 @@ App_sharedpreference app_sharedpreference;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        app_sharedpreference=new App_sharedpreference(LoginActivity.this);
+        app_sharedpreference = new App_sharedpreference(LoginActivity.this);
         InitView();
         putValues();
 
@@ -51,22 +51,19 @@ App_sharedpreference app_sharedpreference;
 //                startActivity(registerUserActivity);
 
 
-
-
 //
-                        if (app_sharedpreference.shared_pref != null) {
-                            if (app_sharedpreference.getsharedpref("usertype", "0") .equals("3")) {
+                if (app_sharedpreference.shared_pref != null) {
+                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
-                                startActivity(registerUserActivity);
-                            } else if ((app_sharedpreference.getsharedpref("usertype", "0") .equals("1")) || app_sharedpreference.getsharedpref("usertype", "0") .equals("2")) {
-                                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-                                startActivity(registerUserActivity);
-                            }
-                        }
-                else{
-                          Log.e("null_sharedPreferences","sharedPreferences") ;
-                        }
+                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
+                        startActivity(registerUserActivity);
+                    } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1")) || app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                        startActivity(registerUserActivity);
+                    }
+                } else {
+                    Log.e("null_sharedPreferences", "sharedPreferences");
+                }
 
 
 
@@ -93,24 +90,7 @@ App_sharedpreference app_sharedpreference;
 */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                }
+            }
 
 
         });
@@ -133,38 +113,30 @@ App_sharedpreference app_sharedpreference;
 
                     if (Validation.validate_edittext(password)) {
 
-                        if (app_sharedpreference.shared_pref!= null) {
-                            if (app_sharedpreference.getsharedpref("usertype","0").equals("3")) {
+                        if (app_sharedpreference.shared_pref != null) {
+                            if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                                String login_url="http://aapkatrade.com/slim/businesslogin";
+                                String login_url = "http://aapkatrade.com/slim/businesslogin";
 
-                                callwebservice_login(login_url,input_username,input_password);
-
-
-
-                            } else if(app_sharedpreference.getsharedpref("usertype", "0").equals("2") ) {
-
-                                String login_url="http://aapkatrade.com/slim/buyerlogin";
-
-                                callwebservice_login(login_url,input_username,input_password);
+                                callwebservice_login(login_url, input_username, input_password);
 
 
-                            }
-                            else if(app_sharedpreference.getsharedpref("usertype", "0").equals("1"))
-                            {
+                            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
-                                String login_url="http://aapkatrade.com/slim/sellerlogin";
+                                String login_url = "http://aapkatrade.com/slim/buyerlogin";
 
-                                callwebservice_login(login_url,input_username,input_password);
+                                callwebservice_login(login_url, input_username, input_password);
 
+
+                            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
+
+                                String login_url = "http://aapkatrade.com/slim/sellerlogin";
+
+                                callwebservice_login(login_url, input_username, input_password);
 
 
                             }
                         }
-
-
-
-
 
 
                     } else {
@@ -183,57 +155,50 @@ App_sharedpreference app_sharedpreference;
 
     }
 
-    private void callwebservice_login(String login_url,String input_username,String input_password) {
+    private void callwebservice_login(String login_url, String input_username, String input_password) {
 
         // dialog.show();
-        HashMap<String,String> webservice_body_parameter=new HashMap<>();
-        webservice_body_parameter.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type","login");
-        webservice_body_parameter.put("email",input_username);
-        webservice_body_parameter.put("password",input_password);
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "login");
+        webservice_body_parameter.put("email", input_username);
+        webservice_body_parameter.put("password", input_password);
 
 
-        HashMap<String,String> webservice_header_type=new HashMap<>();
-        webservice_header_type.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        HashMap<String, String> webservice_header_type = new HashMap<>();
+        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
+        Call_webservice.call_login_webservice(LoginActivity.this, login_url, "login", webservice_body_parameter, webservice_header_type);
 
-
-
-        Call_webservice.call_login_webservice(LoginActivity.this,login_url,"login",webservice_body_parameter,webservice_header_type);
-
-        Call_webservice.taskCompleteReminder=new TaskCompleteReminder() {
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
-                Log.e("data2",webservice_returndata.toString());
+                Log.e("data2", webservice_returndata.toString());
 
-                if (webservice_returndata != null)
-                {
-                    Log.e("webservice_returndata",webservice_returndata.toString());
+                if (webservice_returndata != null) {
+                    Log.e("webservice_returndata", webservice_returndata.toString());
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
 
-                    String error=jsonObject.get("error").getAsString();
-                    String message=jsonObject.get("message").getAsString();
-                    if(error.equals("false"))
-                    {
-                        String user_id=jsonObject.get("user_id").getAsString();
-                        String name=jsonObject.get("name").getAsString();
+                    String error = jsonObject.get("error").getAsString();
+                    String message = jsonObject.get("message").getAsString();
+                    if (error.equals("false")) {
+                        String user_id = jsonObject.get("user_id").getAsString();
+                        String name = jsonObject.get("name").getAsString();
 
-                        String email_id=jsonObject.get("email").getAsString();
+                        String email_id = jsonObject.get("email").getAsString();
 
                         showMessage(message);
-                        save_shared_pref(user_id,name,email_id);
+                        save_shared_pref(user_id, name, email_id);
 
                         Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
                         Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(Homedashboard);
 
-                    }
-                    else{
+                    } else {
                         showMessage(message);
                     }
-
 
 
                 }
@@ -242,27 +207,18 @@ App_sharedpreference app_sharedpreference;
         };
 
 
-
-
-
-
     }
 
     public void save_shared_pref(String user_id, String user_name, String email_id) {
-        app_sharedpreference .setsharedpref("userid",user_id);
-        app_sharedpreference .setsharedpref("username",user_name);
-        app_sharedpreference .setsharedpref("emailid",email_id);
-
-
-
-
-
+        app_sharedpreference.setsharedpref("userid", user_id);
+        app_sharedpreference.setsharedpref("username", user_name);
+        app_sharedpreference.setsharedpref("emailid", email_id);
 
 
     }
 
     private void InitView() {
-        forgot_password=(TextView)findViewById(R.id.tv_forgotpassword);
+        forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
 
         login_text = (TextView) findViewById(R.id.tv_login);
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -271,7 +227,6 @@ App_sharedpreference app_sharedpreference;
         rl_login = (RelativeLayout) findViewById(R.id.rl_login);
         relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
         vt = new Validation();
-
 
 
         forgot_password.setOnClickListener(new View.OnClickListener() {
@@ -298,10 +253,6 @@ App_sharedpreference app_sharedpreference;
 
         snackbar.show();
     }
-
-
-
-
 
 
 }
