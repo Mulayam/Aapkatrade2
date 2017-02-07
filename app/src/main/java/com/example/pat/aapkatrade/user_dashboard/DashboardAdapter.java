@@ -37,7 +37,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<DashboardData> itemList;
     private Context context;
     DashboardHolder viewHolder;
-App_sharedpreference app_sharedpreference;
+    App_sharedpreference app_sharedpreference;
 
 
     public DashboardAdapter(Context context, List<DashboardData> itemList)

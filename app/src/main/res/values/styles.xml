@@ -27,11 +27,6 @@
     </style>
 
 
-
-
-
-
-
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="textAllCaps">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -121,7 +116,6 @@
     </style>
 
 
-
     <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
@@ -143,12 +137,7 @@
         <item name="android:background">@android:color/transparent</item>
 
 
-
-
-
-
     </style>
-
 
 
     <style name="CircularProgress" parent="Theme.AppCompat.Light">
