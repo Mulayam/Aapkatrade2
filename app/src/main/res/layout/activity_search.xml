@@ -61,8 +61,8 @@ android:visibility="gone"
 
 
 
-    <ListView
-        android:id="@+id/listview_search"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleview_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"

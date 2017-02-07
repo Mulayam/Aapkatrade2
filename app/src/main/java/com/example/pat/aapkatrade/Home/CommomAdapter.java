@@ -25,7 +25,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     View v;
 
 
-    CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype) {
+    public CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype) {
         this.context = context;
         this.commomDatas = commomDatas;
         this.arrangementtype = arrangementtype;
