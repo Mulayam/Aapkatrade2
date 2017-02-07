@@ -40,8 +40,7 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import java.util.ArrayList;
 
 
-public class HomeActivity extends AppCompatActivity
-{
+public class HomeActivity extends AppCompatActivity {
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
@@ -63,19 +62,16 @@ public class HomeActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
         loadLocale();
-        permission_status=CheckPermission.checkPermissions(HomeActivity.this);
-        if (permission_status)
-        {
+        permission_status = CheckPermission.checkPermissions(HomeActivity.this);
+        if (permission_status) {
 
             setContentView(R.layout.activity_homeactivity);
-
 
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
@@ -91,10 +87,7 @@ public class HomeActivity extends AppCompatActivity
             checked_wifispeed();
 
 
-
-        }
-        else
-        {
+        } else {
             setContentView(R.layout.activity_homeactivity);
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
@@ -108,7 +101,6 @@ public class HomeActivity extends AppCompatActivity
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
             checked_wifispeed();
-
 
 
         }
@@ -116,6 +108,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void checked_wifispeed() {
+
 
        int a= ConnetivityCheck.get_wifi_speed(this);
         Log.e("a",a+"");
@@ -168,16 +161,13 @@ public class HomeActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.login:
 
-                 if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                {
-                    Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
+                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                    Intent i = new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
-                }
-                else
-                {
-                    Intent i =new Intent(HomeActivity.this, MyProfileActivity.class);
+                } else {
+                    Intent i = new Intent(HomeActivity.this, MyProfileActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
@@ -298,11 +288,12 @@ public class HomeActivity extends AppCompatActivity
 // Add items
 
 
-		bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-			@Override public void onPositionChange(int y) {
-				Log.d("DemoActivity", "BottomNavigation Position: " + y);
-			}
-		});
+        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+            @Override
+            public void onPositionChange(int y) {
+                Log.d("DemoActivity", "BottomNavigation Position: " + y);
+            }
+        });
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -420,7 +411,6 @@ public class HomeActivity extends AppCompatActivity
 //                    setForceTitleHide(true);
 
 
-
 //                    setForceTitleHide(true);
 
 
@@ -433,13 +423,11 @@ public class HomeActivity extends AppCompatActivity
                         showOrHideBottomNavigation(true);
 
 
-
                     }
 
                 }
             });
         } else {
-
 
 
 //scrollView.setOnTouchListener(new View.OnTouchListener() {
@@ -471,7 +459,6 @@ public class HomeActivity extends AppCompatActivity
 //
 //
 //});
-
 
 
             // Pre-Marshmallow
@@ -517,6 +504,7 @@ public class HomeActivity extends AppCompatActivity
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 
 
 

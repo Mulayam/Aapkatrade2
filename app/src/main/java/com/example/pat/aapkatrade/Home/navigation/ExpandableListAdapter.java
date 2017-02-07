@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home.navigation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,8 +116,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                              View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
 
-        LayoutInflater infalInflater = (LayoutInflater) this._context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = infalInflater.inflate(R.layout.list_group, parent, false);
         final ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
         final ImageView imageViewIcon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
@@ -124,9 +124,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override
                     public void onCompleted(Exception e, Bitmap result) {
-                        imageViewIcon.setImageBitmap(result);
+                        if(result!=null) {
+                            imageViewIcon.setImageBitmap(result);
+                        }
                     }
                 });
+
+        if(_listDataHeader.get(groupPosition).getSubCategoryList().size() != 0){
+
+        }
 
         if (_listDataHeader.get(groupPosition).getSubCategoryList().size() == 0) {
             imageView.setVisibility(View.GONE);
@@ -138,6 +144,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 }
             });
         } else {
+
             if (isExpanded) {
                 imageView.setImageResource(R.drawable.ic_chevron_primary);
                 convertView.setBackgroundResource(R.color.dark_green);
@@ -148,9 +155,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
             }
         }
 
-
-        TextView lblListHeader = (TextView) convertView
-                .findViewById(R.id.lblListHeader);
+        TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
         lblListHeader.setText(headerTitle);
         return convertView;
     }
