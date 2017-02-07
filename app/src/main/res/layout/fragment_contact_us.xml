@@ -1,0 +1,139 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pat.aapkatrade.contact_us.ContactUsFragment">
+
+
+    <RelativeLayout
+        android:id="@+id/relativeQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_five_dip"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/spinner_green_back"
+        android:padding="10dp">
+
+
+        <Spinner
+            android:id="@+id/spcompanyname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="1dp"
+            android:background="@drawable/simple_spinner_back"></Spinner>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_arrow" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/etSubject"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_five_dip"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_green_back"
+        android:hint="Subject"
+        android:maxLines="1"
+        android:imeOptions="actionNext"
+        android:padding="10dp"
+        android:layout_below="@+id/relativeQuestion"
+        android:textColorHint="@color/hint_color"
+        android:textSize="14dp" />
+
+
+
+    <EditText
+        android:id="@+id/etUserName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_five_dip"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_green_back"
+        android:hint="User Name"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:imeOptions="actionNext"
+        android:layout_below="@+id/etSubject"
+        android:textColorHint="@color/hint_color"
+        android:textSize="14dp" />
+
+
+    <EditText
+        android:id="@+id/etMobileNo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_five_dip"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_green_back"
+        android:hint="Mobile Number"
+        android:maxLines="1"
+        android:imeOptions="actionNext"
+        android:padding="10dp"
+        android:layout_below="@+id/etUserName"
+        android:textColorHint="@color/hint_color"
+        android:textSize="14dp" />
+
+
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/thirty_five_dip"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_green_back"
+        android:hint="Email"
+        android:maxLines="1"
+        android:imeOptions="actionNext"
+        android:padding="10dp"
+        android:layout_below="@+id/etMobileNo"
+        android:textColorHint="@color/hint_color"
+        android:textSize="14dp" />
+
+
+    <EditText
+        android:id="@+id/etQuery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_green_back"
+        android:hint="Query"
+        android:maxLines="3"
+        android:minLines="3"
+        android:imeOptions="actionDone"
+        android:padding="10dp"
+        android:layout_below="@+id/etEmail"
+        android:textColorHint="@color/hint_color"
+        android:textSize="14dp" />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/etQuery"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="send"
+        android:background="@drawable/orange_back"
+        android:textColor="@color/white"
+        />
+
+
+
+</RelativeLayout>

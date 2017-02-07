@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.categories_tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,9 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.search.SearchActivity;
 
 import java.util.ArrayList;
 
@@ -23,7 +27,7 @@ public class CategoryListActivity extends AppCompatActivity
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
-
+    RelativeLayout relativeSearch;
 
 
     @Override
@@ -37,9 +41,14 @@ public class CategoryListActivity extends AppCompatActivity
 
         setup_data();
 
+
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+
+        relativeSearch = (RelativeLayout) findViewById(R.id.relativeSearch);
+
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
 
@@ -51,6 +60,24 @@ public class CategoryListActivity extends AppCompatActivity
         categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
 
         mRecyclerView.setAdapter(categoriesListAdapter);
+
+
+        relativeSearch.setOnClickListener(new View.OnClickListener()
+        {
+
+
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent search = new Intent(CategoryListActivity.this, SearchActivity.class);
+                startActivity(search);
+            }
+
+
+
+
+        });
 
 
     }

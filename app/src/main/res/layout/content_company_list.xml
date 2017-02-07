@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#EEEEEE"
     >
 
     <com.github.rahatarmanahmed.cpv.CircularProgressView
@@ -72,7 +72,6 @@
         android:layout_below="@+id/relativeCompanyListheader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:layout_margin="10dp"
         android:visibility="invisible"
         >
@@ -81,9 +80,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/companylist"
             android:layout_width="match_parent"
-            android:background="@color/white"
             android:layout_height="wrap_content"
             android:layout_below="@+id/relativeCompanyDetailsList"
+
             ></android.support.v7.widget.RecyclerView>
 
 
