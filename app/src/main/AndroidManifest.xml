@@ -95,7 +95,6 @@
         <activity android:name=".user_dashboard.address.add_address.AddAddressActivity" />
         <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity" />
 
-        <activity android:name=".search.SearchActivity" />
         <activity android:name=".productdetail.ImageViewActivity"></activity>
 
         <activity android:name=".search.Search"></activity>

@@ -10,10 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.search.SearchActivity;
+import com.example.pat.aapkatrade.search.Search;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class CategoryListActivity extends AppCompatActivity
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
-    RelativeLayout relativeSearch;
+    FrameLayout relativeSearch;
 
 
     @Override
@@ -46,7 +47,6 @@ public class CategoryListActivity extends AppCompatActivity
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
-        relativeSearch = (RelativeLayout) findViewById(R.id.relativeSearch);
 
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
@@ -62,22 +62,7 @@ public class CategoryListActivity extends AppCompatActivity
         mRecyclerView.setAdapter(categoriesListAdapter);
 
 
-        relativeSearch.setOnClickListener(new View.OnClickListener()
-        {
 
-
-            @Override
-            public void onClick(View v)
-            {
-
-                Intent search = new Intent(CategoryListActivity.this, SearchActivity.class);
-                startActivity(search);
-            }
-
-
-
-
-        });
 
 
     }
