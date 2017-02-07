@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
     >
 
     <com.github.florent37.parallax.ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,24 +16,19 @@
             android:background="@color/grey"
             android:orientation="vertical">
 
-            <com.github.florent37.parallax.ParallaxView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                app:parallaxVertical="1.1"
 
                 >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp">
+                    android:layout_height="180dp"
+                    android:background="@color/white"
+                    >
 
-                    <ImageView
-                        android:id="@+id/imageViewBG"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/banner" />
 
                     <View
                         android:id="@+id/view2"
@@ -52,7 +47,7 @@
                             android:id="@+id/imageViewProfilePic"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/ic_user" />
+                            android:src="@drawable/ic_profile_user" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -66,6 +61,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Kunsang W."
                                 android:textColor="@color/black"
+                                android:layout_marginTop="10dp"
                                 android:textStyle="bold" />
 
                             <LinearLayout
@@ -77,17 +73,10 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0 sale"
+                                    android:text="arvindkumaryadav937@gmail.com"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="16dp"
-                                    android:text="0 Purchases"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
 
 
                             </LinearLayout>
@@ -97,7 +86,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
-                                android:text="Since  02.06.2016"
+                                android:text="9792183158"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
@@ -105,7 +94,7 @@
 
                     </LinearLayout>
                 </RelativeLayout>
-            </com.github.florent37.parallax.ParallaxView>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -117,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SHARE RAY/INVITE YOUR FRIENDS"
+                    android:text="SHARE AAPKA TRADE /INVITE YOUR FRIENDS"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -211,7 +200,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Premium features"
+                                android:text="Saved Address"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -254,7 +243,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Your reviews"
+                                android:text="Reset Password"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -296,7 +285,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Settings"
+                                android:text="Log out"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
 
@@ -312,113 +301,7 @@
                 </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/grey"
-                android:orientation="vertical">
 
-
-                <TextView
-                    android:id="@+id/textViewFollowFB"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginTop="16dp"
-
-                    android:padding="16dp"
-                    android:text="Like us on Facebook"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewFollowTwitter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-
-                    android:padding="16dp"
-                    android:text="Follow us on Twitter"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/textviewFeedback"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-
-                    android:padding="16dp"
-                    android:text="Feedback"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textviewHelp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-
-                    android:padding="16dp"
-                    android:text="Help"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewTnC"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-
-                    android:padding="16dp"
-                    android:text="Terms and Condition"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-
-                <TextView
-                    android:id="@+id/textviewAbout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-
-                    android:padding="16dp"
-                    android:text="About"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewLogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="Log out"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/banner" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="version: 2.0.1"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
         </LinearLayout>
     </com.github.florent37.parallax.ScrollView>
 </FrameLayout>

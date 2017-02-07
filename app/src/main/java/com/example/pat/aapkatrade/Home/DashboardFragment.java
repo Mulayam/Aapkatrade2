@@ -44,41 +44,34 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements View.OnClickListener {
+public class DashboardFragment extends Fragment implements View.OnClickListener
+{
 
     Context context;
-
     int currentPage = 0;
-
     LinearLayout viewpagerindicator;
     private RecyclerView recyclerlatestpost, recyclerlatestupdate;
     private LinearLayoutManager llManagerEclipseCollection;
     ArrayList<CommomData> commomDatas = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestpost = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestupdate = new ArrayList<>();
-
     private CommomAdapter commomAdapter;
     public latestproductadapter latestproductadapter;
-
     ProgressBarHandler progress_handler;
     private int dotsCount;
-
     private List<Integer> imageIdList;
-
     private ImageView[] dots;
   public static SearchView searchView;
     ImageView home_ads;
     private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
-
-RelativeLayout view_all_latest_post,view_all_latest_update;
+    RelativeLayout view_all_latest_post,view_all_latest_update;
     ViewPager vp;
     ScrollView scrollView;
-
     Timer banner_timer = new Timer();
     CoordinatorLayout coordinatorLayout;
     GridLayoutManager gridLayoutManager;
-
     viewpageradapter_home viewpageradapter;
+
     RelativeLayout rl_searchview_dashboard;
 
     View view;
@@ -89,35 +82,25 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         if(view==null)
-
-
-        // Inflate the layout for this fragment
         {
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
-
-
             initializeview(view,container);
+            // Inflate the layout for this fragment
         }
-
-
-
-
-
         return view;
     }
 
 
-    private void setupviewpager() {
-
+    private void setupviewpager()
+    {
         imageIdList = new ArrayList<>();
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
-
 
         viewpageradapter = new viewpageradapter_home(getActivity(), null);
         vp.setAdapter(viewpageradapter);
@@ -147,32 +130,38 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
 
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
 
             }
-
             @Override
-            public void onPageSelected(int position) {
-                try {
-                    for (int i = 0; i < dotsCount; i++) {
+            public void onPageSelected(int position)
+            {
+                try
+                {
+                    for (int i = 0; i < dotsCount; i++)
+                    {
                         dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
                     }
 
                     dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                 }
             }
 
-
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onPageScrollStateChanged(int state)
+            {
 
             }
         });
 
     }
 
-    private void initializeview(View v ,ViewGroup v2) {
+    private void initializeview(View v ,ViewGroup v2)
+    {
 
 
         rl_searchview_dashboard=(RelativeLayout)v.findViewById(R.id.rl_searchview) ;
@@ -185,7 +174,6 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
         });
 
         progress_handler = new ProgressBarHandler(getActivity());
-
 
         coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordination_home);
         coordinatorLayout.setVisibility(View.INVISIBLE);
@@ -209,13 +197,6 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
 
         recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
 
-
-
-
-
-
-
-
         gridLayoutManager = new GridLayoutManager(context, 2);
         recyclerlatestupdate.setLayoutManager(gridLayoutManager);
         recyclerlatestupdate.setHasFixedSize(true);
@@ -234,12 +215,11 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
 //                .minHeightHeaderDim(R.dimen.min_header_height)
 //                .build();
 
-
     }
 
-    public void get_home_data() {
+    public void get_home_data()
+    {
         progress_handler.show();
-
 
         Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/home")
@@ -250,11 +230,13 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null) {
+                        if (result == null)
+                        {
 
-                        } else {
+                        }
+                        else
+                        {
                             Log.e("data===============", result.toString());
-
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
@@ -282,7 +264,6 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
                             recyclerlatestpost.setAdapter(commomAdapter);
                             commomAdapter.notifyDataSetChanged();
 
-
                             for (int i = 0; i < latest_update.size(); i++) {
 
                                 JsonObject jsonObject_latest_update = (JsonObject) latest_post.get(i);
@@ -307,12 +288,9 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
                             progress_handler.hide();
 
                         }
-
-
                     }
 
                 });
-
 
     }
 
@@ -347,51 +325,39 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
     }
 
 
-    private void replaceFragment(Fragment newFragment, String tag) {
+    private void replaceFragment(Fragment newFragment, String tag)
+    {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(null);
         transaction.commit();
-
-
     }
 
 
     @Override
-    public void onClick(View v) {
-
+    public void onClick(View v)
+    {
 
         switch (v.getId())
         {
             case R.id.rl_viewall_latest_post:
-
-
                 go_to_product_list_activity();
-
-
-
                 break;
 
             case R.id.rl_viewall_latest_update:
 
                 go_to_product_list_activity();
-
-
-
-
                 break;
-
-
-
         }
 
     }
 
-    private void go_to_product_list_activity() {
+    private void go_to_product_list_activity()
+    {
+
         Intent go_to_product_listactivity=new Intent(getActivity(), CategoryListActivity.class);
         startActivity(go_to_product_listactivity);
         ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
-
 
 
 

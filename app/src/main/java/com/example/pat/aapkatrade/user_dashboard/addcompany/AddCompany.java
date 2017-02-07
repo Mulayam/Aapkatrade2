@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -32,6 +33,8 @@ public class AddCompany extends AppCompatActivity
     ProgressDialog dialog;
     LinearLayout linearLayout;
     Snackbar snackbar;
+    ProgressBarHandler progress_handler;
+
 
 
     @Override
@@ -147,6 +150,8 @@ public class AddCompany extends AppCompatActivity
 
     private void callAddCompanyWebService(String userId, String companyName,String pEmail , String sEmail, String address, String description)
     {
+        progress_handler.show();
+
         Ion.with(AddCompany.this)
                 .load("http://aapkatrade.com/slim/addCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -163,6 +168,7 @@ public class AddCompany extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
+                        progress_handler.hide();
                         JsonObject jsonObject = result.getAsJsonObject();
                         String message = jsonObject.get("message").getAsString();
 
@@ -175,6 +181,9 @@ public class AddCompany extends AppCompatActivity
 
     private void initView()
     {
+
+        progress_handler = new ProgressBarHandler(getApplicationContext());
+
         btnSave = (Button) findViewById(R.id.btnSave);
 
         etCompanyName = (EditText) findViewById(R.id.etCompanyName);
@@ -214,14 +223,17 @@ public class AddCompany extends AppCompatActivity
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
 
             case android.R.id.home:
                 finish();

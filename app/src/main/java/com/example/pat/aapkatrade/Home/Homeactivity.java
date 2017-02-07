@@ -29,6 +29,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
@@ -39,8 +40,10 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 import java.util.ArrayList;
 
+public class HomeActivity extends AppCompatActivity
+{
 
-public class HomeActivity extends AppCompatActivity {
+
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
@@ -51,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     AHBottomNavigation bottomNavigation;
     CoordinatorLayout coordinatorLayout;
     User_DashboardFragment user_dashboardFragment;
+    ContactUsFragment contactUsFragment;
     ProgressBar progressBar;
     Boolean permission_status;
     public static String userid, username;
@@ -61,6 +65,8 @@ public class HomeActivity extends AppCompatActivity {
     String query_hint []={"product1","product2","product3","product4"};
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +74,18 @@ public class HomeActivity extends AppCompatActivity {
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
         loadLocale();
-        permission_status = CheckPermission.checkPermissions(HomeActivity.this);
-        if (permission_status) {
+
+
+        permission_status=CheckPermission.checkPermissions(HomeActivity.this);
+
+
+        if (permission_status)
+        {
 
             setContentView(R.layout.activity_homeactivity);
 
 
+      
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
             //  permissions  granted.
@@ -86,8 +98,10 @@ public class HomeActivity extends AppCompatActivity {
             setup_bottomNavigation();
             checked_wifispeed();
 
+        }
+        else
+        {
 
-        } else {
             setContentView(R.layout.activity_homeactivity);
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
@@ -380,6 +394,17 @@ public class HomeActivity extends AppCompatActivity {
                         String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
                         replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
                         break;
+
+                    case 4:
+                        if (contactUsFragment == null)
+                        {
+                            contactUsFragment = new ContactUsFragment();
+                        }
+                        String contact_us_fragment = contactUsFragment.getClass().getName();
+                        replaceFragment(contactUsFragment, contact_us_fragment);
+                        break;
+
+
                 }
                 // Do something cool here...
                 return true;

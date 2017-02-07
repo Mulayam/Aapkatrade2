@@ -18,16 +18,19 @@ import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 
 
-public class MyProfileActivity extends AppCompatActivity {
+public class MyProfileActivity extends AppCompatActivity
+{
 
-    TextView toolbar_title_txt;
+
     Button btnsave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
-
     App_sharedpreference app_sharedpreference;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
         app_sharedpreference = new App_sharedpreference(this);
@@ -70,7 +73,8 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
 
-    private void setuptoolbar() {
+    private void setuptoolbar()
+    {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -80,7 +84,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
@@ -88,7 +91,8 @@ public class MyProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
@@ -99,11 +103,11 @@ public class MyProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void save_shared_pref(String user_id, String user_name, String email_id) {
+    public void save_shared_pref(String user_id, String user_name, String email_id)
+    {
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
         app_sharedpreference.setsharedpref("emailid", email_id);
-
 
     }
 }
