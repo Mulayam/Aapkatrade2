@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.address.viewpager;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
@@ -38,8 +40,8 @@ public class CartCheckoutActivity extends AppCompatActivity
     Timer banner_timer=new Timer();
     RelativeLayout relativeBuyNow;
     RadioButton addressRadioButton;
-
-
+    RelativeLayout relativePayment;
+    TextView tvTitle;
 
 
     @Override
@@ -63,6 +65,21 @@ public class CartCheckoutActivity extends AppCompatActivity
 
     private void setup_layout()
     {
+
+
+
+        relativePayment = (RelativeLayout) findViewById(R.id.relativePayment);
+
+        relativePayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(CartCheckoutActivity.this, ProfilePreviewActivity.class);
+                startActivity(i);
+
+            }
+        });
+
 
         vp = (ViewPager) findViewById(R.id.cartCheckOutViewPager);
 
@@ -162,6 +179,8 @@ public class CartCheckoutActivity extends AppCompatActivity
 
     private void setuptoolbar()
     {
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

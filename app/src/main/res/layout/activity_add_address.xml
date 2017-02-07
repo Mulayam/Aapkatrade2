@@ -7,94 +7,83 @@
     android:background="@color/screen_back"
    >
 
+
+
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout"
+        layout="@layout/toolbar_without_image_layout"
         />
-
 
     <RelativeLayout
         android:id="@+id/relativeLayoutAddresss"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/toolbar"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+
         >
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_address"
+
+        <EditText
+            android:id="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            >
-
-            <EditText
-                android:id="@+id/et_address"
-                style="@style/myedittext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/address"
-                android:inputType="text"
-                android:textColorHint="@color/green" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:hint="Address"
+            android:background="@drawable/edit_text_green_back"
+            android:padding="10dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
+            />
 
 
 
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_state"
+        <EditText
+            android:id="@+id/etState"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/input_layout_address"
-            >
-
-            <EditText
-                android:id="@+id/et_State"
-                style="@style/myedittext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/state"
-                android:inputType="text"
-                android:textColorHint="@color/green" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="20dp"
+            android:hint="State"
+            android:background="@drawable/edit_text_green_back"
+            android:padding="10dp"
+            android:inputType="text"
+            android:layout_below="@+id/etAddress"
+            android:maxLines="1"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
+            />
 
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_Pincode"
+        <EditText
+            android:id="@+id/etPincode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/input_layout_state"
-            >
+            android:layout_marginTop="20dp"
+            android:hint="Pincode"
+            android:background="@drawable/edit_text_green_back"
+            android:padding="10dp"
+            android:inputType="number"
+            android:layout_below="@+id/etState"
+            android:maxLines="1"
+            android:textColorHint="@color/hint_color"
+            android:textSize="14sp"
+            />
 
-            <EditText
-                android:id="@+id/et_Pincode"
-                style="@style/myedittext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/pincode"
-                android:inputType="number"
-                android:maxLength="6"
-                android:textColorHint="@color/green" />
 
-        </android.support.design.widget.TextInputLayout>
 
 
 
     </RelativeLayout>
-
-
 
 
 

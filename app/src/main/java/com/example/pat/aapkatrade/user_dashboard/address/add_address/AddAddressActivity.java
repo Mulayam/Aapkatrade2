@@ -5,11 +5,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 
 public class AddAddressActivity extends AppCompatActivity
 {
+
+
+    TextView tvTitle;
+
+
 
 
 
@@ -22,28 +28,29 @@ public class AddAddressActivity extends AppCompatActivity
 
         setuptoolbar();
 
-
     }
-
-
 
 
     private void setuptoolbar()
     {
+
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+
+        tvTitle.setText("Add Address");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle("Add Address");
         //getSupportActionBar().setIcon(R.drawable.home_logo);
     }
-
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.button_menu, menu);
         return true;
     }
 

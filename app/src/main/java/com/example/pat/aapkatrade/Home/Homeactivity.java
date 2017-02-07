@@ -27,6 +27,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
@@ -37,6 +38,8 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 public class HomeActivity extends AppCompatActivity
 {
+
+
     private NavigationFragment drawer;
     private Toolbar toolbar;
     private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
@@ -47,6 +50,7 @@ public class HomeActivity extends AppCompatActivity
     AHBottomNavigation bottomNavigation;
     CoordinatorLayout coordinatorLayout;
     User_DashboardFragment user_dashboardFragment;
+    ContactUsFragment contactUsFragment;
     ProgressBar progressBar;
     Boolean permission_status;
     public static String userid, username;
@@ -54,6 +58,8 @@ public class HomeActivity extends AppCompatActivity
     float initialX, initialY;
     App_sharedpreference app_sharedpreference;
     // SharedPreferences prefs;
+
+
 
 
     @Override
@@ -64,13 +70,14 @@ public class HomeActivity extends AppCompatActivity
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
         loadLocale();
+
         permission_status=CheckPermission.checkPermissions(HomeActivity.this);
+
+
         if (permission_status)
         {
 
             setContentView(R.layout.activity_homeactivity);
-
-
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -82,8 +89,6 @@ public class HomeActivity extends AppCompatActivity
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
-
-
 
         }
         else
@@ -106,23 +111,6 @@ public class HomeActivity extends AppCompatActivity
         }
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     private void setupNavigationCustom() {
@@ -391,6 +379,17 @@ public class HomeActivity extends AppCompatActivity
                         String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
                         replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
                         break;
+
+                    case 4:
+                        if (contactUsFragment == null)
+                        {
+                            contactUsFragment = new ContactUsFragment();
+                        }
+                        String contact_us_fragment = contactUsFragment.getClass().getName();
+                        replaceFragment(contactUsFragment, contact_us_fragment);
+                        break;
+
+
                 }
                 // Do something cool here...
                 return true;

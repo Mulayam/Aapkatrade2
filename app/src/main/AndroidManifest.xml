@@ -70,6 +70,8 @@
         <activity
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
+
+
         <activity android:name=".categories_tab.CategoryListActivity" />
         <activity android:name=".categories_tab.FilterActivity" />
         <activity android:name=".user_dashboard.address.AddressActivity" />
@@ -90,7 +92,9 @@
 
         <activity android:name=".parallax_recyclerview.ParallaxActivity" />
         <activity android:name=".user_dashboard.address.add_address.AddAddressActivity" />
-        <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity"></activity>
+        <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity" />
+        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".productdetail.ImageViewActivity"></activity>
     </application>
 
 </manifest>

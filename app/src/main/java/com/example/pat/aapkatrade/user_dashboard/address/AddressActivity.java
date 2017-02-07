@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
@@ -21,6 +22,7 @@ public class AddressActivity extends AppCompatActivity
 {
 
 
+    TextView tvTitle;
     ArrayList<AddressData> addressList = new ArrayList<>();
     RecyclerView addressRecyclerView;
     AddressListAdapter addressListAdapter;
@@ -47,11 +49,19 @@ public class AddressActivity extends AppCompatActivity
 
     private void setuptoolbar()
     {
+
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Address");
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle("Address");
+
+
+
         //getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
