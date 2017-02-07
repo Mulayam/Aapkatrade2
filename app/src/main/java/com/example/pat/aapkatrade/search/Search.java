@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
-import com.example.pat.aapkatrade.user_dashboard.add_product.CustomSpinnerAdapter;
+import com.example.pat.aapkatrade.general.Utils.adapter.CustomAutocompleteAdapter;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class Search extends AppCompatActivity {
  AutoCompleteTextView autocomplete_textview;
     SearchResultsAdapter searchResultsAdapter;
     ListView searchsuggestionlist;
+    CustomAutocompleteAdapter categoryadapter;
     ArrayList<String> product_ids=new ArrayList<>();
     ArrayList<String> product_names=new ArrayList<>();
     Context c;
@@ -88,7 +89,7 @@ public class Search extends AppCompatActivity {
                         product_names.add("mobile cover");
 
 
-                        CustomSpinnerAdapter categoryadapter = new CustomSpinnerAdapter(c, product_ids, product_names);
+                        categoryadapter = new CustomAutocompleteAdapter(c, product_ids, product_names);
                       //  searchsuggestionlist.setAdapter(categoryadapter);
 
 
@@ -105,6 +106,9 @@ public class Search extends AppCompatActivity {
 
 
                 }
+
+
+                autocomplete_textview.setAdapter(categoryadapter);
 
             }
         };
