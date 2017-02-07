@@ -163,5 +163,6 @@
     <string name="delivery_area_heading">Delivery Area</string>
     <string name="deliveryArea">Indrapuram,Noida,New Delhi</string>
     <string name="et_data">Et Data</string>
+    <string name="title_activity_search_activity">Search_activity</string>
 
 </resources>

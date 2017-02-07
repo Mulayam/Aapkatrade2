@@ -76,4 +76,5 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.4'
     compile 'com.github.nisrulz:stackedhorizontalprogressbar:1.0.3'
 
+
 }

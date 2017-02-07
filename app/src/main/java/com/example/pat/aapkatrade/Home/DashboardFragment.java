@@ -20,12 +20,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SearchView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -64,6 +66,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private List<Integer> imageIdList;
 
     private ImageView[] dots;
+  public static SearchView searchView;
     ImageView home_ads;
     private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
 
@@ -76,6 +79,7 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
     GridLayoutManager gridLayoutManager;
 
     viewpageradapter_home viewpageradapter;
+    RelativeLayout rl_searchview_dashboard;
 
     View view;
 
@@ -169,6 +173,16 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
     }
 
     private void initializeview(View v ,ViewGroup v2) {
+
+
+        rl_searchview_dashboard=(RelativeLayout)v.findViewById(R.id.rl_searchview) ;
+        rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_searchactivity=new Intent(getActivity(), Search.class);
+                startActivity(intent_searchactivity);
+            }
+        });
 
         progress_handler = new ProgressBarHandler(getActivity());
 
@@ -382,6 +396,11 @@ RelativeLayout view_all_latest_post,view_all_latest_update;
 
 
     }
+
+
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,9 +32,12 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
+
+import java.util.ArrayList;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -53,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     float initialX, initialY;
     App_sharedpreference app_sharedpreference;
     // SharedPreferences prefs;
+    String query_hint []={"product1","product2","product3","product4"};
 
 
     @Override
@@ -78,6 +84,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
+            checked_wifispeed();
 
 
         } else {
@@ -93,9 +100,18 @@ public class HomeActivity extends AppCompatActivity {
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
+            checked_wifispeed();
 
 
         }
+
+    }
+
+    private void checked_wifispeed() {
+
+
+       int a= ConnetivityCheck.get_wifi_speed(this);
+        Log.e("a",a+"");
 
     }
 
@@ -116,7 +132,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void setupToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
@@ -466,6 +482,32 @@ public class HomeActivity extends AppCompatActivity {
             bottomNavigation.hideBottomNavigation(true);
         }
     }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches != null && matches.size() > 0) {
+                String searchWrd = matches.get(0);
+                if (!TextUtils.isEmpty(searchWrd)) {
+                    DashboardFragment.searchView.setQuery(searchWrd, false);
+
+                    //DashboardFragment.searchView.setSuggestionsAdapter(getResources().getStringArray(R.array.search_suggestion));
+
+
+                }
+            }
+
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+
+
 
 
 }
