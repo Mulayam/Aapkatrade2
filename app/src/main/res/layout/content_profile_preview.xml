@@ -30,18 +30,29 @@
                     >
 
 
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        />
+                   <Button
+                       android:id="@+id/btnEdit"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="Edit"
+                       android:textColor="@color/orange"
+                       android:layout_alignParentRight="true"
+                       android:layout_margin="5dp"
+                       android:textStyle="bold"
+                       android:background="@android:color/transparent"
+                       />
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="48dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
                         android:orientation="horizontal">
+
+
+
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imageViewProfilePic"
@@ -75,6 +86,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="arvindkumaryadav937@gmail.com"
                                     android:textColor="@color/black"
+                                    android:layout_marginTop="5dp"
                                     android:textSize="14sp" />
 
 
@@ -85,7 +97,7 @@
                                 android:id="@+id/textView4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="3dp"
+                                android:layout_marginTop="5dp"
                                 android:text="9792183158"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
@@ -99,7 +111,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@color/grey"
+                android:background="#EEEEEE"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -107,41 +119,44 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SHARE AAPKA TRADE /INVITE YOUR FRIENDS"
-                    android:textStyle="bold" />
+                    android:textColor="@color/black"
+                    />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    >
 
                     <ImageView
                         android:id="@+id/imageViewFacebook"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_margin="6dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/facebook_icon" />
 
                     <ImageView
                         android:id="@+id/imageViewTwitter"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_margin="6dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/twittericon" />
 
                     <ImageView
                         android:id="@+id/imageViewWhatsup"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_margin="6dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/whatsapp_icon" />
 
                     <ImageView
                         android:id="@+id/imageViewGoogle"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_margin="6dp"
                         android:padding="3dp"
                         android:scaleType="fitXY"
@@ -149,16 +164,16 @@
 
                     <ImageView
                         android:id="@+id/imageViewSMS"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_margin="6dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/sms_icon" />
 
                     <ImageView
                         android:id="@+id/imageViewEmail"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_margin="6dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/email_icon" />
@@ -176,14 +191,16 @@
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:id="@+id/ripplePremium"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    >
 
                     <LinearLayout
-                        android:id="@+id/linearLayoutPremium"
+                        android:id="@+id/linearLayoutAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:padding="10dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="55dp"
@@ -202,7 +219,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Saved Address"
                                 android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/black" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -216,17 +233,28 @@
                     </LinearLayout>
                 </com.balysv.materialripple.MaterialRippleLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="#E1E1E1"
+                    android:layout_below="@+id/relativedata"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="65dp"
+                    ></View>
+
+
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:id="@+id/rippleReview"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/linearLayoutReview"
+                        android:id="@+id/linearLayoutResetpassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:padding="10dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="55dp"
@@ -245,7 +273,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Reset Password"
                                 android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/black" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -258,17 +286,28 @@
                     </LinearLayout>
                 </com.balysv.materialripple.MaterialRippleLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.7dp"
+                    android:background="#E1E1E1"
+                    android:layout_below="@+id/relativedata"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="65dp"
+                    ></View>
+
+
                 <com.balysv.materialripple.MaterialRippleLayout
                     android:id="@+id/rippleSetting"
                     android:layout_width="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/linearLayoutSetting"
+                        android:id="@+id/linearLayoutLagout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:padding="10dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:layout_width="55dp"
@@ -287,7 +326,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Log out"
                                 android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/black"
+                                android:id="@+id/textView5" />
 
                             <TextView
                                 android:layout_width="wrap_content"

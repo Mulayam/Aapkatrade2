@@ -33,7 +33,6 @@ public class CompanyList extends AppCompatActivity
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -107,8 +106,6 @@ public class CompanyList extends AppCompatActivity
                             progressView.stopAnimation();
                            // progressView.setVisibility(View.INVISIBLE);
                             relativeCompanylist.setVisibility(View.VISIBLE);
-
-
 
                         }
 

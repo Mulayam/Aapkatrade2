@@ -42,6 +42,8 @@ public class CartCheckoutActivity extends AppCompatActivity
     RadioButton addressRadioButton;
     RelativeLayout relativePayment;
     TextView tvTitle;
+    LinearLayout linearLayoutEditDelete;
+
 
 
     @Override
@@ -53,20 +55,18 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         setuptoolbar();
 
-
         setup_layout();
 
         setupviewpager();
-
-
 
     }
 
 
     private void setup_layout()
     {
+        linearLayoutEditDelete = (LinearLayout) findViewById(R.id.linearLayoutEditDelete);
 
-
+        linearLayoutEditDelete.setVisibility(View.GONE);
 
         relativePayment = (RelativeLayout) findViewById(R.id.relativePayment);
 
@@ -74,12 +74,8 @@ public class CartCheckoutActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(CartCheckoutActivity.this, ProfilePreviewActivity.class);
-                startActivity(i);
-
             }
         });
-
 
         vp = (ViewPager) findViewById(R.id.cartCheckOutViewPager);
 
@@ -89,11 +85,13 @@ public class CartCheckoutActivity extends AppCompatActivity
 
         addressRadioButton.setVisibility(View.INVISIBLE);
 
+
     }
 
 
     private void setupviewpager()
     {
+
         imageIdList = new ArrayList<>();
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
@@ -133,9 +131,12 @@ public class CartCheckoutActivity extends AppCompatActivity
             }
 
             @Override
-            public void onPageSelected(int position) {
-                try {
-                    for (int i = 0; i < dotsCount; i++) {
+            public void onPageSelected(int position)
+            {
+                try
+                {
+                    for (int i = 0; i < dotsCount; i++)
+                    {
                         dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
                     }
 
@@ -159,14 +160,12 @@ public class CartCheckoutActivity extends AppCompatActivity
         dotsCount = viewpageradapter.getCount();
         dots = new ImageView[dotsCount];
 
-        for (int i = 0; i < dotsCount; i++) {
+        for (int i = 0; i < dotsCount; i++)
+        {
             dots[i] = new ImageView(getApplicationContext());
             dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.setMargins(4, 0, 4, 0);
 
             viewpagerindicator.addView(dots[i], params);
@@ -179,8 +178,6 @@ public class CartCheckoutActivity extends AppCompatActivity
 
     private void setuptoolbar()
     {
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

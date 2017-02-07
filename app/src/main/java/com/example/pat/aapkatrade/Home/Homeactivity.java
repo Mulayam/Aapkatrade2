@@ -37,6 +37,7 @@ import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 
 import java.util.ArrayList;
 
@@ -181,7 +182,7 @@ public class HomeActivity extends AppCompatActivity
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
                 } else {
-                    Intent i = new Intent(HomeActivity.this, MyProfileActivity.class);
+                    Intent i = new Intent(HomeActivity.this, ProfilePreviewActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
