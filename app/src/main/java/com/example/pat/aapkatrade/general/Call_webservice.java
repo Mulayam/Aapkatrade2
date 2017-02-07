@@ -59,7 +59,8 @@ public class Call_webservice {
                     });
 
 
-        } else if (webservicetype.equals("state")) {
+        }
+        else if (webservicetype.equals("state")) {
             progressBarHandler.show();
 
 
@@ -106,7 +107,8 @@ public class Call_webservice {
                 }
             }
 
-        } else if (webservicetype.equals("city")) {
+        }
+        else if (webservicetype.equals("city")) {
             progressBarHandler.show();
 
 
@@ -152,7 +154,8 @@ public class Call_webservice {
                 }
             }
 
-        } else if (webservicetype.equals("category")) {
+        }
+        else if (webservicetype.equals("category")) {
             progressBarHandler.show();
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
@@ -460,6 +463,60 @@ public class Call_webservice {
         }
 
 
+
+
+
+
+    }
+
+
+    public static void suggest_search(Context context, String url, String webservicetype, HashMap<String, String> body_parameter, HashMap<String, String> headers) {
+
+
+        HashMap<String, String> webservice_body_parameter = body_parameter;
+        String authorization = webservice_body_parameter.get("authorization");
+        if (authorization.equals(null)) {
+            Log.e("authorization null", "authorization null");
+        }
+
+        else {
+
+
+            String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
+
+
+
+
+
+
+                HashMap<String, String> webservice_header_type = headers;
+                webservice_header_type.get("authorization");
+
+
+                Ion.with(context)
+                        .load(url)
+                        .setHeader("authorization", authorization)
+                        .setBodyParameter("type", webservicetype)
+                        .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
+
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+
+                                taskCompleteReminder.Taskcomplete(result);
+                                Log.e("jsonobject", jsonObject.toString());
+                                //taskCompleteReminder.Taskcomplete("complete");
+//
+                            }
+
+                        });
+
+        }
+
+
+    }
+
     }
 
 
@@ -486,6 +543,3 @@ public class Call_webservice {
 
 
 
-
-
-}

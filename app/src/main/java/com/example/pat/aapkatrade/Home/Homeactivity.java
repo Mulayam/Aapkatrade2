@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,10 +33,12 @@ import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
 {
@@ -58,18 +62,19 @@ public class HomeActivity extends AppCompatActivity
     float initialX, initialY;
     App_sharedpreference app_sharedpreference;
     // SharedPreferences prefs;
+    String query_hint []={"product1","product2","product3","product4"};
 
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
         App_config.set_defaultfont(HomeActivity.this);
         loadLocale();
+
 
         permission_status=CheckPermission.checkPermissions(HomeActivity.this);
 
@@ -79,6 +84,8 @@ public class HomeActivity extends AppCompatActivity
 
             setContentView(R.layout.activity_homeactivity);
 
+
+      
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
             //  permissions  granted.
@@ -89,10 +96,12 @@ public class HomeActivity extends AppCompatActivity
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
+            checked_wifispeed();
 
         }
         else
         {
+
             setContentView(R.layout.activity_homeactivity);
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
@@ -105,10 +114,18 @@ public class HomeActivity extends AppCompatActivity
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
             setup_bottomNavigation();
-
+            checked_wifispeed();
 
 
         }
+
+    }
+
+    private void checked_wifispeed() {
+
+
+       int a= ConnetivityCheck.get_wifi_speed(this);
+        Log.e("a",a+"");
 
     }
 
@@ -129,7 +146,7 @@ public class HomeActivity extends AppCompatActivity
 
 
     private void setupToolBar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
@@ -158,16 +175,13 @@ public class HomeActivity extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.login:
 
-                 if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                {
-                    Intent i =new Intent(HomeActivity.this, LoginDashboard.class);
+                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                    Intent i = new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
-                }
-                else
-                {
-                    Intent i =new Intent(HomeActivity.this, MyProfileActivity.class);
+                } else {
+                    Intent i = new Intent(HomeActivity.this, MyProfileActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
@@ -288,11 +302,12 @@ public class HomeActivity extends AppCompatActivity
 // Add items
 
 
-		bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
-			@Override public void onPositionChange(int y) {
-				Log.d("DemoActivity", "BottomNavigation Position: " + y);
-			}
-		});
+        bottomNavigation.setOnNavigationPositionListener(new AHBottomNavigation.OnNavigationPositionListener() {
+            @Override
+            public void onPositionChange(int y) {
+                Log.d("DemoActivity", "BottomNavigation Position: " + y);
+            }
+        });
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.addItem(item3);
@@ -421,7 +436,6 @@ public class HomeActivity extends AppCompatActivity
 //                    setForceTitleHide(true);
 
 
-
 //                    setForceTitleHide(true);
 
 
@@ -434,13 +448,11 @@ public class HomeActivity extends AppCompatActivity
                         showOrHideBottomNavigation(true);
 
 
-
                     }
 
                 }
             });
         } else {
-
 
 
 //scrollView.setOnTouchListener(new View.OnTouchListener() {
@@ -474,7 +486,6 @@ public class HomeActivity extends AppCompatActivity
 //});
 
 
-
             // Pre-Marshmallow
         }
 
@@ -495,6 +506,28 @@ public class HomeActivity extends AppCompatActivity
         } else {
             bottomNavigation.hideBottomNavigation(true);
         }
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches != null && matches.size() > 0) {
+                String searchWrd = matches.get(0);
+                if (!TextUtils.isEmpty(searchWrd)) {
+                    DashboardFragment.searchView.setQuery(searchWrd, false);
+
+                    //DashboardFragment.searchView.setSuggestionsAdapter(getResources().getStringArray(R.array.search_suggestion));
+
+
+                }
+            }
+
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
