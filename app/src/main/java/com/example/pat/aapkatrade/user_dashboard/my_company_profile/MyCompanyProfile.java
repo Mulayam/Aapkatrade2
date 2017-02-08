@@ -14,7 +14,6 @@ import com.example.pat.aapkatrade.R;
 public class MyCompanyProfile extends AppCompatActivity
 {
 
-    TextView toolbar_title_txt;
 
 
     @Override

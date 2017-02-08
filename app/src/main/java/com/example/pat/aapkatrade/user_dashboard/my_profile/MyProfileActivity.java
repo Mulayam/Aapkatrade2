@@ -21,7 +21,6 @@ import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 public class MyProfileActivity extends AppCompatActivity
 {
 
-
     Button btnsave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
     App_sharedpreference app_sharedpreference;
@@ -33,17 +32,24 @@ public class MyProfileActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+
         app_sharedpreference = new App_sharedpreference(this);
         setuptoolbar();
         setup_layout();
 
     }
 
-    private void setup_layout() {
+    private void setup_layout()
+    {
+
 
         btnsave = (Button) findViewById(R.id.btnSave);
+
         btnEdit = (Button) findViewById(R.id.btnEdit);
+
         btnLogout = (Button) findViewById(R.id.btnlogout);
+
+
         btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +57,9 @@ public class MyProfileActivity extends AppCompatActivity
                 startActivity(i);
             }
         });
+
+
+
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

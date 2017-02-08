@@ -23,8 +23,6 @@ public class User_DashboardFragment extends Fragment
     public User_DashboardFragment()
     {
 
-
-
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -46,9 +44,12 @@ public class User_DashboardFragment extends Fragment
     }
 
 
-    private void setup_data() {
+    private void setup_data()
+    {
+
         dashboardDatas.clear();
-        try {
+        try
+        {
 
             dashboardDatas.add(new DashboardData("", "My Company", R.drawable.ic_companyprofile,R.drawable.circle_voilet));
             dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile,R.drawable.circle_teal));
@@ -59,9 +60,13 @@ public class User_DashboardFragment extends Fragment
             dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct,R.drawable.circle_slate_gray));
             dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct,R.drawable.circle_sienna));
 
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
 
         }
+
+
     }
 
 

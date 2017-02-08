@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_my_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    android:background="@color/white"
-    >
+    android:background="#EEEEEE">
 
 
     <RelativeLayout
@@ -68,10 +68,10 @@
     </RelativeLayout>
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/screen_back"
         android:layout_weight="9.2"
         android:layout_margin="10dp"
         android:orientation="vertical"
@@ -79,145 +79,140 @@
         >
 
 
-        <RelativeLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            ></RelativeLayout>
-
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:cardElevation="4dp"
             >
 
-            <EditText
-                android:id="@+id/etCompanyName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:hint="Company Type"
-                android:background="@drawable/edit_text_green_back"
-                android:padding="10dp"
-                android:maxLines="1"
-                android:inputType="text"
-                />
-
-        </RelativeLayout>
+                android:orientation="vertical"
+                >
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            >
-
-            <EditText
-                android:id="@+id/etLName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:hint="Enter Name"
-                android:background="@drawable/edit_text_green_back"
-                android:padding="10dp"
-                android:maxLines="1"
-                android:inputType="text"
-                />
-
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            >
-
-        <EditText
-            android:id="@+id/etCountry"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:hint="Country"
-            android:background="@drawable/edit_text_green_back"
-            android:padding="10dp"
-            android:maxLines="1"
-            android:inputType="text"
-            />
-      </RelativeLayout>
+                    <EditText
+                        android:id="@+id/etCompanyName"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:hint="Company Type"
+                        android:background="@drawable/edit_text_green_back"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:layout_marginTop="20dp"
+                        android:textSize="14dp"
+                        android:textColorHint="@color/hint_color"
+                        />
 
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            >
 
-        <EditText
-            android:id="@+id/etState"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:hint="State"
-            android:background="@drawable/edit_text_green_back"
-            android:padding="10dp"
-            android:maxLines="1"
-            android:inputType="text"
-            />
-
-        </RelativeLayout>
+                    <EditText
+                        android:id="@+id/etLName"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:hint="Enter Name"
+                        android:background="@drawable/edit_text_green_back"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:textSize="14dp"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="@color/hint_color"
+                        />
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            >
 
-        <EditText
-            android:id="@+id/etCity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:hint="District"
-            android:background="@drawable/edit_text_green_back"
-            android:padding="10dp"
-            android:maxLines="1"
-            android:inputType="text"
-            />
-       </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.2"
-            android:layout_marginTop="20dp"
-            >
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@string/save"
-                android:textAllCaps="false"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:background="@drawable/button_orange_back"
-                />
+                    <EditText
+                        android:id="@+id/etCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:hint="Country"
+                        android:background="@drawable/edit_text_green_back"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:layout_marginTop="20dp"
+                        android:inputType="text"
+                        android:textColorHint="@color/hint_color"
+                        android:textSize="14dp"
+                        />
 
 
-        </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/etState"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:hint="State"
+                        android:background="@drawable/edit_text_green_back"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:textSize="14dp"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="@color/hint_color"
+                        />
+
+
+
+                    <EditText
+                        android:id="@+id/etCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:hint="District"
+                        android:background="@drawable/edit_text_green_back"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="@color/hint_color"
+                        android:textSize="14dp"
+                        />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    >
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/thirty_five_dip"
+                        android:textSize="14dp"
+                        android:text="@string/save"
+                        android:textAllCaps="false"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/white"
+                        android:background="@drawable/button_orange_back"
+
+                        />
+
+
+                </RelativeLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
 
 
 

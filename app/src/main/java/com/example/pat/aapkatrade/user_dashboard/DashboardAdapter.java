@@ -52,10 +52,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
-
         View view = inflater.inflate(R.layout.row_dashboard2, parent, false);
         viewHolder = new DashboardHolder(view);
-
 
         return viewHolder;
     }
@@ -83,24 +81,19 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 {
                     if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
                     {
+
                         Intent i =new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
-
-
 
                     }
                     else
                     {
+
                         Log.e("login_status",app_sharedpreference.getsharedpref("userid","notlogin"));
                         Intent my_company = new Intent(context, MyCompanyProfile.class);
-
+                        context.startActivity(my_company);
 
                     }
-
-
-
-
-
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("My Profile"))
@@ -118,15 +111,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         context.startActivity(my_profile);
 
                     }
-
-
-
-
-
-
-
-
-
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("Change Password"))
@@ -146,11 +130,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 }
 
-
-
-
-
-
                 }
                 else if (itemList.get(position).dashboard_name.equals("Add Company"))
                 { if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
@@ -167,17 +146,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     context.startActivity(add_company);
 
                 }
-
-
-
-
-
-
-
-
-
-
-
 
                 }
                 else if (itemList.get(position).dashboard_name.equals("Company List"))
@@ -243,11 +211,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
-
-
-
-
-
                 }
                  else if (itemList.get(position).dashboard_name.equals("Order"))
                  {
@@ -265,11 +228,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                          context.startActivity(list_product);
 
                      }
-
-
-
-
-
 
                  }
 

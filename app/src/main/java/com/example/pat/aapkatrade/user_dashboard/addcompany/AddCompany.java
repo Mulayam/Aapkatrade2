@@ -28,12 +28,14 @@ import com.koushikdutta.ion.Ion;
 public class AddCompany extends AppCompatActivity
 {
 
+
+
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail, etAddress,etDiscription;
     ProgressDialog dialog;
     LinearLayout linearLayout;
     Snackbar snackbar;
-    ProgressBarHandler progress_handler;
+
 
 
 
@@ -150,7 +152,6 @@ public class AddCompany extends AppCompatActivity
 
     private void callAddCompanyWebService(String userId, String companyName,String pEmail , String sEmail, String address, String description)
     {
-        progress_handler.show();
 
         Ion.with(AddCompany.this)
                 .load("http://aapkatrade.com/slim/addCompany")
@@ -168,7 +169,7 @@ public class AddCompany extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        progress_handler.hide();
+
                         JsonObject jsonObject = result.getAsJsonObject();
                         String message = jsonObject.get("message").getAsString();
 
@@ -182,7 +183,6 @@ public class AddCompany extends AppCompatActivity
     private void initView()
     {
 
-        progress_handler = new ProgressBarHandler(getApplicationContext());
 
         btnSave = (Button) findViewById(R.id.btnSave);
 
