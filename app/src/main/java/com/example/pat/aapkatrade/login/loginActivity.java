@@ -31,8 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     Validation vt;
     App_sharedpreference app_sharedpreference;
     CoordinatorLayout cl;
-//    public static String shared_pref_name = "aapkatrade";
-//    public static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

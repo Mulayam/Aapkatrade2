@@ -1,7 +1,6 @@
 package com.example.pat.aapkatrade.Home.registration;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,6 +48,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -59,7 +60,8 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
+public class RegistrationBusinessAssociateActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener{
+
     private Context context;
     private TextView uploadMsg, tvSave;
     private static BusinessAssociateRegistration formBusinessData = new BusinessAssociateRegistration();
@@ -165,17 +167,17 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         openCalander.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar newCalendar = Calendar.getInstance();
-                DatePickerDialog datePickerDialog = new DatePickerDialog(RegistrationBusinessAssociateActivity.this, R.style.myCalTheme, new DatePickerDialog.OnDateSetListener() {
-
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        showDate(year, month + 1, day);
-                    }
-
-                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        RegistrationBusinessAssociateActivity.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.show(getFragmentManager(), "DatePickerDialog");
             }
         });
+
     }
 
     private void saveAndContinue() {
@@ -886,4 +888,13 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        showDate(year, monthOfYear+1, dayOfMonth);
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+
+    }
 }

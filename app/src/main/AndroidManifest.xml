@@ -59,7 +59,8 @@
         <activity android:name=".productdetail.ProductDetail" />
         <activity
             android:name=".Home.registration.RegistrationActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/myedittext"  />
         <activity android:name=".login.ActivityOTPVerify" />
         <activity android:name=".general.ConnectivityNotFound" />
         <activity android:name=".user_dashboard.order_list.OrderActivity" />

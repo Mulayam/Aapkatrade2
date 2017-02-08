@@ -16,6 +16,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/ten_dip"
+            android:layout_marginTop="@dimen/ten_dip"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
 
@@ -23,9 +27,7 @@
                 android:id="@+id/relativeCompanyListheader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp">
+                android:layout_margin="10dp">
 
                 <RelativeLayout
                     android:id="@+id/linear_layout_image"
@@ -65,10 +67,7 @@
             </RelativeLayout>
 
 
-            <include layout="@layout/upload_image_layout" />
-
             <android.support.v7.widget.CardView
-                android:id="@+id/step1aLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -78,201 +77,240 @@
                     android:id="@+id/businessDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
+                    <include layout="@layout/upload_image_layout" />
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_busi_type"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="20dp">
+                        android:orientation="vertical">
 
-                        <RelativeLayout
-                            android:id="@+id/spStateLayout"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_busi_type"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp">
 
-
-                            <Spinner
-                                android:id="@+id/spBussinessCategory"
+                            <RelativeLayout
+                                android:id="@+id/spBussinessCategoryLayout"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:background="@drawable/simple_spinner_back" />
+                                android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/ic_arrow" />
 
-                        </RelativeLayout>
-                    </android.support.design.widget.TextInputLayout>
+                                <Spinner
+                                    android:id="@+id/spBussinessCategory"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:background="@drawable/simple_spinner_back" />
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_shop_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="10dp"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/ic_arrow" />
 
-                        <EditText
-                            android:id="@+id/etshopname"
-                            style="@style/myedittext"
+                            </RelativeLayout>
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_shop_name"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:hint="@string/shop_name"
-                            android:inputType="text"
-                            android:paddingLeft="@dimen/ten_dip"
-                            android:textColorHint="@color/green" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp">
 
-
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="20dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/thirty_five_dip">
-
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/ic_arrow" />
-
-                            <Spinner
-                                android:id="@+id/spCountryCategory"
+                            <EditText
+                                android:id="@+id/etshopname"
+                                style="@style/myedittext"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/thirty_five_dip"
-                                android:background="@drawable/simple_spinner_back"
+                                android:layout_height="match_parent"
+                                android:hint="@string/company_name_heading"
+                                android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
+                                android:textColorHint="@color/green" />
 
-                                />
 
-                        </RelativeLayout>
+                        </android.support.design.widget.TextInputLayout>
 
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_state"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="20dp">
-
-                        <RelativeLayout
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_country"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/thirty_five_dip">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone">
 
 
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/ic_arrow" />
-
-                            <Spinner
-                                android:id="@+id/spStateCategory"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/thirty_five_dip"
-                                android:background="@drawable/simple_spinner_back" />
+                                android:layout_height="wrap_content">
 
-                        </RelativeLayout>
-                    </android.support.design.widget.TextInputLayout>
+                                <Spinner
+                                    android:id="@+id/spCountryCategory"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:background="@drawable/simple_spinner_back" />
 
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="10dp"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/ic_arrow" />
+                            </RelativeLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_city"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="20dp">
+                        </android.support.design.widget.TextInputLayout>
 
-                        <RelativeLayout
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_state"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp">
 
-
-                            <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
-                                android:scaleType="fitXY"
-                                android:src="@drawable/ic_arrow" />
-
-                            <Spinner
-                                android:id="@+id/spCityCategory"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/thirty_five_dip"
-                                android:background="@drawable/simple_spinner_back"
+                                android:layout_height="wrap_content">
 
-                                />
+                                <Spinner
+                                    android:id="@+id/spStateCategory"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:background="@drawable/simple_spinner_back" />
 
-                        </RelativeLayout>
-                    </android.support.design.widget.TextInputLayout>
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="10dp"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/ic_arrow" />
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/input_layout_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
 
-                        <EditText
-                            android:id="@+id/etAddress"
-                            style="@style/myedittext"
+                            </RelativeLayout>
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_city"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:hint="@string/address"
-                            android:inputType="text"
-                            android:paddingLeft="@dimen/ten_dip"
-                            android:textColorHint="@color/green" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <Spinner
+                                    android:id="@+id/spCityCategory"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:background="@drawable/simple_spinner_back"
+
+                                    />
 
 
-                    </android.support.design.widget.TextInputLayout>
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="10dp"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/ic_arrow" />
 
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp" />
+                            </RelativeLayout>
+                        </android.support.design.widget.TextInputLayout>
 
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/input_layout_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp">
+
+                            <EditText
+                                android:id="@+id/etAddress"
+                                style="@style/myedittext"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="@string/address1"
+                                android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
+                                android:textColorHint="@color/green" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/relativeCompanyListheader1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Personal Details"
-                android:textColor="@color/orange"
-                android:textStyle="bold" />
+                android:layout_margin="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/linear_layout_image1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/orange">
+
+                    <ImageView
+                        android:id="@+id/imgProfile1"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_user" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@+id/linear_layout_image1"
+                    android:background="@color/orange"
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personalDetails"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -283,6 +321,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
 
@@ -319,7 +359,7 @@
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="@string/first_name"
+                            android:hint="@string/last_name"
                             android:inputType="text"
                             android:paddingLeft="@dimen/ten_dip"
                             android:textColorHint="@color/green" />
@@ -337,18 +377,18 @@
                         <RelativeLayout
                             android:id="@+id/dobLayout"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/thirty_five_dip"
+                            android:layout_height="wrap_content"
                             android:gravity="center_vertical|center_horizontal">
 
                             <EditText
                                 android:id="@+id/etDOB"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/thirty_five_dip"
+                                android:layout_height="wrap_content"
                                 android:enabled="false"
-                                android:padding="10dp"
                                 android:hint="@string/date_of_birth"
-                                android:textColorHint="@color/hint_color"
-                                android:textSize="@dimen/textsize_small" />
+                                android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
+                                android:textColorHint="@color/green" />
 
 
                             <ImageView
@@ -412,14 +452,49 @@
 
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/thirty_five_dip"
-                android:layout_margin="10dp"
-                android:text="@string/new_user_signup"
-                android:textColor="@color/orange"
-                android:textStyle="bold" />
 
+            <RelativeLayout
+                android:id="@+id/relativeCompanyListheader2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/linear_layout_image2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="@color/orange">
+
+                    <ImageView
+                        android:id="@+id/imgProfile2"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_user" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@+id/linear_layout_image2"
+                    android:background="@color/orange"
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/new_user_signup"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -431,9 +506,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
-
 
 
                     <android.support.design.widget.TextInputLayout
@@ -461,9 +536,9 @@
                         android:id="@+id/input_layout_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:passwordToggleEnabled="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginRight="20dp"
+                        app:passwordToggleEnabled="true">
 
                         <EditText
                             android:id="@+id/etPassword"
@@ -478,14 +553,13 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:passwordToggleEnabled="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginRight="20dp"
+                        app:passwordToggleEnabled="true">
 
                         <EditText
                             android:id="@+id/etReenterPassword"
@@ -500,31 +574,13 @@
                     </android.support.design.widget.TextInputLayout>
 
 
-
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/tvSave"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:background="@drawable/button_orange_back"
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:text="@string/save"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textsize_medium" />
-            </LinearLayout>
-
+                android:layout_height="@dimen/ten_dip" />
 
         </LinearLayout>
 

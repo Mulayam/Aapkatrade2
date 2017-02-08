@@ -84,6 +84,7 @@
     <string name="hindi">Hindi</string>
     <string name="shop_name">Shop Name*</string>
     <string name="address">Address</string>
+    <string name="address1">Address*</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="password">Password</string>
     english
@@ -164,5 +165,6 @@
     <string name="deliveryArea">Indrapuram,Noida,New Delhi</string>
     <string name="et_data">Et Data</string>
     <string name="title_activity_search_activity">Search_activity</string>
+    <string name="personalDetails">Personal Details</string>
 
 </resources>

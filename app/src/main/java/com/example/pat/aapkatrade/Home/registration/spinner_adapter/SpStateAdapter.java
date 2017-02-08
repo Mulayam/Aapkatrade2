@@ -16,16 +16,14 @@ import java.util.ArrayList;
  * Created by PPC16 on 16-Jan-17.
  */
 
-public class SpStateAdapter extends BaseAdapter
-{
+public class SpStateAdapter extends BaseAdapter {
 
 
     Context context;
     private ArrayList<State> stateList = new ArrayList<>();
     LayoutInflater inflter;
 
-    public SpStateAdapter(Context applicationContext, ArrayList<State> stateList)
-    {
+    public SpStateAdapter(Context applicationContext, ArrayList<State> stateList) {
         this.context = applicationContext;
         this.stateList = stateList;
         inflter = (LayoutInflater.from(applicationContext));

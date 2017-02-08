@@ -1,7 +1,7 @@
 package com.example.pat.aapkatrade.Home.registration;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +40,10 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpBussinessA
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
+
+
+import com.example.pat.aapkatrade.MainActivity;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -53,6 +58,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
@@ -64,16 +71,15 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity  implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
     private Spinner spBussinessCategory, spCountry, spState, spCity;
-    private String[] spBussinessName = {"-Please Select Business Type-", "Licence", "Personal"};
+    private String[] spBussinessName = {"Please Select Business Type", "Licence", "Personal"};
     private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etUserName, etAddress, etPassword, etReenterPassword;
     private TextView tvSave;
     private LinearLayout registrationLayout;
-    private ProgressDialog dialog;
     private ArrayList<Country> countryList = new ArrayList<>();
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
@@ -85,10 +91,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private CircleImageView circleImageView;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
-    private String busiType = "", countryID, stateID, cityID;
+    private String busiType = "", countryID = "101", stateID, cityID;
     private RelativeLayout spBussinessCategoryLayout, previewImageLayout, dobLayout;
     private DatePickerDialog datePickerDialog;
     ProgressBarHandler progressBarHandler;
+
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,11 +105,9 @@ public class RegistrationActivity extends AppCompatActivity {
         app_sharedpreference = new App_sharedpreference(RegistrationActivity.this);
         setuptoolbar();
         initView();
-        setProgressDialogue();
         saveUserTypeInSharedPreferences();
-
         setUpBusinessCategory();
-        getCountry();
+        getState(countryID);
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,24 +132,23 @@ public class RegistrationActivity extends AppCompatActivity {
                         validateFields(String.valueOf(1));
                         if (isAllFieldSet > 0)
                             callWebServiceForSellerRegistration();
-                        }
-                        else{
-                            callWebServiceForSellerRegistration();
-                            Log.e("isAllFieldSet",isAllFieldSet+"");
-                        }
+                    } else {
+                        callWebServiceForSellerRegistration();
+                        Log.e("isAllFieldSet", isAllFieldSet + "");
                     }
+                }
                     /*
                     Buyer Registration
                      */
-                    else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+                else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
-                        Log.e("reach", "reach3");
-                        getBuyerFormData();
-                        validateFields(String.valueOf(2));
-                        if (isAllFieldSet > 0)
-                            callWebServiceForBuyerRegistration();
-                    }
+                    Log.e("reach", "reach3");
+                    getBuyerFormData();
+                    validateFields(String.valueOf(2));
+                    if (isAllFieldSet > 0)
+                        callWebServiceForBuyerRegistration();
                 }
+            }
 
 
         });
@@ -150,17 +156,16 @@ public class RegistrationActivity extends AppCompatActivity {
         openCalander.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar newCalendar = Calendar.getInstance();
-                datePickerDialog = new DatePickerDialog(RegistrationActivity.this, R.style.myCalTheme,
-                         new DatePickerDialog.OnDateSetListener() {
 
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        showDate(year, month + 1, day);
-                    }
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        RegistrationActivity.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.show(getFragmentManager(), "DatePickerDialog");
 
-                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getWindow().setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
-                datePickerDialog.show();
             }
         });
 
@@ -178,11 +183,6 @@ public class RegistrationActivity extends AppCompatActivity {
     private void showDate(int year, int month, int day) {
         etDOB.setTextColor(getColor(R.color.black));
         etDOB.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
-    }
-
-    private void setProgressDialogue() {
-        dialog = new ProgressDialog(RegistrationActivity.this);
-        dialog.setMessage("Please Wait\nLoading.....");
     }
 
     private void saveUserTypeInSharedPreferences() {
@@ -283,13 +283,12 @@ public class RegistrationActivity extends AppCompatActivity {
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                busiType = spBussinessName[position];
-                if (spBussinessName[position].equalsIgnoreCase("Personal")) {
+                if (position == 2) {
                     uploadView.setVisibility(View.GONE);
-                    etProductName.setHint(getString(R.string.shop_name));
-                } else if (spBussinessName[position].equalsIgnoreCase("Licence")) {
+                    ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.shop_name));
+                } else if (position == 1) {
                     uploadView.setVisibility(View.VISIBLE);
-                    etProductName.setHint(getString(R.string.company_name_heading));
+                    ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.company_name_heading));
                 }
             }
 
@@ -317,7 +316,6 @@ public class RegistrationActivity extends AppCompatActivity {
             public void Taskcomplete(JsonObject webservice_returndata) {
 
 
-
                 if (webservice_returndata != null) {
                     Log.e("webservice_returndata", webservice_returndata.toString());
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
@@ -340,9 +338,9 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             Log.d("datacountry", countryList.get(position).countryId);
                             countryID = countryList.get(position).countryId;
-                            stateList = new ArrayList<>();
+//                            stateList = new ArrayList<>();
                             if (position > 0) {
-                                getState(countryList.get(position).countryId);
+//                                getState(countryID);
                             }
                         }
 
@@ -370,7 +368,6 @@ public class RegistrationActivity extends AppCompatActivity {
         webservice_body_parameter.put("type", "state");
         webservice_body_parameter.put("id", countryId);
 
-        dialog.show();
         Call_webservice.getcountrystatedata(RegistrationActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
@@ -380,7 +377,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     JsonObject jsonObject = state_data_webservice.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
                     stateList.clear();
-                    State stateEntity_init = new State("-1", "-Pleas Select State-");
+                    State stateEntity_init = new State("-1", "Please Select State");
                     stateList.add(stateEntity_init);
 
                     for (int i = 0; i < jsonResultArray.size(); i++) {
@@ -388,7 +385,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                         stateList.add(stateEntity);
                     }
-                    dialog.hide();
                     SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
                     spState.setAdapter(spStateAdapter);
 
@@ -397,6 +393,8 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int position, long id) {
+
+                            Log.d("datastate", position+"<<>>");
                             stateID = stateList.get(position).stateId;
                             cityList = new ArrayList<>();
                             if (position > 0) {
@@ -432,7 +430,6 @@ public class RegistrationActivity extends AppCompatActivity {
         webservice_body_parameter.put("type", "city");
         webservice_body_parameter.put("id", stateId);
 
-        dialog.show();
         Call_webservice.getcountrystatedata(RegistrationActivity.this, "city", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
@@ -442,7 +439,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     JsonObject jsonObject = city_data_webservice.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-                    City cityEntity_init = new City("-1", "-Please Select City-");
+                    City cityEntity_init = new City("-1", "Please Select City");
                     cityList.add(cityEntity_init);
 
                     for (int i = 0; i < jsonResultArray.size(); i++) {
@@ -451,7 +448,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         cityList.add(cityEntity);
                     }
 
-                    dialog.hide();
                     SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
                     spCity.setAdapter(spCityAdapter);
 
@@ -504,13 +500,14 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        progressBarHandler=new ProgressBarHandler(this);
+        progressBarHandler = new ProgressBarHandler(this);
         registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
         spCountry = (Spinner) findViewById(R.id.spCountryCategory);
         spState = (Spinner) findViewById(R.id.spStateCategory);
         spCity = (Spinner) findViewById(R.id.spCityCategory);
         tvSave = (TextView) findViewById(R.id.tvSave);
+        tvSave.setText(getString(R.string.save));
         etProductName = (EditText) findViewById(R.id.etshopname);
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
@@ -533,6 +530,20 @@ public class RegistrationActivity extends AppCompatActivity {
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
+//        Country countryEntity_init = new Country("-1", "Please Select Country");
+//        countryList.add(countryEntity_init);
+//        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
+//        spCountry.setAdapter(spCountrysAdapter);
+
+        State stateEntity_init = new State("-1", "Please Select State");
+        stateList.add(stateEntity_init);
+        SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
+        spState.setAdapter(spStateAdapter);
+
+        City cityEntity_init = new City("-1", "Please Select City");
+        cityList.add(cityEntity_init);
+        SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
+        spCity.setAdapter(spCityAdapter);
     }
 
     private void validateFields(String userType) {
@@ -832,4 +843,13 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        showDate(year, monthOfYear+1, dayOfMonth);
+    }
 }

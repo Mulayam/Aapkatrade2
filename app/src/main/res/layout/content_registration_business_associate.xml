@@ -18,10 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/ten_dip"
+            android:layout_marginBottom="@dimen/ten_dip"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <include layout="@layout/header_register_busi_assoc" />
-
 
             <android.support.v7.widget.CardView
                 android:id="@+id/step1aLayout"
@@ -60,9 +62,9 @@
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/emailId"
                                 android:inputType="textEmailAddress"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -71,10 +73,13 @@
                             android:id="@+id/input_layout_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:passwordToggleEnabled="true"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
-                            android:layout_marginRight="20dp">
+
+                            android:layout_marginRight="20dp"
+                            app:passwordToggleEnabled="true">
+
+               
+
 
                             <EditText
                                 android:id="@+id/et_password"
@@ -82,9 +87,9 @@
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/password1"
                                 android:inputType="textPassword"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -94,10 +99,11 @@
                             android:id="@+id/input_confirm_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:passwordToggleEnabled="true"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
-                            android:layout_marginRight="20dp">
+
+                            android:layout_marginRight="20dp"
+                            app:passwordToggleEnabled="true">
+
 
                             <EditText
                                 android:id="@+id/et_confirm_password"
@@ -105,9 +111,9 @@
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/confirm_password1"
                                 android:inputType="textPassword"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -128,14 +134,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_emp_type"
@@ -144,9 +144,12 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
-                            android:visibility="gone"
-                            android:textColorHint="@color/green"
-                            android:padding="5dp">
+
+                            android:padding="5dp"
+                            android:visibility="gone">
+
+                            
+
 
                             <RelativeLayout
                                 android:id="@+id/spBussinessCategoryLayout"
@@ -190,9 +193,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/first_name"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -212,9 +215,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/last_name"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -235,9 +238,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/father_name"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -258,18 +261,16 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
-                                android:maxLength="10"
                                 android:hint="@string/mobile"
                                 android:inputType="number"
+                                android:maxLength="10"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-                </LinearLayout>
             </android.support.v7.widget.CardView>
-
 
             <android.support.v7.widget.CardView
                 android:id="@+id/step1cLayout"
@@ -282,14 +283,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_dob"
@@ -312,10 +307,10 @@
                                     style="@style/myedittext"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="@string/date_of_birth"
-                                    android:paddingLeft="@dimen/ten_dip"
-                                    android:inputType="text"
                                     android:enabled="false"
+                                    android:hint="@string/date_of_birth"
+                                    android:inputType="text"
+                                    android:paddingLeft="@dimen/ten_dip"
                                     android:textColorHint="@color/green" />
 
 
@@ -346,9 +341,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/address"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -371,6 +366,7 @@
                                     android:id="@+id/spState"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/ten_dip"
                                     android:layout_alignParentLeft="true"
                                     android:background="@drawable/simple_spinner_back" />
 
@@ -439,11 +435,15 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
 
-                                android:maxLength="6"
+                    
+
+                             
+
+                              android:hint="@string/pincode"
                                 android:inputType="number"
-                                android:hint="@string/pincode"
+                                android:maxLength="6"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -475,15 +475,14 @@
 
                         </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
             </android.support.v7.widget.CardView>
-
 
             <android.support.v7.widget.CardView
                 android:id="@+id/step2Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:layout_marginTop="@dimen/hundred_dip"
                 android:padding="20dp"
                 android:visibility="gone">
 
@@ -491,14 +490,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical">
 
 
                         <android.support.design.widget.TextInputLayout
@@ -617,7 +611,6 @@
 
 
                     </LinearLayout>
-                </LinearLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -632,14 +625,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_select_bank"
@@ -693,9 +681,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/aacount_no"
                                 android:inputType="number"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -715,9 +703,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/branch_code"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -738,9 +726,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
-                                android:inputType="text"
                                 android:hint="@string/branch_name"
+                                android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -761,9 +749,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/ifsc_code"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -784,9 +772,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/micr_code"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -807,9 +795,9 @@
                                 android:theme="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="@dimen/ten_dip"
                                 android:hint="@string/account_holder_name"
                                 android:inputType="text"
+                                android:paddingLeft="@dimen/ten_dip"
                                 android:textColorHint="@color/green" />
 
 
@@ -832,25 +820,19 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="@string/registered_mobile"
-                                android:maxLength="10"
                                 android:inputType="number"
+                                android:maxLength="10"
                                 android:textColorHint="@color/green" />
 
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-                </LinearLayout>
             </android.support.v7.widget.CardView>
-
-
-
-
 
         </LinearLayout>
 
 
     </android.support.v4.widget.NestedScrollView>
-
 
 
 </LinearLayout>
