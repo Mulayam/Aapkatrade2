@@ -65,11 +65,16 @@ setadapter_recycleview();
     }
 
     private void setadapter_recycleview() {
-//        commomDatas_latestupdate.add(new CommomData("12233","update_product_name", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
-//
-//        commomAdapter = new CommomAdapter(c, commomDatas_latestupdate, "gridtype", "latestupdate");
-//
-//        recyclerView_search.setAdapter(commomAdapter);
+        recyclerView_search.setLayoutManager(gridLayoutManager);
+
+        for(int i=0;i<10;i++)
+
+        {
+            search_productlist.add(new CommomData("12233", "update_product_name", "", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
+        }
+        commomAdapter = new CommomAdapter(c, search_productlist, "gridtype", "latestupdate");
+
+        recyclerView_search.setAdapter(commomAdapter);
 
 
 

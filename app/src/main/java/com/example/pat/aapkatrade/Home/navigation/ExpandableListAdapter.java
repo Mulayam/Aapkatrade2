@@ -3,7 +3,6 @@ package com.example.pat.aapkatrade.Home.navigation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,10 +147,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
             if (isExpanded) {
                 imageView.setImageResource(R.drawable.ic_chevron_primary);
                 convertView.setBackgroundResource(R.color.dark_green);
-                notifyDataSetChanged();
+                //notifyDataSetChanged();
             } else {
                 imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
-                notifyDataSetChanged();
+               // notifyDataSetChanged();
             }
         }
 

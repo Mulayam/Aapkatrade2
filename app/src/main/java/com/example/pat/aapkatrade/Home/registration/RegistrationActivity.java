@@ -18,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +41,9 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapte
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 
+
 import com.example.pat.aapkatrade.MainActivity;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -51,7 +54,6 @@ import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
-import com.example.pat.aapkatrade.utils.Utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -154,6 +156,7 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
         openCalander.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Calendar now = Calendar.getInstance();
                 DatePickerDialog dpd = DatePickerDialog.newInstance(
                         RegistrationActivity.this,
@@ -162,6 +165,7 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
                         now.get(Calendar.DAY_OF_MONTH)
                 );
                 dpd.show(getFragmentManager(), "DatePickerDialog");
+
             }
         });
 

@@ -31,9 +31,8 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      Context context;
      CompanyListHolder viewHolder;
      CompanyList companylist;
+     Boolean showBoolean = false;
 
-
-    
 
 
     public CompanyListAdapter(Context context, List<CompanyData> itemList,CompanyList companylist)
@@ -62,8 +61,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
 
-
-        CompanyListHolder homeHolder = (CompanyListHolder) holder;
+        final CompanyListHolder homeHolder = (CompanyListHolder) holder;
 
         Log.e("data===========arvin",itemList.get(position).company_name.toString());
 
@@ -71,6 +69,31 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         homeHolder.tvDate.setText(itemList.get(position).company_creation_date.toString());
 
+
+
+        homeHolder.imgNext.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+
+                if(showBoolean)
+                {
+
+                    homeHolder.linearLayoutDetail.setVisibility(View.GONE);
+                    homeHolder.View1.setVisibility(View.GONE);
+                    showBoolean = false;
+                }
+                else
+                {
+                    showBoolean =true;
+                    homeHolder.linearLayoutDetail.setVisibility(View.VISIBLE);
+                    homeHolder.View1.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
 
         homeHolder.relativecompanyList.setOnClickListener(new View.OnClickListener()
         {
@@ -85,28 +108,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });
 
-        homeHolder.imgDeleteCompany.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-                String company_id = itemList.get(position).company_id.toString();
-                notifyItemRemoved(position);
-                notifyDataSetChanged();
-               // delete_company(company_id);
-
-            }
-        });
-
-        homeHolder.imgEdtCompanyName.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-            }
-        });
 
 
     }

@@ -68,7 +68,7 @@
         <activity android:name=".categories_tab.CategoriesTabActivity" />
         <activity
             android:name=".Home.registration.RegistrationBusinessAssociateActivity"
-            android:theme="@style/myedittext" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
