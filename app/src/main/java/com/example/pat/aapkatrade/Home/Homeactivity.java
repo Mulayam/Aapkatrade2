@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -377,6 +378,7 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
+                        showOrHideBottomNavigation(false);
 
                         break;
                     case 1:
@@ -385,6 +387,7 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String aboutUsFragment_tagName = aboutUsFragment.getClass().getName();
                         replaceFragment(aboutUsFragment, aboutUsFragment_tagName);
+                        showOrHideBottomNavigation(true);
                         break;
 
 
@@ -394,6 +397,7 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
                         replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
+                        showOrHideBottomNavigation(false);
                         break;
 
                     case 4:
@@ -403,6 +407,7 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String contact_us_fragment = contactUsFragment.getClass().getName();
                         replaceFragment(contactUsFragment, contact_us_fragment);
+                        showOrHideBottomNavigation(true);
                         break;
 
 
@@ -433,6 +438,7 @@ public class HomeActivity extends AppCompatActivity
                     int pos = scrollView.getChildCount() - 1;
                     if (oldScrollY < scrollY) {
 
+
                         showOrHideBottomNavigation(true);
 //                    setForceTitleHide(true);
 
@@ -456,35 +462,35 @@ public class HomeActivity extends AppCompatActivity
         } else {
 
 
-//scrollView.setOnTouchListener(new View.OnTouchListener() {
-//    float height;
-//
-//    @Override
-//    public boolean onTouch(View v, MotionEvent event) {
-//
-//
-//
-//        int action = event.getAction();
-//        float height2 = event.getY();
-//        if(action == MotionEvent.ACTION_DOWN){
-//            height = height2;
-//        }else if(action == MotionEvent.ACTION_UP){
-//            if(this.height < height2){
-//                Log.e("up", "Scrolled up");
-//                showOrHideBottomNavigation(false);
-//            }else if(this.height > height2){
-//                Log.e("down", "Scrolled down");
-//                showOrHideBottomNavigation(true);
-//            }
-//        }
-//        return false;
-//    }
-//
-//
-//
-//
-//
-//});
+scrollView.setOnTouchListener(new View.OnTouchListener() {
+    float height;
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+
+
+        int action = event.getAction();
+        float height2 = event.getY();
+        if(action == MotionEvent.ACTION_DOWN){
+            height = height2;
+        }else if(action == MotionEvent.ACTION_UP){
+            if(this.height < height2){
+                Log.e("up", "Scrolled up");
+                showOrHideBottomNavigation(false);
+            }else if(this.height > height2){
+                Log.e("down", "Scrolled down");
+                showOrHideBottomNavigation(true);
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+});
 
 
             // Pre-Marshmallow

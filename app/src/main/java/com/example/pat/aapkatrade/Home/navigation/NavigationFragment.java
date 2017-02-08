@@ -1,7 +1,6 @@
 package com.example.pat.aapkatrade.Home.navigation;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +27,7 @@ import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -81,8 +81,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private ImageView edit_profile_imgview;
     private ExpandableListAdapter listAdapter;
     private ArrayList<CategoryHome> listDataHeader;
-    public
-    ProgressDialog _progressDialog;
+    ProgressBarHandler progressBarHandler;
+
     private static  String shared_pref_name = "aapkatrade";
 
 
@@ -95,7 +95,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
-        _progressDialog = new ProgressDialog(context);
+        progressBarHandler=new ProgressBarHandler(context);
+
         app_sharedpreference=new App_sharedpreference(getActivity());
         initView(view);
 

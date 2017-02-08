@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +39,6 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpBussinessA
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
-
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -49,7 +49,6 @@ import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
-import com.example.pat.aapkatrade.utils.Utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -152,13 +151,15 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Calendar newCalendar = Calendar.getInstance();
-                datePickerDialog = new DatePickerDialog(RegistrationActivity.this, R.style.myCalTheme, new DatePickerDialog.OnDateSetListener() {
+                datePickerDialog = new DatePickerDialog(RegistrationActivity.this, R.style.myCalTheme,
+                         new DatePickerDialog.OnDateSetListener() {
 
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         showDate(year, month + 1, day);
                     }
 
                 }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getWindow().setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
                 datePickerDialog.show();
             }
         });
