@@ -1,14 +1,29 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:scrollbars="none"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+android:id="@+id/navigation_parent_scrollview">
+
+
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green"
+
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/orange">
+        android:background="@color/dark_green">
 
     </View>
 
@@ -69,27 +84,133 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/rl_category"
-        android:gravity="center_vertical"
-        android:background="@color/dark_green"
+
+        android:background="#FF4F847A"
         android:layout_height="50dp">
         <TextView
             android:layout_width="wrap_content"
             android:text="Categories"
             android:textSize="14sp"
-            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
             android:layout_marginLeft="26dp"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:text="Categories"
+            android:textSize="14sp"
+            android:src="@drawable/ic_chevron_grey"
+           android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:layout_marginRight="26dp"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:id="@+id/footer_categories"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_green"></View>
     </RelativeLayout>
+
+
+
+
 
     <ExpandableListView
         android:id="@+id/lvExp"
         android:layout_below="@+id/rl_category"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/green"
-        android:layout_marginBottom="20dp"
+        android:layout_height="1000dp"
+
+        android:background="@color/dark_green"
+        android:nestedScrollingEnabled="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:groupIndicator="@null" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_contactus"
+
+        android:background="#FF4F847A"
+        android:layout_below="@+id/lvExp"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/contact_us"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:layout_marginLeft="26dp"
+            android:layout_height="wrap_content" />
+
+
+        <View
+            android:id="@+id/footer_categorie2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_green"></View>
     </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_Contact"
+
+        android:background="#FF4F847A"
+        android:layout_below="@+id/rl_contactus"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/about_us"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:layout_marginLeft="26dp"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/footer_categorie3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_green"></View>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_rateus"
+
+        android:background="#FF4F847A"
+        android:layout_below="@+id/rl_Contact"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/share"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:layout_marginLeft="26dp"
+            android:layout_height="wrap_content" />
+        <View
+            android:id="@+id/footer_categorie4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/dark_green"></View>
+    </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+
 
     <View
         android:id="@+id/snakBar1"
@@ -97,3 +218,4 @@
         android:layout_height="2dp"
         android:background="@color/orange"></View>
 </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

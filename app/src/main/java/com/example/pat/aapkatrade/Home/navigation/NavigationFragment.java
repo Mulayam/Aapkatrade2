@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -27,6 +29,8 @@ import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -36,7 +40,10 @@ import com.koushikdutta.ion.Ion;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.net.ssl.X509TrustManager;
 
@@ -46,26 +53,26 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner
-{
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
 
 
     public static final String preFile = "textFile";
     public static final String userKey = "key";
-    private static final String TAG = "gcm_tag";
-    private static int POSITION = 0;
+
+
     public static ActionBarDrawerToggle mDrawerToggle;
     public static DrawerLayout mDrawerLayout;
     boolean mUserLearnedDrawer;
-    private static final int IMAGE_PICKER_SELECT = 999;
+
+
     boolean mFromSavedInstance;
     View view;
-    String Fname, Lname, Dob;
+    String Fname;
     private int lastExpandedPosition = -1;
 
     App_sharedpreference app_sharedpreference;
     public static final String PREFS_NAME = "call_recorder";
-   // private SharedPreferences loginPreferences;
+    // private SharedPreferences loginPreferences;
     List<String> categoryids;
 
     List<String> categoryname;
@@ -75,15 +82,26 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     TextView footer;
     RelativeLayout header;
 
-    TextView textViewName,emailid;
+
+    TextView textViewName, emailid;
     private ImageView imageViewGB;
-    private ExpandableListView expListView;
+    private ExpandableListView expListView, nested_expandablelistview;
     private ImageView edit_profile_imgview;
     private ExpandableListAdapter listAdapter;
-    private ArrayList<CategoryHome> listDataHeader;
+
+   public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
+    public ArrayList<SubCategory> listDataChild = new ArrayList<>();
+    RelativeLayout rl_category;
+    int flag_categoryclick;
+
+    private ArrayList nested_dataheader;
+
+    //public NestedScrollView navigation_parent_scrollview;
+
+
     ProgressBarHandler progressBarHandler;
 
-    private static  String shared_pref_name = "aapkatrade";
+    private static String shared_pref_name = "aapkatrade";
 
 
     public NavigationFragment() {
@@ -95,55 +113,76 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
-        progressBarHandler=new ProgressBarHandler(context);
+        progressBarHandler = new ProgressBarHandler(context);
 
-        app_sharedpreference=new App_sharedpreference(getActivity());
+        app_sharedpreference = new App_sharedpreference(getActivity());
         initView(view);
 
         return view;
     }
 
 
-    private void initView(View view)
-    {
-     //   sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
+    private void initView(View view) {
+        //   sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
         //prepare textviewdata
         categoryname = new ArrayList<>();
         categoryids = new ArrayList<>();
+
         //sharedprefrance
-       // loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        textViewName=(TextView)view.findViewById(R.id.welcome_guest) ;
-        emailid=(TextView)view.findViewById(R.id.tv_email) ;
-       // loginPrefsEditor = loginPreferences.edit();
+        // loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        textViewName = (TextView) view.findViewById(R.id.welcome_guest);
+        emailid = (TextView) view.findViewById(R.id.tv_email);
+        // loginPrefsEditor = loginPreferences.edit();
         prepareListData();
         expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
+        rl_category=(RelativeLayout)this.view.findViewById(R.id.rl_category);
 
 
+//        navigation_parent_scrollview=(NestedScrollView)this.view.findViewById(R.id.navigation_parent_scrollview);
 
-        if(app_sharedpreference.getsharedpref("username","notlogin")!=null) {
+
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
             if (Username.equals("not")) {
-                Log.e("Shared_pref2","null"+Username);
+                Log.e("Shared_pref2", "null" + Username);
             } else {
 
-                setdata(Username,Emailid);
+                setdata(Username, Emailid);
             }
+        } else {
+            Log.e("Shared_pref1", "null");
         }
-        else{
-            Log.e("Shared_pref1","null");
-        }
-
-        //circle imageview
-
-        //ImagePicker.setMinQuality(600, 600);
-        // preparing list data
-
     }
 
+//       navigation_parent_scrollview.setOnTouchListener(new View.OnTouchListener() {
+//           @Override
+//           public boolean onTouch(View v, MotionEvent event) {
+//
+//               expListView.getParent().requestDisallowInterceptTouchEvent(false);
+//               Log.e("expListView__notwork","false");
+//               return false;
+//           }
+//       });
 
-    private void Showmessage(String message)
-    {
+
+//        expListView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//
+//
+//                expListView.getParent().requestDisallowInterceptTouchEvent(true);
+//             // listAdapter.notifyDataSetChanged();
+//                Log.e("expListView_work","true");
+//                return false;
+//            }
+//        });
+//
+//    }
+
+
+    private void Showmessage(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -235,9 +274,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public void setdata(String username, String email) {
         Fname = username;
 
-Log.e("Username",username);
+        Log.e("Username", username);
         textViewName.setText(username);
-emailid.setText(email);
+        emailid.setText(email);
 
 
     }
@@ -248,8 +287,7 @@ emailid.setText(email);
     }
 
     @Override
-    public void itemClicked(View view, int groupview, int childview)
-    {
+    public void itemClicked(View view, int groupview, int childview) {
 
         try {
 
@@ -274,7 +312,6 @@ emailid.setText(email);
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(tag);
         transaction.commit();
     }
-
 
 
     private static class Trust implements X509TrustManager {
@@ -310,121 +347,86 @@ emailid.setText(email);
     private void prepareListData() {
         getCategory();
 
-//            listDataHeader = new ArrayList<String>();
-//            listDataChild = new HashMap<String, List<String>>();
-//            listDataHeader.add("Home");
-//            listDataHeader.add("Automobile");
-//            listDataHeader.add("Barber");
-//            listDataHeader.add("Dairy Product");
-//            listDataHeader.add("Electronics Repair");
-//            listDataHeader.add("Flower Shops");
-//            listDataHeader.add("Funeral Places");
-//
-//            // Adding child data
-//            List<String> top250 = new ArrayList<String>();
-//            top250.add("Woman's Clothings");
-//            top250.add("Man's Clothings");
-//            top250.add("Electronics");
-//            top250.add("Home and Garden");
-//            top250.add("Jwellery and Health");
-//            top250.add("Automotive");
-//            top250.add("Beauty and Health");
-//            top250.add("Toys, Kids and Baby");
-//            top250.add("Bags and Shoes");
-//            top250.add("Sports and Outdoor");
-//            top250.add("Phone and Accessories");
-//            top250.add("Computer and Networking");
-//            top250.add("VIEW ALL CATEGORIES");
-//
-//            List<String> Settings_data = new ArrayList<String>();
-//            Settings_data.add("Groceries");
-//            Settings_data.add("Restaurant");
-//        List<String> home = new ArrayList<String>();
-//
-//            List<String> account = new ArrayList<String>();
-//            List<String> ratethisapp = new ArrayList<String>();
-//            List<String> help_center = new ArrayList<String>();
-//            List<String> share_app = new ArrayList<String>();
-//            listDataChild.put(listDataHeader.get(0), home);
-//        //listDataChild = new HashMap<String, List<String>>();
-////            for (int i = 0; i < listDataHeader.size(); i++) {
-////                listDataChild.put(listDataHeader.get(i), Settings_data);
-////            }
-//            listDataChild.put(listDataHeader.get(1), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(2), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(3), Settings_data);
-//            listDataChild.put(listDataHeader.get(4), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(5), Settings_data); // Header, Child data
-//            listDataChild.put(listDataHeader.get(6), Settings_data);
-    }
 
+    }
 
     private void getCategory() {
-//        dialog.show();
-        Ion.with(getContext())
-                .load("http://aapkatrade.com/slim/dropdown")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "category")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "category");
 
-                            if (result != null) {
-                                JsonObject jsonObject = result.getAsJsonObject();
-                                JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                                listDataHeader = new ArrayList<>();
-                                for (int i = 0; i < jsonResultArray.size(); i++) {
-                                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                                    CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString());
-                                    categoryHome.setSubCategoryList(getSubCategoryArrayList(categoryHome.getCategoryId()));
-                                    listDataHeader.add(categoryHome);
-                                }
-                                set_expandable_adapter_data();
-                            }
-                    }
+        HashMap<String, String> webservice_header_type = new HashMap<>();
+        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        Call_webservice.getcountrystatedata(context, "category", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
-                });
-
-    }
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject data) {
+                if (data != null) {
+                    JsonObject jsonObject = data.getAsJsonObject();
+                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
 
-    private ArrayList<SubCategory> getSubCategoryArrayList(String categoryId)
-    {
-        final ArrayList<SubCategory> listDataChild = new ArrayList<>();
-        Ion.with(getContext())
-                .load("http://aapkatrade.com/slim/dropdown")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "subcategory")
-                .setBodyParameter("id", categoryId)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result != null) {
-                            JsonObject jsonObject = result.getAsJsonObject();
-                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                            if (jsonResultArray != null) {
-                                for (int i = 0; i < jsonResultArray.size(); i++) {
-                                    JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                                    SubCategory subCategory = new SubCategory(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                                    listDataChild.add(subCategory);
-                                }
-                            }
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
+                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                        JsonArray json_subcategory = jsonObject1.getAsJsonArray("subcategory");
+
+                        listDataChild=new ArrayList<>();
+                        for (int k = 0; k < json_subcategory.size(); k++) {
+                            JsonObject jsonObject_subcategory = (JsonObject) json_subcategory.get(k);
+                            SubCategory subCategory = new SubCategory(jsonObject_subcategory.get("id").getAsString(), jsonObject_subcategory.get("name").getAsString());
+
+
+                            listDataChild.add(subCategory);
+
+
                         }
+                        CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString(), listDataChild);
+
+
+                        // categoryHome.setSubCategoryList( listDataChild);
+
+
+                        listDataHeader.add(categoryHome);
+                        Log.e("listDataHeader_cate", categoryHome.toString());
+
+
                     }
-                });
-        return listDataChild;
+
+
+                }
+
+
+                set_expandable_adapter_data();
+
+            }
+
+            ;
+
+//        dialog.show();
+
+
+        };
+
+
     }
+
 
     private void set_expandable_adapter_data() {
 
         if (listDataHeader.size() != 0) {
+
+
             listAdapter = new ExpandableListAdapter(context, listDataHeader);
+
+            Log.e("listDataHeader1", listDataHeader.toString().substring(0, (listDataHeader.toString().length() / 2)));
+            Log.e("listDataHeader2", listDataHeader.toString().substring((listDataHeader.toString().length() / 2), listDataHeader.toString().length() - 1));
+
             // setting list adapter
             expListView.setAdapter(listAdapter);
+//            for (int i = 0; i < listAdapter.getGroupCount(); i++)
+//                expListView.expandGroup(i);
+//            setListViewHeight(expListView);
 
             expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
                 @Override
@@ -436,7 +438,9 @@ emailid.setText(email);
                     lastExpandedPosition = groupPosition;
                 }
             });
-            listAdapter.setClickListner(this);
+            // listAdapter.setClickListner(this);
+
+
         }
     }
 

@@ -48,6 +48,8 @@
                 android:minLines="2"
 
                 android:id="@+id/tvProductName"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_height="wrap_content" />
 
             <TextView
