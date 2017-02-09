@@ -7,75 +7,324 @@
     android:background="@color/white">
 
 
-   <RelativeLayout
-       android:id="@+id/relativeDashboardStrip"
+   <android.support.v4.widget.NestedScrollView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:padding="10dp"
-       android:background="@color/green"
-       >
+       android:layout_alignParentTop="true"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true">
+
 
       <RelativeLayout
-          android:layout_width="wrap_content"
-          android:padding="10dp"
-          android:layout_gravity="center_vertical"
-          android:layout_height="wrap_content">
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="#EEEEEE"
+          >
 
-
-         <ImageView
-             android:id="@+id/circular_profile_image_home"
-             android:layout_width="50dp"
-             android:layout_height="50dp"
-             android:layout_gravity="center_vertical"
-             android:scaleType="fitCenter"
-             android:background="@drawable/circle_voilet"
-             />
 
 
          <RelativeLayout
+             android:id="@+id/relativeDashboardStrip"
              android:layout_width="match_parent"
-             android:layout_toRightOf="@+id/circular_profile_image_home"
-             android:gravity="center_vertical"
-             android:layout_marginRight="10dp"
-             android:layout_marginLeft="10dp"
-             android:layout_centerVertical="true"
-             android:layout_height="wrap_content">
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="10dp"
+             >
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/welcome_guest"
-                android:textColor="@color/white"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/welcomeguest"/>
+                >
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_below="@+id/welcome_guest"
-                android:text="@string/user_name"
-                android:id="@+id/tv_email" />
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="160dp"
+                   android:background="@color/white"
+
+                   >
+
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Seller Account"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginTop="10dp"
+                      android:textColor="@color/white"
+                      android:layout_alignParentTop="true"
+                      />
+
+                  <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="20dp"
+                      android:layout_centerHorizontal="true"
+                      android:layout_centerVertical="true"
+                      android:orientation="horizontal">
+
+
+                     <de.hdodenhof.circleimageview.CircleImageView
+                         android:id="@+id/imageViewProfilePic"
+                         android:layout_width="80dp"
+                         android:layout_height="80dp"
+                         android:src="@drawable/ic_profile_user" />
+
+                     <LinearLayout
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="16dp"
+                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kunsang W."
+                            android:textColor="@color/black"
+                            android:layout_marginTop="10dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:orientation="horizontal">
+
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:text="arvindkumaryadav937@gmail.com"
+                               android:textColor="@color/black"
+
+                               android:textSize="14sp" />
+
+
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="9792183158"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                     </LinearLayout>
+
+                  </LinearLayout>
+               </RelativeLayout>
+            </LinearLayout>
 
 
          </RelativeLayout>
 
 
+         <LinearLayout
+             android:id="@+id/linearLayoutData"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:layout_below="@+id/relativeDashboardStrip"
+             >
+
+
+
+               <RelativeLayout
+                   android:id="@+id/relativedata"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginLeft="20dp"
+                   android:layout_marginBottom="10dp"
+                   >
+
+
+                  <ImageView
+                      android:id="@+id/imgDashboard"
+                      android:layout_width="45dp"
+                      android:layout_height="45dp"
+                      android:src="@drawable/ic_edit"
+                      android:background="@drawable/circle_voilet"
+                      android:layout_marginTop="10dp"
+                      android:padding="7dp"
+                      android:layout_marginRight="10dp"
+                      />
+
+
+                  <RelativeLayout
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_toRightOf="@+id/imgDashboard"
+                      android:layout_marginTop="10dp"
+                      >
+
+                     <TextView
+                         android:id="@+id/tvDashboard"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Total Company"
+                         android:textColor="@color/black"
+                         android:layout_marginTop="10dp"
+
+                         />
+
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="50"
+                         android:textColor="@color/black"
+                         android:layout_alignParentRight="true"
+                          android:textStyle="bold"
+                         android:layout_marginTop="10dp"
+                         android:textSize="16sp"
+
+                         />
+
+
+                  </RelativeLayout>
+
+
+
+
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:id="@+id/relativedata2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                >
+
+
+               <ImageView
+                   android:id="@+id/imgDashboard2"
+                   android:layout_width="45dp"
+                   android:layout_height="45dp"
+                   android:background="@drawable/circle_purple"
+                   android:layout_marginTop="10dp"
+                   android:padding="7dp"
+                   android:layout_marginRight="10dp"
+                   />
+
+
+               <RelativeLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_toRightOf="@+id/imgDashboard2"
+                   android:layout_marginTop="10dp"
+                   >
+
+                  <TextView
+                      android:id="@+id/tvDashboard2"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Total Products"
+                      android:textColor="@color/black"
+                      android:layout_marginTop="10dp"
+
+                      />
+
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="200"
+                      android:textColor="@color/black"
+                      android:textStyle="bold"
+                      android:layout_alignParentRight="true"
+                      android:layout_marginTop="10dp"
+                      android:textSize="16sp"
+                      />
+
+
+               </RelativeLayout>
+
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativedata3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+               android:layout_marginBottom="10dp"
+                >
+
+
+               <ImageView
+                   android:id="@+id/imgDashboard3"
+                   android:layout_width="45dp"
+                   android:layout_height="45dp"
+                   android:background="@drawable/circle_turquoise"
+                   android:layout_marginTop="10dp"
+                   android:padding="7dp"
+                   android:layout_marginRight="10dp"
+                   />
+
+
+               <RelativeLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_toRightOf="@+id/imgDashboard3"
+                   android:layout_marginTop="10dp"
+                   >
+
+                  <TextView
+                      android:id="@+id/tvDashboard3"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Total Products"
+                      android:textColor="@color/black"
+                      android:layout_marginTop="10dp"
+                      />
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="500"
+                      android:textColor="@color/black"
+                      android:textStyle="bold"
+                      android:layout_alignParentRight="true"
+                      android:layout_marginTop="10dp"
+                      android:textSize="16sp"
+                      />
+
+               </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+
+         </LinearLayout>
+
+
+         <android.support.v7.widget.RecyclerView
+             android:id="@+id/dashboardlist"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_below="@+id/linearLayoutData"
+             android:background="@color/white"
+             >
+
+         </android.support.v7.widget.RecyclerView>
+
+
       </RelativeLayout>
 
-   </RelativeLayout>
 
-   <android.support.v7.widget.RecyclerView
-       android:id="@+id/dashboardlist"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_below="@+id/relativeDashboardStrip"
-       android:background="@color/white"
-       >
-
-   </android.support.v7.widget.RecyclerView>
-
+   </android.support.v4.widget.NestedScrollView>
 
 
 </RelativeLayout>

@@ -6,7 +6,6 @@
     android:background="@color/white"
     >
 
-
     <include
         layout="@layout/content_dashboard"
         ></include>
