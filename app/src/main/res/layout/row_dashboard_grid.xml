@@ -30,10 +30,14 @@ android:id="@+id/rl_grid_row_parent"
         android:layout_marginRight="20dp"/>
 
     <TextView
-        android:layout_width="wrap_content"
+
+        android:layout_width="100dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:text="Smartphone"
+        android:maxLines="2"
+        android:layout_marginTop="5dp"
+        android:minLines="2"
         android:id="@+id/tv_productname"
         android:layout_height="wrap_content" />
 
@@ -58,7 +62,8 @@ android:id="@+id/rl_grid_row_parent"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             app:prb_tickSpacing="0dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             />
 
 

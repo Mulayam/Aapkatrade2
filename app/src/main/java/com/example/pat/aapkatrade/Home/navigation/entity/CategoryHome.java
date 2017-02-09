@@ -17,10 +17,11 @@ public class CategoryHome
     private ArrayList<SubCategory> subCategoryList;
     private String basePath = "http://aapkatrade.com/laraveldemo/public/appicon/";
     private String iconExtention = ".png";
-    public CategoryHome(String categoryId, String categoryName, String categoryIconName) {
+    public CategoryHome(String categoryId, String categoryName, String categoryIconName, ArrayList<SubCategory> subCategoryList) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryIconName = categoryIconName;
+        this.subCategoryList=subCategoryList;
         setCategoryIconPath(createIconPath(categoryName));
     }
 
@@ -49,12 +50,10 @@ public class CategoryHome
     }
 
     public ArrayList<SubCategory> getSubCategoryList() {
-        return subCategoryList;
+        return this.subCategoryList;
     }
 
-    public void setSubCategoryList(ArrayList<SubCategory> subCategoryList) {
-        this.subCategoryList = subCategoryList;
-    }
+
 
     @Override
     public String toString() {

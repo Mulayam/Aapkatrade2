@@ -55,7 +55,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     ArrayList<CommomData> commomDatas = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestpost = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestupdate = new ArrayList<>();
-    private CommomAdapter commomAdapter;
+    private CommomAdapter commomAdapter_latestpost,commomAdapter_latestproduct;
     public latestproductadapter latestproductadapter;
     ProgressBarHandler progress_handler;
     private int dotsCount;
@@ -255,14 +255,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                                 String product_id = jsonObject_latest_post.get("id").getAsString();
 
                                 String product_name = jsonObject_latest_post.get("prodname").getAsString();
+                                String imageurl = jsonObject_latest_post.get("image_url").getAsString();
 
-                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
+                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl));
 
                             }
 
-                            commomAdapter = new CommomAdapter(context, commomDatas_latestpost, "list", "latestdeals");
-                            recyclerlatestpost.setAdapter(commomAdapter);
-                            commomAdapter.notifyDataSetChanged();
+                            commomAdapter_latestpost = new CommomAdapter(context, commomDatas_latestpost, "list", "latestdeals");
+                            recyclerlatestpost.setAdapter(commomAdapter_latestpost);
+
+                            commomAdapter_latestpost.notifyDataSetChanged();
 
                             for (int i = 0; i < latest_update.size(); i++) {
 
@@ -273,14 +275,15 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                                 String update_product_id = jsonObject_latest_update.get("id").getAsString();
 
                                 String update_product_name = jsonObject_latest_update.get("prodname").getAsString();
+                                String imageurl = jsonObject_latest_update.get("image_url").getAsString();
 
-                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "", "http://administrator.aapkatrade.com/public/upload/220/nyc-pie-gurgaon-625_625x350_41460295362.jpg"));
+                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "",imageurl));
 
                             }
 
-                            commomAdapter = new CommomAdapter(context, commomDatas_latestupdate, "gridtype", "latestupdate");
-                            recyclerlatestupdate.setAdapter(commomAdapter);
-                            commomAdapter.notifyDataSetChanged();
+                            commomAdapter_latestproduct = new CommomAdapter(context, commomDatas_latestupdate, "gridtype", "latestupdate");
+                            recyclerlatestupdate.setAdapter(commomAdapter_latestproduct);
+                            commomAdapter_latestproduct.notifyDataSetChanged();
                             if (scrollView.getVisibility() == View.INVISIBLE) {
                                 scrollView.setVisibility(View.VISIBLE);
                             }
