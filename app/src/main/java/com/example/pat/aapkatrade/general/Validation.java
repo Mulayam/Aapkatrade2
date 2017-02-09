@@ -15,30 +15,24 @@ import java.util.regex.Pattern;
 public class Validation {
 
 
-
-    public static boolean validate_edittext(EditText a)
-
-    {
-        if (a.getText().length() != 0 ) {
+    public static boolean validate_edittext(EditText a) {
+        if (a.getText().length() != 0) {
             return true;
         }
         return false;
     }
 
-    public static boolean isEmptyStr(String s){
+    public static boolean isEmptyStr(String s) {
         return TextUtils.isEmpty(s) || s.trim().equals("");
     }
 
-    public static boolean isNonEmptyStr(String s){
+    public static boolean isNonEmptyStr(String s) {
         return !isEmptyStr(s);
     }
 
 
-
-
-
-    public static  boolean isValidEmail(String email) {
-        if(isNonEmptyStr(email)) {
+    public static boolean isValidEmail(String email) {
+        if (isNonEmptyStr(email)) {
             String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
@@ -49,13 +43,13 @@ public class Validation {
         return false;
     }
 
-    public static  boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password) {
         return isNonEmptyStr(password) && password.length() >= 6;
     }
 
-    public static boolean isValidDOB(String dob){
-        if(isNonEmptyStr(dob)){
-            if(dob.split("-").length == 3){
+    public static boolean isValidDOB(String dob) {
+        if (isNonEmptyStr(dob)) {
+            if (dob.split("-").length == 3) {
                 return true;
             }
         }
@@ -63,8 +57,8 @@ public class Validation {
     }
 
     public static boolean isPasswordMatching(String password, String confirmPassword) {
-        if(isValidPassword(password) && isValidPassword(confirmPassword)) {
-            if(password.equals(confirmPassword))
+        if (isValidPassword(password) && isValidPassword(confirmPassword)) {
+            if (password.equals(confirmPassword))
                 return true;
         }
         return false;
@@ -78,8 +72,9 @@ public class Validation {
         }
         return "";
     }
+
     public static boolean isValidNumber(String number, String prefix) {
-        if(isNonEmptyStr(number)) {
+        if (isNonEmptyStr(number)) {
             if (prefix == null) {
                 prefix = "";
             }
@@ -94,16 +89,16 @@ public class Validation {
         return false;
     }
 
-    public static boolean isPincode(String pincode){
-        if(isNonEmptyStr(pincode)){
-            if(pincode.length() == 6  && !pincode.startsWith("0")){
+    public static boolean isPincode(String pincode) {
+        if (isNonEmptyStr(pincode)) {
+            if (pincode.length() == 6 && !pincode.startsWith("0")) {
                 return true;
             }
         }
         return false;
     }
 
-    public static boolean isNumber(String s){
+    public static boolean isNumber(String s) {
         return TextUtils.isDigitsOnly(s);
     }
 

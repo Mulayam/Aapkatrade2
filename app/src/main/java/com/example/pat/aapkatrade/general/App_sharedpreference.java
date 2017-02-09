@@ -12,16 +12,10 @@ import android.content.SharedPreferences;
 public class App_sharedpreference extends Application {
 
 
-    public static String app_pref="aapkatrade";
+    public static String app_pref = "aapkatrade";
 
- public  SharedPreferences shared_pref ;
- public  SharedPreferences.Editor editor ;
-
-
-
-
-
-
+    public SharedPreferences shared_pref;
+    public SharedPreferences.Editor editor;
 
 
     public App_sharedpreference(Context c) {
@@ -31,40 +25,15 @@ public class App_sharedpreference extends Application {
     }
 
 
-
-
-
-    public String getsharedpref(String pref_key,String default_value) {
+    public String getsharedpref(String pref_key, String default_value) {
         return shared_pref.getString(pref_key, default_value);
     }
 
-    public void setsharedpref (String pref_key,String text) {
+    public void setsharedpref(String pref_key, String text) {
         editor.putString(pref_key, text);
         editor.commit();
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

@@ -4,17 +4,17 @@ package com.example.pat.aapkatrade.user_dashboard;
  * Created by PPC16 on 10-Jan-17.
  */
 
-public class DashboardData
-{
+public class DashboardData {
 
-    String dashboard_id, dashboard_name;
-    int image,color;
+    public String dashboard_id, dashboard_name;
+    public int image, color;
+    public boolean isList;
 
-    DashboardData(String dashboard_id, String dashboard_name, int image,int color )
-    {
+    DashboardData(String dashboard_id, String dashboard_name, int image, int color, boolean isList) {
         this.dashboard_id = dashboard_id;
         this.dashboard_name = dashboard_name;
         this.image = image;
-        this.color= color;
+        this.color = color;
+        this.isList = isList;
     }
 }

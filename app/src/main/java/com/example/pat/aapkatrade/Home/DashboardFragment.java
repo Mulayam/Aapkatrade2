@@ -44,8 +44,7 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment implements View.OnClickListener
-{
+public class DashboardFragment extends Fragment implements View.OnClickListener {
 
     Context context;
     int currentPage = 0;
@@ -61,10 +60,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     private int dotsCount;
     private List<Integer> imageIdList;
     private ImageView[] dots;
-  public static SearchView searchView;
+    public static SearchView searchView;
     ImageView home_ads;
     private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
-    RelativeLayout view_all_latest_post,view_all_latest_update;
+    RelativeLayout view_all_latest_post, view_all_latest_update;
     ViewPager vp;
     ScrollView scrollView;
     Timer banner_timer = new Timer();
@@ -82,20 +81,16 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
-        if(view==null)
-        {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_dashboard_new, container, false);
-            initializeview(view,container);
-            // Inflate the layout for this fragment
+            initializeview(view, container);
         }
         return view;
     }
 
 
-    private void setupviewpager()
-    {
+    private void setupviewpager() {
         imageIdList = new ArrayList<>();
         imageIdList.add(R.drawable.banner_home);
         imageIdList.add(R.drawable.banner_home);
@@ -130,45 +125,38 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
-            public void onPageSelected(int position)
-            {
-                try
-                {
-                    for (int i = 0; i < dotsCount; i++)
-                    {
+            public void onPageSelected(int position) {
+                try {
+                    for (int i = 0; i < dotsCount; i++) {
                         dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
                     }
 
                     dots[position].setImageDrawable(getResources().getDrawable(R.drawable.selecteditem_dot));
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                 }
             }
 
             @Override
-            public void onPageScrollStateChanged(int state)
-            {
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
 
     }
 
-    private void initializeview(View v ,ViewGroup v2)
-    {
+    private void initializeview(View v, ViewGroup v2) {
 
 
-        rl_searchview_dashboard=(RelativeLayout)v.findViewById(R.id.rl_searchview) ;
+        rl_searchview_dashboard = (RelativeLayout) v.findViewById(R.id.rl_searchview);
         rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_searchactivity=new Intent(getActivity(), Search.class);
+                Intent intent_searchactivity = new Intent(getActivity(), Search.class);
                 startActivity(intent_searchactivity);
             }
         });
@@ -201,11 +189,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
         recyclerlatestupdate.setLayoutManager(gridLayoutManager);
         recyclerlatestupdate.setHasFixedSize(true);
 
-        view_all_latest_post=(RelativeLayout)view.findViewById(R.id.rl_viewall_latest_post);
+        view_all_latest_post = (RelativeLayout) view.findViewById(R.id.rl_viewall_latest_post);
         view_all_latest_post.setOnClickListener(this);
 
 
-        view_all_latest_update=(RelativeLayout)view.findViewById(R.id.rl_viewall_latest_update);
+        view_all_latest_update = (RelativeLayout) view.findViewById(R.id.rl_viewall_latest_update);
         view_all_latest_update.setOnClickListener(this);
         setupviewpager();
 
@@ -217,8 +205,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
     }
 
-    public void get_home_data()
-    {
+    public void get_home_data() {
         progress_handler.show();
 
         Ion.with(getActivity())
@@ -230,12 +217,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null)
-                        {
+                        if (result == null) {
 
-                        }
-                        else
-                        {
+                        } else {
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
@@ -325,8 +309,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void replaceFragment(Fragment newFragment, String tag)
-    {
+    private void replaceFragment(Fragment newFragment, String tag) {
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag).addToBackStack(null);
@@ -335,11 +318,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
 
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.rl_viewall_latest_post:
                 go_to_product_list_activity();
                 break;
@@ -352,23 +333,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void go_to_product_list_activity()
-    {
-
-        Intent go_to_product_listactivity=new Intent(getActivity(), CategoryListActivity.class);
+    private void go_to_product_list_activity() {
+        Intent go_to_product_listactivity = new Intent(getActivity(), CategoryListActivity.class);
         startActivity(go_to_product_listactivity);
         ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
-
-
-
     }
-
-
-
-
-
-
-
 
 
 }

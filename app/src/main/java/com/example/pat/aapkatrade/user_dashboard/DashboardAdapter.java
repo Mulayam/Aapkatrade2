@@ -30,8 +30,7 @@ import java.util.List;
  * Created by PPC16 on 10-Jan-17.
  */
 
-public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final LayoutInflater inflater;
     private List<DashboardData> itemList;
@@ -40,17 +39,15 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     App_sharedpreference app_sharedpreference;
 
 
-    public DashboardAdapter(Context context, List<DashboardData> itemList)
-    {
+    public DashboardAdapter(Context context, List<DashboardData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        app_sharedpreference=new App_sharedpreference(context);
+        app_sharedpreference = new App_sharedpreference(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_dashboard2, parent, false);
         viewHolder = new DashboardHolder(view);
@@ -59,109 +56,87 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
-    {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         DashboardHolder homeHolder = (DashboardHolder) holder;
 
         homeHolder.tvDashboard.setText(itemList.get(position).dashboard_name.toString());
+        if(itemList.get(position).isList) {
+            homeHolder.tvAmount.setText("12");
+        } else {
+            homeHolder.tvAmount.setVisibility(View.INVISIBLE);
+        }
 
         Picasso.with(context).load(itemList.get(position).image).into(homeHolder.imageView);
 
         ((DashboardHolder) holder).imageView.setBackground(context.getResources().getDrawable(itemList.get(position).color));
 
 
-
         homeHolder.relativeDashboard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                 if(itemList.get(position).dashboard_name.equals("My Company"))
-                {
-                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                    {
+                if (itemList.get(position).dashboard_name.equals("My Company")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
-                        Intent i =new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
-                    }
-                    else
-                    {
+                    } else {
 
-                        Log.e("login_status",app_sharedpreference.getsharedpref("userid","notlogin"));
+                        Log.e("login_status", app_sharedpreference.getsharedpref("userid", "notlogin"));
                         Intent my_company = new Intent(context, MyCompanyProfile.class);
                         context.startActivity(my_company);
 
                     }
 
-                }
-                else if (itemList.get(position).dashboard_name.equals("My Profile"))
-                {
-                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                    {
-                        Intent i =new Intent(context, LoginDashboard.class);
+                } else if (itemList.get(position).dashboard_name.equals("My Profile")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
 
-                    }
-                    else
-                    {
+                    } else {
                         Intent my_profile = new Intent(context, MyProfileActivity.class);
                         context.startActivity(my_profile);
 
                     }
 
-                }
-                else if (itemList.get(position).dashboard_name.equals("Change Password"))
-                {
-                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                {
-                    Intent i =new Intent(context, LoginDashboard.class);
-                    context.startActivity(i);
-
-
-                }
-                else
-                {
-
-                    Intent change_password = new Intent(context, ChangePassword.class);
-                    context.startActivity(change_password);
-
-                }
-
-                }
-                else if (itemList.get(position).dashboard_name.equals("Add Company"))
-                { if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                {
-                    Intent i =new Intent(context, LoginDashboard.class);
-                    context.startActivity(i);
-
-
-                }
-                else
-                {
-
-                    Intent add_company = new Intent(context, AddCompany.class);
-                    context.startActivity(add_company);
-
-                }
-
-                }
-                else if (itemList.get(position).dashboard_name.equals("Company List"))
-                {
-
-
-
-                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                    {
-                        Intent i =new Intent(context, LoginDashboard.class);
+                } else if (itemList.get(position).dashboard_name.equals("Change Password")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
 
+                    } else {
+
+                        Intent change_password = new Intent(context, ChangePassword.class);
+                        context.startActivity(change_password);
+
                     }
-                    else
-                    {
+
+                } else if (itemList.get(position).dashboard_name.equals("Add Company")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    } else {
+
+                        Intent add_company = new Intent(context, AddCompany.class);
+                        context.startActivity(add_company);
+
+                    }
+
+                } else if (itemList.get(position).dashboard_name.equals("Company List")) {
+
+
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    } else {
 
                         Intent list_company = new Intent(context, CompanyList.class);
                         context.startActivity(list_company);
@@ -169,19 +144,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
-
-                }
-                else if (itemList.get(position).dashboard_name.equals("Add Product"))
-                {
-                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                    {
-                        Intent i =new Intent(context, LoginDashboard.class);
+                } else if (itemList.get(position).dashboard_name.equals("Add Product")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
 
-                    }
-                    else
-                    {
+                    } else {
 
                         Intent add_product = new Intent(context, AddProductActivity.class);
                         context.startActivity(add_product);
@@ -189,21 +158,14 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
+                } else if (itemList.get(position).dashboard_name.equals("List Product")) {
 
-
-                }
-                else if (itemList.get(position).dashboard_name.equals("List Product"))
-                {
-
-                    if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                    {
-                        Intent i =new Intent(context, LoginDashboard.class);
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
 
-                    }
-                    else
-                    {
+                    } else {
 
                         Intent list_product = new Intent(context, ProductListActivity.class);
                         context.startActivity(list_product);
@@ -211,25 +173,33 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
+                } else if (itemList.get(position).dashboard_name.equals("Order")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    } else {
+
+                        Intent list_product = new Intent(context, OrderActivity.class);
+                        context.startActivity(list_product);
+
+                    }
+
+                } else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    } else {
+
+//                        Intent list_product = new Intent(context, OrderActivity.class);
+//                        context.startActivity(list_product);
+
+                    }
+
                 }
-                 else if (itemList.get(position).dashboard_name.equals("Order"))
-                 {
-                     if(app_sharedpreference.getsharedpref("userid","notlogin").equals("notlogin"))
-                     {
-                         Intent i =new Intent(context, LoginDashboard.class);
-                         context.startActivity(i);
-
-
-                     }
-                     else
-                     {
-
-                         Intent list_product = new Intent(context, OrderActivity.class);
-                         context.startActivity(list_product);
-
-                     }
-
-                 }
 
 
             }
@@ -237,22 +207,19 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
 
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return itemList.size();
 
     }
 
-    public String getCurrentTimeStamp()
-    {
+    public String getCurrentTimeStamp() {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
 }
