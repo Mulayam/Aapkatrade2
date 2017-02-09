@@ -1,14 +1,14 @@
-package com.example.pat.aapkatrade.user_dashboard.companylist;
+package com.example.pat.aapkatrade.user_dashboard.vender_detail;
 
 /**
- * Created by PPC16 on 10-Jan-17.
+ * Created by PPC16 on 09-Feb-17.
  */
 
-public class CompanyData {
+public class VendorData {
 
     String company_id, company_name, company_creation_date;
 
-    CompanyData(String company_id, String company_name, String company_creation_date)
+    VendorData(String company_id, String company_name, String company_creation_date)
     {
 
         this.company_id = company_id;

@@ -16,9 +16,13 @@ import java.util.ArrayList;
 public class User_DashboardFragment extends Fragment
 {
 
+
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
+
+
+
 
     public User_DashboardFragment()
     {
@@ -35,12 +39,53 @@ public class User_DashboardFragment extends Fragment
         dashboardlist = (RecyclerView) v.findViewById(R.id.dashboardlist);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
         dashboardlist.setLayoutManager(layoutManager);
 
         dashboardAdapter = new DashboardAdapter(getActivity(), dashboardDatas);
         dashboardlist.setAdapter(dashboardAdapter);
 
+        dashboardlist.setNestedScrollingEnabled(false);
+
         return v;
+    }
+
+    public void setup_buyer_data()
+    {
+        dashboardDatas.clear();
+        try
+        {
+            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile,R.drawable.circle_teal));
+            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd,R.drawable.circle_purple));
+            dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_add_company,R.drawable.circle_cherry_red));
+            dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstcmpny,R.drawable.circle_deep_pink));
+
+        }
+        catch (Exception bussiness_associate)
+        {
+
+        }
+
+    }
+
+
+    public void setup_bussiness_associate()
+    {
+        dashboardDatas.clear();
+        try
+        {
+
+            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile,R.drawable.circle_teal));
+            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd,R.drawable.circle_purple));
+            dashboardDatas.add(new DashboardData("", "Add Vender", R.drawable.ic_add_company,R.drawable.circle_cherry_red));
+            dashboardDatas.add(new DashboardData("", "Vender List", R.drawable.ic_lstcmpny,R.drawable.circle_deep_pink));
+
+        }
+        catch (Exception bussiness_associate)
+        {
+
+        }
+
     }
 
 
@@ -50,22 +95,18 @@ public class User_DashboardFragment extends Fragment
         dashboardDatas.clear();
         try
         {
-
-            dashboardDatas.add(new DashboardData("", "My Company", R.drawable.ic_companyprofile,R.drawable.circle_voilet));
-            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile,R.drawable.circle_teal));
-            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd,R.drawable.circle_purple));
-            dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company,R.drawable.circle_cherry_red));
-            dashboardDatas.add(new DashboardData("", "Company List", R.drawable.ic_lstcmpny,R.drawable.circle_deep_pink));
-            dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct,R.drawable.circle_turquoise));
-            dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct,R.drawable.circle_slate_gray));
-            dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct,R.drawable.circle_sienna));
-
+            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal));
+            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple));
+            dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company, R.drawable.circle_cherry_red));
+            dashboardDatas.add(new DashboardData("", "Company List", R.drawable.ic_lstcmpny, R.drawable.circle_deep_pink));
+            dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct, R.drawable.circle_turquoise));
+            dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct, R.drawable.circle_slate_gray));
+            dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna));
         }
         catch (Exception e)
         {
 
         }
-
 
     }
 

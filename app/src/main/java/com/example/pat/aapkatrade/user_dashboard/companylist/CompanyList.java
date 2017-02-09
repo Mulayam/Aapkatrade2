@@ -25,11 +25,13 @@ import java.util.ArrayList;
 public class CompanyList extends AppCompatActivity
 {
 
+
     CircularProgressView progressView;
     RecyclerView recyclerViewcompanylist;
     CompanyListAdapter companyListAdapter;
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
+
 
 
 
@@ -80,7 +82,6 @@ public class CompanyList extends AppCompatActivity
 
                             for(int i = 0; i<jsonArray.size(); i++)
                             {
-
                                 JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                 System.out.println("jsonArray jsonObject2"+jsonObject2.toString());
@@ -94,9 +95,7 @@ public class CompanyList extends AppCompatActivity
                                 System.out.println("ferhgjerk"+country_id+name+creation_date);
 
                                 companyDatas.add(new CompanyData(country_id,name,creation_date));
-
                             }
-
                             companyListAdapter = new CompanyListAdapter(CompanyList.this, companyDatas , CompanyList.this);
 
                             recyclerViewcompanylist.setAdapter(companyListAdapter);
