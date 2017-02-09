@@ -48,11 +48,6 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-
-//                Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-//                startActivity(registerUserActivity);
-
-//
                 if (app_sharedpreference.shared_pref != null) {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
@@ -65,30 +60,6 @@ public class LoginActivity extends AppCompatActivity
                 } else {
                     Log.e("null_sharedPreferences", "sharedPreferences");
                 }
-
-
-
-
-
-
-               /* if (sharedPreferences != null) {
-
-                    if (sharedPreferences.getInt("user", 0) == 3) {
-
-                if (app_sharedpreference.shared_pref!= null) {
-                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-
-                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
-                        startActivity(registerUserActivity);
-                    } else if(app_sharedpreference.getsharedpref("usertype", "0").equals("1") || app_sharedpreference.getsharedpref("usertype", "0").equals("2") ) {
-                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
-                        startActivity(registerUserActivity);
-                    }
-                }
-
-            }
-
-*/
 
 
             }
@@ -115,7 +86,12 @@ public class LoginActivity extends AppCompatActivity
                     if (Validation.validate_edittext(password)) {
 
                         if (app_sharedpreference.shared_pref != null) {
+
+                            Log.e("login------------", app_sharedpreference.getsharedpref("usertype", "0"));
+
                             if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+
+                                Log.e("login------------", app_sharedpreference.getsharedpref("usertype", "0"));
 
                                 String login_url = "http://aapkatrade.com/slim/businesslogin";
 
@@ -176,8 +152,6 @@ public class LoginActivity extends AppCompatActivity
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
-                Log.e("data2", webservice_returndata.toString());
-
                 if (webservice_returndata != null) {
                     Log.e("webservice_returndata", webservice_returndata.toString());
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
@@ -214,14 +188,11 @@ public class LoginActivity extends AppCompatActivity
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
         app_sharedpreference.setsharedpref("emailid", email_id);
-
-
     }
 
     private void InitView()
     {
         forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
-
         login_text = (TextView) findViewById(R.id.tv_login);
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
         username = (EditText) findViewById(R.id.etusername);
@@ -229,8 +200,6 @@ public class LoginActivity extends AppCompatActivity
         rl_login = (RelativeLayout) findViewById(R.id.rl_login);
         relativeRegister = (RelativeLayout) findViewById(R.id.relativeRegister);
         vt = new Validation();
-
-
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,8 +220,7 @@ public class LoginActivity extends AppCompatActivity
                 .setAction("", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                    Snackbar snackbar1 = Snackbar.make(cl, "", Snackbar.LENGTH_SHORT);
-//                    snackbar1.show();
+
                     }
                 });
 

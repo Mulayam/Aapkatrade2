@@ -34,6 +34,7 @@
     <color name="dark_green">#52A090</color>
     <color name="green_shad">#069f80</color>
     <color name="dark_green_black">#387266</color>
+    <color name="list_strip">#E1E1E1</color>
 
 
     <array name="tab_colors">

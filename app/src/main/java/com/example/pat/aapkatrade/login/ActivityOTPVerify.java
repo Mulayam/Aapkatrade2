@@ -321,7 +321,7 @@ if(editText1.getText().length()!=0)
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
-                Log.e("data2",webservice_returndata.toString());
+//                Log.e("data2",webservice_returndata.toString());
 
                 if (webservice_returndata != null)
                 {

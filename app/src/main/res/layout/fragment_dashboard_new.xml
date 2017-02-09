@@ -148,16 +148,14 @@ android:focusable="false"
                     </RelativeLayout>
                 </RelativeLayout>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerlatestpost"
+                    android:layout_width="match_parent"
+android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="match_parent">
 
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerlatestpost"
-                        android:layout_width="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_height="match_parent">
-
-                    </android.support.v7.widget.RecyclerView>
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
 
@@ -212,7 +210,6 @@ android:focusable="false"
 
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
                         android:id="@+id/rl_viewall_latest_update"
                         android:background="@drawable/button_orange_back"
                         android:gravity="right"

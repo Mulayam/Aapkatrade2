@@ -3,8 +3,10 @@ package com.example.pat.aapkatrade.Home.registration;
 import android.app.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -61,8 +63,11 @@ import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,7 +76,7 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity  implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
@@ -97,8 +102,6 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
     ProgressBarHandler progressBarHandler;
 
 
-
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
@@ -107,7 +110,7 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
         initView();
         saveUserTypeInSharedPreferences();
         setUpBusinessCategory();
-        getState(countryID);
+        getState();
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,23 +133,26 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
                         Log.e("reach", "reach2");
                         setSellerFormData();
                         validateFields(String.valueOf(1));
-                        if (isAllFieldSet > 0)
+                        if (isAllFieldSet == 0) {
                             callWebServiceForSellerRegistration();
-                    } else {
+                        }
+                    } /*else {
                         callWebServiceForSellerRegistration();
                         Log.e("isAllFieldSet", isAllFieldSet + "");
-                    }
-                }
+                    }*/
+
                     /*
                     Buyer Registration
                      */
-                else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+                    else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
-                    Log.e("reach", "reach3");
-                    getBuyerFormData();
-                    validateFields(String.valueOf(2));
-                    if (isAllFieldSet > 0)
-                        callWebServiceForBuyerRegistration();
+                        Log.e("reach", "reach3");
+                        getBuyerFormData();
+                        validateFields(String.valueOf(2));
+                        if (isAllFieldSet == 0) {
+                            callWebServiceForBuyerRegistration();
+                        }
+                    }
                 }
             }
 
@@ -206,45 +212,85 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
 
 
     private void callWebServiceForSellerRegistration() {
+
+
+        Log.e("datagf",getFile(imageForPreview).getPath());
         progressBarHandler.show();
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
+              // .setMultipartFile("personal_doc", getFile(imageForPreview))
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "2")
-                .setBodyParameter("business_type", getBusiType(formSellerData.getBusinessType()))
-                .setBodyParameter("companyname", formSellerData.getCompanyName())
-                .setBodyParameter("name", formSellerData.getFirstName())
-                .setBodyParameter("lastname", formSellerData.getLastName())
-                .setBodyParameter("dob", formSellerData.getDOB())
-                .setBodyParameter("mobile", formSellerData.getMobile())
-                .setBodyParameter("email", formSellerData.getEmail())
-                .setBodyParameter("password", formSellerData.getPassword())
-                .setBodyParameter("country_id", formSellerData.getCountryId())
-                .setBodyParameter("state_id", formSellerData.getStateId())
-                .setBodyParameter("city_id", formSellerData.getCityId())
-                .setBodyParameter("client_id", formSellerData.getClientId())
-                .setBodyParameter("shopname", formSellerData.getShopName())
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .setMultipartFile("company_doc", "image*//*",getFile(imageForPreview))
+                .setMultipartFile("comp_incorporation", "image*//*",getFile(imageForPreview))
+                .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setMultipartParameter("business_type", formSellerData.getBusinessType())
+                .setMultipartParameter("companyname", formSellerData.getCompanyName())
+                .setMultipartParameter("name", formSellerData.getFirstName())
+                .setMultipartParameter("lastname", formSellerData.getLastName())
+                .setMultipartParameter("dob", formSellerData.getDOB())
+                .setMultipartParameter("mobile", formSellerData.getMobile())
+                .setMultipartParameter("email", formSellerData.getEmail())
+                .setMultipartParameter("password", formSellerData.getPassword())
+                .setMultipartParameter("country_id", formSellerData.getCountryId())
+                .setMultipartParameter("state_id", formSellerData.getStateId())
+                .setMultipartParameter("city_id", formSellerData.getCityId())
+                .setMultipartParameter("client_id", formSellerData.getClientId())
+                .setMultipartParameter("shopname", formSellerData.getShopName())
+                .setMultipartParameter("tin_number", "521651")
+                .setMultipartParameter("tan_number", "13546848")
+                .setMultipartParameter("tc", "fdssd")
+                .asString()
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, String result) {
+                        progressBarHandler.hide();
 
-                        Log.e("data", result.toString());
-                        if (result.get("error").getAsString().equals("false")) {
-                            Log.d("registration_seller", "done");
-                            progressBarHandler.hide();
-                            startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                        Log.e("result",result.toString());
+
+                        /*if (result == null) {
+                            Log.e("data", "null data result from seller webApi");
                         }
+                        if (result != null) {
+                            Log.e("registration_seller",result.toString());
+                            if (result.get("error").getAsString().equals("false")) {
+                                Log.d("registration_seller", "done");
+                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                            }
+                        }*/
+
                     }
 
                 });
     }
 
 
+    private File getFile(Bitmap photo) {
+        Uri tempUri = getImageUri(RegistrationActivity.this, photo);
+        File finalFile = new File(getRealPathFromURI(tempUri));
+        Log.e("data", getRealPathFromURI(tempUri));
+        return finalFile;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = RegistrationActivity.this.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+
     private void callWebServiceForBuyerRegistration() {
+        Log.e("reach", " Buyer Data--------->\n" + formBuyerData.toString());
         progressBarHandler.show();
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/buyerregister")
@@ -265,12 +311,13 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-
-                        Log.e("data", result.toString());
-                        if (result.get("error").getAsString().equals("false")) {
-                            Log.d("registration_buyer", "done");
-                            progressBarHandler.hide();
-                            startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                        if (result != null) {
+//                            Log.e("data", result.getAsString());
+                            if (result.get("error").getAsString().equals("false")) {
+                                Log.e("registration_buyer", "done");
+                                progressBarHandler.hide();
+                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                            }
                         }
                     }
 
@@ -283,6 +330,9 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    busiType = String.valueOf(position);
+                }
                 if (position == 2) {
                     uploadView.setVisibility(View.GONE);
                     ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.shop_name));
@@ -360,7 +410,7 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
 
     }
 
-    public void getState(String countryId) {
+   /* public void getState(String countryId) {
 
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
@@ -420,7 +470,64 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
 
         };
     }
+*/
 
+    public void getState() {
+
+
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "state");
+        webservice_body_parameter.put("id", "101");//country id fixed 101 for India
+
+        Call_webservice.getcountrystatedata(RegistrationActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject state_data_webservice) {
+
+                if (state_data_webservice != null) {
+                    Log.e("Taskcomplete", "TaskcompleteError" + state_data_webservice.toString());
+                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
+                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                    stateList.clear();
+                    State stateEntity_init = new State("-1", "Please Select State");
+                    stateList.add(stateEntity_init);
+
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
+                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                        stateList.add(stateEntity);
+                    }
+                    SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
+                    spState.setAdapter(spStateAdapter);
+
+                    spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view,
+                                                   int position, long id) {
+                            stateID = stateList.get(position).stateId;
+                            cityList = new ArrayList<>();
+                            if (position > 0) {
+                                getCity(stateList.get(position).stateId);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+
+
+                    });
+                } else {
+                    AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
+                }
+            }
+
+        };
+    }
 
     //
     public void getCity(String stateId) {
@@ -835,10 +942,12 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
     }
 
     private String getBusiType(String busyType) {
-        if (busyType.equalsIgnoreCase(spBussinessName[1]))
-            return "1";
-        else if (busyType.equalsIgnoreCase(spBussinessName[2]))
-            return "2";
+        if (Validation.isNonEmptyStr(busyType)) {
+            if (busyType.equalsIgnoreCase(spBussinessName[1]))
+                return "1";
+            else if (busyType.equalsIgnoreCase(spBussinessName[2]))
+                return "2";
+        }
         return "";
     }
 
@@ -850,6 +959,6 @@ public class RegistrationActivity extends AppCompatActivity  implements TimePick
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        showDate(year, monthOfYear+1, dayOfMonth);
+        showDate(year, monthOfYear + 1, dayOfMonth);
     }
 }
