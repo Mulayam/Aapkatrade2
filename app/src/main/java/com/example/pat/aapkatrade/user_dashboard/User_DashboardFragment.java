@@ -21,12 +21,15 @@ import java.util.ArrayList;
 
 public class User_DashboardFragment extends Fragment {
 
+
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
     App_sharedpreference app_sharedpreference;
 
     public User_DashboardFragment() {
+
+
 
     }
 
@@ -40,10 +43,13 @@ public class User_DashboardFragment extends Fragment {
         dashboardlist = (RecyclerView) v.findViewById(R.id.dashboardlist);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
         dashboardlist.setLayoutManager(layoutManager);
 
         dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
         dashboardlist.setAdapter(dashboardAdapter);
+
+        dashboardlist.setNestedScrollingEnabled(false);
 
         return v;
     }
@@ -79,5 +85,43 @@ public class User_DashboardFragment extends Fragment {
 
         } catch (Exception e) {
         }
+      
+    public void setup_buyer_data()
+    {
+        dashboardDatas.clear();
+        try
+        {
+            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile,R.drawable.circle_teal));
+            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd,R.drawable.circle_purple));
+            dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_add_company,R.drawable.circle_cherry_red));
+            dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstcmpny,R.drawable.circle_deep_pink));
+
+        }
+        catch (Exception bussiness_associate)
+        {
+
+        }
+
     }
+
+
+    public void setup_bussiness_associate()
+    {
+        dashboardDatas.clear();
+        try
+        {
+
+            dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile,R.drawable.circle_teal));
+            dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd,R.drawable.circle_purple));
+            dashboardDatas.add(new DashboardData("", "Add Vender", R.drawable.ic_add_company,R.drawable.circle_cherry_red));
+            dashboardDatas.add(new DashboardData("", "Vender List", R.drawable.ic_lstcmpny,R.drawable.circle_deep_pink));
+
+        }
+        catch (Exception bussiness_associate)
+        {
+
+        }
+
+    }
+
 }

@@ -166,5 +166,8 @@
     <string name="et_data">Et Data</string>
     <string name="title_activity_search_activity">Search_activity</string>
     <string name="personalDetails">Personal Details</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="share">Share</string>
+    <string name="about_us">About Us</string>
 
 </resources>

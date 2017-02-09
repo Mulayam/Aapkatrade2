@@ -43,16 +43,18 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         inflater = LayoutInflater.from(context);
     }
 
+
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
         View view = inflater.inflate(R.layout.row_company_list, parent, false);
+
+
         viewHolder = new CompanyListHolder(view);
 
         System.out.println("data-----------"+itemList);
-
-
 
         return viewHolder;
     }
@@ -69,26 +71,24 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         homeHolder.tvDate.setText(itemList.get(position).company_creation_date.toString());
 
-
-
         homeHolder.imgNext.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
 
-
                 if(showBoolean)
                 {
-
                     homeHolder.linearLayoutDetail.setVisibility(View.GONE);
                     homeHolder.View1.setVisibility(View.GONE);
+                    homeHolder.imgNext.setImageResource(R.drawable.ic_red_arw);
                     showBoolean = false;
                 }
                 else
                 {
                     showBoolean =true;
                     homeHolder.linearLayoutDetail.setVisibility(View.VISIBLE);
+                    homeHolder.imgNext.setImageResource(R.drawable.ic_arw_down);
                     homeHolder.View1.setVisibility(View.VISIBLE);
                 }
 

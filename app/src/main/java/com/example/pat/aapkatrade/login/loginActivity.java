@@ -24,13 +24,17 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity
+{
+
     TextView login_text, forgot_password;
     EditText username, password;
     RelativeLayout rl_login, relativeRegister;
     Validation vt;
     App_sharedpreference app_sharedpreference;
     CoordinatorLayout cl;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +190,8 @@ public class LoginActivity extends AppCompatActivity {
         app_sharedpreference.setsharedpref("emailid", email_id);
     }
 
-    private void InitView() {
+    private void InitView()
+    {
         forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
         login_text = (TextView) findViewById(R.id.tv_login);
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -202,6 +207,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(forgotpassword_activity);
             }
         });
+
+
+
 
     }
 

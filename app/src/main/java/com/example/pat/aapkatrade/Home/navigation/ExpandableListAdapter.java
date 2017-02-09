@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.Home.navigation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
+import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -32,6 +34,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
 
     private Context _context;
     private ArrayList<CategoryHome> _listDataHeader;
+    private ArrayList<SubCategory>_listdata_subcategory;
     private clickListner click;
     public static ToggleButton tg_button;
     ProgressDialog _progressDialog;
@@ -62,6 +65,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
             LayoutInflater infalInflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_item, parent, false);
+            Log.e("subcategorylist",this._listDataHeader.get(groupPosition).getSubCategoryList().get(childPosition).subCategoryName);
         }
 
         TextView txtListChild = (TextView) convertView
@@ -117,8 +121,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
 
         LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = infalInflater.inflate(R.layout.list_group, parent, false);
+
         final ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
         final ImageView imageViewIcon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
+       // imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
         Ion.with(_context).load(_listDataHeader.get(groupPosition).getCategoryIconPath()).withBitmap().asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override
@@ -130,27 +136,32 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 });
 
         if(_listDataHeader.get(groupPosition).getSubCategoryList().size() != 0){
-
+            Log.e("result_IN ADAPTER","null"+"****"+_listDataHeader.get(groupPosition).getSubCategoryList().size()+"88888");
         }
 
         if (_listDataHeader.get(groupPosition).getSubCategoryList().size() == 0) {
             imageView.setVisibility(View.GONE);
             final View finalConvertView = convertView;
+            Log.e("result_IN ADAPTER==","null"+"****"+_listDataHeader.get(groupPosition).getSubCategoryList().size()+"88888");
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     click.itemClicked(finalConvertView, groupPosition, 0);
                 }
             });
-        } else {
+        }
+
+        else {
+            imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
 
             if (isExpanded) {
                 imageView.setImageResource(R.drawable.ic_chevron_primary);
                 convertView.setBackgroundResource(R.color.dark_green);
-                //notifyDataSetChanged();
+                notifyDataSetChanged();
+                Log.e("call notify","call notify");
             } else {
                 imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
-               // notifyDataSetChanged();
+                notifyDataSetChanged();
             }
         }
 
@@ -184,54 +195,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
     }
 
 
-    //    private void callSubscribedwebservice() {
-//        SharedPreferences sharedpreferences = _context.getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-//        String emailid=sharedpreferences.getString("email",null);
-//        if (ConnetivityCheck.isNetworkAvailable(_context) == true) {
-//
-//            if (emailid != null) {
-//                _progressDialog.show();
-//                String Subscribed_url = "https://netforcesales.com/eclipseexpress/web_api.php?type=subscribe&email=" + emailid;
-//                Log.e("Subscribed_url", Subscribed_url);
-//                setupSelfSSLCert();
-//                Ion.with(_context)
-//                        .load(Subscribed_url)
-//                        .progressDialog(_progressDialog)
-//                        .asJsonObject()
-//
-//                        .setCallback(new FutureCallback<JsonObject>() {
-//                            public void onCompleted(Exception e, JsonObject result) {
-//
-//                                String status = result.get("status").getAsString();
-//                                Log.e("Subscribed_url_response", status);
-//
-//
-//                                String message = result.get("message").getAsString();
-//                                if (message.contains("unsubscribed")) {
-//                                    // ExpandableListAdapter.tg_button.setChecked(false);
-//
-//
-//                                    _progressDialog.dismiss();
-//                                    Log.e("toggle_off", message);
-//                                } else { //ExpandableListAdapter.tg_button.setChecked(true);
-//                                    _progressDialog.dismiss();
-//                                    Log.e("toggle_on", message);
-//
-//                                }
-//
-//                                ShowMessage(message);
-//
-//
-//                            }
-//
-//                        });
-//            }
-//        }
-//        else {
-//            ShowMessage("Their is no internet connection");
-//        }
-//
-//    }
+
     private void ShowMessage(String message) {
         Toast.makeText(_context, message, Toast.LENGTH_SHORT).show();
 
