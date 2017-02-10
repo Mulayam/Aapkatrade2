@@ -18,7 +18,11 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
+import com.google.gson.JsonObject;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -45,7 +49,11 @@ public class ProductDetail extends AppCompatActivity
     private ImageView[] dots;
     Timer banner_timer=new Timer();
     RelativeLayout relativeBuyNow;
+    LinearLayout linearProductDetail;
 
+
+
+    TextView tvProductName,tvProPrice,tvStock,tvDuration,tvDiscription,tvSpecification;
 
 
     @Override
@@ -64,6 +72,7 @@ public class ProductDetail extends AppCompatActivity
         initView();
 
 
+        get_data();
 
        /* buyProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +83,36 @@ public class ProductDetail extends AppCompatActivity
        */
 
 
+
+    }
+
+    private void get_data()
+    {
+
+        Ion.with(getApplicationContext())
+                .load("http://aapkatrade.com/slim/product_detail/2")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "product_detail")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        JsonObject jsonObject = result.getAsJsonObject();
+
+                        String   product_name = jsonObject.get("name").getAsString();
+                        String   product_price = jsonObject.get("price").getAsString();
+                        String   deliverday = jsonObject.get("deliverday").getAsString();
+                        String   description = jsonObject.get("short_des").getAsString();
+
+
+                    }
+
+
+                });
 
     }
 
@@ -179,6 +218,20 @@ public class ProductDetail extends AppCompatActivity
 
     private void setup_layout()
     {
+
+        linearProductDetail = (LinearLayout) findViewById(R.id.linearProductDetail);
+
+        tvProductName = (TextView) findViewById(R.id.tvProductName);
+
+        tvProPrice = (TextView) findViewById(R.id.tvProPrice);
+
+        tvStock = (TextView) findViewById(R.id.tvStock);
+
+        tvDuration = (TextView) findViewById(R.id.tvDuration);
+
+        tvDiscription = (TextView) findViewById(R.id.tvDiscription);
+
+        tvSpecification = (TextView) findViewById(R.id.tvSpecification);
 
         relativeBuyNow = (RelativeLayout) findViewById(R.id.relativeBuyNow);
 

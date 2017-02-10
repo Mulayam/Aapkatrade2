@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.user_dashboard;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,13 +18,13 @@ public class DashboardHolder extends RecyclerView.ViewHolder {
     View view;
     TextView tvDashboard, tvAmount;
     ImageView imageView;
-    RelativeLayout relativeDashboard;
+    LinearLayout relativeDashboard;
 
 
     public DashboardHolder(View itemView) {
         super(itemView);
 
-        relativeDashboard = (RelativeLayout) itemView.findViewById(R.id.relativeDashboard);
+        relativeDashboard = (LinearLayout) itemView.findViewById(R.id.relativeDashboard);
 
         tvDashboard = (TextView) itemView.findViewById(R.id.tvDashboard);
 
