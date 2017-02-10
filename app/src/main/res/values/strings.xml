@@ -169,5 +169,7 @@
     <string name="contact_us">Contact Us</string>
     <string name="share">Share</string>
     <string name="about_us">About Us</string>
+    <string name="terms"><![CDATA[Terms & Conditions]]></string>
+    <string name="invite"><![CDATA[Invite & Share]]></string>
 
 </resources>

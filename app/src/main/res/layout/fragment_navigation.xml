@@ -30,16 +30,20 @@ android:id="@+id/navigation_parent_scrollview">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:padding="10dp"
-        android:background="@color/dark_green"
+        android:background="@drawable/navigation_profile_bg"
         android:layout_gravity="center_vertical"
-        android:layout_height="wrap_content">
+
+        android:layout_height="150dp">
+
+
+
         <android.support.v7.widget.AppCompatImageView
 
             android:id="@+id/circular_profile_image_home"
             android:layout_width="60dp"
             android:layout_height="60dp"
-
-            app:srcCompat="@drawable/svg"
+android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_profile_user"
 
             android:layout_gravity="center_vertical"
             android:scaleType="fitCenter"
@@ -60,6 +64,7 @@ android:id="@+id/navigation_parent_scrollview">
             android:layout_width="wrap_content"
             android:id="@+id/welcome_guest"
             android:textColor="@color/white"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="@string/welcomeguest"/>
         <TextView
@@ -68,8 +73,16 @@ android:id="@+id/navigation_parent_scrollview">
             android:textColor="@color/white"
             android:layout_below="@+id/welcome_guest"
             android:text="@string/user_name"
+            android:textStyle="bold"
             android:id="@+id/tv_email" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_below="@+id/tv_email"
+            android:text="demo@gmail.com"
+            android:textStyle="bold"
+            android:id="@+id/tv_email2" />
 
     </RelativeLayout>
 
@@ -85,7 +98,7 @@ android:id="@+id/navigation_parent_scrollview">
         android:layout_width="match_parent"
         android:id="@+id/rl_category"
 
-        android:background="#FF4F847A"
+        android:background="@color/white"
         android:layout_height="50dp">
         <TextView
             android:layout_width="wrap_content"
@@ -132,14 +145,14 @@ android:id="@+id/navigation_parent_scrollview">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/rl_contactus"
+        android:id="@+id/rl_terms"
 
-        android:background="#FF4F847A"
+        android:background="@color/white"
         android:layout_below="@+id/lvExp"
         android:layout_height="50dp">
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/contact_us"
+            android:text="@string/terms"
             android:textSize="14sp"
             android:layout_centerVertical="true"
             android:textColor="@color/black"
@@ -159,14 +172,14 @@ android:id="@+id/navigation_parent_scrollview">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/rl_Contact"
+        android:id="@+id/rl_invite"
 
-        android:background="#FF4F847A"
-        android:layout_below="@+id/rl_contactus"
+        android:background="@color/white"
+        android:layout_below="@+id/rl_terms"
         android:layout_height="50dp">
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/about_us"
+            android:text="@string/invite"
             android:textSize="14sp"
             android:layout_centerVertical="true"
             android:textColor="@color/black"
@@ -183,10 +196,10 @@ android:id="@+id/navigation_parent_scrollview">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/rl_rateus"
+        android:id="@+id/rl_setting"
 
-        android:background="#FF4F847A"
-        android:layout_below="@+id/rl_Contact"
+        android:background="@color/white"
+        android:layout_below="@+id/rl_invite"
         android:layout_height="50dp">
         <TextView
             android:layout_width="wrap_content"
