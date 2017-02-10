@@ -2,10 +2,12 @@ package com.example.pat.aapkatrade.categories_tab;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +16,15 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.search.Search;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListAdapter;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
@@ -28,8 +38,9 @@ public class CategoryListActivity extends AppCompatActivity
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
-    FrameLayout relativeSearch;
-
+    ProgressBarHandler progress_handler;
+    FrameLayout layout_container;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,16 +51,17 @@ public class CategoryListActivity extends AppCompatActivity
 
         setuptoolbar();
 
-        setup_data();
-
-
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
+
+        progress_handler = new ProgressBarHandler(this);
+
+        layout_container = (FrameLayout) view.findViewById(R.id.layout_container);
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
 
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+
         mRecyclerView.setHasFixedSize(true);
 
         StikkyHeaderBuilder.stickTo(mRecyclerView)
@@ -57,20 +69,81 @@ public class CategoryListActivity extends AppCompatActivity
                 .minHeightHeaderDim(R.dimen.min_header_height)
                 .build();
 
-        categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
-
-        mRecyclerView.setAdapter(categoriesListAdapter);
+        get_web_data();
 
 
+    }
+
+    private void get_web_data()
+    {
+        layout_container.setVisibility(View.INVISIBLE);
+        productListDatas.clear();
+        progress_handler.show();
+
+        Ion.with(CategoryListActivity.this)
+                .load("http://aapkatrade.com/slim/productlist")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "product_list")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        if(result == null)
+                        {
+                            progress_handler.hide();
+                            layout_container.setVisibility(View.INVISIBLE);
+                        }
+                        else
+                        {
+
+                            JsonObject jsonObject = result.getAsJsonObject();
+
+                            JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+
+                            for(int i = 0; i<jsonArray.size(); i++)
+                            {
+                                JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
+
+                                String product_id = jsonObject2.get("id").getAsString();
+
+                                String product_name = jsonObject2.get("name").getAsString();
+
+                                String product_price = jsonObject2.get("price").getAsString();
+
+                                String product_cross_price = jsonObject2.get("cross_price").getAsString();
+
+                                String product_image = jsonObject2.get("image_url").getAsString();
+
+                                productListDatas.add(new CategoriesListData(product_id,product_name,product_price,product_cross_price,product_image));
+
+                            }
+
+                            categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
+
+                            mRecyclerView.setAdapter(categoriesListAdapter);
+
+                            categoriesListAdapter.notifyDataSetChanged();
+
+                            progress_handler.hide();
+
+                            layout_container.setVisibility(View.VISIBLE);
 
 
+                        }
+
+                    }
+
+                });
 
     }
 
 
     private void setuptoolbar()
     {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -83,26 +156,6 @@ public class CategoryListActivity extends AppCompatActivity
 
 
 
-    private void setup_data()
-    {
-        productListDatas.clear();
-        try
-        {
-            productListDatas.add(new CategoriesListData("","",""));
-            productListDatas.add(new CategoriesListData("","",""));
-            productListDatas.add(new CategoriesListData("","",""));
-            productListDatas.add(new CategoriesListData("","",""));
-            productListDatas.add(new CategoriesListData("","",""));
-            productListDatas.add(new CategoriesListData("","",""));
-            productListDatas.add(new CategoriesListData("","",""));
-            productListDatas.add(new CategoriesListData("","",""));
-
-        }
-        catch (Exception  e)
-        {
-
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

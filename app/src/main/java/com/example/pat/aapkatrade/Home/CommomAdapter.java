@@ -58,7 +58,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewholder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewholder, final int position) {
         if (arrangementtype == "list")
 
         {
@@ -81,18 +81,23 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //                .load(commomDatas.get(0).imageurl);
             Log.e("imageurl", commomDatas.get(0).imageurl);
 
-            holder.cardview.setOnClickListener(new View.OnClickListener() {
+            holder.cardview.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view)
+                {
 
                 Intent intent = new Intent(context,ProductDetail.class);
+                    intent.putExtra("product_id",commomDatas.get(position).id.toString());
                 context.startActivity(intent);
-                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+                ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+
                 }
             });
             holder.tvProductName.setText(commomDatas.get(position).name);
 
-        } else {
+        }
+        else {
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
@@ -105,6 +110,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ProductDetail.class);
+                    intent.putExtra("product_id",commomDatas.get(position).id.toString());
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }

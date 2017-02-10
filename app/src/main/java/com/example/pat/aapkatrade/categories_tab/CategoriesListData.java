@@ -6,13 +6,14 @@ package com.example.pat.aapkatrade.categories_tab;
 
 public class CategoriesListData {
 
-    String company_id, company_name, company_creation_date;
+    String product_id, product_name, product_price, product_cross_price, product_image;
 
-    CategoriesListData(String company_id, String company_name, String company_creation_date){
+    CategoriesListData(String product_id, String product_name, String product_price, String product_cross_price, String product_image){
 
-        this.company_id = company_id;
-        this.company_name = company_name;
-        this.company_creation_date = company_creation_date;
-
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.product_price = product_price;
+        this.product_cross_price = product_cross_price;
+        this.product_image = product_image;
     }
 }
