@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,6 +74,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -817,7 +820,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
     void picPhoto() {
-        String str[] = new String[]{"Camera", "Gallery"};
+        String str[] = new String[]{"Camera", "Gallery", "Files"};
         new AlertDialog.Builder(this).setItems(str,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -831,11 +834,40 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         Intent in;
         if (which == 1) {
             in = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(Intent.createChooser(in, "Select profile picture"), which);
+        } else if(which == 2) {
+            Log.e("Files", "File Name is :******>>>>  "+walkdir(Environment.getExternalStorageDirectory()));
+//            for(File file:walkdir(Environment.getExternalStorageDirectory())){
+//                Log.e("Files", "File Name is :******>>>>  "+file.getName());
+//            }
         } else {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(Intent.createChooser(in, "Select profile picture"), which);
         }
-        startActivityForResult(Intent.createChooser(in, "Select profile picture"), which);
+    }
+
+    public String walkdir(File dir) {
+        String pdfPattern = ".pdf";
+        StringBuilder builder = new StringBuilder();
+
+        File listFile[] = dir.listFiles();
+
+        if (listFile != null) {
+            for (int i = 0; i < listFile.length; i++) {
+
+                if (listFile[i].isDirectory()) {
+                    walkdir(listFile[i]);
+                } else {
+                    if (listFile[i].getName().endsWith(pdfPattern)){
+                        //Do what ever u want
+                        builder.append(listFile[i].getName()).append("\n");
+
+                    }
+                }
+            }
+        }
+        return builder.toString();
     }
 
 
