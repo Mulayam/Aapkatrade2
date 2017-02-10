@@ -29,8 +29,6 @@ public class User_DashboardFragment extends Fragment {
 
     public User_DashboardFragment() {
 
-
-
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,8 +82,9 @@ public class User_DashboardFragment extends Fragment {
             }
 
         } catch (Exception e) {
+        }
+    }
 
 
-        }}
 
 }

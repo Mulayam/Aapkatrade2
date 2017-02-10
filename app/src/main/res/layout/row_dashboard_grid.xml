@@ -63,7 +63,7 @@ android:id="@+id/rl_grid_row_parent"
             android:gravity="center_horizontal"
             app:prb_tickSpacing="0dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             />
 
 
@@ -87,12 +87,12 @@ android:id="@+id/rl_grid_row_parent"
         android:background="@color/grey_light"
         android:id="@+id/view_left"
       android:layout_alignParentLeft="true"
-        android:layout_height="200dp"/>
+        android:layout_height="225dp"/>
 
     <View
         android:layout_width="1dp"
         android:background="@color/grey_light"
         android:id="@+id/view_right"
         android:layout_alignParentRight="true"
-        android:layout_height="200dp"/>
+        android:layout_height="225dp"/>
 </RelativeLayout>

@@ -26,6 +26,7 @@ import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
@@ -184,8 +185,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
 
         recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
+        if(Tabletsize.isTablet(getActivity()))
+        {
+            gridLayoutManager = new GridLayoutManager(context, 3);
+        }
+        else
+        {
 
-        gridLayoutManager = new GridLayoutManager(context, 2);
+            gridLayoutManager = new GridLayoutManager(context, 2);
+        }
+
+
         recyclerlatestupdate.setLayoutManager(gridLayoutManager);
         recyclerlatestupdate.setHasFixedSize(true);
 

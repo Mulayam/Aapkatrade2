@@ -14,19 +14,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_weight="1"
+    android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/imgDashboard"
             android:layout_width="@dimen/thirty_five_dip"
             android:layout_height="@dimen/thirty_five_dip"
-            android:layout_weight="1"
+
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:padding="7dp"
             android:src="@drawable/ic_edit" />
 
-
+</RelativeLayout>
         <TextView
             android:id="@+id/tvDashboard"
             android:layout_width="0dp"

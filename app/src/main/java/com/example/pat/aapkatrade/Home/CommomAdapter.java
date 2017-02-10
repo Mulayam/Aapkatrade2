@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.squareup.picasso.Picasso;
 
@@ -103,30 +104,46 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,ProductDetail.class);
+                    Intent intent = new Intent(context, ProductDetail.class);
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }
             });
+
+
 //            Animation a = AnimationUtils.loadAnimation(context, R.anim.show_progress);
 //            a.setDuration(1000);
 //            grid_holder.product_imageview.startAnimation(a);
 
+            if (Tabletsize.isTablet(context)) {
 
-            if (position % 2 == 0) {
+                if (position % 3 == 0) {
 
-                grid_holder.view_grid_left.setVisibility(View.GONE);
-                grid_holder.view_grid_right.setVisibility(View.GONE);
+                    grid_holder.view_grid_left.setVisibility(View.GONE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+
+
+                } else {
+                    grid_holder.view_grid_left.setVisibility(View.VISIBLE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+                }
 
 
             } else {
-                grid_holder.view_grid_left.setVisibility(View.VISIBLE);
-                grid_holder.view_grid_right.setVisibility(View.GONE);
+                if (position % 2 == 0) {
+
+                    grid_holder.view_grid_left.setVisibility(View.GONE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+
+
+                } else {
+                    grid_holder.view_grid_left.setVisibility(View.VISIBLE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+                }
+
+
             }
-
-
         }
-
 
     }
 
