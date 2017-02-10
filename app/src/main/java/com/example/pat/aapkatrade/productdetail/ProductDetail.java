@@ -107,7 +107,7 @@ public class ProductDetail extends AppCompatActivity
                         String   product_price = jsonObject.get("price").getAsString();
                         String   deliverday = jsonObject.get("deliverday").getAsString();
                         String   description = jsonObject.get("short_des").getAsString();
-
+                        String specification = jsonObject.get("").getAsString();
 
                     }
 
