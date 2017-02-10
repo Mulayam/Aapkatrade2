@@ -37,7 +37,8 @@
     <string name="businessassociate">BUSINESS ASSOCIATE</string>
 
 
-    <string name="uploadImage">Upload Pan Card, Aadhar Card, Election ID</string>
+    <string name="comp_doc">Company Document</string>
+    <string name="personal_doc">Personal Document(Pan Card,Aadhar Card,Election ID)</string>
     <string name="drawer_open">draweropen</string>
     <string name="drawer_close">drawerclose</string>
     <string name="language">language</string>
@@ -169,5 +170,6 @@
     <string name="contact_us">Contact Us</string>
     <string name="share">Share</string>
     <string name="about_us">About Us</string>
+    <string name="uploadPDFFile">Company Incorporation</string>
 
 </resources>

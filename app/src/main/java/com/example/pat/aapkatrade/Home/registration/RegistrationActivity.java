@@ -2,7 +2,6 @@ package com.example.pat.aapkatrade.Home.registration;
 
 import android.app.Activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,22 +11,19 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,8 +42,6 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAd
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 
 
-import com.example.pat.aapkatrade.MainActivity;
-
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -62,6 +56,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.nbsp.materialfilepicker.MaterialFilePicker;
+import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -69,12 +65,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,24 +78,26 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
+    private CardView uploadCard;
     private Spinner spBussinessCategory, spCountry, spState, spCity;
     private String[] spBussinessName = {"Please Select Business Type", "Licence", "Personal"};
     private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etUserName, etAddress, etPassword, etReenterPassword;
-    private TextView tvSave;
+    private TextView tvSave, uploadMsg;
     private LinearLayout registrationLayout;
     private ArrayList<Country> countryList = new ArrayList<>();
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
-    private LinearLayout businessDetails, uploadView;
+    private LinearLayout businessDetails, uploadView, uploadPDFView;
     private static final int reqCode = 33;
-    private boolean isReqCode = false;
-    private ImageView uploadImage, openCalander, cancelImage;
+    private File compIncorpFile = new File(""), docFile = new File("");
+    private boolean isReqCode = false, isCompIncorp = false;
+    private ImageView uploadImage, uploadPDFButton, openCalander, cancelImage, cancelFile;
     App_sharedpreference app_sharedpreference;
-    private CircleImageView circleImageView;
+    private CircleImageView circleImageView, previewPDF;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
     private String busiType = "", countryID = "101", stateID, cityID;
-    private RelativeLayout spBussinessCategoryLayout, previewImageLayout, dobLayout;
+    private RelativeLayout spBussinessCategoryLayout, previewImageLayout, previewPDFLayout, dobLayout;
     private DatePickerDialog datePickerDialog;
     ProgressBarHandler progressBarHandler;
 
@@ -114,6 +111,14 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         saveUserTypeInSharedPreferences();
         setUpBusinessCategory();
         getState();
+
+        uploadPDFButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCompIncorp = true;
+                performImgPicAction(2);
+            }
+        });
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +190,13 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
             }
         });
 
+        cancelFile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previewPDFLayout.setVisibility(View.GONE);
+            }
+        });
+
 
     }
 
@@ -217,16 +229,16 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private void callWebServiceForSellerRegistration() {
 
 
-        Log.e("datagf",getFile(imageForPreview).getPath());
+//        Log.e("datagf", getFile(imageForPreview).getPath());
         progressBarHandler.show();
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
-              // .setMultipartFile("personal_doc", getFile(imageForPreview))
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setMultipartFile("company_doc", "image*//*",getFile(imageForPreview))
-                .setMultipartFile("comp_incorporation", "image*//*",getFile(imageForPreview))
+                .setMultipartFile("company_doc", "image*//*", docFile)
+                .setMultipartFile("personal_doc", "image*//*", docFile)
+                .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
                 .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setMultipartParameter("business_type", formSellerData.getBusinessType())
                 .setMultipartParameter("companyname", formSellerData.getCompanyName())
@@ -250,7 +262,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                     public void onCompleted(Exception e, String result) {
                         progressBarHandler.hide();
 
-                        Log.e("result",result.toString());
+                        Log.e("result", result.toString());
 
                         /*if (result == null) {
                             Log.e("data", "null data result from seller webApi");
@@ -270,9 +282,13 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
     private File getFile(Bitmap photo) {
-        Uri tempUri = getImageUri(RegistrationActivity.this, photo);
+        Uri tempUri = null;
+        if (photo != null) {
+            tempUri = getImageUri(RegistrationActivity.this, photo);
+        }
         File finalFile = new File(getRealPathFromURI(tempUri));
         Log.e("data", getRealPathFromURI(tempUri));
+
         return finalFile;
     }
 
@@ -285,9 +301,14 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
     public String getRealPathFromURI(Uri uri) {
-        Cursor cursor = RegistrationActivity.this.getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        Cursor cursor = null;
+        int idx = 0;
+        if(uri != null) {
+            cursor = RegistrationActivity.this.getContentResolver().query(uri, null, null, null, null);
+            assert cursor != null;
+            cursor.moveToFirst();
+            idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        }
         return cursor.getString(idx);
     }
 
@@ -333,15 +354,23 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    busiType = String.valueOf(position);
+                busiType = String.valueOf(position);
+                if (position == 0) {
+                    uploadCard.setVisibility(View.GONE);
                 }
                 if (position == 2) {
-                    uploadView.setVisibility(View.GONE);
-                    ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.shop_name));
-                } else if (position == 1) {
+                    uploadCard.setVisibility(View.VISIBLE);
                     uploadView.setVisibility(View.VISIBLE);
+                    uploadPDFView.setVisibility(View.GONE);
+                    ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.shop_name));
+                    uploadMsg.setText(getString(R.string.personal_doc));
+
+                } else if (position == 1) {
+                    uploadCard.setVisibility(View.VISIBLE);
+                    uploadView.setVisibility(View.VISIBLE);
+                    uploadPDFView.setVisibility(View.VISIBLE);
                     ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.company_name_heading));
+                    uploadMsg.setText(getString(R.string.comp_doc));
                 }
             }
 
@@ -412,68 +441,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         };
 
     }
-
-   /* public void getState(String countryId) {
-
-
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "state");
-        webservice_body_parameter.put("id", countryId);
-
-        Call_webservice.getcountrystatedata(RegistrationActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
-
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject state_data_webservice) {
-                if (state_data_webservice == null) {
-                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                    stateList.clear();
-                    State stateEntity_init = new State("-1", "Please Select State");
-                    stateList.add(stateEntity_init);
-
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                        stateList.add(stateEntity);
-                    }
-                    SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
-                    spState.setAdapter(spStateAdapter);
-
-                    spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view,
-                                                   int position, long id) {
-
-                            Log.d("datastate", position+"<<>>");
-                            stateID = stateList.get(position).stateId;
-                            cityList = new ArrayList<>();
-                            if (position > 0) {
-                                getCity(stateList.get(position).stateId);
-                            }
-//                        if (!(Integer.parseInt(stateID) > 0)) {
-//                            showmessage("Please Select State");
-//                        }
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-
-
-                    });
-                } else {
-                    AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
-                }
-            }
-
-        };
-    }
-*/
 
     public void getState() {
 
@@ -610,6 +577,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
     private void initView() {
+        uploadCard = (CardView) findViewById(R.id.uploadCard);
         progressBarHandler = new ProgressBarHandler(this);
         registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
@@ -618,6 +586,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         spCity = (Spinner) findViewById(R.id.spCityCategory);
         tvSave = (TextView) findViewById(R.id.tvSave);
         tvSave.setText(getString(R.string.save));
+        uploadMsg = (TextView) findViewById(R.id.uploadMsg);
         etProductName = (EditText) findViewById(R.id.etshopname);
         etFirstName = (EditText) findViewById(R.id.etFirstName);
         etLastName = (EditText) findViewById(R.id.etLastName);
@@ -631,11 +600,16 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         spBussinessCategoryLayout = (RelativeLayout) findViewById(R.id.spBussinessCategoryLayout);
         etReenterPassword = (EditText) findViewById(R.id.etReenterPassword);
         uploadView = (LinearLayout) findViewById(R.id.uploadView);
+        uploadPDFView = (LinearLayout) findViewById(R.id.uploadPDFView);
         circleImageView = (CircleImageView) findViewById(R.id.previewImage);
+        previewPDF = (CircleImageView) findViewById(R.id.previewPDF);
         uploadImage = (ImageView) findViewById(R.id.uploadButton);
+        uploadPDFButton = (ImageView) findViewById(R.id.uploadPDFButton);
         openCalander = (ImageView) findViewById(R.id.openCalander);
         previewImageLayout = (RelativeLayout) findViewById(R.id.previewImageLayout);
+        previewPDFLayout = (RelativeLayout) findViewById(R.id.previewPDFLayout);
         cancelImage = (ImageView) findViewById(R.id.cancelImage);
+        cancelFile = (ImageView) findViewById(R.id.cancelFile);
         dobLayout = (RelativeLayout) findViewById(R.id.dobLayout);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
@@ -791,10 +765,12 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 etUserName.setError("Please Enter Valid UserName");
                 break;
             case 12:
-                if (etProductName.getHint().toString().equals("Shop Name*")) {
-                    etProductName.setError("Please Enter Shop Name");
-                } else if (etProductName.getHint().toString().equals("Company Name*")) {
-                    etProductName.setError("Please Enter Company Name");
+                if(etProductName.getHint()!= null) {
+                    if (etProductName.getHint().toString().equals("Shop Name*")) {
+                        etProductName.setError("Please Enter Shop Name");
+                    } else if (etProductName.getHint().toString().equals("Company Name*")) {
+                        etProductName.setError("Please Enter Company Name");
+                    }
                 }
                 break;
 
@@ -820,7 +796,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
     void picPhoto() {
-        String str[] = new String[]{"Camera", "Gallery", "Files"};
+        String str[] = new String[]{"Camera", "Gallery", "PDF Files"};
         new AlertDialog.Builder(this).setItems(str,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -834,40 +810,24 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         Intent in;
         if (which == 1) {
             in = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(Intent.createChooser(in, "Select profile picture"), which);
-        } else if(which == 2) {
-            Log.e("Files", "File Name is :******>>>>  "+walkdir(Environment.getExternalStorageDirectory()));
-//            for(File file:walkdir(Environment.getExternalStorageDirectory())){
-//                Log.e("Files", "File Name is :******>>>>  "+file.getName());
-//            }
+            startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
+        } else if (which == 2) {
+
+
+            new MaterialFilePicker()
+                    .withActivity(this)
+                    .withRequestCode(1)
+                    .withFilter(Pattern.compile(".*\\.pdf$"))
+                    .withFilterDirectories(false)
+                    .withHiddenFiles(true)
+                    .start();
+
+
         } else {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(Intent.createChooser(in, "Select profile picture"), which);
+            startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
         }
-    }
-
-    public String walkdir(File dir) {
-        String pdfPattern = ".pdf";
-        StringBuilder builder = new StringBuilder();
-
-        File listFile[] = dir.listFiles();
-
-        if (listFile != null) {
-            for (int i = 0; i < listFile.length; i++) {
-
-                if (listFile[i].isDirectory()) {
-                    walkdir(listFile[i]);
-                } else {
-                    if (listFile[i].getName().endsWith(pdfPattern)){
-                        //Do what ever u want
-                        builder.append(listFile[i].getName()).append("\n");
-
-                    }
-                }
-            }
-        }
-        return builder.toString();
     }
 
 
@@ -875,13 +835,31 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Log.e("hi", "requestCode : "+requestCode+"result code : "+resultCode );
 
         try {
-            if (reqCode == requestCode) {
+            /*if (requestCode == 11) {
+                Log.e("hi", " if 1 " );
+
                 if (resultCode == Activity.RESULT_OK) {
                     isReqCode = true;
                 }
-            } else if (resultCode == Activity.RESULT_OK) {
+            } else*/ if (requestCode == 1) {
+                Log.e("hi", " if else if 1 " );
+                String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
+                File file = new File(filePath);
+
+                if (isCompIncorp) {
+                    previewPDFLayout.setVisibility(View.VISIBLE);
+                    compIncorpFile = file;
+                    isCompIncorp = false;
+                } else {
+                    previewImageLayout.setVisibility(View.VISIBLE);
+                    docFile = file;
+                }
+                Log.e("hi", "pdf file path : " + file.getAbsolutePath() + "\n" + filePath);
+            } else if (requestCode == 11) {
+                Log.e("hi", " if else if 2 " );
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inDither = false;
                 option.inPurgeable = true;
@@ -924,8 +902,10 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                     previewImageLayout.setVisibility(View.VISIBLE);
                     if (ImageUtils.sizeOf(imageForPreview) > 2048) {
                         circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
+                        docFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
                     } else {
                         circleImageView.setImageBitmap(imageForPreview);
+                        docFile = getFile(imageForPreview);
                     }
 
                 } catch (Exception e) {
@@ -933,6 +913,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 }
 
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
