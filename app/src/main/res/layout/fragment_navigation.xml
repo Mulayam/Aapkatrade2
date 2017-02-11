@@ -16,14 +16,14 @@ android:id="@+id/navigation_parent_scrollview">
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:background="@color/orange"
 
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/dark_green">
+        android:background="@color/orange">
 
     </View>
 
@@ -33,15 +33,15 @@ android:id="@+id/navigation_parent_scrollview">
         android:background="@drawable/navigation_profile_bg"
         android:layout_gravity="center_vertical"
 
-        android:layout_height="150dp">
+        android:layout_height="wrap_content">
 
 
 
         <android.support.v7.widget.AppCompatImageView
 
             android:id="@+id/circular_profile_image_home"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
 android:layout_centerVertical="true"
             app:srcCompat="@drawable/ic_profile_user"
 
@@ -98,14 +98,14 @@ android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:id="@+id/rl_category"
 
-        android:background="@color/white"
-        android:layout_height="50dp">
+        android:background="@color/blue_gradient"
+        android:layout_height="45dp">
         <TextView
             android:layout_width="wrap_content"
             android:text="Categories"
             android:textSize="14sp"
             android:layout_centerVertical="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginLeft="26dp"
             android:layout_height="wrap_content" />
         <ImageView
@@ -138,7 +138,7 @@ android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="1000dp"
 
-        android:background="@color/dark_green"
+        android:background="@color/white"
         android:nestedScrollingEnabled="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:groupIndicator="@null" />
@@ -147,15 +147,15 @@ android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:id="@+id/rl_terms"
 
-        android:background="@color/white"
+        android:background="@color/slaty_gradient"
         android:layout_below="@+id/lvExp"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
         <TextView
             android:layout_width="wrap_content"
             android:text="@string/terms"
             android:textSize="14sp"
             android:layout_centerVertical="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginLeft="26dp"
             android:layout_height="wrap_content" />
 
@@ -174,15 +174,15 @@ android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:id="@+id/rl_invite"
 
-        android:background="@color/white"
+        android:background="@color/blue_gradient_sky"
         android:layout_below="@+id/rl_terms"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
         <TextView
             android:layout_width="wrap_content"
             android:text="@string/invite"
             android:textSize="14sp"
             android:layout_centerVertical="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginLeft="26dp"
             android:layout_height="wrap_content" />
         <View
@@ -198,15 +198,15 @@ android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:id="@+id/rl_setting"
 
-        android:background="@color/white"
+        android:background="@color/grey_gradient"
         android:layout_below="@+id/rl_invite"
-        android:layout_height="50dp">
+        android:layout_height="45dp">
         <TextView
             android:layout_width="wrap_content"
-            android:text="@string/share"
+            android:text="@string/logout"
             android:textSize="14sp"
             android:layout_centerVertical="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginLeft="26dp"
             android:layout_height="wrap_content" />
         <View

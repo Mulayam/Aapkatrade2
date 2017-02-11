@@ -36,6 +36,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:id="@+id/rl_main_content"
             android:layout_height="match_parent">
 
             <android.support.design.widget.CoordinatorLayout
@@ -103,14 +104,19 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.example.pat.aapkatrade.Home.navigation.NavigationFragment"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="55dp"
+        android:name="com.example.pat.aapkatrade.Home.navigation.NavigationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         tools:layout="@layout/fragment_navigation">
 
+
     </fragment>
+
+
+
 
 </android.support.v4.widget.DrawerLayout>
 

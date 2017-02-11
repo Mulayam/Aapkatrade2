@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
@@ -83,6 +84,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public ArrayList<SubCategory> listDataChild = new ArrayList<>();
     RelativeLayout rl_category;
     int flag_categoryclick;
+
+    View rl_main_content;
+
+
     private ArrayList nested_dataheader;
     //public NestedScrollView navigation_parent_scrollview;
     ProgressBarHandler progressBarHandler;
@@ -199,6 +204,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 .string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
+                rl_main_content = getActivity().findViewById(R.id.rl_main_content);
+              rl_main_content.setBackgroundColor(Color.parseColor("#33000000"));
                 hideSoftKeyboard(getActivity());
                 mDrawerLayout.setScrimColor(Color.TRANSPARENT);
                 super.onDrawerOpened(drawerView);
@@ -213,6 +220,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
+               rl_main_content.setBackgroundColor(Color.parseColor("#ffffff"));
 
             }
 
