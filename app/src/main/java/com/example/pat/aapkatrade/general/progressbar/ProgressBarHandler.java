@@ -19,12 +19,16 @@ import com.example.pat.aapkatrade.R;
  * Created by PPC21 on 01-Feb-17.
  */
 
-public class ProgressBarHandler {
+public class ProgressBarHandler
+{
 
     private ProgressBar mProgressBar;
     private Context mContext;
 
-    public ProgressBarHandler(Context context) {
+
+
+    public ProgressBarHandler(Context context)
+    {
         mContext = context;
 
         ViewGroup layout = (ViewGroup) ((Activity) context).findViewById(android.R.id.content).getRootView();
@@ -41,7 +45,6 @@ public class ProgressBarHandler {
         } else {
             mProgressBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(mContext,  R.color.color_voilet), PorterDuff.Mode.SRC_IN);
         }
-
 
 
         RelativeLayout.LayoutParams params = new

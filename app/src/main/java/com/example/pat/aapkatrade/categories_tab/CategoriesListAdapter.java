@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
+import com.koushikdutta.ion.Ion;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,6 +55,13 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         CategoriesListHolder homeHolder = (CategoriesListHolder) holder;
 
+        homeHolder.tvProductName.setText(itemList.get(position).product_name);
+
+        homeHolder.tvProductPrice.setText("\u20A8"+" "+itemList.get(position).product_price);
+
+        Ion.with(homeHolder.productimage)
+                .load(itemList.get(position).product_image);
+
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -61,10 +69,13 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             {
 
                 Intent intent = new Intent(context,ProductDetail.class);
+                intent.putExtra("product_id",itemList.get(position).product_id);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });
+
+
 
     }
 

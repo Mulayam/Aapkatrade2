@@ -4,6 +4,7 @@
     android:id="@+id/layout_container"
     android:orientation="vertical"
     android:background="#EEEEEE"
+    android:visibility="invisible"
     >
 
     <android.support.v7.widget.RecyclerView

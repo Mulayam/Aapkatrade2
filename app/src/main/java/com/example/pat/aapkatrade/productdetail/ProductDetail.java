@@ -1,11 +1,13 @@
 package com.example.pat.aapkatrade.productdetail;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +19,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.koushikdutta.async.future.FutureCallback;
@@ -36,24 +40,22 @@ public class ProductDetail extends AppCompatActivity
 
     LinearLayout viewpagerindicator;
     Spinner spinner;
-    private TextView buyProductButton;
-    int primary_pts = 3;
-    int secondary_pts = 7;
     int max = 10;
-    private List<Integer> imageIdList;
+    private ArrayList<String> imageList;
     int currentPage=0;
     StackedHorizontalProgressBar progressbarFive,progressbarFour,progressbarThree, progressbarTwo,progressbarOne;
     ViewPager vp;
-    viewpageradapter_home viewpageradapter;
+    ProductViewPagerAdapter viewpageradapter;
     private int dotsCount;
     private ImageView[] dots;
     Timer banner_timer=new Timer();
-    RelativeLayout relativeBuyNow;
+    RelativeLayout relativeBuyNow,RelativeProductDetail;
     LinearLayout linearProductDetail;
+    TextView tvProductName,tvProPrice,tvCrossPrice,tvDuration,tvDiscription,tvSpecification;
+    ProgressBarHandler progress_handler;
+    String product_id;
 
 
-
-    TextView tvProductName,tvProPrice,tvStock,tvDuration,tvDiscription,tvSpecification;
 
 
     @Override
@@ -63,16 +65,18 @@ public class ProductDetail extends AppCompatActivity
 
         setContentView(R.layout.activity_product_detail);
 
-        setuptoolbar();
+         Intent intent= getIntent();
 
-        setup_layout();
+         Bundle b = intent.getExtras();
 
-        setupviewpager();
+          product_id = b.getString("product_id");
 
-        initView();
+          setuptoolbar();
 
+          setup_layout();
 
-        get_data();
+           get_data();
+
 
        /* buyProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,14 +87,16 @@ public class ProductDetail extends AppCompatActivity
        */
 
 
-
     }
 
     private void get_data()
     {
+        relativeBuyNow.setVisibility(View.INVISIBLE);
+        linearProductDetail.setVisibility(View.INVISIBLE);
+        progress_handler.show();
 
         Ion.with(getApplicationContext())
-                .load("http://aapkatrade.com/slim/product_detail/2")
+                .load("http://aapkatrade.com/slim/product_detail/"+product_id)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "product_detail")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -101,13 +107,67 @@ public class ProductDetail extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        JsonObject jsonObject = result.getAsJsonObject();
+                        if(result!= null)
+                        {
 
-                        String   product_name = jsonObject.get("name").getAsString();
-                        String   product_price = jsonObject.get("price").getAsString();
-                        String   deliverday = jsonObject.get("deliverday").getAsString();
-                        String   description = jsonObject.get("short_des").getAsString();
-                        String specification = jsonObject.get("").getAsString();
+                            Log.e("result---------",result.toString());
+
+                            JsonObject jsonObject = result.getAsJsonObject();
+
+                            JsonObject json_result = jsonObject.getAsJsonObject("result");
+
+                            JsonArray jsonArray_image = json_result.getAsJsonArray("product_images");
+
+                            System.out.println("jsonArray_image------"+jsonArray_image.toString());
+
+                            for (int i =0; i<jsonArray_image.size(); i++)
+                            {
+                                JsonObject jsonimage = (JsonObject) jsonArray_image.get(i);
+
+                                String image_url = jsonimage.get("image_url").getAsString();
+
+                                System.out.println("image_url---------"+image_url);
+
+                                imageList.add(image_url);
+                            }
+
+                            String   product_name = json_result.get("name").getAsString();
+
+                            String   product_price = json_result.get("price").getAsString();
+
+                            String   product_cross_price = json_result.get("cross_price").getAsString();
+
+                            String   description = json_result.get("short_des").getAsString();
+
+                            String   duration = json_result.get("deliverday").getAsString();
+
+                            tvProductName.setText(product_name);
+                            tvProPrice.setText("\u20A8"+" "+product_price);
+                            tvCrossPrice.setText("\u20A8"+" "+product_cross_price);
+                            tvDiscription.setText(description);
+                            tvDuration.setText(duration);
+
+                            setupviewpager();
+
+                            progress_handler.hide();
+
+                            linearProductDetail.setVisibility(View.VISIBLE);
+                            relativeBuyNow.setVisibility(View.VISIBLE);
+
+
+
+                        }
+                        else
+                        {
+
+
+                            progress_handler.hide();
+                            linearProductDetail.setVisibility(View.INVISIBLE);
+                            relativeBuyNow.setVisibility(View.INVISIBLE);
+
+
+                        }
+
 
                     }
 
@@ -146,14 +206,7 @@ public class ProductDetail extends AppCompatActivity
     private void setupviewpager()
     {
 
-        imageIdList = new ArrayList<>();
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
-
-
-        viewpageradapter  = new viewpageradapter_home(getApplicationContext(), null);
+        viewpageradapter  = new ProductViewPagerAdapter(getApplicationContext(), imageList);
         vp.setAdapter(viewpageradapter);
         vp.setCurrentItem(currentPage);
         setUiPageViewController();
@@ -219,13 +272,21 @@ public class ProductDetail extends AppCompatActivity
     private void setup_layout()
     {
 
+        progress_handler = new ProgressBarHandler(this);
+
+        imageList = new ArrayList<>();
+
+        RelativeProductDetail = (RelativeLayout) findViewById(R.id.RelativeProductDetail);
+
         linearProductDetail = (LinearLayout) findViewById(R.id.linearProductDetail);
 
         tvProductName = (TextView) findViewById(R.id.tvProductName);
 
         tvProPrice = (TextView) findViewById(R.id.tvProPrice);
 
-        tvStock = (TextView) findViewById(R.id.tvStock);
+        tvCrossPrice = (TextView) findViewById(R.id.tvCrossPrice);
+
+        tvCrossPrice.setPaintFlags(tvCrossPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         tvDuration = (TextView) findViewById(R.id.tvDuration);
 
@@ -281,20 +342,9 @@ public class ProductDetail extends AppCompatActivity
         });
 
 
-    }
 
-
-
-    private void initView()
-    {
-        String[] ITEMS = {"1", "2", "3", "4", "5", "6"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ITEMS);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner = (Spinner) findViewById(R.id.spQuantity);
-        spinner.setAdapter(adapter);
 
     }
-
 
 
     private void setuptoolbar()
