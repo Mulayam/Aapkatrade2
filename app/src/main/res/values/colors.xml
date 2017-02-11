@@ -19,12 +19,13 @@
     <color name="screen_back">#F8EEE5</color>
     <color name="black">#000000</color>
    <color name="order_detail_back">#313131</color>
-
+<color name="blue_gradient">#415673</color>
     <color name="aquamarine">#7AE1CC</color>
     <color name="bg_product_title">#DAD7CC</color>
-    <color name="bg_product_title_separator">#AFAB9E</color>
+    <color name="bg_product_title_separator">#333333</color>
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
+    <color name="grey_gradient">#415673</color>
     <color name="item_details_color">#585858</color>
 
     <color name="brown_light">#F1EEE4</color>
@@ -35,6 +36,9 @@
     <color name="green_shad">#069f80</color>
     <color name="dark_green_black">#387266</color>
     <color name="list_strip">#E1E1E1</color>
+    <color name="slaty_gradient">#7991A8</color>
+    <color name="blue_gradient_sky">#0D9DAD</color>
+
 
 
     <array name="tab_colors">

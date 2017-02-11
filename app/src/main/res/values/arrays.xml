@@ -9,5 +9,24 @@
         <item>JavaScript</item>
 
     </string-array>
+    <array name="category_icon_background">
+
+
+
+
+        <item>@drawable/circle_teal</item>
+        <item>@drawable/circle_purple</item>
+        <item>@drawable/circle_voilet</item>
+
+        <item>@drawable/circle_sienna</item>
+        <item>@drawable/circle_slate_gray</item>
+        <item>@drawable/circle_turquoise</item>
+        <item>@drawable/circle_deep_pink</item>
+        <item>@drawable/circle_cherry_red</item>
+
+
+
+
+    </array>
 
 </resources>

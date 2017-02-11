@@ -24,7 +24,7 @@ public class viewpageradapter_home  extends PagerAdapter {
 
 
 
-    public viewpageradapter_home(Context mContext, ArrayList<String>productImage_url) {
+    public viewpageradapter_home(Context mContext, ArrayList<String> productImage_url) {
         this. imageurl=productImage_url;
         this.mContext=mContext;
 
@@ -32,7 +32,7 @@ public class viewpageradapter_home  extends PagerAdapter {
 
 
     public int getCount() {
-        return 4;
+        return imageurl.size() ;
 
 }
 

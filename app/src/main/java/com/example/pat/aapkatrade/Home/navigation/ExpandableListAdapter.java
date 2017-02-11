@@ -2,7 +2,10 @@ package com.example.pat.aapkatrade.Home.navigation;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +23,16 @@ import com.example.pat.aapkatrade.R;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import org.androidannotations.annotations.res.StringArrayRes;
+
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.net.ssl.X509TrustManager;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Netforce on 7/12/2016.
@@ -38,11 +46,16 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
     private clickListner click;
     public static ToggleButton tg_button;
     ProgressDialog _progressDialog;
+    int randomStr;
+
+
+
 
     public ExpandableListAdapter(Context context, ArrayList<CategoryHome> listDataHeader) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         _progressDialog = new ProgressDialog(context);
+
     }
 
     @Override
@@ -71,8 +84,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.lblListItem);
 
-        tg_button = (ToggleButton) convertView.findViewById(R.id.toggleButton);
-        tg_button.setOnCheckedChangeListener(this);
+
 
         txtListChild.setText(childText);
         final View finalConvertView = convertView;
@@ -85,12 +97,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
                 click.itemClicked(finalConvertView, groupPosition, childPosition);
             }
         });
-        if (groupPosition == 2 && childPosition == 0) {
-            // tg_button.setVisibility(View.VISIBLE);
 
-        } else {
-            tg_button.setVisibility(View.GONE);
-        }
         return convertView;
     }
 
@@ -117,6 +124,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
+
+
         String headerTitle = (String) getGroup(groupPosition);
 
         LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -125,12 +134,25 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         final ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
         final ImageView imageViewIcon = (ImageView) convertView.findViewById(R.id.imageViewIcon);
        // imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
+
         Ion.with(_context).load(_listDataHeader.get(groupPosition).getCategoryIconPath()).withBitmap().asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override
                     public void onCompleted(Exception e, Bitmap result) {
                         if(result!=null) {
-                            imageViewIcon.setImageBitmap(result);
+
+                                imageViewIcon.setImageBitmap(result);
+
+
+                            //get random resource
+
+
+                           TypedArray images = _context.getResources().obtainTypedArray(R.array.category_icon_background);
+                            int choice = (int) (Math.random() * images.length());
+                            imageViewIcon.setBackgroundResource(images.getResourceId(choice,R.drawable.circle_sienna));
+                            images.recycle();
+
+
                         }
                     }
                 });
@@ -155,13 +177,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
             imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
 
             if (isExpanded) {
-                imageView.setImageResource(R.drawable.ic_chevron_primary);
-                convertView.setBackgroundResource(R.color.dark_green);
-                notifyDataSetChanged();
+                imageView.setImageResource(R.drawable.ic_chevron_grey);
+                convertView.setBackgroundResource(R.color.grey_light);
+               // notifyDataSetChanged();
                 Log.e("call notify","call notify");
             } else {
-                imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
-                notifyDataSetChanged();
+                imageView.setImageResource(R.drawable.ic_chevron_grey);
+               // notifyDataSetChanged();
             }
         }
 

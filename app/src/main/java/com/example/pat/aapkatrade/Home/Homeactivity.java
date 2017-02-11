@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -61,9 +62,10 @@ public class HomeActivity extends AppCompatActivity
     public static String userid, username;
     ScrollView scrollView;
     float initialX, initialY;
+    public static  RelativeLayout rl_main_content;
     App_sharedpreference app_sharedpreference;
-    // SharedPreferences prefs;
-    String query_hint []={"product1","product2","product3","product4"};
+
+
 
 
 
@@ -72,6 +74,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        rl_main_content=(RelativeLayout)findViewById(R.id.rl_main_content);
 
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
 
@@ -133,6 +136,7 @@ public class HomeActivity extends AppCompatActivity
     private void setupNavigationCustom() {
         drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
+
     }
 
     @Override

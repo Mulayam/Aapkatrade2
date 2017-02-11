@@ -62,7 +62,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public latestproductadapter latestproductadapter;
     ProgressBarHandler progress_handler;
     private int dotsCount;
-    private List<Integer> imageIdList;
+    private ArrayList<String> imageIdList;
     private ImageView[] dots;
     public static SearchView searchView;
     ImageView home_ads;
@@ -94,14 +94,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    private void setupviewpager() {
-        imageIdList = new ArrayList<>();
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
+    private void setupviewpager(ArrayList<String> imageIdList) {
 
-        viewpageradapter = new viewpageradapter_home(getActivity(), null);
+
+        viewpageradapter = new viewpageradapter_home(getActivity(), imageIdList);
         vp.setAdapter(viewpageradapter);
         vp.setCurrentItem(currentPage);
         setUiPageViewController();
@@ -208,7 +204,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         view_all_latest_update = (RelativeLayout) view.findViewById(R.id.rl_viewall_latest_update);
         view_all_latest_update.setOnClickListener(this);
-        setupviewpager();
+
 
         get_home_data();
 //        StikkyHeaderBuilder.stickTo(scrollView)
@@ -242,6 +238,24 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
+
+
+
+                            JsonArray   jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
+                            imageIdList = new ArrayList<>();
+
+
+                            for (int l = 0; l < jsonarray_top_banner.size(); l++) {
+
+                                JsonObject jsonObject_top_banner = (JsonObject) jsonarray_top_banner.get(l);
+                                String banner_imageurl=jsonObject_top_banner.get("image_url").getAsString();
+
+                                imageIdList.add(banner_imageurl);
+
+                            }
+
+
+                            setupviewpager(imageIdList);
 
                             JsonArray latest_post = jsonResult.getAsJsonArray("latest_post");
 
