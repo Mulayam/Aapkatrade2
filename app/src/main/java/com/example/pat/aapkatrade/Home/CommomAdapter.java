@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.squareup.picasso.Picasso;
 
@@ -57,7 +58,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewholder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewholder, final int position) {
         if (arrangementtype == "list")
 
         {
@@ -80,18 +81,23 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //                .load(commomDatas.get(0).imageurl);
             Log.e("imageurl", commomDatas.get(0).imageurl);
 
-            holder.cardview.setOnClickListener(new View.OnClickListener() {
+            holder.cardview.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view)
+                {
 
                 Intent intent = new Intent(context,ProductDetail.class);
+                    intent.putExtra("product_id",commomDatas.get(position).id.toString());
                 context.startActivity(intent);
-                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+                ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+
                 }
             });
             holder.tvProductName.setText(commomDatas.get(position).name);
 
-        } else {
+        }
+        else {
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
@@ -103,30 +109,47 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context,ProductDetail.class);
+                    Intent intent = new Intent(context, ProductDetail.class);
+                    intent.putExtra("product_id",commomDatas.get(position).id.toString());
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }
             });
+
+
 //            Animation a = AnimationUtils.loadAnimation(context, R.anim.show_progress);
 //            a.setDuration(1000);
 //            grid_holder.product_imageview.startAnimation(a);
 
+            if (Tabletsize.isTablet(context)) {
 
-            if (position % 2 == 0) {
+                if (position % 3 == 0) {
 
-                grid_holder.view_grid_left.setVisibility(View.GONE);
-                grid_holder.view_grid_right.setVisibility(View.GONE);
+                    grid_holder.view_grid_left.setVisibility(View.GONE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+
+
+                } else {
+                    grid_holder.view_grid_left.setVisibility(View.VISIBLE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+                }
 
 
             } else {
-                grid_holder.view_grid_left.setVisibility(View.VISIBLE);
-                grid_holder.view_grid_right.setVisibility(View.GONE);
+                if (position % 2 == 0) {
+
+                    grid_holder.view_grid_left.setVisibility(View.GONE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+
+
+                } else {
+                    grid_holder.view_grid_left.setVisibility(View.VISIBLE);
+                    grid_holder.view_grid_right.setVisibility(View.GONE);
+                }
+
+
             }
-
-
         }
-
 
     }
 

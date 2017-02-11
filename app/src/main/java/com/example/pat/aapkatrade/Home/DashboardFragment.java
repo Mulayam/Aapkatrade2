@@ -2,9 +2,11 @@ package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -21,11 +23,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
@@ -184,8 +188,17 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
 
         recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
+        if(Tabletsize.isTablet(getActivity()))
+        {
+            gridLayoutManager = new GridLayoutManager(context, 3);
+        }
+        else
+        {
 
-        gridLayoutManager = new GridLayoutManager(context, 2);
+            gridLayoutManager = new GridLayoutManager(context, 2);
+        }
+
+
         recyclerlatestupdate.setLayoutManager(gridLayoutManager);
         recyclerlatestupdate.setHasFixedSize(true);
 
@@ -205,8 +218,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     }
 
-    public void get_home_data() {
+    public void get_home_data()
+    {
+
+
         progress_handler.show();
+        coordinatorLayout.setVisibility(View.INVISIBLE);
+
 
         Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/home")
@@ -217,9 +235,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null) {
 
-                        } else {
+
+
+                        if (result != null) {
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
@@ -273,6 +292,19 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             }
 
                             progress_handler.hide();
+
+
+
+
+                        }
+
+                        else
+                        {
+
+
+                            progress_handler.hide();
+                            coordinatorLayout.setVisibility(View.VISIBLE);
+                            connection_problem_message();
 
                         }
                     }
@@ -341,6 +373,52 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         startActivity(go_to_product_listactivity);
         ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
     }
+
+
+
+    public void connection_problem_message()
+    {
+
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
+                .setAction("RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Intent intent = getActivity().getIntent();
+                        getActivity().finish();
+                        startActivity(intent);
+                    }
+                });
+
+// Changing message text color
+        snackbar.setActionTextColor(Color.RED);
+
+// Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
 
 
 }

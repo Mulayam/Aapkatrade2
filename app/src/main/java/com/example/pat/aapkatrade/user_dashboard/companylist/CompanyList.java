@@ -66,9 +66,7 @@ public class CompanyList extends AppCompatActivity
                     {
                         if(result ==null)
                         {
-
                             progressView.stopAnimation();
-
                         }
                         else
                         {

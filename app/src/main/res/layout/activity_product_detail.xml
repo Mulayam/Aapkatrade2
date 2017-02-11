@@ -10,15 +10,19 @@
     >
 
     <RelativeLayout
+        android:id="@+id/RelativeProductDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.example.pat.aapkatrade.productdetail.ProductDetail"
+
         >
 
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_layout" />
+
+
 
 
     <ScrollView
@@ -32,10 +36,13 @@
 
 
         <LinearLayout
+            android:id="@+id/linearProductDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            >
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -226,7 +233,6 @@
                             </RelativeLayout>
 
 
-
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_weight="0.7"
@@ -258,7 +264,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:text="Laxmi Auto World"
-                            android:textColor="@color/black"
+                            android:textColor="@color/green"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
                             />
 
 
@@ -270,6 +278,20 @@
                             android:text="@string/rupees_deatils"
                             android:textColor="@color/orange"
                             android:layout_marginTop="5dp"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvCrossPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="\u20A8 200"
+                            android:layout_below="@+id/tvProductName"
+                            android:layout_toRightOf="@+id/tvProPrice"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="6dp"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"
                             />
 
                         <RelativeLayout
@@ -288,74 +310,109 @@
                                 android:textColor="@color/orange"
                                 android:gravity="left"
                                 android:layout_marginTop="5dp"
+                                android:textStyle="bold"
                                 />
 
 
                             <RelativeLayout
-                                android:layout_width="60dp"
-                                android:layout_height="35dp"
+                                android:orientation="vertical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="33dp"
                                 android:background="@drawable/spinner_black_border"
-                                android:padding="2dp"
-                                android:layout_alignTop="@+id/tvQtyHeading"
                                 android:layout_toRightOf="@+id/tvQtyHeading"
-                                android:layout_toEndOf="@+id/tvQtyHeading"
-                                android:layout_marginLeft="5dp"
                                 >
 
-                                <Spinner
-                                    android:id="@+id/spQuantity"
+                                <EditText
+                                    android:id="@+id/editText1"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="35dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_toLeftOf="@+id/imgView"
-                                    android:background="@drawable/simple_spinner_back"
-                                    ></Spinner>
-
-
-                                <ImageView
-                                    android:id="@+id/imgView"
-                                    android:layout_width="15dp"
-                                    android:layout_height="20dp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:src="@drawable/ic_arrow"
-                                    android:scaleType="fitXY"
+                                    android:layout_height="wrap_content"
+                                    android:text="10"
+                                    android:textSize="12sp"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     />
 
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="33dp"
+                                    android:orientation="vertical"
+                                    android:layout_toRightOf="@+id/editText1"
+                                    android:layout_marginLeft="10dp"
+                                    android:background="@color/black"
+                                    >
+                                    <TextView
+                                        android:id="@+id/imgView"
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:text="+"
+                                        android:textColor="@color/white"
+                                        android:textAlignment="center"
+                                        />
+
+
+                                    <TextView
+                                        android:id="@+id/imgView2"
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:text="-"
+                                        android:layout_below="@+id/imgView"
+                                        android:textColor="@color/white"
+                                        android:textAlignment="center" />
+
+                                </RelativeLayout>
+
 
                             </RelativeLayout>
+
+
                             </RelativeLayout>
 
                         <TextView
-                            android:id="@+id/tvStockHeading"
+                            android:id="@+id/tvDurationHeading"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvProPrice"
-                            android:text="@string/stock_heading"
+                            android:text="Duration :"
                             android:layout_marginTop="5dp"
-
+                            android:textColor="@color/black"
                             />
-
-                        <TextView
-                            android:id="@+id/tvStock"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvProPrice"
-                            android:text="@string/stock_availability"
-                            android:layout_marginTop="5dp"
-                            android:layout_toRightOf="@+id/tvStockHeading"
-                            android:textColor="@color/orange"
-                            android:layout_marginLeft="5dp"
-                            />
-
 
                         <TextView
                             android:id="@+id/tvDuration"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvStockHeading"
-                            android:text="@string/duration"
+                            android:layout_below="@+id/tvProPrice"
+                            android:text="1-2"
                             android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/tvDurationHeading"
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="5dp"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/tvDeliveryAreaHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvDurationHeading"
+                            android:text="@string/delivery_area_heading"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/orange"
+                            />
+
+
+                        <TextView
+                            android:id="@+id/tvDeliveryArea"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tvDurationHeading"
+                            android:text="Sector 45, Chandigarh,"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/black"
+                            android:layout_toRightOf="@+id/tvDeliveryAreaHeading"
                             />
 
 
@@ -417,7 +474,9 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                >
 
 
                 <RelativeLayout
@@ -446,7 +505,6 @@
 
 
                 </RelativeLayout>
-
 
 
             </android.support.v7.widget.CardView>
@@ -774,6 +832,7 @@
             android:padding="15dp"
             android:layout_alignParentBottom="true"
             android:background="@color/orange"
+            android:visibility="invisible"
             >
 
             <TextView

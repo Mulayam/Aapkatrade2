@@ -153,7 +153,7 @@ public class Call_webservice {
             }
 
         } else if (webservicetype.equals("category")) {
-            progressBarHandler.show();
+
             HashMap<String, String> webservice_body_parameter = body_parameter;
             String authorization = webservice_body_parameter.get("authorization");
             if (authorization.equals(null)) {
@@ -187,7 +187,7 @@ public class Call_webservice {
                                     if (result != null)
 
                                     {
-                                        progressBarHandler.hide();
+
 
 
                                         taskCompleteReminder.Taskcomplete(result);
