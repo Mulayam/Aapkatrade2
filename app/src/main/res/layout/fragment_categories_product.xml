@@ -16,7 +16,6 @@
 
     <include
         layout="@layout/simple_header"
-
         />
 
 </FrameLayout>

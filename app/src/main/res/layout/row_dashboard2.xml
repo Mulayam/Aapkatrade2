@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeDashboard"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="70dp"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/ten_dip">
 
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_weight="1"
-    android:layout_height="wrap_content">
+
+     <RelativeLayout
+        android:id="@+id/relativeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         >
+
+
         <ImageView
             android:id="@+id/imgDashboard"
             android:layout_width="@dimen/thirty_five_dip"
             android:layout_height="@dimen/thirty_five_dip"
-
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:padding="7dp"
+            android:padding="4dp"
             android:src="@drawable/ic_edit" />
 
-</RelativeLayout>
+
+     </RelativeLayout>
+
+
         <TextView
             android:id="@+id/tvDashboard"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/thirty_five_dip"
-            android:layout_weight="3"
             android:text="Sachin Tendulkar"
+            android:layout_marginTop="7dp"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/relativeImageView"
+            />
 
         <TextView
             android:id="@+id/tvAmount"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/thirty_five_dip"
-            android:layout_weight="0.5"
+            android:layout_alignParentRight="true"
             android:gravity="center_horizontal|center_vertical"
             android:text="50"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
     <View

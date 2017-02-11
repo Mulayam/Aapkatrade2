@@ -53,54 +53,39 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner
+{
 
 
     public static final String preFile = "textFile";
     public static final String userKey = "key";
-
-
     public static ActionBarDrawerToggle mDrawerToggle;
     public static DrawerLayout mDrawerLayout;
     boolean mUserLearnedDrawer;
-
-
     boolean mFromSavedInstance;
     View view;
     String Fname;
     private int lastExpandedPosition = -1;
-
     App_sharedpreference app_sharedpreference;
     public static final String PREFS_NAME = "call_recorder";
     // private SharedPreferences loginPreferences;
     List<String> categoryids;
-
     List<String> categoryname;
-
-
     private Context context;
     TextView footer;
     RelativeLayout header;
-
-
     TextView textViewName, emailid;
     private ImageView imageViewGB;
     private ExpandableListView expListView, nested_expandablelistview;
     private ImageView edit_profile_imgview;
     private ExpandableListAdapter listAdapter;
-
-   public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
+    public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     public ArrayList<SubCategory> listDataChild = new ArrayList<>();
     RelativeLayout rl_category;
     int flag_categoryclick;
-
     private ArrayList nested_dataheader;
-
     //public NestedScrollView navigation_parent_scrollview;
-
-
     ProgressBarHandler progressBarHandler;
-
     private static String shared_pref_name = "aapkatrade";
 
 
@@ -110,19 +95,23 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
+
         progressBarHandler = new ProgressBarHandler(context);
 
         app_sharedpreference = new App_sharedpreference(getActivity());
+
         initView(view);
 
         return view;
     }
 
 
-    private void initView(View view) {
+    private void initView(View view)
+    {
         //   sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
         //prepare textviewdata
         categoryname = new ArrayList<>();
@@ -137,8 +126,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
         rl_category=(RelativeLayout)this.view.findViewById(R.id.rl_category);
 
-
-//        navigation_parent_scrollview=(NestedScrollView)this.view.findViewById(R.id.navigation_parent_scrollview);
+        //navigation_parent_scrollview=(NestedScrollView)this.view.findViewById(R.id.navigation_parent_scrollview);
 
 
         if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
@@ -196,7 +184,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public void setup(int id, final DrawerLayout drawer, Toolbar toolbar) {
+    public void setup(int id, final DrawerLayout drawer, Toolbar toolbar)
+    {
+
         view = getActivity().findViewById(id);
 
         mDrawerLayout = drawer;
@@ -287,8 +277,10 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void itemClicked(View view, int groupview, int childview) {
+    public void itemClicked(View view, int groupview, int childview)
+    {
 
+       System.out.println("childview------------"+ childview);
         try {
 
             Intent i = new Intent(getActivity(), CategoryListActivity.class);
@@ -297,11 +289,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             Log.e("Exception", e.toString());
         }
 
-
       /*  CategoryListFragment categoryListFragment = new CategoryListFragment();
         replaceFragment(categoryListFragment,null);
         mDrawerLayout.closeDrawer(Gravity.LEFT);
-*/
+      */
+
+
 
     }
 
@@ -344,13 +337,16 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void prepareListData() {
+    private void prepareListData()
+    {
         getCategory();
-
 
     }
 
-    private void getCategory() {
+    private void getCategory()
+    {
+
+
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("type", "category");
@@ -412,10 +408,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void set_expandable_adapter_data() {
+    private void set_expandable_adapter_data()
+    {
 
-        if (listDataHeader.size() != 0) {
-
+        if (listDataHeader.size() != 0)
+        {
 
             listAdapter = new ExpandableListAdapter(context, listDataHeader);
 
