@@ -67,7 +67,7 @@
         <item name="colorAccent">@color/green</item>
 
         <item name="colorControlNormal">@color/grey</item>
-        <item name="android:textSize">@dimen/textsize_small</item>
+        <item name="android:textSize">@dimen/textsize_medium</item>
 
     </style>
 
