@@ -15,6 +15,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -56,6 +57,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -78,10 +80,10 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
-    private CardView uploadCard;
+    private LinearLayout uploadCard;
     private Spinner spBussinessCategory, spCountry, spState, spCity;
     private String[] spBussinessName = {"Please Select Business Type", "Licence", "Personal"};
-    private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etUserName, etAddress, etPassword, etReenterPassword;
+    private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etAddress, etPassword, etReenterPassword;
     private TextView tvSave, uploadMsg;
     private LinearLayout registrationLayout;
     private ArrayList<Country> countryList = new ArrayList<>();
@@ -100,6 +102,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private RelativeLayout spBussinessCategoryLayout, previewImageLayout, previewPDFLayout, dobLayout;
     private DatePickerDialog datePickerDialog;
     ProgressBarHandler progressBarHandler;
+    private CardView businessDetailsCard;
+    private RelativeLayout relativeCompanyListheader;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,6 +222,9 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 spBussinessCategoryLayout.setVisibility(View.GONE);
                 etProductName.setVisibility(View.GONE);
                 dobLayout.setVisibility(View.GONE);
+                uploadCard.setVisibility(View.GONE);
+                relativeCompanyListheader.setVisibility(View.GONE);
+                businessDetailsCard.setVisibility(View.GONE);
 
             }
         } else {
@@ -231,11 +238,22 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 //        Log.e("datagf", getFile(imageForPreview).getPath());
         progressBarHandler.show();
+        if(docFile != null){
+            Log.e("doc", "doc : "+docFile.getAbsolutePath());
+        }
+        if(compIncorpFile != null){
+            Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
+        }
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
-                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
+            @Override
+            public void onProgress(long downloaded, long total) {
+                Log.e("status", downloaded+"  * "+total);
+            }
+        })
                 .setMultipartFile("company_doc", "image*//*", docFile)
                 .setMultipartFile("personal_doc", "image*//*", docFile)
                 .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
@@ -262,7 +280,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                     public void onCompleted(Exception e, String result) {
                         progressBarHandler.hide();
 
-                        Log.e("result", result.toString());
+                        Log.e("result", result);
 
                         /*if (result == null) {
                             Log.e("data", "null data result from seller webApi");
@@ -577,7 +595,10 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
     private void initView() {
-        uploadCard = (CardView) findViewById(R.id.uploadCard);
+
+        businessDetailsCard = (CardView) findViewById(R.id.businessDetailsCard);
+        relativeCompanyListheader = (RelativeLayout) findViewById(R.id.relativeCompanyListheader);
+        uploadCard = (LinearLayout) findViewById(R.id.uploadCard);
         progressBarHandler = new ProgressBarHandler(this);
         registrationLayout = (LinearLayout) findViewById(R.id.registrationLayout);
         spBussinessCategory = (Spinner) findViewById(R.id.spBussinessCategory);
@@ -593,7 +614,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         etDOB = (EditText) findViewById(R.id.etDOB);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etMobileNo = (EditText) findViewById(R.id.etMobileNo);
-        etUserName = (EditText) findViewById(R.id.etUserName);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etAddress = (EditText) findViewById(R.id.etAddress);
         businessDetails = (LinearLayout) findViewById(R.id.businessDetails);
@@ -675,10 +695,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 } else if (!Validation.isValidNumber(formSellerData.getMobile(), Validation.getNumberPrefix(formSellerData.getMobile()))) {
                     putError(3);
                     isAllFieldSet++;
-                } else if (Validation.isEmptyStr(etUserName.getText().toString())) {
-                    putError(10);
-                    isAllFieldSet++;
-                } else if (!Validation.isValidPassword(formSellerData.getPassword())) {
+                }  else if (!Validation.isValidPassword(formSellerData.getPassword())) {
                     putError(4);
                     isAllFieldSet++;
                 } else if (!Validation.isPasswordMatching(formSellerData.getPassword(), formSellerData.getConfirmPassword())) {
@@ -740,36 +757,46 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         switch (id) {
             case 0:
                 etFirstName.setError("First Name Can't be empty");
+                showmessage("First Name Can't be empty");
                 break;
             case 1:
                 etLastName.setError("Last Name Can't be empty");
+                showmessage("Last Name Can't be empty");
                 break;
             case 2:
                 etEmail.setError("Please Enter Valid Email");
+                showmessage("Please Enter Valid Email");
                 break;
             case 3:
                 etMobileNo.setError("Please Enter Valid Mobile Number");
+                showmessage("Please Enter Valid Mobile Number");
                 break;
             case 4:
                 etPassword.setError("Password must be greater than 6 digits");
+                showmessage("Password must be greater than 6 digits");
                 break;
             case 5:
                 etReenterPassword.setError("Password did not matched");
+                showmessage("Password did not matched");
                 break;
             case 6:
                 etDOB.setError("Please Select Date");
+                showmessage("Please Select Date");
             case 9:
                 etAddress.setError("Address Can't be empty");
+                showmessage("Address Can't be empty");
                 break;
             case 10:
-                etUserName.setError("Please Enter Valid UserName");
+                showmessage("Please Enter Valid UserName");
                 break;
             case 12:
                 if(etProductName.getHint()!= null) {
                     if (etProductName.getHint().toString().equals("Shop Name*")) {
                         etProductName.setError("Please Enter Shop Name");
+                        showmessage("Please Enter Shop Name");
                     } else if (etProductName.getHint().toString().equals("Company Name*")) {
                         etProductName.setError("Please Enter Company Name");
+                        showmessage("Please Enter Company Name");
                     }
                 }
                 break;
@@ -780,19 +807,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
     public void showmessage(String message) {
-
-        Snackbar snackbar = Snackbar
-                .make(registrationLayout, message, Snackbar.LENGTH_SHORT)
-                .setAction("", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-//                    Snackbar snackbar1 = Snackbar.make(cl, "", Snackbar.LENGTH_SHORT);
-//                    snackbar1.show();
-                    }
-                });
-        snackbar.show();
-
-
+        AndroidUtils.showSnackBar(registrationLayout, message);
     }
 
     void picPhoto() {
@@ -848,14 +863,17 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 Log.e("hi", " if else if 1 " );
                 String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
                 File file = new File(filePath);
-
-                if (isCompIncorp) {
-                    previewPDFLayout.setVisibility(View.VISIBLE);
-                    compIncorpFile = file;
-                    isCompIncorp = false;
-                } else {
-                    previewImageLayout.setVisibility(View.VISIBLE);
-                    docFile = file;
+                if(!filePath.equals("result_file_path")) {
+                    if (isCompIncorp) {
+                        previewPDFLayout.setVisibility(View.VISIBLE);
+                        previewPDF.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
+                        compIncorpFile = file;
+                        isCompIncorp = false;
+                    } else {
+                        previewImageLayout.setVisibility(View.VISIBLE);
+                        circleImageView.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
+                        docFile = file;
+                    }
                 }
                 Log.e("hi", "pdf file path : " + file.getAbsolutePath() + "\n" + filePath);
             } else if (requestCode == 11) {
@@ -867,7 +885,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 option.inTempStorage = new byte[32 * 1024];
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
                 if (Build.VERSION.SDK_INT < 19) {
-                    Uri selectedImageURI = data.getData();
+//                    Uri selectedImageURI = data.getData();
 
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
                 } else {
@@ -900,12 +918,17 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 }
                 try {
                     previewImageLayout.setVisibility(View.VISIBLE);
+                    Log.e("doc", "***START.****** ");
                     if (ImageUtils.sizeOf(imageForPreview) > 2048) {
+                        Log.e("doc", "if doc file path 1");
                         circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
                         docFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
+                        Log.e("doc", "if doc file path"+docFile.getAbsolutePath());
                     } else {
                         circleImageView.setImageBitmap(imageForPreview);
+                        Log.e("doc", " else doc file path 1");
                         docFile = getFile(imageForPreview);
+                        Log.e("doc", " else doc file path"+docFile.getAbsolutePath());
                     }
 
                 } catch (Exception e) {

@@ -830,62 +830,84 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         switch (id) {
             case 0:
                 et_first_name.setError("First Name Can't be empty");
+                showmessage("First Name Can't be empty");
                 break;
             case 1:
                 et_last_name.setError("Last Name Can't be empty");
+                showmessage("Last Name Can't be empty");
                 break;
             case 2:
                 et_email.setError("Please Enter Valid Email");
+                showmessage("Please Enter Valid Email");
                 break;
             case 3:
                 et_mobile.setError("Please Enter Valid Mobile Number");
+                showmessage("Please Enter Valid Mobile Number");
                 break;
             case 4:
                 et_password.setError("Password must be greater than 6 digits");
+                showmessage("Password must be greater than 6 digits");
                 break;
             case 5:
                 et_confirm_password.setError("Password did not matched");
+                showmessage("Password did not matched");
                 break;
             case 6:
                 etDOB.setError("Please Select Date");
+                showmessage("Please Select Date");
                 break;
             case 7:
                 ((TextView) findViewById(R.id.tv_agreement)).setError("Please Accept Terms & Conditions");
+                showmessage("Please Accept Terms & Conditions");
                 break;
             case 9:
                 et_address.setError("Address Can't be empty");
+                showmessage("Address Can't be empty");
                 break;
             case 10:
                 et_father_name.setError("Father's Name Can't be empty");
+                showmessage("Father's Name Can't be empty");
                 break;
             case 11:
                 et_pincode.setError("Please Enter Valid PINCODE");
+                showmessage("Please Enter Valid PINCODE");
                 break;
             case 12:
                 et_account_no.setError("Please Enter Valid Account Number");
+                showmessage("Please Enter Valid Account Number");
                 break;
             case 13:
                 et_branch_code.setError("Please Enter Branch Code");
+                showmessage("Please Enter Branch Code");
                 break;
             case 14:
                 et_branch_name.setError("Please Enter Branch Name");
+                showmessage("Please Enter Branch Name");
                 break;
             case 15:
                 et_ifsc_code.setError("Please Enter IFSC Code");
+                showmessage("Please Enter IFSC Code");
                 break;
             case 16:
                 et_micr_code.setError("Please Enter MICR Code");
+                showmessage("Please Enter MICR Code");
                 break;
             case 17:
                 et_account_holder_name.setError("Please Enter Account Holder Name");
+                showmessage("Please Enter Account Holder Name");
                 break;
             case 18:
                 et_registered_mobile_with_bank.setError("Please Enter Your Registered mobile number");
+                showmessage("Please Enter Your Registered mobile number");
                 break;
 
             default:
                 break;
         }
+    }
+
+    public void showmessage(String message) {
+        AndroidUtils.showSnackBar(registrationLayout, message);
     }
 
     @Override

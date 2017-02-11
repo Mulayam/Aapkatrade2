@@ -59,7 +59,7 @@
         <activity android:name=".productdetail.ProductDetail" />
         <activity
             android:name=".Home.registration.RegistrationActivity"
-            android:theme="@style/myedittext"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".login.ActivityOTPVerify" />
         <activity android:name=".general.ConnectivityNotFound" />

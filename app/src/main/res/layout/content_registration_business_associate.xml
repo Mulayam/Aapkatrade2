@@ -52,20 +52,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
                             android:layout_marginRight="20dp">
 
                             <EditText
                                 android:id="@+id/et_email"
                                 android:theme="@style/myedittext"
-
                                 style="@style/myedittext"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="@string/emailId"
                                 android:inputType="textEmailAddress"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -74,12 +72,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-
                             android:layout_marginRight="20dp"
                             app:passwordToggleEnabled="true">
-
-               
-
 
                             <EditText
                                 android:id="@+id/et_password"
@@ -89,8 +83,7 @@
                                 android:layout_height="match_parent"
                                 android:hint="@string/password1"
                                 android:inputType="textPassword"
-                                android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                android:paddingLeft="@dimen/ten_dip"/>
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -100,7 +93,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-
                             android:layout_marginRight="20dp"
                             app:passwordToggleEnabled="true">
 
@@ -114,7 +106,7 @@
                                 android:hint="@string/confirm_password1"
                                 android:inputType="textPassword"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -144,11 +136,8 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
-
                             android:padding="5dp"
                             android:visibility="gone">
-
-                            
 
 
                             <RelativeLayout
@@ -184,7 +173,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp">
 
                             <EditText
@@ -196,7 +185,7 @@
                                 android:hint="@string/first_name"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -205,7 +194,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -218,7 +207,7 @@
                                 android:hint="@string/last_name"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -229,7 +218,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginTop="10dp">
 
                             <EditText
@@ -241,7 +230,7 @@
                                 android:hint="@string/father_name"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -252,7 +241,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginTop="10dp">
 
                             <EditText
@@ -265,7 +254,7 @@
                                 android:inputType="number"
                                 android:maxLength="10"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -291,9 +280,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
-
                             android:layout_marginTop="10dp">
 
                             <RelativeLayout
@@ -310,8 +298,7 @@
                                     android:enabled="false"
                                     android:hint="@string/date_of_birth"
                                     android:inputType="text"
-                                    android:paddingLeft="@dimen/ten_dip"
-                                    android:textColorHint="@color/green" />
+                                    android:paddingLeft="@dimen/ten_dip" />
 
 
                                 <ImageView
@@ -332,7 +319,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp">
 
                             <EditText
@@ -344,7 +331,7 @@
                                 android:hint="@string/address"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
                         </android.support.design.widget.TextInputLayout>
 
@@ -354,7 +341,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25dp"
                             android:layout_marginRight="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginTop="10dp">
 
                             <RelativeLayout
@@ -389,7 +376,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="25dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -425,7 +412,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -444,7 +431,7 @@
                                 android:inputType="number"
                                 android:maxLength="6"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -469,8 +456,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center_horizontal|center_vertical"
-                                android:text="@string/accept_t_and_c"
-                                android:textColor="@color/green" />
+                                android:text="@string/accept_t_and_c" />
 
 
                         </LinearLayout>
@@ -501,7 +487,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginTop="10dp"
                             android:padding="5dp">
 
@@ -540,7 +526,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
-                            android:textColorHint="@color/green"
+                            
                             android:padding="5dp">
 
                             <RelativeLayout
@@ -576,7 +562,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
                             android:padding="5dp">
@@ -635,7 +621,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginTop="10dp"
                             android:padding="5dp">
 
@@ -672,7 +658,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp">
 
                             <EditText
@@ -684,14 +670,14 @@
                                 android:hint="@string/aacount_no"
                                 android:inputType="number"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
                         </android.support.design.widget.TextInputLayout>
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_branch_code"
                             android:layout_width="match_parent"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
@@ -706,7 +692,7 @@
                                 android:hint="@string/branch_code"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -716,7 +702,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -729,7 +715,7 @@
                                 android:hint="@string/branch_name"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -739,7 +725,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -752,7 +738,7 @@
                                 android:hint="@string/ifsc_code"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -762,7 +748,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -775,7 +761,7 @@
                                 android:hint="@string/micr_code"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -785,7 +771,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -798,7 +784,7 @@
                                 android:hint="@string/account_holder_name"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>
@@ -809,7 +795,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="20dp"
                             android:layout_marginLeft="20dp"
-                            android:textColorHint="@color/green"
+                            
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp">
 
@@ -822,7 +808,7 @@
                                 android:hint="@string/registered_mobile"
                                 android:inputType="number"
                                 android:maxLength="10"
-                                android:textColorHint="@color/green" />
+                                 />
 
 
                         </android.support.design.widget.TextInputLayout>

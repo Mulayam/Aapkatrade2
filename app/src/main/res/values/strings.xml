@@ -171,5 +171,7 @@
     <string name="uploadPDFFile">Company Incorporation</string>
     <string name="terms"><![CDATA[Terms & Conditions]]></string>
     <string name="invite"><![CDATA[Invite & Share]]></string>
+    <string name="tan_number">TAN Number</string>
+    <string name="tin_number">TIN Number</string>
 
 </resources>
