@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.categories_tab;
 
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ public class CategoriesListHolder extends RecyclerView.ViewHolder
 
     View view;
     LinearLayout linearlayout1;
-    TextView tvProductName, tvProductPrice, tvProductCategoryname;
+    TextView tvProductName, tvProductPrice,tvProductCrossPrice, tvProductCategoryname;
     ImageView productimage;
 
 
@@ -35,6 +36,10 @@ public class CategoriesListHolder extends RecyclerView.ViewHolder
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
         tvProductPrice = (TextView) itemView.findViewById(R.id.tvProductPrice);
+
+        tvProductCrossPrice = (TextView) itemView.findViewById(R.id.tvProductCrossPrice) ;
+
+        tvProductCrossPrice.setPaintFlags(tvProductCrossPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         productimage = (ImageView) itemView.findViewById(R.id.productImage);
 

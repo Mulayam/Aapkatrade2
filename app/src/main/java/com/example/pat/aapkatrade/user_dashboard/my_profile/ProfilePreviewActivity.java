@@ -20,10 +20,11 @@ import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 public class ProfilePreviewActivity extends AppCompatActivity
 {
 
-    TextView tvTitle;
+    TextView tvTitle,textViewName,tvMobile,tvEmail,tvUserType;
     LinearLayout linearLayoutLagout,linearLayoutResetpassword,linearLayoutAddress;
     App_sharedpreference app_sharedpreference;
     Button btnEdit;
+
 
 
     @Override
@@ -38,8 +39,6 @@ public class ProfilePreviewActivity extends AppCompatActivity
         setup_layout();
 
         setuptoolbar();
-
-
 
     }
 
@@ -103,6 +102,43 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
             }
         });
+
+        textViewName = (TextView) findViewById(R.id.textViewName);
+
+        tvMobile = (TextView) findViewById(R.id.tvMobile);
+
+        tvEmail = (TextView) findViewById(R.id.tvEmail);
+        tvUserType = (TextView) findViewById(R.id.tvUserType);
+
+
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
+        {
+            String Username = app_sharedpreference.getsharedpref("username", "not");
+            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+
+            String userType = app_sharedpreference.getsharedpref("usertype","0");
+
+            textViewName.setText(Username);
+            tvEmail.setText(Emailid);
+
+            if (userType.equals("1"))
+            {
+                tvUserType.setText("Welcome Seller");
+
+            }
+            else if (userType.equals("2"))
+            {
+                tvUserType.setText("Welcome Buyer");
+
+            }
+            else if (userType.equals("3"))
+            {
+                tvUserType.setText("Welcome Bussiness Associate");
+
+            }
+
+
+        }
 
     }
 

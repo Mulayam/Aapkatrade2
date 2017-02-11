@@ -29,7 +29,7 @@
                 <RelativeLayout
                     android:id="@+id/relativeQuestion"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
@@ -59,7 +59,7 @@
                 <EditText
                     android:id="@+id/etSubject"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
@@ -70,14 +70,14 @@
                     android:padding="10dp"
                     android:layout_below="@+id/relativeQuestion"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize" />
 
 
 
                 <EditText
                     android:id="@+id/etUserName"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
@@ -88,13 +88,13 @@
                     android:imeOptions="actionNext"
                     android:layout_below="@+id/etSubject"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize" />
 
 
                 <EditText
                     android:id="@+id/etMobileNo"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
@@ -105,14 +105,14 @@
                     android:padding="10dp"
                     android:layout_below="@+id/etUserName"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize" />
 
 
 
                 <EditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
@@ -123,7 +123,7 @@
                     android:padding="10dp"
                     android:layout_below="@+id/etMobileNo"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize" />
 
 
                 <EditText
@@ -141,8 +141,7 @@
                     android:padding="10dp"
                     android:layout_below="@+id/etEmail"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp"
-
+                    android:textSize="@dimen/textsize"
                     />
 
 

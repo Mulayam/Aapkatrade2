@@ -13,24 +13,31 @@ import com.example.pat.aapkatrade.R;
  * Created by PPC16 on 10-Jan-17.
  */
 
-public class DashboardHolder extends RecyclerView.ViewHolder {
+public class DashboardHolder extends RecyclerView.ViewHolder
+{
 
     View view;
     TextView tvDashboard, tvAmount;
     ImageView imageView;
     LinearLayout relativeDashboard;
+    RelativeLayout relativeImageView;
 
 
-    public DashboardHolder(View itemView) {
+
+    public DashboardHolder(View itemView)
+    {
         super(itemView);
 
         relativeDashboard = (LinearLayout) itemView.findViewById(R.id.relativeDashboard);
+
+        relativeImageView   = (RelativeLayout) itemView.findViewById(R.id.relativeImageView);
 
         tvDashboard = (TextView) itemView.findViewById(R.id.tvDashboard);
 
         imageView = (ImageView) itemView.findViewById(R.id.imgDashboard);
 
         tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
+
         view = itemView;
     }
 }

@@ -65,10 +65,11 @@
                 android:gravity="left"
                 android:text="Music Art Galaxy"
                 android:textColor="@color/orange"
-                android:textSize="@dimen/textsize_medium"
+                android:textSize="18sp"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 />
+
 
             <TextView
                 android:id="@+id/tvProductCategoryname"
@@ -81,17 +82,40 @@
                 android:layout_marginTop="5dp"
                 />
 
-            <TextView
-                android:id="@+id/tvProductPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/rupees_deatils"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvProductPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/rupees_deatils"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/textsize_medium"
+                    />
 
 
+                <TextView
+                    android:id="@+id/tvProductCrossPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/rupees_deatils"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/textsize_medium"
+                    android:layout_toRightOf="@+id/tvProductPrice"
+                    android:layout_marginLeft="5dp"
+                    />
+
+            </RelativeLayout>
+
+
+
+            
+            
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

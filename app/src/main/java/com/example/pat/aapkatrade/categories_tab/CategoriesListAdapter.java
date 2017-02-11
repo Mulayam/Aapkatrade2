@@ -23,7 +23,6 @@ import java.util.List;
 public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
-
     private final LayoutInflater inflater;
     private List<CategoriesListData> itemList;
     private Context context;
@@ -57,7 +56,9 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         homeHolder.tvProductName.setText(itemList.get(position).product_name);
 
-        homeHolder.tvProductPrice.setText("\u20A8"+" "+itemList.get(position).product_price);
+        homeHolder.tvProductPrice.setText("\u20A8"+"."+" "+itemList.get(position).product_price);
+
+        homeHolder.tvProductCrossPrice.setText("\u20A8"+"."+" "+itemList.get(position).product_cross_price);
 
         Ion.with(homeHolder.productimage)
                 .load(itemList.get(position).product_image);

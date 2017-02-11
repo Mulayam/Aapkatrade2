@@ -22,5 +22,6 @@
     <dimen name="imageview_height">100dp</dimen>
     <dimen name="imageview_weight">100dp</dimen>
     <dimen name="min_header_height">50dp</dimen>
+    <dimen name="fourty_dip">40dp</dimen>
 
 </resources>

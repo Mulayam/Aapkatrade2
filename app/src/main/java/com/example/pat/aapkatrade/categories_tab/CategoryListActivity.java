@@ -34,13 +34,13 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 public class CategoryListActivity extends AppCompatActivity
 {
 
-
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     ProgressBarHandler progress_handler;
     FrameLayout layout_container;
-    
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,6 +68,7 @@ public class CategoryListActivity extends AppCompatActivity
                 .setHeader(R.id.header_simple, view)
                 .minHeightHeaderDim(R.dimen.min_header_height)
                 .build();
+
 
         get_web_data();
 
@@ -99,7 +100,6 @@ public class CategoryListActivity extends AppCompatActivity
                         }
                         else
                         {
-
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             JsonArray jsonArray = jsonObject.getAsJsonArray("result");
@@ -141,7 +141,6 @@ public class CategoryListActivity extends AppCompatActivity
 
     }
 
-
     private void setuptoolbar()
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -153,8 +152,6 @@ public class CategoryListActivity extends AppCompatActivity
 
         //getSupportActionBar().setIcon(R.drawable.home_logo);
     }
-
-
 
 
     @Override

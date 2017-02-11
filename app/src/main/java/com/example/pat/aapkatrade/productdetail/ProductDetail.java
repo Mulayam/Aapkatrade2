@@ -51,10 +51,11 @@ public class ProductDetail extends AppCompatActivity
     Timer banner_timer=new Timer();
     RelativeLayout relativeBuyNow,RelativeProductDetail;
     LinearLayout linearProductDetail;
-    TextView tvProductName,tvProPrice,tvCrossPrice,tvDuration,tvDiscription,tvSpecification;
+    TextView tvProductName,tvProPrice,tvCrossPrice,tvDuration,tvDiscription,tvSpecification,tvQuatity;
     ProgressBarHandler progress_handler;
     String product_id;
-
+    ImageView imgViewPlus,imgViewMinus;
+    int quantity_value=1;
 
 
 
@@ -142,8 +143,8 @@ public class ProductDetail extends AppCompatActivity
                             String   duration = json_result.get("deliverday").getAsString();
 
                             tvProductName.setText(product_name);
-                            tvProPrice.setText("\u20A8"+" "+product_price);
-                            tvCrossPrice.setText("\u20A8"+" "+product_cross_price);
+                            tvProPrice.setText("\u20A8"+"."+" "+product_price);
+                            tvCrossPrice.setText("\u20A8"+"."+" "+product_cross_price);
                             tvDiscription.setText(description);
                             tvDuration.setText(duration);
 
@@ -294,6 +295,47 @@ public class ProductDetail extends AppCompatActivity
 
         tvSpecification = (TextView) findViewById(R.id.tvSpecification);
 
+        tvQuatity = (TextView) findViewById(R.id.tvQuatity);
+
+        imgViewPlus = (ImageView) findViewById(R.id.imgViewPlus);
+
+        imgViewPlus.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                quantity_value = quantity_value +1;
+
+                tvQuatity.setText(String.valueOf(quantity_value));
+
+
+            }
+        });
+
+        imgViewMinus = (ImageView) findViewById(R.id.imgViewMinus);
+
+        imgViewMinus.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                if(quantity_value == 1){
+
+                    tvQuatity.setText(String.valueOf(quantity_value));
+                }
+                else
+                {
+                    quantity_value = quantity_value - 1;
+
+                    tvQuatity.setText(String.valueOf(quantity_value));
+                }
+
+            }
+        });
+
+
         relativeBuyNow = (RelativeLayout) findViewById(R.id.relativeBuyNow);
 
         vp=(ViewPager)  findViewById(R.id.viewpager_custom) ;
@@ -305,24 +347,20 @@ public class ProductDetail extends AppCompatActivity
         progressbarFive.setProgress(10);
         progressbarFive.setSecondaryProgress(0);
 
-
         progressbarFour = (StackedHorizontalProgressBar) findViewById(R.id.progressbarFour);
         progressbarFour.setMax(max);
         progressbarFour.setProgress(6);
         progressbarFour.setSecondaryProgress(4);
-
 
         progressbarThree = (StackedHorizontalProgressBar) findViewById(R.id.progressbarThree);
         progressbarThree.setMax(max);
         progressbarThree.setProgress(3);
         progressbarThree.setSecondaryProgress(7);
 
-
         progressbarTwo = (StackedHorizontalProgressBar) findViewById(R.id.progressbarTwo);
         progressbarTwo.setMax(max);
         progressbarTwo.setProgress(8);
         progressbarTwo.setSecondaryProgress(2);
-
 
         progressbarOne = (StackedHorizontalProgressBar) findViewById(R.id.progressbarOne);
         progressbarOne.setMax(max);

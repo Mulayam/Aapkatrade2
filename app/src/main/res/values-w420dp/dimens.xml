@@ -14,7 +14,7 @@
 
 
 
-
+    <dimen name="fourty_dip">40dp</dimen>
     <!-- view* 1 -->
 
 </resources>

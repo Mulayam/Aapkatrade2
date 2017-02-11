@@ -59,11 +59,12 @@ public class HomeActivity extends AppCompatActivity
     ContactUsFragment contactUsFragment;
     ProgressBar progressBar;
     Boolean permission_status;
-    public static String userid, username;
+    public static String userid,username;
     ScrollView scrollView;
     float initialX, initialY;
     public static  RelativeLayout rl_main_content;
     App_sharedpreference app_sharedpreference;
+
 
 
 
