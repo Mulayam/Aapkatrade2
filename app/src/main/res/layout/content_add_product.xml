@@ -91,7 +91,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -121,7 +121,7 @@
                 <EditText
                     android:id="@+id/etProductName"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
@@ -130,11 +130,11 @@
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColorHint="@color/hint_color"
-                    android:textSize="14dp" />
+                    android:textSize="@dimen/textsize" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -163,7 +163,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -192,7 +192,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -223,7 +223,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -252,7 +252,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -291,14 +291,14 @@
                     <EditText
                         android:id="@+id/etDeliver_location"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
 
                         android:hint="Enter Location"
 
                         android:maxLines="1"
                         android:padding="10dp"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="14dp"
+                        android:textSize="@dimen/textsize"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true" />
@@ -308,7 +308,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -349,7 +349,7 @@
                     <EditText
                         android:id="@+id/etprice"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:hint="@string/price"
                         android:maxLines="1"
                         android:padding="10dp"
@@ -359,7 +359,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -373,12 +373,12 @@
                         android:maxLines="1"
                         android:padding="10dp"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="14dp" />
+                        android:textSize="@dimen/textsize" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -411,7 +411,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -444,7 +444,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginTop="10dp"
@@ -476,7 +476,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/thirty_five_dip"
+                    android:layout_height="@dimen/fourty_dip"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginBottom="30dp"
@@ -500,8 +500,9 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/linearlayoutAddProduct"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/fourty_dip"
                 android:gravity="center">
 
                 <TextView

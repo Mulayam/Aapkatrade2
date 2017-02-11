@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.pat.aapkatrade.R;
@@ -39,7 +40,7 @@ public class AddProductActivity extends AppCompatActivity
 
     Spinner spCompanyList,spSubCategory,spCategory,spUnitCategory;
     EditText product_delivery_location,product_name;
-    Button Add_product;
+    LinearLayout linearlayoutAddProduct;
 
     private ArrayList<String> name_category,ids_category,name_subcategory,ids_subcategory;
 
@@ -114,7 +115,7 @@ public class AddProductActivity extends AppCompatActivity
         //spUnitCategory.setAdapter(spunites);
         // spUnitCategory.setAdapter(spCountrysAdapter);
 
-        Add_product=(Button)findViewById(R.id.btnUpload);
+        linearlayoutAddProduct=(LinearLayout)findViewById(R.id.linearlayoutAddProduct);
 
         product_delivery_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +136,7 @@ public class AddProductActivity extends AppCompatActivity
             }
         });
 
-        Add_product.setOnClickListener(new View.OnClickListener() {
+        linearlayoutAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(Validation.validate_edittext(product_name))
