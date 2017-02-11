@@ -89,6 +89,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private static String shared_pref_name = "aapkatrade";
 
 
+
+
     public NavigationFragment() {
         // Required empty public constructor
     }
@@ -128,10 +130,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         //navigation_parent_scrollview=(NestedScrollView)this.view.findViewById(R.id.navigation_parent_scrollview);
 
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
+        {
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+
+
             if (Username.equals("not")) {
                 Log.e("Shared_pref2", "null" + Username);
             } else {

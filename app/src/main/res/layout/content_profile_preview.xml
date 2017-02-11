@@ -112,10 +112,10 @@
                         android:orientation="horizontal"
                         android:padding="10dp">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
+                        <ImageView
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                            android:src="@color/green" />
+                            android:src="@drawable/ic_save_address" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
-                                android:text="Promote your items"
+                                android:text="Add Address"
                                 android:textSize="14sp"
                                 android:id="@+id/textView3" />
                         </LinearLayout>
@@ -166,10 +166,10 @@
                         android:orientation="horizontal"
                         android:padding="10dp">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
+                        <ImageView
                             android:layout_width="55dp"
                             android:layout_height="55dp"
-                            android:src="@color/colorAccent" />
+                            android:src="@drawable/ic_password_change" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
-                                android:text="Nobody has reviewed you yet"
+                                android:text="Change Password"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
@@ -219,10 +219,14 @@
                         android:orientation="horizontal"
                         android:padding="10dp">
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:layout_width="55dp"
-                            android:layout_height="55dp"
-                            android:src="@color/grey" />
+
+                            <ImageView
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ic_logout" />
+
+
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -243,7 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
-                                android:text="Change profile images &amp; profile settings"
+                                android:text="Logout Your Account"
                                 android:textSize="14sp" />
                         </LinearLayout>
 

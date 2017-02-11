@@ -30,7 +30,9 @@ import java.util.List;
  * Created by PPC16 on 10-Jan-17.
  */
 
-public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
+
 
     private final LayoutInflater inflater;
     private List<DashboardData> itemList;
@@ -39,7 +41,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     App_sharedpreference app_sharedpreference;
 
 
-    public DashboardAdapter(Context context, List<DashboardData> itemList) {
+
+    public DashboardAdapter(Context context, List<DashboardData> itemList)
+    {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -47,7 +51,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
         View view = inflater.inflate(R.layout.row_dashboard2, parent, false);
         viewHolder = new DashboardHolder(view);
@@ -58,13 +63,16 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
-
         DashboardHolder homeHolder = (DashboardHolder) holder;
 
         homeHolder.tvDashboard.setText(itemList.get(position).dashboard_name.toString());
-        if(itemList.get(position).isList) {
+
+        if(itemList.get(position).isList)
+        {
             homeHolder.tvAmount.setText("12");
-        } else {
+        }
+        else
+        {
             homeHolder.tvAmount.setVisibility(View.INVISIBLE);
         }
 
@@ -187,13 +195,18 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
-                } else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                }
+                else if (itemList.get(position).dashboard_name.equals("Cancel Order"))
+                {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                    {
+
                         Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
-
-                    } else {
+                    }
+                    else
+                    {
 
 //                        Intent list_product = new Intent(context, OrderActivity.class);
 //                        context.startActivity(list_product);
@@ -202,13 +215,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 }
 
-
             }
         });
 
     }
 
-    private void showMessage(String s) {
+    private void showMessage(String s)
+    {
 
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
@@ -223,4 +236,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public String getCurrentTimeStamp() {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
+
+
+
 }

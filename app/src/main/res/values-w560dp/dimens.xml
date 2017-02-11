@@ -7,6 +7,7 @@
     <!-- view*1.1 -->
 
 
+    <dimen name="fourty_dip">44dp</dimen>
     <dimen name="textsize">15sp</dimen>
     <dimen name="fab_margin">18dp</dimen>
     <dimen name="textsize_small">13sp</dimen>

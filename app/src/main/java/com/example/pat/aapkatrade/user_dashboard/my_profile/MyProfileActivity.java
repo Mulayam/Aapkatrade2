@@ -37,6 +37,7 @@ public class MyProfileActivity extends AppCompatActivity
         setuptoolbar();
         setup_layout();
 
+
     }
 
     private void setup_layout()

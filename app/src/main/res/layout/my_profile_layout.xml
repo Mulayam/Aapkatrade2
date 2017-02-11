@@ -7,7 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@color/white">
+        android:background="@drawable/navigation_profile_bg">
+
 
         <Button
             android:id="@+id/btnEdit"
@@ -42,39 +43,46 @@
                 android:layout_marginLeft="16dp"
                 android:orientation="vertical">
 
+
+                <TextView
+                    android:id="@+id/tvUserType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Welcome Guest"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/textViewName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Kunsang W."
-                    android:textColor="@color/black"
+                    android:text=""
+                    android:textColor="@color/white"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="arvindkumaryadav937@gmail.com"
-                        android:textColor="@color/black"
+                        android:text=""
+                        android:textColor="@color/white"
                         android:textSize="14sp" />
 
 
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/tvMobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="9792183158"
-                    android:textColor="@color/black"
+                    android:text=""
+                    android:textColor="@color/white"
                     android:textSize="14sp" />
 
             </LinearLayout>

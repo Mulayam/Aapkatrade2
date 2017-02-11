@@ -91,24 +91,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/my_profile_detail_heading"
-                        android:layout_margin="10dp"
+                       android:layout_marginTop="20dp"
                         android:textColor="@color/black"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="30dp"
                         />
 
 
                     <EditText
                         android:id="@+id/etFName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="First Name"
                         android:background="@drawable/edit_text_green_back"
-                        android:padding="10dp"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:padding="@dimen/ten_dip"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/textsize"
 
                         />
 
@@ -119,7 +121,7 @@
                     <EditText
                         android:id="@+id/etLName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Last Name"
@@ -129,13 +131,13 @@
                         android:maxLines="1"
                         android:layout_marginTop="10dp"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/textsize"
                         />
 
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
@@ -170,7 +172,7 @@
                     <EditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Email"
@@ -179,7 +181,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/textsize"
                         android:layout_marginTop="10dp"
                         />
 
@@ -189,7 +191,7 @@
                     <EditText
                         android:id="@+id/etMobileNo"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Mobile "
@@ -198,7 +200,7 @@
                         android:inputType="number"
                         android:maxLines="1"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/textsize"
                         android:layout_marginTop="10dp"
                         />
 
@@ -207,7 +209,7 @@
                     <EditText
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fourty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Address"
@@ -216,60 +218,102 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/textsize"
                         android:layout_marginTop="10dp"
                         />
 
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/thirty_five_dip"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
+                        android:weightSum="3"
+                        android:orientation="horizontal"
                         >
 
 
-
-                        <Button
-                            android:id="@+id/btnSave"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/save"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:background="@drawable/button_orange_back"
-                            />
+                            android:layout_weight="1"
+                            >
 
-                        <Button
-                            android:id="@+id/btnEdit"
-                            android:layout_width="wrap_content"
+                            <Button
+                                android:id="@+id/btnSave"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/save"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:background="@drawable/button_orange_back"
+
+                                />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/edit"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:background="@drawable/button_orange_back"
-                            android:layout_toRightOf="@+id/btnSave"
-                            android:layout_marginLeft="15dp"
-                            />
+                            android:layout_weight="1"
+                            >
+
+                            <Button
+                                android:id="@+id/btnEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/edit"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:background="@drawable/button_orange_back"
+                                android:layout_toRightOf="@+id/btnSave"
+                                android:layout_marginLeft="15dp"
+                                android:layout_centerHorizontal="true"
+                                />
 
 
 
-                        <Button
-                            android:id="@+id/btnlogout"
-                            android:layout_width="wrap_content"
+                        </LinearLayout>
+
+
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/logout"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:background="@drawable/button_orange_back"
-                            android:layout_toRightOf="@+id/btnEdit"
-                            android:layout_marginLeft="15dp"
-                            />
+                            android:layout_weight="1"
+                            >
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <Button
+                                    android:id="@+id/btnlogout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/logout"
+                                    android:textAllCaps="false"
+                                    android:textColor="@color/white"
+                                    android:background="@drawable/button_orange_back"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_alignParentRight="true"
+                                    />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
 
 
 
-                    </RelativeLayout>
+
+
+                    </LinearLayout>
 
 
                 </LinearLayout>

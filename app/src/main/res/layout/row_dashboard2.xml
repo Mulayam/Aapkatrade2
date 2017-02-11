@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeDashboard"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/ten_dip">
@@ -23,16 +23,17 @@
         android:layout_height="wrap_content"
          >
 
-
         <ImageView
             android:id="@+id/imgDashboard"
-            android:layout_width="@dimen/thirty_five_dip"
-            android:layout_height="@dimen/thirty_five_dip"
+            android:layout_width="@dimen/fourty_dip"
+            android:layout_height="@dimen/fourty_dip"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:padding="4dp"
-            android:src="@drawable/ic_edit" />
+            android:src="@drawable/ic_edit"
+            android:background="@drawable/circle_purple"
+            />
 
 
      </RelativeLayout>
@@ -41,9 +42,9 @@
         <TextView
             android:id="@+id/tvDashboard"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/thirty_five_dip"
+            android:layout_height="wrap_content"
             android:text="Sachin Tendulkar"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginLeft="20dp"
@@ -67,7 +68,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.7dp"
+        android:layout_height="1dp"
         android:layout_below="@+id/relativedata"
         android:layout_marginLeft="65dp"
         android:layout_marginTop="10dp"

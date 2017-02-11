@@ -58,12 +58,13 @@ public class HomeActivity extends AppCompatActivity
     ContactUsFragment contactUsFragment;
     ProgressBar progressBar;
     Boolean permission_status;
-    public static String userid, username;
+    public static String userid,username;
     ScrollView scrollView;
     float initialX, initialY;
     App_sharedpreference app_sharedpreference;
     // SharedPreferences prefs;
     String query_hint []={"product1","product2","product3","product4"};
+
 
 
 
