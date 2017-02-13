@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -368,10 +369,18 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
     private void setUpBusinessCategory() {
-        spBussinessCategory.setAdapter(new SpBussinessAdapter(getApplicationContext(), spBussinessName));
+
+        SpBussinessAdapter spadapter=new SpBussinessAdapter(getApplicationContext(), spBussinessName);
+
+        spBussinessCategory.setDropDownHorizontalOffset(Gravity.CENTER);
+
+        spBussinessCategory.setAdapter(spadapter);
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
                 busiType = String.valueOf(position);
                 if (position == 0) {
                     uploadCard.setVisibility(View.GONE);
