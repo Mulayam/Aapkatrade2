@@ -43,15 +43,14 @@
                 android:id="@+id/coordination_home_activity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:id="@+id/fl_home"
-                    android:layout_height="match_parent"></FrameLayout>
 
-                <ScrollView
+
+                <android.support.v4.widget.NestedScrollView
                     android:id="@+id/scroll_main"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:clickable="true"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:minHeight="1000dp">
 
                     <FrameLayout
@@ -65,7 +64,7 @@
 
 
                     </FrameLayout>
-                </ScrollView>
+                </android.support.v4.widget.NestedScrollView>
 
 
                 <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
