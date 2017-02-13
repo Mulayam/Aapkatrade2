@@ -42,7 +42,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitXY"
+                       android:scaleType="fitCenter"
                         app:srcCompat="@drawable/logo" />
 
 
@@ -55,7 +55,7 @@
                         android:layout_marginTop="20dp"
                         android:text="@string/login"
                         android:textColor="@color/color_voilet"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/textsize_medium" />
 
                 </RelativeLayout>
 

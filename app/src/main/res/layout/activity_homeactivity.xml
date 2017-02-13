@@ -21,7 +21,7 @@
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/toolbarsize"
                 android:background="@color/colorPrimary">
 
                 <include
@@ -108,7 +108,7 @@
     <fragment
         android:id="@+id/fragment"
         android:layout_gravity="start"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="@dimen/toolbarsize"
         android:name="com.example.pat.aapkatrade.Home.navigation.NavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
