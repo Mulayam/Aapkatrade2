@@ -68,6 +68,34 @@
 
         <item name="colorControlNormal">@color/grey</item>
         <item name="android:textSize">@dimen/textsize_medium</item>
+        <item name="colorControlActivated">@color/grey</item>
+        <item name="android:textColorPrimary">@color/grey</item>
+        <item name="android:textColorHighlight">@color/grey</item>
+        <item name="android:textColorLink">@color/grey</item>
+
+    </style>
+
+
+
+    <style name="nofocus_edittext_theme" parent="TextAppearance.AppCompat">
+
+        <item name="colorPrimaryDark">@color/mdtp_ampm_text_color</item>
+        <item name="colorAccent">@color/grey</item>
+
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="android:textSize">@dimen/textsize_medium</item>
+
+
+
+
+        <item name="colorControlActivated">@color/grey</item>
+        <item name="android:textColorPrimary">@color/grey</item>
+
+
+
+
+
+
 
     </style>
 
