@@ -18,6 +18,7 @@
         android:id="@+id/tvSpCategory"
         android:layout_width="match_parent"
         android:layout_height="@dimen/thirty_five_dip"
+        android:paddingLeft="@dimen/ten_dip"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"

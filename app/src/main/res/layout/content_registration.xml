@@ -38,10 +38,10 @@
                     <ImageView
                         android:id="@+id/imgProfile"
                         android:layout_width="@dimen/twenty_dip"
-                        android:layout_margin="@dimen/five_dip"
                         android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/five_dip"
                         android:src="@drawable/ic_user" />
 
                 </RelativeLayout>
@@ -116,15 +116,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/twenty_dip"
                             android:layout_marginRight="@dimen/twenty_dip"
-                            android:textColorHint="@color/hint_color"
-                            android:layout_marginTop="@dimen/ten_dip">
+                            android:layout_marginTop="@dimen/ten_dip"
+                            android:textColorHint="@color/hint_color">
 
                             <RelativeLayout
                                 android:id="@+id/spBussinessCategoryLayout"
                                 android:layout_width="match_parent"
-                                android:layout_marginTop="@dimen/five_dip"
+                                android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/five_dip"
-                                android:layout_height="wrap_content">
+                                android:layout_marginTop="@dimen/five_dip">
 
 
                                 <Spinner
@@ -132,10 +132,10 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
 
-                                    android:gravity="center_horizontal"
-
                                     android:layout_alignParentLeft="true"
-                                    android:background="@drawable/simple_spinner_back" />
+
+                                    android:background="@drawable/simple_spinner_back"
+                                    android:gravity="center_horizontal" />
 
                                 <ImageView
                                     android:layout_width="20dp"
@@ -153,13 +153,13 @@
                             android:id="@+id/input_layout_shop_name"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/ten_dip"
-                            android:layout_marginLeft="@dimen/twenty_dip"
                             android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/twenty_dip"
+                            android:layout_marginRight="@dimen/twenty_dip"
+                            android:layout_marginTop="@dimen/ten_dip"
                             android:gravity="center_vertical"
-                            android:textColorHint="@color/hint_color"
 
-                            android:layout_marginRight="@dimen/twenty_dip">
+                            android:textColorHint="@color/hint_color">
 
                             <EditText
                                 android:id="@+id/etshopname"
@@ -183,9 +183,9 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="@dimen/twenty_dip"
+                            android:layout_marginRight="@dimen/twenty_dip"
                             android:layout_marginTop="@dimen/ten_dip"
-                            android:textColorHint="@color/hint_color"
-                            android:layout_marginRight="@dimen/twenty_dip">
+                            android:textColorHint="@color/hint_color">
 
                             <EditText
                                 android:id="@+id/et_tin_number"
@@ -205,9 +205,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/twenty_dip"
-                            android:textColorHint="@color/hint_color"
+                            android:layout_marginRight="@dimen/twenty_dip"
                             android:layout_marginTop="@dimen/ten_dip"
-                            android:layout_marginRight="@dimen/twenty_dip">
+                            android:textColorHint="@color/hint_color">
 
                             <EditText
                                 android:id="@+id/et_tan_number"
@@ -222,6 +222,10 @@
                                 tools:ignore="RtlSymmetry" />
 
                         </android.support.design.widget.TextInputLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/ten_dip"/>
 
 
                     </LinearLayout>
@@ -249,9 +253,9 @@
                         android:id="@+id/imgProfile1"
                         android:layout_width="@dimen/twenty_dip"
                         android:layout_height="@dimen/twenty_dip"
-                        android:layout_margin="@dimen/five_dip"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/five_dip"
                         android:src="@drawable/ic_user" />
 
                 </RelativeLayout>
@@ -298,10 +302,10 @@
                         android:id="@+id/input_layout_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/ten_dip"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="@dimen/twenty_dip">
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:textColorHint="@color/hint_color">
 
                         <EditText
                             android:id="@+id/etFirstName"
@@ -321,11 +325,11 @@
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_last_name"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/ten_dip"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="@dimen/twenty_dip">
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:textColorHint="@color/hint_color">
 
                         <EditText
                             android:id="@+id/etLastName"
@@ -346,13 +350,13 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/hint_color"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:layout_marginTop="@dimen/ten_dip"
                         android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:clickable="false"
-                        app:hintAnimationEnabled="true"
                         android:focusable="true"
+                        android:textColorHint="@color/hint_color"
+                        app:hintAnimationEnabled="true"
                         app:hintEnabled="true"
 
 
@@ -374,11 +378,9 @@
                                 android:hint="@string/date_of_birth"
 
 
-
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:theme="@style/nofocus_edittext_theme"
-                               />
+                                android:theme="@style/nofocus_edittext_theme" />
 
 
                             <ImageView
@@ -399,10 +401,10 @@
                         android:id="@+id/input_layout_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/hint_color"
-                        android:layout_marginTop="@dimen/ten_dip"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:layout_marginRight="@dimen/twenty_dip">
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:textColorHint="@color/hint_color">
 
                         <EditText
                             android:id="@+id/etMobileNo"
@@ -424,9 +426,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:textColorHint="@color/hint_color"
                         android:layout_marginRight="@dimen/twenty_dip"
                         android:layout_marginTop="@dimen/ten_dip"
+                        android:textColorHint="@color/hint_color"
                         android:visibility="gone">
 
 
@@ -458,9 +460,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:textColorHint="@color/hint_color"
                         android:layout_marginRight="@dimen/twenty_dip"
-                        android:layout_marginTop="@dimen/ten_dip">
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:textColorHint="@color/hint_color">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -491,11 +493,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:textColorHint="@color/hint_color"
                         android:layout_marginRight="@dimen/twenty_dip"
-                        android:layout_marginTop="@dimen/ten_dip">
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:textColorHint="@color/hint_color">
 
-                    <RelativeLayout
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -520,14 +522,18 @@
                         </RelativeLayout>
                     </android.support.design.widget.TextInputLayout>
 
+                    <View
+                        android:id="@+id/height1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ten_dip"/>
+
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/ten_dip"
                         android:layout_marginLeft="@dimen/twenty_dip"
-                        android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="@dimen/twenty_dip">
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:textColorHint="@color/hint_color">
 
                         <EditText
                             android:id="@+id/etAddress"
@@ -615,9 +621,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
                         android:layout_marginTop="@dimen/ten_dip"
-                        android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="@dimen/twenty_dip">
+                        android:textColorHint="@color/hint_color">
 
                         <EditText
                             android:id="@+id/etEmail"
@@ -663,9 +669,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
                         android:layout_marginTop="@dimen/ten_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="@dimen/twenty_dip"
                         app:passwordToggleEnabled="true">
 
                         <EditText
@@ -689,6 +695,10 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ten_dip" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ten_dip"/>
+
 
 
         </LinearLayout>

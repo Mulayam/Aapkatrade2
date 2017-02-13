@@ -215,6 +215,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         if (app_sharedpreference != null) {
             if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
                 etAddress.setVisibility(View.GONE);
+//                findViewById(R.id.height1).setVisibility(View.GONE);
                 Log.e("user", "user");
             }
             if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
