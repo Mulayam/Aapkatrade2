@@ -101,7 +101,7 @@
                     <EditText
                         android:id="@+id/etFName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="First Name"
@@ -121,7 +121,7 @@
                     <EditText
                         android:id="@+id/etLName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Last Name"
@@ -137,7 +137,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
@@ -172,7 +172,7 @@
                     <EditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Email"
@@ -186,12 +186,10 @@
                         />
 
 
-
-
                     <EditText
                         android:id="@+id/etMobileNo"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Mobile "
@@ -205,11 +203,10 @@
                         />
 
 
-
                     <EditText
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Address"

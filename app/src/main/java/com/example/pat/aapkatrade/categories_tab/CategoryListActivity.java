@@ -38,7 +38,7 @@ public class CategoryListActivity extends AppCompatActivity
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     ProgressBarHandler progress_handler;
-    FrameLayout layout_container;
+    FrameLayout layout_container,layout_container_relativeSearch;
 
 
 
@@ -57,7 +57,17 @@ public class CategoryListActivity extends AppCompatActivity
 
         layout_container = (FrameLayout) view.findViewById(R.id.layout_container);
 
+
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Intent goto_search=new Intent(CategoryListActivity.this,Search.class);
+                startActivity(goto_search);
+                finish();
+            }
+        });
 
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
@@ -77,7 +87,7 @@ public class CategoryListActivity extends AppCompatActivity
 
     private void get_web_data()
     {
-        layout_container.setVisibility(View.INVISIBLE);
+       // layout_container.setVisibility(View.INVISIBLE);
         productListDatas.clear();
         progress_handler.show();
 
@@ -130,7 +140,7 @@ public class CategoryListActivity extends AppCompatActivity
 
                             progress_handler.hide();
 
-                            layout_container.setVisibility(View.VISIBLE);
+                         //   layout_container.setVisibility(View.VISIBLE);
 
 
                         }

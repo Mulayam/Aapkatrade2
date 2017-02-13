@@ -24,5 +24,6 @@
     <dimen name="min_header_height">50dp</dimen>
     <dimen name="fourty_dip">40dp</dimen>
     <dimen name="twientydip">20dp</dimen>
+    <dimen name="toolbarsize">50dp</dimen>
 
 </resources>
