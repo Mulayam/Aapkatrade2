@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private LinearLayout uploadCard;
     private Spinner spBussinessCategory, spCountry, spState, spCity;
     private String[] spBussinessName = {"Please Select Business Type", "Licence", "Personal"};
-    private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etAddress, etPassword, etReenterPassword;
+    private EditText etProductName, etFirstName, etLastName, etDOB, etEmail, etMobileNo, etAddress, etPassword, etReenterPassword, et_tin_number, et_tan_number;
     private TextView tvSave, uploadMsg;
     private LinearLayout registrationLayout;
     private ArrayList<Country> countryList = new ArrayList<>();
@@ -215,6 +215,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         if (app_sharedpreference != null) {
             if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
                 etAddress.setVisibility(View.GONE);
+//                findViewById(R.id.height1).setVisibility(View.GONE);
                 Log.e("user", "user");
             }
             if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
@@ -384,6 +385,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 busiType = String.valueOf(position);
                 if (position == 0) {
                     uploadCard.setVisibility(View.GONE);
+                    findViewById(R.id.input_layout_tin_number).setVisibility(View.GONE);
+                    findViewById(R.id.input_layout_tan_number).setVisibility(View.GONE);
                 }
                 if (position == 2) {
                     uploadCard.setVisibility(View.VISIBLE);
@@ -391,12 +394,16 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                     uploadPDFView.setVisibility(View.GONE);
                     ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.shop_name));
                     uploadMsg.setText(getString(R.string.personal_doc));
+                    findViewById(R.id.input_layout_tin_number).setVisibility(View.GONE);
+                    findViewById(R.id.input_layout_tan_number).setVisibility(View.GONE);
 
                 } else if (position == 1) {
                     uploadCard.setVisibility(View.VISIBLE);
                     uploadView.setVisibility(View.VISIBLE);
                     uploadPDFView.setVisibility(View.VISIBLE);
                     ((TextInputLayout) findViewById(R.id.input_layout_shop_name)).setHint(getString(R.string.company_name_heading));
+                    findViewById(R.id.input_layout_tin_number).setVisibility(View.VISIBLE);
+                    findViewById(R.id.input_layout_tan_number).setVisibility(View.VISIBLE);
                     uploadMsg.setText(getString(R.string.comp_doc));
                 }
             }
@@ -606,6 +613,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private void initView() {
 
         businessDetailsCard = (CardView) findViewById(R.id.businessDetailsCard);
+        et_tin_number = (EditText) findViewById(R.id.et_tin_number);
+        et_tan_number = (EditText) findViewById(R.id.et_tan_number);
         relativeCompanyListheader = (RelativeLayout) findViewById(R.id.relativeCompanyListheader);
         uploadCard = (LinearLayout) findViewById(R.id.uploadCard);
         progressBarHandler = new ProgressBarHandler(this);
