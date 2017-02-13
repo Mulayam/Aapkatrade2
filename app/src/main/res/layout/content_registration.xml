@@ -17,8 +17,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/ten_dip"
-            android:layout_marginTop="@dimen/ten_dip"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
@@ -28,21 +26,20 @@
                 android:id="@+id/relativeCompanyListheader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="@dimen/ten_dip">
 
                 <RelativeLayout
                     android:id="@+id/linear_layout_image"
                     android:layout_width="@dimen/thirty_five_dip"
                     android:layout_height="@dimen/thirty_five_dip"
                     android:layout_alignParentLeft="true"
-
                     android:background="@color/orange">
 
                     <ImageView
                         android:id="@+id/imgProfile"
-                        android:layout_width="20dp"
+                        android:layout_width="@dimen/twenty_dip"
                         android:layout_margin="@dimen/five_dip"
-                        android:layout_height="20dp"
+                        android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_user" />
@@ -52,7 +49,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/thirty_five_dip"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginLeft="@dimen/three_dip"
                     android:layout_toRightOf="@+id/linear_layout_image"
                     android:background="@color/orange"
                     android:gravity="center_vertical"
@@ -76,18 +73,16 @@
                 android:id="@+id/businessDetailsCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:padding="20dp">
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip">
 
                 <LinearLayout
                     android:id="@+id/businessDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/ten_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -119,10 +114,10 @@
                             android:id="@+id/input_layout_busi_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="25dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="@dimen/twenty_dip"
+                            android:layout_marginRight="@dimen/twenty_dip"
                             android:textColorHint="@color/hint_color"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="@dimen/ten_dip">
 
                             <RelativeLayout
                                 android:id="@+id/spBussinessCategoryLayout"
@@ -159,12 +154,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/ten_dip"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="@dimen/twenty_dip"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:textColorHint="@color/hint_color"
 
-                            android:layout_marginRight="20dp">
+                            android:layout_marginRight="@dimen/twenty_dip">
 
                             <EditText
                                 android:id="@+id/etshopname"
@@ -187,10 +182,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="@dimen/twenty_dip"
                             android:layout_marginTop="@dimen/ten_dip"
                             android:textColorHint="@color/hint_color"
-                            android:layout_marginRight="20dp">
+                            android:layout_marginRight="@dimen/twenty_dip">
 
                             <EditText
                                 android:id="@+id/et_tin_number"
@@ -209,10 +204,10 @@
                             android:id="@+id/input_layout_tan_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="@dimen/twenty_dip"
                             android:textColorHint="@color/hint_color"
                             android:layout_marginTop="@dimen/ten_dip"
-                            android:layout_marginRight="20dp">
+                            android:layout_marginRight="@dimen/twenty_dip">
 
                             <EditText
                                 android:id="@+id/et_tan_number"
@@ -240,7 +235,7 @@
                 android:id="@+id/relativeCompanyListheader1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="@dimen/ten_dip">
 
                 <RelativeLayout
                     android:id="@+id/linear_layout_image1"
@@ -252,8 +247,8 @@
 
                     <ImageView
                         android:id="@+id/imgProfile1"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="@dimen/twenty_dip"
+                        android:layout_height="@dimen/twenty_dip"
                         android:layout_margin="@dimen/five_dip"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
@@ -264,7 +259,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/thirty_five_dip"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginLeft="@dimen/three_dip"
                     android:layout_toRightOf="@+id/linear_layout_image1"
                     android:background="@color/orange"
                     android:gravity="center_vertical"
@@ -287,17 +282,15 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:padding="20dp">
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/ten_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
 
@@ -306,9 +299,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/ten_dip"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginRight="@dimen/twenty_dip">
 
                         <EditText
                             android:id="@+id/etFirstName"
@@ -330,9 +323,9 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/ten_dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginRight="@dimen/twenty_dip">
 
                         <EditText
                             android:id="@+id/etLastName"
@@ -353,9 +346,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
                         android:layout_marginTop="@dimen/ten_dip"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="@dimen/twenty_dip"
                         android:clickable="false"
 
                         android:focusable="true"
@@ -407,8 +400,8 @@
                         android:layout_height="wrap_content"
                         android:textColorHint="@color/hint_color"
                         android:layout_marginTop="@dimen/ten_dip"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip">
 
                         <EditText
                             android:id="@+id/etMobileNo"
@@ -429,9 +422,9 @@
                         android:id="@+id/input_layout_country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="@dimen/twenty_dip"
                         android:layout_marginTop="@dimen/ten_dip"
                         android:visibility="gone">
 
@@ -463,9 +456,9 @@
                         android:id="@+id/input_layout_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="@dimen/twenty_dip"
                         android:layout_marginTop="@dimen/ten_dip">
 
                         <RelativeLayout
@@ -496,19 +489,19 @@
                         android:id="@+id/input_layout_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="@dimen/twenty_dip"
                         android:layout_marginTop="@dimen/ten_dip">
 
-                        <RelativeLayout
+                    <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <Spinner
                                 android:id="@+id/spCityCategory"
                                 android:layout_width="match_parent"
-                                android:layout_height="35dp"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:background="@drawable/simple_spinner_back" />
 
@@ -531,9 +524,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/ten_dip"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginRight="@dimen/twenty_dip">
 
                         <EditText
                             android:id="@+id/etAddress"
@@ -559,7 +552,7 @@
                 android:id="@+id/relativeCompanyListheader2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp">
+                android:layout_margin="@dimen/ten_dip">
 
                 <RelativeLayout
                     android:id="@+id/linear_layout_image2"
@@ -570,8 +563,8 @@
 
                     <ImageView
                         android:id="@+id/imgProfile2"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="@dimen/twenty_dip"
+                        android:layout_height="@dimen/twenty_dip"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_user" />
@@ -581,7 +574,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/thirty_five_dip"
-                    android:layout_marginLeft="3dp"
+                    android:layout_marginLeft="@dimen/three_dip"
                     android:layout_toRightOf="@+id/linear_layout_image2"
                     android:background="@color/orange"
                     android:gravity="center_vertical"
@@ -603,18 +596,16 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:padding="20dp">
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/ten_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
 
@@ -622,9 +613,10 @@
                         android:id="@+id/input_layout_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginRight="@dimen/twenty_dip">
 
                         <EditText
                             android:id="@+id/etEmail"
@@ -645,8 +637,9 @@
                         android:id="@+id/input_layout_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:textColorHint="@color/hint_color"
                         app:passwordToggleEnabled="true">
 
@@ -668,9 +661,10 @@
                         android:id="@+id/input_layout_confirm_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:textColorHint="@color/hint_color"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="@dimen/twenty_dip"
                         app:passwordToggleEnabled="true">
 
                         <EditText
@@ -695,10 +689,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/ten_dip" />
 
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/ten_dip" />
 
         </LinearLayout>
 
