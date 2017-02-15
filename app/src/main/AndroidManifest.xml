@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.pat.aapkatrade">
 
+    <uses-permission android:name="com.example.pat.aapkatrade.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,6 +17,10 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <permission
+        android:name="com.example.pat.aapkatrade.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
 
     <application
         android:allowBackup="true"
@@ -95,7 +101,9 @@
         <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity" />
         <activity android:name=".productdetail.ImageViewActivity" />
         <activity android:name=".search.Search" />
-        <activity android:name=".user_dashboard.vender_detail.VendorActivity"></activity>
+        <activity android:name=".user_dashboard.vender_detail.VendorActivity" />
+        <activity android:name=".map.GoogleMapActivity" />
+        <activity android:name=".map.MyActivity"></activity>
     </application>
 
 </manifest>

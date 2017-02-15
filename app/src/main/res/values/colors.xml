@@ -38,7 +38,7 @@
     <color name="list_strip">#E1E1E1</color>
     <color name="slaty_gradient">#7991A8</color>
     <color name="blue_gradient_sky">#0D9DAD</color>
-
+    <color name="polyline_color">#43a047</color>
 
 
     <array name="tab_colors">

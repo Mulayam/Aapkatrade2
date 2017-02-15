@@ -34,11 +34,13 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 public class CategoryListActivity extends AppCompatActivity
 {
 
+
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     ProgressBarHandler progress_handler;
     FrameLayout layout_container,layout_container_relativeSearch;
+
 
 
 
@@ -56,7 +58,6 @@ public class CategoryListActivity extends AppCompatActivity
         progress_handler = new ProgressBarHandler(this);
 
         layout_container = (FrameLayout) view.findViewById(R.id.layout_container);
-
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
@@ -184,6 +185,9 @@ public class CategoryListActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
 
 }

@@ -494,10 +494,6 @@
                         android:textSize="14dp" />
                 </RelativeLayout>
 
-
-
-
-
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/linearlayoutAddProduct"
