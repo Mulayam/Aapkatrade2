@@ -234,11 +234,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
 
-                        if (result != null) {
+                        if (result != null)
+                        {
+
+
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
-
 
 
                             JsonArray   jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");

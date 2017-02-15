@@ -73,7 +73,6 @@ public class HomeActivity extends AppCompatActivity
     App_sharedpreference app_sharedpreference;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

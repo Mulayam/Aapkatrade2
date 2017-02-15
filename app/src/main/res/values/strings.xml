@@ -90,7 +90,7 @@
     <string name="password">Password</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="google_api">AIzaSyDWzYV_jHxhQ8y6sdEV3cILJIo0sxYNNQ4</string>
+    <string name="google_api">AIzaSyDEC-Z8NKvcLAbB4vKdNa2ByUcXfOX_Tao</string>
     <string name="forgot_your_password">Forgot your Password?</string>
     <string name="forgot_your_password_instruction1">Enter your Email/Mobile number below to receive OTP</string>
     <string name="forgot_your_password_instruction2">  </string>
@@ -164,6 +164,7 @@
     <string name="deliveryArea">Indrapuram,Noida,New Delhi</string>
     <string name="et_data">Et Data</string>
     <string name="title_activity_search_activity">Search_activity</string>
+    <string name="selected_place">Selected Place</string>
     <string name="personalDetails">Personal Details</string>
     <string name="contact_us">Contact Us</string>
     <string name="share">Share</string>
@@ -174,5 +175,16 @@
     <string name="tan_number">TAN Number</string>
     <string name="tin_number">TIN Number</string>
     <string name="bussiness_details">Bussiness Details</string>
+
+    <string name="choose_source">Choose Source</string>
+    <string name="choose_destination">Choose Destination</string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hnt_lat">Enter Latitude</string>
+    <string name="hnt_lng">Enter Longitude</string>
+    <string name="str_btn_show">Show Location in Map</string>
+
 
 </resources>
