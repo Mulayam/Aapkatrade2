@@ -32,7 +32,8 @@ public class viewpageradapter_home  extends PagerAdapter {
 
 
     public int getCount() {
-        return imageurl.size() ;
+
+        return imageurl!=null?imageurl.size():-1;
 
 }
 

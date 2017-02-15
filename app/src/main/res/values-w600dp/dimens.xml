@@ -8,10 +8,10 @@
 
     <!-- view*1.3 -->
     <dimen name="fourty_dip">52dp</dimen>
-    <dimen name="textsize">18sp</dimen>
+    <dimen name="textsize_medium">16sp</dimen>
     <dimen name="fab_margin">21dp</dimen>
     <dimen name="textsize_small">16sp</dimen>
-    <dimen name="textsize_medium">16sp</dimen>
+
     <dimen name="textsize_large">21sp</dimen>
     <dimen name="Button_small">39dp</dimen>
 
@@ -19,8 +19,8 @@
 
     <dimen name="ten_dip">13dp</dimen>
     <dimen name="three_dip">4dp</dimen>
-    <dimen name="minus_three_dip">-4dp</dimen>
-
+    <dimen name="minus_three_dip">-30dp</dimen>
+    <dimen name="textsize">14sp</dimen>
     <dimen name="min_height_header">91dp</dimen>
     <dimen name="thirty_five_dip">46dp</dimen>
     <dimen name="fifty_dip">65dp</dimen>

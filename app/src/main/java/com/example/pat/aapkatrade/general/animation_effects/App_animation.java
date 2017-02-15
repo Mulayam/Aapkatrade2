@@ -6,6 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
 
 import com.example.pat.aapkatrade.R;
 
@@ -30,5 +31,14 @@ public class App_animation {
     public static void right_animation(View v, Context c) {
         v.startAnimation(AnimationUtils.loadAnimation(c, R.anim.slide_right));
     }
+
+    public static void setScaleAnimation(View view) {
+        ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(1000);
+        view.startAnimation(anim);
+    }
+
+
+
 
 }

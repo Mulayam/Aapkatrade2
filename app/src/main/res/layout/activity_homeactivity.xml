@@ -21,7 +21,7 @@
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/toolbarsize"
                 android:background="@color/colorPrimary">
 
                 <include
@@ -43,15 +43,14 @@
                 android:id="@+id/coordination_home_activity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:id="@+id/fl_home"
-                    android:layout_height="match_parent"></FrameLayout>
 
-                <ScrollView
+
+                <android.support.v4.widget.NestedScrollView
                     android:id="@+id/scroll_main"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:clickable="true"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:minHeight="1000dp">
 
                     <FrameLayout
@@ -65,7 +64,7 @@
 
 
                     </FrameLayout>
-                </ScrollView>
+                </android.support.v4.widget.NestedScrollView>
 
 
                 <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -109,7 +108,7 @@
     <fragment
         android:id="@+id/fragment"
         android:layout_gravity="start"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="@dimen/toolbarsize"
         android:name="com.example.pat.aapkatrade.Home.navigation.NavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

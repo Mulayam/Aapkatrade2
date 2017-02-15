@@ -5,6 +5,7 @@
 
     <dimen name="five_dip">7dp</dimen>
     <dimen name="ten_dip">13dp</dimen>
+    <dimen name="textsize_medium">16sp</dimen>
     <dimen name="three_dip">5dp</dimen>
     <dimen name="minus_three_dip">-5dp</dimen>
     <dimen name="fifty_dip">70dp</dimen>
@@ -12,7 +13,7 @@
     <dimen name="imageview_height">120dp</dimen>
     <dimen name="imageview_weight">120dp</dimen>
 
-
+    <dimen name="textsize">14sp</dimen>
 
     <dimen name="fourty_dip">40dp</dimen>
     <dimen name="twenty_five_dip">25dp</dimen>

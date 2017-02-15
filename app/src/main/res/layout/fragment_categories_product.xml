@@ -4,10 +4,10 @@
     android:id="@+id/layout_container"
     android:orientation="vertical"
     android:background="#EEEEEE"
-    android:visibility="invisible"
+    android:visibility="visible"
     >
 
-    <android.support.v7.widget.RecyclerView
+    <com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

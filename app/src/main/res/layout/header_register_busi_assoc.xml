@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/header_busi_assoc"
-    android:layout_width="match_parent"
+    android:layout_width="400dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/ten_dip"
+
+
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_horizontal|center_vertical">
+        android:gravity="center_horizontal">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginBottom="10dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical">
 
@@ -31,24 +33,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
-
+<RelativeLayout
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/step1Circle"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/fifty_dip"
-                    android:layout_marginRight="@dimen/minus_three_dip"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+
                     android:padding="@dimen/five_dip"
-                    android:layout_weight="1"
+
                     android:background="@drawable/green_circle_border"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/one" />
+</RelativeLayout>
 
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/minus_three_dip"
                     android:background="@drawable/green_line" />
 
             </LinearLayout>
@@ -71,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -88,23 +96,31 @@
                     android:layout_marginRight="@dimen/minus_three_dip"
                     android:background="@drawable/green_line" />
 
-
-                <TextView
-                    android:id="@+id/step2Circle"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/fifty_dip"
                     android:layout_weight="1"
-                    android:padding="@dimen/five_dip"
-                    android:layout_marginRight="@dimen/minus_three_dip"
-                    android:background="@drawable/green_circle_border"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/two" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/step2Circle"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/five_dip"
+
+                        android:background="@drawable/green_circle_border"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/two" />
+                </RelativeLayout>
+
+
 
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/minus_three_dip"
                     android:background="@drawable/green_line" />
 
             </LinearLayout>
@@ -126,6 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginBottom="10dp"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical">
 
@@ -140,19 +157,34 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginRight="@dimen/minus_three_dip"
                     android:background="@drawable/green_line" />
 
-
-                <TextView
-                    android:id="@+id/step3Circle"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/fifty_dip"
                     android:layout_weight="1"
-                    android:padding="@dimen/five_dip"
-                    android:layout_marginLeft="@dimen/minus_three_dip"
-                    android:background="@drawable/green_circle_border"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="@string/three" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/step3Circle"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/five_dip"
+
+                        android:background="@drawable/green_circle_border"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="@string/three"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
+
+
+
+
+
+
 
 
                 <TextView

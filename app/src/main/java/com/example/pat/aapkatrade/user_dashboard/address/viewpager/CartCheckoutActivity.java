@@ -31,7 +31,7 @@ public class CartCheckoutActivity extends AppCompatActivity
 {
 
     LinearLayout viewpagerindicator;
-    private List<Integer> imageIdList;
+    private ArrayList<String> imageIdList;
     int currentPage=0;
     ViewPager vp;
     viewpageradapter_home viewpageradapter;
@@ -93,12 +93,12 @@ public class CartCheckoutActivity extends AppCompatActivity
     {
 
         imageIdList = new ArrayList<>();
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
-        imageIdList.add(R.drawable.banner_home);
+        imageIdList.add("R.drawable.banner_home");
+        imageIdList.add("R.drawable.banner_home");
+        imageIdList.add("R.drawable.banner_home");
+        imageIdList.add("R.drawable.banner_home");
 
-        viewpageradapter  = new viewpageradapter_home(getApplicationContext(), null);
+        viewpageradapter  = new viewpageradapter_home(getApplicationContext(), imageIdList);
         vp.setAdapter(viewpageradapter);
         vp.setCurrentItem(currentPage);
         setUiPageViewController();

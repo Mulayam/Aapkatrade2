@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.animation_effects.App_animation;
+
 import java.util.ArrayList;
 
 public class ProductListActivity extends AppCompatActivity
@@ -60,6 +62,7 @@ public class ProductListActivity extends AppCompatActivity
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         productListAdapter = new ProductListAdapter(this, productListDatas);
         product_list.setAdapter(productListAdapter);
+    
         product_list.setLayoutManager(mLayoutManager);
 
 

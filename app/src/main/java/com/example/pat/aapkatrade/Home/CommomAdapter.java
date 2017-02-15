@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Tabletsize;
+import com.example.pat.aapkatrade.general.animation_effects.App_animation;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.squareup.picasso.Picasso;
 
@@ -150,6 +151,9 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             }
         }
+
+
+
 
     }
 

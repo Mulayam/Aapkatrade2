@@ -12,11 +12,17 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,7 +30,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -38,8 +43,10 @@ import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
+import android.transition.Scene;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 
 import java.util.ArrayList;
 
@@ -60,11 +67,10 @@ public class HomeActivity extends AppCompatActivity
     ProgressBar progressBar;
     Boolean permission_status;
     public static String userid,username;
-    ScrollView scrollView;
+    NestedScrollView scrollView;
     float initialX, initialY;
     public static  RelativeLayout rl_main_content;
     App_sharedpreference app_sharedpreference;
-
 
 
     @Override
@@ -286,9 +292,9 @@ public class HomeActivity extends AppCompatActivity
 
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
 
-        scrollView = (ScrollView) findViewById(R.id.scroll_main);
+        scrollView = (NestedScrollView) findViewById(R.id.scroll_main);
 
-        setup_scrollview(scrollView);
+        //setup_scrollview(scrollView);
 
 //        tabColors = getActivity().getResources().getIntArray(R.array.tab_colors);
 //        bottom_menuAdapter = new AHBottomNavigationAdapter(getActivity(), R.menu.button_menu);
@@ -376,9 +382,12 @@ public class HomeActivity extends AppCompatActivity
                             homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
 
                         }
+
+
+
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
-                        showOrHideBottomNavigation(false);
+                        showOrHideBottomNavigation(true);
 
                         break;
                     case 1:
@@ -397,7 +406,7 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
                         replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
-                        showOrHideBottomNavigation(false);
+                        showOrHideBottomNavigation(true);
                         break;
 
                     case 4:
@@ -428,7 +437,7 @@ public class HomeActivity extends AppCompatActivity
 
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void setup_scrollview(final ScrollView scrollView)
+    private void setup_scrollview(final NestedScrollView scrollView)
     {
         if (Build.VERSION.SDK_INT >= 23) {
             // Marshmallow+

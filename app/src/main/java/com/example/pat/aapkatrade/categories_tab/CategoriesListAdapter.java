@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.koushikdutta.ion.Ion;
 
@@ -77,6 +78,25 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         });
 
 
+        homeHolder.linearlayoutMap.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent intent = new Intent(context, GoogleMapActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("choose_source", true);
+                intent.putExtra("address_name","Delhi Nehru Nagar");
+                context.startActivity(intent);
+
+                
+
+
+
+            }
+        });
+
 
     }
 
@@ -98,4 +118,10 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
+
+
+
+
+
+
 }

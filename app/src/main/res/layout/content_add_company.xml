@@ -12,7 +12,7 @@
     <RelativeLayout
         android:id="@+id/relativeAddCompanyHeader"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/fifty_dip"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -21,8 +21,8 @@
 
         <RelativeLayout
             android:id="@+id/linear_layout_image"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/orange_back"
             >
 
@@ -92,7 +92,7 @@
                     <EditText
                         android:id="@+id/etCompanyName"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Company Name"
@@ -112,7 +112,7 @@
                     <EditText
                         android:id="@+id/etPEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Primary Email"
@@ -129,7 +129,7 @@
                     <EditText
                         android:id="@+id/etSEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Secondary Email"
@@ -147,7 +147,7 @@
                     <EditText
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Address"
@@ -165,7 +165,7 @@
                     <EditText
                         android:id="@+id/etDiscription"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/fourty_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:hint="Description"
@@ -183,7 +183,7 @@
                     <Button
                         android:id="@+id/btnSave"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/thirty_five_dip"
+                        android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:text="@string/save"
