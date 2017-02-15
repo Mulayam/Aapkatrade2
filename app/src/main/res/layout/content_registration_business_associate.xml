@@ -17,8 +17,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/ten_dip"
-            android:layout_marginTop="@dimen/ten_dip"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
@@ -29,13 +27,15 @@
                 android:id="@+id/step1aLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:padding="20dp">
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:layout_marginTop="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
 
@@ -44,15 +44,17 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:orientation="vertical">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/input_layout_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp">
+                            android:layout_marginTop="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/twenty_dip"
+                            android:layout_marginRight="@dimen/twenty_dip">
 
                             <EditText
                                 android:id="@+id/et_email"
@@ -70,8 +72,9 @@
                             android:id="@+id/input_layout_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/twenty_dip"
+                            android:layout_marginRight="@dimen/twenty_dip"
                             app:passwordToggleEnabled="true">
 
                             <EditText
@@ -91,8 +94,9 @@
                             android:id="@+id/input_confirm_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/twenty_dip"
+                            android:layout_marginRight="@dimen/twenty_dip"
                             app:passwordToggleEnabled="true">
 
 
@@ -117,24 +121,26 @@
                 android:id="@+id/step1bLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:padding="20dp">
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:layout_marginTop="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_emp_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:padding="5dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:padding="@dimen/five_dip"
                         android:visibility="gone">
 
 
@@ -153,11 +159,11 @@
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dip"
+                                android:layout_height="@dimen/twenty_dip"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
@@ -170,9 +176,9 @@
                         android:id="@+id/input_layout_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:layout_marginRight="@dimen/twenty_dip">
 
                         <EditText
                             android:id="@+id/et_first_name"
@@ -190,10 +196,9 @@
                         android:id="@+id/input_layout_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_last_name"
@@ -213,10 +218,15 @@
                         android:id="@+id/input_layout_dob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:clickable="false"
+                        android:focusable="true"
+                        android:textColorHint="@color/hint_color"
+                        app:hintAnimationEnabled="true"
+                        app:hintEnabled="true"
+                        app:hintTextAppearance="@style/nofocus_edittext_theme">>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -225,20 +235,21 @@
 
                             <EditText
                                 android:id="@+id/et_dob"
-                                style="@style/myedittext"
+
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:enabled="false"
+                                android:focusableInTouchMode="true"
                                 android:hint="@string/date_of_birth"
                                 android:inputType="text"
                                 android:paddingLeft="@dimen/ten_dip"
-                                android:theme="@style/myedittext" />
+                                android:theme="@style/nofocus_edittext_theme"/>
 
 
                             <ImageView
                                 android:id="@+id/openCalander"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="@dimen/twenty_five_dip"
+                                android:layout_height="@dimen/twenty_five_dip"
                                 android:layout_alignParentRight="true"
                                 android:src="@drawable/ic_calendar" />
 
@@ -253,10 +264,9 @@
                         android:id="@+id/input_layout_father_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_father_name"
@@ -275,10 +285,9 @@
                         android:id="@+id/input_layout_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_mobile"
@@ -302,14 +311,17 @@
                 android:id="@+id/step1cLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:padding="20dp">
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:layout_marginTop="@dimen/ten_dip"
+                android:layout_marginBottom="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
 
@@ -317,10 +329,9 @@
                         android:id="@+id/input_layout_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="20dp"
-
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <RelativeLayout
                             android:id="@+id/spStateLayout"
@@ -336,11 +347,11 @@
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dip"
+                                android:layout_height="@dimen/twenty_dip"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
@@ -353,10 +364,9 @@
                         android:id="@+id/input_layout_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="25dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <RelativeLayout
                             android:id="@+id/spcityLayout"
@@ -371,11 +381,11 @@
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dip"
+                                android:layout_height="@dimen/twenty_dip"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
@@ -388,8 +398,9 @@
                         android:id="@+id/input_layout_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_address"
@@ -408,10 +419,9 @@
                         android:id="@+id/input_layout_pincode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_pincode"
@@ -433,9 +443,9 @@
                         android:id="@+id/input_layout_agreement"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <CheckBox
                             android:id="@+id/agreement_check"
@@ -459,17 +469,19 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/step2Layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:layout_marginTop="@dimen/hundred_dip"
-                android:padding="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:layout_marginTop="@dimen/ten_dip"
+                android:layout_marginBottom="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip"
                 android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
 
@@ -477,17 +489,16 @@
                         android:id="@+id/input_layout_qualification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-
-                        android:layout_marginTop="10dp"
-                        android:padding="5dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:padding="@dimen/five_dip">
 
                         <RelativeLayout
                             android:id="@+id/spQualificationLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="2dp">
+                            android:padding="@dimen/two_dip">
 
                             <Spinner
                                 android:id="@+id/spQualification"
@@ -498,11 +509,11 @@
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dip"
+                                android:layout_height="@dimen/twenty_dip"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
@@ -515,11 +526,11 @@
                         android:id="@+id/input_layout_total_exp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
 
-                        android:padding="5dp">
+                        android:padding="@dimen/five_dip">
 
                         <RelativeLayout
                             android:id="@+id/spTotalExpLayout"
@@ -536,11 +547,11 @@
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dip"
+                                android:layout_height="@dimen/twenty_dip"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
@@ -553,11 +564,10 @@
                         android:id="@+id/input_layout_rel_exp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp"
-                        android:padding="5dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:padding="@dimen/five_dip">
 
                         <RelativeLayout
                             android:id="@+id/spRelExpLayout"
@@ -574,11 +584,11 @@
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dip"
+                                android:layout_height="@dimen/twenty_dip"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
@@ -595,15 +605,18 @@
                 android:id="@+id/step3Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:padding="20dp"
+                android:layout_marginLeft="@dimen/ten_dip"
+                android:layout_marginRight="@dimen/ten_dip"
+                android:layout_marginTop="@dimen/ten_dip"
+                android:layout_marginBottom="@dimen/ten_dip"
+                android:padding="@dimen/twenty_dip"
                 android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="@dimen/twenty_dip"
+                    android:layout_marginTop="@dimen/ten_dip"
                     android:orientation="vertical">
 
 
@@ -611,11 +624,10 @@
                         android:id="@+id/input_layout_select_bank"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-
-                        android:layout_marginTop="10dp"
-                        android:padding="5dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:padding="@dimen/five_dip">
 
                         <RelativeLayout
                             android:id="@+id/spSelectBankLayout"
@@ -632,11 +644,11 @@
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dip"
+                                android:layout_height="@dimen/twenty_dip"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
@@ -649,9 +661,9 @@
                         android:id="@+id/input_layout_account_no"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_account_no"
@@ -668,11 +680,10 @@
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_branch_code"
                         android:layout_width="match_parent"
-
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_branch_code"
@@ -691,10 +702,9 @@
                         android:id="@+id/input_layout_branch_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_branch_name"
@@ -713,10 +723,9 @@
                         android:id="@+id/input_ifsc_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_ifsc_code"
@@ -735,10 +744,9 @@
                         android:id="@+id/input_micr_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_micr_code"
@@ -757,10 +765,9 @@
                         android:id="@+id/input_account_holder_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_account_holder_name"
@@ -779,11 +786,10 @@
                         android:id="@+id/input_registered_mobile_with_bank"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="20dp"
-
-                        android:layout_marginRight="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginBottom="@dimen/twenty_dip"
+                        android:layout_marginLeft="@dimen/twenty_dip"
+                        android:layout_marginRight="@dimen/twenty_dip"
+                        android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
                             android:id="@+id/et_registered_mobile_with_bank"
