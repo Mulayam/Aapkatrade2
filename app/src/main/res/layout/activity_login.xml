@@ -18,21 +18,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="10">
+            android:weightSum="10"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_weight="3"
-                android:orientation="vertical">
+                android:background="@drawable/loginbg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:weightSum="3">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:background="@drawable/loginbg"
-                    android:gravity="center_vertical">
+
+
+
 
 
                     <ImageView
@@ -42,22 +43,30 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:background="@android:color/transparent"
-                       android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/logo" />
+                        android:scaleType="fitCenter"
+                        android:layout_weight="2"
+                        app:srcCompat="@drawable/logo"
+                        tools:ignore="ContentDescription,InefficientWeight,NestedWeights,ObsoleteLayoutParam" />
 
 
-                    <TextView
-                        android:id="@+id/tv_login"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/logo"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="20dp"
-                        android:text="@string/login"
-                        android:textColor="@color/color_voilet"
-                        android:textSize="@dimen/textsize_medium" />
 
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/tv_login"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="@string/login"
+
+                            android:textColor="@color/color_voilet"
+                            android:textSize="12sp" />
+
+
+
+
+
+
 
 
             </LinearLayout>
@@ -74,17 +83,30 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    tools:ignore="NestedWeights">
 
-                    <RelativeLayout
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_mobile_no"
                         android:layout_width="match_parent"
+
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_text_green_back"
-                        android:gravity="center_vertical">
+                        android:hint="Email"
+                        android:textColorHint="@color/green"
+                        tools:ignore="HardcodedText">
+                        <!--  <RelativeLayout
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_centerVertical="true"
+                              android:layout_marginLeft="30dp"
+                              android:layout_marginRight="30dp"
+                              android:layout_marginTop="10dp"
+
+                              android:gravity="center_vertical">-->
 
                         <EditText
                             android:id="@+id/etusername"
@@ -92,37 +114,47 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@+id/imgview_password"
-                            android:background="@android:color/transparent"
-                            android:hint="Email"
+
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
                             android:inputType="textEmailAddress"
-                            android:padding="10dp" />
+                            android:padding="10dp"
+                            android:theme="@style/myedittext"
+                            tools:ignore="RtlHardcoded" />
 
-                        <ImageView
-                            android:id="@+id/imgview_password"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_username" />
 
-                    </RelativeLayout>
+                        <!--</RelativeLayout>-->
+                    </android.support.design.widget.TextInputLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
 
-                    <RelativeLayout
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_password"
                         android:layout_width="match_parent"
-
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_text_green_back"
-                        android:gravity="center_vertical">
+                        android:hint="Password"
+                        android:textColorHint="@color/green"
+                        android:theme="@style/myedittext"
+                        tools:ignore="HardcodedText">
+
+                        <!-- <RelativeLayout
+                             android:layout_width="match_parent"
+
+                             android:layout_height="wrap_content"
+                             android:layout_centerVertical="true"
+                             android:layout_marginLeft="30dp"
+                             android:layout_marginRight="30dp"
+                             android:layout_marginTop="10dp"
+
+                             android:gravity="center_vertical">-->
 
                         <EditText
                             android:id="@+id/etpassword"
@@ -130,22 +162,26 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:layout_toRightOf="@+id/imgview_username"
-                            android:background="@android:color/transparent"
-                            android:hint="Password"
+
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:padding="10dp" />
+                            android:padding="10dp"
+                            android:theme="@style/myedittext"
+                            tools:ignore="RtlHardcoded" />
 
-                        <ImageView
-                            android:id="@+id/imgview_username"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_password" />
+                        <!-- <ImageView
+                             android:id="@+id/imgview_username"
+                             android:layout_width="30dp"
+                             android:layout_height="30dp"
+                             android:layout_centerVertical="true"
+                             android:layout_marginLeft="5dp"
+                             android:src="@drawable/ic_password" />-->
 
 
-                    </RelativeLayout>
+                        <!--</RelativeLayout>-->
+                    </android.support.design.widget.TextInputLayout>
 
                 </RelativeLayout>
 
@@ -170,7 +206,8 @@
                             android:gravity="center_vertical"
                             android:text="@string/forgotpassword"
                             android:textColor="@color/color_voilet"
-                            android:textSize="@dimen/textsize" />
+                            android:textSize="@dimen/textsize"
+                            tools:ignore="RtlHardcoded" />
 
                     </RelativeLayout>
 

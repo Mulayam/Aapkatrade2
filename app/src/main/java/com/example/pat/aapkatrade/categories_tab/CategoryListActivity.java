@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
@@ -34,12 +35,12 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 public class CategoryListActivity extends AppCompatActivity
 {
 
-    RecyclerView mRecyclerView;
+    com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     ProgressBarHandler progress_handler;
     FrameLayout layout_container,layout_container_relativeSearch;
-
+    MyRecyclerViewEffect myRecyclerViewEffect;
 
 
     @Override
@@ -59,7 +60,7 @@ public class CategoryListActivity extends AppCompatActivity
 
 
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        mRecyclerView = (com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect) view.findViewById(R.id.recyclerview);
         findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +134,7 @@ public class CategoryListActivity extends AppCompatActivity
                             }
 
                             categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
-
+                            myRecyclerViewEffect=new MyRecyclerViewEffect(CategoryListActivity.this);
                             mRecyclerView.setAdapter(categoriesListAdapter);
 
                             categoriesListAdapter.notifyDataSetChanged();

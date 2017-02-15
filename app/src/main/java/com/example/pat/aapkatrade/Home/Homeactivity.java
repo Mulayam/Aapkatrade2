@@ -17,7 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,7 +30,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -39,8 +43,10 @@ import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
+import android.transition.Scene;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 
 import java.util.ArrayList;
 
@@ -377,6 +383,9 @@ public class HomeActivity extends AppCompatActivity
                             homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
 
                         }
+
+
+
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
                         showOrHideBottomNavigation(true);

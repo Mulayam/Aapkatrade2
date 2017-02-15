@@ -19,7 +19,7 @@
 
     <dimen name="ten_dip">13dp</dimen>
     <dimen name="three_dip">4dp</dimen>
-    <dimen name="minus_three_dip">-4dp</dimen>
+    <dimen name="minus_three_dip">-30dp</dimen>
     <dimen name="textsize">14sp</dimen>
     <dimen name="min_height_header">91dp</dimen>
     <dimen name="thirty_five_dip">46dp</dimen>
