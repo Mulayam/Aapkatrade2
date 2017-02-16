@@ -39,7 +39,7 @@ public class AddProductActivity extends AppCompatActivity {
     private Context context;
     LinearLayout contentAddProduct;
     private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance;
-    private String countryID = "101", stateID, cityID;
+     String countryID = "101", stateID, cityID;
     HashMap<String, String> webservice_header_type = new HashMap<>();
     ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     ArrayList<SubCategory> listDataChild = new ArrayList<>();
@@ -73,13 +73,13 @@ public class AddProductActivity extends AppCompatActivity {
         spState = (Spinner) findViewById(R.id.spState);
         spCity = (Spinner) findViewById(R.id.spCity);
         spdeliverydistance = (Spinner) findViewById(R.id.spDeliverydistance);
-
-
-//        initSpinner();
-//        getCompany();
-        getCategory();
         getState();
-//        pickDeliveryLocation();
+
+        initSpinner();
+        getCompany();
+        getCategory();
+
+        pickDeliveryLocation();
     }
 
 
@@ -116,24 +116,29 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
 
-    public void getState() {
+    public void getState()
+    {
         Log.e("state result ", "getState started");
         progressBar.show();
 
+
+
         Ion.with(context)
-                .load("http://aapkatrade.com/slim/dropdown/state")
+                .load("http://aapkatrade.com/slim/dropdown")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "state")
-                .setBodyParameter("id", countryID)
+                .setBodyParameter("id", "101")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBar.hide();
-                        Log.e("state result ", result==null?"state data found":result.toString());
 
-                        if (result != null) {
+                        Log.e("state result ", result.toString());
+
+                        if (result != null)
+                        {
 
                             JsonArray jsonResultArray = result.getAsJsonArray("result");
                             stateList = new ArrayList<>();
@@ -155,7 +160,7 @@ public class AddProductActivity extends AppCompatActivity {
                                     stateID = stateList.get(position).stateId;
                                     cityList = new ArrayList<>();
                                     if (position > 0) {
-                                        getCity(stateList.get(position).stateId);
+                                        getCity(stateID);
                                     }
                                 }
 
@@ -179,7 +184,7 @@ public class AddProductActivity extends AppCompatActivity {
     public void getCity(String stateId) {
         progressBar.show();
         Ion.with(context)
-                .load("http://aapkatrade.com/slim/dropdown/state")
+                .load("http://aapkatrade.com/slim/dropdown")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "city")
@@ -189,7 +194,7 @@ public class AddProductActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBar.hide();
-                        Log.e("city result ", result == null ? "null" : result.getAsString());
+//                        Log.e("city result ", result == null ? "null" : result.getAsString());
 
                         if (result != null) {
                             JsonArray jsonResultArray = result.getAsJsonArray("result");
