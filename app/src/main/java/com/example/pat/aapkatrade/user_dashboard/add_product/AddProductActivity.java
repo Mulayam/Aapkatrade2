@@ -25,8 +25,11 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CategoryListAdapter;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.example.pat.aapkatrade.general.Utils.adapter.SubCategoryListAdapter;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +41,13 @@ public class AddProductActivity extends AppCompatActivity {
     private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance;
     private String countryID = "101", stateID, cityID;
     HashMap<String, String> webservice_header_type = new HashMap<>();
-    private ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
-    private ArrayList<SubCategory> listDataChild = new ArrayList<>();
-    private ArrayList<State> stateList = new ArrayList<>();
-    private ArrayList<City> cityList = new ArrayList<>();
-    private ArrayList<String> deliveryDistanceList = new ArrayList<>();
-    private ArrayList<String> companyNames = new ArrayList<>();
+    ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
+    ArrayList<SubCategory> listDataChild = new ArrayList<>();
+    ArrayList<State> stateList = new ArrayList<>();
+    ArrayList<City> cityList = new ArrayList<>();
+    ArrayList<String> deliveryDistanceList = new ArrayList<>();
+    ArrayList<String> companyNames = new ArrayList<>();
+    private ProgressBarHandler progressBar;
 
 
     @Override
@@ -61,23 +65,22 @@ public class AddProductActivity extends AppCompatActivity {
         context = AddProductActivity.this;
         contentAddProduct = (LinearLayout) findViewById(R.id.contentAddProduct);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        progressBar = new ProgressBarHandler(context);
 
         spCompanyName = (Spinner) findViewById(R.id.spCompanyName);
-        spSubCategory = (Spinner) findViewById(R.id.spSubCategory_Add_product);
+        spSubCategory = (Spinner) findViewById(R.id.spSubCategory);
         spCategory = (Spinner) findViewById(R.id.spCategory);
         spState = (Spinner) findViewById(R.id.spState);
         spCity = (Spinner) findViewById(R.id.spCity);
-        spdeliverydistance = (Spinner) findViewById(R.id.spdeliverydistance);
+        spdeliverydistance = (Spinner) findViewById(R.id.spDeliverydistance);
 
 
-
-        initSpinner();
-        getCompany();
+//        initSpinner();
+//        getCompany();
         getCategory();
         getState();
-        pickDeliveryLocation();
+//        pickDeliveryLocation();
     }
-
 
 
     private void initSpinner() {
@@ -114,59 +117,58 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     public void getState() {
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "state");
-        webservice_body_parameter.put("id", countryID);//country id fixed 101 for India
+        Log.e("state result ", "getState started");
+        progressBar.show();
 
-        Call_webservice.getcountrystatedata(context, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+        Ion.with(context)
+                .load("http://aapkatrade.com/slim/dropdown/state")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "state")
+                .setBodyParameter("id", countryID)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBar.hide();
+                        Log.e("state result ", result==null?"state data found":result.toString());
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject state_data_webservice) {
+                        if (result != null) {
 
-                if (state_data_webservice != null) {
+                            JsonArray jsonResultArray = result.getAsJsonArray("result");
+                            stateList = new ArrayList<>();
+                            State stateEntity_init = new State("-1", "Please Select State");
+                            stateList.add(stateEntity_init);
 
-                    Log.e("data", "TaskcompleteError" + state_data_webservice.toString());
-
-                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                    stateList = new ArrayList<>();
-                    State stateEntity_init = new State("-1", "Please Select State");
-                    stateList.add(stateEntity_init);
-
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                        stateList.add(stateEntity);
-                    }
-                    SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
-                    spState.setAdapter(spStateAdapter);
-                    spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view,
-                                                   int position, long id) {
-                            stateID = stateList.get(position).stateId;
-                            cityList = new ArrayList<>();
-                            if (position > 0) {
-                                getCity(stateList.get(position).stateId);
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                stateList.add(stateEntity);
                             }
+                            SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
+                            spState.setAdapter(spStateAdapter);
+                            spStateAdapter.notifyDataSetChanged();
+                            spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    stateID = stateList.get(position).stateId;
+                                    cityList = new ArrayList<>();
+                                    if (position > 0) {
+                                        getCity(stateList.get(position).stateId);
+                                    }
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                        } else {
+                            showMessage("State Not Found");
                         }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-
-
-                    });
-                } else {
-                    showMessage("State Not Found");
-                }
-            }
-
-        };
+                    }
+                });
     }
 
     private void showMessage(String message) {
@@ -175,97 +177,109 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     public void getCity(String stateId) {
+        progressBar.show();
+        Ion.with(context)
+                .load("http://aapkatrade.com/slim/dropdown/state")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "city")
+                .setBodyParameter("id", stateId)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBar.hide();
+                        Log.e("city result ", result == null ? "null" : result.getAsString());
 
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "city");
-        webservice_body_parameter.put("id", stateId);
+                        if (result != null) {
+                            JsonArray jsonResultArray = result.getAsJsonArray("result");
 
-        Call_webservice.getcountrystatedata(context, "city", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+                            City cityEntity_init = new City("-1", "Please Select City");
+                            cityList.add(cityEntity_init);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject city_data_webservice) {
-                if (city_data_webservice != null) {
-                    JsonObject jsonObject = city_data_webservice.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                cityList.add(cityEntity);
+                            }
 
-                    City cityEntity_init = new City("-1", "Please Select City");
-                    cityList.add(cityEntity_init);
+                            SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
+                            spCity.setAdapter(spCityAdapter);
 
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                        cityList.add(cityEntity);
-                    }
-
-                    SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
-                    spCity.setAdapter(spCityAdapter);
-
-                    spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            cityID = cityList.get(position).cityId;
+                            spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    cityID = cityList.get(position).cityId;
 //                        if (!(Integer.parseInt(cityID) > 0)) {
 //                            showmessage("Please Select City");
 //                        }
-                        }
+                                }
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
 
+                                }
+                            });
+                        } else {
+                            showMessage("No City Found");
                         }
-                    });
-                } else {
-                    showMessage("No City Found");
-                }
-            }
-        };
+                    }
+
+                });
+
     }
 
     private void getCategory() {
-
+        listDataChild.clear();
+        listDataHeader.clear();
+        progressBar.show();
         Log.e("data", "getCategory Entered");
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "category");
+        Ion.with(context)
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "category")
 
-        Call_webservice.getcountrystatedata(context, "category", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject data) {
+                        progressBar.hide();
+                        Log.e("data", "getCategory result" + data.toString());
+                        if (data != null) {
+                            JsonObject jsonObject = data.getAsJsonObject();
+                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject data) {
-                Log.e("data", "getCategory result"+data.toString());
-                if (data != null) {
-                    JsonObject jsonObject = data.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                            listDataHeader = new ArrayList<>();
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                JsonArray json_subcategory = jsonObject1.getAsJsonArray("subcategory");
 
-                    listDataHeader = new ArrayList<>();
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        JsonArray json_subcategory = jsonObject1.getAsJsonArray("subcategory");
+                                if (json_subcategory != null) {
+                                    listDataChild = new ArrayList<>();
+                                    for (int k = 0; k < json_subcategory.size(); k++) {
+                                        JsonObject jsonObject_subcategory = (JsonObject) json_subcategory.get(k);
+                                        SubCategory subCategory = new SubCategory(jsonObject_subcategory.get("id").getAsString(), jsonObject_subcategory.get("name").getAsString());
+                                        listDataChild.add(subCategory);
+                                    }
+                                    CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString(), listDataChild);
+                                    listDataHeader.add(categoryHome);
+                                    Log.e("data", categoryHome.toString());
 
-                        listDataChild = new ArrayList<>();
-                        for (int k = 0; k < json_subcategory.size(); k++) {
-                            JsonObject jsonObject_subcategory = (JsonObject) json_subcategory.get(k);
-                            SubCategory subCategory = new SubCategory(jsonObject_subcategory.get("id").getAsString(), jsonObject_subcategory.get("name").getAsString());
-                            listDataChild.add(subCategory);
+                                }
+                            }
+                            setCategoryAdapter();
                         }
-                        CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString(), listDataChild);
-                        listDataHeader.add(categoryHome);
-                        Log.e("data", categoryHome.toString());
-                    }
-                    setCategoryAdapter();
-                }
 
-            }
-        };
+                    }
+                });
     }
 
     private void setCategoryAdapter() {
         Log.e("data", this.listDataHeader.toString());
         CategoryListAdapter categoriesAdapter = new CategoryListAdapter(context, this.listDataHeader);
         spCategory.setAdapter(categoriesAdapter);
+
 
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -324,7 +338,6 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case android.R.id.home:
                 finish();
                 break;

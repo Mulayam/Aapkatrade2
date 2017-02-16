@@ -191,7 +191,7 @@
 
 
                             <Spinner
-                                android:id="@+id/spSubCategory_Add_product"
+                                android:id="@+id/spSubCategory"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
@@ -316,7 +316,7 @@
 
 
                             <Spinner
-                                android:id="@+id/spdeliverydistance"
+                                android:id="@+id/spDeliverydistance"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
@@ -392,7 +392,7 @@
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="@string/description"
+                            android:hint="@string/description_heading"
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingLeft="@dimen/ten_dip"
