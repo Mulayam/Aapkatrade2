@@ -43,10 +43,14 @@ import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 
 
+import android.transition.Scene;
+import android.transition.Transition;
+import android.transition.TransitionManager;
+
+
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity
-{
+public class HomeActivity extends AppCompatActivity {
 
 
     private NavigationFragment drawer;
@@ -62,10 +66,12 @@ public class HomeActivity extends AppCompatActivity
     ContactUsFragment contactUsFragment;
     ProgressBar progressBar;
     Boolean permission_status;
-    public static String userid,username;
+    public static String userid, username;
     NestedScrollView scrollView;
     float initialX, initialY;
+
     public static  RelativeLayout rl_main_content,rl_searchview_dashboard;
+
     App_sharedpreference app_sharedpreference;
 
 
@@ -73,22 +79,22 @@ public class HomeActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         rl_main_content=(RelativeLayout)findViewById(R.id.rl_main_content);
 
+    
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
 
         App_config.set_defaultfont(HomeActivity.this);
 
         loadLocale();
 
-        permission_status=CheckPermission.checkPermissions(HomeActivity.this);
+        permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (permission_status)
-        {
+        if (permission_status) {
 
             setContentView(R.layout.activity_homeactivity);
 
@@ -123,9 +129,10 @@ public class HomeActivity extends AppCompatActivity
 
             checked_wifispeed();
 
+
         }
-        else
-        {
+        else {
+
             setContentView(R.layout.activity_homeactivity);
 
             rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
@@ -154,18 +161,17 @@ public class HomeActivity extends AppCompatActivity
             setupDashFragment();
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
-           // setup_bottomNavigation();
+            // setup_bottomNavigation();
             checked_wifispeed();
         }
 
     }
 
 
-
     private void checked_wifispeed() {
 
-       int a= ConnetivityCheck.get_wifi_speed(this);
-        Log.e("a",a+"");
+        int a = ConnetivityCheck.get_wifi_speed(this);
+        Log.e("a", a + "");
 
     }
 
@@ -323,7 +329,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-
     private void setup_bottomNavigation() {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordination_home_activity);
 
@@ -421,7 +426,6 @@ public class HomeActivity extends AppCompatActivity
                         }
 
 
-
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
                         showOrHideBottomNavigation(true);
@@ -447,8 +451,7 @@ public class HomeActivity extends AppCompatActivity
                         break;
 
                     case 4:
-                        if (contactUsFragment == null)
-                        {
+                        if (contactUsFragment == null) {
                             contactUsFragment = new ContactUsFragment();
                         }
                         String contact_us_fragment = contactUsFragment.getClass().getName();
@@ -472,10 +475,8 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-
     @TargetApi(Build.VERSION_CODES.M)
-    private void setup_scrollview(final NestedScrollView scrollView)
-    {
+    private void setup_scrollview(final NestedScrollView scrollView) {
         if (Build.VERSION.SDK_INT >= 23) {
             // Marshmallow+
 
@@ -492,10 +493,7 @@ public class HomeActivity extends AppCompatActivity
 //                    setForceTitleHide(true);
 
 
-                    }
-
-                    else
-                    {
+                    } else {
                         showOrHideBottomNavigation(false);
                     }
 
@@ -507,35 +505,32 @@ public class HomeActivity extends AppCompatActivity
 
                 }
             });
-        }
-        else {
+        } else {
 
 
-scrollView.setOnTouchListener(new View.OnTouchListener()
-{
-    float height;
+            scrollView.setOnTouchListener(new View.OnTouchListener() {
+                float height;
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event)
-    {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
 
-        int action = event.getAction();
-        float height2 = event.getY();
-        if(action == MotionEvent.ACTION_DOWN){
-            height = height2;
-        }else if(action == MotionEvent.ACTION_UP){
-            if(this.height > height2){
-                Log.e("up", "Scrolled up");
-                showOrHideBottomNavigation(false);
-            }else if(this.height < height2){
-                Log.e("down", "Scrolled down");
-                showOrHideBottomNavigation(true);
-            }
-        }
-        return false;
-    }
+                    int action = event.getAction();
+                    float height2 = event.getY();
+                    if (action == MotionEvent.ACTION_DOWN) {
+                        height = height2;
+                    } else if (action == MotionEvent.ACTION_UP) {
+                        if (this.height > height2) {
+                            Log.e("up", "Scrolled up");
+                            showOrHideBottomNavigation(false);
+                        } else if (this.height < height2) {
+                            Log.e("down", "Scrolled down");
+                            showOrHideBottomNavigation(true);
+                        }
+                    }
+                    return false;
+                }
 
-});
+            });
 
 
             // Pre-Marshmallow
@@ -561,7 +556,6 @@ scrollView.setOnTouchListener(new View.OnTouchListener()
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -581,10 +575,6 @@ scrollView.setOnTouchListener(new View.OnTouchListener()
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
-
-
 
 
 }

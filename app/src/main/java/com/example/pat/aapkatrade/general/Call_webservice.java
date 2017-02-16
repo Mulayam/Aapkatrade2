@@ -50,8 +50,9 @@ public class Call_webservice {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             progressBarHandler.hide();
+
                             taskCompleteReminder.Taskcomplete(result);
-                            //   Log.e("jsonobject", result.toString());
+
                             //taskCompleteReminder.Taskcomplete("complete");
 //
                         }
@@ -93,11 +94,20 @@ public class Call_webservice {
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
                                 public void onCompleted(Exception e, JsonObject result) {
+                                    if(result!=null){
+                                        Log.e("jsonobject_state1", result.toString());
+                                        taskCompleteReminder.Taskcomplete(result);
+                                    }else {
+
+                                        Log.e("jsonobject_state1_error", e.toString());
+
+
+                                    }
 
 
                                     progressBarHandler.hide();
-                                    taskCompleteReminder.Taskcomplete(result);
-                                    Log.e("jsonobject_state", jsonObject.toString());
+
+
                                     //taskCompleteReminder.Taskcomplete("complete");
 //
                                 }
@@ -191,10 +201,10 @@ public class Call_webservice {
 
 
                                         taskCompleteReminder.Taskcomplete(result);
-                                        Log.e("result_json", result.toString());
+                                        Log.e("result_json_category", result.toString());
                                         //taskCompleteReminder.Taskcomplete("complete");
                                     } else {
-                                        Log.e("result_error", e.toString());
+                                        Log.e("result_error_category", e.toString());
                                     }
 //
                                 }

@@ -54,8 +54,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner
-{
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
 
 
     public static final String preFile = "textFile";
@@ -94,16 +93,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private static String shared_pref_name = "aapkatrade";
 
 
-
-
     public NavigationFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
 
@@ -117,8 +113,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void initView(View view)
-    {
+    private void initView(View view) {
         //   sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
         //prepare textviewdata
         categoryname = new ArrayList<>();
@@ -131,12 +126,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         // loginPrefsEditor = loginPreferences.edit();
         prepareListData();
         expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
-        rl_category=(RelativeLayout)this.view.findViewById(R.id.rl_category);
+        rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
 
         //navigation_parent_scrollview=(NestedScrollView)this.view.findViewById(R.id.navigation_parent_scrollview);
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
-        {
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
 
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
@@ -194,8 +188,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    public void setup(int id, final DrawerLayout drawer, Toolbar toolbar)
-    {
+    public void setup(int id, final DrawerLayout drawer, Toolbar toolbar) {
 
         view = getActivity().findViewById(id);
 
@@ -205,7 +198,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             @Override
             public void onDrawerOpened(View drawerView) {
                 rl_main_content = getActivity().findViewById(R.id.rl_main_content);
-              rl_main_content.setBackgroundColor(Color.parseColor("#33000000"));
+                rl_main_content.setBackgroundColor(Color.parseColor("#33000000"));
                 hideSoftKeyboard(getActivity());
                 mDrawerLayout.setScrimColor(Color.TRANSPARENT);
                 super.onDrawerOpened(drawerView);
@@ -220,7 +213,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-               rl_main_content.setBackgroundColor(Color.parseColor("#ffffff"));
+                rl_main_content.setBackgroundColor(Color.parseColor("#ffffff"));
 
             }
 
@@ -290,10 +283,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void itemClicked(View view, int groupview, int childview)
-    {
+    public void itemClicked(View view, int groupview, int childview) {
 
-       System.out.println("childview------------"+ childview);
+        System.out.println("childview------------" + childview);
         try {
 
             Intent i = new Intent(getActivity(), CategoryListActivity.class);
@@ -306,7 +298,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         replaceFragment(categoryListFragment,null);
         mDrawerLayout.closeDrawer(Gravity.LEFT);
       */
-
 
 
     }
@@ -350,14 +341,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void prepareListData()
-    {
+    private void prepareListData() {
         getCategory();
 
     }
 
-    private void getCategory()
-    {
+    private void getCategory() {
 
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
@@ -380,7 +369,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                         JsonArray json_subcategory = jsonObject1.getAsJsonArray("subcategory");
 
-                        listDataChild=new ArrayList<>();
+                        listDataChild = new ArrayList<>();
                         for (int k = 0; k < json_subcategory.size(); k++) {
                             JsonObject jsonObject_subcategory = (JsonObject) json_subcategory.get(k);
                             SubCategory subCategory = new SubCategory(jsonObject_subcategory.get("id").getAsString(), jsonObject_subcategory.get("name").getAsString());
@@ -421,11 +410,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void set_expandable_adapter_data()
-    {
+    private void set_expandable_adapter_data() {
 
-        if (listDataHeader.size() != 0)
-        {
+        if (listDataHeader.size() != 0) {
 
             listAdapter = new ExpandableListAdapter(context, listDataHeader);
 
@@ -448,7 +435,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                     lastExpandedPosition = groupPosition;
                 }
             });
-             listAdapter.setClickListner(this);
+            listAdapter.setClickListner(this);
 
 
         }

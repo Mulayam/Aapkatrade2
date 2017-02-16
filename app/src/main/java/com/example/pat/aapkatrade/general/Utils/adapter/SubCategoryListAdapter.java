@@ -16,15 +16,14 @@ import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
-public class CustomSimpleListAdapter extends BaseAdapter {
+public class SubCategoryListAdapter extends BaseAdapter {
     Context context;
-    ArrayList categoriesNames;
+    ArrayList<SubCategory> categoriesNames;
     LayoutInflater inflter;
 
 
-    public CustomSimpleListAdapter(Context applicationContext, ArrayList categoriesNames) {
+    public SubCategoryListAdapter(Context applicationContext, ArrayList<SubCategory> categoriesNames) {
         this.context = applicationContext;
 
         this.categoriesNames = categoriesNames;
@@ -52,16 +51,8 @@ public class CustomSimpleListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
+        names.setText(categoriesNames.get(i).subCategoryName);
 
-        if(categoriesNames.get(i) instanceof String) {
-            names.setText((CharSequence) categoriesNames.get(i));
-        }
-
-        else if(categoriesNames.get(i) instanceof CategoryHome){
-            names.setText(((CategoryHome) categoriesNames.get(i)).getCategoryName());
-        } else if(categoriesNames.get(i) instanceof SubCategory){
-            names.setText(((SubCategory) categoriesNames.get(i)).subCategoryName);
-        }
         return view;
     }
 }
