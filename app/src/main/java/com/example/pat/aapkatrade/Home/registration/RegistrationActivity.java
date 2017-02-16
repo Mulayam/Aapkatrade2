@@ -523,7 +523,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
                         }
 
-
                     });
                 } else {
                     AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
