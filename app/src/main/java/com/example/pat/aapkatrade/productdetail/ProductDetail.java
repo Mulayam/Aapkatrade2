@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -38,7 +39,7 @@ import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 public class ProductDetail extends AppCompatActivity
 {
 
-    LinearLayout viewpagerindicator;
+    LinearLayout viewpagerindicator,linearlayoutShare,linearlayoutLocation;
     Spinner spinner;
     int max = 10;
     private ArrayList<String> imageList;
@@ -49,7 +50,7 @@ public class ProductDetail extends AppCompatActivity
     private int dotsCount;
     private ImageView[] dots;
     Timer banner_timer=new Timer();
-    RelativeLayout relativeBuyNow,RelativeProductDetail;
+    RelativeLayout relativeBuyNow,RelativeProductDetail,relativeRateReview;
     LinearLayout linearProductDetail;
     TextView tvProductName,tvProPrice,tvCrossPrice,tvDuration,tvDiscription,tvSpecification,tvQuatity;
     ProgressBarHandler progress_handler;
@@ -277,9 +278,50 @@ public class ProductDetail extends AppCompatActivity
 
         imageList = new ArrayList<>();
 
+        relativeRateReview = (RelativeLayout) findViewById(R.id.relativeRateReview);
+
+        linearlayoutShare = (LinearLayout) findViewById(R.id.linearlayoutShare);
+
+        linearlayoutLocation = (LinearLayout) findViewById(R.id.linearlayoutLocation);
+
+
+        relativeRateReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+        linearlayoutLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(ProductDetail.this, GoogleMapActivity.class);
+                startActivity(i);
+            }
+        });
+
+
+        linearlayoutShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String message = "Text I want to share.";
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, message);
+
+                startActivity(Intent.createChooser(share, "Title of the dialog the system will open"));
+
+            }
+        });
+
         RelativeProductDetail = (RelativeLayout) findViewById(R.id.RelativeProductDetail);
 
         linearProductDetail = (LinearLayout) findViewById(R.id.linearProductDetail);
+
+
 
         tvProductName = (TextView) findViewById(R.id.tvProductName);
 
@@ -406,7 +448,7 @@ public class ProductDetail extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.empty_menu, menu);
         return true;
     }
 
