@@ -20,7 +20,7 @@ public class SpStateAdapter extends BaseAdapter {
 
 
     Context context;
-    private ArrayList<State> stateList = new ArrayList<>();
+     ArrayList<State> stateList = new ArrayList<>();
     LayoutInflater inflter;
 
     public SpStateAdapter(Context applicationContext, ArrayList<State> stateList) {
