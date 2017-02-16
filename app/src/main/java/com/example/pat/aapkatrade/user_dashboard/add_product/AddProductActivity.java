@@ -39,7 +39,7 @@ public class AddProductActivity extends AppCompatActivity {
     private Context context;
     LinearLayout contentAddProduct;
     private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance;
-     String countryID = "101", stateID, cityID;
+    private String countryID = "101", stateID, cityID;
     HashMap<String, String> webservice_header_type = new HashMap<>();
     ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     ArrayList<SubCategory> listDataChild = new ArrayList<>();
@@ -73,13 +73,13 @@ public class AddProductActivity extends AppCompatActivity {
         spState = (Spinner) findViewById(R.id.spState);
         spCity = (Spinner) findViewById(R.id.spCity);
         spdeliverydistance = (Spinner) findViewById(R.id.spDeliverydistance);
-        getState();
 
-        initSpinner();
-        getCompany();
+
+//        initSpinner();
+//        getCompany();
         getCategory();
-
-        pickDeliveryLocation();
+        getState();
+//        pickDeliveryLocation();
     }
 
 
@@ -116,29 +116,24 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
 
-    public void getState()
-    {
+    public void getState() {
         Log.e("state result ", "getState started");
         progressBar.show();
 
-
-
         Ion.with(context)
-                .load("http://aapkatrade.com/slim/dropdown")
+                .load("http://aapkatrade.com/slim/dropdown/state")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "state")
-                .setBodyParameter("id", "101")
+                .setBodyParameter("id", countryID)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBar.hide();
+                        Log.e("state result ", result==null?"state data found":result.toString());
 
-                        Log.e("state result ", result.toString());
-
-                        if (result != null)
-                        {
+                        if (result != null) {
 
                             JsonArray jsonResultArray = result.getAsJsonArray("result");
                             stateList = new ArrayList<>();
@@ -160,7 +155,7 @@ public class AddProductActivity extends AppCompatActivity {
                                     stateID = stateList.get(position).stateId;
                                     cityList = new ArrayList<>();
                                     if (position > 0) {
-                                        getCity(stateID);
+                                        getCity(stateList.get(position).stateId);
                                     }
                                 }
 
@@ -184,7 +179,7 @@ public class AddProductActivity extends AppCompatActivity {
     public void getCity(String stateId) {
         progressBar.show();
         Ion.with(context)
-                .load("http://aapkatrade.com/slim/dropdown")
+                .load("http://aapkatrade.com/slim/dropdown/state")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "city")
@@ -194,7 +189,7 @@ public class AddProductActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBar.hide();
-//                        Log.e("city result ", result == null ? "null" : result.getAsString());
+                        Log.e("city result ", result == null ? "null" : result.getAsString());
 
                         if (result != null) {
                             JsonArray jsonResultArray = result.getAsJsonArray("result");
