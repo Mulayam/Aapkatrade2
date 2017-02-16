@@ -152,14 +152,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private void initializeview(View v, ViewGroup v2) {
 
 
-        rl_searchview_dashboard = (RelativeLayout) v.findViewById(R.id.rl_searchview);
-        rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent_searchactivity = new Intent(getActivity(), Search.class);
-                startActivity(intent_searchactivity);
-            }
-        });
 
         progress_handler = new ProgressBarHandler(getActivity());
 

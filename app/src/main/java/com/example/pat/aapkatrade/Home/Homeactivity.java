@@ -17,10 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -42,16 +38,20 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
+import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
+
 
 import android.transition.Scene;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 
+
 import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
+
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -69,15 +69,23 @@ public class HomeActivity extends AppCompatActivity {
     public static String userid, username;
     NestedScrollView scrollView;
     float initialX, initialY;
-    public static RelativeLayout rl_main_content;
+
+    public static  RelativeLayout rl_main_content,rl_searchview_dashboard;
+
     App_sharedpreference app_sharedpreference;
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
 
+
+        rl_main_content=(RelativeLayout)findViewById(R.id.rl_main_content);
+
+    
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
 
         App_config.set_defaultfont(HomeActivity.this);
@@ -89,6 +97,24 @@ public class HomeActivity extends AppCompatActivity {
         if (permission_status) {
 
             setContentView(R.layout.activity_homeactivity);
+
+            rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
+
+            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener()
+            {
+
+
+                @Override
+                public void onClick(View v)
+                {
+
+                    Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
+                    startActivity(intent_searchactivity);
+
+
+                }
+
+            });
 
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
@@ -104,8 +130,28 @@ public class HomeActivity extends AppCompatActivity {
             checked_wifispeed();
 
 
-        } else {
+        }
+        else {
+
             setContentView(R.layout.activity_homeactivity);
+
+            rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
+
+            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener()
+            {
+
+
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
+                    startActivity(intent_searchactivity);
+                }
+
+
+
+            });
+
             //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
             context = this;
             //  permissions  granted.
@@ -146,13 +192,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void setupToolBar() {
+    private void setupToolBar()
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
 
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
+       // getSupportActionBar().setIcon(R.drawable.logo_word);
+
+
     }
 
     private void replaceFragment(Fragment newFragment, String tag) {

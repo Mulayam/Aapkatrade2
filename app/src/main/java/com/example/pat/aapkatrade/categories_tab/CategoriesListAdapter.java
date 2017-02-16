@@ -30,7 +30,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     CategoriesListHolder viewHolder;
 
 
-
     public CategoriesListAdapter(Context context, List<CategoriesListData> itemList)
     {
         this.itemList = itemList;
@@ -61,8 +60,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         homeHolder.tvProductCrossPrice.setText("\u20A8"+"."+" "+itemList.get(position).product_cross_price);
 
-        Ion.with(homeHolder.productimage)
-                .load(itemList.get(position).product_image);
+        Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
 
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
         {
@@ -74,6 +72,8 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 intent.putExtra("product_id",itemList.get(position).product_id);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+
+
             }
         });
 
@@ -84,13 +84,12 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             public void onClick(View v)
             {
 
+
                 Intent intent = new Intent(context, GoogleMapActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("choose_source", true);
                 intent.putExtra("address_name","Delhi Nehru Nagar");
                 context.startActivity(intent);
-
-                
 
 
 

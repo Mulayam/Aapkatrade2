@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -21,10 +24,10 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Search extends AppCompatActivity {
- AutoCompleteTextView autocomplete_textview;
-    SearchResultsAdapter searchResultsAdapter;
-    ListView searchsuggestionlist;
+public class Search extends AppCompatActivity
+{
+
+    AutoCompleteTextView autocomplete_textview;
     CustomAutocompleteAdapter categoryadapter;
     ArrayList<String> product_ids=new ArrayList<>();
     ArrayList<String> product_names=new ArrayList<>();
@@ -34,33 +37,45 @@ public class Search extends AppCompatActivity {
     CommomAdapter commomAdapter;
     ArrayList<CommomData> search_productlist = new ArrayList<>();
     String[] language ={"C","C++","Java",".NET","iPhone","Android","ASP.NET","PHP"};
+    Toolbar toolbar;
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        setuptoolbar();
+
         initview();
-
-
-
 
     }
 
-    private void initview() {
+
+    private void setuptoolbar()
+    {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(null);
+
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
+
+    }
+    private void initview()
+    {
         c=this;
+
         autocomplete_textview=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext);
         recyclerView_search=(RecyclerView)findViewById(R.id.recycleview_search) ;
         gridLayoutManager = new GridLayoutManager(c, 2);
 
-
-
-
-
         setadapter_autocomplete();
 
-
-setadapter_recycleview();
-
+        setadapter_recycleview();
 
     }
 
@@ -169,6 +184,26 @@ setadapter_recycleview();
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.empty_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 
