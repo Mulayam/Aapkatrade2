@@ -30,7 +30,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_grey_back"
+                android:background="@drawable/spinner_green_back"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -162,6 +162,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
+
+
+                    <RelativeLayout   android:layout_width="30dp"
+                        android:background="@drawable/spinner_green_back2"
+                        android:layout_margin="5dp"
+                        android:layout_height="30dp">
+
+
+
+                    </RelativeLayout>
+
 
                     <ImageView
                         android:id="@+id/img_view_travelmode_car"
