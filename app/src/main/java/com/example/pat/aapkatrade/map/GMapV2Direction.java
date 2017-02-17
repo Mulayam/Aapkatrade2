@@ -6,6 +6,7 @@ package com.example.pat.aapkatrade.map;
 
 import android.util.Log;
 
+import com.example.pat.aapkatrade.R;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.http.HttpResponse;
@@ -31,12 +32,12 @@ public class GMapV2Direction {
     public GMapV2Direction() {
     }
 
-    public Document getDocument(LatLng start, LatLng end, String mode) {
-        String url = "http://maps.googleapis.com/maps/api/directions/xml?"
-                + "origin=" + start.latitude + "," + start.longitude
+    public Document getDocument(LatLng start, LatLng end, String MODE_DRIVING ,GoogleMapActivity activity) {
+        String url = "https://maps.googleapis.com/maps/api/directions/xml?"
+                + "origin=" + start.latitude + "," +start.longitude
                 + "&destination=" + end.latitude + "," + end.longitude
-                + "&sensor=false&units=metric&mode=driving";
-        Log.d("url", url);
+                + "&sensor=false&units=metric"+"&mode="+MODE_DRIVING+"&key="+activity.getResources().getString(R.string.google_api);
+        Log.e("dircetion_url", url);
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpContext localContext = new BasicHttpContext();
@@ -57,10 +58,10 @@ public class GMapV2Direction {
         try {
 
             NodeList nl1 = doc.getElementsByTagName("duration");
-            Node node1 = nl1.item(0);
+            Node node1 = nl1.item(nl1.getLength() - 1);
             NodeList nl2 = node1.getChildNodes();
             Node node2 = nl2.item(getNodeIndex(nl2, "text"));
-            Log.i("DurationText", node2.getTextContent());
+            Log.e("DurationText", node2.getTextContent());
             return node2.getTextContent();
         } catch (Exception e) {
             return "0";
@@ -70,10 +71,10 @@ public class GMapV2Direction {
     public int getDurationValue(Document doc) {
         try {
             NodeList nl1 = doc.getElementsByTagName("duration");
-            Node node1 = nl1.item(0);
+            Node node1 = nl1.item(nl1.getLength() - 1);
             NodeList nl2 = node1.getChildNodes();
             Node node2 = nl2.item(getNodeIndex(nl2, "value"));
-            Log.i("DurationValue", node2.getTextContent());
+            Log.e("DurationValue", node2.getTextContent());
             return Integer.parseInt(node2.getTextContent());
         } catch (Exception e) {
             return -1;
@@ -94,7 +95,7 @@ public class GMapV2Direction {
             Node node1 = nl1.item(nl1.getLength() - 1);
             NodeList nl2 = null;
             nl2 = node1.getChildNodes();
-            Node node2 = nl2.item(getNodeIndex(nl2, "value"));
+            Node node2 = nl2.item(getNodeIndex(nl2, "text"));
             Log.d("DistanceText", node2.getTextContent());
             return node2.getTextContent();
         } catch (Exception e) {
@@ -120,7 +121,7 @@ public class GMapV2Direction {
             node1 = nl1.item(nl1.getLength() - 1);
             NodeList nl2 = node1.getChildNodes();
             Node node2 = nl2.item(getNodeIndex(nl2, "value"));
-            Log.i("DistanceValue", node2.getTextContent());
+            Log.e("DistanceValue", node2.getTextContent());
             return Integer.parseInt(node2.getTextContent());
         } catch (Exception e) {
             return -1;

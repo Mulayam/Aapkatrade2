@@ -104,7 +104,6 @@
         <activity android:name=".search.Search" />
         <activity android:name=".user_dashboard.vender_detail.VendorActivity" />
         <activity android:name=".map.GoogleMapActivity" />
-        <activity android:name=".map.MyActivity"></activity>
     </application>
 
 </manifest>

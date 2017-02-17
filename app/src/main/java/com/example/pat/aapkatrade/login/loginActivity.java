@@ -72,15 +72,18 @@ public class LoginActivity extends AppCompatActivity
 
     private void putValues() {
 
-        login_text.setTextSize(getResources().getDimension(R.dimen.textsize));
+
         rl_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String input_username = username.getText().toString().trim();
+                String input_email = username.getText().toString().trim();
                 String input_password = password.getText().toString().trim();
 
                 if (Validation.validate_edittext(username)) {
+
+
+                    if(Validation.isValidEmail(input_email)){
 
 
                     if (Validation.validate_edittext(password)) {
@@ -95,35 +98,39 @@ public class LoginActivity extends AppCompatActivity
 
                                 String login_url = "http://aapkatrade.com/slim/businesslogin";
 
-                                callwebservice_login(login_url, input_username, input_password);
+                                callwebservice_login(login_url, input_email, input_password);
 
 
                             } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
                                 String login_url = "http://aapkatrade.com/slim/buyerlogin";
 
-                                callwebservice_login(login_url, input_username, input_password);
+                                callwebservice_login(login_url, input_email, input_password);
 
 
                             } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
                                 String login_url = "http://aapkatrade.com/slim/sellerlogin";
 
-                                callwebservice_login(login_url, input_username, input_password);
+                                callwebservice_login(login_url, input_email, input_password);
 
 
                             }
                         }
-
+                    }
+                    else {
+                        showMessage("Invalid Password");
+                        password.setError("Invalid Password");
+                    }
 
                     } else {
-                        showMessage("");
+                        showMessage("Invalid Password");
                         password.setError("Invalid Password");
                     }
 
 
                 } else {
-                    username.setError("");
+                    username.setError("Invalid Username");
                     showMessage("Invalid Username");
                 }
 

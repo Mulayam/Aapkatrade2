@@ -26,7 +26,10 @@
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
     <color name="grey_gradient">#415673</color>
+    <color name="grey_gradient2">#737C7A</color>
     <color name="item_details_color">#585858</color>
+    <color name="green_gradient2">#1C7B67</color>
+
 
     <color name="brown_light">#F1EEE4</color>
     <color name="cardview_background">#EEEEEE</color>
@@ -39,6 +42,7 @@
     <color name="slaty_gradient">#7991A8</color>
     <color name="blue_gradient_sky">#0D9DAD</color>
     <color name="polyline_color">#43a047</color>
+    <color name="white_shade">#E9E9E9</color>
 
 
     <array name="tab_colors">

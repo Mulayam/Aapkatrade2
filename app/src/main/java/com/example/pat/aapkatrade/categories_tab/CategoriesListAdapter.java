@@ -86,8 +86,8 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                 Intent intent = new Intent(context, GoogleMapActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("choose_source", true);
-                intent.putExtra("address_name","Delhi Nehru Nagar");
+
+                intent.putExtra("product_location","Delhi Nehru Nagar");
                 context.startActivity(intent);
 
                 
