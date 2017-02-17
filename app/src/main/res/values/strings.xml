@@ -6,7 +6,7 @@
     <string name="save">Save</string>
     <string name="submit">Submit</string>
     <string name="aapka_data">AAPKA <font color='white'>TRADE</font></string>
-    <string name="login">Login</string>
+    <string name="login">LOGIN</string>
     <string name="my_company_profile_heading">My Company Profile</string>
     <string name="change_password_heading">Change Password</string>
     <string name="add_company_heading">Add Company</string>
@@ -187,6 +187,7 @@
     <string name="hnt_lat">Enter Latitude</string>
     <string name="hnt_lng">Enter Longitude</string>
     <string name="str_btn_show">Show Location in Map</string>
+    <string name="your_location">Enter your Location</string>
 
 
 </resources>

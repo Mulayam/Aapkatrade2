@@ -2,11 +2,20 @@ package com.example.pat.aapkatrade.map;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import org.w3c.dom.Document;
+
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Map;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 
 public class GetDirectionsAsyncTask4 extends AsyncTask<Map<String, String>, Object, ArrayList<LatLng>> {
@@ -20,8 +29,10 @@ public class GetDirectionsAsyncTask4 extends AsyncTask<Map<String, String>, Obje
     private GoogleMapActivity activity;
     private Exception exception;
     private ProgressDialog progressDialog;
-
-
+   public static String distance;
+   public static String travel_duration;
+    GMapV2Direction md = new GMapV2Direction();
+ public static Document doc;
     public GetDirectionsAsyncTask4(GoogleMapActivity activity) {
         super();
         this.activity = activity;
@@ -37,6 +48,7 @@ public class GetDirectionsAsyncTask4 extends AsyncTask<Map<String, String>, Obje
     public void onPostExecute(ArrayList result) {
         progressDialog.dismiss();
         if (exception == null) {
+            Log.e("result_location",result.toString());
             activity.handleGetDirectionsResult(result);
         } else {
 
@@ -57,9 +69,27 @@ public class GetDirectionsAsyncTask4 extends AsyncTask<Map<String, String>, Obje
             LatLng toPosition = new LatLng(Double.valueOf(paramMap.get(DESTINATION_LAT)), Double.valueOf(paramMap.get(DESTINATION_LONG)));
 
 
-            GMapV2Direction md = new GMapV2Direction();
-            Document doc = md.getDocument(fromPosition, toPosition, paramMap.get(DIRECTIONS_MODE));
+
+          doc = md.getDocument(fromPosition, toPosition, paramMap.get(DIRECTIONS_MODE),activity);
+
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            StringWriter sw = new StringWriter();
+            StreamResult result = new StreamResult(sw);
+            DOMSource source = new DOMSource(doc);
+            transformer.transform(source, result);
+            String xmlString = sw.toString();
+
+
+
+
+          distance=md.getDistanceText(doc);
+           travel_duration=md.getDurationText(doc);
+
+            Log.e("distance_doc",distance);
+            Log.e("travel_duration",travel_duration);
             ArrayList<LatLng> directionPoints = md.getDirection(doc);
+
 
             return directionPoints;
 
@@ -71,7 +101,8 @@ public class GetDirectionsAsyncTask4 extends AsyncTask<Map<String, String>, Obje
     }
 
     private void processException() {
-        Toast.makeText(activity, "Error retriving data", Toast.LENGTH_LONG).show();
+        Log.e("process_exception","error_retriving_data");
+        //Toast.makeText(activity, "Error retriving data", Toast.LENGTH_LONG).show();
     }
 
 
