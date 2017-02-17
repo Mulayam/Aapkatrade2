@@ -523,7 +523,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
                         }
 
-
                     });
                 } else {
                     AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
@@ -533,7 +532,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         };
     }
 
-    //
+
     public void getCity(String stateId) {
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();

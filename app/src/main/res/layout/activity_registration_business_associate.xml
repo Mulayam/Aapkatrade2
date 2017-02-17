@@ -31,7 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_weight="1"
         android:background="@color/orange"
-        android:padding="10dp">
+        android:padding="@dimen/ten_dip">
 
         <TextView
             android:id="@+id/tvSave"

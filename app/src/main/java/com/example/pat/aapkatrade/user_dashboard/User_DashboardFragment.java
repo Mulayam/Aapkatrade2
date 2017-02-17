@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
@@ -17,19 +18,23 @@ import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociat
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.login.LoginActivity;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 import java.util.ArrayList;
 
-public class User_DashboardFragment extends Fragment {
+public class User_DashboardFragment extends Fragment
+{
 
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
     App_sharedpreference app_sharedpreference;
     TextView tvMobile, tvEmail, textViewName, tvUserType;
+    Button btnEdit;
 
 
-    public User_DashboardFragment() {
+    public User_DashboardFragment()
+    {
 
     }
 
@@ -59,14 +64,28 @@ public class User_DashboardFragment extends Fragment {
         return v;
     }
 
-    private void setup_layout(View v) {
-
-
+    private void setup_layout(View v)
+    {
         textViewName = (TextView) v.findViewById(R.id.textViewName);
 
         tvMobile = (TextView) v.findViewById(R.id.tvMobile);
 
         tvEmail = (TextView) v.findViewById(R.id.tvEmail);
+
+        btnEdit = (Button) v.findViewById(R.id.btnEdit);
+
+        btnEdit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent i = new Intent(getActivity(), MyProfileActivity.class);
+                startActivity(i);
+
+
+            }
+        });
 
         if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("username", "not");
