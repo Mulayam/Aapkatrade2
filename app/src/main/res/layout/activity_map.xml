@@ -167,9 +167,9 @@
                         android:id="@+id/img_view_travelmode_car"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_location_car_white"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/travelmode_car_selector" />
+                        android:layout_centerHorizontal="true" />
 
                 </RelativeLayout>
 
@@ -185,7 +185,7 @@
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/travelmode_bus_selector" />
+                        android:src="@drawable/ic_location_bus_orange" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -200,7 +200,7 @@
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/travelmode_walking_selector" />
+                        android:src="@drawable/ic_location_walking_orange" />
                 </RelativeLayout>
 
             </LinearLayout>

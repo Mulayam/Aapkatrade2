@@ -81,13 +81,13 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     LatLng currentLatLng;
     public GoogleMap mMap;
-
+    public LocationManager locationManager;
     Context context;
 
     public Polyline newPolyline;
-    LatLng product_location_lat_lng,latLng;
+    LatLng product_location_lat_lng, latLng;
     Button search, done;
-    ImageView img_view_travelmode_car,img_view_travelmode_bus,img_view_travelmode_walking;
+    ImageView img_view_travelmode_car, img_view_travelmode_bus, img_view_travelmode_walking;
 
 
     String address = "Address not found";
@@ -98,21 +98,22 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     private float zoomLevel = 10;
     private LocationManager mLocationManager;
     String address_name;
+    String drivingmode;
     LinearLayout location_container;
-    double source_latitute,source_longitude;
+    double source_latitute, source_longitude;
 
     boolean permission_status;
-   public static TextView tv_travel_duration,travel_time;
+    public static TextView tv_travel_duration, travel_time;
     GMapV2Direction md;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        MapFragment googleMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        googleMap.getMapAsync(GoogleMapActivity.this);
 
         initview();
-
 
 
         call_location_suggestion();
@@ -120,9 +121,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
         //done = (Button) findViewById(R.id.done_button);
 
-        MapFragment googleMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        googleMap.getMapAsync(GoogleMapActivity.this);
-        location_container=(LinearLayout)findViewById(R.id.location_container);
+
+        location_container = (LinearLayout) findViewById(R.id.location_container);
         location_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,13 +134,12 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                                     .build(GoogleMapActivity.this);
                     startActivityForResult(intent, 1);
                 } catch (GooglePlayServicesRepairableException e) {
-                    Log.e("GooglePlayServices",e.toString());
+                    Log.e("GooglePlayServices", e.toString());
                     // TODO: Handle the error.
                 } catch (GooglePlayServicesNotAvailableException e) {
-                    Log.e("GooglePlayServices_not",e.toString());
+                    Log.e("GooglePlayServices_not", e.toString());
                     // TODO: Handle the error.
                 }
-
 
 
             }
@@ -150,23 +149,116 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     public void initview() {
         context = this;
         md = new GMapV2Direction();
-        String product_location= getIntent().getStringExtra("product_location");
-        product_location_lat_lng= getLocationFromAddress(GoogleMapActivity.this,product_location);
-        img_view_travelmode_car=(ImageView)findViewById(R.id.img_view_travelmode_car) ;
-        img_view_travelmode_car.setFocusableInTouchMode(true);
-        img_view_travelmode_bus=(ImageView)findViewById(R.id.img_view_travelmode_bus) ;
-        img_view_travelmode_bus.setFocusableInTouchMode(true);
-        img_view_travelmode_walking=(ImageView)findViewById(R.id.img_view_travelmode_walking) ;
-        img_view_travelmode_walking.setFocusableInTouchMode(true);
-        tv_travel_duration=(TextView)findViewById(R.id.tv_travel_duration);
+        String product_location = getIntent().getStringExtra("product_location");
+        product_location_lat_lng = getLocationFromAddress(GoogleMapActivity.this, product_location);
+        img_view_travelmode_car = (ImageView) findViewById(R.id.img_view_travelmode_car);
+        img_view_travelmode_bus = (ImageView) findViewById(R.id.img_view_travelmode_bus);
+        img_view_travelmode_walking = (ImageView) findViewById(R.id.img_view_travelmode_walking);
+        tv_travel_duration = (TextView) findViewById(R.id.tv_travel_duration);
+        travel_time = (TextView) findViewById(R.id.travel_time);
+        init_location_elements("driving");
 
-        travel_time=(TextView)findViewById(R.id.travel_time);
+
         img_view_travelmode_car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_white);
+                img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_orange);
+                img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_orange);
+                init_location_elements("driving");
+            }
+        });
+
+
+        img_view_travelmode_bus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_orange);
+                img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_orange);
+                img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_white);
+                init_location_elements("transit");
+
 
             }
         });
+
+        img_view_travelmode_walking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_orange);
+                img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_white);
+                img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_orange);
+                init_location_elements("walking");
+            }
+        });
+
+
+    }
+
+    private void init_location_elements(String Travelmode) {
+
+
+
+
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        permission_status = CheckPermission.checkPermissions(GoogleMapActivity.this);
+        if (permission_status) {
+            LocationManager_check locationManagerCheck = new LocationManager_check(
+                    this);
+            Location location = null;
+
+            if (locationManagerCheck.isLocationServiceAvailable()) {
+                if (locationManagerCheck.getProviderType() == 1)
+                    location = locationManager
+                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                else if (locationManagerCheck.getProviderType() == 2)
+                    location = locationManager
+                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+                    @Override
+                    public void onMyLocationChange(Location location) {
+                        source_latitute = location.getLatitude();
+                        source_longitude = location.getLongitude();
+                        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+
+                        ArrayList<LatLng> currenttoproduct = new ArrayList<>();
+                        currenttoproduct.add(loc);
+                        currenttoproduct.add(product_location_lat_lng);
+
+                        // handleGetDirectionsResult(currenttoproduct);
+                        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
+                    }
+                };
+//                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+//
+//
+//                mMap.getUiSettings().setRotateGesturesEnabled(true);
+
+                findDirections(location.getLatitude(), location.getLongitude(), product_location_lat_lng.latitude, product_location_lat_lng.longitude, Travelmode);
+
+
+            } else {
+                locationManagerCheck.createLocationServiceError(GoogleMapActivity.this);
+            }
+
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+
+
+                return;
+            }
+
+
+        }
+
 
     }
 
@@ -225,91 +317,23 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
 
-
     public void onMapReady(GoogleMap map) {
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
         mMap = map;
-        permission_status = CheckPermission.checkPermissions(GoogleMapActivity.this);
-        if (permission_status) {
-            LocationManager_check locationManagerCheck = new LocationManager_check(
-                    this);
-            Location location = null;
-
-            if(locationManagerCheck.isLocationServiceAvailable()){
-                if (locationManagerCheck.getProviderType() == 1)
-                    location = locationManager
-                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                else if (locationManagerCheck.getProviderType() == 2)
-                    location = locationManager
-                            .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
-                    @Override
-                    public void onMyLocationChange (Location location) {
-                        source_latitute=location.getLatitude();
-                        source_longitude=location.getLongitude();
-                        LatLng loc = new LatLng (location.getLatitude(), location.getLongitude());
-
-                        ArrayList<LatLng> currenttoproduct=new ArrayList<>();
-                        currenttoproduct.add(loc);
-                        currenttoproduct.add(product_location_lat_lng);
-
-                        // handleGetDirectionsResult(currenttoproduct);
-                        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
-                    }
-                };
-                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
-
-
-                mMap.getUiSettings().setRotateGesturesEnabled(true);
-                findDirections(location.getLatitude(),location.getLongitude(),product_location_lat_lng.latitude,product_location_lat_lng.longitude, "Driving");
-
-
-
-
-            }else{
-                locationManagerCheck .createLocationServiceError(GoogleMapActivity.this);
-            }
-
-
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-
-
-
-
-
-                return;
-            }
-
-
-
-
-
-
-
-
-            mMap.setMyLocationEnabled(true);
-
-
-
-
-
-        }
-
-
-
-
 
 
         search = (Button) findViewById(R.id.search_button);
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
 
 
     }

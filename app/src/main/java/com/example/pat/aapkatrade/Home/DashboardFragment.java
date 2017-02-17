@@ -30,6 +30,7 @@ import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.Tabletsize;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
@@ -388,7 +389,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     {
 
         Snackbar snackbar = Snackbar
-                .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
+                .make(getActivity().findViewById(R.id.rl_main_content), "No internet connection!", Snackbar.LENGTH_LONG)
                 .setAction("RETRY", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
