@@ -276,24 +276,23 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 .setMultipartParameter("tin_number", "521651")
                 .setMultipartParameter("tan_number", "13546848")
                 .setMultipartParameter("tc", "fdssd")
-                .asString()
-                .setCallback(new FutureCallback<String>() {
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, String result) {
+                    public void onCompleted(Exception e, JsonObject result) {
                         progressBarHandler.hide();
 
-                        Log.e("result", result);
+                        Log.e("result", result.toString());
 
-                        /*if (result == null) {
+                        if (result == null) {
                             Log.e("data", "null data result from seller webApi");
-                        }
-                        if (result != null) {
+                        }else {
                             Log.e("registration_seller",result.toString());
                             if (result.get("error").getAsString().equals("false")) {
                                 Log.d("registration_seller", "done");
                                 startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
                             }
-                        }*/
+                        }
 
                     }
 
@@ -522,6 +521,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         public void onNothingSelected(AdapterView<?> parent) {
 
                         }
+
 
                     });
                 } else {

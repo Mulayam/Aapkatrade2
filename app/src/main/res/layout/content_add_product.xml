@@ -288,7 +288,7 @@
                         android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
-                            android:id="@+id/etDeliver_location"
+                            android:id="@+id/etDeliverLocation"
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -345,7 +345,7 @@
                         android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
-                            android:id="@+id/etprice"
+                            android:id="@+id/etPrice"
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -367,7 +367,7 @@
                         android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
-                            android:id="@+id/etcrossedprice"
+                            android:id="@+id/etCrossedPrice"
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -388,7 +388,7 @@
                         android:layout_marginTop="@dimen/ten_dip">
 
                         <EditText
-                            android:id="@+id/etDiscription"
+                            android:id="@+id/etDescription"
                             style="@style/myedittext"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

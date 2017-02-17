@@ -80,13 +80,15 @@ public class LoginActivity extends AppCompatActivity
                 String input_email = username.getText().toString().trim();
                 String input_password = password.getText().toString().trim();
 
-                if (Validation.validate_edittext(username)) {
+                if (Validation.validateEdittext(username)) {
+
 
 
                     if(Validation.isValidEmail(input_email)){
 
 
                     if (Validation.validate_edittext(password)) {
+
 
                         if (app_sharedpreference.shared_pref != null) {
 
