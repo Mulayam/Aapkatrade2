@@ -9,11 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 
@@ -24,6 +28,8 @@ public class MyProfileActivity extends AppCompatActivity
     Button btnsave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
     App_sharedpreference app_sharedpreference;
+    EditText etFName,etLName,etEmail,etMobileNo,etAddress;
+
 
 
 
@@ -43,6 +49,15 @@ public class MyProfileActivity extends AppCompatActivity
     private void setup_layout()
     {
 
+        etFName = (EditText) findViewById(R.id.etFName);
+
+        etLName = (EditText) findViewById(R.id.etLName);
+
+        etEmail = (EditText) findViewById(R.id.etEmail);
+
+        etMobileNo = (EditText) findViewById(R.id.etMobileNo);
+
+        etAddress = (EditText) findViewById(R.id.etAddress);
 
         btnsave = (Button) findViewById(R.id.btnSave);
 
@@ -51,11 +66,70 @@ public class MyProfileActivity extends AppCompatActivity
         btnLogout = (Button) findViewById(R.id.btnlogout);
 
 
-        btnsave.setOnClickListener(new View.OnClickListener() {
+        btnsave.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MyProfileActivity.this, CompanyList.class);
-                startActivity(i);
+            public void onClick(View v)
+            {
+
+                 if (Validation.isEmptyStr(etFName.getText().toString()))
+                 {
+
+                     if (Validation.isEmptyStr(etEmail.getText().toString()))
+                     {
+
+                         if(Validation.isValidEmail(etEmail.getText().toString()))
+                         {
+
+                             if (Validation.isEmptyStr(etMobileNo.getText().toString()))
+                             {
+
+                                 if (Validation.isEmptyStr(etAddress.getText().toString()))
+                                 {
+
+
+                                     Intent i = new Intent(MyProfileActivity.this, CompanyList.class);
+                                     startActivity(i);
+
+                                 }
+                                 else
+                                 {
+
+                                     Toast.makeText(getApplicationContext(),"Please Enter Address",Toast.LENGTH_SHORT).show();
+
+                                 }
+
+
+                             }
+                             else
+                             {
+                                 Toast.makeText(getApplicationContext(),"Please Enter Mobile Number",Toast.LENGTH_SHORT).show();
+                             }
+
+                         }
+                         else
+                         {
+                             Toast.makeText(getApplicationContext(),"Please Enter Valid Email Address",Toast.LENGTH_SHORT).show();
+                         }
+
+
+                     }
+                     else
+                     {
+
+                         Toast.makeText(getApplicationContext(),"Please Enter Email Address",Toast.LENGTH_SHORT).show();
+                     }
+
+                 }
+                  else
+                 {
+
+                     Toast.makeText(getApplicationContext(),"Please Enter First Name",Toast.LENGTH_SHORT).show();
+
+                 }
+
+
+
             }
         });
 
@@ -120,4 +194,6 @@ public class MyProfileActivity extends AppCompatActivity
         app_sharedpreference.setsharedpref("emailid", email_id);
 
     }
+
+
 }

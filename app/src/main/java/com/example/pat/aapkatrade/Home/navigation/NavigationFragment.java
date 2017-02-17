@@ -54,7 +54,8 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner
+{
 
 
     public static final String preFile = "textFile";
@@ -83,10 +84,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public ArrayList<SubCategory> listDataChild = new ArrayList<>();
     RelativeLayout rl_category;
     int flag_categoryclick;
-
     View rl_main_content;
-
-
     private ArrayList nested_dataheader;
     //public NestedScrollView navigation_parent_scrollview;
     ProgressBarHandler progressBarHandler;
@@ -283,21 +281,43 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void itemClicked(View view, int groupview, int childview) {
+    public void itemClicked(View view, int groupview, int childview)
+    {
 
-        System.out.println("childview------------" + childview);
-        try {
+        String sub_category_id;
 
-            Intent i = new Intent(getActivity(), CategoryListActivity.class);
-            startActivity(i);
-        } catch (Exception e) {
-            Log.e("Exception", e.toString());
+        System.out.println("childview------------" +groupview + childview);
+
+        String category_id = listDataHeader.get(groupview).getCategoryId().toString();
+
+        System.out.println("size-------------------"+listDataHeader.get(groupview).getSubCategoryList().size());
+
+        if (listDataHeader.get(groupview).getSubCategoryList().size() == 0)
+        {
+
+            sub_category_id = "not_available";
+        }
+        else
+        {
+            sub_category_id = listDataHeader.get(groupview).getSubCategoryList().get(childview).subCategoryId.toString();
+
         }
 
-      /*  CategoryListFragment categoryListFragment = new CategoryListFragment();
-        replaceFragment(categoryListFragment,null);
-        mDrawerLayout.closeDrawer(Gravity.LEFT);
-      */
+        System.out.println("category_id,sub_category_id---------"+category_id+"hi---"+sub_category_id);
+
+        try
+        {
+
+            Intent i = new Intent(getActivity(), CategoryListActivity.class);
+            i.putExtra("category_id",category_id);
+            i.putExtra("sub_category_id",sub_category_id);
+            startActivity(i);
+
+        }
+        catch (Exception e)
+        {
+            Log.e("Exception", e.toString());
+        }
 
 
     }
@@ -346,8 +366,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void getCategory() {
-
+    private void getCategory()
+    {
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -357,33 +377,34 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         Call_webservice.getcountrystatedata(context, "category", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder()
+        {
+
             @Override
-            public void Taskcomplete(JsonObject data) {
-                if (data != null) {
+            public void Taskcomplete(JsonObject data)
+            {
+                if (data != null)
+                {
                     JsonObject jsonObject = data.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
+                    for (int i = 0; i < jsonResultArray.size(); i++)
+                    {
 
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                         JsonArray json_subcategory = jsonObject1.getAsJsonArray("subcategory");
 
                         listDataChild = new ArrayList<>();
-                        for (int k = 0; k < json_subcategory.size(); k++) {
+
+                        for (int k = 0; k < json_subcategory.size(); k++)
+                        {
                             JsonObject jsonObject_subcategory = (JsonObject) json_subcategory.get(k);
                             SubCategory subCategory = new SubCategory(jsonObject_subcategory.get("id").getAsString(), jsonObject_subcategory.get("name").getAsString());
-
-
                             listDataChild.add(subCategory);
-
-
                         }
                         CategoryHome categoryHome = new CategoryHome(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString(), jsonObject1.get("icon").getAsString(), listDataChild);
 
-
                         // categoryHome.setSubCategoryList( listDataChild);
-
 
                         listDataHeader.add(categoryHome);
                         Log.e("listDataHeader_cate", categoryHome.toString());
@@ -399,10 +420,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
             }
 
-            ;
-
-//        dialog.show();
-
+            //        dialog.show();
 
         };
 
@@ -410,9 +428,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
 
-    private void set_expandable_adapter_data() {
+    private void set_expandable_adapter_data()
+    {
 
-        if (listDataHeader.size() != 0) {
+        if (listDataHeader.size() != 0)
+        {
 
             listAdapter = new ExpandableListAdapter(context, listDataHeader);
 
@@ -425,11 +445,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 //                expListView.expandGroup(i);
 //            setListViewHeight(expListView);
 
-            expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener()
+            {
                 @Override
-                public void onGroupExpand(int groupPosition) {
-                    if (lastExpandedPosition != -1
-                            && groupPosition != lastExpandedPosition) {
+                public void onGroupExpand(int groupPosition)
+                {
+                    if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition)
+                    {
                         expListView.collapseGroup(lastExpandedPosition);
                     }
                     lastExpandedPosition = groupPosition;

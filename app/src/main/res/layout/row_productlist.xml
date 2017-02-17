@@ -64,8 +64,8 @@
                 android:gravity="left"
                 android:text="Music Art Galaxy"
                 android:textColor="@color/orange"
-                android:textSize="@dimen/textsize_medium"
                 android:layout_marginTop="10dp"
+                android:textStyle="bold"
                 />
 
 
@@ -76,81 +76,24 @@
                 android:gravity="left"
                 android:text="Groceries"
                 android:textColor="@color/item_details_color"
-                android:textSize="@dimen/textsize_medium"
                 android:layout_marginTop="5dp"
                 />
 
 
             <TextView
-                android:id="@+id/tvRupees"
+                android:id="@+id/tvProductPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/rupees_deatils"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+
                 />
 
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                >
-                <TextView
-                    android:id="@+id/tvQtyHeading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Qty."
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/black"
-                    android:gravity="left"
-                    android:textSize="@dimen/textsize_medium" />
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:background="@drawable/spinner_black_border"
-                    android:padding="7dp"
-                    android:layout_alignTop="@+id/tvQtyHeading"
-                    android:layout_toRightOf="@+id/tvQtyHeading"
-                    android:layout_toEndOf="@+id/tvQtyHeading"
-                    android:layout_marginRight="20dp"
-                    >
-
-                    <Spinner
-                        android:id="@+id/spcompanyname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:background="@drawable/simple_spinner_back"
-                        android:layout_margin="1dp"
-                        android:layout_toLeftOf="@+id/imgView"
-                        ></Spinner>
-
-
-                    <ImageView
-                        android:id="@+id/imgView"
-                        android:layout_width="15dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_arrow"
-                        android:scaleType="fitXY"
-                        />
-
-                </RelativeLayout>
-
-            </RelativeLayout>
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
