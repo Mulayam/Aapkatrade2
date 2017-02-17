@@ -13,13 +13,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
-import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -194,7 +191,7 @@ public class AddCompany extends AppCompatActivity
 
         etAddress = (EditText) findViewById(R.id.etAddress);
 
-        etDiscription = (EditText) findViewById(R.id.etDiscription);
+        etDiscription = (EditText) findViewById(R.id.etDescription);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

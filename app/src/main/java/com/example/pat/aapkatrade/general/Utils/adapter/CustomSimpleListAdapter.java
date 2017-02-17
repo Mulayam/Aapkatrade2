@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.user_dashboard.addcompany.CompanyData;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -55,10 +56,10 @@ public class CustomSimpleListAdapter extends BaseAdapter {
 
         if(categoriesNames.get(i) instanceof String) {
             names.setText((CharSequence) categoriesNames.get(i));
-        }
-
-        else if(categoriesNames.get(i) instanceof CategoryHome){
+        } else if(categoriesNames.get(i) instanceof CategoryHome){
             names.setText(((CategoryHome) categoriesNames.get(i)).getCategoryName());
+        }else if(categoriesNames.get(i) instanceof CompanyData){
+            names.setText(((CompanyData) categoriesNames.get(i)).getCompanyName());
         } else if(categoriesNames.get(i) instanceof SubCategory){
             names.setText(((SubCategory) categoriesNames.get(i)).subCategoryName);
         }
