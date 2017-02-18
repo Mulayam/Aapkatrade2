@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity
                     if(Validation.isValidEmail(input_email)){
 
 
-                    if (Validation.validate_edittext(password)) {
+                    if (Validation.validateEdittext(password)) {
 
 
                         if (app_sharedpreference.shared_pref != null) {
