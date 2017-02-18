@@ -20,6 +20,7 @@
     <color name="black">#000000</color>
    <color name="order_detail_back">#313131</color>
 <color name="blue_gradient">#415673</color>
+    <color name="blue_gradient_dark">#FF212B39</color>
     <color name="aquamarine">#7AE1CC</color>
     <color name="bg_product_title">#DAD7CC</color>
     <color name="bg_product_title_separator">#333333</color>

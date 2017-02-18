@@ -25,16 +25,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -89,10 +92,10 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     Button search, done;
     ImageView img_view_travelmode_car, img_view_travelmode_bus, img_view_travelmode_walking;
 
-
+    ProgressBarHandler pg_handler;
     String address = "Address not found";
     Marker marker;
-
+    Toolbar toolbar;
     private PlaceAutocompleteFragment autocompleteFragment;
     String TAG = "google_place";
     private float zoomLevel = 10;
@@ -105,6 +108,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     boolean permission_status;
     public static TextView tv_travel_duration, travel_time;
     GMapV2Direction md;
+    RelativeLayout location_car_selected,location_bus_selected,location_walking_selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +118,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         googleMap.getMapAsync(GoogleMapActivity.this);
 
         initview();
-
+        setupToolBar();
 
         call_location_suggestion();
 
@@ -128,15 +132,21 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             public void onClick(View v) {
 
                 try {
+                    pg_handler.show();
                     Intent intent =
                             new PlaceAutocomplete
                                     .IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
                                     .build(GoogleMapActivity.this);
                     startActivityForResult(intent, 1);
+
+
                 } catch (GooglePlayServicesRepairableException e) {
+
+                    pg_handler.hide();
                     Log.e("GooglePlayServices", e.toString());
                     // TODO: Handle the error.
                 } catch (GooglePlayServicesNotAvailableException e) {
+                    pg_handler.hide();
                     Log.e("GooglePlayServices_not", e.toString());
                     // TODO: Handle the error.
                 }
@@ -148,9 +158,14 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     public void initview() {
         context = this;
+        pg_handler=new ProgressBarHandler(this);
+
         md = new GMapV2Direction();
         String product_location = getIntent().getStringExtra("product_location");
         product_location_lat_lng = getLocationFromAddress(GoogleMapActivity.this, product_location);
+        location_walking_selected=(RelativeLayout)findViewById(R.id.location_walking_selected);
+        location_car_selected=(RelativeLayout)findViewById(R.id.location_car_selected);
+        location_bus_selected=(RelativeLayout)findViewById(R.id.location_bus_selected);
         img_view_travelmode_car = (ImageView) findViewById(R.id.img_view_travelmode_car);
         img_view_travelmode_bus = (ImageView) findViewById(R.id.img_view_travelmode_bus);
         img_view_travelmode_walking = (ImageView) findViewById(R.id.img_view_travelmode_walking);
@@ -162,9 +177,15 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         img_view_travelmode_car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_white);
-                img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_orange);
-                img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_orange);
+                img_view_travelmode_car.setVisibility(View.GONE);
+                location_car_selected.setVisibility(View.VISIBLE);
+                location_bus_selected.setVisibility(View.GONE);
+                location_walking_selected.setVisibility(View.GONE);
+                img_view_travelmode_bus.setVisibility(View.VISIBLE);
+                img_view_travelmode_walking.setVisibility(View.VISIBLE);
+//                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_white);
+                img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_white);
+                img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_white);
                 init_location_elements("driving");
             }
         });
@@ -173,8 +194,18 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         img_view_travelmode_bus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_orange);
-                img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_orange);
+                img_view_travelmode_bus.setVisibility(View.GONE);
+                img_view_travelmode_car.setVisibility(View.VISIBLE);
+                img_view_travelmode_walking.setVisibility(View.VISIBLE);
+
+                location_bus_selected.setVisibility(View.VISIBLE);
+                location_car_selected.setVisibility(View.GONE);
+                //img_view_travelmode_bus.setVisibility();
+
+                location_walking_selected.setVisibility(View.GONE);
+
+                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_white);
+                img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_white);
                 img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_white);
                 init_location_elements("transit");
 
@@ -185,9 +216,19 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         img_view_travelmode_walking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_orange);
+                img_view_travelmode_walking.setVisibility(View.GONE);
+                location_car_selected.setVisibility(View.GONE);
+                location_bus_selected.setVisibility(View.GONE);
+                location_walking_selected.setVisibility(View.VISIBLE);
+                img_view_travelmode_car.setVisibility(View.VISIBLE);
+                img_view_travelmode_bus.setVisibility(View.VISIBLE);
+               // location_walking_selected.setVisibility(View.GONE);
+
+
+
+                img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_white);
                 img_view_travelmode_walking.setImageResource(R.drawable.ic_location_walking_white);
-                img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_orange);
+                img_view_travelmode_bus.setImageResource(R.drawable.ic_location_bus_white);
                 init_location_elements("walking");
             }
         });
@@ -221,6 +262,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                         source_latitute = location.getLatitude();
                         source_longitude = location.getLongitude();
                         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                        Log.e("source+source_longitude",source_longitude+"***"+source_latitute);
 
                         ArrayList<LatLng> currenttoproduct = new ArrayList<>();
                         currenttoproduct.add(loc);
@@ -342,25 +384,67 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onPause() {
         super.onPause();
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-//        {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
-//        try {
-//            mLocationManager.removeUpdates(mLocationListener);
-//            mLocationManager = null;
-//
-//        } catch (Exception ex) {
-//
-//        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        try {
+            mLocationManager.removeUpdates(mLocationListener);
+            mLocationManager = null;
+
+        } catch (Exception ex) {
+
+        }
     }
+
+    private void setupToolBar()
+    {
+        toolbar = (Toolbar) findViewById(R.id.toolbar_map);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(null);
+
+        // getSupportActionBar().setIcon(R.drawable.logo_word);
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.empty_menu, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
+
+
 
     private final LocationListener mLocationListener = new LocationListener()
     {
@@ -419,15 +503,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         }
     };
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
+
 
     private void setCompleteAddress(LatLng latLng) {
 
@@ -553,6 +630,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             rectLine.add(directionPoints.get(i));
         }
 
+        mMap.clear();
         if (newPolyline != null) {
             newPolyline.remove();
         }
@@ -589,10 +667,18 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                pg_handler.hide();
                 // retrive the data by using getPlace() method.
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 Log.e("Tag", "Place: " + place.getAddress()  +place.getLatLng());
                 Geocoder mGeocoder = new Geocoder(GoogleMapActivity.this, Locale.getDefault());
+
+
+                findDirections(place.getLatLng().latitude,place.getLatLng().longitude, product_location_lat_lng.latitude, product_location_lat_lng.longitude, "driving");
+
+
+
+                //init_location_elements("driving");
 //                List<Address> addresses = null;
 //
 //
@@ -608,16 +694,11 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 //                    Log.e("countryName2",countryName2);
               //  "place.getName()"+"",\n"+ place.getAddress()"
 
-                    MarkerOptions markeroption_selected_place = new MarkerOptions().position(
-                            new LatLng(place.getLatLng().latitude, place.getLatLng().longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.car_location_red50)).title("current location"
-                     );
 
-                    mMap.addMarker(markeroption_selected_place);
-                LatLng latLng = new LatLng(place.getLatLng().latitude, place.getLatLng().longitude);
 
                     ///addresses = mGeocoder.getFromLocation(place.getLatLng().latitude,place.getLatLng().longitude, 1);
 
-                findDirections(source_latitute,place.getLatLng().latitude,source_longitude,place.getLatLng().longitude,"WALKING");
+              //  findDirections(source_latitute,place.getLatLng().latitude,source_longitude,place.getLatLng().longitude,"WALKING");
 //                String url = "https://maps.googleapis.com/maps/api/directions/json?";
 //                url=url+"origin="+place.getLatLng().latitude+","+place.getLatLng().longitude+"&"+"destination="+source_latitute+","+source_longitude+"&key="+getResources().getString(R.string.google_api);
 //
@@ -663,11 +744,13 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                pg_handler.hide();
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
                 Log.e("Tag", status.getStatusMessage());
 
             } else if (resultCode == RESULT_CANCELED) {
+                pg_handler.hide();
                 // The user canceled the operation.
             }
         }
