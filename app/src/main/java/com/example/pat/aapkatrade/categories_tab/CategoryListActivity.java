@@ -133,7 +133,7 @@ public class CategoryListActivity extends AppCompatActivity
 
                             }
 
-                            categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
+                            categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
                             myRecyclerViewEffect=new MyRecyclerViewEffect(CategoryListActivity.this);
                             mRecyclerView.setAdapter(categoriesListAdapter);
 
