@@ -64,10 +64,10 @@ public class Forgot_Password extends AppCompatActivity implements View.OnClickLi
 
     private void Validatefields() {
 
-        if (Validation.validate_edittext(et_email_forgot)) {
+        if (Validation.validateEdittext(et_email_forgot)) {
             call_forgotpasswod_webservice();
 
-        } else if (Validation.validate_edittext(et_mobile_no)) {
+        } else if (Validation.validateEdittext(et_mobile_no)) {
 
             call_forgotpasswod_webservice();
 

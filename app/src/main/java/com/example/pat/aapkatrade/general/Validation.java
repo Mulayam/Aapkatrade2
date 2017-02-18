@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 public class Validation {
 
 
-    public static boolean validate_edittext(EditText a) {
-        if (a.getText().length() != 0) {
+    public static boolean validateEdittext(EditText et) {
+        if (et.getText().length() != 0) {
             return true;
         }
         return false;
