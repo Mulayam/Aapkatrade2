@@ -258,6 +258,10 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
+
+        Log.e("docFile",docFile.getAbsolutePath());
+        Log.e("comp_incorporation",compIncorpFile.getAbsolutePath());
+
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
