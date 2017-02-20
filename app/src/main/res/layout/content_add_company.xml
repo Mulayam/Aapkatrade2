@@ -163,7 +163,7 @@
 
 
                     <EditText
-                        android:id="@+id/etDescription"
+                        android:id="@+id/etDiscription"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"

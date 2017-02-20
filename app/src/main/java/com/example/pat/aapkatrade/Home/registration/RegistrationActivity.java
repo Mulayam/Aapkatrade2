@@ -77,7 +77,10 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
+{
+
+
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
@@ -234,8 +237,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
     }
 
-
-    private void callWebServiceForSellerRegistration() {
+    private void callWebServiceForSellerRegistration()
+    {
 
 
 //        Log.e("datagf", getFile(imageForPreview).getPath());
@@ -248,6 +251,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
+
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
@@ -276,23 +280,24 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 .setMultipartParameter("tin_number", "521651")
                 .setMultipartParameter("tan_number", "13546848")
                 .setMultipartParameter("tc", "fdssd")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .asString()
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, String result) {
                         progressBarHandler.hide();
 
-                        Log.e("result", result.toString());
+                        Log.e("data", result);
 
-                        if (result == null) {
-                            Log.e("data", "null data result from seller webApi");
+
+                      /*  if (result == null) {
+                            Log.e("data", result.toString());
                         }else {
                             Log.e("registration_seller",result.toString());
                             if (result.get("error").getAsString().equals("false")) {
-                                Log.d("registration_seller", "done");
+                                Log.e("registration_seller", "done");
                                 startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
                             }
-                        }
+                        }*/
 
                     }
 
@@ -571,7 +576,9 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         }
 
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
+                        public void onNothingSelected(AdapterView<?> parent)
+                        {
+
 
                         }
                     });
@@ -960,8 +967,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
     }
 
-
-    public void setSellerFormData() {
+    public void setSellerFormData()
+    {
         formSellerData.setBusinessType(busiType);
         formSellerData.setCompanyName(etProductName.getText().toString());
         formSellerData.setShopName(etProductName.getText().toString());
@@ -980,7 +987,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
 
-    public void getBuyerFormData() {
+    public void getBuyerFormData()
+    {
         formBuyerData.setCountryId(countryID == null ? "" : countryID);
         formBuyerData.setStateId(stateID == null ? "" : stateID);
         formBuyerData.setCityId(cityID == null ? "" : cityID);
@@ -994,8 +1002,10 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         formBuyerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
     }
 
-    private String getBusiType(String busyType) {
-        if (Validation.isNonEmptyStr(busyType)) {
+    private String getBusiType(String busyType)
+    {
+        if (Validation.isNonEmptyStr(busyType))
+        {
             if (busyType.equalsIgnoreCase(spBussinessName[1]))
                 return "1";
             else if (busyType.equalsIgnoreCase(spBussinessName[2]))
@@ -1006,12 +1016,14 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
     @Override
-    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second)
+    {
 
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
+    {
         showDate(year, monthOfYear + 1, dayOfMonth);
     }
 }

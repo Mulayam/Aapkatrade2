@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/my_profile_detail_heading"
-                       android:layout_marginTop="20dp"
+                        android:layout_marginTop="20dp"
                         android:textColor="@color/black"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="30dp"
@@ -154,16 +154,18 @@
                             android:text="@string/date"
                             android:textSize="@dimen/textsize"
                             android:layout_alignParentLeft="true"
-                            android:textColor="@color/hint_color"
+                            android:textColor="@color/black"
                             />
 
 
 
                         <ImageView
+                            android:id="@+id/imgCalender"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_alignParentRight="true"
                             android:src="@drawable/ic_calendar"
+                            android:layout_centerVertical="true"
                             />
 
 
@@ -183,6 +185,7 @@
                         android:textColorHint="@color/hint_color"
                         android:textSize="@dimen/textsize"
                         android:layout_marginTop="10dp"
+                        android:editable="false"
                         />
 
 
@@ -200,6 +203,7 @@
                         android:textColorHint="@color/hint_color"
                         android:textSize="@dimen/textsize"
                         android:layout_marginTop="10dp"
+                        android:editable="false"
                         />
 
 
@@ -327,8 +331,6 @@
 
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

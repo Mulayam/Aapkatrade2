@@ -26,7 +26,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
@@ -41,17 +40,10 @@ import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
-
-
-import android.transition.Scene;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-
-
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
-
+public class HomeActivity extends AppCompatActivity
+{
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -69,9 +61,7 @@ public class HomeActivity extends AppCompatActivity {
     public static String userid, username;
     NestedScrollView scrollView;
     float initialX, initialY;
-
     public static  RelativeLayout rl_main_content,rl_searchview_dashboard;
-
     App_sharedpreference app_sharedpreference;
 
 
@@ -420,12 +410,11 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (position) {
                     case 0:
-                        if (homeFragment == null) {
+                        if (homeFragment == null)
+                        {
                             homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
 
                         }
-
-
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
                         showOrHideBottomNavigation(true);
@@ -539,8 +528,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void setForceTitleHide(boolean forceTitleHide) {
-
+    private void setForceTitleHide(boolean forceTitleHide)
+    {
 
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
