@@ -19,6 +19,7 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
@@ -33,7 +34,6 @@ public class LoginActivity extends AppCompatActivity
     Validation vt;
     App_sharedpreference app_sharedpreference;
     CoordinatorLayout cl;
-
 
 
     @Override
@@ -82,8 +82,6 @@ public class LoginActivity extends AppCompatActivity
 
                 if (Validation.validateEdittext(username)) {
 
-
-
                     if(Validation.isValidEmail(input_email)){
 
 
@@ -116,7 +114,6 @@ public class LoginActivity extends AppCompatActivity
 
                                 callwebservice_login(login_url, input_email, input_password);
 
-
                             }
                         }
                     }
@@ -130,8 +127,9 @@ public class LoginActivity extends AppCompatActivity
                         password.setError("Invalid Password");
                     }
 
-
-                } else {
+                }
+                else
+                {
                     username.setError("Invalid Username");
                     showMessage("Invalid Username");
                 }
@@ -141,8 +139,8 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
-    private void callwebservice_login(String login_url, String input_username, String input_password) {
-
+    private void callwebservice_login(String login_url, String input_username, String input_password)
+    {
         // dialog.show();
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -150,53 +148,83 @@ public class LoginActivity extends AppCompatActivity
         webservice_body_parameter.put("email", input_username);
         webservice_body_parameter.put("password", input_password);
 
-
         HashMap<String, String> webservice_header_type = new HashMap<>();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
-
         Call_webservice.call_login_webservice(LoginActivity.this, login_url, "login", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder()
+        {
             @Override
-            public void Taskcomplete(JsonObject webservice_returndata) {
+            public void Taskcomplete(JsonObject webservice_returndata)
+            {
 
-                if (webservice_returndata != null) {
+                if (webservice_returndata != null)
+                {
                     Log.e("webservice_returndata", webservice_returndata.toString());
+
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
 
                     String error = jsonObject.get("error").getAsString();
+
                     String message = jsonObject.get("message").getAsString();
-                    if (error.equals("false")) {
+
+                    if (error.equals("false"))
+                    {
                         String user_id = jsonObject.get("user_id").getAsString();
-                        String name = jsonObject.get("name").getAsString();
 
                         String email_id = jsonObject.get("email").getAsString();
 
-                        showMessage(message);
-                        save_shared_pref(user_id, name, email_id);
+                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("all_info");
 
-                        Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
-                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(Homedashboard);
+                        for (int i=0; i<jsonResultArray.size(); i++)
+                        {
+                            JsonObject jsonobject_all_info = (JsonObject) jsonResultArray.get(i);
 
-                    } else {
+                            String name = jsonobject_all_info.get("name").getAsString();
+
+                            String address = jsonobject_all_info.get("address").getAsString();
+
+                            String lname = jsonobject_all_info.get("lastname").getAsString();
+
+                            String dob = jsonobject_all_info.get("dob").getAsString();
+
+                            String mobile_no = jsonobject_all_info.get("mobile").getAsString();
+
+                            System.out.println("name--"+name+"address--"+address+"lname--"+lname+"dob--"+dob);
+
+                            showMessage(message);
+
+                            save_shared_pref(user_id, name, email_id,lname,dob,address,mobile_no);
+
+                            Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+
+                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                            startActivity(Homedashboard);
+
+                        }
+                    }
+                    else
+                    {
                         showMessage(message);
                     }
-
-
                 }
-
             }
         };
 
-
     }
 
-    public void save_shared_pref(String user_id, String user_name, String email_id) {
+    public void save_shared_pref(String user_id, String user_name, String email_id,String lname,String dob,String address,String mobile)
+    {
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
         app_sharedpreference.setsharedpref("emailid", email_id);
+        app_sharedpreference.setsharedpref("lname",lname);
+        app_sharedpreference.setsharedpref("dob",dob);
+        app_sharedpreference.setsharedpref("address",address);
+        app_sharedpreference.setsharedpref("mobile",mobile);
+
     }
 
     private void InitView()
@@ -217,19 +245,15 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-
-
-
     }
 
-    public void showMessage(String message) {
-
+    public void showMessage(String message)
+    {
         Snackbar snackbar = Snackbar
                 .make(cl, message, Snackbar.LENGTH_LONG)
                 .setAction("", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                     }
                 });
 

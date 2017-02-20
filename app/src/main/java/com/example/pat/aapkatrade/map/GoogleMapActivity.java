@@ -571,9 +571,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
             p1 = new LatLng(location.getLatitude(), location.getLongitude());
 
-
-
-
         } catch (Exception ex) {
 
             ex.printStackTrace();
@@ -611,19 +608,10 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         asyncTask.execute(map);
 
 
-
-
-
-
-
     }
 
     public void handleGetDirectionsResult(ArrayList<LatLng> directionPoints)
     {
-
-
-
-
         PolylineOptions rectLine = new PolylineOptions().width(10).color(R.color.polyline_color);
 
         for (int i = 0; i < directionPoints.size(); i++) {
@@ -649,8 +637,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         mMap.addMarker(marker3);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(directionPoints.get(0).latitude, directionPoints.get(0).longitude), 10.0f));
 
-       String  distance=md.getDistanceText(GetDirectionsAsyncTask4.doc);
-      String  travel_duration=md.getDurationText(GetDirectionsAsyncTask4.doc);
+        String  distance=md.getDistanceText(GetDirectionsAsyncTask4.doc);
+        String  travel_duration=md.getDurationText(GetDirectionsAsyncTask4.doc);
         tv_travel_duration.setText(travel_duration);
         travel_time.setText("("+distance+")");
 

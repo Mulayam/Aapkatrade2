@@ -20,6 +20,7 @@ import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -34,6 +35,7 @@ public class ChangePassword extends AppCompatActivity
     LinearLayout linearChangePassword;
     App_sharedpreference app_sharedpreference;
     String user_id;
+    ProgressBarHandler progress_handler;
 
 
     @Override
@@ -43,11 +45,13 @@ public class ChangePassword extends AppCompatActivity
 
         setContentView(R.layout.activity_change_password);
 
+        progress_handler = new ProgressBarHandler(this);
+
         setuptoolbar();
 
         app_sharedpreference = new App_sharedpreference(getApplicationContext());
 
-         user_id = app_sharedpreference.getsharedpref("userid","");
+        user_id = app_sharedpreference.getsharedpref("userid","");
 
         initView();
 
@@ -62,6 +66,9 @@ public class ChangePassword extends AppCompatActivity
 
     private void callChangePasswordWebService(String userType)
     {
+
+        progress_handler.show();
+
         System.out.println("user_id------------"+user_id  + "old password--"+OldPassword.getText().toString()+"Confirm password----"+ConfirmPassword.getText().toString());
 
         if(ConnetivityCheck.isNetworkAvailable(ChangePassword.this))
@@ -82,8 +89,24 @@ public class ChangePassword extends AppCompatActivity
                         public void onCompleted(Exception e, JsonObject result)
                         {
 
-                            Log.e("data", result.toString());
+                            if(result == null)
+                            {
+                                progress_handler.hide();
 
+                            }
+                            else
+                            {
+                                JsonObject jsonObject = result.getAsJsonObject();
+
+                                String message = jsonObject.get("message").getAsString();
+                                Log.e("data", result.toString());
+                                progress_handler.hide();
+                                showMessage(message);
+                                OldPassword.setText("");
+                                NewPassword.setText("");
+                                ConfirmPassword.setText("");
+
+                            }
                         }
 
                     });
@@ -118,43 +141,43 @@ public class ChangePassword extends AppCompatActivity
             public void onClick(View v)
             {
 
-                 if (!Validation.isEmptyStr(OldPassword.getText().toString()))
-                 {
+                if (!Validation.isEmptyStr(OldPassword.getText().toString()))
+                {
 
-                     if (Validation.isValidPassword(NewPassword.getText().toString()))
-                     {
+                    if (Validation.isValidPassword(NewPassword.getText().toString()))
+                    {
 
-                         if (!Validation.isEmptyStr(ConfirmPassword.getText().toString()))
-                         {
+                        if (!Validation.isEmptyStr(ConfirmPassword.getText().toString()))
+                        {
 
-                             if (OldPassword.getText().toString().equals(ConfirmPassword.getText().toString()))
-                             {
+                            if (NewPassword.getText().toString().equals(ConfirmPassword.getText().toString()))
+                            {
 
                                 callChangePasswordWebService("seller");
 
-                             }
-                             else
-                             {
-                                 showMessage("Old and confirm password does not match");
-                             }
-                         }
-                         else
-                         {
-                             showMessage("Please Enter Confirm Password");
+                            }
+                            else
+                            {
+                                showMessage("Old and confirm password does not match");
+                            }
+                        }
+                        else
+                        {
+                            showMessage("Please Enter Confirm Password");
 
-                         }
+                        }
 
-                     }
-                     else
-                     {
-                         showMessage("Please Enter Minimum 6 digit New Password");
-                     }
+                    }
+                    else
+                    {
+                        showMessage("Please Enter Minimum 6 digit New Password");
+                    }
 
-                 }
-                 else
-                 {
-                     showMessage("Please Enter Old Password");
-                 }
+                }
+                else
+                {
+                    showMessage("Please Enter Old Password");
+                }
 
             }
         });
@@ -171,7 +194,7 @@ public class ChangePassword extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
 
-       // getSupportActionBar().setIcon(R.drawable.home_logo);
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 
