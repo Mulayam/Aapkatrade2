@@ -112,21 +112,22 @@ public class AddProductActivity extends AppCompatActivity {
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
                         progressBar.hide();
                         Log.e("company result", result == null ? "Add Product data found null" : result.toString());
 
-                        if (result != null && result.get("message").getAsString().equals("Product Added Successfully!")) {
+                        if (result != null && result.get("message").getAsString().equals("Product Added Successfully!"))
+                        {
 
                             AddProductActivity.this.finish();
-
-
-                        } else {
+                        }
+                        else
+                        {
                             showMessage("Company Not Found");
                         }
                     }
                 });
-
 
     }
 

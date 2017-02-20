@@ -101,14 +101,16 @@ public class LoginActivity extends AppCompatActivity
                                 callwebservice_login(login_url, input_email, input_password);
 
 
-                            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+                            }
+                            else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
                                 String login_url = "http://aapkatrade.com/slim/buyerlogin";
 
                                 callwebservice_login(login_url, input_email, input_password);
 
 
-                            } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
+                            }
+                            else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
                                 String login_url = "http://aapkatrade.com/slim/sellerlogin";
 
@@ -224,6 +226,7 @@ public class LoginActivity extends AppCompatActivity
         app_sharedpreference.setsharedpref("dob",dob);
         app_sharedpreference.setsharedpref("address",address);
         app_sharedpreference.setsharedpref("mobile",mobile);
+
 
     }
 

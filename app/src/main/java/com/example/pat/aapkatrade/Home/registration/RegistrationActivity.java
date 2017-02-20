@@ -719,6 +719,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
                         {
 
 
+
                         }
                     });
                 } else {
@@ -1058,7 +1059,8 @@ if(compIncorpFile.getAbsolutePath()!="/")
                         try {
                             pfd = getContentResolver()
                                     .openFileDescriptor(data.getData(), "r");
-                            if (pfd != null) {
+                            if (pfd != null)
+                            {
                                 FileDescriptor fileDescriptor = pfd
                                         .getFileDescriptor();
 
