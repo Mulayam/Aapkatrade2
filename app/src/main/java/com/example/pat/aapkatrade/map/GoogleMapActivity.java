@@ -276,9 +276,13 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 //
 //
 //                mMap.getUiSettings().setRotateGesturesEnabled(true);
+if(location!=null) {
+    findDirections(location.getLatitude(), location.getLongitude(), product_location_lat_lng.latitude, product_location_lat_lng.longitude, Travelmode);
+}
+                else{
+    Log.e("location not found","location not found");
 
-                findDirections(location.getLatitude(), location.getLongitude(), product_location_lat_lng.latitude, product_location_lat_lng.longitude, Travelmode);
-
+}
 
             } else {
                 locationManagerCheck.createLocationServiceError(GoogleMapActivity.this);

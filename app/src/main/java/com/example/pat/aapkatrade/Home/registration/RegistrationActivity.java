@@ -243,8 +243,18 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         if(docFile != null){
             Log.e("doc", "doc : "+docFile.getAbsolutePath());
         }
+        else{
+
+            Log.e("doc_null", "doc ");
+
+        }
         if(compIncorpFile != null){
             Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
+        }
+        else {
+
+
+            Log.e("compIncorpFile_null", "compIncorpFile ");
         }
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
@@ -276,22 +286,24 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 .setMultipartParameter("tin_number", "521651")
                 .setMultipartParameter("tan_number", "13546848")
                 .setMultipartParameter("tc", "fdssd")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .asString()
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, String result) {
                         progressBarHandler.hide();
 
-                        Log.e("result", result.toString());
+//                        Log.e("result_seller",result);
 
-                        if (result == null) {
-                            Log.e("data", "null data result from seller webApi");
-                        }else {
+                        if (result!= null) {
                             Log.e("registration_seller",result.toString());
-                            if (result.get("error").getAsString().equals("false")) {
-                                Log.d("registration_seller", "done");
-                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
-                            }
+//                            if (result.get("error").getAsString().equals("false")) {
+//                                Log.e("registration_seller", "done");
+//                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+//                            }
+
+                        }
+                        else {
+                            Log.e("data", e.toString());
                         }
 
                     }
