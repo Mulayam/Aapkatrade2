@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
 import com.example.pat.aapkatrade.general.animation_effects.App_animation;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
@@ -26,10 +27,11 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
-    private final LayoutInflater inflater;
-    private List<ProductListData> itemList;
-    private Context context;
-    ProductListHolder viewHolder;
+     final LayoutInflater inflater;
+     List<ProductListData> itemList;
+     Context context;
+     ProductListHolder viewHolder;
+
 
 
     public ProductListAdapter(Context context, List<ProductListData> itemList)
@@ -56,6 +58,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         ProductListHolder homeHolder = (ProductListHolder) holder;
 
+        homeHolder.tvProductName.setText(itemList.get(position).product_name);
+
+        homeHolder.tvProductPrice.setText("\u20A8"+" "+itemList.get(position).product_price);
+
+        homeHolder.tvCategoriesName.setText(itemList.get(position).category_name);
+
 
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
         {
@@ -67,6 +75,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             }
         });
+
+
 
 
     }

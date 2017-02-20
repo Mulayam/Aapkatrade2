@@ -13,11 +13,9 @@ import com.example.pat.aapkatrade.R;
 public class ProductListHolder extends RecyclerView.ViewHolder
 {
 
-
     View view;
-    TextView tvProductName,tvCategoriesName;
+    TextView tvProductName,tvCategoriesName,tvProductPrice;
     LinearLayout linearlayout1;
-
 
 
     public ProductListHolder(View itemView)
@@ -29,6 +27,8 @@ public class ProductListHolder extends RecyclerView.ViewHolder
         tvProductName = (TextView) itemView.findViewById(R.id.tvProductName);
 
         tvCategoriesName = (TextView) itemView.findViewById(R.id.tvCategoriesName);
+
+        tvProductPrice = (TextView)  itemView.findViewById(R.id.tvProductPrice);
 
         view = itemView;
     }

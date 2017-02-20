@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -26,12 +27,12 @@ public class CompanyList extends AppCompatActivity
 {
 
 
-    CircularProgressView progressView;
+
     RecyclerView recyclerViewcompanylist;
     CompanyListAdapter companyListAdapter;
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
-
+    ProgressBarHandler progress_handler;
 
 
 
@@ -40,6 +41,9 @@ public class CompanyList extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_list);
+
+        progress_handler = new ProgressBarHandler(this);
+
 
         setuptoolbar();
 
@@ -50,7 +54,7 @@ public class CompanyList extends AppCompatActivity
     public void get_company_list_data()
     {
         relativeCompanylist.setVisibility(View.INVISIBLE);
-        progressView.startAnimation();
+        progress_handler.show();
         companyDatas.clear();
         Ion.with(CompanyList.this)
                 .load("http://aapkatrade.com/slim/listCompany")
@@ -66,7 +70,8 @@ public class CompanyList extends AppCompatActivity
                     {
                         if(result ==null)
                         {
-                            progressView.stopAnimation();
+
+                            progress_handler.hide();
                         }
                         else
                         {
@@ -100,7 +105,7 @@ public class CompanyList extends AppCompatActivity
 
                             companyListAdapter.notifyDataSetChanged();
 
-                            progressView.stopAnimation();
+                            progress_handler.hide();
                            // progressView.setVisibility(View.INVISIBLE);
                             relativeCompanylist.setVisibility(View.VISIBLE);
 
@@ -115,8 +120,6 @@ public class CompanyList extends AppCompatActivity
 
     private void setup_layout()
     {
-
-        progressView = (CircularProgressView) findViewById(R.id.progress_view);
 
         relativeCompanylist = (RelativeLayout) findViewById(R.id.relativeCompanylist);
 

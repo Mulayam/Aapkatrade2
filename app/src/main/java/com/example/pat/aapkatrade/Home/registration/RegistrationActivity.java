@@ -77,7 +77,10 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
+{
+
+
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
@@ -234,8 +237,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
     }
 
-
-    private void callWebServiceForSellerRegistration() {
+    private void callWebServiceForSellerRegistration()
+    {
 
 
 
@@ -254,6 +257,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
+
 
 if(compIncorpFile.getAbsolutePath()!="/")
 
@@ -301,6 +305,52 @@ if(compIncorpFile.getAbsolutePath()!="/")
                             if (result.get("error").getAsString().equals("false")) {
                                 Log.e("registration_seller", "done");
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+
+
+        Ion.with(RegistrationActivity.this)
+                .load("http://aapkatrade.com/slim/sellerregister")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
+            @Override
+            public void onProgress(long downloaded, long total) {
+                Log.e("status", downloaded+"  * "+total);
+            }
+        })
+                .setMultipartFile("company_doc", "image*//*", docFile)
+                .setMultipartFile("personal_doc", "image*//*", docFile)
+                .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
+                .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setMultipartParameter("business_type", formSellerData.getBusinessType())
+                .setMultipartParameter("companyname", formSellerData.getCompanyName())
+                .setMultipartParameter("name", formSellerData.getFirstName())
+                .setMultipartParameter("lastname", formSellerData.getLastName())
+                .setMultipartParameter("dob", formSellerData.getDOB())
+                .setMultipartParameter("mobile", formSellerData.getMobile())
+                .setMultipartParameter("email", formSellerData.getEmail())
+                .setMultipartParameter("password", formSellerData.getPassword())
+                .setMultipartParameter("country_id", formSellerData.getCountryId())
+                .setMultipartParameter("state_id", formSellerData.getStateId())
+                .setMultipartParameter("city_id", formSellerData.getCityId())
+                .setMultipartParameter("client_id", formSellerData.getClientId())
+                .setMultipartParameter("shopname", formSellerData.getShopName())
+                .setMultipartParameter("tin_number", "521651")
+                .setMultipartParameter("tan_number", "13546848")
+                .setMultipartParameter("tc", "fdssd")
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        progressBarHandler.hide();
+
+                        Log.e("data", result);
+
+
+                      /*  if (result == null) {
+                            Log.e("data", result.toString());
+                        }else {
+                            Log.e("registration_seller",result.toString());
+                            if (result.get("error").getAsString().equals("false")) {
+                                Log.e("registration_seller", "done");
+
                                 startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
 
                             }
@@ -308,6 +358,10 @@ if(compIncorpFile.getAbsolutePath()!="/")
 
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                             }
+
+
+                        }*/
+
 
                     }
 
@@ -661,7 +715,9 @@ if(compIncorpFile.getAbsolutePath()!="/")
                         }
 
                         @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
+                        public void onNothingSelected(AdapterView<?> parent)
+                        {
+
 
                         }
                     });
@@ -1050,8 +1106,8 @@ if(compIncorpFile.getAbsolutePath()!="/")
 
     }
 
-
-    public void setSellerFormData() {
+    public void setSellerFormData()
+    {
         formSellerData.setBusinessType(busiType);
         formSellerData.setCompanyName(etProductName.getText().toString());
         formSellerData.setShopName(etProductName.getText().toString());
@@ -1070,7 +1126,8 @@ if(compIncorpFile.getAbsolutePath()!="/")
     }
 
 
-    public void getBuyerFormData() {
+    public void getBuyerFormData()
+    {
         formBuyerData.setCountryId(countryID == null ? "" : countryID);
         formBuyerData.setStateId(stateID == null ? "" : stateID);
         formBuyerData.setCityId(cityID == null ? "" : cityID);
@@ -1084,8 +1141,10 @@ if(compIncorpFile.getAbsolutePath()!="/")
         formBuyerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
     }
 
-    private String getBusiType(String busyType) {
-        if (Validation.isNonEmptyStr(busyType)) {
+    private String getBusiType(String busyType)
+    {
+        if (Validation.isNonEmptyStr(busyType))
+        {
             if (busyType.equalsIgnoreCase(spBussinessName[1]))
                 return "1";
             else if (busyType.equalsIgnoreCase(spBussinessName[2]))
@@ -1096,12 +1155,14 @@ if(compIncorpFile.getAbsolutePath()!="/")
 
 
     @Override
-    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second)
+    {
 
     }
 
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth)
+    {
         showDate(year, monthOfYear + 1, dayOfMonth);
     }
 }

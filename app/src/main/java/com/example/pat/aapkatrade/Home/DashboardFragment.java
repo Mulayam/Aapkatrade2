@@ -29,6 +29,7 @@ import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -378,7 +379,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     private void go_to_product_list_activity() {
-        Intent go_to_product_listactivity = new Intent(getActivity(), CategoryListActivity.class);
+        Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
         startActivity(go_to_product_listactivity);
         ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
     }

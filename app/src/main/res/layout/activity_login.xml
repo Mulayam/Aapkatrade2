@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/brown_light"
+    >
 
 
     <LinearLayout
@@ -32,11 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-
-
                 app:srcCompat="@drawable/ic_login_logo_circle" />
 
 

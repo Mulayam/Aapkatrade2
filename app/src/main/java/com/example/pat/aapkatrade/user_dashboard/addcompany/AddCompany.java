@@ -13,10 +13,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -32,7 +35,7 @@ public class AddCompany extends AppCompatActivity
     ProgressDialog dialog;
     LinearLayout linearLayout;
     Snackbar snackbar;
-
+    ProgressBarHandler progress_handler;
 
 
 
@@ -42,11 +45,14 @@ public class AddCompany extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_company);
 
+        progress_handler = new ProgressBarHandler(this);
         setuptoolbar();
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         initView();
+
+
 
     }
 
@@ -150,6 +156,8 @@ public class AddCompany extends AppCompatActivity
     private void callAddCompanyWebService(String userId, String companyName,String pEmail , String sEmail, String address, String description)
     {
 
+        progress_handler.show();
+
         Ion.with(AddCompany.this)
                 .load("http://aapkatrade.com/slim/addCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -166,13 +174,21 @@ public class AddCompany extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-
                         JsonObject jsonObject = result.getAsJsonObject();
                         String message = jsonObject.get("message").getAsString();
-
                         Log.e("message",message);
+                        progress_handler.hide();
+
+                        etCompanyName.setText("");
+                        etPEmail.setText("");
+                        etSEmail.setText("");
+                        etAddress.setText("");
+                        etDiscription.setText("");
 
                         snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
+
+
+
                     }
                 });
     }
@@ -187,11 +203,11 @@ public class AddCompany extends AppCompatActivity
 
         etPEmail = (EditText) findViewById(R.id.etPEmail);
 
-        etSEmail= (EditText) findViewById(R.id.etPEmail);
+        etSEmail= (EditText) findViewById(R.id.etSEmail);
 
         etAddress = (EditText) findViewById(R.id.etAddress);
 
-        etDiscription = (EditText) findViewById(R.id.etDescription);
+        etDiscription = (EditText) findViewById(R.id.etDiscription);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,7 +230,7 @@ public class AddCompany extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
 
-       // getSupportActionBar().setIcon(R.drawable.home_logo);
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
 
     }
 
