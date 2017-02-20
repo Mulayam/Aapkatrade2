@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.categories_tab;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.koushikdutta.ion.Ion;
@@ -26,11 +28,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private final LayoutInflater inflater;
     private List<CategoriesListData> itemList;
-    private Context context;
+    public Activity context;
     CategoriesListHolder viewHolder;
 
 
-    public CategoriesListAdapter(Context context, List<CategoriesListData> itemList)
+    public CategoriesListAdapter(Activity context, List<CategoriesListData> itemList)
     {
         this.itemList = itemList;
         this.context = context;
@@ -81,15 +83,25 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         homeHolder.linearlayoutMap.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
 
-                Intent intent = new Intent(context, GoogleMapActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                boolean permission_status = CheckPermission.checkPermissions(context);
 
-                intent.putExtra("product_location","Delhi Nehru Nagar");
-                context.startActivity(intent);
+
+                if (permission_status)
+
+                {
+
+
+                    Intent intent = new Intent(context, GoogleMapActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    intent.putExtra("product_location", "Delhi Nehru Nagar");
+                    context.startActivity(intent);
+
+
+            }
 
 
 
