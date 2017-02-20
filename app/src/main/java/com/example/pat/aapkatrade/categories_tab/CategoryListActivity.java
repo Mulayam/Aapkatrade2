@@ -241,7 +241,7 @@ public class CategoryListActivity extends AppCompatActivity
                                         JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                         String product_id = jsonObject2.get("id").getAsString();
-
+                                        
                                         String product_name = jsonObject2.get("name").getAsString();
 
                                         String product_price = jsonObject2.get("price").getAsString();
