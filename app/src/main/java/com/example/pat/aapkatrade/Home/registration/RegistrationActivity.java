@@ -241,16 +241,71 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     {
 
 
+
 //        Log.e("datagf", getFile(imageForPreview).getPath());
         progressBarHandler.show();
         if(docFile != null){
             Log.e("doc", "doc : "+docFile.getAbsolutePath());
         }
+
         if(compIncorpFile != null){
             Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
         }
+        else {
+            Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
+        }
+
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
+
+
+if(compIncorpFile.getAbsolutePath()!="/")
+
+{
+    Log.e("work1", "work1");
+
+    Ion.with(RegistrationActivity.this)
+            .load("http://aapkatrade.com/slim/sellerregister")
+            .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
+        @Override
+        public void onProgress(long downloaded, long total) {
+            Log.e("status", downloaded + "  * " + total);
+        }
+    })
+            .setMultipartFile("company_doc", "image*//*", docFile)
+            .setMultipartFile("personal_doc", "image*//*", docFile)
+            .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
+            .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+            .setMultipartParameter("business_type", formSellerData.getBusinessType())
+            .setMultipartParameter("companyname", formSellerData.getCompanyName())
+            .setMultipartParameter("name", formSellerData.getFirstName())
+            .setMultipartParameter("lastname", formSellerData.getLastName())
+            .setMultipartParameter("dob", formSellerData.getDOB())
+            .setMultipartParameter("mobile", formSellerData.getMobile())
+            .setMultipartParameter("email", formSellerData.getEmail())
+            .setMultipartParameter("password", formSellerData.getPassword())
+            .setMultipartParameter("country_id", formSellerData.getCountryId())
+            .setMultipartParameter("state_id", formSellerData.getStateId())
+            .setMultipartParameter("city_id", formSellerData.getCityId())
+            .setMultipartParameter("client_id", formSellerData.getClientId())
+            .setMultipartParameter("shopname", formSellerData.getShopName())
+            .setMultipartParameter("tin_number", "521651")
+            .setMultipartParameter("tan_number", "13546848")
+            .setMultipartParameter("tc", "fdssd")
+            .asJsonObject()
+            .setCallback(new FutureCallback<JsonObject>() {
+                @Override
+                public void onCompleted(Exception e, JsonObject result) {
+                    progressBarHandler.hide();
+
+//                        Log.e("result_seller",result);
+
+                    if (result != null) {
+                        Log.e("registration_seller", result.toString());
+                            if (result.get("error").getAsString().equals("false")) {
+                                Log.e("registration_seller", "done");
+                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+
 
         Ion.with(RegistrationActivity.this)
                 .load("http://aapkatrade.com/slim/sellerregister")
@@ -295,13 +350,88 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                             Log.e("registration_seller",result.toString());
                             if (result.get("error").getAsString().equals("false")) {
                                 Log.e("registration_seller", "done");
+
                                 startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+
                             }
+                            else {
+
+                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                            }
+
+
                         }*/
+
 
                     }
 
-                });
+                }
+
+            });
+}
+        else{
+    Log.e("work2", "work2");
+
+    Ion.with(RegistrationActivity.this)
+            .load("http://aapkatrade.com/slim/sellerregister")
+            .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
+        @Override
+        public void onProgress(long downloaded, long total) {
+            Log.e("status", downloaded + "  * " + total);
+        }
+    })
+            .setMultipartFile("company_doc", "image*//*", docFile)
+            .setMultipartFile("personal_doc", "image*//*", docFile)
+
+            .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+            .setMultipartParameter("business_type", formSellerData.getBusinessType())
+            .setMultipartParameter("companyname", formSellerData.getCompanyName())
+            .setMultipartParameter("name", formSellerData.getFirstName())
+            .setMultipartParameter("lastname", formSellerData.getLastName())
+            .setMultipartParameter("dob", formSellerData.getDOB())
+            .setMultipartParameter("mobile", formSellerData.getMobile())
+            .setMultipartParameter("email", formSellerData.getEmail())
+            .setMultipartParameter("password", formSellerData.getPassword())
+            .setMultipartParameter("country_id", formSellerData.getCountryId())
+            .setMultipartParameter("state_id", formSellerData.getStateId())
+            .setMultipartParameter("city_id", formSellerData.getCityId())
+            .setMultipartParameter("client_id", formSellerData.getClientId())
+            .setMultipartParameter("shopname", formSellerData.getShopName())
+            .setMultipartParameter("tin_number", "521651")
+            .setMultipartParameter("tan_number", "13546848")
+            .setMultipartParameter("tc", "fdssd")
+            .asJsonObject()
+            .setCallback(new FutureCallback<JsonObject>() {
+                @Override
+                public void onCompleted(Exception e, JsonObject result) {
+                    progressBarHandler.hide();
+
+//                        Log.e("result_seller",result);
+
+                    if (result != null) {
+                        Log.e("registration_seller", result.toString());
+                            if (result.get("error").getAsString().equals("false")) {
+                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                Log.e("registration_seller", "done");
+                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                            }
+                            else {
+
+                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                            }
+
+                    } else {
+                        Log.e("data", e.toString());
+                    }
+
+                }
+
+            });
+
+
+
+
+}
     }
 
 
@@ -360,11 +490,20 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
-//                            Log.e("data", result.getAsString());
+
                             if (result.get("error").getAsString().equals("false")) {
-                                Log.e("registration_buyer", "done");
+                                Log.e("registration_buyer", result.toString());
+                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+
                                 progressBarHandler.hide();
                                 startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                            }
+                            else{
+
+                                progressBarHandler.hide();
+                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+
+
                             }
                         }
                     }

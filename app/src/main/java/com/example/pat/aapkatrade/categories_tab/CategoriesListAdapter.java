@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.categories_tab;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.koushikdutta.ion.Ion;
@@ -92,14 +94,27 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 if (permission_status)
 
                 {
+                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                            context);
+                    Location location = null;
+                    if (locationManagerCheck.isLocationServiceAvailable())
 
 
-                    Intent intent = new Intent(context, GoogleMapActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    {
 
-                    intent.putExtra("product_location", "Delhi Nehru Nagar");
-                    context.startActivity(intent);
 
+                        Intent intent = new Intent(context, GoogleMapActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        intent.putExtra("product_location", "Delhi Nehru Nagar");
+                        context.startActivity(intent);
+
+
+
+                }
+                    else {
+                        locationManagerCheck.createLocationServiceError(context);
+                    }
 
             }
 

@@ -163,6 +163,9 @@ public class HomeActivity extends AppCompatActivity
         int a = ConnetivityCheck.get_wifi_speed(this);
         Log.e("a", a + "");
 
+
+
+
     }
 
 
