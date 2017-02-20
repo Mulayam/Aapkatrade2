@@ -47,8 +47,6 @@ public class CategoryListActivity extends AppCompatActivity
     App_sharedpreference app_sharedpreference;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -66,7 +64,7 @@ public class CategoryListActivity extends AppCompatActivity
 
         app_sharedpreference = new App_sharedpreference(this);
 
-         user_id = app_sharedpreference.getsharedpref("userid","");
+        user_id = app_sharedpreference.getsharedpref("userid","");
 
         setuptoolbar();
 
@@ -109,7 +107,6 @@ public class CategoryListActivity extends AppCompatActivity
 
         if(sub_category_id.equals("not_available"))
         {
-
             System.out.println("data----------"+category_id+sub_category_id+user_id);
 
             Ion.with(CategoryListActivity.this)
@@ -185,11 +182,9 @@ public class CategoryListActivity extends AppCompatActivity
 
                     });
 
-
         }
         else
         {
-
             System.out.println("data   2----------"+category_id+sub_category_id+user_id);
 
             Ion.with(CategoryListActivity.this)
@@ -215,14 +210,11 @@ public class CategoryListActivity extends AppCompatActivity
                             {
                                 JsonObject jsonObject = result.getAsJsonObject();
 
-
                                 String message = jsonObject.get("message").toString().substring(0,jsonObject.get("message").toString().length());
 
                                 String message_data = message.replace("\"", "");
 
                                 System.out.println("message_data=================="+message_data);
-
-
 
                                 if (message_data.toString().equals("No record found"))
                                 {
@@ -232,7 +224,6 @@ public class CategoryListActivity extends AppCompatActivity
                                 }
                                 else
                                 {
-
 
                                     JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 

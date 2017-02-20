@@ -140,7 +140,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
-
     @Override
     public int getItemCount()
     {
@@ -152,4 +151,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
+
+
+
 }

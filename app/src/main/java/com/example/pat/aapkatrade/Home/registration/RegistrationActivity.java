@@ -580,6 +580,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         {
 
 
+
                         }
                     });
                 } else {
@@ -919,7 +920,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         try {
                             pfd = getContentResolver()
                                     .openFileDescriptor(data.getData(), "r");
-                            if (pfd != null) {
+                            if (pfd != null)
+                            {
                                 FileDescriptor fileDescriptor = pfd
                                         .getFileDescriptor();
 

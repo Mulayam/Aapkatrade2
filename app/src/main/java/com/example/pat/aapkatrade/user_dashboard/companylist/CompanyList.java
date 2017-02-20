@@ -26,8 +26,6 @@ import java.util.ArrayList;
 public class CompanyList extends AppCompatActivity
 {
 
-
-
     RecyclerView recyclerViewcompanylist;
     CompanyListAdapter companyListAdapter;
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
@@ -43,7 +41,6 @@ public class CompanyList extends AppCompatActivity
         setContentView(R.layout.activity_company_list);
 
         progress_handler = new ProgressBarHandler(this);
-
 
         setuptoolbar();
 
@@ -130,6 +127,7 @@ public class CompanyList extends AppCompatActivity
         recyclerViewcompanylist.setLayoutManager(mLayoutManager);
 
         get_company_list_data();
+
     }
 
     private void setuptoolbar()

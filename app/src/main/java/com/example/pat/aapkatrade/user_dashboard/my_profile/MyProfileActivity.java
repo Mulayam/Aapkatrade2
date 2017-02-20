@@ -17,11 +17,19 @@ import android.widget.Toast;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
+import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
+import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -125,23 +133,23 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
                 System.out.println("et-----------"+et);
 
-                if (Validation.isEmptyStr(etFName.getText().toString()))
+
+                if (!Validation.isEmptyStr(etFName.getText().toString()))
                 {
 
-                    if (Validation.isEmptyStr(etEmail.getText().toString()))
+                    if (!Validation.isEmptyStr(etEmail.getText().toString()))
                     {
 
                         if(Validation.isValidEmail(etEmail.getText().toString()))
                         {
 
-                            if (Validation.isEmptyStr(etMobileNo.getText().toString()))
+                            if (!Validation.isEmptyStr(etMobileNo.getText().toString()))
                             {
 
-                                if (Validation.isEmptyStr(etAddress.getText().toString()))
+                                if (!Validation.isEmptyStr(etAddress.getText().toString()))
                                 {
 
-                                    Intent i = new Intent(MyProfileActivity.this, CompanyList.class);
-                                    startActivity(i);
+                                    edit_profile_webservice();
 
                                 }
                                 else
@@ -198,6 +206,53 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
             }
         });
 
+
+    }
+
+    private void edit_profile_webservice()
+    {
+
+        Ion.with(MyProfileActivity.this)
+                .load("https://aapkatrade.com/slim/my_account")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("name",app_sharedpreference.getsharedpref("username","").toString())
+                .setBodyParameter("lastname",app_sharedpreference.getsharedpref("lname","").toString())
+                .setBodyParameter("mobile",app_sharedpreference.getsharedpref("mobile","").toString())
+                .setBodyParameter("email",app_sharedpreference.getsharedpref("emailid","").toString())
+                .setBodyParameter("address",app_sharedpreference.getsharedpref("address","").toString())
+                .setBodyParameter("user_id",app_sharedpreference.getsharedpref("userid","").toString())
+                .setBodyParameter("user_type",app_sharedpreference.getsharedpref("usertype","").toString())
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+                        System.out.println("result-----------"+result.toString());
+
+                        if(result == null)
+                        {
+
+
+                        }
+                        else
+                        {
+                            JsonObject jsonObject = result.getAsJsonObject();
+
+                            String message = jsonObject.get("message").getAsString();
+
+                            if(message.toString().equals("updated successfully"))
+                            {
+
+                            }
+                            else
+                            {
+                                Toast.makeText(MyProfileActivity.this, "", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
 
     }
 
@@ -262,8 +317,6 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
         tvDate.setTextColor(getColor(R.color.black));
         tvDate.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
-
-
     }
 
 
