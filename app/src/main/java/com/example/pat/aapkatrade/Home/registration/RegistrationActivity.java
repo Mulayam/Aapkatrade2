@@ -207,7 +207,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
     private void showDate(int year, int month, int day) {
-        etDOB.setTextColor(getColor(R.color.black));
+        etDOB.setTextColor(getResources().getColor(R.color.black));
         etDOB.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
 
@@ -309,6 +309,10 @@ if(compIncorpFile.getAbsolutePath()!="/")
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                             }
 
+                    }
+                    else{
+
+                        Log.e("result_seller_error",result.toString());
                     }
 
                 }
