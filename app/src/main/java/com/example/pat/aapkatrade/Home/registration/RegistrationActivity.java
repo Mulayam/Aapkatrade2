@@ -77,7 +77,8 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
+{
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
@@ -207,7 +208,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
     private void showDate(int year, int month, int day) {
-        etDOB.setTextColor(getColor(R.color.black));
+        etDOB.setTextColor(getResources().getColor(R.color.black));
         etDOB.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
 

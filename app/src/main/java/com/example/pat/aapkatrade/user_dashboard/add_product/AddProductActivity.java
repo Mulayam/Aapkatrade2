@@ -54,7 +54,8 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 
-public class AddProductActivity extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity
+{
     private Context context;
     private LinearLayout contentAddProduct, add_product_root_container;
     private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance;
