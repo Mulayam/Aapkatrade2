@@ -123,7 +123,14 @@ public class PurticularActivity extends AppCompatActivity {
 
                                     String product_cross_price = jsonObject2.get("cross_price").getAsString();
 
+
                                     String product_image = jsonObject2.get("image_url").getAsString();
+
+                                    }
+                                    categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
+                                    myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
+                                    mRecyclerView.setAdapter(categoriesListAdapter);
+
 
                                     productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
 

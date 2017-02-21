@@ -78,6 +78,7 @@
                     <include layout="@layout/upload_image_layout" />
 
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:layout_marginLeft="30dp"
