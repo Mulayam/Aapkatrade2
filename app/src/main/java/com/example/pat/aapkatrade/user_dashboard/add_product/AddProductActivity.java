@@ -3,8 +3,10 @@ package com.example.pat.aapkatrade.user_dashboard.add_product;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
@@ -12,6 +14,8 @@ import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,21 +46,28 @@ import com.example.pat.aapkatrade.user_dashboard.addcompany.CompanyData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.async.http.body.FilePart;
+import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Pattern;
 
 
 public class AddProductActivity extends AppCompatActivity
 {
+
     private Context context;
     private LinearLayout contentAddProduct, add_product_root_container;
     private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance;
@@ -71,15 +83,31 @@ public class AddProductActivity extends AppCompatActivity
     private App_sharedpreference app_sharedpreference;
     private TextView btnUpload;
     private EditText etProductName, etDeliverLocation, etPrice, etCrossedPrice, etDescription;
+    ImageView uploadButton;
+    File docFile = new File("");
+    public  ArrayList<ProductImagesData> productImagesDatas = new ArrayList<>();
+    LinearLayoutManager layoutManager;
+    RecyclerView recyclerView;
+    ProductImages adapter;
+    Bitmap imageForPreview;
+    List<Part> files_image = new ArrayList();
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
         setuptoolbar();
+
+        setupRecyclerView();
+
         initView();
-        btnUpload.setOnClickListener(new View.OnClickListener() {
+
+
+        btnUpload.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 callAddProductWebService();
@@ -88,53 +116,112 @@ public class AddProductActivity extends AppCompatActivity
 
     }
 
-    private void callAddProductWebService() {
+    private File savebitmap(String filePath)
+    {
+        File file = new File(filePath);
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath, bmOptions);
+        OutputStream outStream = null;
+        try {
+            // make a new bitmap from your file
+            outStream = new FileOutputStream(file);
+            if (extension.equalsIgnoreCase("png")) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream);
+            } else if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg")) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream);
+            } else {
+                return null;
+            }
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return file;
+    }
+
+
+    private void callAddProductWebService()
+    {
+
+        progressBar.show();
+        for (int i = 0; i <productImagesDatas.size(); i++)
+        {
+            files_image.add(new FilePart("image[]", savebitmap(productImagesDatas.get(i).image_path)));
+
+        }
+
+        Log.e("files_image",files_image.toString());
 
         Log.e("company result", app_sharedpreference.getsharedpref("userid", "0"));
         Ion.with(context)
                 .load("http://aapkatrade.com/slim/add_product")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
-                .setBodyParameter("name", AndroidUtils.getEditTextData(etProductName))
-                .setBodyParameter("company_id", companyID)
-                .setBodyParameter("deliverTime", "")
-                .setBodyParameter("distance_id", deliveryDistanceID)
-                .setBodyParameter("deliverday", "")
-                .setBodyParameter("cross_price", "")
-                .setBodyParameter("availablestatus_id", "")
-                .setBodyParameter("short_des", "company")
-                .setBodyParameter("deliveryArea", AndroidUtils.getEditTextData(etDeliverLocation))
-                .setBodyParameter("country_id", countryID)
-                .setBodyParameter("state_id", stateID)
-                .setBodyParameter("city_id", cityID)
-                .setBodyParameter("category_id", categoryID)
-                .setBodyParameter("sub_cat_id", subCategoryID)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .addMultipartParts(files_image)
+                .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setMultipartParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
+                .setMultipartParameter("name", AndroidUtils.getEditTextData(etProductName))
+                .setMultipartParameter("company_id", companyID)
+                .setMultipartParameter("deliverTime", "")
+                .setMultipartParameter("distance_id", deliveryDistanceID)
+                .setMultipartParameter("deliverday", "")
+                .setMultipartParameter("cross_price", "")
+                .setMultipartParameter("unit_id","1")
+                .setMultipartParameter("availablestatus_id", "")
+                .setMultipartParameter("short_des", "company")
+                .setMultipartParameter("deliveryArea", AndroidUtils.getEditTextData(etDeliverLocation))
+                .setMultipartParameter("country_id", countryID)
+                .setMultipartParameter("state_id", stateID)
+                .setMultipartParameter("city_id", cityID)
+                .setMultipartParameter("category_id", categoryID)
+                .setMultipartParameter("sub_cat_id", subCategoryID)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
+                    public void onCompleted(Exception e, String result)
                     {
                         progressBar.hide();
-                        Log.e("company result", result == null ? "Add Product data found null" : result.toString());
+                        Log.e("company result", result.toString());
 
-                        if (result != null && result.get("message").getAsString().equals("Product Added Successfully!"))
+
+                       /* if (result != null && result.get("message").getAsString().equals("Product Added Successfully!"))
                         {
-
-                            AddProductActivity.this.finish();
+                            //AddProductActivity.this.finish();
                         }
                         else
                         {
                             showMessage("Company Not Found");
-                        }
+                        }*/
+
+
+
                     }
                 });
+
+
 
     }
 
 
-    private void initView() {
+    private void initView()
+    {
         context = AddProductActivity.this;
+
+        uploadButton = (ImageView) findViewById(R.id.uploadButton);
+
+
+        uploadButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                picPhoto();
+
+            }
+        });
+
         contentAddProduct = (LinearLayout) findViewById(R.id.contentAddProduct);
         add_product_root_container = (LinearLayout) findViewById(R.id.add_product_root_container);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -163,6 +250,8 @@ public class AddProductActivity extends AppCompatActivity
         getState();
         pickDeliveryLocation();
     }
+
+
 
 
     private void initSpinner() {
@@ -224,7 +313,9 @@ public class AddProductActivity extends AppCompatActivity
                                     }
 
                                     @Override
-                                    public void onNothingSelected(AdapterView<?> parent) {
+                                    public void onNothingSelected(AdapterView<?> parent)
+                                    {
+
 
                                     }
                                 });
@@ -355,7 +446,8 @@ public class AddProductActivity extends AppCompatActivity
 
     }
 
-    private void getCategory() {
+    private void getCategory()
+    {
         listDataChild.clear();
         listDataHeader.clear();
         progressBar.show();
@@ -404,13 +496,14 @@ public class AddProductActivity extends AppCompatActivity
                 });
     }
 
-    private void setCategoryAdapter() {
+    private void setCategoryAdapter()
+    {
         Log.e("data", this.listDataHeader.toString());
         CustomSimpleListAdapter categoriesAdapter = new CustomSimpleListAdapter(context, this.listDataHeader);
         spCategory.setAdapter(categoriesAdapter);
 
-
-        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
@@ -427,7 +520,6 @@ public class AddProductActivity extends AppCompatActivity
                                     subCategoryID = listDataChild.get(position).subCategoryId;
                                 }
                             }
-
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -440,7 +532,6 @@ public class AddProductActivity extends AppCompatActivity
                         spSubCategory.setAdapter(adapter);
                     }
                 }
-
 
             }
 
@@ -499,7 +590,8 @@ public class AddProductActivity extends AppCompatActivity
         });
     }
 
-    private void loadDistanceList() {
+    private void loadDistanceList()
+    {
         deliveryDistanceList.add(0, "Please Select distance");
         deliveryDistanceList.add(1, "0 to 0.5 km");
         deliveryDistanceList.add(2, "0.5 to 1 km");
@@ -536,25 +628,31 @@ public class AddProductActivity extends AppCompatActivity
 
 
 
-    void picPhoto() {
+    void picPhoto()
+    {
         String str[] = new String[]{"Camera", "Gallery", "PDF Files"};
         new AlertDialog.Builder(this).setItems(str,
-                new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener()
+                {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
                         performImgPicAction(which);
                     }
                 }).show();
+
     }
 
-    void performImgPicAction(int which) {
+    void performImgPicAction(int which)
+    {
         Intent in;
-        if (which == 1) {
+        if (which == 1)
+        {
             in = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
-        } else if (which == 2) {
-
-
+        }
+        else if (which == 2)
+        {
             new MaterialFilePicker()
                     .withActivity(this)
                     .withRequestCode(1)
@@ -562,41 +660,36 @@ public class AddProductActivity extends AppCompatActivity
                     .withFilterDirectories(false)
                     .withHiddenFiles(true)
                     .start();
-
-
-        } else {
+        }
+        else
+        {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
         }
     }
+    private void setupRecyclerView()
+    {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        adapter = new ProductImages(AddProductActivity.this, productImagesDatas);
+        layoutManager = new LinearLayoutManager(AddProductActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+
+    }
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
         Log.e("hi", "requestCode : "+requestCode+"result code : "+resultCode );
-
-        try {
-            if (requestCode == 1) {
-                Log.e("hi", " if else if 1 " );
-                String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
-                File file = new File(filePath);
-                if(!filePath.equals("result_file_path")) {
-                 /*   if (isCompIncorp) {
-                        previewPDFLayout.setVisibility(View.VISIBLE);
-                        previewPDF.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
-                        compIncorpFile = file;
-                        isCompIncorp = false;
-                    } else {
-                        previewImageLayout.setVisibility(View.VISIBLE);
-                        circleImageView.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
-                        docFile = file;
-                    }*/
-                }
-                Log.e("hi", "pdf file path : " + file.getAbsolutePath() + "\n" + filePath);
-            } else if (requestCode == 11) {
+        try
+        {
+            if (requestCode == 11)
+            {
                 Log.e("hi", " if else if 2 " );
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inDither = false;
@@ -604,12 +697,16 @@ public class AddProductActivity extends AppCompatActivity
                 option.inInputShareable = true;
                 option.inTempStorage = new byte[32 * 1024];
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
-                if (Build.VERSION.SDK_INT < 19) {
-//                    Uri selectedImageURI = data.getData();
+                if (Build.VERSION.SDK_INT < 19)
+                {
+                    // Uri selectedImageURI = data.getData();
+                    imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
 
-//                    imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
-                } else {
-                    if (data.getData() != null) {
+                }
+                else
+                {
+                    if (data.getData() != null)
+                    {
 
                         ParcelFileDescriptor pfd;
                         try {
@@ -619,7 +716,8 @@ public class AddProductActivity extends AppCompatActivity
                                 FileDescriptor fileDescriptor = pfd
                                         .getFileDescriptor();
 
-//                                imageForPreview = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, option);
+                                imageForPreview = BitmapFactory.decodeFileDescriptor(
+                                        fileDescriptor, null, option);
                             }
                             pfd.close();
 
@@ -629,36 +727,83 @@ public class AddProductActivity extends AppCompatActivity
                         } catch (IOException e) {
                             Log.e("IOException", e.toString());
                         }
-                    } else {
-//                        imageForPreview = (Bitmap) data.getExtras().get("data");
+                    }
+                    else
+                    {
+                        imageForPreview = (Bitmap) data.getExtras().get("data");
                         Log.e("data_not_found", "data_not_found");
                     }
 
                 }
-                try {
-//                    previewImageLayout.setVisibility(View.VISIBLE);
-//                    Log.e("doc", "***START.****** ");
-//                    if (ImageUtils.sizeOf(imageForPreview) > 2048) {
-//                        Log.e("doc", "if doc file path 1");
-//                        circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
-//                        docFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
-//                        Log.e("doc", "if doc file path"+docFile.getAbsolutePath());
-//                    } else {
-//                        circleImageView.setImageBitmap(imageForPreview);
-//                        Log.e("doc", " else doc file path 1");
-//                        docFile = getFile(imageForPreview);
-//                        Log.e("doc", " else doc file path"+docFile.getAbsolutePath());
-//                    }
+                try
+                {
 
-                } catch (Exception e) {
+                    Log.e("doc", "***START.****** ");
+                    if (ImageUtils.sizeOf(imageForPreview) > 2048) {
+                        Log.e("doc", "if doc file path 1");
+
+                        docFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
+                        Log.e("doc", "if doc file path"+docFile.getAbsolutePath());
+                    } else {
+
+                        Log.e("doc", " else doc file path 1");
+                        docFile = getFile(imageForPreview);
+                        Log.e("doc", " else doc file path"+docFile.getAbsolutePath());
+                    }
+
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
+                productImagesDatas.add(new ProductImagesData(docFile.getAbsolutePath()));
+                    // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
+                adapter.notifyDataSetChanged();
+
 
             }
-
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
+
+
+    private File getFile(Bitmap photo)
+    {
+        Uri tempUri = null;
+        if (photo != null) {
+            tempUri = getImageUri(AddProductActivity.this, photo);
+        }
+        File finalFile = new File(getRealPathFromURI(tempUri));
+        Log.e("data", getRealPathFromURI(tempUri));
+
+        return finalFile;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage)
+    {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+
+    public String getRealPathFromURI(Uri uri)
+    {
+        Cursor cursor = null;
+        int idx = 0;
+        if(uri != null)
+        {
+            cursor = AddProductActivity.this.getContentResolver().query(uri, null, null, null, null);
+            assert cursor != null;
+            cursor.moveToFirst();
+            idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        }
+        return cursor.getString(idx);
+    }
+
 }

@@ -491,11 +491,13 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
 
         try {
-            if (reqCode == requestCode) {
+            if (reqCode == requestCode)
+            {
                 if (resultCode == Activity.RESULT_OK) {
                     isReqCode = true;
                 }
-            } else if (resultCode == Activity.RESULT_OK) {
+            }
+            else if (resultCode == Activity.RESULT_OK) {
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inDither = false;
                 option.inPurgeable = true;
@@ -534,7 +536,8 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 }
                 try {
                     previewImageLayout.setVisibility(View.VISIBLE);
-                    if (ImageUtils.sizeOf(imageForPreview) > 2048) {
+                    if (ImageUtils.sizeOf(imageForPreview) > 2048)
+                    {
                         circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
                     } else {
                         circleImageView.setImageBitmap(imageForPreview);

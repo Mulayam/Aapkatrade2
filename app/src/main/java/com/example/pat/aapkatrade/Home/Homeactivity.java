@@ -432,9 +432,9 @@ public class HomeActivity extends AppCompatActivity
                         showOrHideBottomNavigation(true);
                         break;
 
-
                     case 3:
-                        if (user_dashboardFragment == null) {
+                        if (user_dashboardFragment == null)
+                        {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
                         String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
