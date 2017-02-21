@@ -166,7 +166,7 @@ public class CategoryListActivity extends AppCompatActivity
 
                                     }
 
-                                    categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
+                                    categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
                                     myRecyclerViewEffect = new MyRecyclerViewEffect(CategoryListActivity.this);
                                     mRecyclerView.setAdapter(categoriesListAdapter);
 
@@ -243,7 +243,7 @@ public class CategoryListActivity extends AppCompatActivity
 
                                         productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
                                     }
-                                    categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
+                                    categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
                                     myRecyclerViewEffect = new MyRecyclerViewEffect(CategoryListActivity.this);
                                     mRecyclerView.setAdapter(categoriesListAdapter);
 

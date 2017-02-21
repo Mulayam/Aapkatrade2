@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -44,13 +45,17 @@ import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
+import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -60,28 +65,29 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RegistrationBusinessAssociateActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener{
+public class RegistrationBusinessAssociateActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener {
 
     private Context context;
-    private TextView uploadMsg, tvSave;
+    private TextView uploadMsg, uploadMsg2, tvSave;
     private static BusinessAssociateRegistration formBusinessData = new BusinessAssociateRegistration();
     private TextView step1HeaderCircle, step2HeaderCircle, step3HeaderCircle;
     private TextView step1HeaderText, step2HeaderText, step3HeaderText;
-    private ImageView uploadImage, openCalander, cancelImage;
+    private ImageView uploadImage, uploadImage2, openCalander, cancelImage, cancelImage2;
     private HashMap<String, String> webservice_header_type = new HashMap<>();
-    private EditText et_email, et_password, et_confirm_password, et_first_name, et_last_name, et_father_name, et_mobile, et_account_no, et_branch_code, et_branch_name, et_ifsc_code, et_micr_code, et_account_holder_name, et_registered_mobile_with_bank, etDOB, et_address, et_pincode;
+    private EditText et_email, et_password, et_confirm_password, et_ref_number, et_first_name, et_last_name, et_father_name, et_mobile, et_account_no, et_branch_code, et_branch_name, et_ifsc_code, et_micr_code, et_account_holder_name, et_registered_mobile_with_bank, etDOB, et_address, et_pincode;
     private Spinner spState, spCity, spQualification, spTotalExp, spRelExp, spSelectBank;
     private CheckBox agreement_check;
-    private Bitmap imageForPreview;
-    private CircleImageView circleImageView;
+    private Bitmap imageForPreview, imageForPreview2;
+    private CircleImageView circleImageView, circleImageView2;
     private static final int reqCode = 33;
+    private File step1PhotoFile = new File(""), step2PhotoFile = new File("");
     private boolean isReqCode = false;
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
     private String stateID, cityID, qualification, totalExperience, relaventExperience, bankName;
-    private RelativeLayout previewImageLayout;
+    private RelativeLayout previewImageLayout, previewImageLayout2;
     private CardView step1aLayout, step1bLayout, step1cLayout, step2Layout, step3Layout;
-    private LinearLayout registrationLayout;
+    private LinearLayout registrationLayout, step1Photo, step2Photo;
     private int step1FieldsSet = -1, step2FieldsSet = -1, step3FieldsSet = -1;
     private int stepNumber = 1;
     private ArrayList<String> qualificationList = new ArrayList<>(), totalExpList = new ArrayList<>(), relaventExpList = new ArrayList<>(), bankList = new ArrayList<>();
@@ -98,49 +104,95 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     }
 
     private void callWebServiceForRegistration() {
-        Log.e("hi", "webservice invoked");
+        Log.e("hi", "webservice invoked"+formBusinessData.toString());
+
+
+        if(step1PhotoFile!=null){
+            Log.e("hi", "file1"+step1PhotoFile.getAbsolutePath());
+        } else {
+
+            Log.e("hi", "file1 null");
+        }
+
+
+
+
+
+
+        if(step2PhotoFile!=null){
+            Log.e("hi", "file2"+step2PhotoFile.getAbsolutePath());
+        } else {
+
+            Log.e("hi", "file2 null");
+        }
         Ion.with(context)
                 .load("http://aapkatrade.com/slim/businessregister")
                 .setHeader("authorization", webservice_header_type.get("authorization"))
-                .setBodyParameter("authorization", webservice_header_type.get("authorization"))
-                .setBodyParameter("business_type", "3")
-                .setBodyParameter("photo", "photo")
-                .setBodyParameter("email", formBusinessData.getEmail())
-                .setBodyParameter("password", formBusinessData.getPassword())
-                .setBodyParameter("confirm_password", formBusinessData.getConfirmPassword())
-                .setBodyParameter("name", formBusinessData.getFirstName())
-                .setBodyParameter("last_name", formBusinessData.getLastName())
-                .setBodyParameter("father_name", formBusinessData.getFatherName())
-                .setBodyParameter("mobile", formBusinessData.getMobile_no())
-                .setBodyParameter("dob", formBusinessData.getDob())
-                .setBodyParameter("address", formBusinessData.getAddress())
-                .setBodyParameter("state_id", formBusinessData.getStateID())
-                .setBodyParameter("city_id", formBusinessData.getCityID())
-                .setBodyParameter("pincode", formBusinessData.getPinCode())
-                .setBodyParameter("term", String.valueOf(formBusinessData.isAgreementAccepted()))
-                .setBodyParameter("id_proof", "")
-                .setBodyParameter("qualification", formBusinessData.getQualification())
-                .setBodyParameter("total_exp", formBusinessData.getTotalExperience())
-                .setBodyParameter("relevant_exp", formBusinessData.getRelaventExperience())
-                .setBodyParameter("bank_name", formBusinessData.getBankName())
-                .setBodyParameter("account_no", formBusinessData.getEmail())
-                .setBodyParameter("branch_code", formBusinessData.getEmail())
-                .setBodyParameter("branch_name", formBusinessData.getEmail())
-                .setBodyParameter("ifsc_code", formBusinessData.getEmail())
-                .setBodyParameter("micr_code", formBusinessData.getEmail())
-                .setBodyParameter("account_holder", formBusinessData.getEmail())
-                .setBodyParameter("register_mobile", formBusinessData.getEmail())
-                .setBodyParameter("client_id", App_config.getCurrentDeviceId(RegistrationBusinessAssociateActivity.this))
+                .progress(new ProgressCallback() {
+                    @Override
+                    public void onProgress(long downloaded, long total) {
+                        Log.e("status", downloaded + "  * " + total);
+                    }
+                })
+                .setMultipartFile("photo", "image/jpg", step1PhotoFile)
+                .setMultipartFile("id_proof", "image/jpg", step2PhotoFile)
+                .setMultipartParameter("authorization", webservice_header_type.get("authorization"))
+                .setMultipartParameter("business_type", "3")
+                .setMultipartParameter("id_proof", "photo")
+                .setMultipartParameter("photo", "fs")
+                .setMultipartParameter("email", formBusinessData.getEmail())
+                .setMultipartParameter("password", formBusinessData.getPassword())
+                .setMultipartParameter("confirm_password", formBusinessData.getConfirmPassword())
+                .setMultipartParameter("name", formBusinessData.getFirstName())
+                .setMultipartParameter("last_name", formBusinessData.getLastName())
+                .setMultipartParameter("father_name", formBusinessData.getFatherName())
+                .setMultipartParameter("mobile", formBusinessData.getMobile_no())
+                .setMultipartParameter("dob", formBusinessData.getDob())
+                .setMultipartParameter("address", formBusinessData.getAddress())
+                .setMultipartParameter("country_id", "101")
+                .setMultipartParameter("state_id", formBusinessData.getStateID())
+                .setMultipartParameter("city_id", formBusinessData.getCityID())
+                .setMultipartParameter("pincode", formBusinessData.getPinCode())
+                .setMultipartParameter("term", String.valueOf(formBusinessData.isAgreementAccepted()))
+                .setMultipartParameter("id_proof", "")
+                .setMultipartParameter("qualification", formBusinessData.getQualification())
+                .setMultipartParameter("total_exp", formBusinessData.getTotalExperience())
+                .setMultipartParameter("relevant_exp", formBusinessData.getRelaventExperience())
+                .setMultipartParameter("bank_name", formBusinessData.getBankName())
+                .setMultipartParameter("account_no", formBusinessData.getAccountNumber())
+                .setMultipartParameter("branch_code", formBusinessData.getBranchCode())
+                .setMultipartParameter("branch_name", formBusinessData.getBranchName())
+                .setMultipartParameter("ifsc_code", formBusinessData.getIfscCode())
+                .setMultipartParameter("micr_code", formBusinessData.getMicrCode())
+                .setMultipartParameter("account_holder", formBusinessData.getAccountHolderName())
+                .setMultipartParameter("register_mobile", formBusinessData.getRegisteredMobileWithBank())
+                .setMultipartParameter("client_id", App_config.getCurrentDeviceId(RegistrationBusinessAssociateActivity.this))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null) {
-                            Log.e("result", "null found in response");
+                       /* if (result != null) {
+                            Log.e("result", result);
+
                         } else {
-                            Log.e("result", result.toString());
+                            Log.e("result_error", e.toString());
                         }
 
+*/
+
+                        if (result != null) {
+                                Log.e("registration_seller", result.toString());
+                                if (result.get("error").getAsString().equals("false")) {
+                                    Log.e("registration_seller", "done");
+                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                    startActivity(new Intent(RegistrationBusinessAssociateActivity.this, ActivityOTPVerify.class));
+
+                                } else {
+
+                                    showmessage(result.get("message").getAsString());
+                                }
+
+                            }
                     }
 
                 });
@@ -157,10 +209,24 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         cancelImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                step1PhotoFile = null;
                 previewImageLayout.setVisibility(View.GONE);
             }
         });
+        uploadImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picPhoto();
+            }
+        });
 
+        cancelImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                step2PhotoFile =null;
+                previewImageLayout2.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void openCalender() {
@@ -210,25 +276,34 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         context = RegistrationBusinessAssociateActivity.this;
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         setuptoolbar();
+
+        step1Photo = (LinearLayout) findViewById(R.id.step1Photo);
+        step2Photo = (LinearLayout) findViewById(R.id.step2Photo);
         registrationLayout = (LinearLayout) findViewById(R.id.register_busi_assoc_layout);
-        uploadMsg = (TextView) findViewById(R.id.uploadMsg);
-        uploadMsg.setText("Attach Your Photo");
+        uploadMsg = (TextView) step1Photo.findViewById(R.id.uploadMsg);
+        uploadMsg2 = (TextView) step2Photo.findViewById(R.id.uploadMsg);
         step1HeaderCircle = (TextView) findViewById(R.id.step1Circle);
         step2HeaderCircle = (TextView) findViewById(R.id.step2Circle);
         step3HeaderCircle = (TextView) findViewById(R.id.step3Circle);
         step1HeaderText = (TextView) findViewById(R.id.step1HeaderText);
         step2HeaderText = (TextView) findViewById(R.id.step2HeaderText);
         step3HeaderText = (TextView) findViewById(R.id.step3HeaderText);
-        uploadImage = (ImageView) findViewById(R.id.uploadButton);
+        uploadImage = (ImageView) step1Photo.findViewById(R.id.uploadButton);
         openCalander = (ImageView) findViewById(R.id.openCalander);
-        circleImageView = (CircleImageView) findViewById(R.id.previewImage);
-        previewImageLayout = (RelativeLayout) findViewById(R.id.previewImageLayout);
-        cancelImage = (ImageView) findViewById(R.id.cancelImage);
+        circleImageView = (CircleImageView) step1Photo.findViewById(R.id.previewImage);
+        previewImageLayout = (RelativeLayout) step1Photo.findViewById(R.id.previewImageLayout);
+        cancelImage = (ImageView) step1Photo.findViewById(R.id.cancelImage);
+
+        uploadImage2 = (ImageView) step2Photo.findViewById(R.id.uploadButton);
+        circleImageView2 = (CircleImageView) step2Photo.findViewById(R.id.previewImage);
+        previewImageLayout2 = (RelativeLayout) step2Photo.findViewById(R.id.previewImageLayout);
+        cancelImage2 = (ImageView) step2Photo.findViewById(R.id.cancelImage);
         etDOB = (EditText) findViewById(R.id.et_dob);
         tvSave = (TextView) findViewById(R.id.tvSave);
         et_email = (EditText) findViewById(R.id.et_email);
         et_password = (EditText) findViewById(R.id.et_password);
         et_confirm_password = (EditText) findViewById(R.id.et_confirm_password);
+        et_ref_number = (EditText) findViewById(R.id.et_ref_number);
         et_first_name = (EditText) findViewById(R.id.et_first_name);
         et_last_name = (EditText) findViewById(R.id.et_last_name);
         et_father_name = (EditText) findViewById(R.id.et_father_name);
@@ -254,6 +329,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         step1cLayout = (CardView) findViewById(R.id.step1cLayout);
         step2Layout = (CardView) findViewById(R.id.step2Layout);
         step3Layout = (CardView) findViewById(R.id.step3Layout);
+
 
         State stateEntity_init = new State("-1", "Please Select State");
         stateList.add(stateEntity_init);
@@ -311,6 +387,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
             step1cLayout.setVisibility(View.VISIBLE);
             step2Layout.setVisibility(View.GONE);
             step3Layout.setVisibility(View.GONE);
+            uploadMsg.setText("Upload Your Photo");
         } else if (stepNo == 2) {
             setQualificationAdapter();
             setTotalExperienceAdapter();
@@ -329,6 +406,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
             step1cLayout.setVisibility(View.GONE);
             step2Layout.setVisibility(View.VISIBLE);
             step3Layout.setVisibility(View.GONE);
+            uploadMsg2.setText("Upload Your Pan card, Aadhar Card, Passport");
 
         } else if (stepNo == 3) {
             setBankListAdapter();
@@ -358,8 +436,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
 
     public void getState() {
-
-
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("type", "state");
@@ -403,8 +479,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                         public void onNothingSelected(AdapterView<?> parent) {
 
                         }
-
-
                     });
                 } else {
                     AndroidUtils.showSnackBar(registrationLayout, "State Not Found");
@@ -503,7 +577,11 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 option.inTempStorage = new byte[32 * 1024];
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
                 if (Build.VERSION.SDK_INT < 19) {
-                    imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
+                    if (stepNumber == 1) {
+                        imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
+                    } else if (stepNumber == 2) {
+                        imageForPreview2 = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
+                    }
                 } else {
                     if (data.getData() != null) {
 
@@ -514,9 +592,11 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                             if (pfd != null) {
                                 FileDescriptor fileDescriptor = pfd
                                         .getFileDescriptor();
-
-                                imageForPreview = BitmapFactory.decodeFileDescriptor(
-                                        fileDescriptor, null, option);
+                                if (stepNumber == 1) {
+                                    imageForPreview = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, option);
+                                } else if (stepNumber == 2) {
+                                    imageForPreview2 = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, option);
+                                }
                             }
                             pfd.close();
 
@@ -527,17 +607,34 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                             Log.e("IOException", e.toString());
                         }
                     } else {
-                        imageForPreview = (Bitmap) data.getExtras().get("data");
+                        if (stepNumber == 1) {
+                            imageForPreview = (Bitmap) data.getExtras().get("data");
+                        } else if (stepNumber == 2) {
+                            imageForPreview2 = (Bitmap) data.getExtras().get("data");
+                        }
                         Log.e("data_not_found", "data_not_found");
                     }
 
                 }
                 try {
                     previewImageLayout.setVisibility(View.VISIBLE);
-                    if (ImageUtils.sizeOf(imageForPreview) > 2048) {
-                        circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
-                    } else {
-                        circleImageView.setImageBitmap(imageForPreview);
+                    previewImageLayout2.setVisibility(View.VISIBLE);
+                    if(stepNumber == 1) {
+                        if (ImageUtils.sizeOf(imageForPreview) > 2048) {
+                            circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
+                            step1PhotoFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
+                        } else {
+                            circleImageView.setImageBitmap(imageForPreview);
+                            step1PhotoFile = getFile(imageForPreview);
+                        }
+                    } else if(stepNumber == 2){
+                        if (ImageUtils.sizeOf(imageForPreview2) > 2048) {
+                            circleImageView2.setImageBitmap(ImageUtils.resize(imageForPreview2, imageForPreview2.getHeight() / 2, imageForPreview2.getWidth() / 2));
+                            step2PhotoFile = getFile(ImageUtils.resize(imageForPreview2, imageForPreview2.getHeight() / 2, imageForPreview2.getWidth() / 2));
+                        } else {
+                            circleImageView2.setImageBitmap(imageForPreview2);
+                            step2PhotoFile = getFile(imageForPreview2);
+                        }
                     }
 
                 } catch (Exception e) {
@@ -766,6 +863,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 } else if (!formBusinessData.isAgreementAccepted()) {
                     putError(7);
                     step1FieldsSet++;
+                } else if(step1PhotoFile==null){
+                    showmessage("Please Upload photo");
+                    step1FieldsSet++;
                 }
                 Log.e("hi", "step1FieldsSet=" + step1FieldsSet);
 
@@ -784,6 +884,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 } else if (!(Validation.isNonEmptyStr(formBusinessData.getRelaventExperience()) &&
                         Validation.isNumber(formBusinessData.getRelaventExperience().split(" ")[0]))) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Relavent Experience");
+                    step2FieldsSet++;
+                } else if(step2PhotoFile==null){
+                    showmessage("Please Upload photo");
                     step2FieldsSet++;
                 }
                 if (step2FieldsSet == 0) {
@@ -906,13 +1009,45 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         }
     }
 
+    private File getFile(Bitmap photo) {
+        Uri tempUri = null;
+        if (photo != null) {
+            tempUri = getImageUri(RegistrationBusinessAssociateActivity.this, photo);
+        }
+        File finalFile = new File(getRealPathFromURI(tempUri));
+        Log.e("data", getRealPathFromURI(tempUri));
+
+        return finalFile;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = null;
+        int idx = 0;
+        if(uri != null) {
+            cursor = RegistrationBusinessAssociateActivity.this.getContentResolver().query(uri, null, null, null, null);
+            assert cursor != null;
+            cursor.moveToFirst();
+            idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        }
+        return cursor.getString(idx);
+    }
+
+
     public void showmessage(String message) {
         AndroidUtils.showSnackBar(registrationLayout, message);
     }
 
     @Override
     public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        showDate(year, monthOfYear+1, dayOfMonth);
+        showDate(year, monthOfYear + 1, dayOfMonth);
     }
 
     @Override

@@ -188,6 +188,7 @@
     <string name="hnt_lng">Enter Longitude</string>
     <string name="str_btn_show">Show Location in Map</string>
     <string name="your_location">Enter your Location</string>
+    <string name="ref_number">Reference Number</string>
 
 
 </resources>

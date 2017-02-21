@@ -238,146 +238,139 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private void callWebServiceForSellerRegistration() {
 
 
-
 //        Log.e("datagf", getFile(imageForPreview).getPath());
         progressBarHandler.show();
-        if(docFile != null){
-            Log.e("doc", "doc : "+docFile.getAbsolutePath());
+        if (docFile != null) {
+            Log.e("doc", "doc : " + docFile.getAbsolutePath());
         }
 
-        if(compIncorpFile != null){
-            Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
-        }
-        else {
-            Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
+        if (compIncorpFile != null) {
+            Log.e("compIncorpFile", "compIncorpFile : " + compIncorpFile.getAbsolutePath());
+        } else {
+            Log.e("compIncorpFile", "compIncorpFile : " + compIncorpFile.getAbsolutePath());
         }
 
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
 
-if(compIncorpFile.getAbsolutePath()!="/")
+        if (compIncorpFile.getAbsolutePath() != "/")
 
-{
-    Log.e("work1", "work1");
+        {
+            Log.e("work1", "work1");
 
-    Ion.with(RegistrationActivity.this)
-            .load("http://aapkatrade.com/slim/sellerregister")
-            .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
-        @Override
-        public void onProgress(long downloaded, long total) {
-            Log.e("status", downloaded + "  * " + total);
-        }
-    })
-            .setMultipartFile("company_doc", "image*//*", docFile)
-            .setMultipartFile("personal_doc", "image*//*", docFile)
-            .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
-            .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-            .setMultipartParameter("business_type", formSellerData.getBusinessType())
-            .setMultipartParameter("companyname", formSellerData.getCompanyName())
-            .setMultipartParameter("name", formSellerData.getFirstName())
-            .setMultipartParameter("lastname", formSellerData.getLastName())
-            .setMultipartParameter("dob", formSellerData.getDOB())
-            .setMultipartParameter("mobile", formSellerData.getMobile())
-            .setMultipartParameter("email", formSellerData.getEmail())
-            .setMultipartParameter("password", formSellerData.getPassword())
-            .setMultipartParameter("country_id", formSellerData.getCountryId())
-            .setMultipartParameter("state_id", formSellerData.getStateId())
-            .setMultipartParameter("city_id", formSellerData.getCityId())
-            .setMultipartParameter("client_id", formSellerData.getClientId())
-            .setMultipartParameter("shopname", formSellerData.getShopName())
-            .setMultipartParameter("tin_number", "521651")
-            .setMultipartParameter("tan_number", "13546848")
-            .setMultipartParameter("tc", "fdssd")
-            .asJsonObject()
-            .setCallback(new FutureCallback<JsonObject>() {
+            Ion.with(RegistrationActivity.this)
+                    .load("http://aapkatrade.com/slim/sellerregister")
+                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
                 @Override
-                public void onCompleted(Exception e, JsonObject result) {
-                    progressBarHandler.hide();
+                public void onProgress(long downloaded, long total) {
+                    Log.e("status", downloaded + "  * " + total);
+                }
+            })
+                    .setMultipartFile("company_doc", "image*//*", docFile)
+                    .setMultipartFile("personal_doc", "image*//*", docFile)
+                    .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
+                    .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setMultipartParameter("business_type", formSellerData.getBusinessType())
+                    .setMultipartParameter("companyname", formSellerData.getCompanyName())
+                    .setMultipartParameter("name", formSellerData.getFirstName())
+                    .setMultipartParameter("lastname", formSellerData.getLastName())
+                    .setMultipartParameter("dob", formSellerData.getDOB())
+                    .setMultipartParameter("mobile", formSellerData.getMobile())
+                    .setMultipartParameter("email", formSellerData.getEmail())
+                    .setMultipartParameter("password", formSellerData.getPassword())
+                    .setMultipartParameter("country_id", formSellerData.getCountryId())
+                    .setMultipartParameter("state_id", formSellerData.getStateId())
+                    .setMultipartParameter("city_id", formSellerData.getCityId())
+                    .setMultipartParameter("client_id", formSellerData.getClientId())
+                    .setMultipartParameter("shopname", formSellerData.getShopName())
+                    .setMultipartParameter("tin_number", "521651")
+                    .setMultipartParameter("tan_number", "13546848")
+                    .setMultipartParameter("tc", "fdssd")
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            progressBarHandler.hide();
 
 //                        Log.e("result_seller",result);
 
-                    if (result != null) {
-                        Log.e("registration_seller", result.toString());
-                            if (result.get("error").getAsString().equals("false")) {
-                                Log.e("registration_seller", "done");
-                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                            if (result != null) {
+                                Log.e("registration_seller", result.toString());
+                                if (result.get("error").getAsString().equals("false")) {
+                                    Log.e("registration_seller", "done");
+                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                    startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+
+                                } else {
+
+                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                }
 
                             }
-                            else {
 
-                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                            }
+                        }
 
-                    }
+                    });
+        } else {
+            Log.e("work2", "work2");
 
-                }
-
-            });
-}
-        else{
-    Log.e("work2", "work2");
-
-    Ion.with(RegistrationActivity.this)
-            .load("http://aapkatrade.com/slim/sellerregister")
-            .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
-        @Override
-        public void onProgress(long downloaded, long total) {
-            Log.e("status", downloaded + "  * " + total);
-        }
-    })
-            .setMultipartFile("company_doc", "image*//*", docFile)
-            .setMultipartFile("personal_doc", "image*//*", docFile)
-
-            .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-            .setMultipartParameter("business_type", formSellerData.getBusinessType())
-            .setMultipartParameter("companyname", formSellerData.getCompanyName())
-            .setMultipartParameter("name", formSellerData.getFirstName())
-            .setMultipartParameter("lastname", formSellerData.getLastName())
-            .setMultipartParameter("dob", formSellerData.getDOB())
-            .setMultipartParameter("mobile", formSellerData.getMobile())
-            .setMultipartParameter("email", formSellerData.getEmail())
-            .setMultipartParameter("password", formSellerData.getPassword())
-            .setMultipartParameter("country_id", formSellerData.getCountryId())
-            .setMultipartParameter("state_id", formSellerData.getStateId())
-            .setMultipartParameter("city_id", formSellerData.getCityId())
-            .setMultipartParameter("client_id", formSellerData.getClientId())
-            .setMultipartParameter("shopname", formSellerData.getShopName())
-            .setMultipartParameter("tin_number", "521651")
-            .setMultipartParameter("tan_number", "13546848")
-            .setMultipartParameter("tc", "fdssd")
-            .asJsonObject()
-            .setCallback(new FutureCallback<JsonObject>() {
+            Ion.with(RegistrationActivity.this)
+                    .load("http://aapkatrade.com/slim/sellerregister")
+                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
                 @Override
-                public void onCompleted(Exception e, JsonObject result) {
-                    progressBarHandler.hide();
+                public void onProgress(long downloaded, long total) {
+                    Log.e("status", downloaded + "  * " + total);
+                }
+            })
+                    .setMultipartFile("company_doc", "image*//*", docFile)
+                    .setMultipartFile("personal_doc", "image*//*", docFile)
+
+                    .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setMultipartParameter("business_type", formSellerData.getBusinessType())
+                    .setMultipartParameter("companyname", formSellerData.getCompanyName())
+                    .setMultipartParameter("name", formSellerData.getFirstName())
+                    .setMultipartParameter("lastname", formSellerData.getLastName())
+                    .setMultipartParameter("dob", formSellerData.getDOB())
+                    .setMultipartParameter("mobile", formSellerData.getMobile())
+                    .setMultipartParameter("email", formSellerData.getEmail())
+                    .setMultipartParameter("password", formSellerData.getPassword())
+                    .setMultipartParameter("country_id", formSellerData.getCountryId())
+                    .setMultipartParameter("state_id", formSellerData.getStateId())
+                    .setMultipartParameter("city_id", formSellerData.getCityId())
+                    .setMultipartParameter("client_id", formSellerData.getClientId())
+                    .setMultipartParameter("shopname", formSellerData.getShopName())
+                    .setMultipartParameter("tin_number", "521651")
+                    .setMultipartParameter("tan_number", "13546848")
+                    .setMultipartParameter("tc", "fdssd")
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            progressBarHandler.hide();
 
 //                        Log.e("result_seller",result);
 
-                    if (result != null) {
-                        Log.e("registration_seller", result.toString());
-                            if (result.get("error").getAsString().equals("false")) {
-                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                                Log.e("registration_seller", "done");
-                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                            if (result != null) {
+                                Log.e("registration_seller", result.toString());
+                                if (result.get("error").getAsString().equals("false")) {
+                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                    Log.e("registration_seller", "done");
+                                    startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                                } else {
+
+                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                }
+
+                            } else {
+                                Log.e("data", e.toString());
                             }
-                            else {
 
-                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                            }
+                        }
 
-                    } else {
-                        Log.e("data", e.toString());
-                    }
-
-                }
-
-            });
+                    });
 
 
-
-
-}
+        }
     }
 
 
@@ -403,7 +396,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
     public String getRealPathFromURI(Uri uri) {
         Cursor cursor = null;
         int idx = 0;
-        if(uri != null) {
+        if (uri != null) {
             cursor = RegistrationActivity.this.getContentResolver().query(uri, null, null, null, null);
             assert cursor != null;
             cursor.moveToFirst();
@@ -443,11 +436,10 @@ if(compIncorpFile.getAbsolutePath()!="/")
 
                                 progressBarHandler.hide();
                                 startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
-                            }
-                            else{
+                            } else {
 
                                 progressBarHandler.hide();
-                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
 
 
                             }
@@ -460,7 +452,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
 
     private void setUpBusinessCategory() {
 
-        SpBussinessAdapter spadapter=new SpBussinessAdapter(getApplicationContext(), spBussinessName);
+        SpBussinessAdapter spadapter = new SpBussinessAdapter(getApplicationContext(), spBussinessName);
 
         spBussinessCategory.setDropDownHorizontalOffset(Gravity.CENTER);
 
@@ -468,7 +460,6 @@ if(compIncorpFile.getAbsolutePath()!="/")
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
 
 
                 busiType = String.valueOf(position);
@@ -802,7 +793,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
                 } else if (!Validation.isValidNumber(formSellerData.getMobile(), Validation.getNumberPrefix(formSellerData.getMobile()))) {
                     putError(3);
                     isAllFieldSet++;
-                }  else if (!Validation.isValidPassword(formSellerData.getPassword())) {
+                } else if (!Validation.isValidPassword(formSellerData.getPassword())) {
                     putError(4);
                     isAllFieldSet++;
                 } else if (!Validation.isPasswordMatching(formSellerData.getPassword(), formSellerData.getConfirmPassword())) {
@@ -897,7 +888,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
                 showmessage("Please Enter Valid UserName");
                 break;
             case 12:
-                if(etProductName.getHint()!= null) {
+                if (etProductName.getHint() != null) {
                     if (etProductName.getHint().toString().equals("Shop Name*")) {
                         etProductName.setError("Please Enter Shop Name");
                         showmessage("Please Enter Shop Name");
@@ -957,7 +948,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.e("hi", "requestCode : "+requestCode+"result code : "+resultCode );
+        Log.e("hi", "requestCode : " + requestCode + "result code : " + resultCode);
 
         try {
             /*if (requestCode == 11) {
@@ -966,11 +957,12 @@ if(compIncorpFile.getAbsolutePath()!="/")
                 if (resultCode == Activity.RESULT_OK) {
                     isReqCode = true;
                 }
-            } else*/ if (requestCode == 1) {
-                Log.e("hi", " if else if 1 " );
+            } else*/
+            if (requestCode == 1) {
+                Log.e("hi", " if else if 1 ");
                 String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
                 File file = new File(filePath);
-                if(!filePath.equals("result_file_path")) {
+                if (!filePath.equals("result_file_path")) {
                     if (isCompIncorp) {
                         previewPDFLayout.setVisibility(View.VISIBLE);
                         previewPDF.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
@@ -984,7 +976,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
                 }
                 Log.e("hi", "pdf file path : " + file.getAbsolutePath() + "\n" + filePath);
             } else if (requestCode == 11) {
-                Log.e("hi", " if else if 2 " );
+                Log.e("hi", " if else if 2 ");
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inDither = false;
                 option.inPurgeable = true;
@@ -1030,12 +1022,12 @@ if(compIncorpFile.getAbsolutePath()!="/")
                         Log.e("doc", "if doc file path 1");
                         circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
                         docFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
-                        Log.e("doc", "if doc file path"+docFile.getAbsolutePath());
+                        Log.e("doc", "if doc file path" + docFile.getAbsolutePath());
                     } else {
                         circleImageView.setImageBitmap(imageForPreview);
                         Log.e("doc", " else doc file path 1");
                         docFile = getFile(imageForPreview);
-                        Log.e("doc", " else doc file path"+docFile.getAbsolutePath());
+                        Log.e("doc", " else doc file path" + docFile.getAbsolutePath());
                     }
 
                 } catch (Exception e) {

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
@@ -22,24 +23,24 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
+
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class PurticularActivity extends AppCompatActivity
-{
+public class PurticularActivity extends AppCompatActivity {
 
     com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     ProgressBarHandler progress_handler;
-    FrameLayout layout_container,layout_container_relativeSearch;
+    FrameLayout layout_container, layout_container_relativeSearch;
     MyRecyclerViewEffect myRecyclerViewEffect;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_categories_list);
@@ -54,12 +55,10 @@ public class PurticularActivity extends AppCompatActivity
 
         mRecyclerView = (com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect) view.findViewById(R.id.recyclerview);
 
-        findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener()
-        {
+        findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                Intent goto_search=new Intent(PurticularActivity.this,Search.class);
+            public void onClick(View v) {
+                Intent goto_search = new Intent(PurticularActivity.this, Search.class);
                 startActivity(goto_search);
                 finish();
             }
@@ -79,88 +78,74 @@ public class PurticularActivity extends AppCompatActivity
 
     }
 
-    private void get_web_data()
-    {
+    private void get_web_data() {
         // layout_container.setVisibility(View.INVISIBLE);
         productListDatas.clear();
         progress_handler.show();
 
-            Ion.with(PurticularActivity.this)
-                    .load("http://aapkatrade.com/slim/productlist")
-                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setBodyParameter("type", "product_list")
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>()
-                    {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result)
-                        {
+        Ion.with(PurticularActivity.this)
+                .load("http://aapkatrade.com/slim/productlist")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "product_list")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
 
-                            if(result == null)
-                            {
+                        if (result == null) {
+                            progress_handler.hide();
+                            layout_container.setVisibility(View.INVISIBLE);
+                        } else {
+                            JsonObject jsonObject = result.getAsJsonObject();
+
+                            String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
+
+                            String message_data = message.replace("\"", "");
+
+                            System.out.println("message_data==================" + message_data);
+
+                            if (message_data.toString().equals("No record found")) {
+
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
-                            }
-                            else
-                            {
-                                JsonObject jsonObject = result.getAsJsonObject();
 
-                                String message = jsonObject.get("message").toString().substring(0,jsonObject.get("message").toString().length());
+                            } else {
+                                JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
-                                String message_data = message.replace("\"", "");
+                                for (int i = 0; i < jsonArray.size(); i++) {
+                                    JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
-                                System.out.println("message_data=================="+message_data);
+                                    String product_id = jsonObject2.get("id").getAsString();
 
-                                if (message_data.toString().equals("No record found"))
-                                {
+                                    String product_name = jsonObject2.get("name").getAsString();
 
-                                    progress_handler.hide();
-                                    layout_container.setVisibility(View.INVISIBLE);
+                                    String product_price = jsonObject2.get("price").getAsString();
+
+                                    String product_cross_price = jsonObject2.get("cross_price").getAsString();
+
+                                    String product_image = jsonObject2.get("image_url").getAsString();
+
+                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
 
                                 }
-                                else
-                                {
-                                    JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+                                categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
+                                myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
+                                mRecyclerView.setAdapter(categoriesListAdapter);
 
-                                    for (int i = 0; i < jsonArray.size(); i++)
-                                    {
-                                        JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
+                                categoriesListAdapter.notifyDataSetChanged();
 
-                                        String product_id = jsonObject2.get("id").getAsString();
-
-                                        String product_name = jsonObject2.get("name").getAsString();
-
-                                        String product_price = jsonObject2.get("price").getAsString();
-
-                                        String product_cross_price = jsonObject2.get("cross_price").getAsString();
-
-                                        String product_image = jsonObject2.get("image_url").getAsString();
-
-                                        productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
-
-                                    }
-                                    categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
-                                    myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
-                                    mRecyclerView.setAdapter(categoriesListAdapter);
-
-                                    categoriesListAdapter.notifyDataSetChanged();
-
-                                    progress_handler.hide();
-                                }
-
+                                progress_handler.hide();
                             }
 
                         }
 
-                    });
+                    }
 
-
-
+                });
 
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -172,17 +157,14 @@ public class PurticularActivity extends AppCompatActivity
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
