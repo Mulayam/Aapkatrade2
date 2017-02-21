@@ -76,6 +76,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     TextView footer;
     RelativeLayout header;
     TextView textViewName, emailid;
+    public static TextView usertype;
     private ImageView imageViewGB;
     private ExpandableListView expListView, nested_expandablelistview;
     private ImageView edit_profile_imgview;
@@ -83,6 +84,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     public ArrayList<SubCategory> listDataChild = new ArrayList<>();
     RelativeLayout rl_category;
+
     int flag_categoryclick;
     View rl_main_content;
     private ArrayList nested_dataheader;
@@ -119,7 +121,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         //sharedprefrance
         // loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        textViewName = (TextView) view.findViewById(R.id.welcome_guest);
+        textViewName = (TextView) view.findViewById(R.id.tv_name);
+        usertype=(TextView)view.findViewById(R.id.welcome_guest) ;
         emailid = (TextView) view.findViewById(R.id.tv_email);
         // loginPrefsEditor = loginPreferences.edit();
         prepareListData();
@@ -139,6 +142,37 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             } else {
 
                 setdata(Username, Emailid);
+
+                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+
+
+
+                   usertype.setText("Welcome Bussiness Associate");
+
+
+
+
+
+                }
+                else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
+
+                    usertype.setText("Welcome Buyer");
+
+
+
+                }
+                else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1")))
+                {
+
+
+                 usertype.setText("Welcome Seller");
+
+
+                }
+
+
+
+
             }
         } else {
             Log.e("Shared_pref1", "null");
@@ -211,7 +245,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-                rl_main_content.setBackgroundColor(Color.parseColor("#ffffff"));
+               // rl_main_content.setBackgroundColor(Color.parseColor("#ffffff"));
 
             }
 

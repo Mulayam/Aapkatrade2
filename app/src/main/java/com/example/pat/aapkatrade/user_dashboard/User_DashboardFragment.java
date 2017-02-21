@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
@@ -120,6 +121,7 @@ public class User_DashboardFragment extends Fragment
 
                     tvUserType.setText("Welcome Bussiness Associate");
 
+
                 } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
                     dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false));
                     dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false));
@@ -127,6 +129,7 @@ public class User_DashboardFragment extends Fragment
                     dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstprdct, R.drawable.circle_cherry_red, true));
 
                     tvUserType.setText("Welcome Buyer");
+
 
                 } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
@@ -143,10 +146,11 @@ public class User_DashboardFragment extends Fragment
 
                     if (Username.toString().equals("notlogin")) {
                         tvUserType.setText("Welcome Guest");
-
+                        NavigationFragment.usertype.setText("Welcome Guest");
 
                     } else {
                         tvUserType.setText("Welcome Seller");
+
                     }
 
                 }
