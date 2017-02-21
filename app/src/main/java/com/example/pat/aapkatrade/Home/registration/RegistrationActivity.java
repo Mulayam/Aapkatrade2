@@ -245,9 +245,12 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         if(docFile != null){
             Log.e("doc", "doc : "+docFile.getAbsolutePath());
         }
+        else{
+
+        }
 
         if(compIncorpFile != null){
-            Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
+            Log.e("compIncorpFilenot null", "compIncorpFile :"+"****"+compIncorpFile.getAbsolutePath());
         }
         else {
             Log.e("compIncorpFile", "compIncorpFile : "+compIncorpFile.getAbsolutePath());
@@ -256,7 +259,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
         Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
 
-if(compIncorpFile.getAbsolutePath()!="/")
+if(formSellerData.getBusinessType().contains("1"))
 
 {
     Log.e("work1", "work1");
@@ -270,7 +273,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
         }
     })
             .setMultipartFile("company_doc", "image*//*", docFile)
-            .setMultipartFile("personal_doc", "image*//*", docFile)
+            //.setMultipartFile("personal_doc", "image*//*", docFile)
             .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
             .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
             .setMultipartParameter("business_type", formSellerData.getBusinessType())
@@ -313,7 +316,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
                     }
                     else{
 
-                        Log.e("result_seller_error",result.toString());
+                        Log.e("result_seller_error",e.toString());
                     }
 
                 }
@@ -331,7 +334,7 @@ if(compIncorpFile.getAbsolutePath()!="/")
             Log.e("status", downloaded + "  * " + total);
         }
     })
-            .setMultipartFile("company_doc", "image*//*", docFile)
+            //.setMultipartFile("company_doc", "image*//*", docFile)
             .setMultipartFile("personal_doc", "image*//*", docFile)
 
             .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
