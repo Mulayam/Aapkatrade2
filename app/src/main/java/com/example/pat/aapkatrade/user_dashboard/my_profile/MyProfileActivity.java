@@ -256,7 +256,6 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     }
 
-
     private void setuptoolbar()
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

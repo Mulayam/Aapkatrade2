@@ -149,7 +149,6 @@
                     android:layout_height="0.7dp"
                     android:background="#E1E1E1"
                     android:layout_below="@+id/relativedata"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="65dp"
                     ></View>
 
@@ -202,7 +201,6 @@
                     android:layout_height="0.7dp"
                     android:background="#E1E1E1"
                     android:layout_below="@+id/relativedata"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="65dp"
                     ></View>
 

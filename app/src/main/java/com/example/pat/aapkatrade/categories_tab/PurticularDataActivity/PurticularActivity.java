@@ -139,7 +139,7 @@ public class PurticularActivity extends AppCompatActivity
                                         productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
 
                                     }
-                                    categoriesListAdapter = new CategoriesListAdapter(getApplicationContext(), productListDatas);
+                                    categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
                                     myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
                                     mRecyclerView.setAdapter(categoriesListAdapter);
 
