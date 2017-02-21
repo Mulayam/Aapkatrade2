@@ -181,18 +181,18 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 */
 
                         if (result != null) {
-                                Log.e("registration_seller", result.toString());
-                                if (result.get("error").getAsString().equals("false")) {
-                                    Log.e("registration_seller", "done");
-                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                                    startActivity(new Intent(RegistrationBusinessAssociateActivity.this, ActivityOTPVerify.class));
+                            Log.e("registration_seller", result.toString());
+                            if (result.get("error").getAsString().equals("false")) {
+                                Log.e("registration_seller", "done");
+                                AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                startActivity(new Intent(RegistrationBusinessAssociateActivity.this, ActivityOTPVerify.class));
 
-                                } else {
+                            } else {
 
-                                    showmessage(result.get("message").getAsString());
-                                }
-
+                                showmessage(result.get("message").getAsString());
                             }
+
+                        }
                     }
 
                 });
@@ -565,13 +565,11 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
 
         try {
-            if (reqCode == requestCode)
-            {
+            if (reqCode == requestCode) {
                 if (resultCode == Activity.RESULT_OK) {
                     isReqCode = true;
                 }
-            }
-            else if (resultCode == Activity.RESULT_OK) {
+            } else if (resultCode == Activity.RESULT_OK) {
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inDither = false;
                 option.inPurgeable = true;
@@ -620,7 +618,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 }
                 try {
                     previewImageLayout.setVisibility(View.VISIBLE);
-
                     previewImageLayout2.setVisibility(View.VISIBLE);
                     if(stepNumber == 1) {
                         if (ImageUtils.sizeOf(imageForPreview) > 2048) {
@@ -638,13 +635,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                             circleImageView2.setImageBitmap(imageForPreview2);
                             step2PhotoFile = getFile(imageForPreview2);
                         }
-
-                    if (ImageUtils.sizeOf(imageForPreview) > 2048)
-                    {
-                        circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
-                    } else {
-                        circleImageView.setImageBitmap(imageForPreview);
-
                     }
 
                 } catch (Exception e) {
