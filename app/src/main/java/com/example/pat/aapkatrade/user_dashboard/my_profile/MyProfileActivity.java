@@ -133,7 +133,6 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
                 System.out.println("et-----------"+et);
 
-
                 if (!Validation.isEmptyStr(etFName.getText().toString()))
                 {
 
@@ -233,6 +232,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
                         if(result == null)
                         {
+
 
 
                         }

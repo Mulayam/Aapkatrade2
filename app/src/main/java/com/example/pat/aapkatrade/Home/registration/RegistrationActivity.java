@@ -295,27 +295,28 @@ if(formSellerData.getBusinessType().contains("1"))
             .asJsonObject()
             .setCallback(new FutureCallback<JsonObject>() {
                 @Override
-                public void onCompleted(Exception e, JsonObject result) {
+                public void onCompleted(Exception e, JsonObject result)
+                {
                     progressBarHandler.hide();
 
-//                        Log.e("result_seller",result);
+                     // Log.e("result_seller",result);
+                      if (result != null)
+                      {
+                            Log.e("registration_seller", result.toString());
+                            if (result.get("error").getAsString().equals("false"))
+                            {
 
-                    if (result != null) {
-                        Log.e("registration_seller", result.toString());
-                            if (result.get("error").getAsString().equals("false")) {
                                 Log.e("registration_seller", "done");
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                                 startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
-
                             }
-                            else {
-
+                            else
+                            {
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                             }
-
                     }
-                    else{
-
+                    else
+                    {
                         Log.e("result_seller_error",e.toString());
                     }
 
@@ -475,9 +476,8 @@ if(formSellerData.getBusinessType().contains("1"))
         spBussinessCategory.setAdapter(spadapter);
         spBussinessCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
 
                 busiType = String.valueOf(position);
                 if (position == 0) {
@@ -763,6 +763,10 @@ if(formSellerData.getBusinessType().contains("1"))
         cityList.add(cityEntity_init);
         SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
         spCity.setAdapter(spCityAdapter);
+
+
+
+
     }
 
     private void validateFields(String userType) {
@@ -962,7 +966,8 @@ if(formSellerData.getBusinessType().contains("1"))
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
         Log.e("hi", "requestCode : "+requestCode+"result code : "+resultCode );
@@ -974,24 +979,35 @@ if(formSellerData.getBusinessType().contains("1"))
                 if (resultCode == Activity.RESULT_OK) {
                     isReqCode = true;
                 }
-            } else*/ if (requestCode == 1) {
+            } else*/
+            if (requestCode == 1)
+            {
+
                 Log.e("hi", " if else if 1 " );
                 String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
                 File file = new File(filePath);
-                if(!filePath.equals("result_file_path")) {
-                    if (isCompIncorp) {
+                if(!filePath.equals("result_file_path"))
+                {
+                    if (isCompIncorp)
+                    {
                         previewPDFLayout.setVisibility(View.VISIBLE);
                         previewPDF.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
                         compIncorpFile = file;
                         isCompIncorp = false;
-                    } else {
+                    }
+                    else
+                    {
                         previewImageLayout.setVisibility(View.VISIBLE);
                         circleImageView.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
                         docFile = file;
                     }
                 }
                 Log.e("hi", "pdf file path : " + file.getAbsolutePath() + "\n" + filePath);
-            } else if (requestCode == 11) {
+
+
+            }
+            else if (requestCode == 11)
+            {
                 Log.e("hi", " if else if 2 " );
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inDither = false;
@@ -1003,19 +1019,22 @@ if(formSellerData.getBusinessType().contains("1"))
 //                    Uri selectedImageURI = data.getData();
 
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
-                } else {
-                    if (data.getData() != null) {
+                }
+                else
+                {
+                    if (data.getData() != null)
+                    {
 
                         ParcelFileDescriptor pfd;
-                        try {
+                        try
+                        {
                             pfd = getContentResolver()
                                     .openFileDescriptor(data.getData(), "r");
-                            if (pfd != null) {
-                                FileDescriptor fileDescriptor = pfd
-                                        .getFileDescriptor();
+                            if (pfd != null)
+                            {
+                                FileDescriptor fileDescriptor = pfd.getFileDescriptor();
 
-                                imageForPreview = BitmapFactory.decodeFileDescriptor(
-                                        fileDescriptor, null, option);
+                                imageForPreview = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, option);
                             }
                             pfd.close();
 

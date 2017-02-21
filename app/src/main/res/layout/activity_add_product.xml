@@ -14,7 +14,6 @@
         android:layout_weight="13"
         android:orientation="vertical">
 
-
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_layout" />
@@ -43,7 +42,6 @@
             android:text="@string/save_and_next"
             android:textColor="@color/white"
             android:textSize="@dimen/textsize_medium" />
-
 
     </RelativeLayout>
 

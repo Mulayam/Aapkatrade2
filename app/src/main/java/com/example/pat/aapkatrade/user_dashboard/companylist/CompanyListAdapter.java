@@ -101,9 +101,9 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v)
             {
 
-                Intent i = new Intent(context, CompanyDetailActivity.class);
+             /*   Intent i = new Intent(context, CompanyDetailActivity.class);
                 context.startActivity(i);
-
+*/
 
             }
         });

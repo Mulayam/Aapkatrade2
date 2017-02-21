@@ -38,7 +38,8 @@ public class User_DashboardFragment extends Fragment
 
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
 
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
 
@@ -87,16 +88,20 @@ public class User_DashboardFragment extends Fragment
             }
         });
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
+        {
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
 
-            if (Username.toString().equals("notlogin")) {
+            if (Username.toString().equals("notlogin"))
+            {
 
                 textViewName.setText("");
                 tvEmail.setText("");
 
-            } else {
+            }
+            else
+            {
                 textViewName.setText(Username);
                 tvEmail.setText(Emailid);
 
