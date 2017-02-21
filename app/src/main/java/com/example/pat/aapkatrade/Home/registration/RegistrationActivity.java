@@ -244,6 +244,9 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         if(docFile != null){
             Log.e("doc", "doc : "+docFile.getAbsolutePath());
         }
+        else{
+
+        }
 
         if(compIncorpFile != null){
             Log.e("compIncorpFilenot null", "compIncorpFile :"+"****"+compIncorpFile.getAbsolutePath());
