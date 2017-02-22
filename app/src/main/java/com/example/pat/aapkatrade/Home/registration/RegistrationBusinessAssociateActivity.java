@@ -135,11 +135,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                     }
                 })
                 .setMultipartFile("photo", "image/jpg", step1PhotoFile)
-                .setMultipartFile("id_proof", "image/jpg", step2PhotoFile)
+                .setMultipartFile("id_proof", "image/jpeg", step2PhotoFile)
                 .setMultipartParameter("authorization", webservice_header_type.get("authorization"))
                 .setMultipartParameter("business_type", "3")
-                .setMultipartParameter("id_proof", "photo")
-                .setMultipartParameter("photo", "fs")
                 .setMultipartParameter("email", formBusinessData.getEmail())
                 .setMultipartParameter("password", formBusinessData.getPassword())
                 .setMultipartParameter("confirm_password", formBusinessData.getConfirmPassword())
@@ -168,16 +166,16 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 .setMultipartParameter("register_mobile", formBusinessData.getRegisteredMobileWithBank())
                 .setMultipartParameter("client_id", App_config.getCurrentDeviceId(RegistrationBusinessAssociateActivity.this))
                 .asJsonObject()
+//                .asString()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                       /* if (result != null) {
+                        /*if (result != null) {
                             Log.e("result", result);
 
                         } else {
                             Log.e("result_error", e.toString());
                         }
-
 */
 
                         if (result != null) {

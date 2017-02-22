@@ -94,7 +94,7 @@ public class User_DashboardFragment extends Fragment
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
 
-            if (Username.toString().equals("notlogin"))
+            if (Username.equals("notlogin"))
             {
 
                 textViewName.setText("");

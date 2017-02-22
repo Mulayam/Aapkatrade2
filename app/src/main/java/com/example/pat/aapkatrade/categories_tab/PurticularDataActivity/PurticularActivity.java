@@ -132,7 +132,7 @@ public class PurticularActivity extends AppCompatActivity {
                                     mRecyclerView.setAdapter(categoriesListAdapter);
 
 
-                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
+//                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
 
                                 }
                                 categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
@@ -146,7 +146,7 @@ public class PurticularActivity extends AppCompatActivity {
 
                         }
 
-                    }
+
 
                 });
 
