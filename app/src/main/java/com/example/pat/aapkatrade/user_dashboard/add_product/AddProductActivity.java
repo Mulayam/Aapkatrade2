@@ -70,18 +70,19 @@ public class AddProductActivity extends AppCompatActivity
 
     private Context context;
     private LinearLayout contentAddProduct, add_product_root_container;
-    private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance;
-    private String countryID = "101", stateID, cityID, companyID, categoryID, subCategoryID, deliveryDistanceID;
+    private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance, spUnit;
+    private String countryID = "101", stateID, cityID, companyID, categoryID, subCategoryID, deliveryDistanceID, unit;
     private HashMap<String, String> webservice_header_type = new HashMap<>();
     private ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     private ArrayList<SubCategory> listDataChild = new ArrayList<>();
     private ArrayList<State> stateList = new ArrayList<>();
-    private ArrayList<City> cityList = new ArrayList<>();
+    private ArrayList<City> cityList = new ArrayList<>(), unitList = new ArrayList<>();
     private ArrayList<String> deliveryDistanceList = new ArrayList<>();
     private ArrayList<CompanyData> companyNames = new ArrayList<>();
     private ProgressBarHandler progressBar;
     private App_sharedpreference app_sharedpreference;
     private TextView btnUpload;
+    private int count = -1;
     private EditText etProductName, etDeliverLocation, etPrice, etCrossedPrice, etDescription;
     ImageView uploadButton;
     File docFile = new File("");
@@ -111,6 +112,7 @@ public class AddProductActivity extends AppCompatActivity
         {
             @Override
             public void onClick(View v) {
+                count++;
                 callAddProductWebService();
             }
         });
@@ -155,7 +157,7 @@ public class AddProductActivity extends AppCompatActivity
 
         }
 
-        Log.e("files_image",files_image.toString());
+        Log.e("files_image","  ==>   "+productImagesDatas.size());
 
         Log.e("company result", app_sharedpreference.getsharedpref("userid", "0"));
 
@@ -186,7 +188,7 @@ public class AddProductActivity extends AppCompatActivity
                     public void onCompleted(Exception e, String result)
                     {
                         progressBar.hide();
-                        Log.e("company result", result.toString());
+                        Log.e("company result", "Result"+result);
 
                        /* if (result != null && result.get("message").getAsString().equals("Product Added Successfully!"))
                         {
@@ -234,6 +236,7 @@ public class AddProductActivity extends AppCompatActivity
         spState = (Spinner) findViewById(R.id.spState);
         spCity = (Spinner) findViewById(R.id.spCity);
         spdeliverydistance = (Spinner) findViewById(R.id.spDeliverydistance);
+        spUnit = (Spinner) findViewById(R.id.spUnit);
 
         btnUpload = (TextView) findViewById(R.id.btnUpload);
         btnUpload.setText("Add");
@@ -248,6 +251,7 @@ public class AddProductActivity extends AppCompatActivity
         getCompany();
         getCategory();
         getState();
+        getUnit();
         pickDeliveryLocation();
     }
 
@@ -270,6 +274,11 @@ public class AddProductActivity extends AppCompatActivity
         cityList.add(cityEntity_init);
         SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
         spCity.setAdapter(spCityAdapter);
+
+        City unitEntity_init = new City("-1", "Please Select Unit");
+        unitList.add(unitEntity_init);
+        SpCityAdapter spUnitAdapter = new SpCityAdapter(context, unitList);
+        spUnit.setAdapter(spUnitAdapter);
     }
 
     private void getCompany() {
@@ -308,6 +317,8 @@ public class AddProductActivity extends AppCompatActivity
                                         if(position>0){
                                             companyID = companyNames.get(position).getCompanyId();
                                         } else {
+                                            Log.e("hi***", String.valueOf(count));
+                                            if(count>=0)
                                             showMessage("Invalid Company");
                                         }
                                     }
@@ -463,7 +474,7 @@ public class AddProductActivity extends AppCompatActivity
                     @Override
                     public void onCompleted(Exception e, JsonObject data) {
                         progressBar.hide();
-                        Log.e("data", "getCategory result" + data.toString());
+//                        Log.e("data", "getCategory result" + data.toString());
                         if (data != null) {
                             JsonObject jsonObject = data.getAsJsonObject();
                             JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
@@ -542,6 +553,43 @@ public class AddProductActivity extends AppCompatActivity
         });
 
     }
+
+
+    private void getUnit(){
+        Ion.with(context)
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", webservice_header_type.get("authorization"))
+                .setBodyParameter("authorization", webservice_header_type.get("authorization"))
+                .setBodyParameter("type", "unit")
+                .asJsonObject()
+//                .asString()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+//                        Log.e("hi******", result);
+                        unitList = new ArrayList<>();
+                        if(result != null){
+                            JsonArray jsonArray = result.getAsJsonArray("result");
+                            unitList = new ArrayList<>();
+                            unitList.add(new City("-1", "Please Select Unit"));
+                            if(jsonArray!=null) {
+                                for (int i = 0; i < jsonArray.size(); i++) {
+                                    JsonObject jsonObject = (JsonObject) jsonArray.get(i);
+                                    City unit = new City(jsonObject.get("id").getAsString(), jsonObject.get("name").getAsString());
+                                    unitList.add(unit);
+                                }
+                            }
+
+                            spUnit.setAdapter(new SpCityAdapter(context, unitList));
+
+
+                        } else {
+                            showMessage("Unit Not loaded");
+                        }
+                    }
+                });
+    }
+
 
     private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
