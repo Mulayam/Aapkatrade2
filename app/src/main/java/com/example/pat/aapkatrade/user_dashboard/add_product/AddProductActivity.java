@@ -94,6 +94,7 @@ public class AddProductActivity extends AppCompatActivity
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -145,10 +146,11 @@ public class AddProductActivity extends AppCompatActivity
 
     private void callAddProductWebService()
     {
-
         progressBar.show();
+
         for (int i = 0; i <productImagesDatas.size(); i++)
         {
+
             files_image.add(new FilePart("image[]", savebitmap(productImagesDatas.get(i).image_path)));
 
         }
@@ -156,6 +158,7 @@ public class AddProductActivity extends AppCompatActivity
         Log.e("files_image",files_image.toString());
 
         Log.e("company result", app_sharedpreference.getsharedpref("userid", "0"));
+
         Ion.with(context)
                 .load("http://aapkatrade.com/slim/add_product")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -185,7 +188,6 @@ public class AddProductActivity extends AppCompatActivity
                         progressBar.hide();
                         Log.e("company result", result.toString());
 
-
                        /* if (result != null && result.get("message").getAsString().equals("Product Added Successfully!"))
                         {
                             //AddProductActivity.this.finish();
@@ -194,8 +196,6 @@ public class AddProductActivity extends AppCompatActivity
                         {
                             showMessage("Company Not Found");
                         }*/
-
-
 
                     }
                 });

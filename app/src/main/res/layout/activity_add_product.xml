@@ -32,7 +32,7 @@
         android:layout_alignParentBottom="true"
         android:layout_weight="1"
         android:background="@color/orange"
-        android:padding="10dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/btnUpload"
