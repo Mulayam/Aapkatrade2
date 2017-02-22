@@ -19,15 +19,15 @@ public class ProductImagesHolder extends RecyclerView.ViewHolder
 {
 
     View view;
-    ImageView previewImage;
-
+    de.hdodenhof.circleimageview.CircleImageView previewImage;
+    ImageView cancelImage;
 
     public ProductImagesHolder(View itemView)
     {
         super(itemView);
 
-        previewImage = (ImageView) itemView.findViewById(R.id.previewImage);
-
+        previewImage = (de.hdodenhof.circleimageview.CircleImageView) itemView.findViewById(R.id.previewImage);
+        cancelImage = (ImageView) itemView.findViewById(R.id.cancelImage);
         view = itemView;
     }
 }
