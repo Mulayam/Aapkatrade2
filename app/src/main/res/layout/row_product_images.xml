@@ -21,7 +21,7 @@
             android:scaleType="fitXY"
             android:src="@drawable/cross" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/previewImage"
             android:layout_width="@dimen/hundred_dip"
             android:layout_height="@dimen/hundred_dip"
