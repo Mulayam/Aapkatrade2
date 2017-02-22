@@ -42,11 +42,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
 
     private Context _context;
     private ArrayList<CategoryHome> _listDataHeader;
-    private ArrayList<SubCategory>_listdata_subcategory;
+
     private clickListner click;
-    public static ToggleButton tg_button;
+
     ProgressDialog _progressDialog;
-    int randomStr;
+
 
 
 
@@ -176,15 +176,15 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter implements 
         else {
             imageView.setImageResource(R.drawable.ic_keyboard_arrow_down_white_24dp);
 
-            if (isExpanded) {
-                imageView.setImageResource(R.drawable.ic_chevron_grey);
-                convertView.setBackgroundResource(R.color.grey_light);
-               // notifyDataSetChanged();
-                Log.e("call notify","call notify");
-            } else {
-                imageView.setImageResource(R.drawable.ic_chevron_grey);
-               // notifyDataSetChanged();
-            }
+//            if (isExpanded) {
+//                imageView.setImageResource(R.drawable.ic_chevron_grey);
+//                convertView.setBackgroundResource(R.color.navigation_child_color);
+//               // notifyDataSetChanged();
+//                Log.e("call notify","call notify");
+//            } else {
+//                imageView.setImageResource(R.drawable.ic_chevron_grey);
+//               // notifyDataSetChanged();
+//            }
         }
 
         TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);

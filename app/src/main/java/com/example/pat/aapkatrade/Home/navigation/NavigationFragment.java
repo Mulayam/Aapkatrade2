@@ -11,8 +11,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -81,6 +84,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private ExpandableListView expListView, nested_expandablelistview;
     private ImageView edit_profile_imgview;
     private ExpandableListAdapter listAdapter;
+    private CommonAdapter_navigation_recycleview category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     public ArrayList<SubCategory> listDataChild = new ArrayList<>();
     RelativeLayout rl_category;
@@ -91,7 +95,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     //public NestedScrollView navigation_parent_scrollview;
     ProgressBarHandler progressBarHandler;
     private static String shared_pref_name = "aapkatrade";
-
+    RecyclerView navigation_recycleview;
+    LinearLayoutManager navigation_linear_layout_manager;
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -126,8 +131,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         emailid = (TextView) view.findViewById(R.id.tv_email);
         // loginPrefsEditor = loginPreferences.edit();
         prepareListData();
+        navigation_linear_layout_manager=  new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        navigation_recycleview=(RecyclerView)this.view.findViewById(R.id.recycle_view_navigation);
+        navigation_recycleview.setLayoutManager(navigation_linear_layout_manager);
+
         expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
         rl_category = (RelativeLayout) this.view.findViewById(R.id.rl_category);
+
 
         //navigation_parent_scrollview=(NestedScrollView)this.view.findViewById(R.id.navigation_parent_scrollview);
 
@@ -232,7 +242,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 rl_main_content = getActivity().findViewById(R.id.rl_main_content);
                 rl_main_content.setBackgroundColor(Color.parseColor("#33000000"));
                 hideSoftKeyboard(getActivity());
-                mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+               // mDrawerLayout.setScrimColor(Color.TRANSPARENT);
                 super.onDrawerOpened(drawerView);
                 if (!mUserLearnedDrawer) {
                     mUserLearnedDrawer = true;
@@ -448,7 +458,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
                 }
-
+set_recycleview_adapter();
 
                 set_expandable_adapter_data();
 
@@ -457,6 +467,19 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             //        dialog.show();
 
         };
+
+
+    }
+
+    private void set_recycleview_adapter() {
+
+
+        if (listDataHeader.size() != 0)
+        {
+            category_adapter=new CommonAdapter_navigation_recycleview(context,listDataHeader);
+            navigation_recycleview.setAdapter(category_adapter);
+
+        }
 
 
     }
@@ -479,18 +502,18 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 //                expListView.expandGroup(i);
 //            setListViewHeight(expListView);
 
-            expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener()
-            {
-                @Override
-                public void onGroupExpand(int groupPosition)
-                {
-                    if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition)
-                    {
-                        expListView.collapseGroup(lastExpandedPosition);
-                    }
-                    lastExpandedPosition = groupPosition;
-                }
-            });
+//            expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener()
+//            {
+//                @Override
+//                public void onGroupExpand(int groupPosition)
+//                {
+//                    if (lastExpandedPosition != -1 && groupPosition != lastExpandedPosition)
+//                    {
+//                        expListView.collapseGroup(lastExpandedPosition);
+//                    }
+//                    lastExpandedPosition = groupPosition;
+//                }
+//            });
             listAdapter.setClickListner(this);
 
 
