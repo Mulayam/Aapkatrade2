@@ -1,21 +1,21 @@
-package com.example.pat.aapkatrade.user_dashboard.order_list;
+package com.example.pat.aapkatrade.user_dashboard.order_list.complete_order;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListAdapter;
-import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -23,8 +23,10 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class OrderActivity extends AppCompatActivity
+
+public class CompleteOrderFragment extends Fragment
 {
+
 
     ArrayList<OrderListData> orderListDatas = new ArrayList<>();
     RecyclerView order_list;
@@ -35,70 +37,33 @@ public class OrderActivity extends AppCompatActivity
     String user_id;
 
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_complete_order, container, false);
 
-        setContentView(R.layout.activity_order);
+        progress_handler = new ProgressBarHandler(getActivity());
 
-        setuptoolbar();
-
-        progress_handler = new ProgressBarHandler(this);
-
-
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new App_sharedpreference(getActivity());
 
         user_id = app_sharedpreference.getsharedpref("userid","");
 
-        setup_layout();
+        setup_layout(view);
 
         get_web_data();
 
+        return view;
 
     }
 
-
-    private void setup_layout()
+    private void setup_layout(View view)
     {
-        layout_container = (LinearLayout) findViewById(R.id.layout_container);
+        layout_container = (LinearLayout) view.findViewById(R.id.layout_container);
 
-        order_list = (RecyclerView) findViewById(R.id.order_list);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        order_list = (RecyclerView) view.findViewById(R.id.order_list);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         order_list.setLayoutManager(mLayoutManager);
-    }
-
-    private void setuptoolbar()
-    {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-       // getSupportActionBar().setIcon(R.drawable.home_logo);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.user, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 
@@ -108,21 +73,18 @@ public class OrderActivity extends AppCompatActivity
         orderListDatas.clear();
         progress_handler.show();
 
-        Ion.with(OrderActivity.this)
+        Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("seller_id","3")
-                .setBodyParameter("type","1")
+                .setBodyParameter("type","3")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
                     @Override
                     public void onCompleted(Exception e, JsonObject result)
                     {
-
-                        System.out.println("jsonObject-------------"+result.toString());
-
                         if(result == null)
                         {
                             progress_handler.hide();
@@ -131,7 +93,6 @@ public class OrderActivity extends AppCompatActivity
                         else
                         {
                             JsonObject jsonObject = result.getAsJsonObject();
-
 
                             String message = jsonObject.get("message").toString().substring(0,jsonObject.get("message").toString().length());
 
@@ -143,11 +104,9 @@ public class OrderActivity extends AppCompatActivity
                             {
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
-
                             }
                             else
                             {
-
                                 JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
 
                                 System.out.println("jsonOblect-------------"+jsonObject1.toString());
@@ -180,15 +139,10 @@ public class OrderActivity extends AppCompatActivity
 
                                 }
 
-                                orderListAdapter = new OrderListAdapter(getApplicationContext(), orderListDatas);
-
+                                orderListAdapter = new OrderListAdapter(getActivity(), orderListDatas);
                                 order_list.setAdapter(orderListAdapter);
-
                                 orderListAdapter.notifyDataSetChanged();
-
                                 progress_handler.hide();
-
-
                             }
 
                             //   layout_container.setVisibility(View.VISIBLE);
@@ -196,7 +150,7 @@ public class OrderActivity extends AppCompatActivity
 
                     }
                 });
-
     }
+
 
 }

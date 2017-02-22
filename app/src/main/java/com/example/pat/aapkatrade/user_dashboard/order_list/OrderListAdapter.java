@@ -51,6 +51,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         OrderListHolder homeHolder = (OrderListHolder) holder;
 
+        homeHolder.tvOrderId.setText(itemList.get(position).order_id);
+
+        homeHolder.tvProductName.setText(itemList.get(position).product_name);
+
         homeHolder.relativeOrderlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

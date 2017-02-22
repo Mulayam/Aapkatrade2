@@ -30,7 +30,9 @@ public class ProductImages extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Bitmap imageForPreview;
 
 
-    public ProductImages(Context context, List<ProductImagesData> itemList) {
+    public ProductImages(Context context, List<ProductImagesData> itemList)
+    {
+
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);

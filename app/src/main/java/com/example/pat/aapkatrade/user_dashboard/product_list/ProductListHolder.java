@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.product_list;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ public class ProductListHolder extends RecyclerView.ViewHolder
     View view;
     TextView tvProductName,tvCategoriesName,tvProductPrice;
     LinearLayout linearlayout1;
+    ImageView imgProduct;
 
 
     public ProductListHolder(View itemView)
@@ -29,6 +31,8 @@ public class ProductListHolder extends RecyclerView.ViewHolder
         tvCategoriesName = (TextView) itemView.findViewById(R.id.tvCategoriesName);
 
         tvProductPrice = (TextView)  itemView.findViewById(R.id.tvProductPrice);
+
+        imgProduct = (ImageView) itemView.findViewById(R.id.imgProduct);
 
         view = itemView;
     }

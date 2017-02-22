@@ -6,14 +6,19 @@ package com.example.pat.aapkatrade.user_dashboard.order_list;
 
 public class OrderListData
 {
-    String order_id, product_name, product_creation_date;
+    String order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name;
 
-    OrderListData(String order_id, String product_name, String product_creation_date)
+    public OrderListData(String order_id, String product_name, String product_price, String product_qty, String address, String email, String buyersmobile, String buyersname, String company_name)
     {
         this.order_id = order_id;
         this.product_name = product_name;
-        this.product_creation_date = product_creation_date;
-
+        this.product_price = product_price;
+        this.product_qty = product_qty;
+        this.address = address;
+        this.email = email;
+        this.buyersmobile = buyersmobile;
+        this.buyersname = buyersname;
+        this.company_name = company_name;
     }
 }
 
