@@ -15,6 +15,7 @@ import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
 import com.example.pat.aapkatrade.user_dashboard.product_list.listproduct_detail.ListProductDetailActivity;
+import com.koushikdutta.ion.Ion;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,6 +64,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         homeHolder.tvCategoriesName.setText(itemList.get(position).category_name);
 
+        Ion.with(homeHolder.imgProduct).load(itemList.get(position).product_image);
 
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
         {
@@ -74,7 +76,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             }
         });
-
 
 
 

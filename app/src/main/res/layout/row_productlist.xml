@@ -24,13 +24,18 @@
             android:gravity="center"
             android:layout_weight="4.3"
             android:layout_gravity="center"
-            android:padding="10dp">
+            android:padding="10dp"
+
+            >
 
             <ImageView
+                android:id="@+id/imgProduct"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/footweer" />
+                android:src="@drawable/footweer"
+                android:background="@drawable/spinner_green_back2"
+                />
 
         </LinearLayout>
 

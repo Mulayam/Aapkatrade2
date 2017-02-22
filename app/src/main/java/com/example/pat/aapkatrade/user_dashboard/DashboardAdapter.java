@@ -20,6 +20,7 @@ import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
+import com.example.pat.aapkatrade.user_dashboard.order_list.OrderManagementActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 import com.squareup.picasso.Picasso;
 
@@ -191,7 +192,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     } else {
 
-                        Intent list_product = new Intent(context, CategoriesTabActivity.class);
+                        Intent list_product = new Intent(context, OrderManagementActivity.class);
                         context.startActivity(list_product);
 
                     }

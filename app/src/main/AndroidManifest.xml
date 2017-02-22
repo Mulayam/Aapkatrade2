@@ -103,7 +103,8 @@
         <activity android:name=".search.Search" />
         <activity android:name=".user_dashboard.vender_detail.VendorActivity" />
         <activity android:name=".map.GoogleMapActivity" />
-        <activity android:name=".categories_tab.PurticularDataActivity.PurticularActivity"></activity>
+        <activity android:name=".categories_tab.PurticularDataActivity.PurticularActivity" />
+        <activity android:name=".user_dashboard.order_list.OrderManagementActivity"></activity>
     </application>
 
 </manifest>
