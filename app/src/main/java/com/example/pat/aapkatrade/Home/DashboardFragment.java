@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -71,7 +72,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private StikkyHeaderBuilder.ScrollViewBuilder stikkyHeader;
     RelativeLayout view_all_latest_post, view_all_latest_update;
     ViewPager vp;
-    ScrollView scrollView;
+    NestedScrollView scrollView;
     Timer banner_timer = new Timer();
     CoordinatorLayout coordinatorLayout;
     GridLayoutManager gridLayoutManager;
@@ -175,7 +176,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         recyclerlatestpost.setLayoutManager(llManagerEclipseCollection);
 
 
-        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
 
         recyclerlatestupdate = (RecyclerView) view.findViewById(R.id.recyclerlatestupdate);
         if(Tabletsize.isTablet(getActivity()))
