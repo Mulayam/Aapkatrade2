@@ -416,7 +416,6 @@ public class HomeActivity extends AppCompatActivity
                         if (homeFragment == null)
                         {
                             homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
-
                         }
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
@@ -437,9 +436,14 @@ public class HomeActivity extends AppCompatActivity
                         {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
-                        String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
-                        replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
-                        showOrHideBottomNavigation(true);
+                        if(app_sharedpreference.getsharedpref("username", "not").equals("notlogin")){
+//                            startActivity();
+                        } else {
+                            String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
+                            replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
+                            showOrHideBottomNavigation(true);
+                        }
+
                         break;
 
                     case 4:
