@@ -48,7 +48,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         View view = inflater.inflate(R.layout.row_productlist, parent, false);
         viewHolder = new ProductListHolder(view);
 
-
         return viewHolder;
     }
 

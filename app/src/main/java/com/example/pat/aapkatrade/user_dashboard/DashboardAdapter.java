@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.CategoriesTabActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
@@ -190,7 +191,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     } else {
 
-                        Intent list_product = new Intent(context, OrderActivity.class);
+                        Intent list_product = new Intent(context, CategoriesTabActivity.class);
                         context.startActivity(list_product);
 
                     }
