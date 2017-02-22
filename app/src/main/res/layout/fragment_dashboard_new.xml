@@ -7,7 +7,7 @@
     android:background="@color/white"
     tools:context="com.example.pat.aapkatrade.Home.DashboardFragment">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:background="@color/grey_light"
@@ -129,7 +129,9 @@
                     android:id="@+id/recyclerlatestpost"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:nestedScrollingEnabled="false"
                     android:layout_marginRight="10dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:layout_height="match_parent">
 
                 </android.support.v7.widget.RecyclerView>
@@ -212,6 +214,8 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recyclerlatestupdate"
                             android:layout_width="match_parent"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                            android:nestedScrollingEnabled="false"
                             android:layout_height="match_parent"
                             >
 
@@ -224,7 +228,7 @@
             </LinearLayout>
 </ScrollView>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 
 

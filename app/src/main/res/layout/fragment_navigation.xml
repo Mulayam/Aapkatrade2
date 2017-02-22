@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
 
     android:scrollbars="none"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
 
 android:id="@+id/navigation_parent_scrollview">
 
@@ -139,7 +139,7 @@ android:layout_centerVertical="true"
         android:layout_height="1000dp"
 
         android:background="@color/white"
-        android:nestedScrollingEnabled="true"
+        android:nestedScrollingEnabled="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:groupIndicator="@null" />
 
