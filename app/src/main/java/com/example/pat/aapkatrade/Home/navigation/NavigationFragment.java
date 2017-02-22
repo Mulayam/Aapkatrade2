@@ -97,6 +97,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private static String shared_pref_name = "aapkatrade";
     RecyclerView navigation_recycleview;
     LinearLayoutManager navigation_linear_layout_manager;
+    ImageView navigation_close;
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -119,6 +120,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     private void initView(View view) {
+        navigation_close=(ImageView)view.findViewById(R.id.navigation_close);
+        navigation_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.closeDrawers();
+            }
+        });
         //   sharedPreferences = getActivity().getSharedPreferences(shared_pref_name, MODE_PRIVATE);
         //prepare textviewdata
         categoryname = new ArrayList<>();
