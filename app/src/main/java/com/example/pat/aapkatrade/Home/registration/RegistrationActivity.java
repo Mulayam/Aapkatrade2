@@ -511,6 +511,7 @@ if(formSellerData.getBusinessType().contains("1"))
             }
         });
 
+
     }
 
     private void getCountry() {
@@ -1079,6 +1080,7 @@ if(formSellerData.getBusinessType().contains("1"))
 
 
     public void setSellerFormData() {
+
         formSellerData.setBusinessType(busiType);
         formSellerData.setCompanyName(etProductName.getText().toString());
         formSellerData.setShopName(etProductName.getText().toString());
