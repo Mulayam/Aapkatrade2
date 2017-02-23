@@ -34,4 +34,11 @@ android:padding="5dp"
         android:layout_centerVertical="true"
         android:layout_marginRight="16dp"
       />
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/brown_light" />
 </RelativeLayout>

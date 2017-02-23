@@ -72,6 +72,7 @@ android:layout_centerVertical="true"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_below="@+id/welcome_guest"
+
             android:text="@string/user_name"
             android:textStyle="bold"
             android:id="@+id/tv_name" />
@@ -83,6 +84,13 @@ android:layout_centerVertical="true"
             android:text="demo@gmail.com"
             android:textStyle="bold"
             android:id="@+id/tv_email" />
+        <ImageView
+            android:layout_width="20dp"
+            android:id="@+id/navigation_close"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_navigation_prev"
+            android:layout_height="20dp" />
 
     </RelativeLayout>
 
@@ -129,7 +137,18 @@ android:layout_centerVertical="true"
     </RelativeLayout>
 
 
+<android.support.v7.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:id="@+id/recycle_view_navigation"
+    android:layout_below="@+id/rl_category"
+    android:background="@color/white"
+    android:nestedScrollingEnabled="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_height="wrap_content">
 
+
+
+</android.support.v7.widget.RecyclerView>
 
 
     <ExpandableListView
@@ -137,7 +156,7 @@ android:layout_centerVertical="true"
         android:layout_below="@+id/rl_category"
         android:layout_width="match_parent"
         android:layout_height="1000dp"
-
+android:visibility="gone"
         android:background="@color/white"
         android:nestedScrollingEnabled="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -148,7 +167,7 @@ android:layout_centerVertical="true"
         android:id="@+id/rl_terms"
 
         android:background="@color/blue_gradient"
-        android:layout_below="@+id/lvExp"
+        android:layout_below="@+id/recycle_view_navigation"
         android:layout_height="45dp">
         <TextView
             android:layout_width="wrap_content"

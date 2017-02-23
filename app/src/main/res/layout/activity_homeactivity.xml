@@ -129,7 +129,7 @@
     <fragment
         android:id="@+id/fragment"
         android:layout_gravity="start"
-        android:layout_marginTop="@dimen/toolbarsize"
+
         android:name="com.example.pat.aapkatrade.Home.navigation.NavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.productdetail;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -19,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
@@ -297,8 +300,40 @@ public class ProductDetail extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(ProductDetail.this, GoogleMapActivity.class);
-                startActivity(i);
+                boolean permission_status = CheckPermission.checkPermissions(ProductDetail.this);
+
+
+                if (permission_status)
+
+                {
+                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                            ProductDetail.this);
+                    Location location = null;
+                    if (locationManagerCheck.isLocationServiceAvailable())
+
+
+                    {
+
+
+                        Intent intent = new Intent(ProductDetail.this, GoogleMapActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        intent.putExtra("product_location", "Delhi Nehru Nagar");
+                        ProductDetail.this.startActivity(intent);
+
+
+
+                    }
+                    else {
+                        locationManagerCheck.createLocationServiceError(ProductDetail.this);
+                    }
+
+                }
+
+
+
+
+
             }
         });
 
