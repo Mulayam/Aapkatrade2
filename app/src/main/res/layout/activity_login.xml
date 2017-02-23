@@ -137,7 +137,8 @@
                     android:hint="Password"
                     android:textColorHint="@color/green"
                     android:theme="@style/myedittext"
-                    tools:ignore="HardcodedText">
+                    tools:ignore="HardcodedText"
+                    app:passwordToggleEnabled="true">
 
                     <!-- <RelativeLayout
                          android:layout_width="match_parent"

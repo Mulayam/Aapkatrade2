@@ -69,6 +69,7 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -183,6 +184,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         now.get(Calendar.MONTH),
                         now.get(Calendar.DAY_OF_MONTH)
                 );
+                dpd.setMaxDate(now);
                 dpd.show(getFragmentManager(), "DatePickerDialog");
 
             }
@@ -204,7 +206,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
     }
-
 
     private void showDate(int year, int month, int day) {
         etDOB.setTextColor(getResources().getColor(R.color.black));
@@ -237,140 +238,139 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
     private void callWebServiceForSellerRegistration() {
 
+        if (docFile.getAbsolutePath().equals("/")) {
+            Log.e("reach", "NUL_______DOCCCCCCCLICENCE");
+            showmessage("Please Upload Company Document");
 
-//        Log.e("datagf", getFile(imageForPreview).getPath());
-        progressBarHandler.show();
-        if (docFile != null) {
-            Log.e("doc", "doc : " + docFile.getAbsolutePath());
         } else {
+            if (formSellerData.getBusinessType().contains("1"))
 
-        }
+            {
+                Log.e("work1", "work1");
 
-        if (compIncorpFile != null) {
-            Log.e("compIncorpFilenot null", "compIncorpFile :" + "****" + compIncorpFile.getAbsolutePath());
-        } else {
-            Log.e("compIncorpFile", "compIncorpFile : " + compIncorpFile.getAbsolutePath());
-        }
+                if (compIncorpFile.getAbsolutePath().equals("/")) {
+                    Log.e("reach", "NUL_______compDOCCCCCCCLiCENSE");
+                    showmessage("Please Upload Company Incorporation ( PDF Only )");
 
+                } else {
+                    progressBarHandler.show();
 
-        Log.e("reach", getBusiType(formSellerData.getBusinessType()) + " Seller Data--------->\n" + formSellerData.toString());
-
-        if (formSellerData.getBusinessType().contains("1"))
-
-        {
-            Log.e("work1", "work1");
-
-            Ion.with(RegistrationActivity.this)
-                    .load("http://aapkatrade.com/slim/sellerregister")
-                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
-                @Override
-                public void onProgress(long downloaded, long total) {
-                    Log.e("status", downloaded + "  * " + total);
-                }
-            })
-                    .setMultipartFile("company_doc", "image*//*", docFile)
-                    //.setMultipartFile("personal_doc", "image*//*", docFile)
-                    .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
-                    .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setMultipartParameter("business_type", formSellerData.getBusinessType())
-                    .setMultipartParameter("companyname", formSellerData.getCompanyName())
-                    .setMultipartParameter("name", formSellerData.getFirstName())
-                    .setMultipartParameter("lastname", formSellerData.getLastName())
-                    .setMultipartParameter("dob", formSellerData.getDOB())
-                    .setMultipartParameter("mobile", formSellerData.getMobile())
-                    .setMultipartParameter("email", formSellerData.getEmail())
-                    .setMultipartParameter("password", formSellerData.getPassword())
-                    .setMultipartParameter("country_id", formSellerData.getCountryId())
-                    .setMultipartParameter("state_id", formSellerData.getStateId())
-                    .setMultipartParameter("city_id", formSellerData.getCityId())
-                    .setMultipartParameter("client_id", formSellerData.getClientId())
-                    .setMultipartParameter("shopname", formSellerData.getShopName())
-                    .setMultipartParameter("tin_number", "521651")
-                    .setMultipartParameter("tan_number", "13546848")
-                    .setMultipartParameter("tc", "fdssd")
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
+                    Ion.with(RegistrationActivity.this)
+                            .load("http://aapkatrade.com/slim/sellerregister")
+                            .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
                         @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-                            progressBarHandler.hide();
-
-                            // Log.e("result_seller",result);
-                            if (result != null) {
-                                Log.e("registration_seller", result.toString());
-                                if (result.get("error").getAsString().equals("false")) {
-
-                                    Log.e("registration_seller", "done");
-                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                                    startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
-                                } else {
-                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                                }
-                            } else {
-                                Log.e("result_seller_error", e.toString());
-                            }
-
+                        public void onProgress(long downloaded, long total) {
+                            Log.e("status", downloaded + "  * " + total);
                         }
+                    })
+                            .setMultipartFile("company_doc", "image*//*", docFile)
+                            //.setMultipartFile("personal_doc", "image*//*", docFile)
+                            .setMultipartFile("comp_incorporation", "image*//*", compIncorpFile)
+                            .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                            .setMultipartParameter("business_type", formSellerData.getBusinessType())
+                            .setMultipartParameter("companyname", formSellerData.getCompanyName())
+                            .setMultipartParameter("name", formSellerData.getFirstName())
+                            .setMultipartParameter("lastname", formSellerData.getLastName())
+                            .setMultipartParameter("dob", formSellerData.getDOB())
+                            .setMultipartParameter("mobile", formSellerData.getMobile())
+                            .setMultipartParameter("email", formSellerData.getEmail())
+                            .setMultipartParameter("password", formSellerData.getPassword())
+                            .setMultipartParameter("country_id", formSellerData.getCountryId())
+                            .setMultipartParameter("state_id", formSellerData.getStateId())
+                            .setMultipartParameter("city_id", formSellerData.getCityId())
+                            .setMultipartParameter("client_id", formSellerData.getClientId())
+                            .setMultipartParameter("shopname", formSellerData.getShopName())
+                            .setMultipartParameter("tin_number", "521651")
+                            .setMultipartParameter("tan_number", "13546848")
+                            .setMultipartParameter("tc", "fdssd")
+                            .asJsonObject()
+                            .setCallback(new FutureCallback<JsonObject>() {
+                                @Override
+                                public void onCompleted(Exception e, JsonObject result) {
+                                    progressBarHandler.hide();
 
-                    });
-        } else {
-            Log.e("work2", "work2");
+                                    // Log.e("result_seller",result);
+                                    if (result != null) {
+                                        Log.e("registration_seller", result.toString());
+                                        if (result.get("error").getAsString().equals("false")) {
 
-            Ion.with(RegistrationActivity.this)
-                    .load("http://aapkatrade.com/slim/sellerregister")
-                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
-                @Override
-                public void onProgress(long downloaded, long total) {
-                    Log.e("status", downloaded + "  * " + total);
+                                            Log.e("registration_seller", "done");
+                                            AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                            startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                                        } else {
+                                            AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                        }
+                                    } else {
+                                        Log.e("result_seller_error", e.toString());
+                                    }
+
+                                }
+
+                            });
+
+
                 }
-            })
-                    //.setMultipartFile("company_doc", "image*//*", docFile)
-                    .setMultipartFile("personal_doc", "image*//*", docFile)
+            } else {
+                Log.e("work2", "work2");
+                progressBarHandler.show();
 
-                    .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setMultipartParameter("business_type", formSellerData.getBusinessType())
-                    .setMultipartParameter("companyname", formSellerData.getCompanyName())
-                    .setMultipartParameter("name", formSellerData.getFirstName())
-                    .setMultipartParameter("lastname", formSellerData.getLastName())
-                    .setMultipartParameter("dob", formSellerData.getDOB())
-                    .setMultipartParameter("mobile", formSellerData.getMobile())
-                    .setMultipartParameter("email", formSellerData.getEmail())
-                    .setMultipartParameter("password", formSellerData.getPassword())
-                    .setMultipartParameter("country_id", formSellerData.getCountryId())
-                    .setMultipartParameter("state_id", formSellerData.getStateId())
-                    .setMultipartParameter("city_id", formSellerData.getCityId())
-                    .setMultipartParameter("client_id", formSellerData.getClientId())
-                    .setMultipartParameter("shopname", formSellerData.getShopName())
-                    .setMultipartParameter("tin_number", "521651")
-                    .setMultipartParameter("tan_number", "13546848")
-                    .setMultipartParameter("tc", "fdssd")
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-                            progressBarHandler.hide();
+                Ion.with(RegistrationActivity.this)
+                        .load("http://aapkatrade.com/slim/sellerregister")
+                        .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
+                    @Override
+                    public void onProgress(long downloaded, long total) {
+                        Log.e("status", downloaded + "  * " + total);
+                    }
+                })
+                        //.setMultipartFile("company_doc", "image*//*", docFile)
+                        .setMultipartFile("personal_doc", "image*//*", docFile)
+
+                        .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setMultipartParameter("business_type", formSellerData.getBusinessType())
+                        .setMultipartParameter("companyname", formSellerData.getCompanyName())
+                        .setMultipartParameter("name", formSellerData.getFirstName())
+                        .setMultipartParameter("lastname", formSellerData.getLastName())
+                        .setMultipartParameter("dob", formSellerData.getDOB())
+                        .setMultipartParameter("mobile", formSellerData.getMobile())
+                        .setMultipartParameter("email", formSellerData.getEmail())
+                        .setMultipartParameter("password", formSellerData.getPassword())
+                        .setMultipartParameter("country_id", formSellerData.getCountryId())
+                        .setMultipartParameter("state_id", formSellerData.getStateId())
+                        .setMultipartParameter("city_id", formSellerData.getCityId())
+                        .setMultipartParameter("client_id", formSellerData.getClientId())
+                        .setMultipartParameter("shopname", formSellerData.getShopName())
+                        .setMultipartParameter("tin_number", "521651")
+                        .setMultipartParameter("tan_number", "13546848")
+                        .setMultipartParameter("tc", "fdssd")
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+                                progressBarHandler.hide();
 
 //                        Log.e("result_seller",result);
 
-                            if (result != null) {
-                                Log.e("registration_seller", result.toString());
-                                if (result.get("error").getAsString().equals("false")) {
-                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                                    Log.e("registration_seller", "done");
-                                    startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
-                                } else {
+                                if (result != null) {
+                                    Log.e("registration_seller", result.toString());
+                                    if (result.get("error").getAsString().equals("false")) {
+                                        AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                        Log.e("registration_seller", "done");
+                                        startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                                    } else {
 
-                                    AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                        AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
+                                    }
+
+                                } else {
+                                    Log.e("data", e.toString());
                                 }
 
-                            } else {
-                                Log.e("data", e.toString());
                             }
 
-                        }
-
-                    });
+                        });
 
 
+            }
         }
     }
 
@@ -759,19 +759,17 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
                 Log.e("reach", formSellerData.toString() + "            DATAAAAAAAAA");
                 if (Validation.isEmptyStr(formSellerData.getBusinessType())
-                        || formSellerData.getBusinessType().equals(spBussinessName[0])) {
-//                    Log.e("reach", formSellerData.getBusinessType()+"))))))))"+busiType+"\n(((((("+formSellerData.toString());
+                        || formSellerData.getBusinessType().equals("0")) {
                     showmessage("Please Select Business Category");
                     isAllFieldSet++;
                 } else if (Validation.isEmptyStr(etProductName.getText().toString())) {
                     putError(12);
                     isAllFieldSet++;
-                } else if (!(Validation.isNonEmptyStr(formSellerData.getCountryId()) &&
-                        Integer.parseInt(formSellerData.getCountryId()) > 0)) {
-
-                    Log.e("reach", formSellerData.getCountryId() + "            DATAAAAAAAAA" + !(Validation.isEmptyStr(formSellerData.getCountryId()) ||
-                            Integer.parseInt(formSellerData.getCountryId()) > 0));
-                    showmessage("Please Select Country");
+                } else if (formSellerData.getBusinessType().equals("1") && Validation.isEmptyStr(et_tin_number.getText().toString())) {
+                    putError(13);
+                    isAllFieldSet++;
+                } else if (formSellerData.getBusinessType().equals("1") && Validation.isEmptyStr(et_tan_number.getText().toString())) {
+                    putError(14);
                     isAllFieldSet++;
                 } else if (!(Validation.isNonEmptyStr(formSellerData.getStateId()) &&
                         Integer.parseInt(formSellerData.getStateId()) > 0)) {
@@ -799,10 +797,15 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 } else if (!Validation.isValidPassword(formSellerData.getPassword())) {
                     putError(4);
                     isAllFieldSet++;
+                } else if (!Validation.isValidPassword(formSellerData.getConfirmPassword())) {
+                    putError(4);
+                    isAllFieldSet++;
                 } else if (!Validation.isPasswordMatching(formSellerData.getPassword(), formSellerData.getConfirmPassword())) {
                     putError(5);
                     isAllFieldSet++;
                 }
+
+
             }
             Log.d("error", "error Null");
         }
@@ -842,7 +845,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 } else if (!Validation.isValidPassword(formBuyerData.getPassword())) {
                     putError(4);
                     isAllFieldSet++;
-                }else if (!Validation.isValidPassword(formBuyerData.getConfirmPassword())) {
+                } else if (!Validation.isValidPassword(formBuyerData.getConfirmPassword())) {
                     putError(4);
                     isAllFieldSet++;
                 } else if (!Validation.isPasswordMatching(formBuyerData.getPassword(), formBuyerData.getConfirmPassword())) {
@@ -876,7 +879,11 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 showmessage("Please Enter Valid Mobile Number");
                 break;
             case 4:
-                etPassword.setError("Password must be greater than 6 digits");
+                if (etPassword.getText().toString().length() < 6) {
+                    etPassword.setError("Password must be greater than 6 digits");
+                } else if (etReenterPassword.getText().toString().length() < 6) {
+                    etReenterPassword.setError("Password must be greater than 6 digits");
+                }
                 showmessage("Password must be greater than 6 digits");
                 break;
             case 5:
@@ -884,8 +891,9 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 showmessage("Password did not matched");
                 break;
             case 6:
-                etDOB.setError("Please Select Date");
+//                etDOB.setError("Please Select Date");
                 showmessage("Please Select Date");
+                break;
             case 9:
                 etAddress.setError("Address Can't be empty");
                 showmessage("Address Can't be empty");
@@ -894,15 +902,21 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 showmessage("Please Enter Valid UserName");
                 break;
             case 12:
-                if (etProductName.getHint() != null) {
-                    if (etProductName.getHint().toString().equals("Shop Name*")) {
-                        etProductName.setError("Please Enter Shop Name");
-                        showmessage("Please Enter Shop Name");
-                    } else if (etProductName.getHint().toString().equals("Company Name*")) {
-                        etProductName.setError("Please Enter Company Name");
-                        showmessage("Please Enter Company Name");
-                    }
+                if (formSellerData.getBusinessType().equals("1")) {
+                    etProductName.setError("Please Enter Shop Name");
+                    showmessage("Please Enter Shop Name");
+                } else if (formSellerData.getBusinessType().equals("2")) {
+                    etProductName.setError("Please Enter Company Name");
+                    showmessage("Please Enter Company Name");
                 }
+                break;
+            case 13:
+                et_tin_number.setError("Tin Number Can't be empty");
+                showmessage("Tin Number Can't be empty");
+                break;
+            case 14:
+                et_tan_number.setError("Tan Number Can't be empty");
+                showmessage("Tan Number Can't be empty");
                 break;
 
             default:
@@ -1080,7 +1094,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         formBuyerData.setEmail(etEmail.getText().toString());
         formBuyerData.setMobile(etMobileNo.getText().toString());
         formBuyerData.setPassword(etPassword.getText().toString());
-        formBuyerData.setConfirmPassword(etPassword.getText().toString());
+        formBuyerData.setConfirmPassword(etReenterPassword.getText().toString());
         formBuyerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
     }
 

@@ -436,9 +436,11 @@ public class HomeActivity extends AppCompatActivity
                         {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
-                        if(app_sharedpreference.getsharedpref("username", "not").equals("notlogin")){
-//                            startActivity();
+
+                        if(app_sharedpreference.getsharedpref("username", "not").equals("not")){
+                            startActivity(new Intent(HomeActivity.this, LoginDashboard.class));
                         } else {
+                            Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
                             String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
                             replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
                             showOrHideBottomNavigation(true);

@@ -75,16 +75,17 @@ public class Validation {
 
     public static boolean isValidNumber(String number, String prefix) {
         if (isNonEmptyStr(number)) {
-            if (prefix == null) {
-                prefix = "";
-            }
-            if (number != null) {
-                if (number.length() > 0) {
-                    if ((number.length() == 9 + prefix.length()) && (getNumberPrefix(number).equals(prefix))) {
-                        return true;
-                    }
-                }
-            }
+//            if (prefix == null) {
+//                prefix = "";
+//            }
+//            if (number != null) {
+//                if (number.length() > 0) {
+//                    if ((number.length() == 9 + prefix.length()) && (getNumberPrefix(number).equals(prefix))) {
+//                        return true;
+//                    }
+//                }
+//            }
+            return number.length() == 10;
         }
         return false;
     }

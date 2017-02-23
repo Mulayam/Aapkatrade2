@@ -107,17 +107,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         Log.e("hi", "webservice invoked"+formBusinessData.toString());
 
 
-        if(step1PhotoFile!=null){
-            Log.e("hi", "file1"+step1PhotoFile.getAbsolutePath());
-        } else {
-
-            Log.e("hi", "file1 null");
-        }
-
-
-
-
-
 
         if(step2PhotoFile!=null){
             Log.e("hi", "file2"+step2PhotoFile.getAbsolutePath());
@@ -238,6 +227,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                         now.get(Calendar.MONTH),
                         now.get(Calendar.DAY_OF_MONTH)
                 );
+                dpd.setMaxDate(now);
                 dpd.show(getFragmentManager(), "DatePickerDialog");
             }
         });
@@ -254,10 +244,14 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 Log.e("hi", "-->step3FieldsSet" + step3FieldsSet);
                 setBusinessFormData(stepNumber);
                 validateFields(stepNumber);
+
+                Log.e("hi", "-->stepnumber" + stepNumber);
+                Log.e("hi", "-->step1FieldsSet" + step1FieldsSet);
+                Log.e("hi", "-->step2FieldsSet" + step2FieldsSet);
+                Log.e("hi", "-->step3FieldsSet" + step3FieldsSet);
                 if (stepNumber == 3 && step1FieldsSet == 0 && step2FieldsSet == 0 && step3FieldsSet == 0) {
                     callWebServiceForRegistration();
                 } else {
-
                     if (stepNumber == 2 || stepNumber == 3) {
                         if (step1FieldsSet == 0 && stepNumber == 2) {
                             setStepLayout(2);
@@ -861,8 +855,8 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 } else if (!formBusinessData.isAgreementAccepted()) {
                     putError(7);
                     step1FieldsSet++;
-                } else if(step1PhotoFile==null){
-                    showmessage("Please Upload photo");
+                }  else if(step1PhotoFile.getAbsolutePath().equals("/")){
+                    showmessage("Please Upload File");
                     step1FieldsSet++;
                 }
                 Log.e("hi", "step1FieldsSet=" + step1FieldsSet);
@@ -872,7 +866,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 }
             } else if (stepNo == 2) {
                 step2FieldsSet = 0;
-                if (Validation.isEmptyStr(formBusinessData.getQualification())) {
+                if (Validation.isNonEmptyStr(qualification)
+                        && qualification.contains(qualificationList.get(0))
+                        ) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Qualification");
                     step2FieldsSet++;
                 } else if (!(Validation.isNonEmptyStr(formBusinessData.getTotalExperience()) &&
@@ -883,8 +879,8 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                         Validation.isNumber(formBusinessData.getRelaventExperience().split(" ")[0]))) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Relavent Experience");
                     step2FieldsSet++;
-                } else if(step2PhotoFile==null){
-                    showmessage("Please Upload photo");
+                } else if(step2PhotoFile.getAbsolutePath().equals("/")){
+                    showmessage("Please Upload File");
                     step2FieldsSet++;
                 }
                 if (step2FieldsSet == 0) {
