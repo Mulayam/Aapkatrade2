@@ -310,8 +310,6 @@ public class ProductDetail extends AppCompatActivity
                             ProductDetail.this);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable())
-
-
                     {
 
 
@@ -450,8 +448,8 @@ public class ProductDetail extends AppCompatActivity
             public void onClick(View v)
             {
 
-                Intent i = new Intent(ProductDetail.this, AddressActivity.class);
-                startActivity(i);
+                /*Intent i = new Intent(ProductDetail.this, AddressActivity.class);
+                startActivity(i);*/
 
             }
         });
@@ -464,7 +462,6 @@ public class ProductDetail extends AppCompatActivity
 
     private void setuptoolbar()
     {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -474,9 +471,7 @@ public class ProductDetail extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getSupportActionBar().setTitle(null);
-
        // getSupportActionBar().setIcon(R.drawable.home_logo);
-
     }
 
 

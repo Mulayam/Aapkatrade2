@@ -48,6 +48,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -95,6 +96,9 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
         tvDate = (TextView) findViewById(R.id.tvDate);
         String dob = app_sharedpreference.getsharedpref("dob","").toString();
+
+        System.out.println("dob--------------"+dob.toString());
+
         tvDate.setText(dob);
 
         etEmail.setKeyListener(null);

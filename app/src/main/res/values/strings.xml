@@ -49,6 +49,7 @@
     <string name="product_list_heading">List Product</string>
     <string name="add_product_heading">Add Products</string>
 
+   <string name="d">Data value</string>
 
     <string name="near_by_you">Near by you</string>
     <string name="availability">Availability</string>
