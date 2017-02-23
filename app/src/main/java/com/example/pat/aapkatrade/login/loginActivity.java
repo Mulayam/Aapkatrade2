@@ -161,8 +161,10 @@ public class LoginActivity extends AppCompatActivity
             public void Taskcomplete(JsonObject webservice_returndata)
             {
 
-                if (webservice_returndata != null) {
-                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
+                if (webservice_returndata != null)
+                {
+                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("1"))
+                    {
 
                         Log.e("webservice_returndata", webservice_returndata.toString());
 
@@ -172,15 +174,13 @@ public class LoginActivity extends AppCompatActivity
 
                         String message = jsonObject.get("message").getAsString();
 
-                        if (error.equals("false")) {
+                        if (error.equals("false"))
+                        {
                             String user_id = jsonObject.get("user_id").getAsString();
 
                             String email_id = jsonObject.get("email").getAsString();
 
-                            JsonArray jsonResultArray = jsonObject.getAsJsonArray("all_info");
-
-                            for (int i = 0; i < jsonResultArray.size(); i++) {
-                                JsonObject jsonobject_all_info = (JsonObject) jsonResultArray.get(i);
+                                JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
 
                                 String name = jsonobject_all_info.get("name").getAsString();
 
@@ -188,8 +188,7 @@ public class LoginActivity extends AppCompatActivity
 
                                 String lname = jsonobject_all_info.get("lastname").getAsString();
 
-
-                             //   String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
+                               //   String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
 
                                 String mobile_no = jsonobject_all_info.get("mobile").getAsString();
 
@@ -205,7 +204,7 @@ public class LoginActivity extends AppCompatActivity
 
                                 startActivity(Homedashboard);
 
-                            }
+
                         } else {
                             showMessage(message);
                         }

@@ -55,13 +55,26 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         homeHolder.tvProductName.setText(itemList.get(position).product_name);
 
-        homeHolder.relativeOrderlist.setOnClickListener(new View.OnClickListener() {
+        homeHolder.relativeOrderlist.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View v)
+            {
 
                 Intent i = new Intent(context, OrderDetailsActivity.class);
+                i.putExtra("order_id",itemList.get(position).order_id);
+                i.putExtra("product_name",itemList.get(position).product_name);
+                i.putExtra("product_qty",itemList.get(position).product_qty);
+                i.putExtra("address",itemList.get(position).address);
+                i.putExtra("email",itemList.get(position).email);
+                i.putExtra("buyersmobile",itemList.get(position).buyersmobile);
+                i.putExtra("buyersname",itemList.get(position).buyersname);
+                i.putExtra("buyersmobile",itemList.get(position).buyersmobile);
+                i.putExtra("company_name",itemList.get(position).company_name);
+                i.putExtra("created_at",itemList.get(position).created_at);
                 context.startActivity(i);
+
+
 
             }
         });
@@ -86,5 +99,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
+
+
+
 }
 

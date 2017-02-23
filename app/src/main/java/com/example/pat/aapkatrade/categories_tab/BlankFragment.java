@@ -133,9 +133,15 @@ public class BlankFragment extends Fragment
 
                                     String buyersname = jsonObject2.get("buyersname").getAsString();
 
-                                    String  company_name = jsonObject2.get("cname").getAsString();
+                                    String company_name = jsonObject2.get("cname").getAsString();
 
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name));
+                                    String status = jsonObject2.get("status").getAsString();
+
+                                    String created_at = jsonObject2.get("created_at").getAsString();
+
+                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at));
+
+
                                 }
 
                                 orderListAdapter = new OrderListAdapter(getActivity(), orderListDatas);
