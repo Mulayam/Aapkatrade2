@@ -44,7 +44,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     App_sharedpreference app_sharedpreference;
     EditText etFName,etLName,etEmail,etMobileNo,etAddress;
     ImageView imgCalender;
-    TextView tvDate;
+    TextView tvDate, tvMyProfileDetailHeading;
 
 
 
@@ -66,9 +66,10 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     private void setup_layout()
     {
         imgCalender = (ImageView)  findViewById(R.id.imgCalender);
-
+        tvMyProfileDetailHeading = (TextView) findViewById(R.id.tvMyProfileDetailHeading);
         etFName = (EditText) findViewById(R.id.etFName);
         String fname = app_sharedpreference.getsharedpref("username","").toString();
+        tvMyProfileDetailHeading.setText("Hello, "+fname +" To Update your account information.");
         etFName.setText(fname);
         etFName.setSelection(etFName.getText().length());
 
