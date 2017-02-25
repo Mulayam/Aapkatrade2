@@ -290,7 +290,7 @@ public class LoginActivity extends AppCompatActivity
 
                             String lname = jsonobject_all_info.get("lastname").getAsString();
 
-                            String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
+                            String dob = jsonobject_all_info.get("dob").getAsString();
 
                             String mobile_no = jsonobject_all_info.get("mobile").getAsString();
 
