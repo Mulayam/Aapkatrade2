@@ -45,6 +45,7 @@ import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.login.ActivityOTPVerify;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -91,7 +92,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     private int step1FieldsSet = -1, step2FieldsSet = -1, step3FieldsSet = -1;
     private int stepNumber = 1;
     private ArrayList<String> qualificationList = new ArrayList<>(), totalExpList = new ArrayList<>(), relaventExpList = new ArrayList<>(), bankList = new ArrayList<>();
-
+    ProgressBarHandler progressBarHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,12 +105,13 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     }
 
     private void callWebServiceForRegistration() {
-        Log.e("hi", "webservice invoked"+formBusinessData.toString());
+        progressBarHandler.show();
+
+        Log.e("hi", "webservice invoked" + formBusinessData.toString());
 
 
-
-        if(step2PhotoFile!=null){
-            Log.e("hi", "file2"+step2PhotoFile.getAbsolutePath());
+        if (step2PhotoFile != null) {
+            Log.e("hi", "file2" + step2PhotoFile.getAbsolutePath());
         } else {
 
             Log.e("hi", "file2 null");
@@ -166,6 +168,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                             Log.e("result_error", e.toString());
                         }
 */
+                        progressBarHandler.hide();
 
                         if (result != null) {
                             Log.e("registration_seller", result.toString());
@@ -175,10 +178,12 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                                 startActivity(new Intent(RegistrationBusinessAssociateActivity.this, ActivityOTPVerify.class));
 
                             } else {
-
                                 showmessage(result.get("message").getAsString());
                             }
 
+                        } else {
+                            Log.e("result_seller_error", e.toString());
+                            showmessage(e.toString());
                         }
                     }
 
@@ -210,7 +215,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         cancelImage2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                step2PhotoFile =null;
+                step2PhotoFile = null;
                 previewImageLayout2.setVisibility(View.GONE);
             }
         });
@@ -267,6 +272,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     private void initView() {
         context = RegistrationBusinessAssociateActivity.this;
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        progressBarHandler = new ProgressBarHandler(this);
         setuptoolbar();
 
         step1Photo = (LinearLayout) findViewById(R.id.step1Photo);
@@ -381,9 +387,15 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
             step3Layout.setVisibility(View.GONE);
             uploadMsg.setText("Upload Your Photo");
         } else if (stepNo == 2) {
-            setQualificationAdapter();
-            setTotalExperienceAdapter();
-            setRelaventExperienceAdapter();
+            if (formBusinessData.getQualification() == null || formBusinessData.getQualification().equals(qualificationList.get(0))) {
+                setQualificationAdapter();
+            }
+            if (formBusinessData.getTotalExperience() == null || formBusinessData.getTotalExperience().equals(totalExpList.get(0))) {
+                setTotalExperienceAdapter();
+            }
+            if (formBusinessData.getRelaventExperience() == null || formBusinessData.getRelaventExperience().equals(relaventExpList.get(0))) {
+                setRelaventExperienceAdapter();
+            }
             step2HeaderCircle.setBackground(ContextCompat.getDrawable(context, R.drawable.green_circle_border));
             step2HeaderCircle.setTextColor(ContextCompat.getColor(context, R.color.orange));
             step2HeaderText.setTextColor(ContextCompat.getColor(context, R.color.orange));
@@ -398,6 +410,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
             step1cLayout.setVisibility(View.GONE);
             step2Layout.setVisibility(View.VISIBLE);
             step3Layout.setVisibility(View.GONE);
+            previewImageLayout2.setVisibility(View.GONE);
             uploadMsg2.setText("Upload Your Pan card, Aadhar Card, Passport");
 
         } else if (stepNo == 3) {
@@ -611,7 +624,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 try {
                     previewImageLayout.setVisibility(View.VISIBLE);
                     previewImageLayout2.setVisibility(View.VISIBLE);
-                    if(stepNumber == 1) {
+                    if (stepNumber == 1) {
                         if (ImageUtils.sizeOf(imageForPreview) > 2048) {
                             circleImageView.setImageBitmap(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
                             step1PhotoFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
@@ -619,7 +632,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                             circleImageView.setImageBitmap(imageForPreview);
                             step1PhotoFile = getFile(imageForPreview);
                         }
-                    } else if(stepNumber == 2){
+                    } else if (stepNumber == 2) {
                         if (ImageUtils.sizeOf(imageForPreview2) > 2048) {
                             circleImageView2.setImageBitmap(ImageUtils.resize(imageForPreview2, imageForPreview2.getHeight() / 2, imageForPreview2.getWidth() / 2));
                             step2PhotoFile = getFile(ImageUtils.resize(imageForPreview2, imageForPreview2.getHeight() / 2, imageForPreview2.getWidth() / 2));
@@ -695,6 +708,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 //                formBusinessData.setQualification(qualificationList.get(position));
                 if (position > 0) {
                     qualification = qualificationList.get(position);
+                    formBusinessData.setQualification(qualification);
                 }
                 Log.e("hi", formBusinessData.getQualification() + System.currentTimeMillis());
             }
@@ -731,6 +745,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
                     totalExperience = totalExpList.get(position);
+                    formBusinessData.setTotalExperience(totalExperience);
                 }
             }
 
@@ -766,6 +781,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
                     relaventExperience = relaventExpList.get(position);
+                    formBusinessData.setRelaventExperience(relaventExperience);
                 }
             }
 
@@ -817,6 +833,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 } else if (!Validation.isValidPassword(formBusinessData.getPassword())) {
                     putError(4);
                     step1FieldsSet++;
+                } else if (!Validation.isValidPassword(formBusinessData.getConfirmPassword())) {
+                    putError(19);
+                    step1FieldsSet++;
                 } else if (!Validation.isPasswordMatching(formBusinessData.getPassword(), formBusinessData.getConfirmPassword())) {
                     putError(5);
                     step1FieldsSet++;
@@ -855,7 +874,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 } else if (!formBusinessData.isAgreementAccepted()) {
                     putError(7);
                     step1FieldsSet++;
-                }  else if(step1PhotoFile.getAbsolutePath().equals("/")){
+                } else if (step1PhotoFile.getAbsolutePath().equals("/")) {
                     showmessage("Please Upload File");
                     step1FieldsSet++;
                 }
@@ -866,20 +885,19 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 }
             } else if (stepNo == 2) {
                 step2FieldsSet = 0;
-                if (Validation.isNonEmptyStr(qualification)
-                        && qualification.contains(qualificationList.get(0))
-                        ) {
+                if (Validation.isEmptyStr(formBusinessData.getQualification()) ||
+                        formBusinessData.getQualification().equals(qualificationList.get(0))) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Qualification");
                     step2FieldsSet++;
-                } else if (!(Validation.isNonEmptyStr(formBusinessData.getTotalExperience()) &&
-                        Validation.isNumber(formBusinessData.getTotalExperience().split(" ")[0]))) {
+                } else if (Validation.isEmptyStr(formBusinessData.getTotalExperience()) ||
+                        formBusinessData.getTotalExperience().equals(totalExpList.get(0))) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Total Experience");
                     step2FieldsSet++;
-                } else if (!(Validation.isNonEmptyStr(formBusinessData.getRelaventExperience()) &&
-                        Validation.isNumber(formBusinessData.getRelaventExperience().split(" ")[0]))) {
+                } else if (Validation.isEmptyStr(formBusinessData.getRelaventExperience()) ||
+                        formBusinessData.getRelaventExperience().equals(relaventExpList.get(0))) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select Relavent Experience");
                     step2FieldsSet++;
-                } else if(step2PhotoFile.getAbsolutePath().equals("/")){
+                } else if ((step2PhotoFile == null) || step2PhotoFile.getAbsolutePath().equals("/")) {
                     showmessage("Please Upload File");
                     step2FieldsSet++;
                 }
@@ -942,8 +960,8 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 showmessage("Please Enter Valid Mobile Number");
                 break;
             case 4:
-                et_password.setError("Password must be greater than 6 digits");
-                showmessage("Password must be greater than 6 digits");
+                et_password.setError("Password must be greater than or equals to 6 digits");
+                showmessage("Password must be greater than or equals to 6 digits");
                 break;
             case 5:
                 et_confirm_password.setError("Password did not matched");
@@ -997,6 +1015,10 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 et_registered_mobile_with_bank.setError("Please Enter Your Registered mobile number");
                 showmessage("Please Enter Your Registered mobile number");
                 break;
+            case 19:
+                et_confirm_password.setError("Password must be greater than or equals to 6 digits");
+                showmessage("Password must be greater than or equals to 6 digits");
+                break;
 
             default:
                 break;
@@ -1025,7 +1047,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     public String getRealPathFromURI(Uri uri) {
         Cursor cursor = null;
         int idx = 0;
-        if(uri != null) {
+        if (uri != null) {
             cursor = RegistrationBusinessAssociateActivity.this.getContentResolver().query(uri, null, null, null, null);
             assert cursor != null;
             cursor.moveToFirst();

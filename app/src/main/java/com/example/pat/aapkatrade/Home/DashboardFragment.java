@@ -77,7 +77,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     CoordinatorLayout coordinatorLayout;
     GridLayoutManager gridLayoutManager;
     viewpageradapter_home viewpageradapter;
-
+    JsonObject home_result;
     RelativeLayout rl_searchview_dashboard;
 
     View view;
@@ -232,7 +232,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                         if (result != null)
                         {
 
-
+                            home_result=result;
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonResult = result.getAsJsonObject("result");
@@ -380,9 +380,19 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     }
 
     private void go_to_product_list_activity() {
-        Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
-        startActivity(go_to_product_listactivity);
-        ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+        if(home_result!=null)
+
+        {
+            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            go_to_product_listactivity.putParcelableArrayListExtra("commomDatas_latestpost", commomDatas_latestpost);
+            go_to_product_listactivity.putParcelableArrayListExtra("commomDatas_latestupdate", commomDatas_latestupdate);
+
+            startActivity(go_to_product_listactivity);
+            ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+        }
+        else{
+
+        }
     }
 
 

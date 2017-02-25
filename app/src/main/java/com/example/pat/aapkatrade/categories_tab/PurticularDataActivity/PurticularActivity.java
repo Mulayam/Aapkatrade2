@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
@@ -31,17 +34,28 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 public class PurticularActivity extends AppCompatActivity {
 
-    com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect mRecyclerView;
+    RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
     ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
     ProgressBarHandler progress_handler;
     FrameLayout layout_container, layout_container_relativeSearch;
     MyRecyclerViewEffect myRecyclerViewEffect;
+    JsonObject home_data;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//
+//        Intent i = this.getIntent();
+//        ArrayList commomDatas_latestpost =  i.getParcelableArrayListExtra("commomDatas_latestpost");
+//        for(int j = 0; j < commomDatas_latestpost.size(); j++){
+//            CommomData commomData = (CommomData) commomDatas_latestpost.get(j);
+//            Log.e("getData1", commomData.toString());
+//
+//        }
+//
+//        productListDatas = commomDatas_latestpost;
 
         setContentView(R.layout.activity_categories_list);
 
@@ -53,7 +67,7 @@ public class PurticularActivity extends AppCompatActivity {
 
         layout_container = (FrameLayout) view.findViewById(R.id.layout_container);
 
-        mRecyclerView = (com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect) view.findViewById(R.id.recyclerview);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
         findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,10 +90,10 @@ public class PurticularActivity extends AppCompatActivity {
         get_web_data();
 
 
+
     }
 
     private void get_web_data() {
-        // layout_container.setVisibility(View.INVISIBLE);
         productListDatas.clear();
         progress_handler.show();
 
@@ -104,7 +118,7 @@ public class PurticularActivity extends AppCompatActivity {
 
                             System.out.println("message_data==================" + message_data);
 
-                            if (message_data.toString().equals("No record found")) {
+                            if (message_data.equals("No record found")) {
 
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
@@ -125,6 +139,7 @@ public class PurticularActivity extends AppCompatActivity {
 
 
                                     String product_image = jsonObject2.get("image_url").getAsString();
+                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
 
                                     }
                                     categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
@@ -132,7 +147,6 @@ public class PurticularActivity extends AppCompatActivity {
                                     mRecyclerView.setAdapter(categoriesListAdapter);
 
 
-//                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
 
                                 }
                                 categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
