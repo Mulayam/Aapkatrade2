@@ -55,8 +55,8 @@ public class ProductViewPagerAdapter extends PagerAdapter
 
         System.out.println("position============"+position);
 
-        Ion.with(imageView)
-         //               .placeholder(R.drawable.placeholder_image)
+        Ion.with(imageView).placeholder(R.drawable.ic_applogo1)
+                .error(R.drawable.ic_applogo1)
                 .load(imageurl.get(position));
         // imageView.setImageResource(R.drawable.banner_home);
 

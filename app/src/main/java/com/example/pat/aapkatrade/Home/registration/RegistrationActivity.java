@@ -302,6 +302,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                         }
                                     } else {
                                         Log.e("result_seller_error", e.toString());
+                                        showmessage(e.toString());
                                     }
 
                                 }
@@ -362,7 +363,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                     }
 
                                 } else {
-                                    Log.e("data", e.toString());
+                                    Log.e("result_seller_error", e.toString());
+                                    showmessage(e.toString());
                                 }
 
                             }
@@ -444,6 +446,10 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
 
                             }
+                        } else {
+
+                            Log.e("result_seller_error", e.toString());
+                            showmessage(e.toString());
                         }
                     }
 

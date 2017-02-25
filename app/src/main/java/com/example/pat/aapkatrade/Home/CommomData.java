@@ -1,14 +1,59 @@
 package com.example.pat.aapkatrade.Home;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Netforce on 7/25/2016.
  */
-public class CommomData {
+public class CommomData implements Parcelable{
     String imageurl,price,name,id;
     public CommomData(String id, String name, String price, String imageurl){
         this.id=id;
         this.imageurl=imageurl;
         this.price=price;
         this.name=name;
+    }
+
+    protected CommomData(Parcel in) {
+        imageurl = in.readString();
+        price = in.readString();
+        name = in.readString();
+        id = in.readString();
+    }
+
+    public static final Creator<CommomData> CREATOR = new Creator<CommomData>() {
+        @Override
+        public CommomData createFromParcel(Parcel in) {
+            return new CommomData(in);
+        }
+
+        @Override
+        public CommomData[] newArray(int size) {
+            return new CommomData[size];
+        }
+    };
+
+    @Override
+    public String toString() {
+        return "CommomData{" +
+                "imageurl='" + imageurl + '\'' +
+                ", price='" + price + '\'' +
+                ", name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(imageurl);
+        dest.writeString(price);
+        dest.writeString(name);
+        dest.writeString(id);
     }
 }

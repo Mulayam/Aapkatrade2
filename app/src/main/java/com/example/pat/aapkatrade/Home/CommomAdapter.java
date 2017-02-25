@@ -103,8 +103,8 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
             Picasso.with(context).load(commomDatas.get(position).imageurl)
-                    .error(R.drawable.default_noimage)
-                    .placeholder(R.drawable.default_noimage)
+                    .error(R.drawable.ic_applogo1)
+                    .placeholder(R.drawable.ic_applogo1)
                     .into(grid_holder.product_imageview);
             grid_holder.tvProductName.setText(commomDatas.get(position).name);
             grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {

@@ -99,11 +99,11 @@ public class ProductDetail extends AppCompatActivity
         relativeBuyNow.setVisibility(View.INVISIBLE);
         linearProductDetail.setVisibility(View.INVISIBLE);
         progress_handler.show();
+        Log.e("data_productdeatil","http://aapkatrade.com/slim/product_detail/"+product_id);
 
         Ion.with(getApplicationContext())
                 .load("http://aapkatrade.com/slim/product_detail/"+product_id)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "product_detail")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()

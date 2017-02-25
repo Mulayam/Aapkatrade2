@@ -25,8 +25,7 @@ import java.util.List;
  * Created by PPC16 on 16-Jan-17.
  */
 
-public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final LayoutInflater inflater;
     private List<CategoriesListData> itemList;
@@ -34,16 +33,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     CategoriesListHolder viewHolder;
 
 
-    public CategoriesListAdapter(Activity context, List<CategoriesListData> itemList)
-    {
+    public CategoriesListAdapter(Activity context, List<CategoriesListData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.product_list_item, parent, false);
 
@@ -53,27 +50,24 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
-    {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         CategoriesListHolder homeHolder = (CategoriesListHolder) holder;
 
         homeHolder.tvProductName.setText(itemList.get(position).product_name);
 
-        homeHolder.tvProductPrice.setText("\u20A8"+"."+" "+itemList.get(position).product_price);
+        homeHolder.tvProductPrice.setText("\u20A8" + "." + " " + itemList.get(position).product_price);
 
-        homeHolder.tvProductCrossPrice.setText("\u20A8"+"."+" "+itemList.get(position).product_cross_price);
+        homeHolder.tvProductCrossPrice.setText("\u20A8" + "." + " " + itemList.get(position).product_cross_price);
 
         Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
 
-        homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener()
-        {
+        homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                Intent intent = new Intent(context,ProductDetail.class);
-                intent.putExtra("product_id",itemList.get(position).product_id);
+                Intent intent = new Intent(context, ProductDetail.class);
+                intent.putExtra("product_id", itemList.get(position).product_id);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
@@ -82,8 +76,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         });
 
 
-        homeHolder.linearlayoutMap.setOnClickListener(new View.OnClickListener()
-        {
+        homeHolder.linearlayoutMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -110,14 +103,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         context.startActivity(intent);
 
 
-
-                }
-                    else {
+                    } else {
                         locationManagerCheck.createLocationServiceError(context);
                     }
 
-            }
-
+                }
 
 
             }
@@ -126,28 +116,21 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
 
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return itemList.size();
         // return itemList.size();
     }
 
-    public String getCurrentTimeStamp()
-    {
+    public String getCurrentTimeStamp() {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
-
-
-
-
 
 
 }
