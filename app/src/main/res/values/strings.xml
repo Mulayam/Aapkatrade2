@@ -141,7 +141,7 @@
     <string name="accept_t_and_c">Accept Terms and Conditions</string>
     <string name="save_and_next">Save &amp; Next</string>
 
-    <string name="search_data">Search Products,Brands</string>
+    <string name="search_data">What?e.g. Dairy</string>
 
     <string name="aacount_no">Account No.*</string>
     <string name="branch_code">Branch Code*</string>
@@ -190,6 +190,8 @@
     <string name="str_btn_show">Show Location in Map</string>
     <string name="your_location">Enter your Location</string>
     <string name="ref_number">Reference Number</string>
+    <string name="location_hint">Enter your location</string>
+    <string name="filter">filter</string>
 
 
 </resources>

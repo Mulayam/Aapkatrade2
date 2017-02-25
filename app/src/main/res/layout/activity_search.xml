@@ -9,93 +9,155 @@ android:fitsSystemWindows="true"
 android:background="#EEEEEE"
     >
 
-<RelativeLayout
-    android:id="@+id/RelativeProductDetail"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.pat.aapkatrade.productdetail.ProductDetail"
-    >
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout" />
-
-
-
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:id="@+id/rl_autocomplete_textview"
-    android:layout_margin="10dp"
-    android:padding="5dp"
-    android:layout_below="@+id/toolbar"
-    android:background="@drawable/edit_text_grey_back"
-    android:layout_height="40dp">
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="@string/search_data"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-
-android:visibility="gone"
-        android:gravity="center_vertical"
-        android:layout_height="wrap_content" />
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="5dp"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical"
-        app:srcCompat="@drawable/ic_search_black_24dp"
-        android:layout_marginRight="10dp"
-
-        android:layout_height="wrap_content" />
-<android.support.v7.widget.AppCompatAutoCompleteTextView
-    android:layout_width="match_parent"
-    android:id="@+id/search_autocompletetext"
-    android:layout_height="match_parent"
-    android:hint="@string/search_data"
-
-    android:background="@android:color/transparent"
-
-    >
-    <requestFocus />
-</android.support.v7.widget.AppCompatAutoCompleteTextView>
-</RelativeLayout>
-    <SearchView
-        android:id="@+id/search_view"
-        android:layout_margin="3dp"
-        android:background="@drawable/edit_text_grey_back"
-        android:iconifiedByDefault="false"
-        android:visibility="gone"
-        android:searchIcon="@drawable/ic_search_black_24dp"
-        android:queryHint="@string/search_data"
-        android:splitMotionEvents="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <requestFocus />
-    </SearchView>
-
-
-
-
-<android.support.v7.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_below="@+id/rl_autocomplete_textview"
-    android:layout_margin="10dp"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview_search"
+        android:id="@+id/RelativeProductDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        android:dividerHeight="5dp"
-        android:divider="#E6E6E6"/>
+        android:orientation="vertical"
+        tools:context="com.example.pat.aapkatrade.productdetail.ProductDetail"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/ll_search_container"
+            android:background="@color/green"
+            android:layout_height="wrap_content">
 
 
-</android.support.v7.widget.CardView>
-</RelativeLayout>
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/rl_autocomplete_textview2"
+                android:layout_margin="5dp"
+
+                android:layout_below="@+id/rl_autocomplete_textview"
+                android:background="@drawable/edit_text_grey_back"
+                android:layout_height="40dp">
+
+
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_pen"
+                    android:layout_marginRight="5dp"
+
+                    android:layout_height="15dp" />
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/search_autocompletetext_state"
+                    android:layout_height="match_parent"
+                    android:hint="@string/location_hint"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:textSize="@dimen/textsize_small"
+
+                    android:background="@android:color/transparent"
+
+                    >
+
+                    <requestFocus />
+                </android.support.v7.widget.AppCompatAutoCompleteTextView>
+
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
+
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_map"
+
+                    android:layout_marginLeft="5dp"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl_autocomplete_textview"
+        android:layout_margin="5dp"
+
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/edit_text_grey_back"
+        android:layout_height="40dp">
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="15dp"
+                android:layout_alignParentLeft="true"
+
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                app:srcCompat="@drawable/ic_product_icon"
+                android:layout_marginLeft="5dp"
+
+                android:layout_height="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/search_data"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+
+    android:visibility="gone"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            app:srcCompat="@drawable/ic_pen"
+            android:layout_marginRight="5dp"
+
+            android:layout_height="15dp" />
+    <android.support.v7.widget.AppCompatAutoCompleteTextView
+        android:layout_width="match_parent"
+        android:id="@+id/search_autocompletetext_products"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="@string/search_data"
+android:textSize="@dimen/textsize_small"
+        android:imeOptions="actionSearch"
+        android:inputType="textAutoComplete|textAutoCorrect"
+        android:background="@android:color/transparent"
+
+        >
+        <requestFocus />
+    </android.support.v7.widget.AppCompatAutoCompleteTextView>
+    </RelativeLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/ll_search_container"
+
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:dividerHeight="5dp"
+            android:divider="#E6E6E6"/>
+
+
+    </android.support.v7.widget.CardView>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
