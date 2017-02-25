@@ -49,6 +49,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.body.FilePart;
 import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
@@ -65,8 +66,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 
-public class AddProductActivity extends AppCompatActivity
-{
+public class AddProductActivity extends AppCompatActivity {
 
     private Context context;
     private LinearLayout contentAddProduct, add_product_root_container;
@@ -86,7 +86,7 @@ public class AddProductActivity extends AppCompatActivity
     private EditText etProductName, etDeliverLocation, etPrice, etCrossedPrice, etDescription;
     ImageView uploadButton;
     File docFile = new File("");
-    public  ArrayList<ProductImagesData> productImagesDatas = new ArrayList<>();
+    public ArrayList<ProductImagesData> productImagesDatas = new ArrayList<>();
     LinearLayoutManager layoutManager;
     RecyclerView recyclerView;
     ProductImages adapter;
@@ -94,11 +94,8 @@ public class AddProductActivity extends AppCompatActivity
     List<Part> files_image = new ArrayList();
 
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
         setuptoolbar();
@@ -108,8 +105,7 @@ public class AddProductActivity extends AppCompatActivity
         initView();
 
 
-        btnUpload.setOnClickListener(new View.OnClickListener()
-        {
+        btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 count++;
@@ -119,8 +115,7 @@ public class AddProductActivity extends AppCompatActivity
 
     }
 
-    private File savebitmap(String filePath)
-    {
+    private File savebitmap(String filePath) {
         File file = new File(filePath);
         String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -146,25 +141,30 @@ public class AddProductActivity extends AppCompatActivity
     }
 
 
-    private void callAddProductWebService()
-    {
+    private void callAddProductWebService() {
         progressBar.show();
 
-        for (int i = 0; i <productImagesDatas.size(); i++)
-        {
+        for (int i = 0; i < productImagesDatas.size(); i++) {
 
             files_image.add(new FilePart("image[]", savebitmap(productImagesDatas.get(i).image_path)));
 
         }
 
-        Log.e("files_image","  ==>   "+productImagesDatas.size());
+        Log.e("files_image", "  ==>   " + productImagesDatas.size());
 
         Log.e("company result", app_sharedpreference.getsharedpref("userid", "0"));
 
         Ion.with(context)
                 .load("http://aapkatrade.com/slim/add_product")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .progress(new ProgressCallback() {
+                    @Override
+                    public void onProgress(long downloaded, long total) {
+                        Log.e("status", downloaded + "  * " + total);
+                    }
+                })
                 .addMultipartParts(files_image)
+
                 .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setMultipartParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
                 .setMultipartParameter("name", AndroidUtils.getEditTextData(etProductName))
@@ -173,7 +173,7 @@ public class AddProductActivity extends AppCompatActivity
                 .setMultipartParameter("distance_id", deliveryDistanceID)
                 .setMultipartParameter("deliverday", "")
                 .setMultipartParameter("cross_price", "")
-                .setMultipartParameter("unit_id","1")
+                .setMultipartParameter("unit_id", "1")
                 .setMultipartParameter("availablestatus_id", "")
                 .setMultipartParameter("short_des", "company")
                 .setMultipartParameter("deliveryArea", AndroidUtils.getEditTextData(etDeliverLocation))
@@ -182,43 +182,35 @@ public class AddProductActivity extends AppCompatActivity
                 .setMultipartParameter("city_id", cityID)
                 .setMultipartParameter("category_id", categoryID)
                 .setMultipartParameter("sub_cat_id", subCategoryID)
-                .asString()
-                .setCallback(new FutureCallback<String>() {
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, String result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
                         progressBar.hide();
-                        Log.e("company result", "Result"+result);
+                        Log.e("company result", "Result" + result);
 
-                       /* if (result != null && result.get("message").getAsString().equals("Product Added Successfully!"))
-                        {
-                            //AddProductActivity.this.finish();
-                        }
-                        else
-                        {
+                        if (result != null && result.get("message").getAsString().equals("Product Added Successfully!")) {
+                            AddProductActivity.this.finish();
+                        } else {
                             showMessage("Company Not Found");
-                        }*/
+                        }
 
                     }
                 });
 
 
-
     }
 
 
-    private void initView()
-    {
+    private void initView() {
         context = AddProductActivity.this;
 
         uploadButton = (ImageView) findViewById(R.id.uploadButton);
 
 
-        uploadButton.setOnClickListener(new View.OnClickListener()
-        {
+        uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 picPhoto();
 
             }
@@ -254,8 +246,6 @@ public class AddProductActivity extends AppCompatActivity
         getUnit();
         pickDeliveryLocation();
     }
-
-
 
 
     private void initSpinner() {
@@ -314,18 +304,17 @@ public class AddProductActivity extends AppCompatActivity
                                 spCompanyName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                        if(position>0){
+                                        if (position > 0) {
                                             companyID = companyNames.get(position).getCompanyId();
                                         } else {
                                             Log.e("hi***", String.valueOf(count));
-                                            if(count>=0)
-                                            showMessage("Invalid Company");
+                                            if (count >= 0)
+                                                showMessage("Invalid Company");
                                         }
                                     }
 
                                     @Override
-                                    public void onNothingSelected(AdapterView<?> parent)
-                                    {
+                                    public void onNothingSelected(AdapterView<?> parent) {
 
 
                                     }
@@ -457,8 +446,7 @@ public class AddProductActivity extends AppCompatActivity
 
     }
 
-    private void getCategory()
-    {
+    private void getCategory() {
         listDataChild.clear();
         listDataHeader.clear();
         progressBar.show();
@@ -507,14 +495,12 @@ public class AddProductActivity extends AppCompatActivity
                 });
     }
 
-    private void setCategoryAdapter()
-    {
+    private void setCategoryAdapter() {
         Log.e("data", this.listDataHeader.toString());
         CustomSimpleListAdapter categoriesAdapter = new CustomSimpleListAdapter(context, this.listDataHeader);
         spCategory.setAdapter(categoriesAdapter);
 
-        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
@@ -527,10 +513,11 @@ public class AddProductActivity extends AppCompatActivity
                         spSubCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                if (position>0){
+                                if (position > 0) {
                                     subCategoryID = listDataChild.get(position).subCategoryId;
                                 }
                             }
+
                             @Override
                             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -555,7 +542,7 @@ public class AddProductActivity extends AppCompatActivity
     }
 
 
-    private void getUnit(){
+    private void getUnit() {
         Ion.with(context)
                 .load("http://aapkatrade.com/slim/dropdown")
                 .setHeader("authorization", webservice_header_type.get("authorization"))
@@ -568,11 +555,11 @@ public class AddProductActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result) {
 //                        Log.e("hi******", result);
                         unitList = new ArrayList<>();
-                        if(result != null){
+                        if (result != null) {
                             JsonArray jsonArray = result.getAsJsonArray("result");
                             unitList = new ArrayList<>();
                             unitList.add(new City("-1", "Please Select Unit"));
-                            if(jsonArray!=null) {
+                            if (jsonArray != null) {
                                 for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject = (JsonObject) jsonArray.get(i);
                                     City unit = new City(jsonObject.get("id").getAsString(), jsonObject.get("name").getAsString());
@@ -626,7 +613,7 @@ public class AddProductActivity extends AppCompatActivity
         spdeliverydistance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0){
+                if (position > 0) {
                     deliveryDistanceID = String.valueOf(position);
                 }
             }
@@ -638,8 +625,7 @@ public class AddProductActivity extends AppCompatActivity
         });
     }
 
-    private void loadDistanceList()
-    {
+    private void loadDistanceList() {
         deliveryDistanceList.add(0, "Please Select distance");
         deliveryDistanceList.add(1, "0 to 0.5 km");
         deliveryDistanceList.add(2, "0.5 to 1 km");
@@ -675,32 +661,24 @@ public class AddProductActivity extends AppCompatActivity
     }
 
 
-
-    void picPhoto()
-    {
+    void picPhoto() {
         String str[] = new String[]{"Camera", "Gallery", "PDF Files"};
         new AlertDialog.Builder(this).setItems(str,
-                new DialogInterface.OnClickListener()
-                {
+                new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         performImgPicAction(which);
                     }
                 }).show();
 
     }
 
-    void performImgPicAction(int which)
-    {
+    void performImgPicAction(int which) {
         Intent in;
-        if (which == 1)
-        {
+        if (which == 1) {
             in = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
-        }
-        else if (which == 2)
-        {
+        } else if (which == 2) {
             new MaterialFilePicker()
                     .withActivity(this)
                     .withRequestCode(1)
@@ -708,16 +686,14 @@ public class AddProductActivity extends AppCompatActivity
                     .withFilterDirectories(false)
                     .withHiddenFiles(true)
                     .start();
-        }
-        else
-        {
+        } else {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
         }
     }
-    private void setupRecyclerView()
-    {
+
+    private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         adapter = new ProductImages(AddProductActivity.this, productImagesDatas);
         layoutManager = new LinearLayoutManager(AddProductActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -729,32 +705,25 @@ public class AddProductActivity extends AppCompatActivity
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.e("hi", "requestCode : "+requestCode+"result code : "+resultCode );
-        try
-        {
-            if (requestCode == 11)
-            {
-                Log.e("hi", " if else if 2 " );
+        Log.e("hi", "requestCode : " + requestCode + "result code : " + resultCode);
+        try {
+            if (requestCode == 11) {
+                Log.e("hi", " if else if 2 ");
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inDither = false;
                 option.inPurgeable = true;
                 option.inInputShareable = true;
                 option.inTempStorage = new byte[32 * 1024];
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
-                if (Build.VERSION.SDK_INT < 19)
-                {
+                if (Build.VERSION.SDK_INT < 19) {
                     // Uri selectedImageURI = data.getData();
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
 
-                }
-                else
-                {
-                    if (data.getData() != null)
-                    {
+                } else {
+                    if (data.getData() != null) {
 
                         ParcelFileDescriptor pfd;
                         try {
@@ -775,52 +744,44 @@ public class AddProductActivity extends AppCompatActivity
                         } catch (IOException e) {
                             Log.e("IOException", e.toString());
                         }
-                    }
-                    else
-                    {
+                    } else {
                         imageForPreview = (Bitmap) data.getExtras().get("data");
                         Log.e("data_not_found", "data_not_found");
                     }
 
                 }
-                try
-                {
+                try {
 
                     Log.e("doc", "***START.****** ");
                     if (ImageUtils.sizeOf(imageForPreview) > 2048) {
                         Log.e("doc", "if doc file path 1");
 
                         docFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
-                        Log.e("doc", "if doc file path"+docFile.getAbsolutePath());
+                        Log.e("doc", "if doc file path" + docFile.getAbsolutePath());
                     } else {
 
                         Log.e("doc", " else doc file path 1");
                         docFile = getFile(imageForPreview);
-                        Log.e("doc", " else doc file path"+docFile.getAbsolutePath());
+                        Log.e("doc", " else doc file path" + docFile.getAbsolutePath());
                     }
 
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 productImagesDatas.add(new ProductImagesData(docFile.getAbsolutePath()));
-                    // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
+                // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
                 adapter.notifyDataSetChanged();
 
 
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
 
-    private File getFile(Bitmap photo)
-    {
+    private File getFile(Bitmap photo) {
         Uri tempUri = null;
         if (photo != null) {
             tempUri = getImageUri(AddProductActivity.this, photo);
@@ -831,8 +792,7 @@ public class AddProductActivity extends AppCompatActivity
         return finalFile;
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage)
-    {
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
@@ -840,12 +800,10 @@ public class AddProductActivity extends AppCompatActivity
     }
 
 
-    public String getRealPathFromURI(Uri uri)
-    {
+    public String getRealPathFromURI(Uri uri) {
         Cursor cursor = null;
         int idx = 0;
-        if(uri != null)
-        {
+        if (uri != null) {
             cursor = AddProductActivity.this.getContentResolver().query(uri, null, null, null, null);
             assert cursor != null;
             cursor.moveToFirst();

@@ -176,11 +176,10 @@ public class LoginActivity extends AppCompatActivity
 
                         if (error.equals("false"))
                         {
-                            String user_id = jsonObject.get("user_id").getAsString();
+                               String user_id = jsonObject.get("user_id").getAsString();
 
-                            String email_id = jsonObject.get("email").getAsString();
-                            JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
-
+                                String email_id = jsonObject.get("email").getAsString();
+                                JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
 
                                 String name = jsonobject_all_info.get("name").getAsString();
 
@@ -188,7 +187,7 @@ public class LoginActivity extends AppCompatActivity
 
                                 String lname = jsonobject_all_info.get("lastname").getAsString();
 
-                               //   String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
+                                String dob = jsonobject_all_info.get("dob").getAsString();
 
                                 String mobile_no = jsonobject_all_info.get("mobile").getAsString();
 
@@ -196,7 +195,7 @@ public class LoginActivity extends AppCompatActivity
 
                                 showMessage(message);
 
-                                save_shared_pref(user_id, name, email_id, lname, "", address, mobile_no);
+                                save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no);
 
                                 Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
 
@@ -220,18 +219,15 @@ public class LoginActivity extends AppCompatActivity
 
                         String message = jsonObject.get("message").getAsString();
 
-                        if (error.equals("false")) {
+                        if (error.equals("false"))
+                        {
                             String user_id = jsonObject.get("user_id").getAsString();
 
                             String email_id = jsonObject.get("email").getAsString();
 
-                           // JsonArray jsonResultArray = jsonObject.getAsJsonArray("all_info");
+                            // JsonArray jsonResultArray = jsonObject.getAsJsonArray("all_info");
 
                             JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
-
-
-
-
 
                             String name = jsonobject_all_info.get("name").getAsString();
 
@@ -239,8 +235,7 @@ public class LoginActivity extends AppCompatActivity
 
                             String lname = jsonobject_all_info.get("lastname").getAsString();
 
-
-                            //   String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
+                            String dob = jsonobject_all_info.get("dob").getAsString();
 
                             String mobile_no = jsonobject_all_info.get("mobile").getAsString();
 
@@ -248,23 +243,20 @@ public class LoginActivity extends AppCompatActivity
 
                             showMessage(message);
 
-                            save_shared_pref(user_id, name, email_id, lname, "", address, mobile_no);
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no);
 
                             Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
 
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+
+
                             startActivity(Homedashboard);
-                        } else {
+                        }
+                        else
+                        {
                             showMessage(message);
                         }
-
-
-
-
-
-
-
 
 
                     }
@@ -280,7 +272,10 @@ public class LoginActivity extends AppCompatActivity
 
                         String message = jsonObject.get("message").getAsString();
 
-                        if (error.equals("false")) {
+                        if (error.equals("false"))
+                        {
+
+
                             String user_id = jsonObject.get("user_id").getAsString();
 
                             String email_id = jsonObject.get("email").getAsString();
@@ -289,18 +284,13 @@ public class LoginActivity extends AppCompatActivity
 
                             JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
 
-
-
-
-
                             String name = jsonobject_all_info.get("name").getAsString();
 
                             String address = jsonobject_all_info.get("address").getAsString();
 
                             String lname = jsonobject_all_info.get("lastname").getAsString();
 
-
-                            //   String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
+                            String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
 
                             String mobile_no = jsonobject_all_info.get("mobile").getAsString();
 
@@ -308,24 +298,18 @@ public class LoginActivity extends AppCompatActivity
 
                             showMessage(message);
 
-                            save_shared_pref(user_id, name, email_id, lname, "", address, mobile_no);
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no);
 
                             Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
 
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+                            System.out.println("hfbhsdfgefg");
+
                             startActivity(Homedashboard);
                         } else {
                             showMessage(message);
                         }
-
-
-
-
-
-
-
-
 
                     }
 
