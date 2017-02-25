@@ -18,7 +18,7 @@ import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
-import com.example.pat.aapkatrade.login.LoginActivity;
+
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
 
 import java.util.ArrayList;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.Forgot_Password;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -434,7 +435,14 @@ public class Call_webservice {
 
             String get_webservice_body_parameter_client_id = webservice_body_parameter.get("client_id");
             String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
-            String get_webservice_body_parameter_otp = webservice_body_parameter.get("otp");
+            String get_webservice_body_parameter_type = webservice_body_parameter.get("type");
+            String get_webservice_body_parameter_email = webservice_body_parameter.get("email");
+            String get_webservice_body_parameter_mobile = webservice_body_parameter.get("mobile");
+
+
+
+
+
 
 
             if (get_webservice_body_parameter_client_id.equals(null)) {
@@ -451,7 +459,10 @@ public class Call_webservice {
                         .load(url)
                         .setHeader("authorization", authorization)
                         .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
-                        .setBodyParameter("otp", get_webservice_body_parameter_otp)
+                        .setBodyParameter("type", get_webservice_body_parameter_type)
+                        .setBodyParameter("email", get_webservice_body_parameter_email)
+                        .setBodyParameter("mobile", get_webservice_body_parameter_mobile)
+
                         .setBodyParameter("client_id", get_webservice_body_parameter_client_id)
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
