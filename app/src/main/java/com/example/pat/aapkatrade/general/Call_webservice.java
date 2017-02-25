@@ -483,6 +483,7 @@ public class Call_webservice {
 
 
             String get_webservice_body_parameter_authorization = webservice_body_parameter.get("authorization");
+            String get_webservice_body_parameter_location = webservice_body_parameter.get("location");
 
 
             HashMap<String, String> webservice_header_type = headers;
@@ -492,7 +493,7 @@ public class Call_webservice {
             Ion.with(context)
                     .load(url)
                     .setHeader("authorization", authorization)
-                    .setBodyParameter("type", webservicetype)
+                    .setBodyParameter("location", get_webservice_body_parameter_location)
                     .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
 
                     .asJsonObject()
