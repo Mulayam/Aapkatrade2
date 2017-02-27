@@ -23,8 +23,7 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 
-public class CompanyList extends AppCompatActivity
-{
+public class CompanyList extends AppCompatActivity {
 
     RecyclerView recyclerViewcompanylist;
     CompanyListAdapter companyListAdapter;
@@ -33,10 +32,8 @@ public class CompanyList extends AppCompatActivity
     ProgressBarHandler progress_handler;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_list);
 
@@ -48,8 +45,7 @@ public class CompanyList extends AppCompatActivity
 
     }
 
-    public void get_company_list_data()
-    {
+    public void get_company_list_data() {
         relativeCompanylist.setVisibility(View.INVISIBLE);
         progress_handler.show();
         companyDatas.clear();
@@ -60,31 +56,25 @@ public class CompanyList extends AppCompatActivity
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("user_id", "1")
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-                        if(result ==null)
-                        {
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
 
                             progress_handler.hide();
-                        }
-                        else
-                        {
-                            Log.e("data===============",result.toString());
+                        } else {
+                            Log.e("data===============", result.toString());
 
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
-                            System.out.println("jsonArray11111111111111111"+jsonArray.toString());
+                            System.out.println("jsonArray11111111111111111" + jsonArray.toString());
 
-                            for(int i = 0; i<jsonArray.size(); i++)
-                            {
+                            for (int i = 0; i < jsonArray.size(); i++) {
                                 JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
-                                System.out.println("jsonArray jsonObject2"+jsonObject2.toString());
+                                System.out.println("jsonArray jsonObject2" + jsonObject2.toString());
 
                                 String country_id = jsonObject2.get("companyId").getAsString();
 
@@ -92,18 +82,18 @@ public class CompanyList extends AppCompatActivity
 
                                 String creation_date = jsonObject2.get("created").getAsString();
 
-                                System.out.println("ferhgjerk"+country_id+name+creation_date);
+                                System.out.println("ferhgjerk" + country_id + name + creation_date);
 
-                                companyDatas.add(new CompanyData(country_id,name,creation_date));
+                                companyDatas.add(new CompanyData(country_id, name, creation_date));
                             }
-                            companyListAdapter = new CompanyListAdapter(CompanyList.this, companyDatas , CompanyList.this);
+                            companyListAdapter = new CompanyListAdapter(CompanyList.this, companyDatas, CompanyList.this);
 
                             recyclerViewcompanylist.setAdapter(companyListAdapter);
 
                             companyListAdapter.notifyDataSetChanged();
 
                             progress_handler.hide();
-                           // progressView.setVisibility(View.INVISIBLE);
+                            // progressView.setVisibility(View.INVISIBLE);
                             relativeCompanylist.setVisibility(View.VISIBLE);
 
                         }
@@ -115,8 +105,7 @@ public class CompanyList extends AppCompatActivity
     }
 
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
 
         relativeCompanylist = (RelativeLayout) findViewById(R.id.relativeCompanylist);
 
@@ -130,8 +119,7 @@ public class CompanyList extends AppCompatActivity
 
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -139,21 +127,18 @@ public class CompanyList extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
 
-       // getSupportActionBar().setIcon(R.drawable.home_logo);
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;

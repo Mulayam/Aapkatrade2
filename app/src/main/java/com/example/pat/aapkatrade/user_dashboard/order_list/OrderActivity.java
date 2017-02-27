@@ -23,8 +23,7 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class OrderActivity extends AppCompatActivity
-{
+public class OrderActivity extends AppCompatActivity {
 
     ArrayList<OrderListData> orderListDatas = new ArrayList<>();
     RecyclerView order_list;
@@ -35,11 +34,8 @@ public class OrderActivity extends AppCompatActivity
     String user_id;
 
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_order);
@@ -51,7 +47,7 @@ public class OrderActivity extends AppCompatActivity
 
         app_sharedpreference = new App_sharedpreference(this);
 
-        user_id = app_sharedpreference.getsharedpref("userid","");
+        user_id = app_sharedpreference.getsharedpref("userid", "");
 
         setup_layout();
 
@@ -61,8 +57,7 @@ public class OrderActivity extends AppCompatActivity
     }
 
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
         layout_container = (LinearLayout) findViewById(R.id.layout_container);
 
         order_list = (RecyclerView) findViewById(R.id.order_list);
@@ -70,28 +65,24 @@ public class OrderActivity extends AppCompatActivity
         order_list.setLayoutManager(mLayoutManager);
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
-       // getSupportActionBar().setIcon(R.drawable.home_logo);
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -102,9 +93,7 @@ public class OrderActivity extends AppCompatActivity
     }
 
 
-    private void get_web_data()
-    {
-        // layout_container.setVisibility(View.INVISIBLE);
+    private void get_web_data() {
         orderListDatas.clear();
         progress_handler.show();
 
@@ -112,59 +101,50 @@ public class OrderActivity extends AppCompatActivity
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id","3")
-                .setBodyParameter("type","1")
+                .setBodyParameter("seller_id", "3")
+                .setBodyParameter("type", "1")
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
 
-                        System.out.println("jsonObject-------------"+result.toString());
+                        System.out.println("jsonObject-------------" + result.toString());
 
-                        if(result == null)
-                        {
+                        if (result == null) {
                             progress_handler.hide();
                             layout_container.setVisibility(View.INVISIBLE);
-                        }
-                        else
-                        {
+                        } else {
                             JsonObject jsonObject = result.getAsJsonObject();
 
 
-                            String message = jsonObject.get("message").toString().substring(0,jsonObject.get("message").toString().length());
+                            String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
 
                             String message_data = message.replace("\"", "");
 
-                            System.out.println("message_data=================="+message_data);
+                            System.out.println("message_data==================" + message_data);
 
-                            if (message_data.toString().equals("No record found"))
-                            {
+                            if (message_data.equals("No record found")) {
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
 
-                            }
-                            else
-                            {
+                            } else {
 
                                 JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
 
-                                System.out.println("jsonOblect-------------"+jsonObject1.toString());
+                                System.out.println("jsonOblect-------------" + jsonObject1.toString());
 
                                 JsonArray jsonArray = jsonObject1.getAsJsonArray("list");
 
-                                for (int i = 0; i < jsonArray.size(); i++)
-                                {
+                                for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                     String order_id = jsonObject2.get("id").getAsString();
 
-                                    String product_name= jsonObject2.get("product_name").getAsString();
+                                    String product_name = jsonObject2.get("product_name").getAsString();
 
                                     String product_price = jsonObject2.get("product_price").getAsString();
 
-                                    String product_qty= jsonObject2.get("product_qty").getAsString();
+                                    String product_qty = jsonObject2.get("product_qty").getAsString();
 
                                     String address = jsonObject2.get("address").getAsString();
 
@@ -174,14 +154,13 @@ public class OrderActivity extends AppCompatActivity
 
                                     String buyersname = jsonObject2.get("buyersname").getAsString();
 
-                                    String  company_name = jsonObject2.get("cname").getAsString();
+                                    String company_name = jsonObject2.get("cname").getAsString();
 
                                     String status = jsonObject2.get("status").getAsString();
 
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at));
-
+                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price, product_qty, address, email, buyersmobile, buyersname, company_name, status, created_at));
 
 
                                 }
