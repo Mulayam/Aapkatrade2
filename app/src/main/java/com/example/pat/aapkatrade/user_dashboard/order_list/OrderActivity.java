@@ -108,12 +108,13 @@ public class OrderActivity extends AppCompatActivity
         orderListDatas.clear();
         progress_handler.show();
 
+
         Ion.with(OrderActivity.this)
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id","3")
-                .setBodyParameter("type","1")
+                .setBodyParameter("seller_id",user_id)
+                .setBodyParameter("type","2")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
@@ -121,7 +122,7 @@ public class OrderActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        System.out.println("jsonObject-------------"+result.toString());
+
 
                         if(result == null)
                         {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -57,7 +58,7 @@ public class ProductDetail extends AppCompatActivity
     LinearLayout linearProductDetail;
     TextView tvProductName,tvProPrice,tvCrossPrice,tvDuration,tvDiscription,tvSpecification,tvQuatity;
     ProgressBarHandler progress_handler;
-    String product_id;
+    String product_id,product_location;
     ImageView imgViewPlus,imgViewMinus;
     int quantity_value=1;
 
@@ -69,12 +70,15 @@ public class ProductDetail extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_product_detail);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
 
          Intent intent= getIntent();
 
          Bundle b = intent.getExtras();
 
           product_id = b.getString("product_id");
+        product_location=b.getString("product_location");
 
           setuptoolbar();
 
@@ -146,6 +150,7 @@ public class ProductDetail extends AppCompatActivity
 
                             String   duration = json_result.get("deliverday").getAsString();
 
+
                             tvProductName.setText(product_name);
                             tvProPrice.setText("\u20A8"+"."+" "+product_price);
                             tvCrossPrice.setText("\u20A8"+"."+" "+product_cross_price);
@@ -211,7 +216,7 @@ public class ProductDetail extends AppCompatActivity
     private void setupviewpager()
     {
 
-        viewpageradapter  = new ProductViewPagerAdapter(getApplicationContext(), imageList);
+        viewpageradapter  = new ProductViewPagerAdapter(ProductDetail.this, imageList);
         vp.setAdapter(viewpageradapter);
         vp.setCurrentItem(currentPage);
         setUiPageViewController();
@@ -316,7 +321,7 @@ public class ProductDetail extends AppCompatActivity
                         Intent intent = new Intent(ProductDetail.this, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        intent.putExtra("product_location", "Delhi Nehru Nagar");
+                        intent.putExtra("product_location", product_location);
                         ProductDetail.this.startActivity(intent);
 
 

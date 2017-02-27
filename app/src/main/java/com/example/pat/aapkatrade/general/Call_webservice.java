@@ -504,7 +504,7 @@ public class Call_webservice {
             Ion.with(context)
                     .load(url)
                     .setHeader("authorization", authorization)
-                    .setBodyParameter("location", get_webservice_body_parameter_location)
+                    .setBodyParameter("location", get_webservice_body_parameter_location.trim())
                     .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
 
                     .asJsonObject()

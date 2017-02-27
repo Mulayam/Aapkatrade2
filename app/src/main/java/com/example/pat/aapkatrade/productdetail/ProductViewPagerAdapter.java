@@ -1,7 +1,9 @@
 package com.example.pat.aapkatrade.productdetail;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 public class ProductViewPagerAdapter extends PagerAdapter
 {
 
-    private Context mContext;
+     Context mContext;
     ArrayList<String> imageurl = new ArrayList<>();
 
 
@@ -31,6 +33,7 @@ public class ProductViewPagerAdapter extends PagerAdapter
 
         this. imageurl=productImage_url;
         this.mContext=mContext;
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
     }
 
@@ -47,16 +50,16 @@ public class ProductViewPagerAdapter extends PagerAdapter
         return view == ((LinearLayout) object);
     }
 
-    public Object instantiateItem(ViewGroup container, int position)
-    {
+    public Object instantiateItem(ViewGroup container, int position) {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.viewpager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.img_pager_item);
 
-        System.out.println("position============"+position);
+        System.out.println("position============" + position);
 
-        Ion.with(imageView).placeholder(R.drawable.ic_applogo1)
-                .error(R.drawable.ic_applogo1)
+        Ion.with(imageView)
+                .error(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
+                .placeholder(ContextCompat.getDrawable(mContext, R.drawable.ic_applogo1))
                 .load(imageurl.get(position));
         // imageView.setImageResource(R.drawable.banner_home);
 

@@ -6,7 +6,8 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true"
-android:background="#EEEEEE"
+    android:id="@+id/coordinate_search"
+android:background="@color/green"
     >
 
     <RelativeLayout
@@ -14,7 +15,7 @@ android:background="#EEEEEE"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.pat.aapkatrade.productdetail.ProductDetail"
+        tools:context="com.example.pat.aapkatrade.search.Search"
         >
         <LinearLayout
             android:layout_width="wrap_content"
@@ -24,10 +25,15 @@ android:background="#EEEEEE"
             android:layout_height="wrap_content">
 
 
+                <include
+                    android:id="@+id/toolbar"
+                    layout="@layout/toolbar_layout" />
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout" />
+
+
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:id="@+id/rl_autocomplete_textview2"
@@ -75,7 +81,7 @@ android:background="#EEEEEE"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/ic_map"
 
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
@@ -95,8 +101,8 @@ android:background="#EEEEEE"
 
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                app:srcCompat="@drawable/ic_product_icon"
-                android:layout_marginLeft="5dp"
+                app:srcCompat="@drawable/ic_at"
+                android:layout_marginLeft="10dp"
 
                 android:layout_height="15dp" />
 

@@ -619,6 +619,7 @@ if(location!=null) {
         PolylineOptions rectLine = new PolylineOptions().width(10).color(R.color.polyline_color);
 
         for (int i = 0; i < directionPoints.size(); i++) {
+            Log.e("directionPoints"+i,directionPoints.get(i).toString());
             rectLine.add(directionPoints.get(i));
         }
 
@@ -628,6 +629,7 @@ if(location!=null) {
         }
 
         newPolyline = mMap.addPolyline(rectLine);
+
 
         MarkerOptions marker2 = new MarkerOptions().position(
                 new LatLng(directionPoints.get(0).latitude, directionPoints.get(0).longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_location_icon)).title(

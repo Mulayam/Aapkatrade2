@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.search;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,7 @@ import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomAutocompleteAdapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
@@ -38,7 +40,7 @@ import java.util.concurrent.ExecutionException;
 public class Search extends AppCompatActivity
 {
 
-    AutoCompleteTextView autocomplete_textview_state,autocomplete_textview_product;
+    AutoCompleteTextView autocomplete_textview_state, autocomplete_textview_product;
 
     CustomAutocompleteAdapter categoryadapter;
 
@@ -47,11 +49,12 @@ public class Search extends AppCompatActivity
     RecyclerView recyclerView_search;
     CommomAdapter commomAdapter;
     ArrayList<String> state_names = new ArrayList<>();
-    ArrayList<String> product_names=new ArrayList<>();
-ArrayList<CommomData> search_productlist=new ArrayList<>();
+    ArrayList<String> product_names = new ArrayList<>();
+    ArrayList<CommomData> search_productlist = new ArrayList<>();
     Toolbar toolbar;
 
-ProgressBarHandler progressBarHandler;
+    ProgressBarHandler progressBarHandler;
+    CoordinatorLayout coordinate_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,6 +76,7 @@ ProgressBarHandler progressBarHandler;
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
+        getSupportActionBar().setElevation(0);
 
         // getSupportActionBar().setIcon(R.drawable.home_logo);
 
@@ -86,6 +90,7 @@ ProgressBarHandler progressBarHandler;
     private void initview()
     {
         c=Search.this;
+        coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
         progressBarHandler=new ProgressBarHandler(Search.this);
 
         autocomplete_textview_state=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_state);
@@ -230,43 +235,52 @@ if(autocomplete_textview_state.getText().length()!=0)
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
+
                             search_productlist=new ArrayList<CommomData>();
 
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             String error = jsonObject.get("error").getAsString();
                             String message = jsonObject.get("message").getAsString();
-
-                            Log.e("data2", result.toString());
-                            if (jsonObject.get("result").isJsonNull()) {
-                                Log.e("data_jsonArray null", result.toString());
-                            }
+                            if(message.contains("Failed")) {
 
 
-                            JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
-                            Log.e("data_jsonarray", jsonarray_result.toString());
-
-                            for (int l = 0; l < jsonarray_result.size(); l++) {
-
-                                JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
-                                String productname = jsonObject_result.get("name").getAsString();
-                                String productid = jsonObject_result.get("id").getAsString();
-                                String product_prize= jsonObject_result.get("price").getAsString();
-                                String imageurl=jsonObject_result.get("image_url").getAsString();
-                                search_productlist.add(new CommomData(productid,productname,product_prize,imageurl));
-
-
-
+                                AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
+                                progressBarHandler.hide();
 
                             }
+                            else {
 
-                            recyclerView_search.setLayoutManager(gridLayoutManager);
-                            commomAdapter = new CommomAdapter(Search.this, search_productlist, "gridtype", "latestupdate");
+                                Log.e("data2", result.toString());
+                                if (jsonObject.get("result").isJsonNull()) {
+                                    Log.e("data_jsonArray null", result.toString());
+                                }
 
-                            recyclerView_search.setAdapter(commomAdapter);
-                           progressBarHandler.hide();
+
+                                JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+                                Log.e("data_jsonarray", jsonarray_result.toString());
+
+                                for (int l = 0; l < jsonarray_result.size(); l++) {
+
+                                    JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
+                                    String productname = jsonObject_result.get("name").getAsString();
+                                    String productid = jsonObject_result.get("id").getAsString();
+                                    String product_prize = jsonObject_result.get("price").getAsString();
+                                    String imageurl = jsonObject_result.get("image_url").getAsString();
+                                    String productlocation=jsonObject_result.get("city_name").getAsString()+","+jsonObject_result.get("state_name").getAsString()+","+
+                                            jsonObject_result.get("country_name").getAsString();
+                                    search_productlist.add(new CommomData(productid, productname, product_prize, imageurl,productlocation));
 
 
+                                }
+
+                                recyclerView_search.setLayoutManager(gridLayoutManager);
+                                commomAdapter = new CommomAdapter(Search.this, search_productlist, "gridtype", "latestupdate");
+
+                                recyclerView_search.setAdapter(commomAdapter);
+                                progressBarHandler.hide();
+
+                            }
 
                         }
                         else {
@@ -287,9 +301,9 @@ if(autocomplete_textview_state.getText().length()!=0)
         Ion.with(Search.this)
                 .load(product_search_url)
                 .setHeader("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("location", location_text)
+                .setBodyParameter("location", location_text.trim())
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("name",product_search_text)
+                .setBodyParameter("name",product_search_text.trim())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -303,55 +317,56 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                             String error = jsonObject.get("error").getAsString();
                             String message = jsonObject.get("message").getAsString();
-
-                            Log.e("data2", result.toString());
-                            if (jsonObject.get("result").isJsonNull()) {
-                                Log.e("data_jsonArray null", result.toString());
-                            }
+                            if(message.contains("Failed")) {
 
 
-                            JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
-                            Log.e("data_jsonarray", jsonarray_result.toString());
-
-                            for (int l = 0; l < jsonarray_result.size(); l++) {
-
-                                JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
-                                String productname = jsonObject_result.get("name").getAsString();
-
-                                product_names.add(productname);
+                                AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
 
                             }
 
 
-                            if (error.contains("false")) {
+
+                            else {
+
+                                Log.e("data2", result.toString());
+                                if (jsonObject.get("result").isJsonNull()) {
+                                    Log.e("data_jsonArray null", result.toString());
+                                }
 
 
+                                JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+                                Log.e("data_jsonarray", jsonarray_result.toString());
 
-                                Log.e("product_names", product_names.toString());
-                                categoryadapter = new CustomAutocompleteAdapter(c, product_names);
-                                autocomplete_textview_product.setAdapter(categoryadapter);
+                                for (int l = 0; l < jsonarray_result.size(); l++) {
+
+                                    JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
+                                    String productname = jsonObject_result.get("name").getAsString();
+
+                                    product_names.add(productname);
+
+                                }
+
+
+                                if (error.contains("false")) {
+
+
+                                    Log.e("product_names", product_names.toString());
+                                    categoryadapter = new CustomAutocompleteAdapter(c, product_names);
+                                    autocomplete_textview_product.setAdapter(categoryadapter);
 
 
 //
 
 
-                            } else {
-                                //showMessage(message);
+                                }
+
+
+
+
+
+
+
                             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -425,42 +440,54 @@ if(autocomplete_textview_state.getText().length()!=0)
                     String error = jsonObject.get("error").getAsString();
                     String message = jsonObject.get("message").getAsString();
 
-                    Log.e("data2", webservice_returndata.toString());
-                    if (jsonObject.get("result").isJsonNull()) {
-                        Log.e("data_jsonArray null", webservice_returndata.toString());
-                    }
+
+                    if(message.contains("Failed")) {
 
 
-                    JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
-                    Log.e("data_jsonarray", jsonarray_result.toString());
+                        AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
 
-                    for (int l = 0; l < jsonarray_result.size(); l++) {
-
-                        JsonObject jsonObject_top_banner = (JsonObject) jsonarray_result.get(l);
-                        String statename = jsonObject_top_banner.get("name").getAsString();
-
-                        state_names.add(statename);
 
                     }
 
-
-                    if (error.contains("false")) {
-                        Log.e("error_false", "error_false");
+                    else {
 
 
-                        Log.e("state_names", state_names.toString());
-                        categoryadapter = new CustomAutocompleteAdapter(c, state_names);
-                        autocomplete_textview_state.setAdapter(categoryadapter);
+                        Log.e("data2", webservice_returndata.toString());
+                        if (jsonObject.get("result").isJsonNull()) {
+                            Log.e("data_jsonArray null", webservice_returndata.toString());
+                        }
+
+
+                        JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+                        Log.e("data_jsonarray", jsonarray_result.toString());
+
+                        for (int l = 0; l < jsonarray_result.size(); l++) {
+
+                            JsonObject jsonObject_top_banner = (JsonObject) jsonarray_result.get(l);
+                            String statename = jsonObject_top_banner.get("name").getAsString();
+
+                            state_names.add(statename);
+
+                        }
+
+
+                        if (error.contains("false")) {
+                            Log.e("error_false", "error_false");
+
+
+                            Log.e("state_names", state_names.toString());
+                            categoryadapter = new CustomAutocompleteAdapter(c, state_names);
+                            autocomplete_textview_state.setAdapter(categoryadapter);
 
 
 //
 
 
-                    } else {
-                        //showMessage(message);
+                        } else {
+                            //showMessage(message);
+                        }
+
                     }
-
-
                 }
 
 
