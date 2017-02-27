@@ -190,9 +190,9 @@ class LoginActivity extends AppCompatActivity
                                 String dob = jsonobject_all_info.get("dob").getAsString();
 
                                 String mobile_no = jsonobject_all_info.get("mobile").getAsString();
-                            String order_quantity = jsonobject_all_info.get("order").getAsString();
-                            String product_quantity = jsonobject_all_info.get("product").getAsString();
-                            String company_quantity = jsonobject_all_info.get("company").getAsString();
+                            String order_quantity = jsonObject.get("order").getAsString();
+                            String product_quantity = jsonObject.get("product").getAsString();
+                            String company_quantity = jsonObject.get("company").getAsString();
 
 
                                 System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
@@ -242,7 +242,7 @@ class LoginActivity extends AppCompatActivity
                             String dob = jsonobject_all_info.get("dob").getAsString();
 
                             String mobile_no = jsonobject_all_info.get("mobile").getAsString();
-                            String order_quantity = jsonobject_all_info.get("order").getAsString();
+                            String order_quantity = jsonObject.get("order").getAsString();
 
                             System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
 
@@ -341,6 +341,14 @@ class LoginActivity extends AppCompatActivity
         app_sharedpreference.setsharedpref("dob",dob);
         app_sharedpreference.setsharedpref("address",address);
         app_sharedpreference.setsharedpref("mobile",mobile);
+        app_sharedpreference.setsharedpref("order_quantity",order_quantity);
+        app_sharedpreference.setsharedpref("product_quantity",product_quantity);
+        app_sharedpreference.setsharedpref("company_quantity",company_quantity);
+        app_sharedpreference.setsharedpref("vendor_quantity",vendor_quantity);
+        app_sharedpreference.setsharedpref("network_quantity",network_quantity);
+
+
+
 
 
     }
