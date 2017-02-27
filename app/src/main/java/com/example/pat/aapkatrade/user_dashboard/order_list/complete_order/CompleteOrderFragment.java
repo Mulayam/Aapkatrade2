@@ -77,7 +77,7 @@ public class CompleteOrderFragment extends Fragment
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id","3")
+                .setBodyParameter("seller_id", user_id)
                 .setBodyParameter("type","3")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
