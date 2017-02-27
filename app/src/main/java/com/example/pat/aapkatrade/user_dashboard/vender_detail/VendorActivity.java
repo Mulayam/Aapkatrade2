@@ -14,15 +14,12 @@ import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
 
 import java.util.ArrayList;
 
-public class VendorActivity extends AppCompatActivity
-{
+public class VendorActivity extends AppCompatActivity {
 
 
-    ArrayList<VendorData> venderListDatas = new ArrayList<>();
-    RecyclerView vender_list;
-    VendorAdapter vendorAdapter;
-
-
+    private ArrayList<VendorData> venderListDatas = new ArrayList<>();
+    private RecyclerView vender_list;
+    private VendorAdapter vendorAdapter;
 
 
     @Override
@@ -52,21 +49,19 @@ public class VendorActivity extends AppCompatActivity
         }
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
         vender_list = (RecyclerView) findViewById(R.id.vender_list);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
-        vendorAdapter = new VendorAdapter(this, venderListDatas,VendorActivity.this);
+        vendorAdapter = new VendorAdapter(this, venderListDatas, VendorActivity.this);
 
         vender_list.setAdapter(vendorAdapter);
 
         vender_list.setLayoutManager(mLayoutManager);
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,17 +71,14 @@ public class VendorActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;

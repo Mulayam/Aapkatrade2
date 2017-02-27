@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.LoginActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListAdapter;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListData;
@@ -39,6 +41,7 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_order);
+        Log.e("hi////", "ghuygubgiugvuyuuihguogyuygukyvgbuk");
 
         setuptoolbar();
 
@@ -71,6 +74,7 @@ public class OrderActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
+        app_sharedpreference = new App_sharedpreference(OrderActivity.this);
         // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
@@ -96,13 +100,13 @@ public class OrderActivity extends AppCompatActivity {
     private void get_web_data() {
         orderListDatas.clear();
         progress_handler.show();
-
+        Log.e("hi////", app_sharedpreference.getsharedpref("userid", user_id)+"GGGGGGG"+app_sharedpreference.getsharedpref("usertype","1"));
         Ion.with(OrderActivity.this)
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id", "3")
-                .setBodyParameter("type", "1")
+                .setBodyParameter("seller_id", app_sharedpreference.getsharedpref("userid", user_id))
+                .setBodyParameter("type", app_sharedpreference.getsharedpref("usertype","1"))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
