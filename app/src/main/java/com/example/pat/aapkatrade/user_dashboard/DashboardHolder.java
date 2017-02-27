@@ -17,7 +17,7 @@ public class DashboardHolder extends RecyclerView.ViewHolder
 {
 
     View view;
-    TextView tvDashboard, tvAmount;
+    TextView tvDashboard, tvquantity;
     ImageView imageView;
     LinearLayout relativeDashboard;
     RelativeLayout relativeImageView;
@@ -36,7 +36,7 @@ public class DashboardHolder extends RecyclerView.ViewHolder
 
         imageView = (ImageView) itemView.findViewById(R.id.imgDashboard);
 
-        tvAmount = (TextView) itemView.findViewById(R.id.tvAmount);
+        tvquantity = (TextView) itemView.findViewById(R.id.tvquantity);
 
         view = itemView;
     }
