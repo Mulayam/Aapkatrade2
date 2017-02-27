@@ -25,7 +25,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-class LoginActivity extends AppCompatActivity
+public class LoginActivity extends AppCompatActivity
 {
 
     TextView login_text, forgot_password;
@@ -190,9 +190,9 @@ class LoginActivity extends AppCompatActivity
                                 String dob = jsonobject_all_info.get("dob").getAsString();
 
                                 String mobile_no = jsonobject_all_info.get("mobile").getAsString();
-                            String order_quantity = jsonobject_all_info.get("order").getAsString();
-                            String product_quantity = jsonobject_all_info.get("product").getAsString();
-                            String company_quantity = jsonobject_all_info.get("company").getAsString();
+                            String order_quantity = jsonObject.get("order").getAsString();
+                            String product_quantity = jsonObject.get("product").getAsString();
+                            String company_quantity = jsonObject.get("company").getAsString();
 
 
                                 System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
