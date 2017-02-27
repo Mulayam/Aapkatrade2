@@ -299,6 +299,12 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
         app_sharedpreference.setsharedpref("emailid", email_id);
+
+
+
+
+
+
     }
 
 

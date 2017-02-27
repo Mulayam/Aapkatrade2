@@ -25,7 +25,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-public class LoginActivity extends AppCompatActivity
+class LoginActivity extends AppCompatActivity
 {
 
     TextView login_text, forgot_password;
@@ -190,12 +190,16 @@ public class LoginActivity extends AppCompatActivity
                                 String dob = jsonobject_all_info.get("dob").getAsString();
 
                                 String mobile_no = jsonobject_all_info.get("mobile").getAsString();
+                            String order_quantity = jsonobject_all_info.get("order").getAsString();
+                            String product_quantity = jsonobject_all_info.get("product").getAsString();
+                            String company_quantity = jsonobject_all_info.get("company").getAsString();
+
 
                                 System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
 
                                 showMessage(message);
 
-                                save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no);
+                                save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no,order_quantity,product_quantity,company_quantity,"","");
 
                                 Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
 
@@ -238,12 +242,13 @@ public class LoginActivity extends AppCompatActivity
                             String dob = jsonobject_all_info.get("dob").getAsString();
 
                             String mobile_no = jsonobject_all_info.get("mobile").getAsString();
+                            String order_quantity = jsonobject_all_info.get("order").getAsString();
 
                             System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
 
                             showMessage(message);
 
-                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no);
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no,order_quantity,"","","","");
 
                             Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
 
@@ -290,15 +295,17 @@ public class LoginActivity extends AppCompatActivity
 
                             String lname = jsonobject_all_info.get("lastname").getAsString();
 
-                            String dob = jsonobject_all_info.get("dob").getAsJsonNull().getAsString();
+                            String dob = jsonobject_all_info.get("dob").getAsString();
 
                             String mobile_no = jsonobject_all_info.get("mobile").getAsString();
+                            String vendor_quantity=jsonObject.get("vendor").getAsString();
+                            String network_quantity=jsonObject.get("network").getAsString();
 
                             System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
 
                             showMessage(message);
 
-                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no);
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no,"","","",vendor_quantity,network_quantity);
 
                             Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
 
@@ -324,7 +331,8 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
-    public void save_shared_pref(String user_id, String user_name, String email_id,String lname,String dob,String address,String mobile)
+    public void save_shared_pref(String user_id, String user_name, String email_id,String lname,String dob,String address,String mobile,String order_quantity,
+                                 String product_quantity,String company_quantity,String vendor_quantity,String network_quantity)
     {
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
