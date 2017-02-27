@@ -71,11 +71,11 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         if(itemList.get(position).isList)
         {
-            homeHolder.tvAmount.setText("12");
+            homeHolder.tvquantity.setText(itemList.get(position).quantities.toString());
         }
         else
         {
-            homeHolder.tvAmount.setVisibility(View.INVISIBLE);
+            homeHolder.tvquantity.setVisibility(View.INVISIBLE);
         }
 
         Picasso.with(context).load(itemList.get(position).image).into(homeHolder.imageView);

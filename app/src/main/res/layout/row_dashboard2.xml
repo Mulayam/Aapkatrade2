@@ -51,7 +51,7 @@
             />
 
         <TextView
-            android:id="@+id/tvAmount"
+            android:id="@+id/tvquantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
