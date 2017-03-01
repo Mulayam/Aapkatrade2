@@ -87,10 +87,8 @@ public class ChangePassword extends AppCompatActivity {
 
                             if (result == null) {
                                 progress_handler.hide();
-
                             } else {
                                 JsonObject jsonObject = result.getAsJsonObject();
-
                                 String message = jsonObject.get("message").getAsString();
                                 Log.e("data", result.toString());
                                 progress_handler.hide();
