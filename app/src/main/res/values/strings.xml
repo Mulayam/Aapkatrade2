@@ -49,7 +49,7 @@
     <string name="product_list_heading">List Product</string>
     <string name="add_product_heading">Add Products</string>
 
-   <string name="d">Data value</string>
+    <string name="d">Data value</string>
 
     <string name="near_by_you">Near by you</string>
     <string name="availability">Availability</string>
@@ -195,6 +195,16 @@
     <string name="oldPassword">Old Password</string>
     <string name="newPassword">New Password</string>
     <string name="confirmNewPassword">Confirm New Password</string>
+    <string name="title_activity_bank_management">BankManagementActivity</string>
+    <string name="beneficiary_name">Beneficiary Name*</string>
+    <string name="beneficiary_code">Beneficiary Code*</string>
+    <string name="beneficiary_account">Beneficiary Account*</string>
+    <string name="beneficiary_bank_reference">Beneficiary Bank Reference*</string>
+    <string name="beneficiary_bank_name">Beneficiary Bank Name</string>
+    <string name="beneficiary_address">Beneficiary Address</string>
+    <string name="bank_details">Bank Details</string>
+    <string name="landline">Landline</string>
+    <string name="additional_info">Additional Info</string>
 
 
 </resources>

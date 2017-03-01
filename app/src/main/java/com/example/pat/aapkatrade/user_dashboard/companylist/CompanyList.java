@@ -32,8 +32,12 @@ public class CompanyList extends AppCompatActivity
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
     ProgressBarHandler progress_handler;
-    App_sharedpreference app_sharedpreference;
+
+    private App_sharedpreference app_sharedpreference;
+
+   
     String user_id;
+
 
 
 
@@ -69,7 +73,11 @@ public class CompanyList extends AppCompatActivity
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "company")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", user_id)
+
+                .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
+
+              
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -134,6 +142,7 @@ public class CompanyList extends AppCompatActivity
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         recyclerViewcompanylist.setLayoutManager(mLayoutManager);
+        app_sharedpreference = new App_sharedpreference(CompanyList.this);
 
         get_company_list_data();
     }
@@ -142,12 +151,11 @@ public class CompanyList extends AppCompatActivity
     {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setTitle(null);
-
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+        }
     }
 
     @Override

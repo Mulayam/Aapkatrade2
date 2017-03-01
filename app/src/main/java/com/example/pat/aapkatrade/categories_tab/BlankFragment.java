@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
@@ -25,8 +27,7 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 
-public class BlankFragment extends Fragment
-{
+public class BlankFragment extends Fragment {
 
     ArrayList<OrderListData> orderListDatas = new ArrayList<>();
     RecyclerView order_list;
@@ -37,10 +38,8 @@ public class BlankFragment extends Fragment
     String user_id, user_type;
 
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
 
@@ -48,8 +47,8 @@ public class BlankFragment extends Fragment
 
         app_sharedpreference = new App_sharedpreference(getActivity());
 
-        user_id = app_sharedpreference.getsharedpref("userid","");
-        user_type = app_sharedpreference.getsharedpref("usertype","1");
+        user_id = app_sharedpreference.getsharedpref("userid", "");
+        user_type = app_sharedpreference.getsharedpref("usertype", "1");
 
         setup_layout(view);
 
@@ -58,8 +57,7 @@ public class BlankFragment extends Fragment
         return view;
     }
 
-    private void setup_layout(View view)
-    {
+    private void setup_layout(View view) {
         layout_container = (LinearLayout) view.findViewById(R.id.layout_container);
 
         order_list = (RecyclerView) view.findViewById(R.id.order_list);
@@ -68,63 +66,54 @@ public class BlankFragment extends Fragment
     }
 
 
-    private void get_web_data()
-    {
-        // layout_container.setVisibility(View.INVISIBLE);
+    private void get_web_data() {
         orderListDatas.clear();
         progress_handler.show();
+
+        Log.e("hi1234", user_id+"##blank##"+AndroidUtils.getUserType(user_type)+"@@@@@@@"+user_type);
 
         Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("seller_id", user_id)
-                .setBodyParameter("type", "0")
+                .setBodyParameter("type",AndroidUtils.getUserType(user_type))
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-                        if(result == null)
-                        {
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
                             progress_handler.hide();
                             layout_container.setVisibility(View.INVISIBLE);
-                        }
-                        else
-                        {
+                        } else {
                             JsonObject jsonObject = result.getAsJsonObject();
 
-                            String message = jsonObject.get("message").toString().substring(0,jsonObject.get("message").toString().length());
+                            String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
 
                             String message_data = message.replace("\"", "");
 
-                            System.out.println("message_data=================="+message_data);
+                            System.out.println("message_data==================" + message_data);
 
-                            if (message_data.toString().equals("No record found"))
-                            {
+                            if (message_data.toString().equals("No record found")) {
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
-                            }
-                            else
-                            {
+                            } else {
                                 JsonObject jsonObject1 = jsonObject.getAsJsonObject("result");
 
-                                System.out.println("jsonOblect-------------"+jsonObject1.toString());
+                                System.out.println("jsonOblect-------------" + jsonObject1.toString());
 
                                 JsonArray jsonArray = jsonObject1.getAsJsonArray("list");
 
-                                for (int i = 0; i < jsonArray.size(); i++)
-                                {
+                                for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                     String order_id = jsonObject2.get("id").getAsString();
 
-                                    String product_name= jsonObject2.get("product_name").getAsString();
+                                    String product_name = jsonObject2.get("product_name").getAsString();
 
                                     String product_price = jsonObject2.get("product_price").getAsString();
 
-                                    String product_qty= jsonObject2.get("product_qty").getAsString();
+                                    String product_qty = jsonObject2.get("product_qty").getAsString();
 
                                     String address = jsonObject2.get("address").getAsString();
 
@@ -140,23 +129,15 @@ public class BlankFragment extends Fragment
 
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
-                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at));
-
-
+                                    orderListDatas.add(new OrderListData(order_id, product_name, product_price, product_qty, address, email, buyersmobile, buyersname, company_name, status, created_at));
                                 }
-
                                 orderListAdapter = new OrderListAdapter(getActivity(), orderListDatas);
                                 order_list.setAdapter(orderListAdapter);
                                 orderListAdapter.notifyDataSetChanged();
                                 progress_handler.hide();
                             }
-
-                            //   layout_container.setVisibility(View.VISIBLE);
                         }
-
                     }
                 });
     }
-
-
 }

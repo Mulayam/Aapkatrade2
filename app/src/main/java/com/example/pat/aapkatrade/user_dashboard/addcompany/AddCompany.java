@@ -31,7 +31,7 @@ public class AddCompany extends AppCompatActivity
 
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail, etAddress,etDiscription;
-    ProgressDialog dialog;
+    private ProgressDialog dialog;
     LinearLayout linearLayout;
     Snackbar snackbar;
     ProgressBarHandler progress_handler;
