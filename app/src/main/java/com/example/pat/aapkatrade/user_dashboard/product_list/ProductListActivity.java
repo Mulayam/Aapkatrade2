@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.user_dashboard.product_list;
 
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,12 +30,11 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class ProductListActivity extends AppCompatActivity
+public class ProductListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
 {
 
     RecyclerView product_list;
     ProductListAdapter productListAdapter;
-    ProgressBarHandler progress_handler;
     App_sharedpreference app_sharedpreference;
     String user_id;
     LinearLayout layout_container;
@@ -42,7 +42,8 @@ public class ProductListActivity extends AppCompatActivity
     LinearLayoutManager mLayoutManager,linearLayoutManager;
     boolean isLoading=false;
     int mPageSize=6;
-    int totalItemCount;
+    SwipeRefreshLayout mSwipyRefreshLayout;
+    int page=1;
 
 
 
@@ -52,8 +53,6 @@ public class ProductListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_list_product);
-
-        progress_handler = new ProgressBarHandler(this);
 
         app_sharedpreference = new App_sharedpreference(this);
 
@@ -70,6 +69,11 @@ public class ProductListActivity extends AppCompatActivity
 
     private void setup_layout()
     {
+        mSwipyRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+
+        mSwipyRefreshLayout.setRefreshing(false);
+
+        mSwipyRefreshLayout.setOnRefreshListener(this);
 
         product_list = (RecyclerView) findViewById(R.id.product_list_recycler_view);
 
@@ -86,9 +90,7 @@ public class ProductListActivity extends AppCompatActivity
 
             public void onScrollStateChanged(RecyclerView view, int scrollState)
             {
-
                 super.onScrollStateChanged(product_list, scrollState);
-
             }
 
             @Override
@@ -96,28 +98,30 @@ public class ProductListActivity extends AppCompatActivity
             {
                 super.onScrolled(recyclerView, dx, dy);
 
-               int totalItemCount = linearLayoutManager.getItemCount();
+                int totalItemCount = mLayoutManager.getItemCount();
 
                 int lastVisibleItemCount = mLayoutManager.findLastVisibleItemPosition();
 
+                System.out.println("totalItemCount-----------"+totalItemCount + "lastVisibleItemCount----------"+lastVisibleItemCount);
+
                 if (totalItemCount > 0)
                 {
+
                     if ((totalItemCount - 1) == lastVisibleItemCount)
                     {
-
-                        get_web_data();
+                        page = page+1;
+                        get_web_data2(page);
                     }
                     else
                     {
                         //loadingProgress.setVisibility(View.GONE);
                     }
-                }
 
+                }
 
             }
 
-            });
-
+        });
     }
 
 
@@ -136,27 +140,26 @@ public class ProductListActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
         //getSupportActionBar().setIcon(R.drawable.home_logo);
-
     }
 
 
-    public void  get_web_data2()
+    public void  get_web_data2(int page_number)
     {
         // layout_container.setVisibility(View.INVISIBLE);
-
-        progress_handler.show();
-
+        // progress_handler.show();
         Ion.with(ProductListActivity.this)
                 .load("http://aapkatrade.com/slim/productlist")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "product_list")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("seller_id", user_id)
+                .setBodyParameter("page",String.valueOf(page_number))
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .setCallback(new FutureCallback<JsonObject>()
+                {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
                         System.out.println("userid----------------"+user_id);
 
                        // System.out.println("jsonObject---------123----"+user_id + result.toString().substring(0, 3574));
@@ -165,11 +168,12 @@ public class ProductListActivity extends AppCompatActivity
 
                         if (result == null)
                         {
-                            progress_handler.hide();
-                            layout_container.setVisibility(View.INVISIBLE);
+                           // progress_handler.hide();
+                           // layout_container.setVisibility(View.INVISIBLE);
                         }
                         else
                         {
+
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
@@ -180,8 +184,9 @@ public class ProductListActivity extends AppCompatActivity
 
                             if (message_data.equals("No record found"))
                             {
-                                progress_handler.hide();
-                                layout_container.setVisibility(View.INVISIBLE);
+                                //progress_handler.hide();
+
+                               // layout_container.setVisibility(View.INVISIBLE);
 
                             }
                             else
@@ -204,7 +209,15 @@ public class ProductListActivity extends AppCompatActivity
 
                                     String category_name = jsonObject2.get("category_name").getAsString();
 
-                                    productListDatas.add(new ProductListData(product_id, product_name, product_price, product_cross_price, product_image, category_name));
+                                    String state = jsonObject2.get("state_name").getAsString();
+
+                                    String description = jsonObject2.get("short_des").getAsString();
+
+                                    String delivery_distance = jsonObject2.get("deliverday").getAsString();
+
+                                    String delivery_area_name = jsonObject2.get("deliveryArea").getAsString();
+
+                                    productListDatas.add(new ProductListData(product_id, product_name, product_price, product_cross_price, product_image, category_name,state,description,delivery_distance,delivery_area_name));
                                 }
 
                                 productListAdapter = new ProductListAdapter(getApplicationContext(), productListDatas);
@@ -213,7 +226,8 @@ public class ProductListActivity extends AppCompatActivity
 
                                 productListAdapter.notifyDataSetChanged();
 
-                                progress_handler.hide();
+                               //  mSwipyRefreshLayout.setRefreshing(false);
+                               // progress_handler.hide();
 
                             }
 
@@ -227,10 +241,12 @@ public class ProductListActivity extends AppCompatActivity
 
     }
 
-    private void get_web_data() {
+    private void get_web_data()
+    {
         // layout_container.setVisibility(View.INVISIBLE);
+        mSwipyRefreshLayout.setRefreshing(true);
         productListDatas.clear();
-        progress_handler.show();
+       // progress_handler.show();
 
         Ion.with(ProductListActivity.this)
                 .load("http://aapkatrade.com/slim/productlist")
@@ -238,21 +254,26 @@ public class ProductListActivity extends AppCompatActivity
                 .setBodyParameter("type", "product_list")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("seller_id", user_id)
+                .setBodyParameter("page","1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
 
-                      /*  System.out.println("userid----------------"+user_id);
+
+
+                        /*  System.out.println("userid----------------"+user_id);
 
                         System.out.println("jsonObject---------123----"+user_id + result.toString().substring(0, 3574));
 
                         System.out.println("jsonObject---------123----" + result.toString().substring(3574, result.toString().length()-1));
-*/
+                        */
                         if (result == null)
                         {
-                            progress_handler.hide();
+                            //progress_handler.hide();
                             layout_container.setVisibility(View.INVISIBLE);
+                            mSwipyRefreshLayout.setRefreshing(false);
                         }
                         else
                         {
@@ -266,14 +287,16 @@ public class ProductListActivity extends AppCompatActivity
 
                             if (message_data.equals("No record found"))
                             {
-                                progress_handler.hide();
+                               // progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
-
+                                mSwipyRefreshLayout.setRefreshing(false);
 
                             }
                             else
                             {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+
+                                System.out.println("jsonArray----------------"+jsonArray.toString());
 
                                 for (int i = 0; i < jsonArray.size(); i++)
                                 {
@@ -291,7 +314,16 @@ public class ProductListActivity extends AppCompatActivity
 
                                     String category_name = jsonObject2.get("category_name").getAsString();
 
-                                    productListDatas.add(new ProductListData(product_id, product_name, product_price, product_cross_price, product_image, category_name));
+                                    String state = jsonObject2.get("state_name").getAsString();
+
+                                    String description = jsonObject2.get("short_des").getAsString();
+
+                                    String delivery_distance = jsonObject2.get("deliverday").getAsString();
+
+                                    String delivery_area_name = jsonObject2.get("deliveryArea").getAsString();
+
+                                    productListDatas.add(new ProductListData(product_id, product_name, product_price, product_cross_price, product_image, category_name,state,description,delivery_distance,delivery_area_name));
+
                                 }
 
                                 productListAdapter = new ProductListAdapter(getApplicationContext(), productListDatas);
@@ -300,16 +332,13 @@ public class ProductListActivity extends AppCompatActivity
 
                                 productListAdapter.notifyDataSetChanged();
 
-                                progress_handler.hide();
-
+                               // progress_handler.hide();
+                                mSwipyRefreshLayout.setRefreshing(false);
                             }
-
                             //   layout_container.setVisibility(View.VISIBLE);
                         }
-
                     }
                 });
-
     }
 
     @Override
@@ -332,6 +361,16 @@ public class ProductListActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onRefresh()
+    {
+        get_web_data();
+    }
+
+
+
 
 
 }

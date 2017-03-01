@@ -188,7 +188,6 @@
                                 android:id="@+id/tvDuration"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvStockHeading"
                                 android:text="@string/duration"
                                 android:layout_marginTop="5dp"
                                 android:visibility="gone"
@@ -299,6 +298,7 @@
 
 
                     <RelativeLayout
+                        android:id="@+id/relativeSpecification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
