@@ -31,10 +31,10 @@ import com.koushikdutta.ion.Ion;
 public class ChangePassword extends AppCompatActivity {
 
     EditText OldPassword, NewPassword, ConfirmPassword;
-    Button saveNewPasswordButton;
+    TextView saveNewPasswordButton;
     LinearLayout linearChangePassword;
     App_sharedpreference app_sharedpreference;
-    String user_id;
+    String user_id, user_type;
     ProgressBarHandler progress_handler;
 
 
@@ -51,11 +51,13 @@ public class ChangePassword extends AppCompatActivity {
         app_sharedpreference = new App_sharedpreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
+        user_type = app_sharedpreference.getsharedpref("usertype","1");
 
         initView();
 
 
     }
+
 
     private void showMessage(String message) {
         AndroidUtils.showSnackBar(linearChangePassword, message);
@@ -66,7 +68,7 @@ public class ChangePassword extends AppCompatActivity {
 
         progress_handler.show();
 
-        System.out.println("user_id------------" + user_id + "old password--" + OldPassword.getText().toString() + "Confirm password----" + ConfirmPassword.getText().toString());
+        System.out.println("user_id------------" + user_id +"usertype-----"+userType+ "old password--" + OldPassword.getText().toString() + "Confirm password----" + ConfirmPassword.getText().toString());
 
         if (ConnetivityCheck.isNetworkAvailable(ChangePassword.this)) {
             Ion.with(ChangePassword.this)
@@ -85,10 +87,8 @@ public class ChangePassword extends AppCompatActivity {
 
                             if (result == null) {
                                 progress_handler.hide();
-
                             } else {
                                 JsonObject jsonObject = result.getAsJsonObject();
-
                                 String message = jsonObject.get("message").getAsString();
                                 Log.e("data", result.toString());
                                 progress_handler.hide();
@@ -120,7 +120,7 @@ public class ChangePassword extends AppCompatActivity {
 
         ConfirmPassword = (EditText) findViewById(R.id.etNewPasswordConfirm);
 
-        saveNewPasswordButton = (Button) findViewById(R.id.saveNewPasswordButton);
+        saveNewPasswordButton = (TextView) findViewById(R.id.saveNewPasswordButton);
 
         saveNewPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +134,7 @@ public class ChangePassword extends AppCompatActivity {
 
                             if (NewPassword.getText().toString().equals(ConfirmPassword.getText().toString())) {
 
-                                callChangePasswordWebService("seller");
+                                callChangePasswordWebService(AndroidUtils.getUserType(user_type));
 
                             } else {
                                 showMessage("Old and confirm password does not match");
@@ -156,19 +156,14 @@ public class ChangePassword extends AppCompatActivity {
         });
     }
 
-
     private void setuptoolbar() {
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setTitle(null);
-
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
-
     }
+
 
 
     @Override

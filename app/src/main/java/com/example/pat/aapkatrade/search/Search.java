@@ -35,10 +35,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
-public class Search extends AppCompatActivity
-{
+public class Search extends AppCompatActivity {
 
-    AutoCompleteTextView autocomplete_textview_state,autocomplete_textview_product;
+    AutoCompleteTextView autocomplete_textview_state, autocomplete_textview_product;
 
     CustomAutocompleteAdapter categoryadapter;
 
@@ -47,15 +46,14 @@ public class Search extends AppCompatActivity
     RecyclerView recyclerView_search;
     CommomAdapter commomAdapter;
     ArrayList<String> state_names = new ArrayList<>();
-    ArrayList<String> product_names=new ArrayList<>();
-ArrayList<CommomData> search_productlist=new ArrayList<>();
+    ArrayList<String> product_names = new ArrayList<>();
+    ArrayList<CommomData> search_productlist = new ArrayList<>();
     Toolbar toolbar;
 
-ProgressBarHandler progressBarHandler;
+    ProgressBarHandler progressBarHandler;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
@@ -66,30 +64,23 @@ ProgressBarHandler progressBarHandler;
     }
 
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
-
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+        }
     }
 
 
+    private void initview() {
+        c = Search.this;
+        progressBarHandler = new ProgressBarHandler(Search.this);
 
-
-
-
-    private void initview()
-    {
-        c=Search.this;
-        progressBarHandler=new ProgressBarHandler(Search.this);
-
-        autocomplete_textview_state=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_state);
-        autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
+        autocomplete_textview_state = (AutoCompleteTextView) findViewById(R.id.search_autocompletetext_state);
+        autocomplete_textview_product = (AutoCompleteTextView) findViewById(R.id.search_autocompletetext_products);
         autocomplete_textview_state.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,23 +91,16 @@ ProgressBarHandler progressBarHandler;
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                String text=s.toString();
+                String text = s.toString();
 
                 if (text.length() > 2) {
 
 
-                  String state_search_url="https://aapkatrade.com/slim/location";
-                    call_search_suggest_webservice_state(state_search_url,text);
-
-
-
-
-
+                    String state_search_url = "https://aapkatrade.com/slim/location";
+                    call_search_suggest_webservice_state(state_search_url, text);
 
 
                 }
-
-
 
 
             }
@@ -126,11 +110,8 @@ ProgressBarHandler progressBarHandler;
 
             }
         });
-        recyclerView_search=(RecyclerView)findViewById(R.id.recycleview_search) ;
+        recyclerView_search = (RecyclerView) findViewById(R.id.recycleview_search);
         gridLayoutManager = new GridLayoutManager(c, 2);
-
-
-
 
 
         autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
@@ -142,30 +123,25 @@ ProgressBarHandler progressBarHandler;
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                String text=s.toString();
+                String text = s.toString();
 
                 if (text.length() > 2) {
 
-if(autocomplete_textview_state.getText().length()!=0)
+                    if (autocomplete_textview_state.getText().length() != 0)
 
-{
-    String product_search_url = "https://aapkatrade.com/slim/product_search";
-
-
-
-    call_search_suggest_webservice_product(product_search_url, text, autocomplete_textview_state.getText().toString().trim());
-    Log.e("product_search_data",text+"*****"+autocomplete_textview_state.getText().toString());
+                    {
+                        String product_search_url = "https://aapkatrade.com/slim/product_search";
 
 
+                        call_search_suggest_webservice_product(product_search_url, text, autocomplete_textview_state.getText().toString().trim());
+                        Log.e("product_search_data", text + "*****" + autocomplete_textview_state.getText().toString());
 
 
-
-
-}
+                    }
 
                 }
 
-                }
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -182,23 +158,18 @@ if(autocomplete_textview_state.getText().length()!=0)
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
 
-                    if(autocomplete_textview_state.getText().length()!=0)
-                    {
-                        if(autocomplete_textview_product.getText().length()!=0)
-                        {
-                            Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
-                            call_search_webservice(autocomplete_textview_state.getText().toString(),autocomplete_textview_product.getText().toString());
+                    if (autocomplete_textview_state.getText().length() != 0) {
+                        if (autocomplete_textview_product.getText().length() != 0) {
+                            Log.e("text_editor", autocomplete_textview_state.getText().toString() + "**********" + autocomplete_textview_state.getText().toString());
+                            call_search_webservice(autocomplete_textview_state.getText().toString(), autocomplete_textview_product.getText().toString());
                         }
 
                     }
 
 
-
-
                     return true;
                 }
                 return false;
-
 
 
             }
@@ -221,7 +192,7 @@ if(autocomplete_textview_state.getText().length()!=0)
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
-                            search_productlist=new ArrayList<CommomData>();
+                            search_productlist = new ArrayList<CommomData>();
 
                             JsonObject jsonObject = result.getAsJsonObject();
 
@@ -241,21 +212,22 @@ if(autocomplete_textview_state.getText().length()!=0)
                                 JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
                                 String productname = jsonObject_result.get("name").getAsString();
                                 String productid = jsonObject_result.get("id").getAsString();
-                                String product_prize= jsonObject_result.get("price").getAsString();
-                                String imageurl=jsonObject_result.get("image_url").getAsString();
-                                search_productlist.add(new CommomData(productid,productname,product_prize,imageurl));
+
+                                String product_prize = jsonObject_result.get("price").getAsString();
+                                String imageurl = jsonObject_result.get("image_url").getAsString();
+                                search_productlist.add(new CommomData(productid, productname, product_prize, imageurl));
+
+
                             }
 
                             recyclerView_search.setLayoutManager(gridLayoutManager);
                             commomAdapter = new CommomAdapter(Search.this, search_productlist, "gridtype", "latestupdate");
 
                             recyclerView_search.setAdapter(commomAdapter);
-                           progressBarHandler.hide();
+                            progressBarHandler.hide();
 
 
-
-                        }
-                        else {
+                        } else {
                             progressBarHandler.hide();
                         }
 
@@ -272,18 +244,17 @@ if(autocomplete_textview_state.getText().length()!=0)
 
         Ion.with(Search.this)
                 .load(product_search_url)
-                .setHeader("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("location", location_text)
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("name",product_search_text)
+                .setBodyParameter("name", product_search_text)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if(result!=null)
-                        {
+                        if (result != null) {
                             product_names.clear();
-                            product_names=new ArrayList<String>();
+                            product_names = new ArrayList<String>();
                             Log.e("webservice_returndata", product_names.toString());
                             JsonObject jsonObject = result.getAsJsonObject();
 
@@ -309,6 +280,8 @@ if(autocomplete_textview_state.getText().length()!=0)
                             }
 
                             if (error.contains("false")) {
+
+
                                 Log.e("product_names", product_names.toString());
                                 categoryadapter = new CustomAutocompleteAdapter(c, product_names);
                                 autocomplete_textview_product.setAdapter(categoryadapter);
@@ -317,7 +290,10 @@ if(autocomplete_textview_state.getText().length()!=0)
                                 //showMessage(message);
                             }
 
+
+
                         }
+
 
 //
                     }
@@ -329,11 +305,9 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
 
+    private void call_search_suggest_webservice_state(String url, String input_txt) {
 
 
-
-    private void call_search_suggest_webservice_state(String url, String input_txt)
-    {
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -397,17 +371,14 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.empty_menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -416,7 +387,6 @@ if(autocomplete_textview_state.getText().length()!=0)
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
 }
