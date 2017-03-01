@@ -10,7 +10,7 @@
     <dimen name="fourty_dip">44dp</dimen>
 
     <dimen name="fab_margin">18dp</dimen>
-    <dimen name="textsize_small">13sp</dimen>
+    <dimen name="textsize_small">14sp</dimen>
 
     <dimen name="textsize_large">22sp</dimen>
     <dimen name="Button_small">33dp</dimen>
@@ -25,6 +25,7 @@
     <dimen name="thirty_five_dip">39dp</dimen>
     <dimen name="fifty_dip">55dp</dimen>
     <dimen name="hundred_dip">110dp</dimen>
+    <dimen name="twenty_dip">22dp</dimen>
 
 
     <dimen name="imageview_height">110dp</dimen>

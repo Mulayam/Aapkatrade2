@@ -56,11 +56,17 @@ public class ShippedFragment extends Fragment
 
     private void setup_layout(View view)
     {
+
+
         layout_container = (LinearLayout) view.findViewById(R.id.layout_container);
 
         order_list = (RecyclerView) view.findViewById(R.id.order_list);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+
         order_list.setLayoutManager(mLayoutManager);
+
+
     }
 
 
@@ -74,7 +80,7 @@ public class ShippedFragment extends Fragment
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id","3")
+                .setBodyParameter("seller_id", user_id)
                 .setBodyParameter("type","2")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.design.widget.CoordinatorLayout
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,13 +11,27 @@ android:fitsSystemWindows="true"
 android:background="@color/green"
     >
 
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#EEEEEE">
+
+
     <RelativeLayout
         android:id="@+id/RelativeProductDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+
         tools:context="com.example.pat.aapkatrade.search.Search"
         >
+
+       
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
@@ -25,13 +40,17 @@ android:background="@color/green"
             android:layout_height="wrap_content">
 
 
-                <include
-                    android:id="@+id/toolbar"
-                    layout="@layout/toolbar_layout" />
+
+              
 
 
 
 
+
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_layout" />
 
 
             <RelativeLayout
@@ -44,7 +63,6 @@ android:background="@color/green"
                 android:layout_height="40dp">
 
 
-
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="15dp"
                     android:layout_alignParentRight="true"
@@ -55,6 +73,7 @@ android:background="@color/green"
                     android:layout_marginRight="5dp"
 
                     android:layout_height="15dp" />
+
                 <android.support.v7.widget.AppCompatAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:id="@+id/search_autocompletetext_state"
@@ -62,7 +81,7 @@ android:background="@color/green"
                     android:hint="@string/location_hint"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:textSize="@dimen/textsize_small"
+                    android:textSize="@dimen/textsize"
 
                     android:background="@android:color/transparent"
 
@@ -87,83 +106,91 @@ android:background="@color/green"
             </RelativeLayout>
 
 
-        <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/rl_autocomplete_textview"
-        android:layout_margin="5dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/rl_autocomplete_textview"
+                android:layout_margin="5dp"
 
-        android:layout_below="@+id/toolbar"
-        android:background="@drawable/edit_text_grey_back"
-        android:layout_height="40dp">
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="15dp"
-                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/toolbar"
+                android:background="@drawable/edit_text_grey_back"
+                android:layout_height="40dp">
+
 
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 app:srcCompat="@drawable/ic_at"
                 android:layout_marginLeft="10dp"
 
-                android:layout_height="15dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="@string/search_data"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-
-    android:visibility="gone"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content" />
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="15dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            app:srcCompat="@drawable/ic_pen"
-            android:layout_marginRight="5dp"
-
-            android:layout_height="15dp" />
-    <android.support.v7.widget.AppCompatAutoCompleteTextView
-        android:layout_width="match_parent"
-        android:id="@+id/search_autocompletetext_products"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:hint="@string/search_data"
-android:textSize="@dimen/textsize_small"
-        android:imeOptions="actionSearch"
-        android:inputType="textAutoComplete|textAutoCorrect"
-        android:background="@android:color/transparent"
-
-        >
-        <requestFocus />
-    </android.support.v7.widget.AppCompatAutoCompleteTextView>
-    </RelativeLayout>
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="15dp"
+                    android:layout_alignParentLeft="true"
 
 
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_product_icon"
+                    android:layout_marginLeft="5dp"
 
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="@string/search_data"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_pen"
+                    android:layout_marginRight="5dp"
+
+                    android:layout_height="15dp" />
+
+                <android.support.v7.widget.AppCompatAutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/search_autocompletetext_products"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:hint="@string/search_data"
+                    android:textSize="@dimen/textsize"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textAutoComplete|textAutoCorrect"
+                    android:background="@android:color/transparent"
+
+                    >
+
+                    <requestFocus />
+                </android.support.v7.widget.AppCompatAutoCompleteTextView>
+            </RelativeLayout>
 
 
         </LinearLayout>
 
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_below="@+id/ll_search_container"
-
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleview_search"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:dividerHeight="5dp"
-            android:divider="#E6E6E6"/>
+            android:layout_below="@+id/ll_search_container"
+
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleview_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:dividerHeight="5dp"
+                android:divider="#E6E6E6" />
 
 
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

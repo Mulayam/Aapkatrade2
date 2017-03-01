@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -28,14 +29,14 @@ import com.koushikdutta.ion.Ion;
 public class AddCompany extends AppCompatActivity
 {
 
-
-
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail, etAddress,etDiscription;
     ProgressDialog dialog;
     LinearLayout linearLayout;
     Snackbar snackbar;
     ProgressBarHandler progress_handler;
+    App_sharedpreference app_sharedpreference;
+    String user_id;
 
 
 
@@ -43,7 +44,14 @@ public class AddCompany extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_add_company);
+
+
+        app_sharedpreference = new App_sharedpreference(this);
+
+        user_id = app_sharedpreference.getsharedpref("userid", "");
+
 
         progress_handler = new ProgressBarHandler(this);
         setuptoolbar();
@@ -162,7 +170,7 @@ public class AddCompany extends AppCompatActivity
                 .load("http://aapkatrade.com/slim/addCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", "1")
+                .setBodyParameter("user_id", user_id)
                 .setBodyParameter("company_name", companyName)
                 .setBodyParameter("secondaryEmail",sEmail)
                 .setBodyParameter("address", address)
@@ -187,16 +195,12 @@ public class AddCompany extends AppCompatActivity
 
                         snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
 
-
-
                     }
                 });
     }
 
     private void initView()
     {
-
-
         btnSave = (Button) findViewById(R.id.btnSave);
 
         etCompanyName = (EditText) findViewById(R.id.etCompanyName);
@@ -247,7 +251,6 @@ public class AddCompany extends AppCompatActivity
     {
         switch (item.getItemId())
         {
-
             case android.R.id.home:
                 finish();
                 break;
