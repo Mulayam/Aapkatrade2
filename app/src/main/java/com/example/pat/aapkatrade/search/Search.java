@@ -204,15 +204,6 @@ if(autocomplete_textview_state.getText().length()!=0)
             }
         });
 
-
-
-
-
-
-
-
-
-
     }
 
     private void call_search_webservice(String location_text, String product_name1) {
@@ -242,22 +233,17 @@ if(autocomplete_textview_state.getText().length()!=0)
                                 Log.e("data_jsonArray null", result.toString());
                             }
 
-
                             JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
                             Log.e("data_jsonarray", jsonarray_result.toString());
 
-                            for (int l = 0; l < jsonarray_result.size(); l++) {
-
+                            for (int l = 0; l < jsonarray_result.size(); l++)
+                            {
                                 JsonObject jsonObject_result = (JsonObject) jsonarray_result.get(l);
                                 String productname = jsonObject_result.get("name").getAsString();
                                 String productid = jsonObject_result.get("id").getAsString();
                                 String product_prize= jsonObject_result.get("price").getAsString();
                                 String imageurl=jsonObject_result.get("image_url").getAsString();
                                 search_productlist.add(new CommomData(productid,productname,product_prize,imageurl));
-
-
-
-
                             }
 
                             recyclerView_search.setLayoutManager(gridLayoutManager);
@@ -322,72 +308,21 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                             }
 
-
                             if (error.contains("false")) {
-
-
-
                                 Log.e("product_names", product_names.toString());
                                 categoryadapter = new CustomAutocompleteAdapter(c, product_names);
                                 autocomplete_textview_product.setAdapter(categoryadapter);
-
-
 //
-
-
                             } else {
                                 //showMessage(message);
                             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         }
-
-
 
 //
                     }
 
                 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -397,9 +332,8 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
 
-    private void call_search_suggest_webservice_state(String url, String input_txt) {
-
-
+    private void call_search_suggest_webservice_state(String url, String input_txt)
+    {
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -430,32 +364,23 @@ if(autocomplete_textview_state.getText().length()!=0)
                         Log.e("data_jsonArray null", webservice_returndata.toString());
                     }
 
-
                     JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
                     Log.e("data_jsonarray", jsonarray_result.toString());
 
-                    for (int l = 0; l < jsonarray_result.size(); l++) {
-
+                    for (int l = 0; l < jsonarray_result.size(); l++)
+                    {
                         JsonObject jsonObject_top_banner = (JsonObject) jsonarray_result.get(l);
                         String statename = jsonObject_top_banner.get("name").getAsString();
 
                         state_names.add(statename);
-
                     }
-
-
-                    if (error.contains("false")) {
+                    if (error.contains("false"))
+                    {
                         Log.e("error_false", "error_false");
-
-
                         Log.e("state_names", state_names.toString());
                         categoryadapter = new CustomAutocompleteAdapter(c, state_names);
                         autocomplete_textview_state.setAdapter(categoryadapter);
-
-
 //
-
-
                     } else {
                         //showMessage(message);
                     }
