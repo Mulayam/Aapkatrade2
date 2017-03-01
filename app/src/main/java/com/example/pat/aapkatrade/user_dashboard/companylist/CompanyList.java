@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.JsonArray;
@@ -30,6 +31,7 @@ public class CompanyList extends AppCompatActivity {
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
     ProgressBarHandler progress_handler;
+    private App_sharedpreference app_sharedpreference;
 
 
     @Override
@@ -54,7 +56,7 @@ public class CompanyList extends AppCompatActivity {
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "company")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", "1")
+                .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -114,6 +116,7 @@ public class CompanyList extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         recyclerViewcompanylist.setLayoutManager(mLayoutManager);
+        app_sharedpreference = new App_sharedpreference(CompanyList.this);
 
         get_company_list_data();
 
@@ -122,12 +125,11 @@ public class CompanyList extends AppCompatActivity {
     private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setTitle(null);
-
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+        }
     }
 
     @Override

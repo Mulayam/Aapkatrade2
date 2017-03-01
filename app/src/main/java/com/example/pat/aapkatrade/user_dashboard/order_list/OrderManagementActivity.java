@@ -13,11 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.BlankFragment;
 import com.example.pat.aapkatrade.user_dashboard.order_list.cancel_order_fragment.CancelOrderFragment;
 import com.example.pat.aapkatrade.user_dashboard.order_list.complete_order.CompleteOrderFragment;
 import com.example.pat.aapkatrade.user_dashboard.order_list.shipped_fragment.ShippedFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,11 +64,6 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
 
         tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
 
-//        viewPager.setCurrentItem(0);
-//        viewPager.setOffscreenPageLimit(1);
-      /*  if(tabLayout.getTabAt(0) != null)
-        tabLayout.getTabAt(0).select();*/
-
         setupTabIcons();
 
 
@@ -76,35 +73,29 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setElevation(0);
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab)
-    {
-        Log.e("hi---", "IIIIIIIII"+tab.getPosition());
+    public void onTabSelected(TabLayout.Tab tab) {
+        Log.e("hi---", "IIIIIIIII" + tab.getPosition());
         //viewPager.setCurrentItem(tab.getPosition());
-        if(tab.getPosition() == 0)
-        {
+        if (tab.getPosition() == 0) {
             tab.setIcon(tabIcons[1]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        }
-        else if(tab.getPosition() == 1)
-        {
+        } else if (tab.getPosition() == 1) {
             tab.setIcon(tabIcons[3]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        }
-        else if(tab.getPosition() == 2)
-        {
+        } else if (tab.getPosition() == 2) {
             tab.setIcon(tabIcons[5]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        }
-        else if(tab.getPosition() == 3)
-        {
+        } else if (tab.getPosition() == 3) {
             tab.setIcon(tabIcons[7]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         }
@@ -113,22 +104,16 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-        if(tab.getPosition() == 0)
-        {
+        if (tab.getPosition() == 0) {
             tab.setIcon(tabIcons[0]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        }
-        else if(tab.getPosition() == 1)
-        {
+        } else if (tab.getPosition() == 1) {
             tab.setIcon(tabIcons[2]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        }
-        else if(tab.getPosition() == 2)
-        {
+        } else if (tab.getPosition() == 2) {
             tab.setIcon(tabIcons[4]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        }
-        else if(tab.getPosition() == 3){
+        } else if (tab.getPosition() == 3) {
             //tabLayout.setTabTextColors(R.color.text_order_tab, R.color.text_order_tab);
             tab.setIcon(tabIcons[6]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
@@ -136,18 +121,7 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     }
 
     @Override
-    public void onTabReselected(TabLayout.Tab tab)
-    {
-//        if(tab.getPosition() == 0){
-//            tab.setIcon(tabIcons[0]);
-//            Log.e("hi---", "IIIIIIIII"+tab.getPosition());
-//        }else if(tab.getPosition() == 1){
-//            tab.setIcon(tabIcons[3]);
-//        }else if(tab.getPosition() == 2){
-//            tab.setIcon(tabIcons[5]);
-//        } else if(tab.getPosition() == 3){
-//            tab.setIcon(tabIcons[7]);
-//        }
+    public void onTabReselected(TabLayout.Tab tab) {
     }
 
 
@@ -186,8 +160,7 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter
-    {
+    class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
