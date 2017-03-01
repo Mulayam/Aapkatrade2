@@ -56,11 +56,17 @@ public class ShippedFragment extends Fragment
 
     private void setup_layout(View view)
     {
+
+
         layout_container = (LinearLayout) view.findViewById(R.id.layout_container);
 
         order_list = (RecyclerView) view.findViewById(R.id.order_list);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+
         order_list.setLayoutManager(mLayoutManager);
+
+
     }
 
 
