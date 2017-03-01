@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.order_list;
 
+import android.graphics.Color;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,13 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.BlankFragment;
 import com.example.pat.aapkatrade.user_dashboard.order_list.cancel_order_fragment.CancelOrderFragment;
 import com.example.pat.aapkatrade.user_dashboard.order_list.complete_order.CompleteOrderFragment;
 import com.example.pat.aapkatrade.user_dashboard.order_list.shipped_fragment.ShippedFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +39,6 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
             R.drawable.shipped_order_grn,
             R.drawable.shipped_order_wht,
 
-
             R.drawable.complete_order_grn,
             R.drawable.complete_order_wht,
 
@@ -60,6 +58,9 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(this);
+
+
+        tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
 
 //        viewPager.setCurrentItem(0);
 //        viewPager.setOffscreenPageLimit(1);
@@ -83,38 +84,60 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
 
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab) {
+    public void onTabSelected(TabLayout.Tab tab)
+    {
         Log.e("hi---", "IIIIIIIII"+tab.getPosition());
-
-//        viewPager.setCurrentItem(tab.getPosition());
-        if(tab.getPosition() == 0){
+        //viewPager.setCurrentItem(tab.getPosition());
+        if(tab.getPosition() == 0)
+        {
             tab.setIcon(tabIcons[1]);
-        }else if(tab.getPosition() == 1){
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
+        else if(tab.getPosition() == 1)
+        {
             tab.setIcon(tabIcons[3]);
-        }else if(tab.getPosition() == 2){
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
+        else if(tab.getPosition() == 2)
+        {
             tab.setIcon(tabIcons[5]);
-        } else if(tab.getPosition() == 3){
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
+        else if(tab.getPosition() == 3)
+        {
             tab.setIcon(tabIcons[7]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         }
 
     }
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-        if(tab.getPosition() == 0){
+        if(tab.getPosition() == 0)
+        {
             tab.setIcon(tabIcons[0]);
-        }else if(tab.getPosition() == 1){
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
+        else if(tab.getPosition() == 1)
+        {
             tab.setIcon(tabIcons[2]);
-        }else if(tab.getPosition() == 2){
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
+        else if(tab.getPosition() == 2)
+        {
             tab.setIcon(tabIcons[4]);
-        } else if(tab.getPosition() == 3){
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
+        else if(tab.getPosition() == 3){
             //tabLayout.setTabTextColors(R.color.text_order_tab, R.color.text_order_tab);
             tab.setIcon(tabIcons[6]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         }
     }
 
     @Override
-    public void onTabReselected(TabLayout.Tab tab) {
+    public void onTabReselected(TabLayout.Tab tab)
+    {
 //        if(tab.getPosition() == 0){
 //            tab.setIcon(tabIcons[0]);
 //            Log.e("hi---", "IIIIIIIII"+tab.getPosition());
@@ -163,7 +186,9 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter{
+    class ViewPagerAdapter extends FragmentPagerAdapter
+    {
+
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 

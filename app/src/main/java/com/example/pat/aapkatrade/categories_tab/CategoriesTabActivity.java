@@ -47,6 +47,7 @@ public class CategoriesTabActivity extends AppCompatActivity implements  AppBarL
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+
         tabLayout.setupWithViewPager(viewPager);
 
         appBarLayout.setExpanded(true);
