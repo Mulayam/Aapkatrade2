@@ -524,6 +524,34 @@ public class Call_webservice {
 
 
     }
-}
+
+    public static void location_webservice(Context c, String webservice_url) {
+
+        Ion.with(c)
+                .load(webservice_url)
+
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        taskCompleteReminder.Taskcomplete(result);
+                        Log.e("jsonobject_location", jsonObject.toString());
+                        //taskCompleteReminder.Taskcomplete("complete");
+//
+                    }
+
+                });
+
+
+
+
+    }
+
+
+
+
+    }
 
 
