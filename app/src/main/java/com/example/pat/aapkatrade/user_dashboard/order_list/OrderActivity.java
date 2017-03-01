@@ -100,19 +100,31 @@ public class OrderActivity extends AppCompatActivity {
     private void get_web_data() {
         orderListDatas.clear();
         progress_handler.show();
+
+
+
+
         Log.e("hi////", app_sharedpreference.getsharedpref("userid", user_id)+"GGGGGGG"+app_sharedpreference.getsharedpref("usertype","1"));
+
         Ion.with(OrderActivity.this)
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+
+
                 .setBodyParameter("seller_id", app_sharedpreference.getsharedpref("userid", user_id))
                 .setBodyParameter("type", app_sharedpreference.getsharedpref("usertype","1"))
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
+
+
+
                         System.out.println("jsonObject-------------" + result.toString());
+
 
                         if (result == null) {
                             progress_handler.hide();

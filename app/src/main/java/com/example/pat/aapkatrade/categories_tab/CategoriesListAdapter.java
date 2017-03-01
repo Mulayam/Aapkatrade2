@@ -68,6 +68,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
                 Intent intent = new Intent(context, ProductDetail.class);
                 intent.putExtra("product_id", itemList.get(position).product_id);
+                intent.putExtra("product_location", itemList.get(position).product_location);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
@@ -99,7 +100,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         Intent intent = new Intent(context, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        intent.putExtra("product_location", "Delhi Nehru Nagar");
+                        intent.putExtra("product_location", itemList.get(position).product_location);
                         context.startActivity(intent);
 
 

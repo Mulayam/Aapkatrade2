@@ -2,7 +2,9 @@ package com.example.pat.aapkatrade.Home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.commomDatas = commomDatas;
         this.arrangementtype = arrangementtype;
         this.categorytype = categorytype;
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     @Override
@@ -103,8 +106,8 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
             Picasso.with(context).load(commomDatas.get(position).imageurl)
-                    .error(R.drawable.ic_applogo1)
-                    .placeholder(R.drawable.ic_applogo1)
+                    .error(ContextCompat.getDrawable(context,R.drawable.ic_applogo1))
+.placeholder(ContextCompat.getDrawable(context,R.drawable.ic_applogo1))
                     .into(grid_holder.product_imageview);
             grid_holder.tvProductName.setText(commomDatas.get(position).name);
             grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {

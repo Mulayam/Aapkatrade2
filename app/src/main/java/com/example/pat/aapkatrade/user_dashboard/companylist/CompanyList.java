@@ -24,30 +24,47 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 
 
-public class CompanyList extends AppCompatActivity {
+public class CompanyList extends AppCompatActivity
+{
 
     RecyclerView recyclerViewcompanylist;
     CompanyListAdapter companyListAdapter;
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
     ProgressBarHandler progress_handler;
+
     private App_sharedpreference app_sharedpreference;
+
+   
+    String user_id;
+
+
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_company_list);
 
         progress_handler = new ProgressBarHandler(this);
+
+        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+
+        user_id = app_sharedpreference.getsharedpref("userid", "");
 
         setuptoolbar();
 
         setup_layout();
 
+
     }
 
-    public void get_company_list_data() {
+    public void get_company_list_data()
+    {
+
         relativeCompanylist.setVisibility(View.INVISIBLE);
         progress_handler.show();
         companyDatas.clear();
@@ -56,15 +73,23 @@ public class CompanyList extends AppCompatActivity {
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "company")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+
                 .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
+
+              
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result == null) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+                        if (result == null)
+                        {
 
                             progress_handler.hide();
-                        } else {
+                        }
+                        else
+                        {
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonObject = result.getAsJsonObject();
@@ -73,7 +98,8 @@ public class CompanyList extends AppCompatActivity {
 
                             System.out.println("jsonArray11111111111111111" + jsonArray.toString());
 
-                            for (int i = 0; i < jsonArray.size(); i++) {
+                            for (int i = 0; i < jsonArray.size(); i++)
+                            {
                                 JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                 System.out.println("jsonArray jsonObject2" + jsonObject2.toString());
@@ -107,8 +133,8 @@ public class CompanyList extends AppCompatActivity {
     }
 
 
-    private void setup_layout() {
-
+    private void setup_layout()
+    {
         relativeCompanylist = (RelativeLayout) findViewById(R.id.relativeCompanylist);
 
         recyclerViewcompanylist = (RecyclerView) findViewById(R.id.companylist);
@@ -119,10 +145,10 @@ public class CompanyList extends AppCompatActivity {
         app_sharedpreference = new App_sharedpreference(CompanyList.this);
 
         get_company_list_data();
-
     }
 
-    private void setuptoolbar() {
+    private void setuptoolbar()
+    {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar()!=null) {
@@ -133,14 +159,17 @@ public class CompanyList extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 break;

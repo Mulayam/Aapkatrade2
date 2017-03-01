@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.provider.Settings.Secure;
+import android.support.v7.app.AppCompatDelegate;
 
 import java.util.Locale;
 
@@ -16,7 +17,7 @@ public class App_config extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
     }
 
