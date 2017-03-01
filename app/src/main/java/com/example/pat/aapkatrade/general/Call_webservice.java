@@ -504,7 +504,7 @@ public class Call_webservice {
             Ion.with(context)
                     .load(url)
                     .setHeader("authorization", authorization)
-                    .setBodyParameter("location", get_webservice_body_parameter_location)
+                    .setBodyParameter("location", get_webservice_body_parameter_location.trim())
                     .setBodyParameter("authorization", get_webservice_body_parameter_authorization)
 
                     .asJsonObject()
@@ -524,6 +524,34 @@ public class Call_webservice {
 
 
     }
-}
+
+    public static void location_webservice(Context c, String webservice_url) {
+
+        Ion.with(c)
+                .load(webservice_url)
+
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        taskCompleteReminder.Taskcomplete(result);
+                        Log.e("jsonobject_location", jsonObject.toString());
+                        //taskCompleteReminder.Taskcomplete("complete");
+//
+                    }
+
+                });
+
+
+
+
+    }
+
+
+
+
+    }
 
 

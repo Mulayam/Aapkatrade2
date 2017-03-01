@@ -137,9 +137,10 @@ public class PurticularActivity extends AppCompatActivity {
 
                                     String product_cross_price = jsonObject2.get("cross_price").getAsString();
 
-
+                                    String productlocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
+                                            jsonObject2.get("country_name").getAsString();
                                     String product_image = jsonObject2.get("image_url").getAsString();
-                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
+                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image,productlocation));
 
                                     }
                                     categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);

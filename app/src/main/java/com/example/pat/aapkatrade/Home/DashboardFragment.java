@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -155,6 +156,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     private void initializeview(View v, ViewGroup v2) {
 
 
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
+
 
         progress_handler = new ProgressBarHandler(getActivity());
 
@@ -271,7 +275,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                 String product_name = jsonObject_latest_post.get("prodname").getAsString();
                                 String imageurl = jsonObject_latest_post.get("image_url").getAsString();
 
-                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl));
+                             ;
+                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl,""));
 
                             }
 
