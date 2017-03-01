@@ -192,6 +192,9 @@
     <string name="ref_number">Reference Number</string>
     <string name="location_hint">Enter your location</string>
     <string name="filter">filter</string>
+    <string name="oldPassword">Old Password</string>
+    <string name="newPassword">New Password</string>
+    <string name="confirmNewPassword">Confirm New Password</string>
 
 
 </resources>

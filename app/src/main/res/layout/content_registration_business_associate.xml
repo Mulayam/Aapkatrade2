@@ -227,6 +227,11 @@
                     </android.support.design.widget.TextInputLayout>
 
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/ten_dip"/>
+
+
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_dob"
                         android:layout_width="match_parent"
@@ -361,6 +366,11 @@
                     android:orientation="vertical">
 
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"/>
+
+
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_state"
                         android:layout_width="match_parent"
@@ -391,11 +401,17 @@
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
 
+
+
                         </RelativeLayout>
 
 
                     </android.support.design.widget.TextInputLayout>
 
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"/>
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_city"
                         android:layout_width="match_parent"
@@ -414,6 +430,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
+                                android:layout_marginRight="@dimen/ten_dip"
                                 android:background="@drawable/simple_spinner_back" />
 
                             <ImageView
@@ -424,6 +441,7 @@
                                 android:layout_marginRight="@dimen/ten_dip"
                                 android:scaleType="fitXY"
                                 android:src="@drawable/ic_arrow" />
+
 
                         </RelativeLayout>
 
