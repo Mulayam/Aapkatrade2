@@ -36,6 +36,7 @@ import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.search.Search;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -242,7 +243,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             JsonObject jsonResult = result.getAsJsonObject("result");
 
 
-                            JsonArray   jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
+                            JsonArray jsonarray_top_banner = jsonResult.getAsJsonArray("top_banner");
                             imageIdList = new ArrayList<>();
 
 

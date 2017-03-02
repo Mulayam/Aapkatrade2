@@ -54,8 +54,6 @@ public class Search extends AppCompatActivity
     ProgressBarHandler progressBarHandler;
     CoordinatorLayout coordinate_search;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -107,6 +105,7 @@ public class Search extends AppCompatActivity
 
                   String state_search_url="https://aapkatrade.com/slim/location";
                     call_search_suggest_webservice_state(state_search_url,text);
+
 
                 }
 
@@ -358,14 +357,36 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                         }
 
+               
 
 
-//
+
+
                     }
 
                 });
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     private void call_search_suggest_webservice_state(String url, String input_txt) {

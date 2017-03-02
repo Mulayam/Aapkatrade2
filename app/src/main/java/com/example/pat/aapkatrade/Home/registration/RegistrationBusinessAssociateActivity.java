@@ -66,7 +66,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RegistrationBusinessAssociateActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateSetListener {
+public class RegistrationBusinessAssociateActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private Context context;
     private TextView uploadMsg, uploadMsg2, tvSave;
@@ -1062,7 +1062,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     }
 
     @Override
-    public void onDateSet(com.wdullaer.materialdatetimepicker.date.DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         showDate(year, monthOfYear + 1, dayOfMonth);
     }
 
