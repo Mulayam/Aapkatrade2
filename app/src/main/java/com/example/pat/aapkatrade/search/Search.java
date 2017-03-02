@@ -80,11 +80,6 @@ public class Search extends AppCompatActivity
 
     }
 
-
-
-
-
-
     private void initview()
     {
         c=Search.this;
@@ -112,18 +107,9 @@ public class Search extends AppCompatActivity
                     call_search_suggest_webservice_state(state_search_url,text);
 
 
-
-
-
-
-
                 }
 
-
-
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -371,9 +357,11 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                         }
 
+               
 
 
-//
+
+
                     }
 
                 });
@@ -395,15 +383,6 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
 
-
-
-
-
-
-
-
-
-    }
 
 
 

@@ -26,7 +26,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
@@ -41,10 +40,10 @@ import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
-
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity
+{
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
@@ -62,8 +61,11 @@ public class HomeActivity extends AppCompatActivity {
     public static String userid, username;
     NestedScrollView scrollView;
     float initialX, initialY;
-    public static RelativeLayout rl_main_content, rl_searchview_dashboard;
+    public static  RelativeLayout rl_main_content,rl_searchview_dashboard;
     App_sharedpreference app_sharedpreference;
+
+
+
 
 
     @Override
@@ -71,9 +73,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
+        rl_main_content=(RelativeLayout)findViewById(R.id.rl_main_content);
 
-
+    
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
 
         App_config.set_defaultfont(HomeActivity.this);
@@ -88,11 +90,13 @@ public class HomeActivity extends AppCompatActivity {
 
             rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
 
-            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
+            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener()
+            {
 
 
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
 
                     Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
                     startActivity(intent_searchactivity);
@@ -116,20 +120,24 @@ public class HomeActivity extends AppCompatActivity {
             checked_wifispeed();
 
 
-        } else {
+        }
+        else {
 
             setContentView(R.layout.activity_homeactivity);
 
             rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
 
-            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
+            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener()
+            {
 
 
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
                     startActivity(intent_searchactivity);
                 }
+
 
 
             });
@@ -156,6 +164,8 @@ public class HomeActivity extends AppCompatActivity {
         Log.e("a", a + "");
 
 
+
+
     }
 
 
@@ -175,13 +185,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void setupToolBar() {
+    private void setupToolBar()
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
 
-        // getSupportActionBar().setIcon(R.drawable.logo_word);
+       // getSupportActionBar().setIcon(R.drawable.logo_word);
 
 
     }
@@ -402,6 +413,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (position) {
                     case 0:
+
                         if (homeFragment == null) {
                             homeFragment = new DashboardFragment();
                         }
@@ -420,13 +432,16 @@ public class HomeActivity extends AppCompatActivity {
                         break;
 
                     case 3:
-                        if (user_dashboardFragment == null) {
+                        if (user_dashboardFragment == null)
+                        {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
 
-                        if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
+                        if(app_sharedpreference.getsharedpref("username", "not").contains("not"))
+                        {
                             startActivity(new Intent(HomeActivity.this, LoginDashboard.class));
-                        } else {
+                        }
+                        else {
                             Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
                             String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
                             replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
@@ -524,7 +539,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void setForceTitleHide(boolean forceTitleHide) {
+    private void setForceTitleHide(boolean forceTitleHide)
+    {
 
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
