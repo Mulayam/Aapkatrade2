@@ -25,7 +25,7 @@
              android:layout_alignParentRight="true"
              android:layout_margin="5dp"
              android:background="@android:color/transparent"
-             android:text="Edit"
+             android:text="@string/edit"
              android:textColor="@color/orange"
              android:textStyle="bold" />
 
