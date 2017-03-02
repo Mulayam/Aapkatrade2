@@ -26,7 +26,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -107,7 +106,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     ProgressBarHandler progressBarHandler;
     private CardView businessDetailsCard;
     private RelativeLayout relativeCompanyListheader;
-    private CheckBox agreement_check;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -738,7 +736,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         cancelImage = (ImageView) findViewById(R.id.cancelImage);
         cancelFile = (ImageView) findViewById(R.id.cancelFile);
         dobLayout = (RelativeLayout) findViewById(R.id.dobLayout);
-        agreement_check = (CheckBox) findViewById(R.id.agreement_check);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
@@ -812,9 +809,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 } else if (!Validation.isPasswordMatching(formSellerData.getPassword(), formSellerData.getConfirmPassword())) {
                     putError(5);
                     isAllFieldSet++;
-                }  else if (!agreement_check.isChecked()) {
-                    putError(15);
-                    isAllFieldSet++;
                 }
 
 
@@ -862,9 +856,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                     isAllFieldSet++;
                 } else if (!Validation.isPasswordMatching(formBuyerData.getPassword(), formBuyerData.getConfirmPassword())) {
                     putError(5);
-                    isAllFieldSet++;
-                } else if (!agreement_check.isChecked()) {
-                    putError(15);
                     isAllFieldSet++;
                 }
 
@@ -934,10 +925,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 showmessage("Tan Number Can't be empty");
                 break;
 
-            case 15:
-                agreement_check.setError("Please Accept Terms & Conditions");
-                showmessage("Please Accept Terms & Conditions");
-                break;
             default:
                 break;
         }

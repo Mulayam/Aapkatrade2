@@ -305,11 +305,11 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             commomAdapter_latestproduct.notifyDataSetChanged();
                             if (scrollView.getVisibility() == View.INVISIBLE) {
                                 scrollView.setVisibility(View.VISIBLE);
-                            }
+                          }
 
                             progress_handler.hide();
 
-
+                            coordinatorLayout.setVisibility(View.VISIBLE);
 
 
                         }
@@ -319,7 +319,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
                             progress_handler.hide();
-                            coordinatorLayout.setVisibility(View.VISIBLE);
+                           coordinatorLayout.setVisibility(View.VISIBLE);
                             connection_problem_message();
 
                         }

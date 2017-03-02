@@ -45,6 +45,7 @@ android:background="@color/green"
 
                 <requestFocus />
 
+
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="15dp"
                     android:layout_alignParentRight="true"
