@@ -19,7 +19,11 @@ import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociat
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
@@ -32,8 +36,9 @@ public class User_DashboardFragment extends Fragment
     App_sharedpreference app_sharedpreference;
     TextView tvMobile, tvEmail, textViewName, tvUserType;
     Button btnEdit;
+    ProgressBarHandler progressBarHandler;
 
-
+    RecyclerView.LayoutManager layoutManager;
     public User_DashboardFragment()
     {
 
@@ -45,21 +50,21 @@ public class User_DashboardFragment extends Fragment
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
 
         app_sharedpreference = new App_sharedpreference(getActivity());
+        progressBarHandler=new ProgressBarHandler(getActivity());
 
         tvUserType = (TextView) v.findViewById(R.id.tvUserType);
 
-        setup_data();
+
 
         setup_layout(v);
 
         dashboardlist = (RecyclerView) v.findViewById(R.id.dashboardlist);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
 
-        dashboardlist.setLayoutManager(layoutManager);
+        setup_data();
 
-        dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
-        dashboardlist.setAdapter(dashboardAdapter);
+
 
         dashboardlist.setNestedScrollingEnabled(false);
 
@@ -118,80 +123,191 @@ public class User_DashboardFragment extends Fragment
         try {
 
             if (app_sharedpreference.shared_pref != null) {
+
+                String userid=  app_sharedpreference.getsharedpref("userid","0");
+
+                String user_detail_webserviceurl="https://aapkatrade.com/slim/userdata";
+
                 if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
 
 
+                    userdata_webservice(user_detail_webserviceurl,"3",userid);
 
 
-             String vendor_quantity= app_sharedpreference.getsharedpref("vendor_quantity","0");
-
-
-
-                      Log.e("vendor_quantity",vendor_quantity);
-
-
-                    dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false,""));
-                    dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
-                    dashboardDatas.add(new DashboardData("", "Add Vendor", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false,""));
-                    dashboardDatas.add(new DashboardData("", "Vendor List", R.drawable.ic_add_company, R.drawable.circle_deep_pink, true,vendor_quantity));
-
-                    tvUserType.setText("Welcome Bussiness Associate");
 
 
                 } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
-                  String order_quantity=  app_sharedpreference.getsharedpref("order_quantity","0");
-                    Log.e("order_quantity",order_quantity);
-                    dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false,""));
-                    dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
-                    dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true,order_quantity));
-                    dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstprdct, R.drawable.circle_cherry_red, true,""));
 
-                    tvUserType.setText("Welcome Buyer");
+                    userdata_webservice(user_detail_webserviceurl,"1",userid);
+
 
 
                 } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
+                    userdata_webservice(user_detail_webserviceurl,"2",userid);
 
 
-                  String order_quantity=   app_sharedpreference.getsharedpref("order_quantity","0");
-
-                    String product_quantity= app_sharedpreference.getsharedpref("product_quantity","0");
-                    String company_quantity=  app_sharedpreference.getsharedpref("company_quantity","0");
-
-                    Log.e("order_quantity",order_quantity);
-                    Log.e("product_quantity",product_quantity);
-                    Log.e("company_quantity",company_quantity);
-                    dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false,""));
-                    dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
-                    dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company, R.drawable.circle_cherry_red, false,""));
-                    dashboardDatas.add(new DashboardData("", "Company List", R.drawable.ic_lstcmpny, R.drawable.circle_deep_pink, true,company_quantity));
-                    dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct, R.drawable.circle_turquoise, false,""));
-                    dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct, R.drawable.circle_slate_gray, true,product_quantity));
-                    dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true,order_quantity));
-
-
-                    String Username = app_sharedpreference.getsharedpref("username", "not");
-
-                    if (Username.toString().equals("notlogin")) {
-                        tvUserType.setText("Welcome Guest");
-                        NavigationFragment.usertype.setText("Welcome Guest");
-
-                    } else {
-                        tvUserType.setText("Welcome Seller");
-
-                    }
 
                 }
             } else {
                 Log.e("null_sharedPreferences", "sharedPreferences");
             }
 
-        } catch (Exception e) {
+        }
+
+
+        catch (Exception e) {
         }
 
 
     }
+        public void userdata_webservice(String url, final String user_type, String user_id)
+    {
+        Log.e("url",url);
+        Log.e("user_type",user_type);
+        Log.e("user_id",user_id);
+        progressBarHandler.show();
+        Ion.with(getActivity())
+                .load(url)
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type",user_type)
+                .setBodyParameter("id",user_id)
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.e("result_userdata",result.toString());
+
+                        String error = result.get("error").getAsString();
+                        if (error.contains("true")) {
+                            progressBarHandler.hide();
+                        }
+
+                        else {
+
+                            progressBarHandler.hide();
+                            if (user_type.contains("1"))
+                            {
+
+                                String order_quantity = result.get("order").getAsString();
+
+
+                                app_sharedpreference.setsharedpref("order_quantity",order_quantity);
+
+
+                                dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false,""));
+                                dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
+                                dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true,order_quantity));
+                                dashboardDatas.add(new DashboardData("", "Cancel Order", R.drawable.ic_lstprdct, R.drawable.circle_cherry_red, true,""));
+
+                                tvUserType.setText("Welcome Buyer");
+                                dashboardlist.setLayoutManager(layoutManager);
+                                dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
+                                dashboardlist.setAdapter(dashboardAdapter);
+
+                            }
+                            else if (user_type.contains("2"))
+                            {
+                                String order_quantity = result.get("order").getAsString();
+                                String product_quantity = result.get("product").getAsString();
+                                String company_quantity = result.get("company").getAsString();
+
+                                app_sharedpreference.setsharedpref("order_quantity",order_quantity);
+                                app_sharedpreference.setsharedpref("product_quantity",product_quantity);
+                                app_sharedpreference.setsharedpref("company_quantity",company_quantity);
+
+                                String order_quantity_shared_pref=   app_sharedpreference.getsharedpref("order_quantity","0");
+
+                                String product_quantity_shared_pref= app_sharedpreference.getsharedpref("product_quantity","0");
+                                String company_quantity_shared_pref=  app_sharedpreference.getsharedpref("company_quantity","0");
+
+                                Log.e("order_quantity",order_quantity);
+                                Log.e("product_quantity",product_quantity);
+                                Log.e("company_quantity",company_quantity);
+                                dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false,""));
+                                dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
+                                dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company, R.drawable.circle_cherry_red, false,""));
+                                dashboardDatas.add(new DashboardData("", "Company List", R.drawable.ic_lstcmpny, R.drawable.circle_deep_pink, true,company_quantity_shared_pref));
+                                dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct, R.drawable.circle_turquoise, false,""));
+                                dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct, R.drawable.circle_slate_gray, true,product_quantity_shared_pref));
+                                dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true,order_quantity_shared_pref));
+
+
+                                String Username = app_sharedpreference.getsharedpref("username", "not");
+
+                                if (Username.toString().equals("notlogin")) {
+                                    tvUserType.setText("Welcome Guest");
+                                    NavigationFragment.usertype.setText("Welcome Guest");
+
+                                } else {
+                                    tvUserType.setText("Welcome Seller");
+
+                                }
+
+
+                                dashboardlist.setLayoutManager(layoutManager);
+                                dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
+                                dashboardlist.setAdapter(dashboardAdapter);
+
+
+
+                            }
+
+                            else if (user_type.contains("3"))
+                            {
+                                String vendor_quantity = result.get("vendor").getAsString();
+                                String network_quantity = result.get("network").getAsString();
+
+
+
+                                app_sharedpreference.setsharedpref("vendor_quantity",vendor_quantity);
+                                app_sharedpreference.setsharedpref("network_quantity",network_quantity);
+
+
+
+                                String vendor_quantity_sharedpref= app_sharedpreference.getsharedpref("vendor_quantity","0");
+
+
+
+                                Log.e("vendor_quantity",vendor_quantity);
+
+
+                                dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false,""));
+                                dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
+                                dashboardDatas.add(new DashboardData("", "Add Vendor", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false,""));
+                                dashboardDatas.add(new DashboardData("", "Vendor List", R.drawable.ic_add_company, R.drawable.circle_deep_pink, true,vendor_quantity_sharedpref));
+
+                                tvUserType.setText("Welcome Bussiness Associate");
+                                dashboardlist.setLayoutManager(layoutManager);
+                                dashboardAdapter = new DashboardAdapter(getActivity(), dashboardDatas);
+                                dashboardlist.setAdapter(dashboardAdapter);
+
+
+                            }
+
+
+                        }
+
+
+//
+                    }
+
+                });
+
+
+
+
+
+
+    }
+
+
+
+
+
 
 
 }
