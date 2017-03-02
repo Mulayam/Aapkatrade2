@@ -49,7 +49,7 @@ dependencies {
             }
 
     compile 'com.google.android.gms:play-services-places:10.0.1'
-    compile 'com.google.android.gms:play-services-places:10.0.1'
+
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.iarcuschin:simpleratingbar:0.1.5'
     compile 'com.android.support:appcompat-v7:25.1.0'
@@ -88,4 +88,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:10.0.1'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.github.jd-alexander:library:1.1.0'
+    compile 'com.github.Aspsine:IRecyclerView:0.0.5'
 }

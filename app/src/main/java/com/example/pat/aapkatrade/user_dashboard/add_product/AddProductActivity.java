@@ -28,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
@@ -42,6 +43,7 @@ import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
+import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.CompanyData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -190,7 +192,9 @@ public class AddProductActivity extends AppCompatActivity {
                         Log.e("company result", "Result" + result);
 
                         if (result != null && result.get("message").getAsString().equals("Product Added Successfully!")) {
-                            AddProductActivity.this.finish();
+                            Intent Homedashboard = new Intent(AddProductActivity.this, HomeActivity.class);
+                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(Homedashboard);
                         } else {
                             showMessage("Company Not Found");
                         }

@@ -553,6 +553,8 @@ public class HomeActivity extends AppCompatActivity
         } else {
             bottomNavigation.hideBottomNavigation(true);
         }
+
+
     }
 
 

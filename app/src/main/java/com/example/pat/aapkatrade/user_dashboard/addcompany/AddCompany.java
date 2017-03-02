@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.addcompany;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -187,6 +190,10 @@ public class AddCompany extends AppCompatActivity
 
                         snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
 
+
+                        Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
+                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(Homedashboard);
 
 
                     }
