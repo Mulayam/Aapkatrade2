@@ -114,7 +114,7 @@
        android:layout_height="1dp"
        android:background="@color/black"
 
-       ></View>
+      />
 
    <android.support.v7.widget.RecyclerView
        android:id="@+id/dashboardlist"
