@@ -34,7 +34,7 @@ public class BlankFragment extends Fragment
     ProgressBarHandler progress_handler;
     LinearLayout layout_container;
     App_sharedpreference app_sharedpreference;
-    String user_id;
+    String user_id, user_type;
 
 
 
@@ -49,6 +49,7 @@ public class BlankFragment extends Fragment
         app_sharedpreference = new App_sharedpreference(getActivity());
 
         user_id = app_sharedpreference.getsharedpref("userid","");
+        user_type = app_sharedpreference.getsharedpref("usertype","1");
 
         setup_layout(view);
 
@@ -77,8 +78,8 @@ public class BlankFragment extends Fragment
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id","3")
-                .setBodyParameter("type","0")
+                .setBodyParameter("seller_id", user_id)
+                .setBodyParameter("type", "0")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
@@ -156,5 +157,6 @@ public class BlankFragment extends Fragment
                     }
                 });
     }
+
 
 }

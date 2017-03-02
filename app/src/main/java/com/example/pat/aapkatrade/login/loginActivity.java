@@ -25,7 +25,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-class LoginActivity extends AppCompatActivity
+public class LoginActivity extends AppCompatActivity
 {
 
     TextView login_text, forgot_password;

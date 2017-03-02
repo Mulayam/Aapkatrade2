@@ -76,7 +76,7 @@ public class CancelOrderFragment extends Fragment
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id","3")
+                .setBodyParameter("seller_id",user_id)
                 .setBodyParameter("type","1")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
