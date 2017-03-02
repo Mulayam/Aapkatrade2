@@ -567,7 +567,7 @@ if(location!=null) {
             if (address == null) {
                 return null;
             }
-            android.location.Address location = address.get(0);
+            Address location = address.get(0);
             location.getLatitude();
             location.getLongitude();
 

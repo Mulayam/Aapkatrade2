@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
@@ -33,6 +35,7 @@ public class CancelOrderFragment extends Fragment
     LinearLayout layout_container;
     App_sharedpreference app_sharedpreference;
     String user_id;
+    private String user_type;
 
 
     @Override
@@ -46,6 +49,7 @@ public class CancelOrderFragment extends Fragment
         app_sharedpreference = new App_sharedpreference(getActivity());
 
         user_id = app_sharedpreference.getsharedpref("userid","");
+        user_type = app_sharedpreference.getsharedpref("usertype", "1");
 
         setup_layout(view);
 
@@ -68,16 +72,16 @@ public class CancelOrderFragment extends Fragment
 
     private void get_web_data()
     {
-        // layout_container.setVisibility(View.INVISIBLE);
         orderListDatas.clear();
         progress_handler.show();
 
+        Log.e("hi1234", user_id+"##cancel##"+AndroidUtils.getUserType(user_type)+"@@@@"+user_type);
         Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("seller_id","3")
-                .setBodyParameter("type","1")
+                .setBodyParameter("seller_id",user_id)
+                .setBodyParameter("type", AndroidUtils.getUserType(user_type))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {

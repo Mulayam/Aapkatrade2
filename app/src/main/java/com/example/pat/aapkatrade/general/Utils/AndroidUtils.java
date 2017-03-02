@@ -33,6 +33,7 @@ public class AndroidUtils {
         }
         return "";
     }
+
     public static String getUserType(String user_type) {
         if(user_type.equals("1")){
             return "2";
@@ -41,8 +42,6 @@ public class AndroidUtils {
         }
         return user_type;
     }
-
-
 
 
 }

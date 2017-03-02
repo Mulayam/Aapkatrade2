@@ -25,7 +25,7 @@
              android:layout_alignParentRight="true"
              android:layout_margin="5dp"
              android:background="@android:color/transparent"
-             android:text="Edit"
+             android:text="@string/edit"
              android:textColor="@color/orange"
              android:textStyle="bold" />
 
@@ -114,13 +114,12 @@
        android:layout_height="1dp"
        android:background="@color/black"
 
-       ></View>
+      />
 
    <android.support.v7.widget.RecyclerView
        android:id="@+id/dashboardlist"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:layout_below="@+id/relativeDashboardStrip"
        android:background="@color/white"
        >
 
