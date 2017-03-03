@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.GridLayoutManager;
@@ -81,6 +82,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     viewpageradapter_home viewpageradapter;
     JsonObject home_result;
     RelativeLayout rl_searchview_dashboard;
+    private SwipeRefreshLayout mSwipyRefreshLayout;
 
     View view;
 
@@ -163,8 +165,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         progress_handler = new ProgressBarHandler(getActivity());
 
-        coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordination_home);
-        coordinatorLayout.setVisibility(View.INVISIBLE);
+       // coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordination_home);
+       // coordinatorLayout.setVisibility(View.INVISIBLE);
 
         home_ads = (ImageView) v.findViewById(R.id.home_ads);
         home_ads.setImageResource(R.drawable.ic_home_ads_banner);
@@ -206,6 +208,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         view_all_latest_update.setOnClickListener(this);
 
 
+        mSwipyRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe);
+        mSwipyRefreshLayout.setRefreshing(false);
+
+
         get_home_data();
 //        StikkyHeaderBuilder.stickTo(scrollView)
 //                .setHeader(R.id.coordination_home, v2)
@@ -219,7 +225,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
         progress_handler.show();
-        coordinatorLayout.setVisibility(View.INVISIBLE);
+      //  coordinatorLayout.setVisibility(View.INVISIBLE);
 
 
         Ion.with(getActivity())
@@ -306,12 +312,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             commomAdapter_latestproduct.notifyDataSetChanged();
                             if (scrollView.getVisibility() == View.INVISIBLE) {
                                 scrollView.setVisibility(View.VISIBLE);
-                          }
+                            }
 
                             progress_handler.hide();
-
-                            coordinatorLayout.setVisibility(View.VISIBLE);
-
+                          //  coordinatorLayout.setVisibility(View.VISIBLE);
 
                         }
 
@@ -320,7 +324,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
                             progress_handler.hide();
-                           coordinatorLayout.setVisibility(View.VISIBLE);
+                           // coordinatorLayout.setVisibility(View.VISIBLE);
                             connection_problem_message();
 
                         }
