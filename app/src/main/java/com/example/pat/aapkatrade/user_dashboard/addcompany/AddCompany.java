@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.addcompany;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -29,14 +31,14 @@ import com.koushikdutta.ion.Ion;
 public class AddCompany extends AppCompatActivity
 {
 
+
+
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail, etAddress,etDiscription;
-    private ProgressDialog dialog;
+    ProgressDialog dialog;
     LinearLayout linearLayout;
     Snackbar snackbar;
     ProgressBarHandler progress_handler;
-    App_sharedpreference app_sharedpreference;
-    String user_id;
 
 
 
@@ -44,14 +46,7 @@ public class AddCompany extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_add_company);
-
-
-        app_sharedpreference = new App_sharedpreference(this);
-
-        user_id = app_sharedpreference.getsharedpref("userid", "");
-
 
         progress_handler = new ProgressBarHandler(this);
         setuptoolbar();
@@ -170,7 +165,7 @@ public class AddCompany extends AppCompatActivity
                 .load("http://aapkatrade.com/slim/addCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", user_id)
+                .setBodyParameter("user_id", "1")
                 .setBodyParameter("company_name", companyName)
                 .setBodyParameter("secondaryEmail",sEmail)
                 .setBodyParameter("address", address)
@@ -195,12 +190,20 @@ public class AddCompany extends AppCompatActivity
 
                         snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
 
+
+                        Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
+                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(Homedashboard);
+
+
                     }
                 });
     }
 
     private void initView()
     {
+
+
         btnSave = (Button) findViewById(R.id.btnSave);
 
         etCompanyName = (EditText) findViewById(R.id.etCompanyName);
@@ -242,7 +245,7 @@ public class AddCompany extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
+        getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
@@ -251,6 +254,7 @@ public class AddCompany extends AppCompatActivity
     {
         switch (item.getItemId())
         {
+
             case android.R.id.home:
                 finish();
                 break;
