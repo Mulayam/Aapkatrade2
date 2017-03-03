@@ -85,12 +85,15 @@ public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable
                             ) {
                         filterList.add(names_data.get(i));
                     }
+
                 }
                 results.count = filterList.size();
                 results.values = filterList;
+                Log.e("results>0",results.values.toString());
             } else {
                 results.count = names_data.size();
                 results.values = names_data;
+                Log.e("results<0",results.values.toString());
             }
             return results;
         }
