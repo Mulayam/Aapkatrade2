@@ -1,4 +1,4 @@
-//package com.example.pat.aapkatrade.productdetail;
+package com.example.pat.aapkatrade.productdetail;//package com.example.pat.aapkatrade.productdetail;
 //
 //import android.annotation.SuppressLint;
 //import android.graphics.Matrix;

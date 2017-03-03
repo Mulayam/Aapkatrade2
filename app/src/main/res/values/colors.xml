@@ -44,7 +44,7 @@
     <color name="blue_gradient_sky">#0D9DAD</color>
     <color name="polyline_color">#43a047</color>
     <color name="white_shade">#E9E9E9</color>
-
+    <color name="text_order_tab">#066C57</color>
 
     <array name="tab_colors">
         <item name="tab_1">#455C65</item>

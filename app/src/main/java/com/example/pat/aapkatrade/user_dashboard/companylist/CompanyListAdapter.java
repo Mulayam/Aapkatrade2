@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -65,11 +66,28 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         final CompanyListHolder homeHolder = (CompanyListHolder) holder;
 
-        Log.e("data===========arvin",itemList.get(position).company_name.toString());
+        Log.e("data===========arvin",itemList.get(position).company_name);
 
-        homeHolder.tvCompanyname.setText(itemList.get(position).company_name.toString());
+        homeHolder.tvCompanyname.setText(itemList.get(position).company_name);
 
-        homeHolder.tvDate.setText(itemList.get(position).company_creation_date.toString());
+
+        SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date date = null;
+        try
+        {
+            date = form.parse(itemList.get(position).company_creation_date);
+        }
+        catch (ParseException e)
+        {
+
+            e.printStackTrace();
+        }
+        SimpleDateFormat postFormater = new SimpleDateFormat("MMMMM dd, yyyy");
+        String newDateStr = postFormater.format(date);
+
+        homeHolder.tvDate.setText(newDateStr);
+
+
 
         homeHolder.imgNext.setOnClickListener(new View.OnClickListener()
         {
@@ -103,11 +121,10 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
              /*   Intent i = new Intent(context, CompanyDetailActivity.class);
                 context.startActivity(i);
-*/
+            */
 
             }
         });
-
 
 
     }
@@ -130,7 +147,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
 
                     });
-
     }
 
 

@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity
 
     private NavigationFragment drawer;
     private Toolbar toolbar;
-    private com.example.pat.aapkatrade.Home.DashboardFragment homeFragment;
+    private DashboardFragment homeFragment;
     private AboutUsFragment aboutUsFragment;
     Context context;
     public static String shared_pref_name = "aapkatrade";
@@ -206,7 +206,7 @@ public class HomeActivity extends AppCompatActivity
 
     private void setupDashFragment() {
         if (homeFragment == null) {
-            homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+            homeFragment = new DashboardFragment();
         }
         String tagName = homeFragment.getClass().getName();
         replaceFragment(homeFragment, tagName);
@@ -413,9 +413,9 @@ public class HomeActivity extends AppCompatActivity
 
                 switch (position) {
                     case 0:
-                        if (homeFragment == null)
-                        {
-                            homeFragment = new com.example.pat.aapkatrade.Home.DashboardFragment();
+
+                        if (homeFragment == null) {
+                            homeFragment = new DashboardFragment();
                         }
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);

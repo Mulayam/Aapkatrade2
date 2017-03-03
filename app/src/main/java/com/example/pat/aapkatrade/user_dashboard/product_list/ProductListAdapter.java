@@ -72,11 +72,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v) {
 
                 Intent product_detail = new Intent(context, ListProductDetailActivity.class);
+                product_detail.putExtra("product_name",itemList.get(position).product_name);
+                product_detail.putExtra("product_price",itemList.get(position).product_price);
+                product_detail.putExtra("product_cross_price",itemList.get(position).product_cross_price);
+                product_detail.putExtra("product_image",itemList.get(position).product_image);
+                product_detail.putExtra("category_name",itemList.get(position).category_name);
+                product_detail.putExtra("description",itemList.get(position).description);
+                product_detail.putExtra("delivery_distance",itemList.get(position).delivery_distance);
+                product_detail.putExtra("delivery_area_name",itemList.get(position).delivery_area_name);
+
                 context.startActivity(product_detail);
+
 
             }
         });
-
 
 
     }

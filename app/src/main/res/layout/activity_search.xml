@@ -43,6 +43,7 @@ android:background="@color/green"
                 android:background="@drawable/edit_text_grey_back"
                 android:layout_height="40dp">
 
+                <requestFocus />
 
 
                 <android.support.v7.widget.AppCompatImageView
@@ -138,7 +139,7 @@ android:textSize="@dimen/textsize_small"
         android:background="@android:color/transparent"
 
         >
-        <requestFocus />
+
     </android.support.v7.widget.AppCompatAutoCompleteTextView>
     </RelativeLayout>
 

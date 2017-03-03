@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearChangePassword"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bankmgtLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
+    android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="15">
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="14"
         android:orientation="vertical">
+
+
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_layout" />
 
-        <include layout="@layout/content_change_password" />
+
+        <include layout="@layout/content_bank_management" />
 
     </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/relativeAddress"
@@ -32,11 +36,11 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/saveNewPasswordButton"
+            android:id="@+id/tvSave"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/save"
+            android:text="@string/save_and_next"
             android:textColor="@color/white"
             android:textSize="@dimen/textsize_medium" />
 
@@ -45,3 +49,4 @@
 
 
 </LinearLayout>
+

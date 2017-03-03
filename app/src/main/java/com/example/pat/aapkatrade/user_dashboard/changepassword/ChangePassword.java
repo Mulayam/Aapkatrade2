@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -27,20 +28,18 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 
-public class ChangePassword extends AppCompatActivity
-{
+public class ChangePassword extends AppCompatActivity {
 
     EditText OldPassword, NewPassword, ConfirmPassword;
-    Button saveNewPasswordButton;
+    TextView saveNewPasswordButton;
     LinearLayout linearChangePassword;
     App_sharedpreference app_sharedpreference;
-    String user_id;
+    String user_id, user_type;
     ProgressBarHandler progress_handler;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_change_password);
@@ -51,28 +50,27 @@ public class ChangePassword extends AppCompatActivity
 
         app_sharedpreference = new App_sharedpreference(getApplicationContext());
 
-        user_id = app_sharedpreference.getsharedpref("userid","");
+        user_id = app_sharedpreference.getsharedpref("userid", "");
+        user_type = app_sharedpreference.getsharedpref("usertype","1");
 
         initView();
 
 
     }
 
+
     private void showMessage(String message) {
         AndroidUtils.showSnackBar(linearChangePassword, message);
     }
 
 
-
-    private void callChangePasswordWebService(String userType)
-    {
+    private void callChangePasswordWebService(String userType) {
 
         progress_handler.show();
 
-        System.out.println("user_id------------"+user_id  + "old password--"+OldPassword.getText().toString()+"Confirm password----"+ConfirmPassword.getText().toString());
+        System.out.println("user_id------------" + user_id +"usertype-----"+userType+ "old password--" + OldPassword.getText().toString() + "Confirm password----" + ConfirmPassword.getText().toString());
 
-        if(ConnetivityCheck.isNetworkAvailable(ChangePassword.this))
-        {
+        if (ConnetivityCheck.isNetworkAvailable(ChangePassword.this)) {
             Ion.with(ChangePassword.this)
                     .load("http://aapkatrade.com/slim/changePassword")
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -80,50 +78,39 @@ public class ChangePassword extends AppCompatActivity
                     .setBodyParameter("type", userType)
                     .setBodyParameter("old_password", OldPassword.getText().toString())
                     .setBodyParameter("new_password", NewPassword.getText().toString())
-                    .setBodyParameter("confirm_password",ConfirmPassword.getText().toString())
-                    .setBodyParameter("id",user_id)
+                    .setBodyParameter("confirm_password", ConfirmPassword.getText().toString())
+                    .setBodyParameter("id", user_id)
                     .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>()
-                    {
+                    .setCallback(new FutureCallback<JsonObject>() {
                         @Override
-                        public void onCompleted(Exception e, JsonObject result)
-                        {
+                        public void onCompleted(Exception e, JsonObject result) {
 
-                            if(result == null)
-                            {
+                            if (result == null) {
                                 progress_handler.hide();
-
-                            }
-                            else
-                            {
+                            } else {
                                 JsonObject jsonObject = result.getAsJsonObject();
-
                                 String message = jsonObject.get("message").getAsString();
                                 Log.e("data", result.toString());
                                 progress_handler.hide();
                                 showMessage(message);
-                                OldPassword.setText("");
-                                NewPassword.setText("");
-                                ConfirmPassword.setText("");
+                                Intent intent = new Intent(ChangePassword.this, HomeActivity.class);
+                                intent.putExtra("callerActivity", ChangePassword.class.getName());
+                                startActivity(intent);
 
                             }
                         }
 
                     });
-        }
-        else
-        {
+        } else {
             Intent intent = new Intent(ChangePassword.this, ConnectivityNotFound.class);
             intent.putExtra("callerActivity", ChangePassword.class.getName());
             startActivity(intent);
         }
 
 
-
     }
 
-    private void initView()
-    {
+    private void initView() {
 
         linearChangePassword = (LinearLayout) findViewById(R.id.linearChangePassword);
 
@@ -133,49 +120,35 @@ public class ChangePassword extends AppCompatActivity
 
         ConfirmPassword = (EditText) findViewById(R.id.etNewPasswordConfirm);
 
-        saveNewPasswordButton = (Button) findViewById(R.id.saveNewPasswordButton);
+        saveNewPasswordButton = (TextView) findViewById(R.id.saveNewPasswordButton);
 
-        saveNewPasswordButton.setOnClickListener(new View.OnClickListener()
-        {
+        saveNewPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if (!Validation.isEmptyStr(OldPassword.getText().toString()))
-                {
+                if (!Validation.isEmptyStr(OldPassword.getText().toString())) {
 
-                    if (Validation.isValidPassword(NewPassword.getText().toString()))
-                    {
+                    if (Validation.isValidPassword(NewPassword.getText().toString())) {
 
-                        if (!Validation.isEmptyStr(ConfirmPassword.getText().toString()))
-                        {
+                        if (!Validation.isEmptyStr(ConfirmPassword.getText().toString())) {
 
-                            if (NewPassword.getText().toString().equals(ConfirmPassword.getText().toString()))
-                            {
+                            if (NewPassword.getText().toString().equals(ConfirmPassword.getText().toString())) {
 
-                                callChangePasswordWebService("seller");
+                                callChangePasswordWebService(AndroidUtils.getUserType(user_type));
 
-                            }
-                            else
-                            {
+                            } else {
                                 showMessage("Old and confirm password does not match");
                             }
-                        }
-                        else
-                        {
+                        } else {
                             showMessage("Please Enter Confirm Password");
 
                         }
 
-                    }
-                    else
-                    {
+                    } else {
                         showMessage("Please Enter Minimum 6 digit New Password");
                     }
 
-                }
-                else
-                {
+                } else {
                     showMessage("Please Enter Old Password");
                 }
 
@@ -183,25 +156,19 @@ public class ChangePassword extends AppCompatActivity
         });
     }
 
-
-    private void setuptoolbar()
-    {
-
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setTitle(null);
-
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
-
     }
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
