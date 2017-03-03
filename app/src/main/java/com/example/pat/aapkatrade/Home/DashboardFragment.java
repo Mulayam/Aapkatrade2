@@ -165,8 +165,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         progress_handler = new ProgressBarHandler(getActivity());
 
-       // coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordination_home);
-       // coordinatorLayout.setVisibility(View.INVISIBLE);
+        coordinatorLayout = (CoordinatorLayout) v.findViewById(R.id.coordination_home);
+        coordinatorLayout.setVisibility(View.INVISIBLE);
 
         home_ads = (ImageView) v.findViewById(R.id.home_ads);
         home_ads.setImageResource(R.drawable.ic_home_ads_banner);
@@ -225,7 +225,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
         progress_handler.show();
-      //  coordinatorLayout.setVisibility(View.INVISIBLE);
+        coordinatorLayout.setVisibility(View.INVISIBLE);
 
 
         Ion.with(getActivity())
@@ -315,7 +315,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                             }
 
                             progress_handler.hide();
-                          //  coordinatorLayout.setVisibility(View.VISIBLE);
+                            coordinatorLayout.setVisibility(View.VISIBLE);
 
                         }
 
@@ -324,7 +324,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
                             progress_handler.hide();
-                           // coordinatorLayout.setVisibility(View.VISIBLE);
+                            coordinatorLayout.setVisibility(View.VISIBLE);
                             connection_problem_message();
 
                         }
