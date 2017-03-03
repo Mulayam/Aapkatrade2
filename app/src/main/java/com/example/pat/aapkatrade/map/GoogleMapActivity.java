@@ -635,10 +635,10 @@ pg_handler.show();
 
 
 
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(route.get(0).getPoints().get(route.get(0).getPoints().size()-1).latitude, route.get(0).getPoints().get(route.get(0).getPoints().size()-1).longitude));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
-
-        mMap.moveCamera(zoom);
+//        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(route.get(0).getPoints().get(route.get(0).getPoints().size()-1).latitude, route.get(0).getPoints().get(route.get(0).getPoints().size()-1).longitude));
+//        CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
+//
+//        mMap.moveCamera(zoom);
 
         if (polylines.size() > 0) {
             for (Polyline poly : polylines) {
