@@ -284,33 +284,28 @@ if(autocomplete_textview_state.getText().length()!=0)
 
         Ion.with(Search.this)
                 .load(product_search_url)
-                .setHeader("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("location", location_text.trim())
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("name",product_search_text.trim())
+                .setBodyParameter("name", product_search_text.trim())
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        if(result!=null)
-                        {
+                        if (result != null) {
                             product_names.clear();
-                            product_names=new ArrayList<String>();
+                            product_names = new ArrayList<String>();
                             Log.e("webservice_returndata", product_names.toString());
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             String error = jsonObject.get("error").getAsString();
                             String message = jsonObject.get("message").getAsString();
-                            if(message.contains("Failed")) {
+                            if (message.contains("Failed")) {
 
 
-                                AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
+                                AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
 
-                            }
-
-
-
-                            else {
+                            } else {
 
                                 Log.e("data2", result.toString());
                                 if (jsonObject.get("result").isJsonNull()) {
@@ -345,21 +340,10 @@ if(autocomplete_textview_state.getText().length()!=0)
                                 }
 
 
-
-
-
-
-
                             }
 
 
-
-
                         }
-
-               
-
-
 
 
                     }
@@ -367,9 +351,7 @@ if(autocomplete_textview_state.getText().length()!=0)
                 });
 
 
-
-
-
+    }
 
 
 
