@@ -14,22 +14,21 @@ import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by PPC21 on 06-Feb-17.
  */
 
-public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable {
+public class Webservice_search_autocompleteadapter extends BaseAdapter implements Filterable {
     Context context;
     ArrayList<String> names_data;
     LayoutInflater inflter;
 
     private ArrayList<String> originalData;
-
+    private ArrayList<String> filteredData;
     private ValueFilter valueFilter;
 
-    public CustomAutocompleteAdapter(Context applicationContext, ArrayList<String> names_data) {
+    public Webservice_search_autocompleteadapter(Context applicationContext, ArrayList<String> names_data) {
         this.context = applicationContext;
 
         this.names_data = names_data;
@@ -39,16 +38,12 @@ public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable
 
     @Override
     public int getCount() {
-        if(originalData!=null && originalData.size()< 0)
         return names_data.size();
-        else return originalData.size();
     }
 
     @Override
     public Object getItem(int i) {
-        if(originalData.size()==0)
-            return names_data.get(i);
-        else return originalData.get(i);
+        return names_data.get(i);
     }
 
     @Override
@@ -60,25 +55,10 @@ public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable
 
 
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view==null)
-        {
-            view = inflter.inflate(R.layout.row_spinner, null);
-        }
+        view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
         Log.e("names", names_data.get(i));
-
-        if(originalData.size()==0)
-        {
-            names.setText(names_data.get(i));
-            Log.e("names_data.get(i)",names_data.get(i).toString());
-        }
-
-        else  {
-            names.setText(originalData.get(i));
-            Log.e("originalData.get(i)",originalData.get(i)+"***"+originalData.size());
-        }
-
-
+        names.setText(names_data.get(i));
 
         return view;
     }
@@ -88,7 +68,6 @@ public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable
         if (valueFilter == null) {
             valueFilter = new ValueFilter();
         }
-        Log.e("valueFilter",valueFilter.toString());
         return valueFilter;
     }
 
@@ -96,19 +75,14 @@ public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable
     public class ValueFilter extends Filter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            Log.e("constraint", String.valueOf(constraint)+"***");
-
             FilterResults results = new FilterResults();
 
             if (constraint != null && constraint.length() > 0) {
-
                 ArrayList<String> filterList = new ArrayList<>();
                 for (int i = 0; i < names_data.size(); i++) {
-                    Log.e("results>0",names_data.size()+"");
                     String contact = names_data.get(i);
-                    Log.e("contact",names_data.get(i));
-                    if ((contact.toUpperCase()).contains(constraint.toString().toUpperCase()))
-                    {
+                    if ((contact.toUpperCase()).contains(constraint.toString().toUpperCase())
+                            ) {
                         filterList.add(names_data.get(i));
                     }
 
@@ -120,8 +94,6 @@ public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable
                 results.count = names_data.size();
                 results.values = names_data;
                 Log.e("results<0",results.values.toString());
-//                Log.e("contact--------",constraint.toString());
-
             }
             return results;
         }
@@ -129,23 +101,7 @@ public class CustomAutocompleteAdapter extends BaseAdapter implements Filterable
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             originalData = (ArrayList<String>) results.values;
-            List<String> filterList = (ArrayList<String>) results.values;
-
-            //notifyDataSetChanged();
-
-
-
-
-            if (results != null && results.count > 0) {
-                //filterList.clear();
-                Log.e("originalData",filterList.toString());
-//                for (String names : originalData) {
-//                    filterList.add(names);
-//                    Log.e("originalData",filterList.toString());
-//                    notifyDataSetChanged();
-//                }
-//                Log.e("originalData2",filterList.toString());
-            }
+            notifyDataSetChanged();
         }
 
     }
