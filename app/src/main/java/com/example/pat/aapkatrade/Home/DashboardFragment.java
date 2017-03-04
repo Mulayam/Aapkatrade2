@@ -207,8 +207,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         view_all_latest_update.setOnClickListener(this);
 
 
-
-
         get_home_data();
 //        StikkyHeaderBuilder.stickTo(scrollView)
 //                .setHeader(R.id.coordination_home, v2)
