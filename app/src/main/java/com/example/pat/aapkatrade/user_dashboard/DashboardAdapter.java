@@ -14,6 +14,7 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
+import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementActivity;
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
@@ -240,7 +241,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
-                } else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
+                }
+                else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
                         Intent i = new Intent(context, LoginDashboard.class);
@@ -252,8 +254,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //                        context.startActivity(list_product);
 
                     }
-
-                } else if (itemList.get(position).dashboard_name.equals("Payout Reports")) {
+                //    Associate Agreement
+                }
+               else if (itemList.get(position).dashboard_name.equals("Payout Reports")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
                         Intent i = new Intent(context, LoginDashboard.class);
@@ -266,7 +269,31 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
+
+                    } 
+              else if (itemList.get(position).dashboard_name.equals("Associate Agreement"))
+                {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                    {
+
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    }
+                    else
+                        {
+
+                        Intent list_product = new Intent(context, AssociateAgreementActivity.class);
+                       context.startActivity(list_product);
+
+                    }
+                    //
+
                 }
+
+
+
 
             }
         });

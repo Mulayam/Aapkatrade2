@@ -185,11 +185,8 @@
     <string name="bussiness_details" translatable="false">Bussiness Details</string>
     <string name="product_name2" translatable="false">Product Name</string>
     <string name="delivery_location" translatable="false">Delivery Location</string>
-
     <string name="choose_source" translatable="false">Choose Source</string>
     <string name="choose_destination" translatable="false">Choose Destination</string>
-
-
     <string name="action_settings" translatable="false">Settings</string>
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="hnt_lat" translatable="false">Enter Latitude</string>
@@ -213,12 +210,17 @@
     <string name="landline" translatable="false">Landline</string>
     <string name="additional_info" translatable="false">Additional Info</string>
     <string name="name">Name : </string>
+
     <string name="title_activity_payout">PayoutActivity</string>
     <string name="search">Search</string>
     <string name="startDate">Start Date</string>
     <string name="endDate">End Date</string>
     <string name="complete_date">COMPLETE DATE</string>
     <string name="payout">PAYOUT</string>
+
+    <string name="bussiness_associate_details">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</string>
+    <string name="business_associate_heading"><![CDATA[Business Associate and Term &amp; Condition]]></string>
+
 
 
 </resources>

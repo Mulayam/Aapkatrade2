@@ -17,11 +17,11 @@ import java.util.ArrayList;
  * Created by PPC21 on 13-Jan-17.
  */
 
-public class viewpageradapter_home  extends PagerAdapter {
+public class viewpageradapter_home  extends PagerAdapter
+{
 
     private Context mContext;
     ArrayList<String> imageurl;
-
 
 
     public viewpageradapter_home(Context mContext, ArrayList<String> productImage_url) {
@@ -32,7 +32,6 @@ public class viewpageradapter_home  extends PagerAdapter {
 
 
     public int getCount() {
-
         return imageurl!=null?imageurl.size():-1;
 
 }
@@ -42,7 +41,8 @@ public class viewpageradapter_home  extends PagerAdapter {
     }
 
 
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, int position)
+    {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.viewpager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.img_pager_item);

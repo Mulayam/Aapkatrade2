@@ -33,6 +33,7 @@ import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomAutocompleteAdapter;
+import com.example.pat.aapkatrade.general.Utils.adapter.Webservice_search_autocompleteadapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -56,10 +57,10 @@ public class Search extends AppCompatActivity
     ArrayList<String> product_names = new ArrayList<>();
     ArrayList<CommomData> search_productlist = new ArrayList<>();
     Toolbar toolbar;
-
+    Webservice_search_autocompleteadapter product_autocompleteadapter;
     ProgressBarHandler progressBarHandler;
     CoordinatorLayout coordinate_search;
-    private ArrayList stateList = new ArrayList<>();
+    private ArrayList<String> stateList = new ArrayList<>();
     HashMap<String, String> webservice_header_type = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,46 +100,21 @@ public class Search extends AppCompatActivity
         c=Search.this;
         coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
         progressBarHandler=new ProgressBarHandler(Search.this);
+        autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
+        autocomplete_textview_product.setThreshold(1);
+
 
         autocomplete_textview_state=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_state);
-        autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
-        autocomplete_textview_state.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if(stateList!=null) {
+            categoryadapter = new CustomAutocompleteAdapter(c, stateList);
+            autocomplete_textview_state.setThreshold(1);
+            autocomplete_textview_state.setAdapter(categoryadapter);
+        } else {
+                    Log.e("stateList","statelist is nullll");
+        }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-                String text=s.toString();
-
-                if (text.length() > 2) {
-                    Log.e("stateList",stateList.toString());
-                    categoryadapter = new CustomAutocompleteAdapter(c, stateList);
-                    autocomplete_textview_state.setAdapter(categoryadapter);
-
-
-//                  String state_search_url="https://aapkatrade.com/slim/location";
-//                    call_search_suggest_webservice_state(state_search_url,text);
-
-
-                }
-
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         recyclerView_search=(RecyclerView)findViewById(R.id.recycleview_search) ;
         gridLayoutManager = new GridLayoutManager(c, 2);
-
-
-
-
-
         autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -150,7 +126,7 @@ public class Search extends AppCompatActivity
 
                 String text=s.toString();
 
-                if (text.length() > 2) {
+                if (text.length() > 0) {
 
 if(autocomplete_textview_state.getText().length()!=0)
 
@@ -247,11 +223,12 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                     for (int i = 0; i < jsonResultArray.size(); i++) {
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        //State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                         stateList.add(jsonObject1.get("name").getAsString());
                     }
 
                     Log.e("stateList",stateList.toString());
+
+
 
                 }
 
@@ -394,8 +371,10 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
                                     Log.e("product_names", product_names.toString());
-                                    categoryadapter = new CustomAutocompleteAdapter(c, product_names);
-                                    autocomplete_textview_product.setAdapter(categoryadapter);
+                                    product_autocompleteadapter=new Webservice_search_autocompleteadapter(c,product_names);
+
+                                    if(product_names.size()!=0)
+                                    autocomplete_textview_product.setAdapter(product_autocompleteadapter);
 
 
 //
@@ -416,7 +395,8 @@ if(autocomplete_textview_state.getText().length()!=0)
     }
 
 
-    }
+
+
 
 
 

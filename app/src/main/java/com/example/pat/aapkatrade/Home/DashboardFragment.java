@@ -208,7 +208,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
 
-
         get_home_data();
 //        StikkyHeaderBuilder.stickTo(scrollView)
 //                .setHeader(R.id.coordination_home, v2)
