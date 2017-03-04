@@ -33,6 +33,7 @@ import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomAutocompleteAdapter;
+import com.example.pat.aapkatrade.general.Utils.adapter.Webservice_search_autocompleteadapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -56,7 +57,7 @@ public class Search extends AppCompatActivity
     ArrayList<String> product_names = new ArrayList<>();
     ArrayList<CommomData> search_productlist = new ArrayList<>();
     Toolbar toolbar;
-
+    Webservice_search_autocompleteadapter product_autocompleteadapter;
     ProgressBarHandler progressBarHandler;
     CoordinatorLayout coordinate_search;
     private ArrayList<String> stateList = new ArrayList<>();
@@ -100,6 +101,7 @@ public class Search extends AppCompatActivity
         coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
         progressBarHandler=new ProgressBarHandler(Search.this);
         autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
+        autocomplete_textview_product.setThreshold(1);
 
 
         autocomplete_textview_state=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_state);
@@ -124,7 +126,7 @@ public class Search extends AppCompatActivity
 
                 String text=s.toString();
 
-                if (text.length() > 2) {
+                if (text.length() > 0) {
 
 if(autocomplete_textview_state.getText().length()!=0)
 
@@ -369,8 +371,10 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
                                     Log.e("product_names", product_names.toString());
-                                    categoryadapter = new CustomAutocompleteAdapter(c, product_names);
-                                    autocomplete_textview_product.setAdapter(categoryadapter);
+                                    product_autocompleteadapter=new Webservice_search_autocompleteadapter(c,product_names);
+
+                                    if(product_names.size()!=0)
+                                    autocomplete_textview_product.setAdapter(product_autocompleteadapter);
 
 
 //
