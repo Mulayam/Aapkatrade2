@@ -32,14 +32,8 @@ public class CompanyList extends AppCompatActivity
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
     ProgressBarHandler progress_handler;
-
     private App_sharedpreference app_sharedpreference;
-
-   
     String user_id;
-
-
-
 
 
     @Override
@@ -64,7 +58,6 @@ public class CompanyList extends AppCompatActivity
 
     public void get_company_list_data()
     {
-
         relativeCompanylist.setVisibility(View.INVISIBLE);
         progress_handler.show();
         companyDatas.clear();

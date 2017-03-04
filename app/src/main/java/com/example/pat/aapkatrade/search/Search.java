@@ -352,9 +352,7 @@ if(autocomplete_textview_state.getText().length()!=0)
     }
 
 
-
-
-
+    }
 
 
 

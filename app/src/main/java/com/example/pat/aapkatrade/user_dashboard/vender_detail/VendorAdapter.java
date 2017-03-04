@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -20,14 +22,11 @@ import java.util.List;
 public class VendorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
-
     final LayoutInflater inflater;
     List<VendorData> itemList;
     Context context;
     VendorHolder viewHolder;
     VendorActivity vendorActivity;
-
-
 
 
     public VendorAdapter(Context context, List<VendorData> itemList,VendorActivity vendorActivity)
@@ -51,14 +50,44 @@ public class VendorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         return viewHolder;
 
-
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
 
-        final VendorHolder homeHolder = (VendorHolder) holder;
+        VendorHolder homeHolder = (VendorHolder) holder;
+
+        homeHolder.tvUserName.setText(itemList.get(position).vender_name +" "+ itemList.get(position).vender_last_name);
+
+        homeHolder.tvUserEmail.setText(itemList.get(position).email);
+
+        homeHolder.tvUserMobile.setText(itemList.get(position).mobile);
+
+       SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date date = null;
+        try
+        {
+            date = form.parse(itemList.get(position).vender_creation_date);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
+        String newDateStr = postFormater.format(date);
+
+        homeHolder.tvCreationDate.setText(newDateStr);
+
+
+        if(itemList.get(position).bussiness_type.equals("1"))
+        {
+            homeHolder.tvUserType.setText("Personal");
+        }
+        else
+        {
+            homeHolder.tvUserType.setText("License");
+        }
 
 
     }
@@ -80,4 +109,9 @@ public class VendorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
+
+
+
+
+
 }

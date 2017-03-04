@@ -46,7 +46,6 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     int page=1;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -160,7 +159,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
                     @Override
                     public void onCompleted(Exception e, JsonObject result)
                     {
-                        System.out.println("userid----------------"+user_id);
+                        System.out.println("result----------------"+result.toString());
 
                        // System.out.println("jsonObject---------123----"+user_id + result.toString().substring(0, 3574));
 

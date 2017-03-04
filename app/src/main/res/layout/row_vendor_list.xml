@@ -4,7 +4,7 @@
     android:id="@+id/relativeVenderLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     >
 
     <android.support.v7.widget.CardView
@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             >
-
 
             <RelativeLayout
                 android:id="@+id/relativelayoutDetail"
@@ -43,6 +42,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
                     />
 
 
@@ -75,20 +75,54 @@
 
 
             <RelativeLayout
-                android:id="@+id/relativeLayoutEmailDetails"
+                android:id="@+id/relativeReferenceDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relativelayoutDetail"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
+                >
+
+
+                <TextView
+                    android:id="@+id/tvReferenceHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Reference:"
+                    android:textColor="@color/green"
+                    android:textStyle="bold"
+                    />
+
+
+                <TextView
+                    android:id="@+id/tvReference"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="vijay1323"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/tvReferenceHeading"
+                    />
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutEmailDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeReferenceDetails"
+                android:layout_marginTop="5dp"
 
                 >
 
                 <ImageView
                     android:id="@+id/imgEmail"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_email"
+                    android:src="@drawable/ic_email_orange"
                     />
 
                 <TextView
@@ -112,10 +146,10 @@
                 >
                 <ImageView
                     android:id="@+id/imgMobile"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_email"
+                    android:src="@drawable/ic_phone_orange"
                     />
 
 

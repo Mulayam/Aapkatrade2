@@ -35,7 +35,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      Boolean showBoolean = false;
 
 
-
     public CompanyListAdapter(Context context, List<CompanyData> itemList,CompanyList companylist)
     {
         this.companylist = companylist;
@@ -45,13 +44,10 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-
         View view = inflater.inflate(R.layout.row_company_list, parent, false);
-
 
         viewHolder = new CompanyListHolder(view);
 
@@ -70,23 +66,24 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         homeHolder.tvCompanyname.setText(itemList.get(position).company_name);
 
-
         SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date date = null;
         try
         {
             date = form.parse(itemList.get(position).company_creation_date);
+
+            System.out.println("datae----------"+itemList.get(position).company_creation_date);
+
         }
         catch (ParseException e)
         {
 
             e.printStackTrace();
         }
-        SimpleDateFormat postFormater = new SimpleDateFormat("MMMMM dd, yyyy");
+        SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
         String newDateStr = postFormater.format(date);
 
         homeHolder.tvDate.setText(newDateStr);
-
 
 
         homeHolder.imgNext.setOnClickListener(new View.OnClickListener()
