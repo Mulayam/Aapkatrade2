@@ -82,7 +82,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     viewpageradapter_home viewpageradapter;
     JsonObject home_result;
     RelativeLayout rl_searchview_dashboard;
-    private SwipeRefreshLayout mSwipyRefreshLayout;
 
     View view;
 
@@ -208,8 +207,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         view_all_latest_update.setOnClickListener(this);
 
 
-        mSwipyRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe);
-        mSwipyRefreshLayout.setRefreshing(false);
 
 
         get_home_data();

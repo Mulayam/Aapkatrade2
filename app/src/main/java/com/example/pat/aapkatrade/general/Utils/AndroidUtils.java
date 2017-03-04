@@ -7,6 +7,8 @@ import android.widget.EditText;
 
 import com.example.pat.aapkatrade.general.Validation;
 
+import java.util.Calendar;
+
 /**
  * Created by PPC09 on 03-Feb-17.
  */
@@ -41,6 +43,15 @@ public class AndroidUtils {
             return "1";
         }
         return user_type;
+    }
+
+    public static Calendar stringToCalender(String date_yyyy_mm_dd){
+        int day = Integer.parseInt(date_yyyy_mm_dd.split("-")[2]);
+        int month = Integer.parseInt(date_yyyy_mm_dd.split("-")[1]);
+        int year = Integer.parseInt(date_yyyy_mm_dd.split("-")[0]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month-1, day);
+        return calendar;
     }
 
 

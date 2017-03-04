@@ -213,6 +213,12 @@
     <string name="landline" translatable="false">Landline</string>
     <string name="additional_info" translatable="false">Additional Info</string>
     <string name="name">Name : </string>
+    <string name="title_activity_payout">PayoutActivity</string>
+    <string name="search">Search</string>
+    <string name="startDate">Start Date</string>
+    <string name="endDate">End Date</string>
+    <string name="complete_date">COMPLETE DATE</string>
+    <string name="payout">PAYOUT</string>
 
 
 </resources>

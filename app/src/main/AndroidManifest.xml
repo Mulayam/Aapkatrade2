@@ -109,12 +109,13 @@
             android:name=".user_dashboard.bankmanagement.BankManagementActivity"
             android:label="@string/title_activity_bank_management"
             android:theme="@style/AppTheme" />
-
         <activity android:name=".user_dashboard.my_profile.MyProfileForBusinessAssociates" />
-        <activity android:name=".user_dashboard.associateagreement.AssociateAgreementActivity"></activity>
-
-        <activity android:name=".user_dashboard.network.NetworkActivity"></activity>
-
+        <activity android:name=".user_dashboard.associateagreement.AssociateAgreementActivity" />
+        <activity android:name=".user_dashboard.network.NetworkActivity" />
+        <activity
+            android:name=".user_dashboard.payout.PayoutActivity"
+            android:label="@string/title_activity_payout"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
