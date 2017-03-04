@@ -262,7 +262,7 @@ public class User_DashboardFragment extends Fragment
                                 dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
                                 dashboardDatas.add(new DashboardData("", "Add Vendor", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false,""));
                                 dashboardDatas.add(new DashboardData("", "Vendor List", R.drawable.ic_add_company, R.drawable.circle_deep_pink, true,vendor_quantity_sharedpref));
-
+                                dashboardDatas.add(new DashboardData("", "Associate Agreement", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false,""));
                                 tvUserType.setText("Welcome Bussiness Associate");
                                 dashboardlist.setLayoutManager(layoutManager);
                                 dashboardAdapter = new DashboardAdapter(getActivity(), dashboardDatas);

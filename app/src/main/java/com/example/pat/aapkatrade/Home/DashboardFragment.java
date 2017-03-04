@@ -207,11 +207,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         view_all_latest_update = (RelativeLayout) view.findViewById(R.id.rl_viewall_latest_update);
         view_all_latest_update.setOnClickListener(this);
 
-
-        mSwipyRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe);
-        mSwipyRefreshLayout.setRefreshing(false);
-
-
         get_home_data();
 //        StikkyHeaderBuilder.stickTo(scrollView)
 //                .setHeader(R.id.coordination_home, v2)
