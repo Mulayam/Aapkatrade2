@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -293,7 +294,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     private void showDate(int year, int month, int day) {
 
-        tvDate.setTextColor(getColor(R.color.black));
+        tvDate.setTextColor(ContextCompat.getColor(MyProfileActivity.this, R.color.black));
         tvDate.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
 

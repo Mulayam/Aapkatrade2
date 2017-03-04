@@ -19,4 +19,12 @@ public class DashboardData {
         this.isList = isList;
         this.quantities=quantities;
     }
+
+    public DashboardData(String dashboard_id, String dashboard_name, int image, int color, boolean isList) {
+        this.dashboard_id = dashboard_id;
+        this.dashboard_name = dashboard_name;
+        this.image = image;
+        this.color = color;
+        this.isList = isList;
+    }
 }

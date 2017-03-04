@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoriesTabActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
@@ -19,9 +18,10 @@ import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileForBusinessAssociates;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderManagementActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
+import com.example.pat.aapkatrade.user_dashboard.vender_detail.VendorActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -32,8 +32,7 @@ import java.util.List;
  * Created by PPC16 on 10-Jan-17.
  */
 
-public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private final LayoutInflater inflater;
@@ -43,9 +42,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     App_sharedpreference app_sharedpreference;
 
 
-
-    public DashboardAdapter(Context context, List<DashboardData> itemList)
-    {
+    public DashboardAdapter(Context context, List<DashboardData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -53,8 +50,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_dashboard2, parent, false);
         viewHolder = new DashboardHolder(view);
@@ -63,18 +59,14 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
-    {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         DashboardHolder homeHolder = (DashboardHolder) holder;
 
         homeHolder.tvDashboard.setText(itemList.get(position).dashboard_name.toString());
 
-        if(itemList.get(position).isList)
-        {
+        if (itemList.get(position).isList) {
             homeHolder.tvquantity.setText(itemList.get(position).quantities.toString());
-        }
-        else
-        {
+        } else {
             homeHolder.tvquantity.setVisibility(View.INVISIBLE);
         }
 
@@ -101,6 +93,18 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
+                } else if (itemList.get(position).dashboard_name.equals("My Profile") && app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+                    } else {
+
+                        Intent list_product = new Intent(context, MyProfileForBusinessAssociates.class);
+                        context.startActivity(list_product);
+
+                    }
                 } else if (itemList.get(position).dashboard_name.equals("My Profile")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginDashboard.class);
@@ -155,7 +159,45 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
-                } else if (itemList.get(position).dashboard_name.equals("Add Product")) {
+                }
+                else if (itemList.get(position).dashboard_name.equals("Add Vendor"))
+                {
+
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                    {
+                        Intent i = new Intent(context, AddProductActivity.class);
+                        context.startActivity(i);
+
+
+                    } else {
+
+                        Intent list_company = new Intent(context, VendorActivity.class);
+                        context.startActivity(list_company);
+
+                    }
+
+
+                }
+
+                else if (itemList.get(position).dashboard_name.equals("Vendor List"))
+                {
+
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+
+                    } else {
+
+                        Intent list_company = new Intent(context, VendorActivity.class);
+                        context.startActivity(list_company);
+
+                    }
+
+
+                }
+
+                else if (itemList.get(position).dashboard_name.equals("Add Product")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
@@ -197,18 +239,13 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
-                }
-                else if (itemList.get(position).dashboard_name.equals("Cancel Order"))
-                {
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
-                    {
+                } else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
                         Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
-                    }
-                    else
-                    {
+                    } else {
 
 //                        Intent list_product = new Intent(context, OrderActivity.class);
 //                        context.startActivity(list_product);
@@ -222,23 +259,23 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     }
 
-    private void showMessage(String s)
-    {
+    private void showMessage(String s) {
 
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return itemList.size();
 
     }
 
-    public String getCurrentTimeStamp() {
+    public String getCurrentTimeStamp()
+    {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
-
 
 
 }
