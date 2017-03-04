@@ -24,7 +24,7 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class loginActivity extends AppCompatActivity {
 
     TextView login_text, forgot_password;
     EditText username, password;
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        app_sharedpreference = new App_sharedpreference(LoginActivity.this);
+        app_sharedpreference = new App_sharedpreference(loginActivity.this);
         InitView();
         putValues();
 
@@ -49,10 +49,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (app_sharedpreference.shared_pref != null) {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
+                        Intent registerUserActivity = new Intent(loginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
                     } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1")) || app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                        Intent registerUserActivity = new Intent(loginActivity.this, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
                 } else {
@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
         HashMap<String, String> webservice_header_type = new HashMap<>();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
-        Call_webservice.call_login_webservice(LoginActivity.this, login_url, "login", webservice_body_parameter, webservice_header_type);
+        Call_webservice.call_login_webservice(loginActivity.this, login_url, "login", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, order_quantity, product_quantity, company_quantity, "", "");
 
-                            Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
 
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -234,7 +234,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, order_quantity, "", "", "", "");
 
-                            Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
 
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -284,7 +284,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, "", "", "", vendor_quantity, network_quantity);
 
-                            Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
 
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -334,7 +334,7 @@ public class LoginActivity extends AppCompatActivity {
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forgotpassword_activity = new Intent(LoginActivity.this, Forgot_Password.class);
+                Intent forgotpassword_activity = new Intent(loginActivity.this, Forgot_Password.class);
                 startActivity(forgotpassword_activity);
             }
         });
