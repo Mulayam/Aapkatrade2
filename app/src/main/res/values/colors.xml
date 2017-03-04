@@ -26,6 +26,7 @@
     <color name="bg_product_title_separator">#333333</color>
     <color name="grey">#B0B0B0</color>
     <color name="grey_light">#EEEEEE</color>
+    <color name="grey__more_light">#faf8f8</color>
     <color name="grey_gradient">#415673</color>
     <color name="grey_gradient2">#737C7A</color>
     <color name="item_details_color">#585858</color>
