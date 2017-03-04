@@ -235,46 +235,29 @@ public class User_DashboardFragment extends Fragment
                                 dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct, R.drawable.circle_slate_gray, true,product_quantity_shared_pref));
                                 dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true,order_quantity_shared_pref));
 
-
                                 String Username = app_sharedpreference.getsharedpref("username", "not");
 
-                                if (Username.toString().equals("notlogin")) {
+                                if (Username.equals("notlogin")) {
                                     tvUserType.setText("Welcome Guest");
                                     NavigationFragment.usertype.setText("Welcome Guest");
-
                                 } else {
                                     tvUserType.setText("Welcome Seller");
-
                                 }
 
 
                                 dashboardlist.setLayoutManager(layoutManager);
                                 dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
                                 dashboardlist.setAdapter(dashboardAdapter);
-
-
-
                             }
 
                             else if (user_type.contains("3"))
                             {
                                 String vendor_quantity = result.get("vendor").getAsString();
                                 String network_quantity = result.get("network").getAsString();
-
-
-
                                 app_sharedpreference.setsharedpref("vendor_quantity",vendor_quantity);
                                 app_sharedpreference.setsharedpref("network_quantity",network_quantity);
-
-
-
                                 String vendor_quantity_sharedpref= app_sharedpreference.getsharedpref("vendor_quantity","0");
-
-
-
                                 Log.e("vendor_quantity",vendor_quantity);
-
-
                                 dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false,""));
                                 dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false,""));
                                 dashboardDatas.add(new DashboardData("", "Add Vendor", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false,""));

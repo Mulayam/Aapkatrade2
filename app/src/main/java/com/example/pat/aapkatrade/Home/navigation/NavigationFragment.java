@@ -57,8 +57,7 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner
-{
+public class NavigationFragment extends Fragment implements View.OnClickListener, ExpandableListAdapter.clickListner {
 
 
     public static final String preFile = "textFile";
@@ -120,7 +119,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     private void initView(View view) {
-        navigation_close=(ImageView)view.findViewById(R.id.navigation_close);
+        navigation_close = (ImageView) view.findViewById(R.id.navigation_close);
         navigation_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,12 +134,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         //sharedprefrance
         // loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         textViewName = (TextView) view.findViewById(R.id.tv_name);
-        usertype=(TextView)view.findViewById(R.id.welcome_guest) ;
+        usertype = (TextView) view.findViewById(R.id.welcome_guest);
         emailid = (TextView) view.findViewById(R.id.tv_email);
         // loginPrefsEditor = loginPreferences.edit();
         prepareListData();
-        navigation_linear_layout_manager=  new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        navigation_recycleview=(RecyclerView)this.view.findViewById(R.id.recycle_view_navigation);
+        navigation_linear_layout_manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        navigation_recycleview = (RecyclerView) this.view.findViewById(R.id.recycle_view_navigation);
         navigation_recycleview.setLayoutManager(navigation_linear_layout_manager);
 
         expListView = (ExpandableListView) this.view.findViewById(R.id.lvExp);
@@ -164,31 +163,21 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
 
-
-                   usertype.setText("Welcome Bussiness Associate");
-
+                    usertype.setText("Welcome Bussiness Associate");
 
 
-
-
-                }
-                else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
+                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
 
                     usertype.setText("Welcome Buyer");
 
 
-
-                }
-                else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1")))
-                {
+                } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
 
 
-                 usertype.setText("Welcome Seller");
+                    usertype.setText("Welcome Seller");
 
 
                 }
-
-
 
 
             }
@@ -250,7 +239,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 rl_main_content = getActivity().findViewById(R.id.rl_main_content);
                 rl_main_content.setBackgroundColor(Color.parseColor("#33000000"));
                 hideSoftKeyboard(getActivity());
-               // mDrawerLayout.setScrimColor(Color.TRANSPARENT);
+                // mDrawerLayout.setScrimColor(Color.TRANSPARENT);
                 super.onDrawerOpened(drawerView);
                 if (!mUserLearnedDrawer) {
                     mUserLearnedDrawer = true;
@@ -263,7 +252,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
-               // rl_main_content.setBackgroundColor(Color.parseColor("#ffffff"));
+                // rl_main_content.setBackgroundColor(Color.parseColor("#ffffff"));
 
             }
 
@@ -333,41 +322,34 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void itemClicked(View view, int groupview, int childview)
-    {
+    public void itemClicked(View view, int groupview, int childview) {
 
         String sub_category_id;
 
-        System.out.println("childview------------" +groupview + childview);
+        System.out.println("childview------------" + groupview + childview);
 
         String category_id = listDataHeader.get(groupview).getCategoryId().toString();
 
-        System.out.println("size-------------------"+listDataHeader.get(groupview).getSubCategoryList().size());
+        System.out.println("size-------------------" + listDataHeader.get(groupview).getSubCategoryList().size());
 
-        if (listDataHeader.get(groupview).getSubCategoryList().size() == 0)
-        {
+        if (listDataHeader.get(groupview).getSubCategoryList().size() == 0) {
 
             sub_category_id = "not_available";
-        }
-        else
-        {
+        } else {
             sub_category_id = listDataHeader.get(groupview).getSubCategoryList().get(childview).subCategoryId.toString();
 
         }
 
-        System.out.println("category_id,sub_category_id---------"+category_id+"hi---"+sub_category_id);
+        System.out.println("category_id,sub_category_id---------" + category_id + "hi---" + sub_category_id);
 
-        try
-        {
+        try {
 
             Intent i = new Intent(getActivity(), CategoryListActivity.class);
-            i.putExtra("category_id",category_id);
-            i.putExtra("sub_category_id",sub_category_id);
+            i.putExtra("category_id", category_id);
+            i.putExtra("sub_category_id", sub_category_id);
             startActivity(i);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("Exception", e.toString());
         }
 
@@ -418,8 +400,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     }
 
-    private void getCategory()
-    {
+    private void getCategory() {
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -429,27 +410,22 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         Call_webservice.getcountrystatedata(context, "category", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder()
-        {
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
 
             @Override
-            public void Taskcomplete(JsonObject data)
-            {
-                if (data != null)
-                {
+            public void Taskcomplete(JsonObject data) {
+                if (data != null) {
                     JsonObject jsonObject = data.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-                    for (int i = 0; i < jsonResultArray.size(); i++)
-                    {
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
 
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                         JsonArray json_subcategory = jsonObject1.getAsJsonArray("subcategory");
 
                         listDataChild = new ArrayList<>();
 
-                        for (int k = 0; k < json_subcategory.size(); k++)
-                        {
+                        for (int k = 0; k < json_subcategory.size(); k++) {
                             JsonObject jsonObject_subcategory = (JsonObject) json_subcategory.get(k);
                             SubCategory subCategory = new SubCategory(jsonObject_subcategory.get("id").getAsString(), jsonObject_subcategory.get("name").getAsString());
                             listDataChild.add(subCategory);
@@ -466,7 +442,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
                 }
-set_recycleview_adapter();
+                set_recycleview_adapter();
 
                 set_expandable_adapter_data();
 
@@ -482,9 +458,8 @@ set_recycleview_adapter();
     private void set_recycleview_adapter() {
 
 
-        if (listDataHeader.size() != 0)
-        {
-            category_adapter=new CommonAdapter_navigation_recycleview(context,listDataHeader);
+        if (listDataHeader.size() != 0) {
+            category_adapter = new CommonAdapter_navigation_recycleview(context, listDataHeader);
             navigation_recycleview.setAdapter(category_adapter);
 
         }
@@ -493,11 +468,9 @@ set_recycleview_adapter();
     }
 
 
-    private void set_expandable_adapter_data()
-    {
+    private void set_expandable_adapter_data() {
 
-        if (listDataHeader.size() != 0)
-        {
+        if (listDataHeader.size() != 0) {
 
             listAdapter = new ExpandableListAdapter(context, listDataHeader);
 
