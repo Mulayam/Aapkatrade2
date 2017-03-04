@@ -80,9 +80,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 product_detail.putExtra("description",itemList.get(position).description);
                 product_detail.putExtra("delivery_distance",itemList.get(position).delivery_distance);
                 product_detail.putExtra("delivery_area_name",itemList.get(position).delivery_area_name);
-
+                product_detail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(product_detail);
 
+
+            }
+        });
+
+
+
+        homeHolder.imgMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context,"Hi ",Toast.LENGTH_SHORT).show();
 
             }
         });

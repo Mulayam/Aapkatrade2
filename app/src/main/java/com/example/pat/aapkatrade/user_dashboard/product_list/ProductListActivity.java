@@ -36,7 +36,6 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     int page = 1;
     private ProgressBarHandler progressBarHandler;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,8 +135,10 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
+
                     public void onCompleted(Exception e, JsonObject result) {
                         System.out.println("userid----------------" + user_id);
+
 
                         // System.out.println("jsonObject---------123----"+user_id + result.toString().substring(0, 3574));
 

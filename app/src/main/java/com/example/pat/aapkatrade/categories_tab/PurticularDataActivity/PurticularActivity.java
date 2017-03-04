@@ -150,11 +150,11 @@ public class PurticularActivity extends AppCompatActivity {
 
 
                                 }
-                                categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
-                                myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
-                                mRecyclerView.setAdapter(categoriesListAdapter);
-
-                                categoriesListAdapter.notifyDataSetChanged();
+////                                categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
+////                                myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
+////                                mRecyclerView.setAdapter(categoriesListAdapter);
+//
+//                                categoriesListAdapter.notifyDataSetChanged();
 
                                 progress_handler.hide();
                             }

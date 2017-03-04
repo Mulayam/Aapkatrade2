@@ -17,7 +17,7 @@ public class ProductListHolder extends RecyclerView.ViewHolder
     View view;
     TextView tvProductName,tvCategoriesName,tvProductPrice;
     LinearLayout linearlayout1;
-    ImageView imgProduct;
+    ImageView imgProduct,imgMore;
 
 
     public ProductListHolder(View itemView)
@@ -33,6 +33,9 @@ public class ProductListHolder extends RecyclerView.ViewHolder
         tvProductPrice = (TextView)  itemView.findViewById(R.id.tvProductPrice);
 
         imgProduct = (ImageView) itemView.findViewById(R.id.imgProduct);
+
+        imgMore = (ImageView) itemView.findViewById(R.id.imgMore);
+
 
         view = itemView;
     }

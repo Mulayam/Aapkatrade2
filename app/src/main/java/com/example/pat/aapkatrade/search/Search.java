@@ -14,7 +14,9 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -22,7 +24,11 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
+import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
+import com.example.pat.aapkatrade.Home.registration.entity.State;
+import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -53,7 +59,8 @@ public class Search extends AppCompatActivity
 
     ProgressBarHandler progressBarHandler;
     CoordinatorLayout coordinate_search;
-
+    private ArrayList stateList = new ArrayList<>();
+    HashMap<String, String> webservice_header_type = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -82,6 +89,13 @@ public class Search extends AppCompatActivity
 
     private void initview()
     {
+        call_state_webservice();
+
+
+
+
+
+
         c=Search.this;
         coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
         progressBarHandler=new ProgressBarHandler(Search.this);
@@ -101,10 +115,13 @@ public class Search extends AppCompatActivity
                 String text=s.toString();
 
                 if (text.length() > 2) {
+                    Log.e("stateList",stateList.toString());
+                    categoryadapter = new CustomAutocompleteAdapter(c, stateList);
+                    autocomplete_textview_state.setAdapter(categoryadapter);
 
 
-                  String state_search_url="https://aapkatrade.com/slim/location";
-                    call_search_suggest_webservice_state(state_search_url,text);
+//                  String state_search_url="https://aapkatrade.com/slim/location";
+//                    call_search_suggest_webservice_state(state_search_url,text);
 
 
                 }
@@ -177,6 +194,9 @@ if(autocomplete_textview_state.getText().length()!=0)
                         {
                             Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
                             call_search_webservice(autocomplete_textview_state.getText().toString(),autocomplete_textview_product.getText().toString());
+
+                            App_config.hideKeyboard(Search.this);
+
                         }
 
                     }
@@ -199,6 +219,50 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
 
+
+
+
+    }
+
+    private void call_state_webservice() {
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("type", "state");
+        webservice_body_parameter.put("id", "101");//country id fixed 101 for India
+
+        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        Call_webservice.getcountrystatedata(Search.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject state_data_webservice) {
+                stateList.clear();
+                if (state_data_webservice != null) {
+
+                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
+                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+
+
+
+
+                    for (int i = 0; i < jsonResultArray.size(); i++) {
+                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                        //State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                        stateList.add(jsonObject1.get("name").getAsString());
+                    }
+
+                    Log.e("stateList",stateList.toString());
+
+                }
+
+
+                else {
+                    Log.e("state_error",state_data_webservice.toString());
+
+                }
+            }
+
+        };
 
 
 
@@ -352,9 +416,7 @@ if(autocomplete_textview_state.getText().length()!=0)
     }
 
 
-
-
-
+    }
 
 
 

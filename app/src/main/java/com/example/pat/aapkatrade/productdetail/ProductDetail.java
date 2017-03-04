@@ -61,7 +61,7 @@ public class ProductDetail extends AppCompatActivity
     String product_id,product_location;
     ImageView imgViewPlus,imgViewMinus;
     int quantity_value=1;
-
+    String productlocation;
 
 
     @Override
@@ -150,7 +150,9 @@ public class ProductDetail extends AppCompatActivity
 
                             String   duration = json_result.get("deliverday").getAsString();
 
-
+                         productlocation=json_result.get("city_name").getAsString()+","+
+                                    json_result.get("state_name").getAsString()+","+
+                                    json_result.get("country_name").getAsString();
                             tvProductName.setText(product_name);
                             tvProPrice.setText("\u20A8"+"."+" "+product_price);
                             tvCrossPrice.setText("\u20A8"+"."+" "+product_cross_price);
@@ -321,7 +323,7 @@ public class ProductDetail extends AppCompatActivity
                         Intent intent = new Intent(ProductDetail.this, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        intent.putExtra("product_location", product_location);
+                        intent.putExtra("product_location", productlocation);
                         ProductDetail.this.startActivity(intent);
 
 
