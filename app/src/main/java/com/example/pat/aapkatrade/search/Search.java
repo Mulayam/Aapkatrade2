@@ -59,7 +59,7 @@ public class Search extends AppCompatActivity
 
     ProgressBarHandler progressBarHandler;
     CoordinatorLayout coordinate_search;
-    private ArrayList stateList = new ArrayList<>();
+    private ArrayList<String> stateList = new ArrayList<>();
     HashMap<String, String> webservice_header_type = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,46 +99,20 @@ public class Search extends AppCompatActivity
         c=Search.this;
         coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
         progressBarHandler=new ProgressBarHandler(Search.this);
+        autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
+
 
         autocomplete_textview_state=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_state);
-        autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
-        autocomplete_textview_state.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        if(stateList!=null) {
+            categoryadapter = new CustomAutocompleteAdapter(c, stateList);
+            autocomplete_textview_state.setThreshold(1);
+            autocomplete_textview_state.setAdapter(categoryadapter);
+        } else {
+                    Log.e("stateList","statelist is nullll");
+        }
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-                String text=s.toString();
-
-                if (text.length() > 2) {
-                    Log.e("stateList",stateList.toString());
-                    categoryadapter = new CustomAutocompleteAdapter(c, stateList);
-                    autocomplete_textview_state.setAdapter(categoryadapter);
-
-
-//                  String state_search_url="https://aapkatrade.com/slim/location";
-//                    call_search_suggest_webservice_state(state_search_url,text);
-
-
-                }
-
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
         recyclerView_search=(RecyclerView)findViewById(R.id.recycleview_search) ;
         gridLayoutManager = new GridLayoutManager(c, 2);
-
-
-
-
-
         autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -247,11 +221,12 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                     for (int i = 0; i < jsonResultArray.size(); i++) {
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        //State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                         stateList.add(jsonObject1.get("name").getAsString());
                     }
 
                     Log.e("stateList",stateList.toString());
+
+
 
                 }
 
@@ -414,116 +389,6 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                 });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void call_search_suggest_webservice_state(String url, String input_txt) {
-
-
-
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("location", input_txt);
-
-
-        HashMap<String, String> webservice_header_type = new HashMap<>();
-        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-
-
-        Call_webservice.suggest_search(Search.this, url, "search", webservice_body_parameter, webservice_header_type);
-
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject webservice_returndata) {
-
-
-                if (webservice_returndata != null) {
-                    Log.e("webservice_returndata", webservice_returndata.toString());
-                    JsonObject jsonObject = webservice_returndata.getAsJsonObject();
-                    state_names.clear();
-                    state_names = new ArrayList<>();
-                    String error = jsonObject.get("error").getAsString();
-                    String message = jsonObject.get("message").getAsString();
-
-
-                    if(message.contains("Failed")) {
-
-
-                        AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
-
-
-                    }
-
-                    else {
-
-
-                        Log.e("data2", webservice_returndata.toString());
-                        if (jsonObject.get("result").isJsonNull()) {
-                            Log.e("data_jsonArray null", webservice_returndata.toString());
-                        }
-
-
-                        JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
-                        Log.e("data_jsonarray", jsonarray_result.toString());
-
-                        for (int l = 0; l < jsonarray_result.size(); l++) {
-
-                            JsonObject jsonObject_top_banner = (JsonObject) jsonarray_result.get(l);
-                            String statename = jsonObject_top_banner.get("name").getAsString();
-
-                            state_names.add(statename);
-
-                        }
-
-
-                        if (error.contains("false")) {
-                            Log.e("error_false", "error_false");
-
-
-                            Log.e("state_names", state_names.toString());
-                            categoryadapter = new CustomAutocompleteAdapter(c, state_names);
-                            autocomplete_textview_state.setAdapter(categoryadapter);
-
-
-//
-
-
-                        } else {
-                            //showMessage(message);
-                        }
-
-                    }
-                }
-
-
-            }
-        };
-
-
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
