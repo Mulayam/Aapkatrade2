@@ -19,14 +19,12 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
 
-public class LoginActivity extends AppCompatActivity
-{
+public class loginActivity extends AppCompatActivity {
 
     TextView login_text, forgot_password;
     EditText username, password;
@@ -40,7 +38,7 @@ public class LoginActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        app_sharedpreference = new App_sharedpreference(LoginActivity.this);
+        app_sharedpreference = new App_sharedpreference(loginActivity.this);
         InitView();
         putValues();
 
@@ -51,10 +49,10 @@ public class LoginActivity extends AppCompatActivity
                 if (app_sharedpreference.shared_pref != null) {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationBusinessAssociateActivity.class);
+                        Intent registerUserActivity = new Intent(loginActivity.this, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
                     } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1")) || app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-                        Intent registerUserActivity = new Intent(LoginActivity.this, RegistrationActivity.class);
+                        Intent registerUserActivity = new Intent(loginActivity.this, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
                 } else {
@@ -82,56 +80,51 @@ public class LoginActivity extends AppCompatActivity
 
                 if (Validation.validateEdittext(username)) {
 
-                    if(Validation.isValidEmail(input_email)){
+                    if (Validation.isValidEmail(input_email)) {
 
 
-                    if (Validation.validateEdittext(password)) {
+                        if (Validation.validateEdittext(password)) {
 
 
-                        if (app_sharedpreference.shared_pref != null) {
-
-                            Log.e("login------------", app_sharedpreference.getsharedpref("usertype", "0"));
-
-                            if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
+                            if (app_sharedpreference.shared_pref != null) {
 
                                 Log.e("login------------", app_sharedpreference.getsharedpref("usertype", "0"));
 
-                                String login_url = "http://aapkatrade.com/slim/businesslogin";
+                                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                                callwebservice_login(login_url, input_email, input_password);
+                                    Log.e("login------------", app_sharedpreference.getsharedpref("usertype", "0"));
+
+                                    String login_url = "http://aapkatrade.com/slim/businesslogin";
+
+                                    callwebservice_login(login_url, input_email, input_password);
 
 
+                                } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+
+                                    String login_url = "http://aapkatrade.com/slim/buyerlogin";
+
+                                    callwebservice_login(login_url, input_email, input_password);
+
+
+                                } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
+
+                                    String login_url = "http://aapkatrade.com/slim/sellerlogin";
+
+                                    callwebservice_login(login_url, input_email, input_password);
+
+                                }
                             }
-                            else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-
-                                String login_url = "http://aapkatrade.com/slim/buyerlogin";
-
-                                callwebservice_login(login_url, input_email, input_password);
-
-
-                            }
-                            else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
-
-                                String login_url = "http://aapkatrade.com/slim/sellerlogin";
-
-                                callwebservice_login(login_url, input_email, input_password);
-
-                            }
+                        } else {
+                            showMessage("Invalid Password");
+                            password.setError("Invalid Password");
                         }
-                    }
-                    else {
-                        showMessage("Invalid Password");
-                        password.setError("Invalid Password");
-                    }
 
                     } else {
                         showMessage("Invalid Password");
                         password.setError("Invalid Password");
                     }
 
-                }
-                else
-                {
+                } else {
                     username.setError("Invalid Username");
                     showMessage("Invalid Username");
                 }
@@ -141,8 +134,7 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
-    private void callwebservice_login(String login_url, String input_username, String input_password)
-    {
+    private void callwebservice_login(String login_url, String input_username, String input_password) {
         // dialog.show();
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -153,18 +145,14 @@ public class LoginActivity extends AppCompatActivity
         HashMap<String, String> webservice_header_type = new HashMap<>();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
-        Call_webservice.call_login_webservice(LoginActivity.this, login_url, "login", webservice_body_parameter, webservice_header_type);
+        Call_webservice.call_login_webservice(loginActivity.this, login_url, "login", webservice_body_parameter, webservice_header_type);
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder()
-        {
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
-            public void Taskcomplete(JsonObject webservice_returndata)
-            {
+            public void Taskcomplete(JsonObject webservice_returndata) {
 
-                if (webservice_returndata != null)
-                {
-                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("1"))
-                    {
+                if (webservice_returndata != null) {
+                    if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
                         Log.e("webservice_returndata", webservice_returndata.toString());
 
@@ -174,46 +162,43 @@ public class LoginActivity extends AppCompatActivity
 
                         String message = jsonObject.get("message").getAsString();
 
-                        if (error.equals("false"))
-                        {
-                               String user_id = jsonObject.get("user_id").getAsString();
+                        if (error.equals("false")) {
+                            String user_id = jsonObject.get("user_id").getAsString();
 
-                                String email_id = jsonObject.get("email").getAsString();
-                                JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
+                            String email_id = jsonObject.get("email").getAsString();
+                            JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
 
-                                String name = jsonobject_all_info.get("name").getAsString();
+                            String name = jsonobject_all_info.get("name").getAsString();
 
-                                String address = jsonobject_all_info.get("address").getAsString();
+                            String address = jsonobject_all_info.get("address").getAsString();
 
-                                String lname = jsonobject_all_info.get("lastname").getAsString();
+                            String lname = jsonobject_all_info.get("lastname").getAsString();
 
-                                String dob = jsonobject_all_info.get("dob").getAsString();
+                            String dob = jsonobject_all_info.get("dob").getAsString();
 
-                                String mobile_no = jsonobject_all_info.get("mobile").getAsString();
+                            String mobile_no = jsonobject_all_info.get("mobile").getAsString();
                             String order_quantity = jsonObject.get("order").getAsString();
                             String product_quantity = jsonObject.get("product").getAsString();
                             String company_quantity = jsonObject.get("company").getAsString();
 
 
-                                System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
+                            System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
 
-                                showMessage(message);
+                            showMessage(message);
 
-                                save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no,order_quantity,product_quantity,company_quantity,"","");
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, order_quantity, product_quantity, company_quantity, "", "");
 
-                                Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
 
-                                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                                startActivity(Homedashboard);
+                            startActivity(Homedashboard);
 
 
                         } else {
                             showMessage(message);
                         }
-                    }
-                    else if(app_sharedpreference.getsharedpref("usertype", "0").equals("2"))
-                    {
+                    } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
                         Log.e("webservice_returndata", webservice_returndata.toString());
 
@@ -223,8 +208,7 @@ public class LoginActivity extends AppCompatActivity
 
                         String message = jsonObject.get("message").getAsString();
 
-                        if (error.equals("false"))
-                        {
+                        if (error.equals("false")) {
                             String user_id = jsonObject.get("user_id").getAsString();
 
                             String email_id = jsonObject.get("email").getAsString();
@@ -248,26 +232,20 @@ public class LoginActivity extends AppCompatActivity
 
                             showMessage(message);
 
-                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no,order_quantity,"","","","");
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, order_quantity, "", "", "", "");
 
-                            Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
 
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 
-
                             startActivity(Homedashboard);
-                        }
-                        else
-                        {
+                        } else {
                             showMessage(message);
                         }
 
 
-                    }
-
-                    else if(app_sharedpreference.getsharedpref("usertype", "0").equals("3"))
-                    {
+                    } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
                         Log.e("webservice_returndata", webservice_returndata.toString());
 
@@ -277,8 +255,7 @@ public class LoginActivity extends AppCompatActivity
 
                         String message = jsonObject.get("message").getAsString();
 
-                        if (error.equals("false"))
-                        {
+                        if (error.equals("false")) {
 
 
                             String user_id = jsonObject.get("user_id").getAsString();
@@ -298,16 +275,16 @@ public class LoginActivity extends AppCompatActivity
                             String dob = jsonobject_all_info.get("dob").getAsString();
 
                             String mobile_no = jsonobject_all_info.get("mobile").getAsString();
-                            String vendor_quantity=jsonObject.get("vendor").getAsString();
-                            String network_quantity=jsonObject.get("network").getAsString();
+                            String vendor_quantity = jsonObject.get("vendor").getAsString();
+                            String network_quantity = jsonObject.get("network").getAsString();
 
                             System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
 
                             showMessage(message);
 
-                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no,"","","",vendor_quantity,network_quantity);
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, "", "", "", vendor_quantity, network_quantity);
 
-                            Intent Homedashboard = new Intent(LoginActivity.this, HomeActivity.class);
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
 
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -321,40 +298,31 @@ public class LoginActivity extends AppCompatActivity
                     }
 
 
-
-
-
-
                 }
             }
         };
 
     }
 
-    public void save_shared_pref(String user_id, String user_name, String email_id,String lname,String dob,String address,String mobile,String order_quantity,
-                                 String product_quantity,String company_quantity,String vendor_quantity,String network_quantity)
-    {
+    public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity,
+                                 String product_quantity, String company_quantity, String vendor_quantity, String network_quantity) {
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
         app_sharedpreference.setsharedpref("emailid", email_id);
-        app_sharedpreference.setsharedpref("lname",lname);
-        app_sharedpreference.setsharedpref("dob",dob);
-        app_sharedpreference.setsharedpref("address",address);
-        app_sharedpreference.setsharedpref("mobile",mobile);
-        app_sharedpreference.setsharedpref("order_quantity",order_quantity);
-        app_sharedpreference.setsharedpref("product_quantity",product_quantity);
-        app_sharedpreference.setsharedpref("company_quantity",company_quantity);
-        app_sharedpreference.setsharedpref("vendor_quantity",vendor_quantity);
-        app_sharedpreference.setsharedpref("network_quantity",network_quantity);
-
-
-
+        app_sharedpreference.setsharedpref("lname", lname);
+        app_sharedpreference.setsharedpref("dob", dob);
+        app_sharedpreference.setsharedpref("address", address);
+        app_sharedpreference.setsharedpref("mobile", mobile);
+        app_sharedpreference.setsharedpref("order_quantity", order_quantity);
+        app_sharedpreference.setsharedpref("product_quantity", product_quantity);
+        app_sharedpreference.setsharedpref("company_quantity", company_quantity);
+        app_sharedpreference.setsharedpref("vendor_quantity", vendor_quantity);
+        app_sharedpreference.setsharedpref("network_quantity", network_quantity);
 
 
     }
 
-    private void InitView()
-    {
+    private void InitView() {
         forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
         login_text = (TextView) findViewById(R.id.tv_login);
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -366,15 +334,14 @@ public class LoginActivity extends AppCompatActivity
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forgotpassword_activity = new Intent(LoginActivity.this, Forgot_Password.class);
+                Intent forgotpassword_activity = new Intent(loginActivity.this, Forgot_Password.class);
                 startActivity(forgotpassword_activity);
             }
         });
 
     }
 
-    public void showMessage(String message)
-    {
+    public void showMessage(String message) {
         Snackbar snackbar = Snackbar
                 .make(cl, message, Snackbar.LENGTH_LONG)
                 .setAction("", new View.OnClickListener() {

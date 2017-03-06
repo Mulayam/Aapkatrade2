@@ -19,7 +19,6 @@
         <item name="android:checkboxStyle">@style/customCheckBoxStyle</item>
         <item name="android:textColorHint">@color/hint_color</item>
 
-       
 
     </style>
 
@@ -78,7 +77,6 @@
         <item name="android:textColorLink">@color/grey</item>
 
     </style>
-
 
 
     <style name="nofocus_edittext_theme" parent="TextAppearance.AppCompat">
@@ -189,7 +187,6 @@
     </style>
 
 
-
     <style name="customCheckBoxStyle" parent="Theme.AppCompat.Light">
 
         <item name="colorControlNormal">@color/black</item>
@@ -198,10 +195,9 @@
     </style>
 
 
-
     <style name="textviewstyle" parent="android:Theme.Light">
 
-       <item name="android:textSize">40sp</item>
+        <item name="android:textSize">40sp</item>
 
     </style>
 

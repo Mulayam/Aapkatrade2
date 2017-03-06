@@ -48,8 +48,8 @@ dependencies {
                 transitive = true
             }
 
-    compile 'com.google.android.gms:play-services-places:10.0.1'
 
+    compile 'com.google.android.gms:play-services-places:10.0.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.iarcuschin:simpleratingbar:0.1.5'
     compile 'com.android.support:appcompat-v7:25.1.0'
@@ -90,4 +90,5 @@ dependencies {
     compile 'com.github.jd-alexander:library:1.1.0'
     compile 'com.github.Aspsine:IRecyclerView:0.0.5'
     compile 'com.github.badoualy:stepper-indicator:1.0.6'
+    compile 'com.android.support.constraint:constraint-layout:+'
 }

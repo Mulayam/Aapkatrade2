@@ -393,6 +393,115 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                 });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void call_search_suggest_webservice_state(String url, String input_txt) {
+
+
+
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("location", input_txt);
+
+
+        HashMap<String, String> webservice_header_type = new HashMap<>();
+        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+
+
+        Call_webservice.suggest_search(Search.this, url, "search", webservice_body_parameter, webservice_header_type);
+
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
+            @Override
+            public void Taskcomplete(JsonObject webservice_returndata) {
+
+
+                if (webservice_returndata != null) {
+                    Log.e("webservice_returndata", webservice_returndata.toString());
+                    JsonObject jsonObject = webservice_returndata.getAsJsonObject();
+                    state_names.clear();
+                    state_names = new ArrayList<>();
+                    String error = jsonObject.get("error").getAsString();
+                    String message = jsonObject.get("message").getAsString();
+
+
+                    if(message.contains("Failed")) {
+
+
+                        AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
+
+
+                    }
+
+                    else {
+
+
+                        Log.e("data2", webservice_returndata.toString());
+                        if (jsonObject.get("result").isJsonNull()) {
+                            Log.e("data_jsonArray null", webservice_returndata.toString());
+                        }
+
+
+                        JsonArray jsonarray_result = jsonObject.getAsJsonArray("result");
+                        Log.e("data_jsonarray", jsonarray_result.toString());
+
+                        for (int l = 0; l < jsonarray_result.size(); l++) {
+
+                            JsonObject jsonObject_top_banner = (JsonObject) jsonarray_result.get(l);
+                            String statename = jsonObject_top_banner.get("name").getAsString();
+
+                            state_names.add(statename);
+
+                        }
+
+
+                        if (error.contains("false")) {
+                            Log.e("error_false", "error_false");
+
+
+                            Log.e("state_names", state_names.toString());
+                            categoryadapter = new CustomAutocompleteAdapter(c, state_names);
+                            autocomplete_textview_state.setAdapter(categoryadapter);
+
+
+//
+
+
+                        } else {
+                            //showMessage(message);
+                        }
+
+                    }
+                }
+
+
+            }
+        };
+
+
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
