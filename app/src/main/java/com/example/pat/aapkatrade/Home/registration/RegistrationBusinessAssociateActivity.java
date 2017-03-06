@@ -39,6 +39,7 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapte
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
@@ -93,6 +94,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     private int stepNumber = 1;
     private ArrayList<String> qualificationList = new ArrayList<>(), totalExpList = new ArrayList<>(), relaventExpList = new ArrayList<>(), bankList = new ArrayList<>();
     ProgressBarHandler progressBarHandler;
+    App_sharedpreference app_sharedpreference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,11 +178,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                                 Log.e("registration_seller", "done");
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                                 startActivity(new Intent(RegistrationBusinessAssociateActivity.this, ActivityOTPVerify.class));
-
                             } else {
                                 showmessage(result.get("message").getAsString());
                             }
-
                         } else {
                             Log.e("result_seller_error", e.toString());
                             showmessage(e.toString());
@@ -273,6 +273,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         context = RegistrationBusinessAssociateActivity.this;
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         progressBarHandler = new ProgressBarHandler(this);
+        app_sharedpreference = new App_sharedpreference(context);
         setuptoolbar();
 
         step1Photo = (LinearLayout) findViewById(R.id.step1Photo);
