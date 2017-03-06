@@ -33,7 +33,6 @@ public class loginActivity extends AppCompatActivity {
     App_sharedpreference app_sharedpreference;
     CoordinatorLayout cl;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
