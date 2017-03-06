@@ -105,7 +105,7 @@ public class CompanyList extends AppCompatActivity
 
                                 System.out.println("ferhgjerk" + country_id + name + creation_date);
 
-                                companyDatas.add(new CompanyData(country_id, name, creation_date));
+                                companyDatas.add(new CompanyData(country_id, name, creation_date,false));
                             }
                             companyListAdapter = new CompanyListAdapter(CompanyList.this, companyDatas, CompanyList.this);
 

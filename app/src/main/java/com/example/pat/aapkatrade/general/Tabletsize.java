@@ -15,4 +15,16 @@ public class Tabletsize {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
+
+    public static boolean isMedium(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_NORMAL;
+    }
+
+    public static boolean isSmall(Context context) {
+        return (context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_SMALL;
+    }
 }

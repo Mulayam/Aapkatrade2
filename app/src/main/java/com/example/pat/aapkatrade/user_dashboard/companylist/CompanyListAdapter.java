@@ -33,6 +33,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      CompanyListHolder viewHolder;
      CompanyList companylist;
      Boolean showBoolean = false;
+    int clickedposition=1000;
 
 
     public CompanyListAdapter(Context context, List<CompanyData> itemList,CompanyList companylist)
@@ -89,23 +90,69 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         homeHolder.imgNext.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v)
-            {
-
-                if(showBoolean)
+            public void onClick(View v) {
+                itemList.get(position).clicked=true;
+                if( itemList.get(position).clicked== false)
                 {
+                    clickedposition = position;
+                    itemList.get(clickedposition).clicked=false;
+                    notifyDataSetChanged();
                     homeHolder.linearLayoutDetail.setVisibility(View.GONE);
+
                     homeHolder.View1.setVisibility(View.GONE);
                     homeHolder.imgNext.setImageResource(R.drawable.ic_red_arw);
-                    showBoolean = false;
+
+
+
+
+
+
+
+
+                    Log.e("working1","working1");
+
                 }
-                else
-                {
-                    showBoolean =true;
-                    homeHolder.linearLayoutDetail.setVisibility(View.VISIBLE);
-                    homeHolder.imgNext.setImageResource(R.drawable.ic_arw_down);
-                    homeHolder.View1.setVisibility(View.VISIBLE);
+                else {
+                    Log.e("working2","working2");
+
+
+
+                    if (showBoolean) {
+                        homeHolder.linearLayoutDetail.setVisibility(View.GONE);
+                        homeHolder.View1.setVisibility(View.GONE);
+                        homeHolder.imgNext.setImageResource(R.drawable.ic_red_arw);
+                        showBoolean = false;
+                    } else {
+                        showBoolean = true;
+                        homeHolder.linearLayoutDetail.setVisibility(View.VISIBLE);
+                        homeHolder.imgNext.setImageResource(R.drawable.ic_arw_down);
+                        homeHolder.View1.setVisibility(View.VISIBLE);
+
+                    }
+
+
+
+itemList.get(position).clicked=true;
+                    notifyDataSetChanged();
                 }
+
+                // check if item still exists
+//                if(position != RecyclerView.NO_POSITION){
+//                    homeHolder.linearLayoutDetail.setVisibility(View.GONE);
+//                    homeHolder.View1.setVisibility(View.GONE);
+//                    homeHolder.imgNext.setImageResource(R.drawable.ic_red_arw);
+//                }
+//                else{
+//
+//                    homeHolder.linearLayoutDetail.setVisibility(View.VISIBLE);
+//                    homeHolder.imgNext.setImageResource(R.drawable.ic_arw_down);
+//                    homeHolder.View1.setVisibility(View.VISIBLE);
+//
+//
+//                }
+
+
+
 
             }
         });
