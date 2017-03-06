@@ -34,7 +34,6 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     int mPageSize = 6;
     private SwipeRefreshLayout mSwipyRefreshLayout;
     int page = 1;
-    private ProgressBarHandler progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
 
     private void setup_layout() {
-        progressBarHandler = new ProgressBarHandler(this);
+
         mSwipyRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
 
         mSwipyRefreshLayout.setRefreshing(false);
@@ -215,7 +214,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
         // layout_container.setVisibility(View.INVISIBLE);
         mSwipyRefreshLayout.setRefreshing(true);
         productListDatas.clear();
-         progressBarHandler.show();
+
 
         Ion.with(ProductListActivity.this)
                 .load("http://aapkatrade.com/slim/productlist")
@@ -245,12 +244,12 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
                             System.out.println("message_data==================" + message_data);
 
                             if (message_data.equals("No record found")) {
-                                 progressBarHandler.hide();
+
                                 layout_container.setVisibility(View.INVISIBLE);
                                 mSwipyRefreshLayout.setRefreshing(false);
 
                             } else {
-                                 progressBarHandler.hide();
+
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
                                 System.out.println("jsonArray----------------" + jsonArray.toString());

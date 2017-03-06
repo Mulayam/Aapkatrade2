@@ -26,7 +26,6 @@ import java.util.Calendar;
 public class PayoutActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
 {
 
-
     private Context context;
     private int isStartDate = -1;
     private EditText etStartDate, etEndDate;
