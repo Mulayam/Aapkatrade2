@@ -92,7 +92,8 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     private LinearLayout registrationLayout, step1Photo, step2Photo;
     private int step1FieldsSet = -1, step2FieldsSet = -1, step3FieldsSet = -1;
     private int stepNumber = 1;
-    private ArrayList<String> qualificationList = new ArrayList<>(), totalExpList = new ArrayList<>(), relaventExpList = new ArrayList<>(), bankList = new ArrayList<>();
+    private ArrayList<String> qualificationList = new ArrayList<>();
+    private ArrayList<String> totalExpList = new ArrayList<>(), relaventExpList = new ArrayList<>(), bankList = new ArrayList<>();
     ProgressBarHandler progressBarHandler;
     App_sharedpreference app_sharedpreference;
     @Override
@@ -168,10 +169,8 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
                         } else {
                             Log.e("result_error", e.toString());
-                        }
-*/
+                        }*/
                         progressBarHandler.hide();
-
                         if (result != null) {
                             Log.e("registration_seller", result.toString());
                             if (result.get("error").getAsString().equals("false")) {
@@ -693,134 +692,226 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         if (qualificationList != null && qualificationList.size() > 0) {
             qualificationList.clear();
         }
+        progressBarHandler.show();
         qualificationList.add("Please Select Qualification");
-        qualificationList.add("10th");
-        qualificationList.add("12th");
-        qualificationList.add("Graduate");
-        qualificationList.add("Post Graduate");
-
         CustomSimpleListAdapter qualificationAdapter = new CustomSimpleListAdapter(context, qualificationList);
         spQualification.setAdapter(qualificationAdapter);
+        Ion.with(context)
+                .load("https://aapkatrade.com/slim/qualification")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBarHandler.hide();
+                        if(result == null){
+                            showmessage("Qualification Data is Null.");
+                            Log.e("qualification", "Qualification Data is Null.");
+                        }else {
+                            if(result.get("error").getAsString().equals(String.valueOf(false))){
+                                JsonArray jsonResultArray = result.getAsJsonArray("result");
+                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                    JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
+                                    qualificationList.add(jsonObject.get("name").getAsString());
+                                }
+                                CustomSimpleListAdapter qualificationAdapter = new CustomSimpleListAdapter(context, qualificationList);
+                                spQualification.setAdapter(qualificationAdapter);
+                                spQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        Log.e("hi", "Selected Qualification is " + qualificationList.get(position) + System.currentTimeMillis());
+                                        if (position > 1) {
+                                            qualification = qualificationList.get(position);
+                                            formBusinessData.setQualification(qualification);
+                                        }
+                                        Log.e("hi", formBusinessData.getQualification() + System.currentTimeMillis());
+                                    }
 
-        spQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("hi", "Selected Qualification is " + qualificationList.get(position) + System.currentTimeMillis());
-//                formBusinessData.setQualification(qualificationList.get(position));
-                if (position > 0) {
-                    qualification = qualificationList.get(position);
-                    formBusinessData.setQualification(qualification);
-                }
-                Log.e("hi", formBusinessData.getQualification() + System.currentTimeMillis());
-            }
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                                    }
+                                });
 
-            }
-        });
+                            }else {
+                                String msg = result.get("message").getAsString();
+                                showmessage(msg);
+                                Log.e("qualification", msg);
+                            }
+                        }
+                    }
+                });
+
+
     }
 
     private void setTotalExperienceAdapter() {
         if (totalExpList != null && totalExpList.size() > 0) {
             totalExpList.clear();
         }
+        progressBarHandler.show();
         totalExpList.add("Please Select Total Experience");
-        totalExpList.add("0 yrs");
-        totalExpList.add("1 yrs");
-        totalExpList.add("2 yrs");
-        totalExpList.add("3 yrs");
-        totalExpList.add("4 yrs");
-        totalExpList.add("5 yrs");
-        totalExpList.add("6 yrs");
-        totalExpList.add("7 yrs");
-        totalExpList.add("8 yrs");
-        totalExpList.add("9 yrs");
-        totalExpList.add("10 yrs");
-
-        final CustomSimpleListAdapter totalExpAdapter = new CustomSimpleListAdapter(context, totalExpList);
+        CustomSimpleListAdapter totalExpAdapter = new CustomSimpleListAdapter(context, totalExpList);
         spTotalExp.setAdapter(totalExpAdapter);
 
-        spTotalExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    totalExperience = totalExpList.get(position);
-                    formBusinessData.setTotalExperience(totalExperience);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        Ion.with(context)
+                .load("https://aapkatrade.com/slim/total_experience")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBarHandler.hide();
+                        if(result == null){
+                            showmessage("Total Exp Data is Null.");
+                            Log.e("totalExp", "Total Exp Data is Null.");
+                        }else {
+                            if(result.get("error").getAsString().equals(String.valueOf(false))){
+                                JsonArray jsonResultArray = result.getAsJsonArray("result");
+                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                    JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
+                                    totalExpList.add(jsonObject.get("name").getAsString());
+                                }
+                                CustomSimpleListAdapter totalExpAdapter = new CustomSimpleListAdapter(context, totalExpList);
+                                spTotalExp.setAdapter(totalExpAdapter);
+                                spTotalExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                                        Log.e("totalExp", "Selected Total Experience is " + qualificationList.get(position)+"     " + System.currentTimeMillis());
+                                        if (position > 1) {
+                                            totalExperience = totalExpList.get(position);
+                                            formBusinessData.setTotalExperience(totalExperience);
+                                        }
+                                        Log.e("totalExp", formBusinessData.getTotalExperience() + System.currentTimeMillis());
+                                    }
 
-            }
-        });
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
+
+                            }else {
+                                String msg = result.get("message").getAsString();
+                                showmessage(msg);
+                                Log.e("totalExp", msg);
+                            }
+                        }
+                    }
+                });
+
     }
 
     private void setRelaventExperienceAdapter() {
         if (relaventExpList != null && relaventExpList.size() > 0) {
             relaventExpList.clear();
         }
+        progressBarHandler.show();
         relaventExpList.add("Please Select Relavent Experience");
-        relaventExpList.add("0 yrs");
-        relaventExpList.add("1 yrs");
-        relaventExpList.add("2 yrs");
-        relaventExpList.add("3 yrs");
-        relaventExpList.add("4 yrs");
-        relaventExpList.add("5 yrs");
-        relaventExpList.add("6 yrs");
-        relaventExpList.add("7 yrs");
-        relaventExpList.add("8 yrs");
-        relaventExpList.add("9 yrs");
-        relaventExpList.add("10 yrs");
-
         CustomSimpleListAdapter relaventExpAdapter = new CustomSimpleListAdapter(context, relaventExpList);
         spRelExp.setAdapter(relaventExpAdapter);
 
-        spRelExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    relaventExperience = relaventExpList.get(position);
-                    formBusinessData.setRelaventExperience(relaventExperience);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        Ion.with(context)
+                .load("https://aapkatrade.com/slim/relevant_experience")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBarHandler.hide();
+                        if(result == null){
+                            showmessage("Relavent Exp Data is Null.");
+                            Log.e("relaventExpList", "Relavent Exp Data is Null.");
+                        }else {
+                            if(result.get("error").getAsString().equals(String.valueOf(false))){
+                                JsonArray jsonResultArray = result.getAsJsonArray("result");
+                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                    JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
+                                    relaventExpList.add(jsonObject.get("experience").getAsString());
+                                }
+                                CustomSimpleListAdapter relaventExpAdapter = new CustomSimpleListAdapter(context, relaventExpList);
+                                spRelExp.setAdapter(relaventExpAdapter);
+                                spRelExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                        Log.e("relaventExpList", "Selected Relavent Experience is " + relaventExpList.get(position)+"     " + System.currentTimeMillis());
+                                        if (position > 1) {
+                                            relaventExperience = relaventExpList.get(position);
+                                            formBusinessData.setTotalExperience(relaventExperience);
+                                        }
+                                        Log.e("relaventExpList", formBusinessData.getRelaventExperience() + System.currentTimeMillis());
+                                    }
 
-            }
-        });
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
+
+                            }else {
+                                String msg = result.get("message").getAsString();
+                                showmessage(msg);
+                                Log.e("relaventExpList", msg);
+                            }
+                        }
+                    }
+                });
+
     }
 
     private void setBankListAdapter() {
         if (bankList != null && bankList.size() > 0) {
             bankList.clear();
         }
-        bankList.add("Please Select Bank");
-        bankList.add("American Express");
-        bankList.add("Royal Bank of Scotland");
-        bankList.add("HDFC Bank");
-        bankList.add("City Bank");
-        bankList.add("Axis Bank");
-        bankList.add("Punjab National Bank");
-        bankList.add("Others");
+        progressBarHandler.show();
+        bankList.add("Please Select Bank Name");
         CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
         spSelectBank.setAdapter(bankListAdapter);
 
-        spSelectBank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    bankName = bankList.get(position);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        Ion.with(context)
+                .load("https://aapkatrade.com/slim/bank_list")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        progressBarHandler.hide();
+                        if(result == null){
+                            showmessage("Bank Name Data is Null.");
+                            Log.e("bankList", "Bank Name Data is Null.");
+                        }else {
+                            if(result.get("error").getAsString().equals(String.valueOf(false))){
+                                JsonArray jsonResultArray = result.getAsJsonArray("result");
+                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                    JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
+                                    bankList.add(jsonObject.get("name").getAsString());
+                                }
+                                CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
+                                spSelectBank.setAdapter(bankListAdapter);
+                                spSelectBank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                       if (position > 1) {
+                                            bankName = bankList.get(position);
+                                            formBusinessData.setBankName(bankName);
+                                        }
+                                        Log.e("bankList", "Selected Bank is " + bankList.get(position)+"     " + System.currentTimeMillis());
+                                        Log.e("bankList", formBusinessData.getBankName() + System.currentTimeMillis());
+                                    }
 
-            }
-        });
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
+
+                            }else {
+                                String msg = result.get("message").getAsString();
+                                showmessage(msg);
+                                Log.e("bankList", msg);
+                            }
+                        }
+                    }
+                });
     }
 
     private void validateFields(int stepNo) {
