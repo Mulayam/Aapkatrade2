@@ -128,34 +128,62 @@
         android:layout_marginRight="@dimen/ten_dip"
         >
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/grey__more_light"
-            android:orientation="horizontal"
-            android:padding="@dimen/ten_dip">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/twenty_dip"
-                android:layout_marginRight="@dimen/ten_dip"
-                android:layout_weight="2"
-                android:text="@string/complete_date"
-                android:textColor="@color/orange"
-                android:textSize="@dimen/textsize_medium" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D2D2D2"
 
-            <TextView
-                android:layout_width="0dp"
+                ></View>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/twenty_dip"
-                android:layout_marginRight="@dimen/ten_dip"
-                android:layout_weight="1"
-                android:text="@string/payout"
-                android:textColor="@color/orange"
-                android:textSize="@dimen/textsize_medium" />
+                android:background="@color/grey__more_light"
+                android:orientation="horizontal"
+                android:padding="@dimen/ten_dip">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/ten_dip"
+                    android:layout_weight="2"
+                    android:text="@string/complete_date"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/textsize_medium" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/twenty_dip"
+                    android:layout_marginRight="@dimen/ten_dip"
+                    android:layout_weight="1"
+                    android:text="@string/payout"
+                    android:textColor="@color/orange"
+                    android:textSize="@dimen/textsize_medium" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#D2D2D2"
+
+                ></View>
+
+
+
 
         </LinearLayout>
+
 
     </android.support.v7.widget.CardView>
 
@@ -171,16 +199,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/five_dip"
-            android:layout_marginLeft="@dimen/five_dip"
-            android:layout_marginRight="@dimen/five_dip"
-            android:layout_marginTop="@dimen/five_dip"
             android:orientation="horizontal"
-            android:padding="@dimen/ten_dip">
+           >
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/payoutList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 
