@@ -3,6 +3,7 @@ package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +37,8 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
+import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
+
 
 public class MyProfileActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
@@ -45,7 +48,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
     ImageView imgCalender;
     TextView tvDate, tvMyProfileDetailHeading;
-
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,9 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     }
 
     private void setup_layout() {
+
+
+        setupnewlayout();
         imgCalender = (ImageView) findViewById(R.id.imgCalender);
         tvMyProfileDetailHeading = (TextView) findViewById(R.id.tvMyProfileDetailHeading);
         etFName = (EditText) findViewById(R.id.etFName);
@@ -191,6 +197,23 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     }
 
+    private void setupnewlayout() {
+
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+
+        collapsingToolbarLayout.setTitle("Motorcycle");
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent)); // transperent color = #00000000
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+
+//        StikkyHeaderBuilder.stickTo(mRecyclerView)
+//                .setHeader(R.id.header_simple, view)
+//                .minHeightHeaderDim(R.dimen.min_header_height)
+//                .build();
+
+    }
+
     private void edit_profile_webservice() {
 
         Ion.with(MyProfileActivity.this)
@@ -237,13 +260,13 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         if(getSupportActionBar()!=null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setTitle("Profile");
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.empty_menu, menu);
+        getMenuInflater().inflate(R.menu.bottom_home_menu, menu);
         return true;
     }
 

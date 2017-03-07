@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.koushikdutta.ion.Ion;
@@ -61,12 +64,54 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         homeHolder.tvProductCrossPrice.setText("\u20A8" + "." + " " + itemList.get(position).product_cross_price);
 
+
+        if(Tabletsize.isTablet(context))
+        {
+            String product_imageurl=itemList.get(position).product_image.replace("small","large");
+
+            Ion.with(homeHolder.productimage)
+                    .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .load(product_imageurl);
+            Log.e("image_large","image_large");
+
+        }
+        else if(Tabletsize.isMedium(context))
+        {
+            String product_imageurl=itemList.get(position).product_image.replace("small","medium");
+
+            Ion.with(homeHolder.productimage)
+                    .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .load(product_imageurl);
+            Log.e("image_medium","image_medium");
+
+        }
+        else if(Tabletsize.isSmall(context))
+        {
+            String product_imageurl=itemList.get(position).product_image.replace("small","medium");
+
+            Ion.with(homeHolder.productimage)
+                    .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .load(product_imageurl);
+
+            Log.e("image_small","image_small");
+        }
+
+
+
+
+
+       // Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
+
         Picasso.with(context).load(itemList.get(position).product_image)
                 .placeholder(R.drawable.default_noimage)
                 .error(R.drawable.default_noimage)
                 .into(homeHolder.productimage);
 
 //        Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
+
 
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override
