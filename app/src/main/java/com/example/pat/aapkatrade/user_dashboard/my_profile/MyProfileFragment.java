@@ -57,7 +57,7 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final int page = getArguments().getInt("page", 0);
+        final int page = getArguments().getInt("page", 50);
         stepNumber = page;
 
         Log.e("page", "page number"+stepNumber+(step1aLayout==null));

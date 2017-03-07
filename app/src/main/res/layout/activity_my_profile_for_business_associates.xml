@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <include
+        layout="@layout/toolbar_layout" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <com.badoualy.stepperindicator.StepperIndicator
-        android:id="@+id/stepper_indicator"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fifty_dip"
-        android:layout_marginRight="@dimen/fifty_dip"
-        android:layout_marginTop="32dp"
-        app:stpi_stepCount="3" />
+        android:layout_gravity="bottom"
+        android:background="@color/green"
+        app:tabIndicatorColor="@color/text_order_tab"
+        app:tabIndicatorHeight="@dimen/two_dip"
+        app:tabMode="scrollable" />
 
-</RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/htab_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+</LinearLayout>
