@@ -15,6 +15,7 @@ android {
         vectorDrawables.useSupportLibrary = true
 
 
+
     }
 
     buildTypes {
@@ -91,4 +92,5 @@ dependencies {
     compile 'com.github.Aspsine:IRecyclerView:0.0.5'
     compile 'com.github.badoualy:stepper-indicator:1.0.6'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.google.code.gson:gson:2.7'
 }
