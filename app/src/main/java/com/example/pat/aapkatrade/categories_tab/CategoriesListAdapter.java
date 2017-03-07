@@ -115,7 +115,11 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+
+                Log.e("product_id",itemList.get(position).product_id);
+              //  System.out.println("product_id-------------"+itemList.get(position).product_id);
 
                 Intent intent = new Intent(context, ProductDetail.class);
                 intent.putExtra("product_id", itemList.get(position).product_id);
@@ -143,19 +147,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             context);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable())
-
-
                     {
-
-
                         Intent intent = new Intent(context, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                         intent.putExtra("product_location", itemList.get(position).product_location);
                         context.startActivity(intent);
-
-
-                    } else {
+                    }
+                    else
+                        {
                         locationManagerCheck.createLocationServiceError(context);
                     }
 

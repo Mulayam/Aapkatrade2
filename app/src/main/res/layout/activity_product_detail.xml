@@ -356,54 +356,54 @@
 
 
                             <RelativeLayout
-                                android:layout_width="50dp"
-                                android:layout_height="33dp"
+                                android:layout_width="90dp"
+                                android:layout_height="30dp"
                                 android:background="@drawable/spinner_black_border"
                                 android:layout_toRightOf="@+id/tvQtyHeading"
                                 android:layout_marginLeft="5dp"
                                 >
 
-                                <TextView
-                                    android:id="@+id/tvQuatity"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="1"
-                                    android:textSize="12sp"
-                                    android:layout_centerVertical="true"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_marginLeft="5dp"
-                                    android:textColor="@color/black"
+
+                                <ImageView
+                                    android:id="@+id/imgViewPlus"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:src="@drawable/ic_plus"
+                                    android:scaleType="fitXY"
                                     />
 
-                                <RelativeLayout
-                                    android:layout_width="17dp"
-                                    android:layout_height="33dp"
-                                    android:orientation="vertical"
-                                    android:layout_toRightOf="@+id/editText1"
-                                    android:layout_marginLeft="10dp"
-                                    android:background="@color/black"
-                                    android:layout_alignParentRight="true"
 
+                                <RelativeLayout
+                                    android:id="@+id/relativeQuantity"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_toRightOf="@+id/imgViewPlus"
                                     >
-                                    <ImageView
-                                        android:id="@+id/imgViewPlus"
-                                        android:layout_width="15dp"
-                                        android:layout_height="15dp"
+
+
+                                    <TextView
+                                        android:id="@+id/tvQuatity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="1"
+                                        android:layout_marginLeft="5dp"
                                         android:layout_centerHorizontal="true"
-                                        android:src="@drawable/ic_plus"
+                                        android:textColor="@color/black"
+                                        android:layout_centerVertical="true"
                                         />
 
-
-                                    <ImageView
-                                        android:id="@+id/imgViewMinus"
-                                        android:layout_width="15dp"
-                                        android:layout_height="15dp"
-                                        android:layout_centerHorizontal="true"
-                                        android:src="@drawable/ic_minus"
-                                        android:layout_below="@+id/imgViewPlus"
-                                         />
-
                                 </RelativeLayout>
+
+
+                                <ImageView
+                                    android:id="@+id/imgViewMinus"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:src="@drawable/ic_minus"
+                                    android:layout_toRightOf="@+id/relativeQuantity"
+                                    android:scaleType="fitXY"
+                                    />
 
 
                             </RelativeLayout>
@@ -879,6 +879,7 @@
             >
 
             <TextView
+                android:id="@+id/tvServiceBuy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BUY NOW!"

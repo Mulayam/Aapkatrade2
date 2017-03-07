@@ -1,7 +1,9 @@
 package com.example.pat.aapkatrade.productdetail;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,28 +15,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
-import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
-import java.util.List;
-import android.support.v4.app.FragmentManager;
 import java.util.Timer;
 import java.util.TimerTask;
 import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
@@ -63,6 +63,8 @@ public class ProductDetail extends AppCompatActivity
     ImageView imgViewPlus,imgViewMinus;
     int quantity_value=1;
     String productlocation;
+    EditText firstName,quantity,price,mobile,email,etEndDate,etStatDate,description;
+    TextView tvServiceBuy;
 
 
     @Override
@@ -74,18 +76,21 @@ public class ProductDetail extends AppCompatActivity
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
 
-         Intent intent= getIntent();
+          Intent intent= getIntent();
 
-         Bundle b = intent.getExtras();
+          Bundle b = intent.getExtras();
 
           product_id = b.getString("product_id");
+
+          Log.e("product_id",product_id);
+
           product_location=b.getString("product_location");
 
           setuptoolbar();
 
           setup_layout();
 
-           get_data();
+          get_data();
 
 
        /* buyProductButton.setOnClickListener(new View.OnClickListener() {
@@ -151,9 +156,26 @@ public class ProductDetail extends AppCompatActivity
 
                             String   duration = json_result.get("deliverday").getAsString();
 
-                         productlocation=json_result.get("city_name").getAsString()+","+
-                                    json_result.get("state_name").getAsString()+","+
-                                    json_result.get("country_name").getAsString();
+                            String enquiry = json_result.get("enquiry").getAsString();
+
+                            productlocation=json_result.get("city_name").getAsString()+","+ json_result.get("state_name").getAsString()+","+ json_result.get("country_name").getAsString();
+
+                            if (enquiry.equals("1"))
+                            {
+
+                                tvServiceBuy.setText("Buy Now");
+
+
+                            }
+                            else
+                            {
+
+                                tvServiceBuy.setText("Service Enquiry");
+                            }
+
+
+
+
                             tvProductName.setText(product_name);
                             tvProPrice.setText("\u20A8"+"."+" "+product_price);
                             tvCrossPrice.setText("\u20A8"+"."+" "+product_cross_price);
@@ -166,7 +188,6 @@ public class ProductDetail extends AppCompatActivity
 
                             linearProductDetail.setVisibility(View.VISIBLE);
                             relativeBuyNow.setVisibility(View.VISIBLE);
-
 
 
                         }
@@ -295,6 +316,7 @@ public class ProductDetail extends AppCompatActivity
 
         linearlayoutLocation = (LinearLayout) findViewById(R.id.linearlayoutLocation);
 
+        tvServiceBuy = (TextView) findViewById(R.id.tvServiceBuy);
 
         relativeRateReview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,11 +407,8 @@ public class ProductDetail extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
                 quantity_value = quantity_value +1;
-
                 tvQuatity.setText(String.valueOf(quantity_value));
-
 
             }
         });
@@ -401,18 +420,14 @@ public class ProductDetail extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
                 if(quantity_value == 1){
-
                     tvQuatity.setText(String.valueOf(quantity_value));
                 }
                 else
                 {
                     quantity_value = quantity_value - 1;
-
                     tvQuatity.setText(String.valueOf(quantity_value));
                 }
-
             }
         });
 
@@ -454,21 +469,79 @@ public class ProductDetail extends AppCompatActivity
             public void onClick(View v)
             {
 
-
-                /*Intent i = new Intent(ProductDetail.this, AddressActivity.class);
-                startActivity(i);*/
-
-                FragmentManager fm = getSupportFragmentManager();
+                /*    FragmentManager fm = getSupportFragmentManager();
                 ServiceEnquiry dialogFragment = new ServiceEnquiry ();
-                dialogFragment.show(fm, "Sample Fragment");
+                dialogFragment.show(fm, "Sample Fragment");*/
+
+                //   final RelativeLayout root = new RelativeLayout(ProductDetail.this);
+                // root.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                // creating the fullscreen dialog
+
+                if (tvServiceBuy.getText().toString().equals("Buy Now"))
+                {
+
+                            Intent i = new Intent(ProductDetail.this, AddressActivity.class);
+                            startActivity(i);
+
+                }
+                else
+                {
 
 
+                    final Dialog dialog = new Dialog(ProductDetail.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.fragment_service_enquiry);
+
+                    ImageView imgCLose = (ImageView) dialog.findViewById(R.id.imgCLose);
+
+                    firstName  = (EditText) dialog.findViewById(R.id.edtFName);
+
+                    quantity = (EditText) dialog.findViewById(R.id.edtQuantity);
+
+                    price = (EditText) dialog.findViewById(R.id.edtPrice);
+
+                    mobile = (EditText) dialog.findViewById(R.id.edtMobile);
+
+                    email = (EditText) dialog.findViewById(R.id.edtEmail);
+
+                    etEndDate = (EditText) dialog.findViewById(R.id.etEndDate);
+
+                    etStatDate = (EditText) dialog.findViewById(R.id.etStatDate) ;
+
+                    description = (EditText) dialog.findViewById(R.id.edtDescription);
+
+                    Button submit = (Button) dialog.findViewById(R.id.buttonSubmit) ;
+
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    dialog.show();
+
+                    submit.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+
+
+                        }
+                    });
+
+
+                    imgCLose.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View v)
+                        {
+
+                            dialog.hide();
+                        }
+                    });
+
+
+                }
 
             }
         });
-
-
-
 
     }
 
@@ -491,7 +564,7 @@ public class ProductDetail extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.empty_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
