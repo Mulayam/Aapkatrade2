@@ -19,6 +19,7 @@ import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,6 +64,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         homeHolder.tvProductCrossPrice.setText("\u20A8" + "." + " " + itemList.get(position).product_cross_price);
 
+
         if(Tabletsize.isTablet(context))
         {
             String product_imageurl=itemList.get(position).product_image.replace("small","large");
@@ -102,6 +104,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
        // Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
+
+        Picasso.with(context).load(itemList.get(position).product_image)
+                .placeholder(R.drawable.default_noimage)
+                .error(R.drawable.default_noimage)
+                .into(homeHolder.productimage);
+
+//        Ion.with(homeHolder.productimage).load(itemList.get(position).product_image);
+
 
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,14 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementActivity"
+    android:weightSum="15"
+    android:background="@color/cardview_background"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/activity_my_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/stepper_text"
-        android:background="@color/cardview_background"
+        android:layout_height="0dp"
+        android:layout_weight="14"
         android:orientation="vertical">
 
         <include
@@ -229,7 +230,7 @@
                                             android:layout_centerHorizontal="true"
                                             android:background="#05DB61"
                                             android:layout_below="@+id/imGreenTraingle"
-                                            ></View>
+                                            />
 
 
                                     </RelativeLayout>
@@ -528,5 +529,33 @@
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input_layout_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/twenty_dip"
+        android:layout_marginRight="@dimen/twenty_dip"
+        android:layout_marginTop="@dimen/ten_dip">
+
+        <CheckBox
+            android:id="@+id/agreement_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:theme="@style/customCheckBoxStyle" />
+
+        <TextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/accept_t_and_c" />
+
+
+    </LinearLayout>
+
+
 
 </LinearLayout>

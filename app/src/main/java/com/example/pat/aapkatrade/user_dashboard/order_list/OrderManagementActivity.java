@@ -28,7 +28,6 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    AppBarLayout appBarLayout;
 
     private int[] tabIcons = {
 
@@ -85,7 +84,6 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         Log.e("hi---", "IIIIIIIII" + tab.getPosition());
-        //viewPager.setCurrentItem(tab.getPosition());
         if (tab.getPosition() == 0) {
             tab.setIcon(tabIcons[1]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
@@ -160,7 +158,7 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

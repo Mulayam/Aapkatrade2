@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.user_dashboard.product_list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
 import com.example.pat.aapkatrade.general.animation_effects.App_animation;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
+import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
 import com.example.pat.aapkatrade.user_dashboard.product_list.listproduct_detail.ListProductDetailActivity;
@@ -71,7 +73,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View v) {
 
-                Intent product_detail = new Intent(context, ListProductDetailActivity.class);
+               Intent product_detail = new Intent(context, ListProductDetailActivity.class);
                 product_detail.putExtra("product_name",itemList.get(position).product_name);
                 product_detail.putExtra("product_price",itemList.get(position).product_price);
                 product_detail.putExtra("product_cross_price",itemList.get(position).product_cross_price);
@@ -82,6 +84,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 product_detail.putExtra("delivery_area_name",itemList.get(position).delivery_area_name);
                 product_detail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(product_detail);
+
+
 
 
             }

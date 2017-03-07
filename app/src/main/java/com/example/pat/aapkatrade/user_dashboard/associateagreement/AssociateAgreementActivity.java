@@ -1,7 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.associateagreement;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,24 +9,21 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
-public class AssociateAgreementActivity extends AppCompatActivity
-{
 
-    TextView tvUserName,tvDate,tvReferenceNumber,tvBussinessHeading,tvBussinessDetails,tvMore;
+public class AssociateAgreementActivity extends AppCompatActivity {
+
+    TextView tvUserName, tvDate, tvReferenceNumber, tvBussinessHeading, tvBussinessDetails, tvMore;
     boolean isTextViewClicked = false;
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_associate_agreement);
 
         setuptoolbar();
 
-        setup_layout();
+        initView();
 
         get_webservice_data();
 
@@ -36,8 +33,7 @@ public class AssociateAgreementActivity extends AppCompatActivity
 
     }
 
-    public void setup_layout()
-    {
+    public void initView() {
         tvUserName = (TextView) findViewById(R.id.tvUserName);
 
         tvDate = (TextView) findViewById(R.id.tvDate);
@@ -57,8 +53,7 @@ public class AssociateAgreementActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if(isTextViewClicked)
-                {
+                if (isTextViewClicked) {
                     //This will shrink textview to 2 lines if it is expanded.
                     tvBussinessDetails.setMaxLines(3);
                     isTextViewClicked = false;
@@ -67,20 +62,15 @@ public class AssociateAgreementActivity extends AppCompatActivity
             }
         });
 
-        tvMore.setOnClickListener(new View.OnClickListener()
-        {
+        tvMore.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
 
-                if(isTextViewClicked)
-                {
+                if (isTextViewClicked) {
                     //This will shrink textview to 2 lines if it is expanded.
                     tvBussinessDetails.setMaxLines(3);
                     isTextViewClicked = false;
-                }
-                else
-                {
+                } else {
                     //This will expand the textview if it is of 2 lines
                     tvBussinessDetails.setMaxLines(Integer.MAX_VALUE);
                     isTextViewClicked = true;
@@ -93,8 +83,7 @@ public class AssociateAgreementActivity extends AppCompatActivity
     }
 
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -109,17 +98,14 @@ public class AssociateAgreementActivity extends AppCompatActivity
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.empty_menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
