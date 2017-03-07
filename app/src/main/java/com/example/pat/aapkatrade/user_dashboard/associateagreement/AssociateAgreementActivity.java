@@ -16,7 +16,6 @@ public class AssociateAgreementActivity extends AppCompatActivity
     boolean isTextViewClicked = false;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

@@ -25,15 +25,16 @@ import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
+import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
 import java.util.ArrayList;
 import java.util.List;
+import android.support.v4.app.FragmentManager;
 import java.util.Timer;
 import java.util.TimerTask;
 import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
@@ -78,7 +79,7 @@ public class ProductDetail extends AppCompatActivity
          Bundle b = intent.getExtras();
 
           product_id = b.getString("product_id");
-        product_location=b.getString("product_location");
+          product_location=b.getString("product_location");
 
           setuptoolbar();
 
@@ -361,8 +362,6 @@ public class ProductDetail extends AppCompatActivity
 
         linearProductDetail = (LinearLayout) findViewById(R.id.linearProductDetail);
 
-
-
         tvProductName = (TextView) findViewById(R.id.tvProductName);
 
         tvProPrice = (TextView) findViewById(R.id.tvProPrice);
@@ -455,8 +454,15 @@ public class ProductDetail extends AppCompatActivity
             public void onClick(View v)
             {
 
+
                 /*Intent i = new Intent(ProductDetail.this, AddressActivity.class);
                 startActivity(i);*/
+
+                FragmentManager fm = getSupportFragmentManager();
+                ServiceEnquiry dialogFragment = new ServiceEnquiry ();
+                dialogFragment.show(fm, "Sample Fragment");
+
+
 
             }
         });

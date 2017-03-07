@@ -147,7 +147,8 @@ public class OrderActivity extends AppCompatActivity {
 
                                 JsonArray jsonArray = jsonObject1.getAsJsonArray("list");
 
-                                for (int i = 0; i < jsonArray.size(); i++) {
+                                for (int i = 0; i < jsonArray.size(); i++)
+                                {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                     String order_id = jsonObject2.get("id").getAsString();

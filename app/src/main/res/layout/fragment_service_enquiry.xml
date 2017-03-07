@@ -1,0 +1,176 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry">
+
+    <ImageView
+        android:id="@+id/imgCLose"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_edit"
+        android:layout_alignParentRight="true"
+        />
+
+
+    <ImageView
+        android:id="@+id/imgServiceEnquiry"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_edit"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/tvCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category:"
+        android:layout_below="@+id/imgServiceEnquiry"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/tvProductname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Name:"
+        android:layout_below="@+id/tvCategoryName"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        />
+
+    <EditText
+        android:id="@+id/edtFName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First name"
+        android:layout_below="@+id/tvProductname"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:textColorHint="@color/black"
+        android:padding="10dp"
+        />
+
+
+    <EditText
+        android:id="@+id/edtQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quantity"
+        android:layout_below="@+id/edtFName"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:textColorHint="@color/black"
+        android:padding="10dp"
+        />
+
+    <EditText
+        android:id="@+id/edtPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Price"
+        android:layout_below="@+id/edtQuantity"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:textColorHint="@color/black"
+        android:padding="10dp"
+        />
+
+
+    <EditText
+    android:id="@+id/edtMobile"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Mobile"
+    android:layout_below="@+id/edtPrice"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginLeft="30dp"
+    android:textColorHint="@color/black"
+    android:padding="10dp"
+    />
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_below="@+id/edtMobile"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:textColorHint="@color/black"
+        android:padding="10dp"
+        android:inputType="textEmailAddress"
+        />
+
+    <EditText
+        android:id="@+id/etStatDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:focusableInTouchMode="true"
+        android:hint="@string/startDate"
+        android:inputType="text"
+        android:paddingLeft="@dimen/ten_dip"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/edtEmail"
+        android:textColorHint="@color/black"
+        android:layout_marginLeft="30dp"
+       />
+
+
+    <EditText
+        android:id="@+id/etEndDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:focusableInTouchMode="true"
+        android:hint="@string/endDate"
+        android:inputType="text"
+        android:paddingLeft="@dimen/ten_dip"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/etStatDate"
+        android:textColorHint="@color/black"
+        android:layout_marginLeft="30dp"
+        />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:layout_below="@+id/etEndDate"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:textColorHint="@color/black"
+        android:padding="10dp"
+        android:inputType="textEmailAddress"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/edtDescription"
+        android:text="Submit"
+        android:background="@color/green"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:padding="5dp"
+        />
+
+</RelativeLayout>

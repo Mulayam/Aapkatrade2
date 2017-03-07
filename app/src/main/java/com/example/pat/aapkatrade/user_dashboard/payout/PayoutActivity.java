@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -14,23 +16,40 @@ import android.widget.ImageView;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.user_dashboard.address.AddressData;
+import com.example.pat.aapkatrade.user_dashboard.address.AddressListAdapter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class PayoutActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class PayoutActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
+{
+
     private Context context;
     private int isStartDate = -1;
     private EditText etStartDate, etEndDate;
     private ImageView openStartDateCal, openEndDateCal;
     private String date;
+    ArrayList<PayoutData> payoutDatas = new ArrayList<>();
+    RecyclerView payoutList;
+    PayoutAdapter payoutAdapter;
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payout);
+
         setuptoolbar();
+
         initView();
+
+        setup_data();
+
+        setup_layout();
 
         openStartDateCal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +67,23 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
         });
     }
 
-    private void initView() {
+    private void setup_layout()
+    {
 
+        payoutList = (RecyclerView) findViewById(R.id.payoutList);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        payoutAdapter = new PayoutAdapter(getApplicationContext(), payoutDatas);
+
+        payoutList.setAdapter(payoutAdapter);
+
+        payoutList.setLayoutManager(mLayoutManager);
+
+    }
+
+    private void initView()
+    {
         context = PayoutActivity.this;
         etStartDate = (EditText) findViewById(R.id.etStartDate);
         etEndDate = (EditText) findViewById(R.id.etEndDate);
@@ -119,5 +153,23 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
         }
     }
 
+
+    private void setup_data()
+    {
+        payoutDatas.clear();
+        try
+        {
+            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
+            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
+            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
+            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
+            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
+            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
 
 }
