@@ -50,8 +50,6 @@ public class MyProfileFragment extends Fragment {
         step1cLayout = (CardView) view.findViewById(R.id.step1cLayout);
         step2Layout = (CardView) view.findViewById(R.id.step2Layout);
         step3Layout = (CardView) view.findViewById(R.id.step3Layout);
-
-
     }
 
     @Override

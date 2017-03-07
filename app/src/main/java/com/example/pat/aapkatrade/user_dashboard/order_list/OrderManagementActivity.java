@@ -97,7 +97,6 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
             tab.setIcon(tabIcons[7]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         }
-
     }
 
     @Override
@@ -112,7 +111,6 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
             tab.setIcon(tabIcons[4]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         } else if (tab.getPosition() == 3) {
-            //tabLayout.setTabTextColors(R.color.text_order_tab, R.color.text_order_tab);
             tab.setIcon(tabIcons[6]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         }
@@ -120,6 +118,7 @@ public class OrderManagementActivity extends AppCompatActivity implements TabLay
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
+
     }
 
 
