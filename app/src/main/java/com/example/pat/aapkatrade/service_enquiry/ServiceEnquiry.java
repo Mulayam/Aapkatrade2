@@ -4,9 +4,12 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+
 import com.example.pat.aapkatrade.R;
 
 public class ServiceEnquiry extends DialogFragment
@@ -19,19 +22,12 @@ public class ServiceEnquiry extends DialogFragment
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_service_enquiry, container, false);
 
+        WindowManager.LayoutParams wmlp = getDialog().getWindow().getAttributes();
+        wmlp.gravity = Gravity.FILL_HORIZONTAL;
+
+
         return view;
     }
 
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null)
-        {
-            int width = ViewGroup.LayoutParams.MATCH_PARENT;
-            int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width, height);
-        }
-    }
+
 }

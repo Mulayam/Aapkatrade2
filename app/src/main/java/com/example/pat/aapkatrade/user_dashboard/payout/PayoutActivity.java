@@ -123,7 +123,7 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.empty_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 

@@ -189,7 +189,7 @@ public class CartCheckoutActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
