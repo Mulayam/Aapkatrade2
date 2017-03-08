@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
+import com.example.pat.aapkatrade.Home.registration.entity.Country;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
@@ -55,6 +57,7 @@ ProgressBarHandler p_handler;
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
     AppBarLayout aapbar_layout_myprofile;
+    CoordinatorLayout coordinatorlayout_myprofile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,19 +74,19 @@ ProgressBarHandler p_handler;
 
     private void setup_layout() {
 
-
+        coordinatorlayout_myprofile=(CoordinatorLayout)findViewById(R.id.coordinate_myprofile) ;
         setupnewlayout();
         //imgCalender = (ImageView) findViewById(R.id.imgCalender);
         backbutton=(ImageView)findViewById(R.id.back_imagview) ;
         tvMyProfileDetailHeading = (TextView) findViewById(R.id.tvMyProfileDetailHeading);
         etFName = (EditText) findViewById(R.id.etFName);
-        String fname = app_sharedpreference.getsharedpref("username", "").toString();
+        String fname = app_sharedpreference.getsharedpref("username", "");
         tvMyProfileDetailHeading.setText("Hello, " + fname + " To Update your account information.");
         etFName.setText(fname);
         etFName.setSelection(etFName.getText().length());
 
         etLName = (EditText) findViewById(R.id.etLName);
-        String lname = app_sharedpreference.getsharedpref("lname", "").toString();
+        String lname = app_sharedpreference.getsharedpref("lname", "");
         etLName.setText(lname);
         etLName.setSelection(etLName.getText().length());
 
@@ -103,9 +106,9 @@ ProgressBarHandler p_handler;
        // etAddress.setSelection(etAddress.getText().length());
 
         tvDate = (TextView) findViewById(R.id.tvDate);
-        String dob = app_sharedpreference.getsharedpref("dob", "").toString();
+        String dob = app_sharedpreference.getsharedpref("dob", "");
 
-        System.out.println("dob--------------" + dob.toString());
+        System.out.println("dob--------------" + dob);
 
         tvDate.setText(dob);
 
@@ -230,7 +233,10 @@ ProgressBarHandler p_handler;
 
     private void edit_profile_webservice() {
         p_handler.show();
-Log.e("address",etAddress.getText().toString());
+
+
+
+
         Ion.with(MyProfileActivity.this)
                 .load("https://aapkatrade.com/slim/my_account")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -239,35 +245,78 @@ Log.e("address",etAddress.getText().toString());
                 .setBodyParameter("lastname", etLName.getText().toString())
                 .setBodyParameter("mobile", etMobileNo.getText().toString())
                 .setBodyParameter("email", etEmail.getText().toString())
-                .setBodyParameter("address", etAddress.getText().toString().toString())
+                .setBodyParameter("address", etAddress.getText().toString())
                 .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", ""))
-                .setBodyParameter("user_type", app_sharedpreference.getsharedpref("usertype", ""))
+                .setBodyParameter("user_type", AndroidUtils.getUserType(app_sharedpreference.getsharedpref("usertype", "")))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+
+                        System.out.println("dvgsgf"+result);
 
                         if (result == null) {
                             p_handler.hide();
                             System.out.println("result-----------NULLLLLLL");
 
 
-                        } else {
-                            System.out.println("result-----------" + result.toString());
+                        }
+                        else
+                            {
+                                String error = result.get("error").getAsString();
+                                if(error.contains("false"))
+                                {
 
-                            JsonObject jsonObject = result.getAsJsonObject();
+                                    JsonObject jsonObject = result.getAsJsonObject();
 
-                            String message = jsonObject.get("message").getAsString();
+                                    String message = jsonObject.get("message").getAsString();
+                                    showmessage(message);
+                                    p_handler.hide();
 
-                            if (message.equals("updated successfully")) {
+                                }
+                                else{
 
-                            } else {
-                                Toast.makeText(MyProfileActivity.this, message, Toast.LENGTH_SHORT).show();
-                            }
-                            p_handler.hide();
+                                    JsonObject jsonObject = result.getAsJsonObject();
+
+                                    String message = jsonObject.get("message").getAsString();
+
+                                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+
+
+                                    for (int i = 0; i < jsonResultArray.size(); i++) {
+
+                                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                        String update_name = jsonObject1.get("name").getAsString();
+                                        String update_lastname = jsonObject1.get("lastname").getAsString();
+                                        String update_mobile = jsonObject1.get("mobile").getAsString();
+                                        String update_address = jsonObject1.get("address").getAsString();
+                                        app_sharedpreference.setsharedpref("username",update_name);
+                                        app_sharedpreference.setsharedpref("lname",update_lastname);
+                                        app_sharedpreference.setsharedpref("mobile", update_mobile);
+                                        app_sharedpreference.setsharedpref("address",update_address);
+
+
+                                    }
+                                    showmessage(message);
+                                    p_handler.hide();
+
+
+                                }
+
+
+
+
+
+
                         }
                     }
                 });
+
+    }
+
+    private void showmessage(String message) {
+
+        AndroidUtils.showSnackBar(coordinatorlayout_myprofile,message);
 
     }
 
