@@ -28,6 +28,11 @@ public class App_sharedpreference extends Application {
         return shared_pref.getString(pref_key, default_value);
     }
 
+
+    public String getsharedpref(String pref_key) {
+        return shared_pref.getString(pref_key, "");
+    }
+
     public void setsharedpref(String pref_key, String text) {
         editor.putString(pref_key, text);
         editor.commit();

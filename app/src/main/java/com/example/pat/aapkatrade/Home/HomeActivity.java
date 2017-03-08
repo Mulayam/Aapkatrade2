@@ -39,6 +39,7 @@ import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
+import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementActivity;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import java.util.ArrayList;
 
@@ -80,81 +81,77 @@ public class HomeActivity extends AppCompatActivity
 
         App_config.set_defaultfont(HomeActivity.this);
 
-        loadLocale();
+        if(!(app_sharedpreference.getsharedpref("usertype", "0").equals("3") && app_sharedpreference.getsharedpref("term_accepted", "0").equals("0"))) {
+            loadLocale();
 
-        permission_status = CheckPermission.checkPermissions(HomeActivity.this);
+            permission_status = CheckPermission.checkPermissions(HomeActivity.this);
 
-        if (permission_status) {
+            if (permission_status) {
 
-            setContentView(R.layout.activity_homeactivity);
+                setContentView(R.layout.activity_homeactivity);
 
-            rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
+                rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
 
-            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener()
-            {
-
-
-                @Override
-                public void onClick(View v)
-                {
-
-                    Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
-                    startActivity(intent_searchactivity);
+                rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
 
 
-                }
+                    @Override
+                    public void onClick(View v) {
 
-            });
-
-            //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-            context = this;
-            //  permissions  granted.
-            setupToolBar();
-            //setupNavigation();
-            setupNavigationCustom();
-            setupDashFragment();
-            Intent iin = getIntent();
-            Bundle b = iin.getExtras();
-            setup_bottomNavigation();
-
-            checked_wifispeed();
+                        Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
+                        startActivity(intent_searchactivity);
 
 
+                    }
+
+                });
+
+                //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+                context = this;
+                //  permissions  granted.
+                setupToolBar();
+                //setupNavigation();
+                setupNavigationCustom();
+                setupDashFragment();
+                Intent iin = getIntent();
+                Bundle b = iin.getExtras();
+                setup_bottomNavigation();
+
+                checked_wifispeed();
+
+            } else {
+
+                setContentView(R.layout.activity_homeactivity);
+
+                rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
+
+                rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
+                        startActivity(intent_searchactivity);
+                    }
+
+
+                });
+
+                //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+                context = this;
+                //  permissions  granted.
+                setupToolBar();
+                //setupNavigation();
+                setupNavigationCustom();
+                setupDashFragment();
+                Intent iin = getIntent();
+                Bundle b = iin.getExtras();
+                setup_bottomNavigation();
+                checked_wifispeed();
+            }
+        } else {
+            startActivity(new Intent(HomeActivity.this, AssociateAgreementActivity.class));
         }
-        else {
-
-            setContentView(R.layout.activity_homeactivity);
-
-            rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
-
-            rl_searchview_dashboard.setOnClickListener(new View.OnClickListener()
-            {
-
-
-                @Override
-                public void onClick(View v)
-                {
-                    Intent intent_searchactivity = new Intent(HomeActivity.this, Search.class);
-                    startActivity(intent_searchactivity);
-                }
-
-
-
-            });
-
-            //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
-            context = this;
-            //  permissions  granted.
-            setupToolBar();
-            //setupNavigation();
-            setupNavigationCustom();
-            setupDashFragment();
-            Intent iin = getIntent();
-            Bundle b = iin.getExtras();
-             setup_bottomNavigation();
-            checked_wifispeed();
-        }
-
     }
 
 

@@ -151,29 +151,20 @@ public class loginActivity extends AppCompatActivity {
             public void Taskcomplete(JsonObject webservice_returndata) {
 
                 if (webservice_returndata != null) {
+                    boolean flag = false;
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
                         Log.e("webservice_returndata", webservice_returndata.toString());
                         if (webservice_returndata.get("error").getAsString().equals("false")) {
                             saveDataInSharedPreference(webservice_returndata, 1);
-                            showMessage(webservice_returndata.get("message").getAsString());
-
-                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
-                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(Homedashboard);
+                            flag = true;
                         } else {
                             showMessage(webservice_returndata.get("message").getAsString());
                         }
                     } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-
-
                         Log.e("webservice_returndata", webservice_returndata.toString());
                         if (webservice_returndata.get("error").getAsString().equals("false")) {
                             saveDataInSharedPreference(webservice_returndata, 2);
-                            showMessage(webservice_returndata.get("message").getAsString());
-
-                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
-                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(Homedashboard);
+                            flag = true;
                         } else {
                             showMessage(webservice_returndata.get("message").getAsString());
                         }
@@ -184,17 +175,16 @@ public class loginActivity extends AppCompatActivity {
 
                         if (webservice_returndata.get("error").getAsString().equals("false")) {
                             saveDataInSharedPreference(webservice_returndata, 3);
-                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
-                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            System.out.println("hfbhsdfgefg");
-                            startActivity(Homedashboard);
+                            flag = true;
                         } else {
                             showMessage(webservice_returndata.get("message").getAsString());
                         }
-
                     }
-
-
+                    if (flag) {
+                        Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
+                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(Homedashboard);
+                    }
                 }
             }
         };
@@ -279,7 +269,8 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("platform", jsonObject.get("platform").getAsString());
             app_sharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
             app_sharedpreference.setsharedpref("photo", jsonObject.get("term_accepted").getAsString());
-            app_sharedpreference.setsharedpref("term_accepted", jsonObject.get("created_at").getAsString());
+            app_sharedpreference.setsharedpref("term_accepted", jsonObject.get("term_accepted").getAsString());
+            app_sharedpreference.setsharedpref("created_at", jsonObject.get("created_at").getAsString());
             app_sharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
             app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
             app_sharedpreference.setsharedpref("id", jsonObject.get("id").getAsString());
@@ -297,23 +288,6 @@ public class loginActivity extends AppCompatActivity {
         }
     }
 
-    public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity,
-                                 String product_quantity, String company_quantity, String vendor_quantity, String network_quantity) {
-        app_sharedpreference.setsharedpref("userid", user_id);
-        app_sharedpreference.setsharedpref("username", user_name);
-        app_sharedpreference.setsharedpref("emailid", email_id);
-        app_sharedpreference.setsharedpref("lname", lname);
-        app_sharedpreference.setsharedpref("dob", dob);
-        app_sharedpreference.setsharedpref("address", address);
-        app_sharedpreference.setsharedpref("mobile", mobile);
-        app_sharedpreference.setsharedpref("order_quantity", order_quantity);
-        app_sharedpreference.setsharedpref("product_quantity", product_quantity);
-        app_sharedpreference.setsharedpref("company_quantity", company_quantity);
-        app_sharedpreference.setsharedpref("vendor_quantity", vendor_quantity);
-        app_sharedpreference.setsharedpref("network_quantity", network_quantity);
-
-
-    }
 
     private void InitView() {
         forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
