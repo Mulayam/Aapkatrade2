@@ -152,7 +152,7 @@ public class loginActivity extends AppCompatActivity {
 
                 if (webservice_returndata != null) {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
-                      /*  Log.e("webservice_returndata", webservice_returndata.toString());
+                        Log.e("webservice_returndata", webservice_returndata.toString());
                         if (webservice_returndata.get("error").getAsString().equals("false")) {
                             saveDataInSharedPreference(webservice_returndata, 1);
                             showMessage(webservice_returndata.get("message").getAsString());
@@ -163,154 +163,30 @@ public class loginActivity extends AppCompatActivity {
                         } else {
                             showMessage(webservice_returndata.get("message").getAsString());
                         }
-                    }*/
+                    } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+
 
                         Log.e("webservice_returndata", webservice_returndata.toString());
-
-                        JsonObject jsonObject = webservice_returndata.getAsJsonObject();
-
-                        String error = jsonObject.get("error").getAsString();
-
-                        String message = jsonObject.get("message").getAsString();
-
-                        if (error.equals("false")) {
-                            String user_id = jsonObject.get("user_id").getAsString();
-
-                            String email_id = jsonObject.get("email").getAsString();
-                            JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
-
-                            String name = jsonobject_all_info.get("name").getAsString();
-
-                            String address = jsonobject_all_info.get("address").getAsString();
-
-                            String lname = jsonobject_all_info.get("lastname").getAsString();
-
-                            String dob = jsonobject_all_info.get("dob").getAsString();
-
-                            String mobile_no = jsonobject_all_info.get("mobile").getAsString();
-                            String order_quantity = jsonObject.get("order").getAsString();
-                            String product_quantity = jsonObject.get("product").getAsString();
-                            String company_quantity = jsonObject.get("company").getAsString();
-
-
-                            System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
-
-                            showMessage(message);
-
-                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, order_quantity, product_quantity, company_quantity, "", "");
-
-                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
-
-                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                            startActivity(Homedashboard);
-
-
-                        } else {
-                            showMessage(message);
-                        }
-                    }
-
-
-                      else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-
-                        Log.e("webservice_returndata", webservice_returndata.toString());
-
-                        JsonObject jsonObject = webservice_returndata.getAsJsonObject();
-
-                        String error = jsonObject.get("error").getAsString();
-
-                        String message = jsonObject.get("message").getAsString();
-
-                        if (error.equals("false")) {
-                            String user_id = jsonObject.get("user_id").getAsString();
-
-                            String email_id = jsonObject.get("email").getAsString();
-
-                            // JsonArray jsonResultArray = jsonObject.getAsJsonArray("all_info");
-
-                            JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
-
-                            String name = jsonobject_all_info.get("name").getAsString();
-
-                            String address = jsonobject_all_info.get("address").getAsString();
-
-                            String lname = jsonobject_all_info.get("lastname").getAsString();
-
-                            String dob = jsonobject_all_info.get("dob").getAsString();
-
-                            String mobile_no = jsonobject_all_info.get("mobile").getAsString();
-                            String order_quantity = jsonObject.get("order").getAsString();
-
-                            System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
-
-                            showMessage(message);
-
-                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, order_quantity, "", "", "", "");
+                        if (webservice_returndata.get("error").getAsString().equals("false")) {
+                            saveDataInSharedPreference(webservice_returndata, 2);
+                            showMessage(webservice_returndata.get("message").getAsString());
 
                             Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(Homedashboard);
                         } else {
-                            showMessage(message);
+                            showMessage(webservice_returndata.get("message").getAsString());
                         }
-
 
                     } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                       /* Log.e("webservice_returndata", webservice_returndata.toString());
+                        Log.e("webservice_returndata", webservice_returndata.toString());
 
                         if (webservice_returndata.get("error").getAsString().equals("false")) {
                             saveDataInSharedPreference(webservice_returndata, 3);
                             Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             System.out.println("hfbhsdfgefg");
-                            startActivity(Homedashboard);
-                        }*/
-
-                        Log.e("webservice_returndata", webservice_returndata.toString());
-
-                        JsonObject jsonObject = webservice_returndata.getAsJsonObject();
-
-                        String error = jsonObject.get("error").getAsString();
-
-                        String message = jsonObject.get("message").getAsString();
-
-                        if (error.equals("false")) {
-
-
-                            String user_id = jsonObject.get("user_id").getAsString();
-
-                            String email_id = jsonObject.get("email").getAsString();
-
-                            //JsonArray jsonResultArray = jsonObject.getAsJsonArray("all_info");
-
-                            JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
-
-                            String name = jsonobject_all_info.get("name").getAsString();
-
-                            String address = jsonobject_all_info.get("address").getAsString();
-
-                            String lname = jsonobject_all_info.get("lastname").getAsString();
-
-                            String dob = jsonobject_all_info.get("dob").getAsString();
-
-                            String mobile_no = jsonobject_all_info.get("mobile").getAsString();
-                            String vendor_quantity = jsonObject.get("vendor").getAsString();
-                            String network_quantity = jsonObject.get("network").getAsString();
-
-                            System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
-
-                            showMessage(message);
-
-                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, "", "", "", vendor_quantity, network_quantity);
-
-                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
-
-                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                            System.out.println("hfbhsdfgefg");
-
                             startActivity(Homedashboard);
                         } else {
                             showMessage(webservice_returndata.get("message").getAsString());
@@ -327,16 +203,17 @@ public class loginActivity extends AppCompatActivity {
 
     private void saveDataInSharedPreference(JsonObject webservice_returndata, int userType) {
 
-        if(userType == 1){
+        if (userType == 1) {
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
 
-            app_sharedpreference.setsharedpref("user_id", webservice_returndata.get("user_id").getAsString());
+            app_sharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
             app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
+            app_sharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
             app_sharedpreference.setsharedpref("lastname", jsonObject.get("lastname").getAsString());
             app_sharedpreference.setsharedpref("shopname", jsonObject.get("shopname").getAsString());
             app_sharedpreference.setsharedpref("business_type", jsonObject.get("business_type").getAsString());
-            app_sharedpreference.setsharedpref("email", jsonObject.get("email").getAsString());
+            app_sharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
             app_sharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
             app_sharedpreference.setsharedpref("dob", jsonObject.get("dob").getAsString());
             app_sharedpreference.setsharedpref("address", jsonObject.get("address").getAsString());
@@ -352,15 +229,38 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
             app_sharedpreference.setsharedpref("product", webservice_returndata.get("product").getAsString());
             app_sharedpreference.setsharedpref("company", webservice_returndata.get("company").getAsString());
-        }else if(userType == 3){
+        } else if (userType == 2) {
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
 
-            app_sharedpreference.setsharedpref("user_id", jsonObject.get("user_id").getAsString());
+            app_sharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
             app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
+            app_sharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
+            app_sharedpreference.setsharedpref("lastname", jsonObject.get("lastname").getAsString());
+            app_sharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
+            app_sharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
+            app_sharedpreference.setsharedpref("dob", jsonObject.get("dob").getAsString());
+            app_sharedpreference.setsharedpref("country_id", jsonObject.get("country_id").getAsString());
+            app_sharedpreference.setsharedpref("state_id", jsonObject.get("state_id").getAsString());
+            app_sharedpreference.setsharedpref("city_id", jsonObject.get("city_id").getAsString());
+            app_sharedpreference.setsharedpref("address", jsonObject.get("address").getAsString());
+            app_sharedpreference.setsharedpref("platform", jsonObject.get("platform").getAsString());
+            app_sharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
+            app_sharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
+            app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
+            app_sharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
+            app_sharedpreference.setsharedpref("createdAt", webservice_returndata.get("createdAt").getAsString());
+
+        } else if (userType == 3) {
+            JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
+            Log.e("hi", jsonObject.toString());
+
+            app_sharedpreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
+            app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
+            app_sharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
             app_sharedpreference.setsharedpref("lastname", jsonObject.get("lastname").getAsString());
             app_sharedpreference.setsharedpref("father_name", jsonObject.get("father_name").getAsString());
-            app_sharedpreference.setsharedpref("email", jsonObject.get("email").getAsString());
+            app_sharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
             app_sharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
             app_sharedpreference.setsharedpref("qualification", jsonObject.get("qualification").getAsString());
             app_sharedpreference.setsharedpref("total_exp", jsonObject.get("total_exp").getAsString());
@@ -380,10 +280,9 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
             app_sharedpreference.setsharedpref("photo", jsonObject.get("term_accepted").getAsString());
             app_sharedpreference.setsharedpref("term_accepted", jsonObject.get("created_at").getAsString());
-            app_sharedpreference.setsharedpref("updated_at",  jsonObject.get("updated_at").getAsString());
+            app_sharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
             app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
             app_sharedpreference.setsharedpref("id", jsonObject.get("id").getAsString());
-            app_sharedpreference.setsharedpref("user_type", jsonObject.get("user_type").getAsString());
             app_sharedpreference.setsharedpref("bank_name", jsonObject.get("bank_name").getAsString());
             app_sharedpreference.setsharedpref("account_no", jsonObject.get("account_no").getAsString());
             app_sharedpreference.setsharedpref("branch_code", jsonObject.get("branch_code").getAsString());

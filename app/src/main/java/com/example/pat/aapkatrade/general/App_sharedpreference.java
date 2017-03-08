@@ -21,7 +21,6 @@ public class App_sharedpreference extends Application {
     public App_sharedpreference(Context c) {
         this.shared_pref = c.getSharedPreferences(app_pref, Activity.MODE_PRIVATE);
         this.editor = shared_pref.edit();
-
     }
 
 

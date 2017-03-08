@@ -44,66 +44,41 @@ public class User_DashboardFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
-
         app_sharedpreference = new App_sharedpreference(getActivity());
         progressBarHandler = new ProgressBarHandler(getActivity());
-
         tvUserType = (TextView) v.findViewById(R.id.tvUserType);
-
-
         setup_layout(v);
-
         dashboardlist = (RecyclerView) v.findViewById(R.id.dashboardlist);
-
         layoutManager = new LinearLayoutManager(getActivity());
-
         setup_data();
-
-
         dashboardlist.setNestedScrollingEnabled(false);
-
         return v;
     }
 
     private void setup_layout(View v) {
         textViewName = (TextView) v.findViewById(R.id.textViewName);
-
         tvMobile = (TextView) v.findViewById(R.id.tvMobile);
-
         tvEmail = (TextView) v.findViewById(R.id.tvEmail);
-
         btnEdit = (Button) v.findViewById(R.id.btnEdit);
-
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(getActivity(), MyProfileActivity.class);
                 startActivity(i);
-
-
             }
         });
-
         if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
-
             if (Username.equals("notlogin")) {
-
                 textViewName.setText("");
                 tvEmail.setText("");
-
             } else {
                 textViewName.setText(Username);
                 tvEmail.setText(Emailid);
-
             }
         }
-
-
     }
 
 
