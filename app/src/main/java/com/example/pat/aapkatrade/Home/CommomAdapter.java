@@ -15,6 +15,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.animation_effects.App_animation;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
+import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -69,11 +70,54 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             CommomHolder holder = new CommomHolder(v);
 
 
-            Picasso.with(context).load(commomDatas.get(position).imageurl)
-                    .error(R.drawable.banner)
-                    .placeholder(R.drawable.default_noimage)
-                    .error(R.drawable.default_noimage)
-                    .into(holder.cimageview);
+
+            if(Tabletsize.isTablet(context))
+            {
+
+                Picasso.with(context).load(commomDatas.get(position).imageurl)
+                        .error(R.drawable.banner)
+                        .placeholder(R.drawable.default_noimage)
+                        .error(R.drawable.default_noimage)
+                        .into(holder.cimageview);
+                String product_imageurl=commomDatas.get(position).imageurl.replace("small","large");
+
+                Ion.with(holder.cimageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+                Log.e("image_large","image_large");
+
+            }
+            else if(Tabletsize.isMedium(context))
+            {
+                String product_imageurl=commomDatas.get(position).imageurl.replace("small","medium");
+
+                Ion.with(holder.cimageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+                Log.e("image_medium","image_medium"+product_imageurl);
+
+            }
+            else if(Tabletsize.isSmall(context))
+            {
+                String product_imageurl=commomDatas.get(position).imageurl.replace("small","medium");
+
+                Ion.with(holder.cimageview)
+                        .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                        .load(product_imageurl);
+
+                Log.e("image_small","image_small");
+            }
+
+
+
+//            Picasso.with(context).load(commomDatas.get(position).imageurl)
+//                    .error(R.drawable.banner)
+//                    .placeholder(R.drawable.default_noimage)
+//                    .error(R.drawable.default_noimage)
+//                    .into(holder.cimageview);
 //            Animation a = AnimationUtils.loadAnimation(context, R.anim.show_progress);
 //            a.setDuration(1000);
 //            holder.cimageview.startAnimation(a);

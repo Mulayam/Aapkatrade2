@@ -152,7 +152,7 @@ public class loginActivity extends AppCompatActivity {
 
                 if (webservice_returndata != null) {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
-                        Log.e("webservice_returndata", webservice_returndata.toString());
+                      /*  Log.e("webservice_returndata", webservice_returndata.toString());
                         if (webservice_returndata.get("error").getAsString().equals("false")) {
                             saveDataInSharedPreference(webservice_returndata, 1);
                             showMessage(webservice_returndata.get("message").getAsString());
@@ -163,7 +163,56 @@ public class loginActivity extends AppCompatActivity {
                         } else {
                             showMessage(webservice_returndata.get("message").getAsString());
                         }
-                    } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
+                    }*/
+
+                        Log.e("webservice_returndata", webservice_returndata.toString());
+
+                        JsonObject jsonObject = webservice_returndata.getAsJsonObject();
+
+                        String error = jsonObject.get("error").getAsString();
+
+                        String message = jsonObject.get("message").getAsString();
+
+                        if (error.equals("false")) {
+                            String user_id = jsonObject.get("user_id").getAsString();
+
+                            String email_id = jsonObject.get("email").getAsString();
+                            JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
+
+                            String name = jsonobject_all_info.get("name").getAsString();
+
+                            String address = jsonobject_all_info.get("address").getAsString();
+
+                            String lname = jsonobject_all_info.get("lastname").getAsString();
+
+                            String dob = jsonobject_all_info.get("dob").getAsString();
+
+                            String mobile_no = jsonobject_all_info.get("mobile").getAsString();
+                            String order_quantity = jsonObject.get("order").getAsString();
+                            String product_quantity = jsonObject.get("product").getAsString();
+                            String company_quantity = jsonObject.get("company").getAsString();
+
+
+                            System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
+
+                            showMessage(message);
+
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, order_quantity, product_quantity, company_quantity, "", "");
+
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
+
+                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                            startActivity(Homedashboard);
+
+
+                        } else {
+                            showMessage(message);
+                        }
+                    }
+
+
+                      else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
                         Log.e("webservice_returndata", webservice_returndata.toString());
 
@@ -209,13 +258,59 @@ public class loginActivity extends AppCompatActivity {
 
                     } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                        Log.e("webservice_returndata", webservice_returndata.toString());
+                       /* Log.e("webservice_returndata", webservice_returndata.toString());
 
                         if (webservice_returndata.get("error").getAsString().equals("false")) {
                             saveDataInSharedPreference(webservice_returndata, 3);
                             Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
                             Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             System.out.println("hfbhsdfgefg");
+                            startActivity(Homedashboard);
+                        }*/
+
+                        Log.e("webservice_returndata", webservice_returndata.toString());
+
+                        JsonObject jsonObject = webservice_returndata.getAsJsonObject();
+
+                        String error = jsonObject.get("error").getAsString();
+
+                        String message = jsonObject.get("message").getAsString();
+
+                        if (error.equals("false")) {
+
+
+                            String user_id = jsonObject.get("user_id").getAsString();
+
+                            String email_id = jsonObject.get("email").getAsString();
+
+                            //JsonArray jsonResultArray = jsonObject.getAsJsonArray("all_info");
+
+                            JsonObject jsonobject_all_info = jsonObject.getAsJsonObject("all_info");
+
+                            String name = jsonobject_all_info.get("name").getAsString();
+
+                            String address = jsonobject_all_info.get("address").getAsString();
+
+                            String lname = jsonobject_all_info.get("lastname").getAsString();
+
+                            String dob = jsonobject_all_info.get("dob").getAsString();
+
+                            String mobile_no = jsonobject_all_info.get("mobile").getAsString();
+                            String vendor_quantity = jsonObject.get("vendor").getAsString();
+                            String network_quantity = jsonObject.get("network").getAsString();
+
+                            System.out.println("name--" + name + "address--" + address + "lname--" + lname + "dob--" + "");
+
+                            showMessage(message);
+
+                            save_shared_pref(user_id, name, email_id, lname, dob, address, mobile_no, "", "", "", vendor_quantity, network_quantity);
+
+                            Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
+
+                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                            System.out.println("hfbhsdfgefg");
+
                             startActivity(Homedashboard);
                         } else {
                             showMessage(webservice_returndata.get("message").getAsString());

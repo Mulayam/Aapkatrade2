@@ -5,11 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.login.entity.BusiAssocData;
-import com.example.pat.aapkatrade.utils.Utils;
-import com.google.gson.Gson;
-
 /**
  * Created by PPC21 on 27-Jan-17.
  */

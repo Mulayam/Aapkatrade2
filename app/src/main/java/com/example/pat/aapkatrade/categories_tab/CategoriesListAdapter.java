@@ -84,7 +84,7 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .load(product_imageurl);
-            Log.e("image_medium","image_medium");
+            Log.e("image_medium","image_medium"+product_imageurl);
 
         }
         else if(Tabletsize.isSmall(context))
