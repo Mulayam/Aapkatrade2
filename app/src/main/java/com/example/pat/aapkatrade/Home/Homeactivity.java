@@ -151,7 +151,7 @@ public class HomeActivity extends AppCompatActivity
             setupDashFragment();
             Intent iin = getIntent();
             Bundle b = iin.getExtras();
-            // setup_bottomNavigation();
+             setup_bottomNavigation();
             checked_wifispeed();
         }
 
@@ -419,7 +419,7 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String tagName = homeFragment.getClass().getName();
                         replaceFragment(homeFragment, tagName);
-                        showOrHideBottomNavigation(true);
+                        // showOrHideBottomNavigation(true);
 
                         break;
                     case 1:
@@ -428,24 +428,21 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String aboutUsFragment_tagName = aboutUsFragment.getClass().getName();
                         replaceFragment(aboutUsFragment, aboutUsFragment_tagName);
-                        showOrHideBottomNavigation(true);
+                        // showOrHideBottomNavigation(true);
                         break;
 
                     case 3:
-                        if (user_dashboardFragment == null)
-                        {
+                        if (user_dashboardFragment == null) {
                             user_dashboardFragment = new User_DashboardFragment();
                         }
 
-                        if(app_sharedpreference.getsharedpref("username", "not").contains("not"))
-                        {
+                        if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
                             startActivity(new Intent(HomeActivity.this, LoginDashboard.class));
-                        }
-                        else {
+                        } else {
                             Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
                             String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
                             replaceFragment(user_dashboardFragment, tagName_dashboardFragment);
-                            showOrHideBottomNavigation(true);
+                            //showOrHideBottomNavigation(true);
                         }
 
                         break;
@@ -456,7 +453,7 @@ public class HomeActivity extends AppCompatActivity
                         }
                         String contact_us_fragment = contactUsFragment.getClass().getName();
                         replaceFragment(contactUsFragment, contact_us_fragment);
-                        showOrHideBottomNavigation(true);
+                        //showOrHideBottomNavigation(true);
                         break;
 
 
