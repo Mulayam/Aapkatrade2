@@ -44,13 +44,13 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 public class MyProfileActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    Button  btnEdit, btnLogout;
+    Button btnSave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
     App_sharedpreference app_sharedpreference;
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
     ImageView imgCalender,backbutton;
 
-    TextView tvSave,tvDate, tvMyProfileDetailHeading;
+    TextView tvDate, tvMyProfileDetailHeading;
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
     AppBarLayout aapbar_layout_myprofile;
@@ -112,11 +112,11 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
         etMobileNo.setKeyListener(null);
 
-        tvSave = (TextView) findViewById(R.id.btnSave);
+        btnSave = (Button) findViewById(R.id.btnSave);
 
         btnEdit = (Button) findViewById(R.id.btnEdit);
 
-        btnLogout = (Button) findViewById(R.id.btnlogout);
+        //btnLogout = (Button) findViewById(R.id.btnlogout);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +142,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
          });*/
 
 
-        tvSave.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String et = etFName.getText().toString();

@@ -80,7 +80,7 @@
                    >
 
                     <TextView
-                        android:id="@+id/btnSave"
+                        android:id="@+id/btnSave2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -89,6 +89,7 @@
                         android:layout_marginRight="10dp"
                         android:textColor="@color/white"
 android:layout_centerInParent="true"
+                        android:visibility="gone"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -154,14 +155,14 @@ android:layout_centerInParent="true"
         android:gravity="bottom">
 
         <Button
-            android:id="@+id/btnlogout"
+            android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
 
             android:background="@drawable/button_orange_back"
             android:gravity="center"
-            android:text="@string/logout"
+            android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
