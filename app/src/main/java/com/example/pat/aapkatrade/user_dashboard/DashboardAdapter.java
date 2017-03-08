@@ -14,7 +14,7 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
-import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementActivity;
+import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.my_company_profile.MyCompanyProfile;
@@ -284,7 +284,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     else
                         {
 
-                        Intent list_product = new Intent(context, AssociateAgreementActivity.class);
+                        Intent list_product = new Intent(context, AssociateAgreementDialog.class);
                        context.startActivity(list_product);
 
                     }
