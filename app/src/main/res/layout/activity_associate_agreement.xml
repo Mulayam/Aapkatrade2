@@ -10,19 +10,30 @@
     android:background="@color/cardview_background"
     android:orientation="vertical">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/imgCLose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="@dimen/ten_dip"
+            android:src="@drawable/ic_cross"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+
     <LinearLayout
         android:id="@+id/activity_my_profile"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="14"
         android:orientation="vertical">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout" />
-
-
-
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -123,48 +134,48 @@
                     android:layout_marginTop="@dimen/ten_dip"
                     android:padding="@dimen/twenty_dip">
 
-                   <RelativeLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="vertical"
-                       android:padding="10dp"
-                       >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        >
 
 
-                       <TextView
-                           android:id="@+id/tvBussinessHeading"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="@string/business_associate_heading"
-                           android:textColor="@color/black"
-                           android:textStyle="bold"
-                           android:textSize="18sp"
-                           />
+                        <TextView
+                            android:id="@+id/tvBussinessHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/business_associate_heading"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            />
 
 
-                       <TextView
-                           android:id="@+id/tvBussinessDetails"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="@string/bussiness_associate_details"
-                           android:textColor="@color/black"
-                           android:layout_marginTop="5dp"
-                           android:layout_below="@+id/tvBussinessHeading"
-                           android:maxLines="3"
-                           />
+                        <TextView
+                            android:id="@+id/tvBussinessDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bussiness_associate_details"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="5dp"
+                            android:layout_below="@+id/tvBussinessHeading"
+                            android:maxLines="3"
+                            />
 
 
-                       <TextView
-                           android:id="@+id/tvMore"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:text="More..."
-                           android:layout_below="@+id/tvBussinessDetails"
-                           android:layout_marginTop="5dp"
-                           android:textColor="@color/orange"
-                           />
+                        <TextView
+                            android:id="@+id/tvMore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="More..."
+                            android:layout_below="@+id/tvBussinessDetails"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/orange"
+                            />
 
-                   </RelativeLayout>
+                    </RelativeLayout>
 
                 </android.support.v7.widget.CardView>
 
@@ -520,7 +531,7 @@
 
 
 
-                    </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
@@ -529,7 +540,6 @@
 
 
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/input_layout_agreement"
         android:layout_width="match_parent"
@@ -543,7 +553,7 @@
             android:id="@+id/agreement_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:theme="@style/customCheckBoxStyle" />
 
         <TextView
