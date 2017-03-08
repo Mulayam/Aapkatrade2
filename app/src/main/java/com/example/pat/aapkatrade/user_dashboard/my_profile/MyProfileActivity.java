@@ -27,6 +27,7 @@ import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
@@ -49,7 +50,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     App_sharedpreference app_sharedpreference;
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
     ImageView imgCalender,backbutton;
-
+ProgressBarHandler p_handler;
     TextView tvDate, tvMyProfileDetailHeading;
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
@@ -61,7 +62,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         setContentView(R.layout.activity_my_profile);
 
         app_sharedpreference = new App_sharedpreference(this);
-
+        p_handler=new ProgressBarHandler(this);
         setuptoolbar();
 
         setup_layout();
@@ -191,19 +192,19 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 //            }
 //        });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-Log.e("btnlogout","btnlogout");
-                save_shared_pref("notlogin", "notlogin", "notlogin", "", "", "", "", "", "", "", "", "");
-
-
-                Intent Homedashboard = new Intent(MyProfileActivity.this, HomeActivity.class);
-                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(Homedashboard);
-
-            }
-        });
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//Log.e("btnlogout","btnlogout");
+//                save_shared_pref("notlogin", "notlogin", "notlogin", "", "", "", "", "", "", "", "", "");
+//
+//
+//                Intent Homedashboard = new Intent(MyProfileActivity.this, HomeActivity.class);
+//                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(Homedashboard);
+//
+//            }
+//        });
 
 
     }
@@ -228,6 +229,7 @@ Log.e("btnlogout","btnlogout");
     }
 
     private void edit_profile_webservice() {
+        p_handler.show();
 Log.e("address",etAddress.getText().toString());
         Ion.with(MyProfileActivity.this)
                 .load("https://aapkatrade.com/slim/my_account")
@@ -246,6 +248,7 @@ Log.e("address",etAddress.getText().toString());
                     public void onCompleted(Exception e, JsonObject result) {
 
                         if (result == null) {
+                            p_handler.hide();
                             System.out.println("result-----------NULLLLLLL");
 
 
@@ -261,6 +264,7 @@ Log.e("address",etAddress.getText().toString());
                             } else {
                                 Toast.makeText(MyProfileActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
+                            p_handler.hide();
                         }
                     }
                 });
