@@ -6,16 +6,19 @@ package com.example.pat.aapkatrade.user_dashboard.companylist;
 
 public class CompanyData {
 
-    String company_id, company_name, company_creation_date;
+    String company_id, company_name, company_creation_date,address,description;
     boolean clicked;
 
-    CompanyData(String company_id, String company_name, String company_creation_date,boolean clicked)
+    CompanyData(String company_id, String company_name, String company_creation_date,boolean clicked,String address,String description)
     {
 
         this.company_id = company_id;
         this.company_name = company_name;
         this.company_creation_date = company_creation_date;
         this.clicked=clicked;
+        this.address = address;
+        this.description = description;
+
 
     }
 }
