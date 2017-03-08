@@ -200,7 +200,7 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
             app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
             app_sharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
-            app_sharedpreference.setsharedpref("lastname", jsonObject.get("lastname").getAsString());
+            app_sharedpreference.setsharedpref("lname", jsonObject.get("lastname").getAsString());
             app_sharedpreference.setsharedpref("shopname", jsonObject.get("shopname").getAsString());
             app_sharedpreference.setsharedpref("business_type", jsonObject.get("business_type").getAsString());
             app_sharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
@@ -226,7 +226,7 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
             app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
             app_sharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
-            app_sharedpreference.setsharedpref("lastname", jsonObject.get("lastname").getAsString());
+            app_sharedpreference.setsharedpref("lname", jsonObject.get("lastname").getAsString());
             app_sharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
             app_sharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
             app_sharedpreference.setsharedpref("dob", jsonObject.get("dob").getAsString());
@@ -248,7 +248,7 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
             app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
             app_sharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
-            app_sharedpreference.setsharedpref("lastname", jsonObject.get("lastname").getAsString());
+            app_sharedpreference.setsharedpref("lname", jsonObject.get("lastname").getAsString());
             app_sharedpreference.setsharedpref("father_name", jsonObject.get("father_name").getAsString());
             app_sharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
             app_sharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
