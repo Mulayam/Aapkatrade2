@@ -18,7 +18,6 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,7 +38,7 @@ import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementActivity;
+import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import java.util.ArrayList;
 
@@ -150,7 +149,13 @@ public class HomeActivity extends AppCompatActivity
                 checked_wifispeed();
             }
         } else {
-            startActivity(new Intent(HomeActivity.this, AssociateAgreementActivity.class));
+Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
+            AssociateAgreementDialog dialog = new AssociateAgreementDialog(HomeActivity.this);
+            dialog.show();
+//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            dialog.setContentView(R.layout.dialog_associate_agreement);
+
+//            startActivity(new Intent(HomeActivity.this, AssociateAgreementDialog.class));
         }
     }
 
