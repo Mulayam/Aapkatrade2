@@ -1,41 +1,34 @@
-package com.example.pat.aapkatrade.user_dashboard.addcompany;
+package com.example.pat.aapkatrade.user_dashboard.editcompany;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.editcompany.EditCompanyActivity;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 
-public class AddCompany extends AppCompatActivity
+
+public class EditCompanyActivity extends AppCompatActivity
 {
 
-
+    String company_id,company_name,creation_date, address,description;
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail,etAddress,etDiscription;
     ProgressDialog dialog;
@@ -47,13 +40,24 @@ public class AddCompany extends AppCompatActivity
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_add_company);
+        setContentView(R.layout.activity_edit_company);
+
+        Intent intent = getIntent();
+
+        company_id = intent.getStringExtra("company_id");
+
+        company_name = intent.getStringExtra("company_name");
+
+        creation_date = intent.getStringExtra("company_creation_date");
+
+        address  = intent.getStringExtra("address");
+
+        description = intent.getStringExtra("description");
 
         app_sharedpreference = new App_sharedpreference(getApplicationContext());
 
@@ -65,12 +69,57 @@ public class AddCompany extends AppCompatActivity
 
         setuptoolbar();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-        initView();
-
+        setup_layout();
 
     }
+
+
+    private void setuptoolbar()
+    {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setTitle(null);
+
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
+
+    }
+
+    private void setup_layout()
+    {
+
+        btnSave = (Button) findViewById(R.id.btnSave);
+
+        etCompanyName = (EditText) findViewById(R.id.etCompanyName);
+        etCompanyName.setText(company_name);
+
+
+        etPEmail = (EditText) findViewById(R.id.etPEmail);
+        etPEmail.setText(email);
+
+
+        etSEmail= (EditText) findViewById(R.id.etSEmail);
+        etSEmail.setText(email);
+
+        etAddress = (EditText) findViewById(R.id.etAddress);
+        etAddress.setText(address);
+
+        etDiscription = (EditText) findViewById(R.id.etDiscription);
+        etDiscription.setText(description);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                addCompany();
+            }
+        });
+
+        linearLayout = (LinearLayout) findViewById(R.id.snakBar);
+    }
+
 
     private void addCompany()
     {
@@ -90,9 +139,9 @@ public class AddCompany extends AppCompatActivity
                         if(!etDiscription.getText().toString().equals(""))
                         {
 
-                            if(ConnetivityCheck.isNetworkAvailable(AddCompany.this))
+                            if(ConnetivityCheck.isNetworkAvailable(EditCompanyActivity.this))
                             {
-                                dialog=new ProgressDialog(AddCompany.this);
+                                dialog=new ProgressDialog(EditCompanyActivity.this);
                                 dialog.setMessage("Loading...\nPlease Wait");
                                 dialog.setCancelable(false);
                                 dialog.setInverseBackgroundForced(false);
@@ -168,20 +217,21 @@ public class AddCompany extends AppCompatActivity
 
     }
 
+
     private void callAddCompanyWebService(String userId, final String companyName, String pEmail , String sEmail, String address, String description)
     {
 
         progress_handler.show();
 
-        Ion.with(AddCompany.this)
-                .load("http://aapkatrade.com/slim/addCompany")
+        Ion.with(EditCompanyActivity.this)
+                .load("https://aapkatrade.com/slim/editCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", userId)
                 .setBodyParameter("company_name", companyName)
                 .setBodyParameter("secondaryEmail",sEmail)
                 .setBodyParameter("address", address)
                 .setBodyParameter("description", description)
+                .setBodyParameter("id", company_id)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
@@ -191,115 +241,53 @@ public class AddCompany extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        if (result == null)
-                        {
+                        if (result == null){
 
                             progress_handler.hide();
 
                         }
                         else
-                        {
+                            {
                             JsonObject jsonObject = result.getAsJsonObject();
                             String message = jsonObject.get("message").getAsString();
-                            Log.e("message", message);
-
-                            if (message.equals("You company successfully added"))
-                            {
-
-                                progress_handler.hide();
-                                etCompanyName.setText("");
-
-                                etSEmail.setText("");
-                                etAddress.setText("");
-                                etDiscription.setText("");
-                                Toast.makeText(getApplicationContext(),"Company Registerted",Toast.LENGTH_SHORT).show();
-
-                                Intent companylist = new Intent(AddCompany.this, CompanyList.class);
-                                startActivity(companylist);
 
 
+                                if (message.equals("You company successfully added"))
+                                {
 
-                            }
-                            else
-                            {
-                                progress_handler.hide();
-                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-                            }
+                                    progress_handler.hide();
+                                    etCompanyName.setText("");
 
-                            /*  snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
-                            Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
-                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(Homedashboard);*/
+                                    etSEmail.setText("");
+                                    etAddress.setText("");
+                                    etDiscription.setText("");
+
+                                    Toast.makeText(getApplicationContext(),"Company details has been sucessfully updated",Toast.LENGTH_SHORT).show();
+
+                                    Intent companylist = new Intent(EditCompanyActivity.this, CompanyList.class);
+                                    startActivity(companylist);
 
 
+
+                                }
+                                else
+                                {
+                                    progress_handler.hide();
+                                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                                }
+
+                               /*snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
+                                 Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
+                                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(Homedashboard);*/
 
                         }
                     }
                 });
     }
 
-    private void initView()
-    {
-        btnSave = (Button) findViewById(R.id.btnSave);
-
-        etCompanyName = (EditText) findViewById(R.id.etCompanyName);
-
-        etPEmail = (EditText) findViewById(R.id.etPEmail);
-        etPEmail.setText(email);
-
-        etSEmail= (EditText) findViewById(R.id.etSEmail);
-
-        etAddress = (EditText) findViewById(R.id.etAddress);
-
-        etDiscription = (EditText) findViewById(R.id.etDiscription);
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                addCompany();
-            }
-        });
-
-        linearLayout = (LinearLayout) findViewById(R.id.snakBar);
-    }
 
 
-    private void setuptoolbar()
-    {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setTitle(null);
-
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
 

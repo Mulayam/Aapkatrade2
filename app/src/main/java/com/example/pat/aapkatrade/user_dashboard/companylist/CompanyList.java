@@ -36,6 +36,7 @@ public class CompanyList extends AppCompatActivity
     String user_id;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -66,11 +67,7 @@ public class CompanyList extends AppCompatActivity
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "company")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-
                 .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
-
-              
-
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -103,9 +100,15 @@ public class CompanyList extends AppCompatActivity
 
                                 String creation_date = jsonObject2.get("created").getAsString();
 
+                                String address = jsonObject2.get("address").getAsString();
+
+                                String description = jsonObject2.get("description").getAsString();
+
                                 System.out.println("ferhgjerk" + country_id + name + creation_date);
 
-                                companyDatas.add(new CompanyData(country_id, name, creation_date,false));
+                                companyDatas.add(new CompanyData(country_id, name, creation_date,false,address,description));
+
+
                             }
                             companyListAdapter = new CompanyListAdapter(CompanyList.this, companyDatas, CompanyList.this);
 
@@ -122,6 +125,7 @@ public class CompanyList extends AppCompatActivity
                     }
 
                 });
+
 
     }
 

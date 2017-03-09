@@ -52,12 +52,15 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     App_sharedpreference app_sharedpreference;
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
     ImageView imgCalender,backbutton;
-ProgressBarHandler p_handler;
+    ProgressBarHandler p_handler;
     TextView tvDate, tvMyProfileDetailHeading;
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
     AppBarLayout aapbar_layout_myprofile;
     CoordinatorLayout coordinatorlayout_myprofile;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
