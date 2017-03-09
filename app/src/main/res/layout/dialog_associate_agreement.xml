@@ -3,10 +3,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/transparent"
     android:layout_height="match_parent"
-
+    android:background="@color/transparent"
     >
+
     <Button
         android:id="@+id/imgCLose"
         android:layout_width="40dp"
@@ -14,267 +14,217 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/bt_dialog_close"
-        android:text="×"
-        android:textColor="@color/green"
-        />
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@drawable/bg_dialog"
-    android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="10dp"
+        android:text="X"
+        android:textStyle="bold"
+        android:textColor="@color/green" />
 
-    >
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:background="@color/green"
-
-
-
-
-
-
-        android:layout_height="50dp">
-
-
-    </RelativeLayout>
-
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_associate_agreement"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:orientation="vertical"
-        android:weightSum="15"
-
-        tools:context="com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/fifty_dip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_dialog"
 
 
+        >
 
-
-        <LinearLayout
-            android:id="@+id/activity_my_profile"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="14"
-            android:orientation="vertical">
+            android:layout_height="@dimen/fifty_dip"
+            android:background="@drawable/green_background">
 
-            <android.support.v4.widget.NestedScrollView
+
+        </RelativeLayout>
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/activity_associate_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/fifty_dip"
+            android:orientation="vertical"
+            android:weightSum="15"
+            tools:context="com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog">
+
+
+            <LinearLayout
+                android:id="@+id/activity_my_profile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_weight="14"
+                android:orientation="vertical">
 
-
-                <LinearLayout
+                <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:descendantFocusability="beforeDescendants"
-                    android:focusableInTouchMode="true"
-                    android:orientation="vertical"
+                    android:layout_height="match_parent">
 
-                    >
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/step1aLayout"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-android:layout_marginRight="@dimen/ten_dip"
-                        android:layout_marginLeft="@dimen/ten_dip"
+                        android:layout_height="match_parent"
+                        android:descendantFocusability="beforeDescendants"
+                        android:focusableInTouchMode="true"
+                        android:orientation="vertical"
 
-                        android:padding="@dimen/twenty_dip"
                         >
 
-                        <LinearLayout
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/step1aLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
-                            android:orientation="vertical">
-
-
-
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:id="@+id/imageViewProfilePic"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:layout_gravity="center_horizontal|center_vertical"
-                                android:layout_margin="@dimen/ten_dip"
-                                android:src="@drawable/ic_profile_user" />
+                            android:layout_marginLeft="@dimen/ten_dip"
+                            android:layout_marginRight="@dimen/ten_dip"
+                            android:layout_marginTop="@dimen/ten_dip"
+                            >
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/twenty_dip"
-                                android:layout_marginTop="@dimen/ten_dip"
+
                                 android:orientation="vertical">
 
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
 
-
-                                    <TextView
-                                        android:id="@+id/tvUserName"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerHorizontal="true"
-                                        android:text="Name: Gunni Jaya Sharma"
-                                        android:textColor="@color/black" />
-
-                                    <TextView
-                                        android:id="@+id/tvDate"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/tvUserName"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_marginTop="5dp"
-                                        android:text="Join Date: 2017-01-31 06:46:54"
-                                        android:textColor="@color/orange" />
-
-                                    <TextView
-                                        android:id="@+id/tvReferenceNumber"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/tvDate"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_marginTop="5dp"
-                                        android:text="Reference Number:vijayranj2"
-                                        android:textColor="@color/black" />
-
-
-                                </RelativeLayout>
-
-
-                            </LinearLayout>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/step1bLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/ten_dip"
-                        android:layout_marginLeft="@dimen/ten_dip"
-                        android:layout_marginTop="@dimen/ten_dip"
-                        android:padding="@dimen/twenty_dip">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-
-                            <TextView
-                                android:id="@+id/tvBussinessHeading"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/business_associate_heading"
-                                android:textColor="@color/black"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-
-
-                            <TextView
-                                android:id="@+id/tvBussinessDetails"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvBussinessHeading"
-                                android:layout_marginTop="5dp"
-                                android:maxLines="3"
-                                android:text="@string/bussiness_associate_details"
-                                android:textColor="@color/black" />
-
-
-                            <TextView
-                                android:id="@+id/tvMore"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvBussinessDetails"
-                                android:layout_marginTop="5dp"
-                                android:text="More..."
-                                android:textColor="@color/orange" />
-
-                        </RelativeLayout>
-
-                    </android.support.v7.widget.CardView>
-
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cardViewGraph"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/ten_dip"
-
-                        android:layout_marginTop="@dimen/ten_dip"
-                        android:layout_marginRight="@dimen/ten_dip"
-                        android:layout_marginLeft="@dimen/ten_dip"
-                        android:padding="@dimen/twenty_dip">
-
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="20dp">
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/imageViewProfilePic"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_gravity="center_horizontal|center_vertical"
+                                    android:layout_margin="@dimen/ten_dip"
+                                    android:src="@drawable/ic_profile_user" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:weightSum="4"
-
-                                    >
-
+                                    android:layout_marginBottom="@dimen/twenty_dip"
+                                    android:layout_marginTop="@dimen/ten_dip"
+                                    android:orientation="vertical">
 
                                     <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1"
-                                        android:orientation="vertical">
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
 
-                                        <RelativeLayout
-                                            android:layout_width="25dp"
+
+                                        <TextView
+                                            android:id="@+id/tvUserName"
+                                            android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
+                                            android:layout_centerHorizontal="true"
+                                            android:text="Name: Gunni Jaya Sharma"
+                                            android:textColor="@color/black" />
 
-                                            <ImageView
-                                                android:id="@+id/imGreenTraingle"
-                                                android:layout_width="25dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="@drawable/green_traingle"
-                                                android:scaleType="fitXY" />
+                                        <TextView
+                                            android:id="@+id/tvDate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/tvUserName"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Join Date: 2017-01-31 06:46:54"
+                                            android:textColor="@color/orange" />
 
+                                        <TextView
+                                            android:id="@+id/tvReferenceNumber"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/tvDate"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginTop="5dp"
+                                            android:text="Reference Number:vijayranj2"
+                                            android:textColor="@color/black" />
 
-                                            <View
-                                                android:layout_width="25dp"
-                                                android:layout_height="200dp"
-                                                android:layout_below="@+id/imGreenTraingle"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="#05DB61" />
-
-
-                                        </RelativeLayout>
 
                                     </RelativeLayout>
 
 
+                                </LinearLayout>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/step1bLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ten_dip"
+                            android:layout_marginRight="@dimen/ten_dip"
+                            android:layout_marginTop="@dimen/ten_dip"
+                            android:padding="@dimen/twenty_dip">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+
+                                <TextView
+                                    android:id="@+id/tvBussinessHeading"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/business_associate_heading"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/textsize_medium"
+                                    android:textStyle="bold" />
+
+
+                                <TextView
+                                    android:id="@+id/tvBussinessDetails"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvBussinessHeading"
+                                    android:layout_marginTop="5dp"
+                                    android:maxLines="3"
+                                    android:textSize="@dimen/textsize"
+                                    android:text="@string/bussiness_associate_details"
+                                    android:textColor="@color/black" />
+
+
+                                <TextView
+                                    android:id="@+id/tvMore"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/tvBussinessDetails"
+                                    android:layout_marginTop="5dp"
+                                    android:text="More..."
+                                    android:textColor="@color/orange" />
+
+                            </RelativeLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cardViewGraph"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/ten_dip"
+                            android:layout_marginRight="@dimen/ten_dip"
+                            android:layout_marginTop="@dimen/ten_dip"
+                            android:padding="@dimen/twenty_dip">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="@dimen/ten_dip">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="100dp"
+                                    android:id="@+id/ll_graph"
+
+                                    android:weightSum="4"
+                                    >
+
                                     <RelativeLayout
                                         android:layout_width="0dp"
-                                        android:layout_height="150dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_gravity="bottom"
                                         android:layout_weight="1">
 
@@ -284,24 +234,22 @@ android:layout_marginRight="@dimen/ten_dip"
                                             android:layout_centerHorizontal="true">
 
                                             <ImageView
-                                                android:id="@+id/imYellowTraingle"
+                                                android:id="@+id/imBlackTraingle"
                                                 android:layout_width="25dp"
                                                 android:layout_height="wrap_content"
                                                 android:layout_centerHorizontal="true"
-                                                android:background="@drawable/yellow_traingle"
+                                                android:background="@drawable/black_traingle"
                                                 android:scaleType="fitXY" />
 
 
                                             <View
                                                 android:layout_width="25dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_below="@+id/imYellowTraingle"
+                                                android:layout_height="40dp"
+                                                android:layout_below="@+id/imBlackTraingle"
                                                 android:layout_centerHorizontal="true"
-                                                android:background="#FEF200"></View>
-
+                                                android:background="#4B4B4B" />
 
                                         </RelativeLayout>
-
 
                                     </RelativeLayout>
 
@@ -327,10 +275,10 @@ android:layout_marginRight="@dimen/ten_dip"
 
                                             <View
                                                 android:layout_width="25dp"
-                                                android:layout_height="100dp"
+                                                android:layout_height="60dp"
                                                 android:layout_below="@+id/imRedTraingle"
                                                 android:layout_centerHorizontal="true"
-                                                android:background="#FA2B33"></View>
+                                                android:background="@color/red" />
 
 
                                         </RelativeLayout>
@@ -349,20 +297,57 @@ android:layout_marginRight="@dimen/ten_dip"
                                             android:layout_centerHorizontal="true">
 
                                             <ImageView
-                                                android:id="@+id/imBlackTraingle"
+                                                android:id="@+id/imYellowTraingle"
                                                 android:layout_width="25dp"
                                                 android:layout_height="wrap_content"
                                                 android:layout_centerHorizontal="true"
-                                                android:background="@drawable/black_traingle"
+                                                android:background="@drawable/yellow_traingle"
                                                 android:scaleType="fitXY" />
 
 
                                             <View
                                                 android:layout_width="25dp"
-                                                android:layout_height="50dp"
-                                                android:layout_below="@+id/imBlackTraingle"
+                                                android:layout_height="80dp"
+                                                android:layout_below="@+id/imYellowTraingle"
                                                 android:layout_centerHorizontal="true"
-                                                android:background="#4B4B4B"></View>
+                                                android:background="@color/yellow" />
+
+
+                                        </RelativeLayout>
+
+
+                                    </RelativeLayout>
+
+
+
+                                    <RelativeLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="bottom"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
+
+                                        <RelativeLayout
+                                            android:layout_width="25dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerHorizontal="true">
+
+                                            <ImageView
+                                                android:id="@+id/imGreenTraingle"
+                                                android:layout_width="25dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerHorizontal="true"
+                                                android:background="@drawable/green_traingle"
+                                                android:scaleType="fitXY" />
+
+
+                                            <View
+                                                android:layout_width="25dp"
+                                                android:layout_height="100dp"
+                                                android:layout_below="@+id/imGreenTraingle"
+                                                android:layout_centerHorizontal="true"
+                                                android:background="#05DB61" />
+
 
                                         </RelativeLayout>
 
@@ -370,12 +355,110 @@ android:layout_marginRight="@dimen/ten_dip"
 
 
                                 </LinearLayout>
-
-
                                 <View
                                     android:layout_width="match_parent"
                                     android:layout_height="2dp"
-                                    android:background="#8A8A8A"></View>
+                                    android:layout_below="@+id/ll_graph"
+                                    android:background="@color/grey" />
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="left"
+                                    android:id="@+id/ll_progress_text"
+                                    android:layout_alignParentRight="true"
+
+                                    >
+
+
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_height="wrap_content">
+                                        <ImageView
+                                            android:layout_width="@dimen/twenty_dip"
+                                            android:id="@+id/img_view_green"
+                                            android:background="@color/green"
+
+                                            android:layout_height="@dimen/twenty_dip" />
+                                        <TextView
+                                            android:layout_width="220dp"
+                                            android:text="@string/greenMark"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_toRightOf="@+id/img_view_green"
+                                            android:layout_height="wrap_content" />
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_height="wrap_content">
+                                        <ImageView
+                                            android:layout_width="@dimen/twenty_dip"
+                                            android:background="@color/yellow"
+                                            android:id="@+id/img_view_yellow"
+                                            android:layout_height="@dimen/twenty_dip" />
+                                        <TextView
+                                            android:layout_width="220dp"
+                                            android:text="@string/yellowMark"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_toRightOf="@+id/img_view_yellow"
+                                            android:layout_height="wrap_content" />
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_marginTop="10dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+
+                                        <ImageView
+                                            android:layout_width="@dimen/twenty_dip"
+                                            android:id="@+id/img_view_red"
+                                            android:background="@color/red"
+                                            android:layout_height="@dimen/twenty_dip" />
+                                        <TextView
+                                            android:layout_width="220dp"
+                                        android:text="@string/redMark"
+                                            android:layout_marginLeft="5dp"
+
+                                            android:layout_toRightOf="@+id/img_view_red"
+                                            android:layout_height="wrap_content" />
+
+
+                                </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_height="wrap_content">
+                                        <ImageView
+                                            android:layout_width="@dimen/twenty_dip"
+                                            android:id="@+id/img_view_black"
+                                            android:background="#4B4B4B"
+
+                                            android:layout_height="@dimen/twenty_dip" />
+                                        <TextView
+                                            android:layout_width="220dp"
+                                            android:text="@string/blackMark"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_toRightOf="@+id/img_view_black"
+                                            android:layout_height="wrap_content" />
+
+
+                                    </RelativeLayout>
+
+
+
+
+
+
+                                </LinearLayout>
 
 
                                 <LinearLayout
@@ -383,7 +466,7 @@ android:layout_marginRight="@dimen/ten_dip"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal"
                                     android:weightSum="4"
-
+                                    android:visibility="gone"
                                     >
 
 
@@ -399,24 +482,25 @@ android:layout_marginRight="@dimen/ten_dip"
                                         <RelativeLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true"
-                                            android:padding="10dp">
+                                            android:layout_centerHorizontal="true">
 
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:text="Doing Great"
-                                                android:textColor="@color/black"
-
-                                                />
+                                                android:text="@string/greenMark"
+                                                android:textColor="@color/grey_gradient2"
+                                                android:gravity="center_horizontal"
+                                                android:layout_alignParentTop="true"
+                                                android:layout_alignParentLeft="true"
+                                                android:layout_alignParentStart="true" />
 
                                         </RelativeLayout>
 
                                         <View
                                             android:layout_width="2dp"
-                                            android:layout_height="30dp"
+                                            android:layout_height="80dp"
                                             android:layout_alignParentRight="true"
-                                            android:background="#8A8A8A"></View>
+                                            android:background="@color/grey" />
 
 
                                     </RelativeLayout>
@@ -434,23 +518,23 @@ android:layout_marginRight="@dimen/ten_dip"
                                         <RelativeLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true"
-                                            android:padding="10dp">
+                                            android:layout_centerHorizontal="true">
 
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_centerHorizontal="true"
-                                                android:text="Nedd to catch-up with the target"
-                                                android:textColor="@color/black" />
+                                                android:text="@string/yellowMark"
+                                                android:gravity="center_horizontal"
+                                                android:textColor="@color/grey_gradient2" />
 
                                         </RelativeLayout>
 
                                         <View
                                             android:layout_width="2dp"
-                                            android:layout_height="30dp"
+                                            android:layout_height="80dp"
                                             android:layout_alignParentRight="true"
-                                            android:background="#8A8A8A"></View>
+                                            android:background="@color/grey" />
 
 
                                     </RelativeLayout>
@@ -466,23 +550,23 @@ android:layout_marginRight="@dimen/ten_dip"
                                         <RelativeLayout
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true"
-                                            android:padding="10dp">
+                                            android:layout_centerHorizontal="true">
 
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_centerHorizontal="true"
-                                                android:text="Danger Zone"
-                                                android:textColor="@color/black" />
+                                                android:text="@string/redMark"
+                                                android:gravity="center_horizontal"
+                                                android:textColor="@color/grey_gradient2" />
 
                                         </RelativeLayout>
 
                                         <View
                                             android:layout_width="2dp"
-                                            android:layout_height="30dp"
+                                            android:layout_height="80dp"
                                             android:layout_alignParentRight="true"
-                                            android:background="#8A8A8A"></View>
+                                            android:background="@color/grey" />
 
                                     </RelativeLayout>
 
@@ -498,14 +582,15 @@ android:layout_marginRight="@dimen/ten_dip"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_centerHorizontal="true"
-                                            android:padding="10dp">
+                                            >
 
                                             <TextView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_centerHorizontal="true"
-                                                android:text="Out of System"
-                                                android:textColor="@color/black" />
+                                                android:text="@string/blackMark"
+                                                android:gravity="center_horizontal"
+                                                android:textColor="@color/grey_gradient2" />
 
                                         </RelativeLayout>
 
@@ -516,58 +601,55 @@ android:layout_marginRight="@dimen/ten_dip"
                                 </LinearLayout>
 
 
-                            </LinearLayout>
+                            </RelativeLayout>
 
 
-                        </RelativeLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
 
 
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
 
 
-            </android.support.v4.widget.NestedScrollView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/input_layout_agreement"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+
+                android:layout_marginBottom="@dimen/two_dip"
+                android:layout_marginLeft="@dimen/two_dip"
+                android:layout_marginRight="@dimen/two_dip"
+                android:layout_marginTop="@dimen/two_dip"
+                android:layout_weight="1"
+                android:background="@drawable/orange_background">
+
+                <CheckBox
+                    android:id="@+id/agreement_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/orange"
+                    android:checked="false"
+                    android:theme="@style/customCheckBoxStyle" />
+
+                <TextView
+                    android:id="@+id/tv_agreement"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/accept_t_and_c"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
 
-        <LinearLayout
-            android:id="@+id/input_layout_agreement"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-
-            android:layout_marginTop="@dimen/two_dip"
-            android:layout_weight="1"
-            android:layout_marginRight="@dimen/two_dip"
-            android:layout_marginLeft="@dimen/two_dip"
-            android:layout_marginBottom="@dimen/two_dip"
-            android:background="@drawable/orange_background">
-
-            <CheckBox
-                android:id="@+id/agreement_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/orange"
-                android:checked="false"
-                android:shadowColor="@color/white"
-                android:theme="@style/customCheckBoxStyle" />
-
-            <TextView
-                android:id="@+id/tv_agreement"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/accept_t_and_c"
-                android:textColor="@color/white" />
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>
