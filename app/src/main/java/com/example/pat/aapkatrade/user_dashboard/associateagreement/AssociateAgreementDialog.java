@@ -96,7 +96,7 @@ public class AssociateAgreementDialog extends Dialog {
                                 context.startActivity(new Intent(context, HomeActivity.class));
                             }
                         } else {
-                            showMessage("Webservice Responding Null");
+                            showMessage("Try Again Later");
                         }
                     }
                 });

@@ -148,6 +148,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/grey__more_light"
                 android:orientation="horizontal"
+                android:visibility="gone"
+                android:id="@+id/ll_payout"
                 android:padding="@dimen/ten_dip">
 
                 <TextView
