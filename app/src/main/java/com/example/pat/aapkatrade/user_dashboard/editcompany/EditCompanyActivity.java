@@ -17,6 +17,8 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -26,7 +28,7 @@ import com.koushikdutta.ion.Ion;
 public class EditCompanyActivity extends AppCompatActivity
 {
 
-    String company_name,creation_date, address,description;
+    String company_id,company_name,creation_date, address,description;
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail,etAddress,etDiscription;
     ProgressDialog dialog;
@@ -47,6 +49,8 @@ public class EditCompanyActivity extends AppCompatActivity
 
         Intent intent = getIntent();
 
+        company_id = intent.getStringExtra("company_id");
+
         company_name = intent.getStringExtra("company_name");
 
         creation_date = intent.getStringExtra("company_creation_date");
@@ -58,6 +62,7 @@ public class EditCompanyActivity extends AppCompatActivity
         app_sharedpreference = new App_sharedpreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
+
         email = app_sharedpreference.getsharedpref("emailid", "");
 
         progress_handler = new ProgressBarHandler(this);
@@ -82,7 +87,8 @@ public class EditCompanyActivity extends AppCompatActivity
 
     }
 
-    private void setup_layout() {
+    private void setup_layout()
+    {
 
         btnSave = (Button) findViewById(R.id.btnSave);
 
@@ -218,14 +224,14 @@ public class EditCompanyActivity extends AppCompatActivity
         progress_handler.show();
 
         Ion.with(EditCompanyActivity.this)
-                .load("http://aapkatrade.com/slim/addCompany")
+                .load("https://aapkatrade.com/slim/editCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("user_id", userId)
                 .setBodyParameter("company_name", companyName)
                 .setBodyParameter("secondaryEmail",sEmail)
                 .setBodyParameter("address", address)
                 .setBodyParameter("description", description)
+                .setBodyParameter("id", company_id)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
                 {
@@ -235,26 +241,47 @@ public class EditCompanyActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        JsonObject jsonObject = result.getAsJsonObject();
-                        String message = jsonObject.get("message").getAsString();
-                        Log.e("message",message);
-                        progress_handler.hide();
+                        if (result == null){
 
-                        etCompanyName.setText("");
-                        etPEmail.setText("");
-                        etSEmail.setText("");
-                        etAddress.setText("");
-                        etDiscription.setText("");
+                            progress_handler.hide();
 
-                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-
-                      /*  snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
+                        }
+                        else
+                            {
+                            JsonObject jsonObject = result.getAsJsonObject();
+                            String message = jsonObject.get("message").getAsString();
 
 
-                        Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
-                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(Homedashboard);*/
+                                if (message.equals("You company successfully added"))
+                                {
 
+                                    progress_handler.hide();
+                                    etCompanyName.setText("");
+
+                                    etSEmail.setText("");
+                                    etAddress.setText("");
+                                    etDiscription.setText("");
+
+                                    Toast.makeText(getApplicationContext(),"Company details has been sucessfully updated",Toast.LENGTH_SHORT).show();
+
+                                    Intent companylist = new Intent(EditCompanyActivity.this, CompanyList.class);
+                                    startActivity(companylist);
+
+
+
+                                }
+                                else
+                                {
+                                    progress_handler.hide();
+                                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                                }
+
+                               /*snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
+                                 Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
+                                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(Homedashboard);*/
+
+                        }
                     }
                 });
     }

@@ -28,8 +28,6 @@ import java.util.List;
  */
 public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-
-
      final LayoutInflater inflater;
      List<CompanyData> itemList;
      Context context;
@@ -52,7 +50,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         inflater = LayoutInflater.from(context);
 
         app_sharedpreference = new App_sharedpreference(context);
-
 
 
     }
@@ -187,6 +184,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v)
             {
                  Intent editCompany = new Intent(context, EditCompanyActivity.class);
+                editCompany.putExtra("company_id",itemList.get(position).company_id);
                  editCompany.putExtra("company_name",itemList.get(position).company_name);
                  editCompany.putExtra("company_creation_date",itemList.get(position).company_creation_date);
                  editCompany.putExtra("address",itemList.get(position).address);
@@ -204,12 +202,9 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v)
             {
 
-                Toast.makeText(context, "hi dear", Toast.LENGTH_SHORT).show();
-
                 System.out.println("deiete company--------"+itemList.get(position).company_id);
 
                 delete_company(itemList.get(position).company_id, position);
-
 
 
             }
@@ -236,8 +231,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             if (result == null)
                             {
 
-
-
                             }
                             else
                             {
@@ -248,6 +241,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     itemList.remove(p);
                                     notifyItemRemoved(p);
                                     notifyItemRangeChanged(p, itemList.size());
+
                                 }
                                 else
                                 {

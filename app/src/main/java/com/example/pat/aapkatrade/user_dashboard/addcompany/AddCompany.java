@@ -24,6 +24,8 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
+import com.example.pat.aapkatrade.user_dashboard.editcompany.EditCompanyActivity;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -33,6 +35,7 @@ import com.koushikdutta.ion.Ion;
 public class AddCompany extends AppCompatActivity
 {
 
+
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail,etAddress,etDiscription;
     ProgressDialog dialog;
@@ -40,7 +43,8 @@ public class AddCompany extends AppCompatActivity
     Snackbar snackbar;
     ProgressBarHandler progress_handler;
     App_sharedpreference app_sharedpreference;
-    String user_id;
+    String user_id,email;
+
 
 
 
@@ -54,6 +58,8 @@ public class AddCompany extends AppCompatActivity
         app_sharedpreference = new App_sharedpreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
+
+        email = app_sharedpreference.getsharedpref("emailid", "");
 
         progress_handler = new ProgressBarHandler(this);
 
@@ -185,39 +191,61 @@ public class AddCompany extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        JsonObject jsonObject = result.getAsJsonObject();
-                        String message = jsonObject.get("message").getAsString();
-                        Log.e("message",message);
-                        progress_handler.hide();
+                        if (result == null)
+                        {
 
-                        etCompanyName.setText("");
-                        etPEmail.setText("");
-                        etSEmail.setText("");
-                        etAddress.setText("");
-                        etDiscription.setText("");
+                            progress_handler.hide();
 
-                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            JsonObject jsonObject = result.getAsJsonObject();
+                            String message = jsonObject.get("message").getAsString();
+                            Log.e("message", message);
 
-                      /*  snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
+                            if (message.equals("You company successfully added"))
+                            {
+
+                                progress_handler.hide();
+                                etCompanyName.setText("");
+
+                                etSEmail.setText("");
+                                etAddress.setText("");
+                                etDiscription.setText("");
+                                Toast.makeText(getApplicationContext(),"Company Registerted",Toast.LENGTH_SHORT).show();
+
+                                Intent companylist = new Intent(AddCompany.this, CompanyList.class);
+                                startActivity(companylist);
 
 
-                        Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
-                        Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(Homedashboard);*/
 
+                            }
+                            else
+                            {
+                                progress_handler.hide();
+                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+                            }
+
+                            /*  snackbar.make(linearLayout, message, Snackbar.LENGTH_SHORT).show();
+                            Intent Homedashboard = new Intent(AddCompany.this, HomeActivity.class);
+                            Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(Homedashboard);*/
+
+
+
+                        }
                     }
                 });
     }
 
     private void initView()
     {
-
-
         btnSave = (Button) findViewById(R.id.btnSave);
 
         etCompanyName = (EditText) findViewById(R.id.etCompanyName);
 
         etPEmail = (EditText) findViewById(R.id.etPEmail);
+        etPEmail.setText(email);
 
         etSEmail= (EditText) findViewById(R.id.etSEmail);
 

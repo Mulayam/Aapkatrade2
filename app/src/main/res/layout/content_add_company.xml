@@ -9,6 +9,8 @@
     android:orientation="vertical"
     android:background="#EEEEEE">
 
+
+
     <RelativeLayout
         android:id="@+id/relativeAddCompanyHeader"
         android:layout_width="match_parent"
@@ -25,7 +27,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/orange_back"
             >
-
 
             <ImageView
                 android:id="@+id/imgAddCompany"
@@ -124,6 +125,8 @@
                         android:inputType="textEmailAddress"
                         android:layout_marginTop="20dp"
                         android:textIsSelectable="false"
+                        android:editable="false"
+                        android:focusable="false"
                         />
 
 
@@ -195,6 +198,7 @@
                         android:layout_marginTop="20dp"
                         />
 
+
                 </LinearLayout>
 
 
@@ -202,7 +206,6 @@
 
 
         </android.support.v7.widget.CardView>
-
 
 
     </LinearLayout>
