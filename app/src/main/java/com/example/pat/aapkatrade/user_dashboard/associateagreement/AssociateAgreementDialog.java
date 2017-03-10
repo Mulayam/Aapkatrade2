@@ -103,7 +103,7 @@ public class AssociateAgreementDialog extends Dialog {
                                 context.startActivity(new Intent(context, HomeActivity.class));
                             }
                         } else {
-                            showMessage("Webservice Responding Null");
+                            showMessage("Try Again Later");
                         }
                     }
                 });
@@ -130,6 +130,12 @@ public class AssociateAgreementDialog extends Dialog {
         imgCLose = (Button) findViewById(R.id.imgCLose);
         tvMore.setVisibility(View.VISIBLE);
         tvBussinessDetails.setMaxLines(3);
+
+
+        GradientDrawable shape =  new GradientDrawable();
+        shape.setCornerRadius( 8 );
+        shape.setColor(ContextCompat.getColor(context, R.color.orange));
+        findViewById(R.id.input_layout_agreement).setBackground(shape);
         tvBussinessDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

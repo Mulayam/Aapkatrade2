@@ -152,10 +152,7 @@ public class HomeActivity extends AppCompatActivity
 Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
             AssociateAgreementDialog dialog = new AssociateAgreementDialog(HomeActivity.this);
             dialog.show();
-//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//            dialog.setContentView(R.layout.dialog_associate_agreement);
 
-//            startActivity(new Intent(HomeActivity.this, AssociateAgreementDialog.class));
         }
     }
 

@@ -16,34 +16,20 @@ import com.example.pat.aapkatrade.R;
 public class PayoutHolder extends RecyclerView.ViewHolder
 {
 
-    View view;
-    TextView tvCompanyname,tvDate;
-    ImageView imgEdtCompanyName,imgDeleteCompany,imgNext;
-    RelativeLayout relativecompanyList;
-    LinearLayout linearLayoutDetail;
-    View View1;
+
+    TextView tvFromDate,tvToDate,tvRupees;
+
 
 
     public PayoutHolder(View itemView)
     {
         super(itemView);
 
-        View1 = (View) itemView.findViewById(R.id.View1);
 
-        linearLayoutDetail = (LinearLayout)  itemView.findViewById(R.id.linearLayoutDetail);
+        tvFromDate=(TextView)itemView.findViewById(R.id.tvFromDate);
+        tvToDate=(TextView)itemView.findViewById(R.id.tvToDate);
+        tvRupees=(TextView)itemView.findViewById(R.id.tvRupees);
 
-        relativecompanyList = (RelativeLayout) itemView.findViewById(R.id.relativecompanyList);
 
-        imgNext = (ImageView) itemView.findViewById(R.id.imgNext);
-
-        imgEdtCompanyName = (ImageView) itemView.findViewById(R.id.imgEdit);
-
-        tvCompanyname = (TextView) itemView.findViewById(R.id.tvCompanyname);
-
-        tvDate = (TextView) itemView.findViewById(R.id.tvDate);
-
-        imgDeleteCompany = (ImageView)  itemView.findViewById(R.id.imgDelete);
-
-        view = itemView;
     }
 }
