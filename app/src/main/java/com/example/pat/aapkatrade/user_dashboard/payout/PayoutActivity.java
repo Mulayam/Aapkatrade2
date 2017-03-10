@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.payout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +14,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressData;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressListAdapter;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -34,7 +43,9 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
     ArrayList<PayoutData> payoutDatas = new ArrayList<>();
     RecyclerView payoutList;
     PayoutAdapter payoutAdapter;
-
+RelativeLayout relativeAddress;
+    private App_sharedpreference app_sharedpreference;
+    ProgressBarHandler progressBarHandler;
 
 
     @Override
@@ -47,24 +58,11 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
 
         initView();
 
-        setup_data();
+
 
         setup_layout();
 
-        openStartDateCal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isStartDate = 0;
-                openCalender();
-            }
-        });
-        openEndDateCal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isStartDate = 1;
-                openCalender();
-            }
-        });
+
     }
 
     private void setup_layout()
@@ -79,16 +77,96 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
         payoutList.setAdapter(payoutAdapter);
 
         payoutList.setLayoutManager(mLayoutManager);
+        openStartDateCal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isStartDate = 0;
+                openCalender();
+            }
+        });
+        openEndDateCal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isStartDate = 1;
+                openCalender();
+            }
+        });
+
+        relativeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callwebservicepayout();
+            }
+        });
+
+
+    }
+
+    private void callwebservicepayout() {
+
+        if(etStartDate.getText().length()!=0) {
+            if(etEndDate.getText().length()!=0) {
+
+                progressBarHandler.show();
+
+                String payout_url = getResources().getString(R.string.webservice_base_url )+ "/payout";
+                Log.e("payout_url",etStartDate.getText().toString().trim()+"*****"+etEndDate.getText().toString().trim());
+                Ion.with(context)
+                        .load(payout_url)
+                        .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", ""))
+                        .setBodyParameter("from_date",etStartDate.getText().toString().trim() )
+                        .setBodyParameter("to_date", etEndDate.getText().toString().trim())
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
+
+                                String error=result.get("error").getAsString();
+
+                                Log.e("error",error+"***"+result.toString());
+                                    if (error.contains("false")) {
+                                       String total_payout= result.get("total").getAsString();
+                                        setup_data(total_payout);
+                                        progressBarHandler.hide();
+
+                                        //context.startActivity(new Intent(context, HomeActivity.class));
+                                    }
+
+
+                                else {
+                                    showMessage("Webservice Responding Null");
+                                }
+                            }
+                        });
+
+            }
+            else{
+                progressBarHandler.hide();
+
+                showMessage("! Requried End Date");
+            }
+
+        }
+        else{
+            progressBarHandler.hide();
+            showMessage("! Requried Start Date");
+        }
+
 
     }
 
     private void initView()
     {
         context = PayoutActivity.this;
+        progressBarHandler=new ProgressBarHandler(context);
         etStartDate = (EditText) findViewById(R.id.etStartDate);
         etEndDate = (EditText) findViewById(R.id.etEndDate);
         openStartDateCal = (ImageView) findViewById(R.id.openStartDateCal);
         openEndDateCal = (ImageView) findViewById(R.id.openEndDateCal);
+        relativeAddress=(RelativeLayout)findViewById(R.id.relativeAddress);
+        app_sharedpreference = new App_sharedpreference(context);
     }
 
 
@@ -154,22 +232,25 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
     }
 
 
-    private void setup_data()
+    private void setup_data(String total_payout)
     {
         payoutDatas.clear();
         try
         {
-            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
-            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
-            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
-            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
-            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
-            payoutDatas.add(new PayoutData("Line 1", "Line 2", "Line 3"));
+
+            payoutDatas.add(new PayoutData(etStartDate.getText().toString().trim(), total_payout,etEndDate.getText().toString().trim()));
+            payoutAdapter = new PayoutAdapter(getApplicationContext(), payoutDatas);
+
+            payoutList.setAdapter(payoutAdapter);
+            findViewById(R.id.ll_payout).setVisibility(View.VISIBLE);
+
         }
         catch (Exception e)
         {
 
         }
     }
-
+    private void showMessage(String msg) {
+        AndroidUtils.showSnackBar((LinearLayout) findViewById(R.id.ll_parent_payout), msg);
+    }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.login.LoginDashboard;
@@ -267,9 +268,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         context.startActivity(i);
 
 
-                    } else {
+
+                    }
+                     else {
                         AssociateAgreementDialog dialog = new AssociateAgreementDialog(context);
                         dialog.show();
+
 
                     }
                     //

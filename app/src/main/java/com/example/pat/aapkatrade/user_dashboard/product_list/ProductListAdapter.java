@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.product_list.listproduct_detail.ListProductDetailActivity;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.text.SimpleDateFormat;
@@ -20,41 +23,49 @@ import java.util.List;
  * Created by PPC16 on 11-Jan-17.
  */
 
-public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     final LayoutInflater inflater;
     List<ProductListData> itemList;
     Context context;
     ProductListHolder viewHolder;
+    //ProgressBarHandler progress_handler;
+    int p;
 
 
-    public ProductListAdapter(Context context, List<ProductListData> itemList) {
+    public ProductListAdapter(Context context, List<ProductListData> itemList)
+    {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
+      //  progress_handler = new ProgressBarHandler(context);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
         View view = inflater.inflate(R.layout.row_productlist, parent, false);
         viewHolder = new ProductListHolder(view);
-
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
+    {
 
         ProductListHolder homeHolder = (ProductListHolder) holder;
 
         homeHolder.tvProductName.setText(itemList.get(position).product_name);
 
-        homeHolder.tvProductPrice.setText("u20A8" + " " + itemList.get(position).product_price);
+        homeHolder.tvProductPrice.setText("\u20A8"+" "+itemList.get(position).product_price);
 
         homeHolder.tvCategoriesName.setText(itemList.get(position).category_name);
 
+        homeHolder.tvProductCity.setText(itemList.get(position).state);
+
         Ion.with(homeHolder.imgProduct).load(itemList.get(position).product_image);
+
         homeHolder.linearlayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,14 +87,28 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         });
 
 
-        homeHolder.imgMore.setOnClickListener(new View.OnClickListener() {
+        homeHolder.deleteRelative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, "Hi ", Toast.LENGTH_SHORT).show();
+                delete_product(itemList.get(position).product_id,position);
+            }
+        });
+
+        homeHolder.editRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
 
             }
         });
+
+       /*   homeHolder.imgMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Hi ", Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
 
     }
@@ -102,4 +127,50 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public String getCurrentTimeStamp() {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
+
+    private void delete_product(String product_id, int pos)
+    {
+        //progress_handler.show();
+        p = pos;
+        System.out.println(" company--------"+product_id);
+        Ion.with(context)
+                .load("https://aapkatrade.com/slim/delete_product")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("id",product_id)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+                        System.out.println("result--------"+result);
+
+                        if (result == null)
+                        {
+                           // progress_handler.hide();
+                        }
+                        else
+                        {
+                            JsonObject jsonObject = result.getAsJsonObject();
+                            String message = jsonObject.get("message").getAsString();
+                            if (message.equals("Success"))
+                            {
+
+                                itemList.remove(p);
+                                notifyItemRemoved(p);
+                                notifyItemRangeChanged(p, itemList.size());
+                               // progress_handler.hide();
+
+                            }
+                            else
+                            {
+                                Toast.makeText(context,message.toString(),Toast.LENGTH_SHORT).show();
+                                 //  progress_handler.hide();
+                            }
+                        }
+                    }
+
+                });
+    }
+
 }

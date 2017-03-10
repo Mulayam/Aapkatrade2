@@ -3,10 +3,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/transparent"
-    >
+    android:layout_height="match_parent"
 
+    >
     <Button
         android:id="@+id/imgCLose"
         android:layout_width="40dp"
@@ -15,26 +15,25 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/bt_dialog_close"
         android:text="X"
-        android:textStyle="bold"
-        android:textColor="@color/green" />
-
+        android:textColor="@color/green"
+    />
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
         android:background="@drawable/bg_dialog"
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
 
         >
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fifty_dip"
-            android:background="@drawable/green_background">
+            android:background="@color/green"
+            android:layout_height="@dimen/fifty_dip">
 
 
         </RelativeLayout>
+
 
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,14 +42,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/fifty_dip"
             android:orientation="vertical"
             android:weightSum="15"
-            tools:context="com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog">
+
+            tools:context="com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/fifty_dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
 
 
             <LinearLayout
@@ -67,10 +68,15 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/ten_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:layout_marginLeft="@dimen/ten_dip"
+     
                         android:descendantFocusability="beforeDescendants"
                         android:focusableInTouchMode="true"
                         android:orientation="vertical"
+
 
                         >
 
@@ -78,9 +84,11 @@
                             android:id="@+id/step1aLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/ten_dip"
                             android:layout_marginRight="@dimen/ten_dip"
                             android:layout_marginTop="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/ten_dip"
+
+
                             >
 
                             <LinearLayout
@@ -88,6 +96,8 @@
                                 android:layout_height="wrap_content"
 
                                 android:orientation="vertical">
+
+
 
 
                                 <de.hdodenhof.circleimageview.CircleImageView
@@ -150,8 +160,8 @@
                             android:id="@+id/step1bLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/ten_dip"
                             android:layout_marginRight="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/ten_dip"
                             android:layout_marginTop="@dimen/ten_dip"
                             android:padding="@dimen/twenty_dip">
 
@@ -168,7 +178,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/business_associate_heading"
                                     android:textColor="@color/black"
-                                    android:textSize="@dimen/textsize_medium"
+                                    android:textSize="18sp"
                                     android:textStyle="bold" />
 
 
@@ -179,7 +189,6 @@
                                     android:layout_below="@+id/tvBussinessHeading"
                                     android:layout_marginTop="5dp"
                                     android:maxLines="3"
-                                    android:textSize="@dimen/textsize"
                                     android:text="@string/bussiness_associate_details"
                                     android:textColor="@color/black" />
 
@@ -197,412 +206,320 @@
 
                         </android.support.v7.widget.CardView>
 
+
                         <android.support.v7.widget.CardView
                             android:id="@+id/cardViewGraph"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ten_dip"
-                            android:layout_marginLeft="@dimen/ten_dip"
-                            android:layout_marginRight="@dimen/ten_dip"
+
                             android:layout_marginTop="@dimen/ten_dip"
+                            android:layout_marginRight="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/ten_dip"
                             android:padding="@dimen/twenty_dip">
+
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="@dimen/ten_dip">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="100dp"
-                                    android:id="@+id/ll_graph"
-
-                                    android:weightSum="4"
-                                    >
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1">
-
-                                        <RelativeLayout
-                                            android:layout_width="25dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
-
-                                            <ImageView
-                                                android:id="@+id/imBlackTraingle"
-                                                android:layout_width="25dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="@drawable/black_traingle"
-                                                android:scaleType="fitXY" />
-
-
-                                            <View
-                                                android:layout_width="25dp"
-                                                android:layout_height="40dp"
-                                                android:layout_below="@+id/imBlackTraingle"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="#4B4B4B" />
-
-                                        </RelativeLayout>
-
-                                    </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1">
-
-
-                                        <RelativeLayout
-                                            android:layout_width="25dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
-
-                                            <ImageView
-                                                android:id="@+id/imRedTraingle"
-                                                android:layout_width="25dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="@drawable/red_traingle"
-                                                android:scaleType="fitXY" />
-
-                                            <View
-                                                android:layout_width="25dp"
-                                                android:layout_height="60dp"
-                                                android:layout_below="@+id/imRedTraingle"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="@color/red" />
-
-
-                                        </RelativeLayout>
-
-                                    </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1">
-
-                                        <RelativeLayout
-                                            android:layout_width="25dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
-
-                                            <ImageView
-                                                android:id="@+id/imYellowTraingle"
-                                                android:layout_width="25dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="@drawable/yellow_traingle"
-                                                android:scaleType="fitXY" />
-
-
-                                            <View
-                                                android:layout_width="25dp"
-                                                android:layout_height="80dp"
-                                                android:layout_below="@+id/imYellowTraingle"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="@color/yellow" />
-
-
-                                        </RelativeLayout>
-
-
-                                    </RelativeLayout>
-
-
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1"
-                                        android:orientation="vertical">
-
-                                        <RelativeLayout
-                                            android:layout_width="25dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
-
-                                            <ImageView
-                                                android:id="@+id/imGreenTraingle"
-                                                android:layout_width="25dp"
-                                                android:layout_height="wrap_content"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="@drawable/green_traingle"
-                                                android:scaleType="fitXY" />
-
-
-                                            <View
-                                                android:layout_width="25dp"
-                                                android:layout_height="100dp"
-                                                android:layout_below="@+id/imGreenTraingle"
-                                                android:layout_centerHorizontal="true"
-                                                android:background="#05DB61" />
-
-
-                                        </RelativeLayout>
-
-                                    </RelativeLayout>
-
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="2dp"
-                                    android:layout_below="@+id/ll_graph"
-                                    android:background="@color/grey" />
+                                android:layout_height="wrap_content">
 
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
-                                    android:gravity="left"
-                                    android:id="@+id/ll_progress_text"
-                                    android:layout_alignParentRight="true"
+                                    android:padding="20dp">
 
-                                    >
-
-
-
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:layout_width="@dimen/twenty_dip"
-                                            android:id="@+id/img_view_green"
-                                            android:background="@color/green"
-
-                                            android:layout_height="@dimen/twenty_dip" />
-                                        <TextView
-                                            android:layout_width="220dp"
-                                            android:text="@string/greenMark"
-                                            android:layout_marginLeft="5dp"
-                                            android:layout_toRightOf="@+id/img_view_green"
-                                            android:layout_height="wrap_content" />
-
-                                    </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:layout_width="@dimen/twenty_dip"
-                                            android:background="@color/yellow"
-                                            android:id="@+id/img_view_yellow"
-                                            android:layout_height="@dimen/twenty_dip" />
-                                        <TextView
-                                            android:layout_width="220dp"
-                                            android:text="@string/yellowMark"
-                                            android:layout_marginLeft="5dp"
-                                            android:layout_toRightOf="@+id/img_view_yellow"
-                                            android:layout_height="wrap_content" />
-
-                                    </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:layout_marginTop="10dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content">
-
-
-                                        <ImageView
-                                            android:layout_width="@dimen/twenty_dip"
-                                            android:id="@+id/img_view_red"
-                                            android:background="@color/red"
-                                            android:layout_height="@dimen/twenty_dip" />
-                                        <TextView
-                                            android:layout_width="220dp"
-                                        android:text="@string/redMark"
-                                            android:layout_marginLeft="5dp"
-
-                                            android:layout_toRightOf="@+id/img_view_red"
-                                            android:layout_height="wrap_content" />
-
-
-                                </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:layout_width="wrap_content"
-                                        android:layout_marginTop="10dp"
-                                        android:layout_height="wrap_content">
-                                        <ImageView
-                                            android:layout_width="@dimen/twenty_dip"
-                                            android:id="@+id/img_view_black"
-                                            android:background="#4B4B4B"
-
-                                            android:layout_height="@dimen/twenty_dip" />
-                                        <TextView
-                                            android:layout_width="220dp"
-                                            android:text="@string/blackMark"
-                                            android:layout_marginLeft="5dp"
-                                            android:layout_toRightOf="@+id/img_view_black"
-                                            android:layout_height="wrap_content" />
-
-
-                                    </RelativeLayout>
-
-
-
-
-
-
-                                </LinearLayout>
-
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:weightSum="4"
-                                    android:visibility="gone"
-                                    >
-
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1"
+                                        android:weightSum="4"
 
                                         >
 
 
                                         <RelativeLayout
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1"
+                                            android:orientation="vertical">
 
-                                            <TextView
-                                                android:layout_width="wrap_content"
+                                            <RelativeLayout
+                                                android:layout_width="25dp"
                                                 android:layout_height="wrap_content"
-                                                android:text="@string/greenMark"
-                                                android:textColor="@color/grey_gradient2"
-                                                android:gravity="center_horizontal"
-                                                android:layout_alignParentTop="true"
-                                                android:layout_alignParentLeft="true"
-                                                android:layout_alignParentStart="true" />
+                                                android:layout_centerHorizontal="true">
+
+                                                <ImageView
+                                                    android:id="@+id/imGreenTraingle"
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="@drawable/green_traingle"
+                                                    android:scaleType="fitXY" />
+
+
+                                                <View
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="200dp"
+                                                    android:layout_below="@+id/imGreenTraingle"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="#05DB61" />
+
+
+                                            </RelativeLayout>
 
                                         </RelativeLayout>
 
-                                        <View
-                                            android:layout_width="2dp"
-                                            android:layout_height="80dp"
-                                            android:layout_alignParentRight="true"
-                                            android:background="@color/grey" />
-
-
-                                    </RelativeLayout>
-
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1"
-
-                                        >
-
 
                                         <RelativeLayout
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
+                                            android:layout_width="0dp"
+                                            android:layout_height="150dp"
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1">
 
-                                            <TextView
-                                                android:layout_width="wrap_content"
+                                            <RelativeLayout
+                                                android:layout_width="25dp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_centerHorizontal="true"
-                                                android:text="@string/yellowMark"
-                                                android:gravity="center_horizontal"
-                                                android:textColor="@color/grey_gradient2" />
+                                                android:layout_centerHorizontal="true">
+
+                                                <ImageView
+                                                    android:id="@+id/imYellowTraingle"
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="@drawable/yellow_traingle"
+                                                    android:scaleType="fitXY" />
+
+
+                                                <View
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_below="@+id/imYellowTraingle"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="#FEF200"></View>
+
+
+                                            </RelativeLayout>
+
 
                                         </RelativeLayout>
 
-                                        <View
-                                            android:layout_width="2dp"
-                                            android:layout_height="80dp"
-                                            android:layout_alignParentRight="true"
-                                            android:background="@color/grey" />
-
-
-                                    </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1"
-
-                                        >
-
                                         <RelativeLayout
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true">
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1">
 
-                                            <TextView
-                                                android:layout_width="wrap_content"
+
+                                            <RelativeLayout
+                                                android:layout_width="25dp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_centerHorizontal="true"
-                                                android:text="@string/redMark"
-                                                android:gravity="center_horizontal"
-                                                android:textColor="@color/grey_gradient2" />
+                                                android:layout_centerHorizontal="true">
+
+                                                <ImageView
+                                                    android:id="@+id/imRedTraingle"
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="@drawable/red_traingle"
+                                                    android:scaleType="fitXY" />
+
+                                                <View
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="100dp"
+                                                    android:layout_below="@+id/imRedTraingle"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="#FA2B33"></View>
+
+
+                                            </RelativeLayout>
 
                                         </RelativeLayout>
 
-                                        <View
-                                            android:layout_width="2dp"
-                                            android:layout_height="80dp"
-                                            android:layout_alignParentRight="true"
-                                            android:background="@color/grey" />
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1">
 
-                                    </RelativeLayout>
+                                            <RelativeLayout
+                                                android:layout_width="25dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerHorizontal="true">
 
-                                    <RelativeLayout
-                                        android:layout_width="0dp"
+                                                <ImageView
+                                                    android:id="@+id/imBlackTraingle"
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="@drawable/black_traingle"
+                                                    android:scaleType="fitXY" />
+
+
+                                                <View
+                                                    android:layout_width="25dp"
+                                                    android:layout_height="50dp"
+                                                    android:layout_below="@+id/imBlackTraingle"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:background="#4B4B4B"></View>
+
+                                            </RelativeLayout>
+
+                                        </RelativeLayout>
+
+
+                                    </LinearLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2dp"
+                                        android:background="#8A8A8A"></View>
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="bottom"
-                                        android:layout_weight="1"
+                                        android:orientation="horizontal"
+                                        android:weightSum="4"
 
                                         >
 
+
                                         <RelativeLayout
-                                            android:layout_width="wrap_content"
+                                            android:layout_width="0dp"
                                             android:layout_height="wrap_content"
-                                            android:layout_centerHorizontal="true"
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1"
+
                                             >
 
-                                            <TextView
+
+                                            <RelativeLayout
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_centerHorizontal="true"
-                                                android:text="@string/blackMark"
-                                                android:gravity="center_horizontal"
-                                                android:textColor="@color/grey_gradient2" />
+                                                android:padding="10dp">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:text="Doing Great"
+                                                    android:textColor="@color/black"
+
+                                                    />
+
+                                            </RelativeLayout>
+
+                                            <View
+                                                android:layout_width="2dp"
+                                                android:layout_height="30dp"
+                                                android:layout_alignParentRight="true"
+                                                android:background="#8A8A8A"></View>
+
 
                                         </RelativeLayout>
 
 
-                                    </RelativeLayout>
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1"
+
+                                            >
+
+
+                                            <RelativeLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerHorizontal="true"
+                                                android:padding="10dp">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:text="Nedd to catch-up with the target"
+                                                    android:textColor="@color/black" />
+
+                                            </RelativeLayout>
+
+                                            <View
+                                                android:layout_width="2dp"
+                                                android:layout_height="30dp"
+                                                android:layout_alignParentRight="true"
+                                                android:background="#8A8A8A"></View>
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1"
+
+                                            >
+
+                                            <RelativeLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerHorizontal="true"
+                                                android:padding="10dp">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:text="Danger Zone"
+                                                    android:textColor="@color/black" />
+
+                                            </RelativeLayout>
+
+                                            <View
+                                                android:layout_width="2dp"
+                                                android:layout_height="30dp"
+                                                android:layout_alignParentRight="true"
+                                                android:background="#8A8A8A"></View>
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom"
+                                            android:layout_weight="1"
+
+                                            >
+
+                                            <RelativeLayout
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_centerHorizontal="true"
+                                                android:padding="10dp">
+
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_centerHorizontal="true"
+                                                    android:text="Out of System"
+                                                    android:textColor="@color/black" />
+
+                                            </RelativeLayout>
+
+
+                                        </RelativeLayout>
+
+
+                                    </LinearLayout>
 
 
                                 </LinearLayout>
 
 
                             </RelativeLayout>
-
 
 
                         </android.support.v7.widget.CardView>
@@ -621,11 +538,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
 
-                android:layout_marginBottom="@dimen/two_dip"
-                android:layout_marginLeft="@dimen/two_dip"
-                android:layout_marginRight="@dimen/two_dip"
                 android:layout_marginTop="@dimen/two_dip"
                 android:layout_weight="1"
+                android:layout_marginRight="@dimen/two_dip"
+                android:layout_marginLeft="@dimen/two_dip"
+                android:layout_marginBottom="@dimen/two_dip"
                 android:background="@drawable/orange_background">
 
                 <CheckBox
@@ -634,6 +551,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/orange"
                     android:checked="false"
+                    android:shadowColor="@color/white"
                     android:theme="@style/customCheckBoxStyle" />
 
                 <TextView
