@@ -1,13 +1,25 @@
 package com.example.pat.aapkatrade.general.Utils;
 
+import android.content.Context;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
+import com.example.pat.aapkatrade.Home.registration.entity.State;
+import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
+import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Validation;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by PPC09 on 03-Feb-17.
@@ -53,6 +65,7 @@ public class AndroidUtils {
         calendar.set(year, month-1, day);
         return calendar;
     }
+
 
 
 }

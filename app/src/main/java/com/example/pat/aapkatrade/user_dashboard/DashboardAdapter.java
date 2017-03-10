@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.login.LoginDashboard;
@@ -161,12 +162,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
-                }
-                else if (itemList.get(position).dashboard_name.equals("Add Vendor"))
-                {
+                } else if (itemList.get(position).dashboard_name.equals("Add Vendor")) {
 
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
-                    {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, AddProductActivity.class);
                         context.startActivity(i);
 
@@ -179,10 +177,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
-                }
-
-                else if (itemList.get(position).dashboard_name.equals("Vendor List"))
-                {
+                } else if (itemList.get(position).dashboard_name.equals("Vendor List")) {
 
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginDashboard.class);
@@ -197,9 +192,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
-                }
-
-                else if (itemList.get(position).dashboard_name.equals("Add Product")) {
+                } else if (itemList.get(position).dashboard_name.equals("Add Product")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
                         Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
@@ -241,8 +234,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
-                }
-                else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
+                } else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
                         Intent i = new Intent(context, LoginDashboard.class);
@@ -254,9 +246,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //                        context.startActivity(list_product);
 
                     }
-                //    Associate Agreement
-                }
-               else if (itemList.get(position).dashboard_name.equals("Payout Reports")) {
+                    //    Associate Agreement
+                } else if (itemList.get(position).dashboard_name.equals("Payout Reports")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
                         Intent i = new Intent(context, LoginDashboard.class);
@@ -270,29 +261,24 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
 
 
-                    } 
-              else if (itemList.get(position).dashboard_name.equals("Associate Agreement"))
-                {
-                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
-                    {
+                } else if (itemList.get(position).dashboard_name.equals("Associate Agreement")) {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
                         Intent i = new Intent(context, LoginDashboard.class);
                         context.startActivity(i);
 
 
-                    }
-                    else
-                        {
 
-                        Intent list_product = new Intent(context, AssociateAgreementDialog.class);
-                       context.startActivity(list_product);
+                    }
+                     else {
+                        AssociateAgreementDialog dialog = new AssociateAgreementDialog(context);
+                        dialog.show();
+
 
                     }
                     //
 
                 }
-
-
 
 
             }
@@ -307,14 +293,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return itemList.size();
 
     }
 
-    public String getCurrentTimeStamp()
-    {
+    public String getCurrentTimeStamp() {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
 

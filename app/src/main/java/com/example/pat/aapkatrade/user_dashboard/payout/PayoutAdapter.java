@@ -40,6 +40,7 @@ public class PayoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         viewHolder = new PayoutHolder(view);
 
+
         System.out.println("data-----------" + itemList);
 
         return viewHolder;
@@ -50,6 +51,9 @@ public class PayoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         final PayoutHolder homeHolder = (PayoutHolder) holder;
 
+        homeHolder.tvFromDate.setText(itemList.get(position).from_date);
+        homeHolder.tvToDate.setText(itemList.get(position).to_date);
+        homeHolder.tvRupees.setText(itemList.get(position).total_payout);
 
     }
 
