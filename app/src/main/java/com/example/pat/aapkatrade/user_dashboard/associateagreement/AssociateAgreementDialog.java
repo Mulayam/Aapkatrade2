@@ -1,6 +1,5 @@
 package com.example.pat.aapkatrade.user_dashboard.associateagreement;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +8,9 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,8 +22,6 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-import org.apache.http.client.methods.HttpOptions;
-
 public class AssociateAgreementDialog extends Dialog {
 
     private TextView tvUserName, tvDate, tvReferenceNumber, tvBussinessHeading, tvBussinessDetails, tvMore;
@@ -35,6 +30,7 @@ public class AssociateAgreementDialog extends Dialog {
     private CheckBox agreement_check;
     private Context context;
     private Button imgCLose;
+    private LinearLayout input_layout_agreement;
 
     public AssociateAgreementDialog(Context context) {
         super(context);
@@ -44,7 +40,7 @@ public class AssociateAgreementDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setContentView(R.layout.dialog_associate_agreement);
         initView();
         setUpData();
@@ -52,21 +48,12 @@ public class AssociateAgreementDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 ((HomeActivity) context).finish();
-                Intent intent =  ((HomeActivity) context).getIntent();
-
-
+                Intent intent = ((HomeActivity) context).getIntent();
                 context.startActivity(intent);
             }
         });
 
-        agreement_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    callWebService();
-                }
-            }
-        });
+
     }
 
     private void setUpData() {
@@ -75,8 +62,26 @@ public class AssociateAgreementDialog extends Dialog {
         tvReferenceNumber.setText(new StringBuilder().append("Reference Number : ").append(app_sharedpreference.getsharedpref("ref_no")));
         if (app_sharedpreference.getsharedpref("term_accepted").equals("0")) {
             agreement_check.setChecked(false);
+            agreement_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        callWebService();
+                    }
+                }
+            });
         } else if (app_sharedpreference.getsharedpref("term_accepted").equals("1")) {
             agreement_check.setChecked(true);
+            agreement_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+
+                    } else {
+                        agreement_check.setChecked(true);
+                    }
+                }
+            });
         }
 
     }
@@ -110,6 +115,11 @@ public class AssociateAgreementDialog extends Dialog {
 
     public void initView() {
         app_sharedpreference = new App_sharedpreference(context);
+        input_layout_agreement = (LinearLayout) findViewById(R.id.input_layout_agreement);
+        GradientDrawable shape = new GradientDrawable();
+        shape.setCornerRadius(8);
+        shape.setColor(ContextCompat.getColor(context, R.color.orange));
+        input_layout_agreement.setBackground(shape);
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         tvDate = (TextView) findViewById(R.id.tvDate);
         tvReferenceNumber = (TextView) findViewById(R.id.tvReferenceNumber);
@@ -129,7 +139,6 @@ public class AssociateAgreementDialog extends Dialog {
         tvBussinessDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (isTextViewClicked) {
                     //This will shrink textview to 2 lines if it is expanded.
                     tvBussinessDetails.setMaxLines(3);
@@ -142,18 +151,17 @@ public class AssociateAgreementDialog extends Dialog {
         tvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (isTextViewClicked) {
                     //This will shrink textview to 2 lines if it is expanded.
                     tvBussinessDetails.setMaxLines(3);
                     isTextViewClicked = false;
+                    tvMore.setText("More...");
                 } else {
                     //This will expand the textview if it is of 2 lines
                     tvBussinessDetails.setMaxLines(Integer.MAX_VALUE);
                     isTextViewClicked = true;
-                    tvMore.setVisibility(View.INVISIBLE);
+                    tvMore.setText("Less...");
                 }
-
             }
         });
 
