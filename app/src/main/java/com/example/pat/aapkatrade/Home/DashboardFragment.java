@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,19 +23,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
-import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
 import com.example.pat.aapkatrade.general.Tabletsize;
-import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.search.Search;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -44,7 +38,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -65,7 +58,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     ArrayList<CommomData> commomDatas_latestpost = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestupdate = new ArrayList<>();
     private CommomAdapter commomAdapter_latestpost,commomAdapter_latestproduct;
-    public latestproductadapter latestproductadapter;
+  //  public latestproductadapter latestproductadapter;
     ProgressBarHandler progress_handler;
     private int dotsCount;
     private ArrayList<String> imageIdList;
@@ -177,7 +170,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerEclipseCollection = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
         viewpagerindicator = (LinearLayout) view.findViewById(R.id.viewpagerindicator);
-        latestproductadapter = new latestproductadapter(context, commomDatas);
+       // latestproductadapter = new latestproductadapter(context, commomDatas);
         recyclerlatestpost = (RecyclerView) view.findViewById(R.id.recyclerlatestpost);
         recyclerlatestpost.setLayoutManager(llManagerEclipseCollection);
 
