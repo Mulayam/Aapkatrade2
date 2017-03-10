@@ -15,9 +15,11 @@ public class ProductListHolder extends RecyclerView.ViewHolder
 {
 
     View view;
-    TextView tvProductName,tvCategoriesName,tvProductPrice;
+    TextView tvProductName,tvCategoriesName,tvProductPrice,tvProductCity;
     LinearLayout linearlayout1;
     ImageView imgProduct,imgMore;
+    RelativeLayout deleteRelative,editRelative ;
+
 
 
     public ProductListHolder(View itemView)
@@ -32,10 +34,15 @@ public class ProductListHolder extends RecyclerView.ViewHolder
 
         tvProductPrice = (TextView)  itemView.findViewById(R.id.tvProductPrice);
 
+        tvProductCity = (TextView) itemView.findViewById(R.id.tvProductCity);
+
         imgProduct = (ImageView) itemView.findViewById(R.id.imgProduct);
 
-        imgMore = (ImageView) itemView.findViewById(R.id.imgMore);
+       /// imgMore = (ImageView) itemView.findViewById(R.id.imgMore);
 
+        deleteRelative = (RelativeLayout) itemView.findViewById(R.id.deleteRelative);
+
+        editRelative = (RelativeLayout) itemView.findViewById(R.id.editRelative);
 
         view = itemView;
     }

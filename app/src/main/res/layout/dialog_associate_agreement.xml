@@ -29,12 +29,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:background="@color/green"
-
-
-
-
-
-
             android:layout_height="@dimen/fifty_dip">
 
 
@@ -74,10 +68,15 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/ten_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
+                        android:layout_marginLeft="@dimen/ten_dip"
+     
                         android:descendantFocusability="beforeDescendants"
                         android:focusableInTouchMode="true"
                         android:orientation="vertical"
+
 
                         >
 

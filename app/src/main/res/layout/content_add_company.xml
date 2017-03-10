@@ -190,7 +190,7 @@
                         android:layout_height="@dimen/fifty_dip"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
-                        android:text="@string/save"
+                        android:text="Submit"
                         android:textAllCaps="false"
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/white"

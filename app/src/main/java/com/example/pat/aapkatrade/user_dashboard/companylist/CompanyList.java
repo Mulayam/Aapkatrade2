@@ -1,6 +1,9 @@
 package com.example.pat.aapkatrade.user_dashboard.companylist;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -34,6 +35,7 @@ public class CompanyList extends AppCompatActivity
     ProgressBarHandler progress_handler;
     private App_sharedpreference app_sharedpreference;
     String user_id;
+    private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
 
 
 
@@ -100,13 +102,15 @@ public class CompanyList extends AppCompatActivity
 
                                 String creation_date = jsonObject2.get("created").getAsString();
 
+                                String sEmail = jsonObject2.get("secondaryEmail").getAsString();
+
                                 String address = jsonObject2.get("address").getAsString();
 
                                 String description = jsonObject2.get("description").getAsString();
 
                                 System.out.println("ferhgjerk" + country_id + name + creation_date);
 
-                                companyDatas.add(new CompanyData(country_id, name, creation_date,false,address,description));
+                                companyDatas.add(new CompanyData(country_id, name, creation_date,false,address,description,sEmail));
 
 
                             }
@@ -125,10 +129,7 @@ public class CompanyList extends AppCompatActivity
                     }
 
                 });
-
-
     }
-
 
     private void setup_layout()
     {
@@ -175,5 +176,7 @@ public class CompanyList extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

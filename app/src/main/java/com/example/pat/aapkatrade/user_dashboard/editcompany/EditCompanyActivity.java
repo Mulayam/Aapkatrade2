@@ -28,7 +28,7 @@ import com.koushikdutta.ion.Ion;
 public class EditCompanyActivity extends AppCompatActivity
 {
 
-    String company_id,company_name,creation_date, address,description;
+    String company_id,company_name,creation_date, address,description,secondaryEmail;
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail,etAddress,etDiscription;
     ProgressDialog dialog;
@@ -58,6 +58,8 @@ public class EditCompanyActivity extends AppCompatActivity
         address  = intent.getStringExtra("address");
 
         description = intent.getStringExtra("description");
+
+        secondaryEmail = intent.getStringExtra("secondaryEmail");
 
         app_sharedpreference = new App_sharedpreference(getApplicationContext());
 
@@ -101,7 +103,7 @@ public class EditCompanyActivity extends AppCompatActivity
 
 
         etSEmail= (EditText) findViewById(R.id.etSEmail);
-        etSEmail.setText(email);
+        etSEmail.setText(secondaryEmail);
 
         etAddress = (EditText) findViewById(R.id.etAddress);
         etAddress.setText(address);
@@ -118,6 +120,9 @@ public class EditCompanyActivity extends AppCompatActivity
         });
 
         linearLayout = (LinearLayout) findViewById(R.id.snakBar);
+
+
+
     }
 
 
@@ -251,8 +256,10 @@ public class EditCompanyActivity extends AppCompatActivity
                             JsonObject jsonObject = result.getAsJsonObject();
                             String message = jsonObject.get("message").getAsString();
 
+                                System.out.println("message---------"+message);
 
-                                if (message.equals("You company successfully added"))
+
+                                if (message.equals("You are successfully updated"))
                                 {
 
                                     progress_handler.hide();
@@ -266,7 +273,7 @@ public class EditCompanyActivity extends AppCompatActivity
 
                                     Intent companylist = new Intent(EditCompanyActivity.this, CompanyList.class);
                                     startActivity(companylist);
-
+                                    finish();
 
 
                                 }
