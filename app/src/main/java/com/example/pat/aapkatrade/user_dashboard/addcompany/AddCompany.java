@@ -216,7 +216,7 @@ public class AddCompany extends AppCompatActivity
 
                                 Intent companylist = new Intent(AddCompany.this, CompanyList.class);
                                 startActivity(companylist);
-
+                                finish();
 
 
                             }

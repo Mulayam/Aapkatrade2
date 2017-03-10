@@ -27,7 +27,8 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class User_DashboardFragment extends Fragment {
+public class User_DashboardFragment extends Fragment
+{
 
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
@@ -36,7 +37,6 @@ public class User_DashboardFragment extends Fragment {
     TextView tvMobile, tvEmail, textViewName, tvUserType;
     Button btnEdit;
     ProgressBarHandler progressBarHandler;
-
     RecyclerView.LayoutManager layoutManager;
 
     public User_DashboardFragment() {
@@ -82,11 +82,13 @@ public class User_DashboardFragment extends Fragment {
     }
 
 
+
     private void setup_data() {
         dashboardDatas.clear();
         try {
 
-            if (app_sharedpreference.shared_pref != null) {
+            if (app_sharedpreference.shared_pref != null)
+            {
 
                 String userid = app_sharedpreference.getsharedpref("userid", "0");
 
@@ -109,7 +111,8 @@ public class User_DashboardFragment extends Fragment {
 
 
                 }
-            } else {
+            } else
+                {
                 Log.e("null_sharedPreferences", "sharedPreferences");
             }
 
@@ -137,22 +140,23 @@ public class User_DashboardFragment extends Fragment {
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result == null) {
                             Log.e("result_myProfile", "result_myProfile is null");
-                        } else {
+                            progressBarHandler.hide();
+                        }
+                        else
+                            {
                             Log.e("result_userdata", result.toString());
                             String error = result.get("error").getAsString();
                             if (error.contains("true")) {
                                 progressBarHandler.hide();
-                            } else {
+                            }
+                            else
+                                {
 
                                 progressBarHandler.hide();
-                                if (user_type.contains("1")) {
-
+                                if (user_type.contains("1"))
+                                {
                                     String order_quantity = result.get("order").getAsString();
-
-
                                     app_sharedpreference.setsharedpref("order_quantity", order_quantity);
-
-
                                     dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
                                     dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
                                     dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity));
@@ -163,7 +167,9 @@ public class User_DashboardFragment extends Fragment {
                                     dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
                                     dashboardlist.setAdapter(dashboardAdapter);
 
-                                } else if (user_type.contains("2")) {
+                                }
+                                else if (user_type.contains("2"))
+                                {
                                     String order_quantity = result.get("order").getAsString();
                                     String product_quantity = result.get("product").getAsString();
                                     String company_quantity = result.get("company").getAsString();
@@ -173,10 +179,8 @@ public class User_DashboardFragment extends Fragment {
                                     app_sharedpreference.setsharedpref("company_quantity", company_quantity);
 
                                     String order_quantity_shared_pref = app_sharedpreference.getsharedpref("order_quantity", "0");
-
                                     String product_quantity_shared_pref = app_sharedpreference.getsharedpref("product_quantity", "0");
                                     String company_quantity_shared_pref = app_sharedpreference.getsharedpref("company_quantity", "0");
-
                                     Log.e("order_quantity", order_quantity);
                                     Log.e("product_quantity", product_quantity);
                                     Log.e("company_quantity", company_quantity);
@@ -201,7 +205,11 @@ public class User_DashboardFragment extends Fragment {
                                     dashboardlist.setLayoutManager(layoutManager);
                                     dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
                                     dashboardlist.setAdapter(dashboardAdapter);
-                                } else if (user_type.contains("3")) {
+                                }
+                                else if (user_type.contains("3"))
+                                {
+
+
                                     String vendor_quantity = result.get("vendor").getAsString();
                                     String network_quantity = result.get("network").getAsString();
                                     app_sharedpreference.setsharedpref("vendor_quantity", vendor_quantity);
@@ -218,6 +226,8 @@ public class User_DashboardFragment extends Fragment {
                                     dashboardlist.setLayoutManager(layoutManager);
                                     dashboardAdapter = new DashboardAdapter(getActivity(), dashboardDatas);
                                     dashboardlist.setAdapter(dashboardAdapter);
+
+
 
 
                                 }

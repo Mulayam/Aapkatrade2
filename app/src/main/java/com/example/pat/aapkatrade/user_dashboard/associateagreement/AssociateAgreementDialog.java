@@ -25,7 +25,8 @@ import com.koushikdutta.ion.Ion;
 
 import org.apache.http.client.methods.HttpOptions;
 
-public class AssociateAgreementDialog extends Dialog {
+public class AssociateAgreementDialog extends Dialog
+{
 
     private TextView tvUserName, tvDate, tvReferenceNumber, tvBussinessHeading, tvBussinessDetails, tvMore;
     private boolean isTextViewClicked = false;
@@ -34,25 +35,28 @@ public class AssociateAgreementDialog extends Dialog {
     private Context context;
     private Button imgCLose;
 
+
+
     public AssociateAgreementDialog(Context context) {
         super(context);
         this.context = context;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setContentView(R.layout.dialog_associate_agreement);
         initView();
         setUpData();
+
+
         imgCLose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((HomeActivity) context).finish();
                 Intent intent =  ((HomeActivity) context).getIntent();
-
-
                 context.startActivity(intent);
             }
         });
@@ -65,15 +69,22 @@ public class AssociateAgreementDialog extends Dialog {
                 }
             }
         });
+
+
+
     }
 
-    private void setUpData() {
+    private void setUpData()
+    {
         tvUserName.setText(new StringBuilder().append("Name : ").append(app_sharedpreference.getsharedpref("username")));
         tvDate.setText(new StringBuilder().append("Joining Date : ").append(app_sharedpreference.getsharedpref("created_at")));
         tvReferenceNumber.setText(new StringBuilder().append("Reference Number : ").append(app_sharedpreference.getsharedpref("ref_no")));
-        if (app_sharedpreference.getsharedpref("term_accepted").equals("0")) {
+        if (app_sharedpreference.getsharedpref("term_accepted").equals("0")
+                ) {
             agreement_check.setChecked(false);
-        } else if (app_sharedpreference.getsharedpref("term_accepted").equals("1")) {
+        }
+        else if (app_sharedpreference.getsharedpref("term_accepted").equals("1"))
+        {
             agreement_check.setChecked(true);
         }
 

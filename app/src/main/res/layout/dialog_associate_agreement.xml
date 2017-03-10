@@ -35,7 +35,7 @@
 
 
 
-        android:layout_height="50dp">
+        android:layout_height="@dimen/fifty_dip">
 
 
     </RelativeLayout>
@@ -85,10 +85,11 @@
                         android:id="@+id/step1aLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-android:layout_marginRight="@dimen/ten_dip"
+                        android:layout_marginRight="@dimen/ten_dip"
+                        android:layout_marginTop="@dimen/ten_dip"
                         android:layout_marginLeft="@dimen/ten_dip"
 
-                        android:padding="@dimen/twenty_dip"
+
                         >
 
                         <LinearLayout
