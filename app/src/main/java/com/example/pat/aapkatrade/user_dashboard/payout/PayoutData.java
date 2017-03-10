@@ -6,14 +6,14 @@ package com.example.pat.aapkatrade.user_dashboard.payout;
 
 public class PayoutData {
 
-    String company_id, company_name, company_creation_date;
+    String from_date, total_payout, to_date;
 
-    PayoutData(String company_id, String company_name, String company_creation_date)
+    PayoutData(String from_date, String total_payout, String to_date)
     {
 
-        this.company_id = company_id;
-        this.company_name = company_name;
-        this.company_creation_date = company_creation_date;
+        this.from_date = from_date;
+        this.total_payout = total_payout;
+        this.to_date = to_date;
 
     }
 

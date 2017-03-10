@@ -6,75 +6,75 @@
     android:id="@+id/content_product_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+     android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     >
-    <com.chauthai.swipereveallayout.SwipeRevealLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:mode="normal"
-        app:dragEdge="right">
+   <com.chauthai.swipereveallayout.SwipeRevealLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:mode="normal"
+    app:dragEdge="right">
 
-        <!-- Your secondary layout here -->
-        <FrameLayout
-            android:layout_width="wrap_content"
+    <!-- Your secondary layout here -->
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="160dp"
             android:layout_height="100dp"
             >
 
+
             <RelativeLayout
-                android:layout_width="160dp"
+                android:id="@+id/editRelative"
+                android:layout_width="80dp"
                 android:layout_height="100dp"
+                android:background="@color/green"
                 >
 
-
-                <RelativeLayout
-                    android:id="@+id/editRelative"
-                    android:layout_width="80dp"
-                    android:layout_height="100dp"
-                    android:background="@color/green"
-                    >
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="Delete"
-                        android:src="@drawable/ic_white_edit"
-                        />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:id="@+id/deleteRelative"
-                    android:layout_width="80dp"
-                    android:layout_height="100dp"
-                    android:background="@color/red"
-                    android:layout_toRightOf="@+id/editRelative"
-                    >
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="Delete"
-                        android:src="@drawable/ic_white_delete"
-                        />
-
-                </RelativeLayout>
-
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Delete"
+                    android:src="@drawable/ic_white_edit"
+                    />
 
             </RelativeLayout>
 
 
-        </FrameLayout>
-        <!-- Your main layout here -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp" >
+            <RelativeLayout
+                android:id="@+id/deleteRelative"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:background="@color/red"
+                android:layout_toRightOf="@+id/editRelative"
+                >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Delete"
+                    android:src="@drawable/ic_white_delete"
+                    />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+    <!-- Your main layout here -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp" >
 
 
 
@@ -194,8 +194,8 @@
             </RelativeLayout>
 
 
-        </FrameLayout>
+    </FrameLayout>
 
-    </com.chauthai.swipereveallayout.SwipeRevealLayout>
+</com.chauthai.swipereveallayout.SwipeRevealLayout>
 
 </android.support.v7.widget.CardView>
