@@ -5,7 +5,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -118,6 +120,12 @@ public class AssociateAgreementDialog extends Dialog {
         imgCLose = (Button) findViewById(R.id.imgCLose);
         tvMore.setVisibility(View.VISIBLE);
         tvBussinessDetails.setMaxLines(3);
+
+
+        GradientDrawable shape =  new GradientDrawable();
+        shape.setCornerRadius( 8 );
+        shape.setColor(ContextCompat.getColor(context, R.color.orange));
+        findViewById(R.id.input_layout_agreement).setBackground(shape);
         tvBussinessDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

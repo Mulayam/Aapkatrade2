@@ -7,38 +7,58 @@
     >
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/enquiry_dailog_back"
-        android:layout_margin="10dp"
-        >
-
-        <ImageView
-            android:id="@+id/imgCLose"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_cross"
-            android:layout_alignParentRight="true"
-            />
 
 
+
+
+    <Button
+        android:id="@+id/imgCLose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bt_dialog_close"
+        android:text="X"
+        android:textColor="@color/green" />
 
         <RelativeLayout
             android:id="@+id/relativeService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imgCLose"
-            android:layout_above="@+id/relativeSubmitButton"
+
+            android:background="@drawable/bg_dialog"
+            android:layout_margin="10dp"
+
             >
 
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_marginBottom="@dimen/fifty_dip"
+                android:layout_height="match_parent">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:background="@color/green"
+                        android:id="@+id/rl_service_enquiry"
+                        android:gravity="center_vertical"
+                        android:layout_height="@dimen/fifty_dip">
+
+                        <TextView
+                            android:id="@+id/tvServiceName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Service Enquiry"
+                            android:layout_centerHorizontal="true"
+
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            />
+                    </RelativeLayout>
 
 
                     <ImageView
@@ -46,22 +66,12 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:src="@drawable/ic_svr_enquiry"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="50dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/circle_green_back"
                         />
 
-                    <TextView
-                        android:id="@+id/tvServiceName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Service Enquiry"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/imgServiceEnquiry"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        />
+
 
 
                     <TextView
@@ -69,7 +79,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Category:"
-                        android:layout_below="@+id/tvServiceName"
+                        android:layout_below="@+id/imgServiceEnquiry"
+
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:textColor="@color/black"
@@ -91,9 +102,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="First name"
+                        android:textSize="@dimen/textsize_small"
                         android:layout_below="@+id/tvProductname"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="30dp"
+
                         android:layout_marginLeft="30dp"
                         android:textColorHint="@color/black"
                         android:padding="10dp"
@@ -105,8 +118,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Quantity"
+                        android:textSize="@dimen/textsize_small"
                         android:layout_below="@+id/edtFName"
                         android:layout_marginTop="10dp"
+
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:textColorHint="@color/black"
@@ -120,6 +135,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Price"
+                        android:textSize="@dimen/textsize_small"
+
                         android:layout_below="@+id/edtQuantity"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="30dp"
@@ -134,6 +151,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Mobile"
+
+                        android:textSize="@dimen/textsize_small"
                         android:layout_below="@+id/edtPrice"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="30dp"
@@ -147,6 +166,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email"
+                        android:textSize="@dimen/textsize_small"
                         android:layout_below="@+id/edtMobile"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="30dp"
@@ -163,10 +183,12 @@
                         android:enabled="false"
                         android:focusableInTouchMode="true"
                         android:hint="@string/startDate"
-                        android:inputType="text"
+                        android:inputType="date"
+                        android:textSize="@dimen/textsize_small"
                         android:paddingLeft="@dimen/ten_dip"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="30dp"
+                        android:padding="10dp"
                         android:layout_below="@+id/edtEmail"
                         android:textColorHint="@color/black"
                         android:layout_marginLeft="30dp"
@@ -181,8 +203,9 @@
                         android:focusableInTouchMode="true"
                         android:hint="@string/endDate"
                         android:inputType="text"
-                        android:paddingLeft="@dimen/ten_dip"
+                        android:padding="10dp"
                         android:layout_marginTop="10dp"
+                        android:textSize="@dimen/textsize_small"
                         android:layout_marginRight="30dp"
                         android:layout_below="@+id/etStatDate"
                         android:textColorHint="@color/black"
@@ -196,10 +219,12 @@
                         android:hint="Description"
                         android:layout_below="@+id/etEndDate"
                         android:layout_marginTop="10dp"
+                        android:textSize="@dimen/textsize_small"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
                         android:textColorHint="@color/black"
                         android:padding="10dp"
+
                         android:inputType="textEmailAddress"
                         />
 
@@ -210,33 +235,40 @@
 
             </android.support.v4.widget.NestedScrollView>
 
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeSubmitButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            >
-
-            <Button
-                android:id="@+id/buttonSubmit"
+            <RelativeLayout
+                android:id="@+id/relativeSubmitButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="@dimen/fifty_dip"
 
-                android:text="Submit"
-                android:background="@drawable/green_button_back"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:padding="10dp"
-                />
+                android:background="@color/transparent"
+
+                android:layout_alignParentBottom="true"
+
+                >
+
+                <Button
+                    android:id="@+id/buttonSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/green_button_back"
+
+android:layout_margin="@dimen/five_dip"
+                    android:text="Submit"
+
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+
+
+                    />
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+
+
+
 
 
 

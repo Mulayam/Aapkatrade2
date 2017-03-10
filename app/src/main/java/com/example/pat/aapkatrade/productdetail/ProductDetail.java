@@ -4,9 +4,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -492,7 +494,7 @@ public class ProductDetail extends AppCompatActivity
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog.setContentView(R.layout.fragment_service_enquiry);
 
-                    ImageView imgCLose = (ImageView) dialog.findViewById(R.id.imgCLose);
+                    Button imgCLose = (Button) dialog.findViewById(R.id.imgCLose);
 
                     firstName  = (EditText) dialog.findViewById(R.id.edtFName);
 
@@ -536,6 +538,15 @@ public class ProductDetail extends AppCompatActivity
                             dialog.hide();
                         }
                     });
+                    GradientDrawable shape =  new GradientDrawable();
+                    shape.setCornerRadius( 8 );
+                    shape.setColor(ContextCompat.getColor(ProductDetail.this, R.color.orange));
+                    dialog.findViewById(R.id.buttonSubmit).setBackground(shape);
+                    GradientDrawable shape2 =  new GradientDrawable();
+                    shape2.setCornerRadius( 8 );
+                    shape2.setColor(ContextCompat.getColor(ProductDetail.this, R.color.green));
+                    dialog.findViewById(R.id.rl_service_enquiry).setBackground(shape2);
+
 
 
                 }

@@ -3,11 +3,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/transparent"
+    android:layout_height="match_parent"
 
     >
-
     <Button
         android:id="@+id/imgCLose"
         android:layout_width="40dp"
@@ -16,27 +15,31 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/bt_dialog_close"
         android:text="X"
-        android:textColor="@color/green" />
-
+        android:textColor="@color/green"
+    />
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
         android:background="@drawable/bg_dialog"
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
 
         >
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fifty_dip"
+            android:background="@color/green"
 
 
-            android:background="@color/green">
+
+
+
+
+            android:layout_height="@dimen/fifty_dip">
 
 
         </RelativeLayout>
+
 
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,14 +48,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/fifty_dip"
             android:orientation="vertical"
             android:weightSum="15"
-            tools:context="com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog">
+
+            tools:context="com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/fifty_dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
 
 
             <LinearLayout
@@ -80,9 +85,9 @@
                             android:id="@+id/step1aLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/ten_dip"
                             android:layout_marginRight="@dimen/ten_dip"
                             android:layout_marginTop="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/ten_dip"
 
 
                             >
@@ -92,6 +97,8 @@
                                 android:layout_height="wrap_content"
 
                                 android:orientation="vertical">
+
+
 
 
                                 <de.hdodenhof.circleimageview.CircleImageView
@@ -154,8 +161,8 @@
                             android:id="@+id/step1bLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/ten_dip"
                             android:layout_marginRight="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/ten_dip"
                             android:layout_marginTop="@dimen/ten_dip"
                             android:padding="@dimen/twenty_dip">
 
@@ -207,9 +214,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/ten_dip"
 
-                            android:layout_marginLeft="@dimen/ten_dip"
-                            android:layout_marginRight="@dimen/ten_dip"
                             android:layout_marginTop="@dimen/ten_dip"
+                            android:layout_marginRight="@dimen/ten_dip"
+                            android:layout_marginLeft="@dimen/ten_dip"
                             android:padding="@dimen/twenty_dip">
 
 
@@ -532,11 +539,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
 
-                android:layout_marginBottom="@dimen/two_dip"
-                android:layout_marginLeft="@dimen/two_dip"
-                android:layout_marginRight="@dimen/two_dip"
                 android:layout_marginTop="@dimen/two_dip"
                 android:layout_weight="1"
+                android:layout_marginRight="@dimen/two_dip"
+                android:layout_marginLeft="@dimen/two_dip"
+                android:layout_marginBottom="@dimen/two_dip"
                 android:background="@drawable/orange_background">
 
                 <CheckBox
