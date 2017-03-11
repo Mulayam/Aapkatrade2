@@ -117,7 +117,8 @@
             android:label="@string/title_activity_payout"
             android:theme="@style/AppTheme" />
         <activity android:name=".user_dashboard.editcompany.EditCompanyActivity" />
-        <activity android:name=".user_dashboard.edit_product.EditProductActivity"></activity>
+        <activity android:name=".user_dashboard.edit_product.EditProductActivity" />
+        <activity android:name=".user_dashboard.service_enquirylist.ServiceEnquiryActivity"></activity>
     </application>
 
 </manifest>

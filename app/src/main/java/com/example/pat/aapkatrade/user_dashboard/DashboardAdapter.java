@@ -24,6 +24,7 @@ import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileForBusiness
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderManagementActivity;
 import com.example.pat.aapkatrade.user_dashboard.payout.PayoutActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.ProductListActivity;
+import com.example.pat.aapkatrade.user_dashboard.service_enquirylist.ServiceEnquiryActivity;
 import com.example.pat.aapkatrade.user_dashboard.vender_detail.VendorActivity;
 import com.squareup.picasso.Picasso;
 
@@ -146,7 +147,23 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                     }
 
-                } else if (itemList.get(position).dashboard_name.equals("Company List")) {
+                }
+                else if (itemList.get(position).dashboard_name.equals("Enquiry Services List"))
+                {
+                    if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                    {
+                        Intent i = new Intent(context, LoginDashboard.class);
+                        context.startActivity(i);
+
+                    }
+                    else
+                    {
+                        Intent service_enquiry_list = new Intent(context, ServiceEnquiryActivity.class);
+                        context.startActivity(service_enquiry_list);
+                    }
+
+                }
+                else if (itemList.get(position).dashboard_name.equals("Company List")) {
 
 
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {

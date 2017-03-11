@@ -84,6 +84,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date date = null;
+
         try
         {
             date = form.parse(itemList.get(position).company_creation_date);
@@ -96,6 +97,8 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             e.printStackTrace();
         }
+
+
         SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
         String newDateStr = postFormater.format(date);
 
@@ -221,7 +224,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         p = pos;
         System.out.println(" company--------"+company);
             Ion.with(context)
-                    .load("https://aapkatrade.com/slim/delete_company")
+                    .load((context.getResources().getString(R.string.webservice_base_url))+"/delete_company")
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("company_id",company)
                     .asJsonObject()

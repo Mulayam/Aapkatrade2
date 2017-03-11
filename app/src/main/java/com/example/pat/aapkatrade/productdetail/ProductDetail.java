@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,21 +30,26 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
+import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 import github.nisrulz.stackedhorizontalprogressbar.StackedHorizontalProgressBar;
 
 
 
-public class ProductDetail extends AppCompatActivity
+public class ProductDetail extends AppCompatActivity implements DatePickerDialog.OnDateSetListener
 {
 
     LinearLayout viewpagerindicator,linearlayoutShare,linearlayoutLocation;
@@ -51,6 +57,9 @@ public class ProductDetail extends AppCompatActivity
     int max = 10;
     private ArrayList<String> imageList;
     int currentPage=0;
+    private int isStartDate = -1;
+    ServiceEnquiry serviceEnquiry;
+    private String date;
     StackedHorizontalProgressBar progressbarFive,progressbarFour,progressbarThree, progressbarTwo,progressbarOne;
     ViewPager vp;
     ProductViewPagerAdapter viewpageradapter;
@@ -67,7 +76,7 @@ public class ProductDetail extends AppCompatActivity
     String productlocation;
     EditText firstName,quantity,price,mobile,email,etEndDate,etStatDate,description;
     TextView tvServiceBuy;
-
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -471,6 +480,7 @@ public class ProductDetail extends AppCompatActivity
             public void onClick(View v)
             {
 
+
                 /*    FragmentManager fm = getSupportFragmentManager();
                 ServiceEnquiry dialogFragment = new ServiceEnquiry ();
                 dialogFragment.show(fm, "Sample Fragment");*/
@@ -488,66 +498,91 @@ public class ProductDetail extends AppCompatActivity
                 }
                 else
                 {
-
-
-                    final Dialog dialog = new Dialog(ProductDetail.this);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.fragment_service_enquiry);
-
-                    Button imgCLose = (Button) dialog.findViewById(R.id.imgCLose);
-
-                    firstName  = (EditText) dialog.findViewById(R.id.edtFName);
-
-                    quantity = (EditText) dialog.findViewById(R.id.edtQuantity);
-
-                    price = (EditText) dialog.findViewById(R.id.edtPrice);
-
-                    mobile = (EditText) dialog.findViewById(R.id.edtMobile);
-
-                    email = (EditText) dialog.findViewById(R.id.edtEmail);
-
-                    etEndDate = (EditText) dialog.findViewById(R.id.etEndDate);
-
-                    etStatDate = (EditText) dialog.findViewById(R.id.etStatDate) ;
-
-                    description = (EditText) dialog.findViewById(R.id.edtDescription);
-
-                    Button submit = (Button) dialog.findViewById(R.id.buttonSubmit) ;
-
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
-                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    dialog.show();
-
-                    submit.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
-
-
-                        }
-                    });
-
-
-                    imgCLose.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
-
-                            dialog.hide();
-                        }
-                    });
-                    GradientDrawable shape =  new GradientDrawable();
-                    shape.setCornerRadius( 8 );
-                    shape.setColor(ContextCompat.getColor(ProductDetail.this, R.color.orange));
-                    dialog.findViewById(R.id.buttonSubmit).setBackground(shape);
-                    GradientDrawable shape2 =  new GradientDrawable();
-                    shape2.setCornerRadius( 8 );
-                    shape2.setColor(ContextCompat.getColor(ProductDetail.this, R.color.green));
-                    dialog.findViewById(R.id.rl_service_enquiry).setBackground(shape2);
-
-
+                    //FragmentManager fm = getSupportFragmentManager();
+                    ServiceEnquiry dialogFragment = new ServiceEnquiry (ProductDetail.this);
+                    dialogFragment.show();
+//
+//                     dialog = new Dialog(ProductDetail.this);
+//                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                    dialog.setContentView(R.layout.fragment_service_enquiry);
+//
+//                    Button imgCLose = (Button) dialog.findViewById(R.id.imgCLose);
+//
+//                    firstName  = (EditText) dialog.findViewById(R.id.edtFName);
+//
+//                    quantity = (EditText) dialog.findViewById(R.id.edtQuantity);
+//
+//                    price = (EditText) dialog.findViewById(R.id.edtPrice);
+//
+//                    mobile = (EditText) dialog.findViewById(R.id.edtMobile);
+//
+//                    email = (EditText) dialog.findViewById(R.id.edtEmail);
+//
+//                    etEndDate = (EditText) dialog.findViewById(R.id.etEndDate);
+//
+//                    etStatDate = (EditText) dialog.findViewById(R.id.etStartDate) ;
+//
+//                    description = (EditText) dialog.findViewById(R.id.edtDescription);
+//
+//                    Button submit = (Button) dialog.findViewById(R.id.buttonSubmit) ;
+//
+//                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.transparent)));
+//                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//                    //dialog.show();
+//
+//                    submit.setOnClickListener(new View.OnClickListener()
+//                    {
+//                        @Override
+//                        public void onClick(View v)
+//                        {
+//
+//
+//                        }
+//                    });
+//
+//
+//                    imgCLose.setOnClickListener(new View.OnClickListener()
+//                    {
+//                        @Override
+//                        public void onClick(View v)
+//                        {
+//
+//                            dialog.hide();
+//                        }
+//                    });
+//                    GradientDrawable shape =  new GradientDrawable();
+//                    shape.setCornerRadius( 8 );
+//                    shape.setColor(ContextCompat.getColor(ProductDetail.this, R.color.orange));
+//                    dialog.findViewById(R.id.buttonSubmit).setBackground(shape);
+//                    GradientDrawable shape2 =  new GradientDrawable();
+//                    shape2.setCornerRadius( 8 );
+//                    shape2.setColor(ContextCompat.getColor(ProductDetail.this, R.color.green));
+//                    dialog.findViewById(R.id.rl_service_enquiry).setBackground(shape2);
+//
+//                    etStatDate.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//
+//                            Log.e("etStartDate","clicked");
+//
+//                            isStartDate = 0;
+//                            openCalender(etStatDate);
+//                        }
+//                    });
+//                    etEndDate.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Log.e("etStartDate","clicked");
+//
+//                            isStartDate = 1;
+//                            openCalender(etEndDate);
+//                        }
+//                    });
+//
+//
+//
+//
+//
 
                 }
 
@@ -555,6 +590,25 @@ public class ProductDetail extends AppCompatActivity
         });
 
     }
+
+    private void openCalender(EditText editText) {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                ProductDetail.this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dpd.setMaxDate(now);
+        if(isStartDate == 1){
+            if(editText.getText()!=null || editText.getText().toString().length()>=8)
+                dpd.setMinDate(AndroidUtils.stringToCalender(editText.getText().toString()));
+        }
+        dpd.show(getFragmentManager(), "DatePickerDialog");
+    }
+
+
+
 
 
     private void setuptoolbar()
@@ -593,4 +647,18 @@ public class ProductDetail extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        showDate(year, monthOfYear + 1, dayOfMonth);
+    }
+
+
+    private void showDate(int year, int month, int day) {
+        date = (new StringBuilder()).append(year).append("-").append(month).append("-").append(day).toString();
+        if(isStartDate == 0){
+            etStatDate.setText(date);
+        } else if(isStartDate == 1){
+            etEndDate.setText(date);
+        }
+    }
 }
