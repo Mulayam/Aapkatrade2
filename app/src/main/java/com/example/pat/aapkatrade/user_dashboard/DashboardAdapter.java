@@ -62,6 +62,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return viewHolder;
     }
 
+
+
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         DashboardHolder homeHolder = (DashboardHolder) holder;
