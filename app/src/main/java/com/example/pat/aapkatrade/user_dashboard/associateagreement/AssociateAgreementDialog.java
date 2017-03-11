@@ -132,10 +132,7 @@ public class AssociateAgreementDialog extends Dialog {
         tvBussinessDetails.setMaxLines(3);
 
 
-        GradientDrawable shape =  new GradientDrawable();
-        shape.setCornerRadius( 8 );
-        shape.setColor(ContextCompat.getColor(context, R.color.orange));
-        findViewById(R.id.input_layout_agreement).setBackground(shape);
+
         tvBussinessDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
