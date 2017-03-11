@@ -130,9 +130,9 @@
     <string name="msg_sender" translatable="false">IM-SMSEZY</string>
     <string name="logout" translatable="false">Logout</string>
     <string name="latest_update" translatable="false">LATEST UPDATE</string>
-    <string name="personalInfo" translatable="false">Personal\nInformation</string>
-    <string name="professionalDetails" translatable="false">Professional\nDetails</string>
-    <string name="bankDetails" translatable="false">Bank\nDetails</string>
+    <string name="personalInfo" translatable="false">Personal Information</string>
+    <string name="professionalDetails" translatable="false">Professional Details</string>
+    <string name="bankDetails" translatable="false">Bank Details</string>
     <string name="one" translatable="false">1</string>
     <string name="two" translatable="false">2</string>
     <string name="three" translatable="false">3</string>

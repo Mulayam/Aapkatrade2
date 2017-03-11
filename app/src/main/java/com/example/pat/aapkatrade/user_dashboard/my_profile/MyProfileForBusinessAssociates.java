@@ -2,25 +2,17 @@ package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.pat.aapkatrade.R;
-
-import com.badoualy.stepperindicator.StepperIndicator;
-import com.example.pat.aapkatrade.categories_tab.BlankFragment;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderManagementActivity;
-import com.example.pat.aapkatrade.user_dashboard.order_list.cancel_order_fragment.CancelOrderFragment;
-import com.example.pat.aapkatrade.user_dashboard.order_list.complete_order.CompleteOrderFragment;
-import com.example.pat.aapkatrade.user_dashboard.order_list.shipped_fragment.ShippedFragment;
 
 public class MyProfileForBusinessAssociates extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     private TabLayout tabLayout;
@@ -29,14 +21,14 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
 
     private int[] tabIcons = {
 
-            R.drawable.new_order_grn,
-            R.drawable.new_order_wht,
+            R.drawable.ic_personal_details_green,
+            R.drawable.ic_personal_details_white,
 
-            R.drawable.cancel_order_grn,
-            R.drawable.cancel_order_wht,
+            R.drawable.ic_professional_details_green,
+            R.drawable.ic_professional_details_white,
 
-            R.drawable.shipped_order_grn,
-            R.drawable.shipped_order_wht,
+            R.drawable.ic_bank_details_green,
+            R.drawable.ic_bank_details_white,
 
     };
 
@@ -56,7 +48,6 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
 
     private void initView() {
         context = MyProfileForBusinessAssociates.this;
-
         viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
     }
@@ -79,7 +70,7 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
     private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
@@ -88,18 +79,14 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -112,12 +99,37 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-
+        Log.e("hi---", "IIIIIIIII" + tab.getPosition());
+        if (tab.getPosition() == 0) {
+            tab.setIcon(tabIcons[1]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        } else if (tab.getPosition() == 1) {
+            tab.setIcon(tabIcons[3]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        } else if (tab.getPosition() == 2) {
+            tab.setIcon(tabIcons[5]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        } else if (tab.getPosition() == 3) {
+            tab.setIcon(tabIcons[7]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
     }
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-
+        if (tab.getPosition() == 0) {
+            tab.setIcon(tabIcons[0]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        } else if (tab.getPosition() == 1) {
+            tab.setIcon(tabIcons[2]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        } else if (tab.getPosition() == 2) {
+            tab.setIcon(tabIcons[4]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        } else if (tab.getPosition() == 3) {
+            tab.setIcon(tabIcons[6]);
+            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
+        }
     }
 
     @Override
