@@ -73,7 +73,7 @@ public class VendorActivity extends AppCompatActivity
         progress_handler.show();
         venderListDatas.clear();
         Ion.with(VendorActivity.this)
-                .load("https://aapkatrade.com/slim/list_vendor")
+                .load((getResources().getString(R.string.webservice_base_url))+"/list_vendor")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))

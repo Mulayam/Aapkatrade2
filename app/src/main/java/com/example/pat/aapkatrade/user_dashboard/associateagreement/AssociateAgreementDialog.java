@@ -83,7 +83,7 @@ public class AssociateAgreementDialog extends Dialog {
 
     private void callWebService() {
         Ion.with(context)
-                .load("https://aapkatrade.com/slim/term_agreement")
+                .load((context.getResources().getString(R.string.webservice_base_url))+"/term_agreement")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", ""))

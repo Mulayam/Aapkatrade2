@@ -224,7 +224,7 @@ public class EditCompanyActivity extends AppCompatActivity
         progress_handler.show();
 
         Ion.with(EditCompanyActivity.this)
-                .load("https://aapkatrade.com/slim/editCompany")
+                .load((getResources().getString(R.string.webservice_base_url))+"/editCompany")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("company_name", companyName)

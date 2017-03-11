@@ -90,7 +90,7 @@ public class User_DashboardFragment extends Fragment {
 
                 String userid = app_sharedpreference.getsharedpref("userid", "0");
 
-                String user_detail_webserviceurl = "https://aapkatrade.com/slim/userdata";
+                String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url))+"/userdata";
 
                 if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 

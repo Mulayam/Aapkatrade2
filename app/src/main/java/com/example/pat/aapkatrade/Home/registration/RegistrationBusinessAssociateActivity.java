@@ -697,7 +697,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         CustomSimpleListAdapter qualificationAdapter = new CustomSimpleListAdapter(context, qualificationList);
         spQualification.setAdapter(qualificationAdapter);
         Ion.with(context)
-                .load("https://aapkatrade.com/slim/qualification")
+                .load((getResources().getString(R.string.webservice_base_url))+"/qualification")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -755,7 +755,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
 
         Ion.with(context)
-                .load("https://aapkatrade.com/slim/total_experience")
+                .load((getResources().getString(R.string.webservice_base_url))+"/total_experience")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -812,7 +812,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
 
         Ion.with(context)
-                .load("https://aapkatrade.com/slim/relevant_experience")
+                .load((getResources().getString(R.string.webservice_base_url))+"/relevant_experience")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -869,7 +869,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
 
         Ion.with(context)
-                .load("https://aapkatrade.com/slim/bank_list")
+                .load((getResources().getString(R.string.webservice_base_url))+"/bank_list")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
