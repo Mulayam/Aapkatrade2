@@ -268,7 +268,6 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("pincode", jsonObject.get("pincode").getAsString());
             app_sharedpreference.setsharedpref("platform", jsonObject.get("platform").getAsString());
             app_sharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
-            app_sharedpreference.setsharedpref("photo", jsonObject.get("term_accepted").getAsString());
             app_sharedpreference.setsharedpref("term_accepted", jsonObject.get("term_accepted").getAsString());
             app_sharedpreference.setsharedpref("created_at", jsonObject.get("created_at").getAsString());
             app_sharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());

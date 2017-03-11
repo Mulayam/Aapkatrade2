@@ -27,7 +27,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
-import com.example.pat.aapkatrade.Home.latestproduct.latestproductadapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
 import com.example.pat.aapkatrade.general.Tabletsize;
@@ -59,7 +58,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     ArrayList<CommomData> commomDatas_latestpost = new ArrayList<>();
     ArrayList<CommomData> commomDatas_latestupdate = new ArrayList<>();
     private CommomAdapter commomAdapter_latestpost,commomAdapter_latestproduct;
-    public latestproductadapter latestproductadapter;
+  //  public latestproductadapter latestproductadapter;
     ProgressBarHandler progress_handler;
     private int dotsCount;
     private ArrayList<String> imageIdList;
@@ -171,7 +170,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         llManagerEclipseCollection = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
         viewpagerindicator = (LinearLayout) view.findViewById(R.id.viewpagerindicator);
-        latestproductadapter = new latestproductadapter(context, commomDatas);
+       // latestproductadapter = new latestproductadapter(context, commomDatas);
         recyclerlatestpost = (RecyclerView) view.findViewById(R.id.recyclerlatestpost);
         recyclerlatestpost.setLayoutManager(llManagerEclipseCollection);
 

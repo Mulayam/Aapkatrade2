@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -24,6 +25,7 @@ import com.example.pat.aapkatrade.user_dashboard.order_list.shipped_fragment.Shi
 public class MyProfileForBusinessAssociates extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Context context;
 
     private int[] tabIcons = {
 
@@ -44,17 +46,19 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile_for_business_associates);
         setuptoolbar();
-        viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
+        initView();
         setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(this);
-
-
         tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-
         setupTabIcons();
+    }
+
+    private void initView() {
+        context = MyProfileForBusinessAssociates.this;
+
+        viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
     }
 
     private void setupTabIcons() {

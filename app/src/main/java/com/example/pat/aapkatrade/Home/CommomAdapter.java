@@ -10,15 +10,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Tabletsize;
-import com.example.pat.aapkatrade.general.animation_effects.App_animation;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Netforce on 7/25/2016.
@@ -67,50 +71,43 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (arrangementtype == "list")
 
         {
-            CommomHolder holder = new CommomHolder(v);
+            final CommomHolder holder = new CommomHolder(v);
 
 
-
-            if(Tabletsize.isTablet(context))
-            {
-
-                Picasso.with(context).load(commomDatas.get(position).imageurl)
+            if (Tabletsize.isTablet(context)) {
+                Picasso.with(context)
+                        .load(commomDatas.get(position).imageurl)
                         .error(R.drawable.banner)
                         .placeholder(R.drawable.default_noimage)
                         .error(R.drawable.default_noimage)
                         .into(holder.cimageview);
-                String product_imageurl=commomDatas.get(position).imageurl.replace("small","large");
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "large");
 
                 Ion.with(holder.cimageview)
                         .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                         .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                         .load(product_imageurl);
-                Log.e("image_large","image_large");
+                Log.e("image_large", "image_large");
 
-            }
-            else if(Tabletsize.isMedium(context))
-            {
-                String product_imageurl=commomDatas.get(position).imageurl.replace("small","medium");
+            } else if (Tabletsize.isMedium(context)) {
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
 
                 Ion.with(holder.cimageview)
                         .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                         .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                         .load(product_imageurl);
-                Log.e("image_medium","image_medium"+product_imageurl);
+                Log.e("image_medium", "image_medium" + product_imageurl);
 
-            }
-            else if(Tabletsize.isSmall(context))
-            {
-                String product_imageurl=commomDatas.get(position).imageurl.replace("small","medium");
+            } else if (Tabletsize.isSmall(context)) {
+                String product_imageurl = commomDatas.get(position).imageurl.replace("small", "medium");
 
                 Ion.with(holder.cimageview)
                         .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                         .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                         .load(product_imageurl);
 
-                Log.e("image_small","image_small");
+                Log.e("image_small", "image_small");
             }
-
 
 
 //            Picasso.with(context).load(commomDatas.get(position).imageurl)
@@ -129,36 +126,33 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 //                .load(commomDatas.get(0).imageurl);
             Log.e("imageurl", commomDatas.get(0).imageurl);
 
-            holder.cardview.setOnClickListener(new View.OnClickListener()
-            {
+            holder.cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view)
-                {
+                public void onClick(View view) {
 
-                Intent intent = new Intent(context,ProductDetail.class);
-                    intent.putExtra("product_id",commomDatas.get(position).id.toString());
-                context.startActivity(intent);
-                ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+                    Intent intent = new Intent(context, ProductDetail.class);
+                    intent.putExtra("product_id", commomDatas.get(position).id.toString());
+                    context.startActivity(intent);
+                    ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
 
                 }
             });
             holder.tvProductName.setText(commomDatas.get(position).name);
 
-        }
-        else {
+        } else {
 
             final CommonHolder_grid grid_holder = new CommonHolder_grid(v);
 
             Picasso.with(context).load(commomDatas.get(position).imageurl)
-                    .error(ContextCompat.getDrawable(context,R.drawable.ic_applogo1))
-.placeholder(ContextCompat.getDrawable(context,R.drawable.ic_applogo1))
+                    .error(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
+                    .placeholder(ContextCompat.getDrawable(context, R.drawable.ic_applogo1))
                     .into(grid_holder.product_imageview);
             grid_holder.tvProductName.setText(commomDatas.get(position).name);
             grid_holder.rl_grid_row_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ProductDetail.class);
-                    intent.putExtra("product_id",commomDatas.get(position).id.toString());
+                    intent.putExtra("product_id", commomDatas.get(position).id.toString());
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
                 }
@@ -198,8 +192,6 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             }
         }
-
-
 
 
     }
