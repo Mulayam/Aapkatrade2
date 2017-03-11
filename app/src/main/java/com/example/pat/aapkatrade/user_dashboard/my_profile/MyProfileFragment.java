@@ -18,6 +18,7 @@ import android.widget.Spinner;
 
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
+import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -86,48 +87,106 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     }
 
     private void setUpStateSpinner() {
-        State stateEntity_init = new State("-1", "Please Select State");
-        stateList.add(stateEntity_init);
-        SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
-        spState.setAdapter(spStateAdapter);
+        Ion.with(context)
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "state")
+                .setBodyParameter("id", "101")
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result != null) {
+                            int selectedIndex = 0;
+                            JsonArray jsonResultArray = result.getAsJsonArray("result");
+                            stateList = new ArrayList<>();
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                stateList.add(stateEntity);
+                                if(state_id.equals(stateEntity.stateId)){
+                                    selectedIndex = i;
+                                    Log.e("HOooo434oooooo", jsonObject1.get("id").getAsString() + "  State Found  " + jsonObject1.get("name").getAsString());
 
+                                }
+                            }
 
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "state");
-        webservice_body_parameter.put("id", "101");
+                            Log.e("HOooooooooo", "State List Size : "+stateList.size());
 
-        Call_webservice.getcountrystatedata(context, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+                            SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
+                            spState.setAdapter(spStateAdapter);
+                            spState.setSelection(selectedIndex);
+                            spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    state_id = stateList.get(position).stateId;
+                                    setUpCitySpinner(state_id);
+                                }
 
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject state_data_webservice) {
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
 
-                if (state_data_webservice != null) {
-                    Log.e("Taskcomplete", "TaskcompleteError" + state_data_webservice.toString());
-                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                        stateList.add(stateEntity);
-                        Log.e("HOooooooooo", jsonObject1.get("id").getAsString() + "  State Found  " + jsonObject1.get("name").getAsString());
+                                }
+                            });
+                        } else {
+                            Log.e("HOooooooooo", "State Not Found");
+                            AndroidUtils.showSnackBar(updateMyProfileLayout, "State Not Found");
+                        }
                     }
-
-                    Log.e("HOooooooooo", "State List Size : "+stateList.size());
-
-                    SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
-                    spState.setAdapter(spStateAdapter);
-                } else {
-                    Log.e("HOooooooooo", "State Not Found");
-                    AndroidUtils.showSnackBar(updateMyProfileLayout, "State Not Found");
-                }
-            }
-
-        };
+                });
     }
 
 
+    private void setUpCitySpinner(String stateId) {
+        Ion.with(context)
+                .load("http://aapkatrade.com/slim/dropdown")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "city")
+                .setBodyParameter("id", stateId)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result != null) {
+                            int selectedIndex = 0;
+                            JsonArray jsonResultArray = result.getAsJsonArray("result");
+                            cityList = new ArrayList<>();
+                            for (int i = 0; i < jsonResultArray.size(); i++) {
+                                JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                cityList.add(cityEntity);
+                                if(city_id.equals(cityEntity.cityId)){
+                                    selectedIndex = i;
+                                    Log.e("HOooo434oooooo", jsonObject1.get("id").getAsString() + "  State Found  " + jsonObject1.get("name").getAsString());
+
+                                }
+                            }
+
+                            Log.e("HOooooooooo", "State List Size : "+stateList.size());
+
+                            SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
+                            spcity.setAdapter(spCityAdapter);
+                            spcity.setSelection(selectedIndex);
+                            spcity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                        } else {
+                            Log.e("HOooooooooo", "State Not Found");
+                            AndroidUtils.showSnackBar(updateMyProfileLayout, "State Not Found");
+                        }
+                    }
+                });
+    }
     private void openCalender() {
         openCalander.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,7 +341,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                 }
                                 CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
                                 spSelectBank.setAdapter(bankListAdapter);
-                                spSelectBank.setSelection(selectedIndex);
+                                spSelectBank.setSelection(selectedIndex+1);
                                 spSelectBank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -340,7 +399,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                 }
                                 CustomSimpleListAdapter qualificationAdapter = new CustomSimpleListAdapter(context, qualificationList);
                                 spQualification.setAdapter(qualificationAdapter);
-                                spQualification.setSelection(selectedIndex);
+                                spQualification.setSelection(selectedIndex+1);
                                 spQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -398,11 +457,12 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                     totalExpList.add(jsonObject.get("name").getAsString());
                                     if(total_exp.equals(jsonObject.get("name").getAsString())){
                                         selectedIndex = i;
+                                        Log.e("selectedIndex", jsonObject.get("name").getAsString()+"******"+total_exp);
                                     }
                                 }
                                 CustomSimpleListAdapter totalExpAdapter = new CustomSimpleListAdapter(context, totalExpList);
                                 spTotalExp.setAdapter(totalExpAdapter);
-                                spTotalExp.setSelection(selectedIndex);
+                                spTotalExp.setSelection(selectedIndex+1);
                                 spTotalExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
