@@ -38,7 +38,6 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -121,7 +120,6 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
             }
 
-
         });
 
 
@@ -158,20 +156,22 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     }
 
 
-    private int returnPageIndex(int sizeOfList) {
+    private int returnPageIndex(int sizeOfList)
+    {
         int index = sizeOfList / mPageSize;
         return index;
     }
 
-       private void setuptoolbar() {
+    private void setuptoolbar()
+    {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setTitle(null);
         //getSupportActionBar().setIcon(R.drawable.home_logo);
     }
+
 
 
     public void get_web_data2(int page_number)
@@ -346,8 +346,10 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 break;
@@ -359,7 +361,8 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
 
     @Override
-    public void onRefresh() {
+    public void onRefresh()
+    {
         get_web_data();
     }
 

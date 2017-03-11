@@ -84,6 +84,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date date = null;
+
         try
         {
             date = form.parse(itemList.get(position).company_creation_date);
@@ -96,6 +97,8 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             e.printStackTrace();
         }
+
+
         SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
         String newDateStr = postFormater.format(date);
 

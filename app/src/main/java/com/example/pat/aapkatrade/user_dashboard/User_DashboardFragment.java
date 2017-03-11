@@ -34,16 +34,19 @@ public class User_DashboardFragment extends Fragment
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
     App_sharedpreference app_sharedpreference;
-    TextView tvMobile, tvEmail, textViewName, tvUserType;
+    TextView tvMobile,tvEmail,textViewName,tvUserType;
     Button btnEdit;
     ProgressBarHandler progressBarHandler;
     RecyclerView.LayoutManager layoutManager;
 
-    public User_DashboardFragment() {
 
+    public User_DashboardFragment() {
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
         app_sharedpreference = new App_sharedpreference(getActivity());
         progressBarHandler = new ProgressBarHandler(getActivity());
@@ -56,7 +59,8 @@ public class User_DashboardFragment extends Fragment
         return v;
     }
 
-    private void setup_layout(View v) {
+    private void setup_layout(View v)
+    {
         textViewName = (TextView) v.findViewById(R.id.textViewName);
         tvMobile = (TextView) v.findViewById(R.id.tvMobile);
         tvEmail = (TextView) v.findViewById(R.id.tvEmail);
@@ -79,11 +83,12 @@ public class User_DashboardFragment extends Fragment
                 tvEmail.setText(Emailid);
             }
         }
+
+
     }
 
-
-
-    private void setup_data() {
+    private void setup_data()
+    {
         dashboardDatas.clear();
         try {
 
@@ -94,8 +99,8 @@ public class User_DashboardFragment extends Fragment
 
                 String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url))+"/userdata";
 
-                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
-
+                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3"))
+                {
 
                     userdata_webservice(user_detail_webserviceurl, "3", userid);
 
@@ -184,6 +189,7 @@ public class User_DashboardFragment extends Fragment
                                     Log.e("order_quantity", order_quantity);
                                     Log.e("product_quantity", product_quantity);
                                     Log.e("company_quantity", company_quantity);
+
                                     dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
                                     dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false, ""));
                                     dashboardDatas.add(new DashboardData("", "Add Company", R.drawable.ic_add_company, R.drawable.circle_cherry_red, false, ""));
@@ -191,13 +197,17 @@ public class User_DashboardFragment extends Fragment
                                     dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct, R.drawable.circle_turquoise, false, ""));
                                     dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct, R.drawable.circle_slate_gray, true, product_quantity_shared_pref));
                                     dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity_shared_pref));
+                                    dashboardDatas.add(new DashboardData("", "Enquiry Services List", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity_shared_pref));
 
                                     String Username = app_sharedpreference.getsharedpref("username", "not");
 
-                                    if (Username.equals("notlogin")) {
+                                    if (Username.equals("notlogin"))
+                                    {
                                         tvUserType.setText("Welcome Guest");
                                         NavigationFragment.usertype.setText("Welcome Guest");
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         tvUserType.setText("Welcome Seller");
                                     }
 
