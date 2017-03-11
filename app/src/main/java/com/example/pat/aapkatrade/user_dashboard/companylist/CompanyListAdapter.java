@@ -221,7 +221,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         p = pos;
         System.out.println(" company--------"+company);
             Ion.with(context)
-                    .load("https://aapkatrade.com/slim/delete_company")
+                    .load((context.getResources().getString(R.string.webservice_base_url))+"/delete_company")
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("company_id",company)
                     .asJsonObject()

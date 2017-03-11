@@ -241,7 +241,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
 
         Ion.with(MyProfileActivity.this)
-                .load("https://aapkatrade.com/slim/my_account")
+                .load((getResources().getString(R.string.webservice_base_url))+"/my_account")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", etFName.getText().toString())

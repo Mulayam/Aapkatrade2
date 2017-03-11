@@ -131,7 +131,7 @@ public class Search extends AppCompatActivity
 if(autocomplete_textview_state.getText().length()!=0)
 
 {
-    String product_search_url = "https://aapkatrade.com/slim/product_search";
+    String product_search_url = (getResources().getString(R.string.webservice_base_url))+"/product_search";
 
 
 
@@ -246,7 +246,7 @@ if(autocomplete_textview_state.getText().length()!=0)
     }
 
     private void call_search_webservice(String location_text, String product_name1) {
-        String search_url = "https://aapkatrade.com/slim/search";
+        String search_url = (getResources().getString(R.string.webservice_base_url))+"/search";
         progressBarHandler.show();
 
         Ion.with(Search.this)
