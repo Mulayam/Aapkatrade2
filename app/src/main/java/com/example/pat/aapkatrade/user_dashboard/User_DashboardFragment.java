@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
@@ -35,14 +37,13 @@ public class User_DashboardFragment extends Fragment
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
     App_sharedpreference app_sharedpreference;
     TextView tvMobile,tvEmail,textViewName,tvUserType;
-    Button btnEdit;
+    ImageView btnEdit;
     ProgressBarHandler progressBarHandler;
     RecyclerView.LayoutManager layoutManager;
 
-
     public User_DashboardFragment() {
-    }
 
+    }
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -64,7 +65,7 @@ public class User_DashboardFragment extends Fragment
         textViewName = (TextView) v.findViewById(R.id.textViewName);
         tvMobile = (TextView) v.findViewById(R.id.tvMobile);
         tvEmail = (TextView) v.findViewById(R.id.tvEmail);
-        btnEdit = (Button) v.findViewById(R.id.btnEdit);
+        btnEdit = (ImageView) v.findViewById(R.id.btnEdit);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +73,9 @@ public class User_DashboardFragment extends Fragment
                 startActivity(i);
             }
         });
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
+
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
+        {
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
             if (Username.equals("notlogin")) {
@@ -97,11 +100,7 @@ public class User_DashboardFragment extends Fragment
 
                 String userid = app_sharedpreference.getsharedpref("userid", "0");
 
-
-               
-
                 String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url))+"/userdata";
-
 
                 if (app_sharedpreference.getsharedpref("usertype", "0").equals("3"))
                 {
@@ -131,7 +130,8 @@ public class User_DashboardFragment extends Fragment
 
     }
 
-    public void userdata_webservice(String url, final String user_type, String user_id) {
+    public void userdata_webservice(String url, final String user_type, String user_id)
+    {
         Log.e("url", url);
         Log.e("user_type", user_type);
         Log.e("user_id", user_id);
@@ -142,7 +142,6 @@ public class User_DashboardFragment extends Fragment
                 .setBodyParameter("type", user_type)
                 .setBodyParameter("id", user_id)
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -164,6 +163,7 @@ public class User_DashboardFragment extends Fragment
                                 progressBarHandler.hide();
                                 if (user_type.contains("1"))
                                 {
+
                                     String order_quantity = result.get("order").getAsString();
                                     app_sharedpreference.setsharedpref("order_quantity", order_quantity);
                                     dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false, ""));
@@ -175,6 +175,7 @@ public class User_DashboardFragment extends Fragment
                                     dashboardlist.setLayoutManager(layoutManager);
                                     dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
                                     dashboardlist.setAdapter(dashboardAdapter);
+
 
                                 }
                                 else if (user_type.contains("2"))
@@ -201,7 +202,7 @@ public class User_DashboardFragment extends Fragment
                                     dashboardDatas.add(new DashboardData("", "Add Product", R.drawable.ic_adprdct, R.drawable.circle_turquoise, false, ""));
                                     dashboardDatas.add(new DashboardData("", "List Product", R.drawable.ic_lstprdct, R.drawable.circle_slate_gray, true, product_quantity_shared_pref));
                                     dashboardDatas.add(new DashboardData("", "Order", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity_shared_pref));
-                                    dashboardDatas.add(new DashboardData("", "Enquiry Services List", R.drawable.ic_lstprdct, R.drawable.circle_sienna, true, order_quantity_shared_pref));
+                                    dashboardDatas.add(new DashboardData("", "Enquiry Services List", R.drawable.ic_svr_enquiry, R.drawable.circle_purple, true, ""));
 
                                     String Username = app_sharedpreference.getsharedpref("username", "not");
 
@@ -223,7 +224,6 @@ public class User_DashboardFragment extends Fragment
                                 else if (user_type.contains("3"))
                                 {
 
-
                                     String vendor_quantity = result.get("vendor").getAsString();
                                     String network_quantity = result.get("network").getAsString();
                                     app_sharedpreference.setsharedpref("vendor_quantity", vendor_quantity);
@@ -233,25 +233,23 @@ public class User_DashboardFragment extends Fragment
                                     dashboardDatas.add(new DashboardData("", "My Profile", R.drawable.ic_myprofile, R.drawable.circle_teal, false));
                                     dashboardDatas.add(new DashboardData("", "Change Password", R.drawable.ic_chngpswd, R.drawable.circle_purple, false));
                                     dashboardDatas.add(new DashboardData("", "Add Vendor", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false));
-                                    dashboardDatas.add(new DashboardData("", "Vendor List", R.drawable.ic_add_company, R.drawable.circle_deep_pink, true, vendor_quantity_sharedpref));
+                                    dashboardDatas.add(new DashboardData("", "Vendor List", R.drawable.ic_vendor_list, R.drawable.circle_sienna, true, vendor_quantity_sharedpref));
                                     dashboardDatas.add(new DashboardData("", "Associate Agreement", R.drawable.ic_companyprofile, R.drawable.circle_voilet, false, ""));
-                                    dashboardDatas.add(new DashboardData("", "Payout Reports", R.drawable.ic_add_company, R.drawable.circle_deep_pink, false));
+                                    dashboardDatas.add(new DashboardData("", "Payout Reports", R.drawable.ic_payout, R.drawable.circle_deep_pink, false));
+                                    dashboardDatas.add(new DashboardData("", "My Network", R.drawable.ic_lstprdct, R.drawable.circle_teal, true, ""));
+
                                     tvUserType.setText("Welcome Bussiness Associate");
                                     dashboardlist.setLayoutManager(layoutManager);
                                     dashboardAdapter = new DashboardAdapter(getActivity(), dashboardDatas);
                                     dashboardlist.setAdapter(dashboardAdapter);
 
 
-
-
                                 }
-
 
                             }
                         }
 
                     }
-
 
                 });
     }

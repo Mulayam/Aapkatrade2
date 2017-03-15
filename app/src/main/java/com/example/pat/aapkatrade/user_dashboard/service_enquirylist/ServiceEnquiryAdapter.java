@@ -10,6 +10,8 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -20,15 +22,15 @@ import java.util.List;
 
 public class ServiceEnquiryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+
     final LayoutInflater inflater;
     List<ServiceEnquiryData> itemList;
     Context context;
-    CompanyListHolder viewHolder;
+    ServiceEnquiryHolder viewHolder;
     ServiceEnquiryActivity  serviceEnquiryActivity;
-    int p;
     App_sharedpreference app_sharedpreference;
-    String email;
     ProgressBarHandler progress_handler;
+
 
 
     public ServiceEnquiryAdapter(Context context, List<ServiceEnquiryData> itemList,ServiceEnquiryActivity serviceEnquiryActivity)
@@ -49,7 +51,7 @@ public class ServiceEnquiryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
         View view = inflater.inflate(R.layout.row_service_enquiry, parent, false);
 
-        viewHolder = new CompanyListHolder(view);
+        viewHolder = new ServiceEnquiryHolder(view);
 
         System.out.println("data-----------"+itemList);
 
@@ -60,22 +62,27 @@ public class ServiceEnquiryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
 
-        final CompanyListHolder homeHolder = (CompanyListHolder) holder;
+        final ServiceEnquiryHolder homeHolder = (ServiceEnquiryHolder) holder;
 
-      /*  homeHolder.tvCompanyname.setText(itemList.get(position).company_name);
+        homeHolder.tvProductName.setText(itemList.get(position).product_name);
 
-        email = app_sharedpreference.getsharedpref("emailid", "");
+        homeHolder.tvPrice.setText("\u20A8"+" "+itemList.get(position).product_price);
 
-        homeHolder.tvEmail.setText(email);
+        homeHolder.tvUserName.setText(itemList.get(position).user_name);
+
+        homeHolder.tvEmail.setText(itemList.get(position).user_email);
+
+        homeHolder.tvMobile.setText(itemList.get(position).user_mobile);
+
+        homeHolder.tvDescription.setText(itemList.get(position).description);
+
 
         SimpleDateFormat form = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date date = null;
 
         try
         {
-            date = form.parse(itemList.get(position).company_creation_date);
-
-            System.out.println("datae----------"+itemList.get(position).company_creation_date);
+            date = form.parse(itemList.get(position).created_date);
 
         }
         catch (ParseException e)
@@ -84,13 +91,12 @@ public class ServiceEnquiryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             e.printStackTrace();
         }
 
-
         SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
         String newDateStr = postFormater.format(date);
 
-        homeHolder.tvDate.setText(newDateStr);
-      */
+        homeHolder.tvCreatedDate.setText(newDateStr);
 
+        homeHolder.tvCategoryName.setText(itemList.get(position).category_name);
 
     }
 
@@ -101,10 +107,6 @@ public class ServiceEnquiryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return itemList.size();
     }
 
-    public String getCurrentTimeStamp()
-    {
-        return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
-    }
 
 
 

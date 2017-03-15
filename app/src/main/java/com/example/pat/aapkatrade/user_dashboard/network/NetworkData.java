@@ -7,19 +7,16 @@ package com.example.pat.aapkatrade.user_dashboard.network;
 public class NetworkData
 {
 
-    String vender_id, vender_name,vender_last_name,vender_creation_date,mobile,email,bussiness_type;
+    String  user_name,user_last_name,mobile,email,creation_date;
 
-
-
-    NetworkData(String vender_id, String vender_name, String vender_last_name ,String bussiness_type,String mobile ,String email,String vender_creation_date)
+    NetworkData(String user_name, String user_last_name ,String email,String mobile,String creation_date)
     {
-        this.vender_id = vender_id;
-        this.vender_name = vender_name;
-        this.vender_last_name = vender_last_name;
-        this.bussiness_type= bussiness_type;
+        this.user_name = user_name;
+        this.user_last_name = user_last_name;
         this.mobile = mobile;
         this.email = email;
-        this.vender_creation_date = vender_creation_date;
+        this.creation_date = creation_date;
 
     }
+
 }

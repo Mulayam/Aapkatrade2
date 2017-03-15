@@ -18,7 +18,7 @@
         >
 
         <TextView
-            android:id="@+id/tvProductName"
+            android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -28,34 +28,7 @@
             android:textSize="16sp"
             />
 
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="Rs.500"
-            android:textColor="@color/orange"
-            />
 
-        <TextView
-            android:id="@+id/tvCategoryName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tvPrice"
-            android:text="Music Art"
-            android:layout_marginTop="5dp"
-            />
-
-        <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tvCategoryName"
-            android:text="Annu Raghav"
-
-            />
 
         <ImageView
             android:id="@+id/imgEmail"
@@ -75,8 +48,8 @@
             android:text="arvindkumaryadav937@gmail.com"
             android:layout_toRightOf="@+id/imgEmail"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
             android:textColor="@color/black"
+            android:layout_marginLeft="5dp"
             />
 
 
@@ -99,7 +72,9 @@
             android:layout_marginTop="3dp"
             android:layout_marginLeft="5dp"
             android:textColor="@color/black"
+
             />
+
 
         <TextView
             android:id="@+id/tvCreatedDate"
@@ -109,26 +84,10 @@
             android:layout_below="@+id/imgEmail"
             android:layout_alignParentRight="true"
             android:layout_marginTop="3dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
             />
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bussiness_associate_details"
-            android:layout_below="@+id/imgMobile"
-            android:maxLines="2"
-            />
-
-        <TextView
-            android:id="@+id/tvMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="More"
-            android:textColor="@color/orange"
-            android:layout_below="@+id/tvDescription"
-            android:layout_alignParentRight="true"
-            />
 
     </RelativeLayout>
 
