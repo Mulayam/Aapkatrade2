@@ -86,7 +86,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private CommonAdapter_navigation_recycleview category_adapter;
     public ArrayList<CategoryHome> listDataHeader = new ArrayList<>();
     public ArrayList<SubCategory> listDataChild = new ArrayList<>();
-    RelativeLayout rl_category;
+    RelativeLayout rl_category,rl_logout;
 
     int flag_categoryclick;
     View rl_main_content;
@@ -120,6 +120,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
     private void initView(View view) {
         navigation_close = (ImageView) view.findViewById(R.id.navigation_close);
+        rl_logout=(RelativeLayout)view.findViewById(R.id.rl_logout) ;
         navigation_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,26 +156,30 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
             if (Username.equals("not")) {
+                rl_logout.setVisibility(View.GONE);
+
                 Log.e("Shared_pref2", "null" + Username);
             } else {
+
+                set_visibility_logout();
 
                 setdata(Username, Emailid);
 
                 if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
 
-                    usertype.setText("Welcome Bussiness Associate");
+                    usertype.setText("Bussiness Associate");
 
 
                 } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("2"))) {
 
-                    usertype.setText("Welcome Buyer");
+                    usertype.setText("Buyer");
 
 
                 } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1"))) {
 
 
-                    usertype.setText("Welcome Seller");
+                    usertype.setText(" Seller");
 
 
                 }
@@ -184,6 +189,13 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         } else {
             Log.e("Shared_pref1", "null");
         }
+    }
+
+    private void set_visibility_logout() {
+
+        rl_logout.setVisibility(View.VISIBLE);
+
+
     }
 
 //       navigation_parent_scrollview.setOnTouchListener(new View.OnTouchListener() {

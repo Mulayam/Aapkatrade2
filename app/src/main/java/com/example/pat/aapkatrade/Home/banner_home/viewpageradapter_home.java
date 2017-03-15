@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.Home.banner_home;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,8 @@ public class viewpageradapter_home  extends PagerAdapter
         Ion.with(imageView)
 //               .placeholder(R.drawable.placeholder_image)
 
-                .load("http://aapkatrade.com/laraveldemo/public/image/demo/slider/3.jpg");
+                .load(imageurl.get(position));
+        Log.e("banner-image",imageurl.get(position)+"");
        // imageView.setImageResource(R.drawable.banner_home);
 
         container.addView(itemView);

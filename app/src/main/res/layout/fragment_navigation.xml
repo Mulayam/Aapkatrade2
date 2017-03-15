@@ -217,12 +217,12 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_setting"
+                android:id="@+id/rl_logout"
                 android:layout_width="match_parent"
-
                 android:layout_height="45dp"
                 android:layout_below="@+id/rl_invite"
-                android:background="@color/blue_gradient">
+                android:background="@color/blue_gradient"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
