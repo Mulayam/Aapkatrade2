@@ -11,7 +11,7 @@
 
     <include
         layout="@layout/content_order_details"
-        ></include>
+       />
 
 
 </LinearLayout>

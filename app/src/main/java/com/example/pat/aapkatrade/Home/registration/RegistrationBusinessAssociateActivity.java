@@ -949,10 +949,7 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 } else if (Validation.isEmptyStr(formBusinessData.getAddress())) {
                     putError(9);
                     step1FieldsSet++;
-                } else if (Validation.isEmptyStr(formBusinessData.getLastName())) {
-                    putError(1);
-                    step1FieldsSet++;
-                } else if (!(Validation.isNonEmptyStr(formBusinessData.getStateID()) &&
+                }else if (!(Validation.isNonEmptyStr(formBusinessData.getStateID()) &&
                         Integer.parseInt(formBusinessData.getStateID()) > 0)) {
                     AndroidUtils.showSnackBar(registrationLayout, "Please Select State");
                     step1FieldsSet++;
