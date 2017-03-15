@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
@@ -71,6 +72,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v) {
 
                 Intent product_detail = new Intent(context, ListProductDetailActivity.class);
+                product_detail.putExtra("user_id", itemList.get(position).user_id);
                 product_detail.putExtra("product_name", itemList.get(position).product_name);
                 product_detail.putExtra("product_price", itemList.get(position).product_price);
                 product_detail.putExtra("product_cross_price", itemList.get(position).product_cross_price);
@@ -99,7 +101,43 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View v) {
 
+                Intent product_detail = new Intent(context, ListProductDetailActivity.class);
+                product_detail.putExtra("user_id", itemList.get(position).user_id);
+                product_detail.putExtra("product_name", itemList.get(position).product_name);
+                product_detail.putExtra("product_price", itemList.get(position).product_price);
+                product_detail.putExtra("product_cross_price", itemList.get(position).product_cross_price);
+                product_detail.putExtra("product_image", itemList.get(position).product_image);
+                product_detail.putExtra("category_name", itemList.get(position).category_name);
+                product_detail.putExtra("description", itemList.get(position).description);
+                product_detail.putExtra("delivery_distance", itemList.get(position).delivery_distance);
+                product_detail.putExtra("delivery_area_name", itemList.get(position).delivery_area_name);
+                product_detail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(product_detail);
+/*
+                Ion.with(context)
+                        .load("https://aapkatrade.com/slim/add_product\n")
+                        .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("user_id", )
+                        .setBodyParameter("productauthorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                        .setBodyParameter("company_id", )
+                        .setBodyParameter("distance_id", )
+                        .setBodyParameter("country_id", "101")
+                        .setBodyParameter("state_id", )
+                        .setBodyParameter("city_id", )
+                        .setBodyParameter("price", )
+                        .setBodyParameter("cross_price", )
+                        .setBodyParameter("unit_id", )
+                        .setBodyParameter("short_des",)
+                        .setBodyParameter("descriptiondeliveryArea", )
+                        .setBodyParameter("category_id", )
+                        .asJsonObject()
+                        .setCallback(new FutureCallback<JsonObject>() {
+                            @Override
+                            public void onCompleted(Exception e, JsonObject result) {
 
+                            }
+                        });*/
             }
         });
 

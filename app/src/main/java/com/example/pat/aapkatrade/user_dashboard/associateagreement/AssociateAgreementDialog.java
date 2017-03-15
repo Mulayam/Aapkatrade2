@@ -22,11 +22,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-
-import org.apache.http.client.methods.HttpOptions;
-
-public class AssociateAgreementDialog extends Dialog
-{
+public class AssociateAgreementDialog extends Dialog {
 
 
     private TextView tvUserName, tvDate, tvReferenceNumber, tvBussinessHeading, tvBussinessDetails, tvMore;
@@ -38,15 +34,13 @@ public class AssociateAgreementDialog extends Dialog
     private LinearLayout input_layout_agreement;
 
 
-
     public AssociateAgreementDialog(Context context) {
         super(context);
         this.context = context;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setContentView(R.layout.dialog_associate_agreement);
@@ -58,7 +52,7 @@ public class AssociateAgreementDialog extends Dialog
             @Override
             public void onClick(View v) {
                 ((HomeActivity) context).finish();
-                Intent intent =  ((HomeActivity) context).getIntent();
+                Intent intent = ((HomeActivity) context).getIntent();
 
                 context.startActivity(intent);
             }
@@ -75,8 +69,7 @@ public class AssociateAgreementDialog extends Dialog
 
     }
 
-    private void setUpData()
-    {
+    private void setUpData() {
         tvUserName.setText(new StringBuilder().append("Name : ").append(app_sharedpreference.getsharedpref("username")));
         tvDate.setText(new StringBuilder().append("Joining Date : ").append(app_sharedpreference.getsharedpref("created_at")));
         tvReferenceNumber.setText(new StringBuilder().append("Reference Number : ").append(app_sharedpreference.getsharedpref("ref_no")));
@@ -84,9 +77,7 @@ public class AssociateAgreementDialog extends Dialog
                 ) {
             agreement_check.setChecked(false);
 
-        }
-        else if (app_sharedpreference.getsharedpref("term_accepted").equals("1"))
-        {
+        } else if (app_sharedpreference.getsharedpref("term_accepted").equals("1")) {
 
             agreement_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -96,13 +87,12 @@ public class AssociateAgreementDialog extends Dialog
                     }
                 }
             });
-        } 
-
+        }
     }
 
     private void callWebService() {
         Ion.with(context)
-                .load((context.getResources().getString(R.string.webservice_base_url))+"/term_agreement")
+                .load((context.getResources().getString(R.string.webservice_base_url)) + "/term_agreement")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", ""))
@@ -144,9 +134,6 @@ public class AssociateAgreementDialog extends Dialog
         imgCLose = (Button) findViewById(R.id.imgCLose);
         tvMore.setVisibility(View.VISIBLE);
         tvBussinessDetails.setMaxLines(3);
-
-
-
         tvBussinessDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

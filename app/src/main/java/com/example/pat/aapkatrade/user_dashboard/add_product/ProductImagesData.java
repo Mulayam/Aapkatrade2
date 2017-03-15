@@ -6,9 +6,9 @@ package com.example.pat.aapkatrade.user_dashboard.add_product;
 
 public class ProductImagesData {
 
-    String image_path;
+    public String image_path;
 
-    ProductImagesData(String image_path){
+    public ProductImagesData(String image_path){
 
         this.image_path = image_path;
 

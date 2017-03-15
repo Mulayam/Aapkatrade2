@@ -14,7 +14,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
@@ -22,10 +24,9 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapte
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
-import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
+import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -33,6 +34,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -52,6 +54,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     private ImageView openCalander;
     private CheckBox agreement_check;
     private boolean isAgreementChecked = false;
+    private RelativeLayout relativeAddress;
     public CardView step1aLayout, step1bLayout, step1cLayout, step2Layout, step3Layout;
     private ArrayList<State> stateList = new ArrayList<>();
     private ArrayList<City> cityList = new ArrayList<>();
@@ -59,6 +62,9 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     ProgressBarHandler progressBarHandler;
     private LinearLayout updateMyProfileLayout;
     private HashMap<String, String> webservice_header_type = new HashMap<>();
+    private int step1FieldsSet = -1, step2FieldsSet = -1, step3FieldsSet = -1;
+    private File step1PhotoFile;
+    private File step2PhotoFile;
 
     public static MyProfileFragment newInstance(int page, boolean isLast) {
         Bundle args = new Bundle();
@@ -80,7 +86,43 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         setTotalExperienceAdapter();
         setRelaventExperienceAdapter();
         setBankListAdapter();
+        relativeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(stepNumber == 3){
+                    validateFields(stepNumber);
+                    if(step3FieldsSet == 0){
+                        callUpdateBankDetailsWebService();
+
+                    }
+                }
+            }
+        });
         return view;
+    }
+
+    private void callUpdateBankDetailsWebService() {
+        progressBarHandler.show();
+        Ion.with(context)
+                .load("https://aapkatrade.com/slim/bank_detail_update")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("bank_name", bank_id)
+                .setBodyParameter("account_no", et_account_no.getText().toString())
+                .setBodyParameter("account_holder", et_account_holder_name.getText().toString())
+                .setBodyParameter("branch_code", et_branch_code.getText().toString())
+                .setBodyParameter("ifsc_code", et_ifsc_code.getText().toString())
+                .setBodyParameter("micr_code", et_micr_code.getText().toString())
+                .setBodyParameter("register_mobile", et_registered_mobile_with_bank.getText().toString())
+                .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid"))
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                    }
+                });
+
     }
 
     private void setUpSpinners() {
@@ -101,18 +143,19 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                             int selectedIndex = 0;
                             JsonArray jsonResultArray = result.getAsJsonArray("result");
                             stateList = new ArrayList<>();
+                            stateList.add(new State("-1", "Please Select State"));
                             for (int i = 0; i < jsonResultArray.size(); i++) {
                                 JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                                 State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                                 stateList.add(stateEntity);
-                                if(state_id.equals(stateEntity.stateId)){
-                                    selectedIndex = i;
+                                if (state_id.equals(stateEntity.stateId)) {
+                                    selectedIndex = i+1;
                                     Log.e("HOooo434oooooo", jsonObject1.get("id").getAsString() + "  State Found  " + jsonObject1.get("name").getAsString());
 
                                 }
                             }
 
-                            Log.e("HOooooooooo", "State List Size : "+stateList.size());
+                            Log.e("HOooooooooo", "State List Size : " + stateList.size());
 
                             SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
                             spState.setAdapter(spStateAdapter);
@@ -153,18 +196,18 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                             int selectedIndex = 0;
                             JsonArray jsonResultArray = result.getAsJsonArray("result");
                             cityList = new ArrayList<>();
+                            cityList.add(new City("-1", "Please Select City"));
                             for (int i = 0; i < jsonResultArray.size(); i++) {
                                 JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                                 City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
-                                cityList.add(cityEntity);
-                                if(city_id.equals(cityEntity.cityId)){
+                                if (city_id.equals(cityEntity.cityId)) {
                                     selectedIndex = i;
                                     Log.e("HOooo434oooooo", jsonObject1.get("id").getAsString() + "  State Found  " + jsonObject1.get("name").getAsString());
 
                                 }
                             }
 
-                            Log.e("HOooooooooo", "State List Size : "+stateList.size());
+                            Log.e("HOooooooooo", "State List Size : " + stateList.size());
 
                             SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
                             spcity.setAdapter(spCityAdapter);
@@ -187,6 +230,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     }
                 });
     }
+
     private void openCalender() {
         openCalander.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,6 +286,8 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         app_sharedpreference = new App_sharedpreference(context);
         updateMyProfileLayout = (LinearLayout) view.findViewById(R.id.updateMyProfileLayout);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        relativeAddress = (RelativeLayout) view.findViewById(R.id.relativeAddress);
+
         step1aLayout = (CardView) view.findViewById(R.id.step1aLayout);
         step1bLayout = (CardView) view.findViewById(R.id.step1bLayout);
         step1cLayout = (CardView) view.findViewById(R.id.step1cLayout);
@@ -312,7 +358,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
             bankList.clear();
         }
         progressBarHandler.show();
-//        bankList.add("Please Select Bank Name");
+        bankList.add("Please Select Bank Name");
 //        CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
 //        spSelectBank.setAdapter(bankListAdapter);
 
@@ -324,31 +370,31 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBarHandler.hide();
-                        if(result == null){
+                        if (result == null) {
                             showMessage("Bank Name Data is Null.");
                             Log.e("bankList", "Bank Name Data is Null.");
-                        }else {
-                            if(result.get("error").getAsString().equals(String.valueOf(false))){
-                                Log.e("hidcs", "match"+ bank_id);
+                        } else {
+                            if (result.get("error").getAsString().equals(String.valueOf(false))) {
+                                Log.e("hidcs", "match" + bank_id);
                                 int selectedIndex = 0;
                                 JsonArray jsonResultArray = result.getAsJsonArray("result");
-                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                for (int i = 0; i < jsonResultArray.size(); i++) {
                                     JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
                                     bankList.add(jsonObject.get("name").getAsString());
-                                    if(bank_id.equals(jsonObject.get("id").getAsString())){
+                                    if (bank_id.equals(jsonObject.get("id").getAsString())) {
                                         selectedIndex = i;
                                     }
                                 }
                                 CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
                                 spSelectBank.setAdapter(bankListAdapter);
-                                spSelectBank.setSelection(selectedIndex+1);
+                                spSelectBank.setSelection(selectedIndex + 1);
                                 spSelectBank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                         if (position > 1) {
                                             bank_id = bankList.get(position);
                                         }
-                                        Log.e("bankList", "Selected Bank is " + bankList.get(position)+"     " + System.currentTimeMillis());
+                                        Log.e("bankList", "Selected Bank is " + bankList.get(position) + "     " + System.currentTimeMillis());
                                     }
 
                                     @Override
@@ -357,7 +403,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                     }
                                 });
 
-                            }else {
+                            } else {
                                 String msg = result.get("message").getAsString();
                                 showMessage(msg);
                                 Log.e("bankList", msg);
@@ -383,23 +429,23 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBarHandler.hide();
-                        if(result == null){
+                        if (result == null) {
                             showMessage("Qualification Data is Null.");
                             Log.e("qualification", "Qualification Data is Null.");
-                        }else {
-                            if(result.get("error").getAsString().equals(String.valueOf(false))){
+                        } else {
+                            if (result.get("error").getAsString().equals(String.valueOf(false))) {
                                 JsonArray jsonResultArray = result.getAsJsonArray("result");
                                 int selectedIndex = 0;
-                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                for (int i = 0; i < jsonResultArray.size(); i++) {
                                     JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
                                     qualificationList.add(jsonObject.get("name").getAsString());
-                                    if(qualification.equals(jsonObject.get("name").getAsString())){
-                                        selectedIndex =i;
+                                    if (qualification.equals(jsonObject.get("name").getAsString())) {
+                                        selectedIndex = i;
                                     }
                                 }
                                 CustomSimpleListAdapter qualificationAdapter = new CustomSimpleListAdapter(context, qualificationList);
                                 spQualification.setAdapter(qualificationAdapter);
-                                spQualification.setSelection(selectedIndex+1);
+                                spQualification.setSelection(selectedIndex + 1);
                                 spQualification.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -415,7 +461,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                     }
                                 });
 
-                            }else {
+                            } else {
                                 String msg = result.get("message").getAsString();
                                 showMessage(msg);
                                 Log.e("qualification", msg);
@@ -444,25 +490,25 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBarHandler.hide();
-                        if(result == null){
+                        if (result == null) {
                             showMessage("Total Exp Data is Null.");
                             Log.e("totalExp", "Total Exp Data is Null.");
-                        }else {
-                            if(result.get("error").getAsString().equals(String.valueOf(false))){
+                        } else {
+                            if (result.get("error").getAsString().equals(String.valueOf(false))) {
                                 JsonArray jsonResultArray = result.getAsJsonArray("result");
-                                Log.e("totalExp", "Total Exp Data ."+total_exp);
+                                Log.e("totalExp", "Total Exp Data ." + total_exp);
                                 int selectedIndex = 0;
-                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                for (int i = 0; i < jsonResultArray.size(); i++) {
                                     JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
                                     totalExpList.add(jsonObject.get("name").getAsString());
-                                    if(total_exp.equals(jsonObject.get("name").getAsString())){
+                                    if (total_exp.equals(jsonObject.get("name").getAsString())) {
                                         selectedIndex = i;
-                                        Log.e("selectedIndex", jsonObject.get("name").getAsString()+"******"+total_exp);
+                                        Log.e("selectedIndex", jsonObject.get("name").getAsString() + "******" + total_exp);
                                     }
                                 }
                                 CustomSimpleListAdapter totalExpAdapter = new CustomSimpleListAdapter(context, totalExpList);
                                 spTotalExp.setAdapter(totalExpAdapter);
-                                spTotalExp.setSelection(selectedIndex+1);
+                                spTotalExp.setSelection(selectedIndex + 1);
                                 spTotalExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -478,7 +524,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                     }
                                 });
 
-                            }else {
+                            } else {
                                 String msg = result.get("message").getAsString();
                                 showMessage(msg);
                                 Log.e("totalExp", msg);
@@ -506,23 +552,23 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         progressBarHandler.hide();
-                        if(result == null){
+                        if (result == null) {
                             showMessage("Relavent Exp Data is Null.");
                             Log.e("relaventExpList", "Relavent Exp Data is Null.");
-                        }else {
-                            int previous_index=0;
-                            if(result.get("error").getAsString().equals(String.valueOf(false))){
+                        } else {
+                            int previous_index = 0;
+                            if (result.get("error").getAsString().equals(String.valueOf(false))) {
                                 JsonArray jsonResultArray = result.getAsJsonArray("result");
-                                Log.e("relExp", "Rel Exp Data ."+relevant_exp);
-                                for(int i = 0; i < jsonResultArray.size(); i++){
+                                Log.e("relExp", "Rel Exp Data ." + relevant_exp);
+                                for (int i = 0; i < jsonResultArray.size(); i++) {
                                     JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
                                     relaventExpList.add(jsonObject.get("experience").getAsString());
-                                    if(relevant_exp.equals(jsonObject.get("experience").getAsString())){
+                                    if (relevant_exp.equals(jsonObject.get("experience").getAsString())) {
 
 
-                                        previous_index=i;
+                                        previous_index = i;
 
-                                        Log.e("relExp", "Rel Exp Data ========."+relevant_exp);
+                                        Log.e("relExp", "Rel Exp Data ========." + relevant_exp);
                                         //spRelExp.setSelection(i);
                                     }
                                 }
@@ -532,7 +578,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                 spRelExp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                        Log.e("relaventExpList", "Selected Relavent Experience is " + relaventExpList.get(position)+"     " + System.currentTimeMillis());
+                                        Log.e("relaventExpList", "Selected Relavent Experience is " + relaventExpList.get(position) + "     " + System.currentTimeMillis());
                                         if (position > 1) {
 //                                            relaventExperience = relaventExpList.get(position);
                                         }
@@ -544,7 +590,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                     }
                                 });
 
-                            }else {
+                            } else {
                                 String msg = result.get("message").getAsString();
                                 showMessage(msg);
                                 Log.e("relaventExpList", msg);
@@ -570,4 +616,175 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         et_dob.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
 
+
+    private void validateFields(int stepNo) {
+        if (stepNo == 1) {
+            step1FieldsSet = 0;
+            if (!Validation.isValidEmail(et_email.getText() != null ? et_email.getText().toString() : "")) {
+                putError(2);
+                step1FieldsSet++;
+            } else if (Validation.isEmptyStr(et_first_name.getText() != null ? et_first_name.getText().toString() : "")) {
+                putError(0);
+                step1FieldsSet++;
+            } else if (Validation.isEmptyStr(et_last_name.getText() != null ? et_last_name.getText().toString() : "")) {
+                putError(1);
+                step1FieldsSet++;
+            } else if (Validation.isEmptyStr(et_father_name.getText() != null ? et_father_name.getText().toString() : "")) {
+                putError(10);
+                step1FieldsSet++;
+            } else if (!Validation.isValidNumber(et_mobile.getText() != null ? et_mobile.getText().toString() : "", Validation.getNumberPrefix(et_mobile.getText() != null ? et_mobile.getText().toString() : ""))) {
+                putError(3);
+                step1FieldsSet++;
+            } else if (!Validation.isValidDOB(et_dob.getText() != null ? et_dob.getText().toString() : "")) {
+                putError(6);
+                step1FieldsSet++;
+            } else if (Validation.isEmptyStr(et_address.getText() != null ? et_address.getText().toString() : "")) {
+                putError(9);
+                step1FieldsSet++;
+            } else if (!(Validation.isNonEmptyStr(state_id) &&
+                    Integer.parseInt(state_id) > 0)) {
+                AndroidUtils.showSnackBar(updateMyProfileLayout, "Please Select State");
+                step1FieldsSet++;
+            } else if (!(Validation.isNonEmptyStr(city_id) &&
+                    Integer.parseInt(city_id) > 0)) {
+                AndroidUtils.showSnackBar(updateMyProfileLayout, "Please Select City");
+                step1FieldsSet++;
+            } else if (!Validation.isPincode(et_pincode.getText() != null ? et_pincode.getText().toString() : "")) {
+                putError(11);
+                step1FieldsSet++;
+            } else if (!agreement_check.isChecked()) {
+                putError(7);
+                step1FieldsSet++;
+//            } else if (step1PhotoFile.getAbsolutePath().equals("/")) {
+//                showMessage("Please Upload File");
+//                step1FieldsSet++;
+            }
+            Log.e("hi", "step1FieldsSet=" + step1FieldsSet);
+
+            if (step1FieldsSet == 0) {
+                stepNumber = 2;
+            }
+        } else if (stepNo == 2) {
+            step2FieldsSet = 0;
+            if (Validation.isEmptyStr(qualification) ||
+                    qualification.equals(qualificationList.get(0))) {
+                AndroidUtils.showSnackBar(updateMyProfileLayout, "Please Select Qualification");
+                step2FieldsSet++;
+            } else if (Validation.isEmptyStr(total_exp) ||
+                    total_exp.equals(totalExpList.get(0))) {
+                AndroidUtils.showSnackBar(updateMyProfileLayout, "Please Select Total Experience");
+                step2FieldsSet++;
+            } else if (Validation.isEmptyStr(relevant_exp) ||
+                    relevant_exp.equals(relaventExpList.get(0))) {
+                AndroidUtils.showSnackBar(updateMyProfileLayout, "Please Select Relavent Experience");
+                step2FieldsSet++;
+//            } else if ((step2PhotoFile == null) || step2PhotoFile.getAbsolutePath().equals("/")) {
+//                showMessage("Please Upload File");
+//                step2FieldsSet++;
+            }
+            if (step2FieldsSet == 0) {
+                stepNumber = 3;
+            }
+
+        } else if (stepNo == 3) {
+            step3FieldsSet = 0;
+            if (Validation.isEmptyStr(bank_id)) {
+                AndroidUtils.showSnackBar(updateMyProfileLayout, "Please Select Bank Name");
+                step3FieldsSet++;
+            } else if (!(Validation.isNonEmptyStr(et_account_no.getText() != null ? et_account_no.getText().toString() : "") &&
+                    Validation.isNumber(et_account_no.getText() != null ? et_account_no.getText().toString() : ""))) {
+                putError(12);
+                step3FieldsSet++;
+            } else if (Validation.isEmptyStr(et_branch_code.getText() != null ? et_branch_code.getText().toString() : "")) {
+                putError(13);
+                step3FieldsSet++;
+            } else if (Validation.isEmptyStr(et_branch_name.getText() != null ? et_branch_name.getText().toString() : "")) {
+                putError(14);
+                step3FieldsSet++;
+            } else if (Validation.isEmptyStr(et_ifsc_code.getText() != null ? et_ifsc_code.getText().toString() : "")) {
+                putError(15);
+                step3FieldsSet++;
+            } else if (Validation.isEmptyStr(et_micr_code.getText() != null ? et_micr_code.getText().toString() : "")) {
+                putError(16);
+                step3FieldsSet++;
+            } else if (Validation.isEmptyStr(et_account_holder_name.getText() != null ? et_account_holder_name.getText().toString() : "")) {
+                putError(17);
+                step3FieldsSet++;
+            } else if (!Validation.isValidNumber(et_registered_mobile_with_bank.getText() != null ? et_registered_mobile_with_bank.getText().toString() : "", Validation.getNumberPrefix(et_registered_mobile_with_bank.getText() != null ? et_registered_mobile_with_bank.getText().toString() : ""))) {
+                putError(18);
+                step3FieldsSet++;
+            }
+        }
+    }
+
+    private void putError(int id) {
+        Log.e("reach", "       )))))))))" + id);
+        switch (id) {
+            case 0:
+                et_first_name.setError("First Name Can't be empty");
+                showMessage("First Name Can't be empty");
+                break;
+            case 1:
+                et_last_name.setError("Last Name Can't be empty");
+                showMessage("Last Name Can't be empty");
+                break;
+            case 2:
+                et_email.setError("Please Enter Valid Email");
+                showMessage("Please Enter Valid Email");
+                break;
+            case 3:
+                et_mobile.setError("Please Enter Valid Mobile Number");
+                showMessage("Please Enter Valid Mobile Number");
+                break;
+            case 6:
+                et_dob.setError("Please Select Date");
+                showMessage("Please Select Date");
+                break;
+            case 9:
+                et_address.setError("Address Can't be empty");
+                showMessage("Address Can't be empty");
+                break;
+            case 10:
+                et_father_name.setError("Father's Name Can't be empty");
+                showMessage("Father's Name Can't be empty");
+                break;
+            case 11:
+                et_pincode.setError("Please Enter Valid PINCODE");
+                showMessage("Please Enter Valid PINCODE");
+                break;
+            case 12:
+                et_account_no.setError("Please Enter Valid Account Number");
+                showMessage("Please Enter Valid Account Number");
+                break;
+            case 13:
+                et_branch_code.setError("Please Enter Branch Code");
+                showMessage("Please Enter Branch Code");
+                break;
+            case 14:
+                et_branch_name.setError("Please Enter Branch Name");
+                showMessage("Please Enter Branch Name");
+                break;
+            case 15:
+                et_ifsc_code.setError("Please Enter IFSC Code");
+                showMessage("Please Enter IFSC Code");
+                break;
+            case 16:
+                et_micr_code.setError("Please Enter MICR Code");
+                showMessage("Please Enter MICR Code");
+                break;
+            case 17:
+                et_account_holder_name.setError("Please Enter Account Holder Name");
+                showMessage("Please Enter Account Holder Name");
+                break;
+            case 18:
+                et_registered_mobile_with_bank.setError("Please Enter Your Registered mobile number");
+                showMessage("Please Enter Your Registered mobile number");
+                break;
+            default:
+                break;
+        }
+    }
 }
+
+
+
