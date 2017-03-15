@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="#EEEEEE"
+    android:background="#F1F5F8"
     >
 
     <RelativeLayout
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
-            android:background="#EEEEEE"
+            android:background="#F1F5F8"
             >
 
 
