@@ -15,7 +15,7 @@ public class CategoryHome
     private String categoryIconName;
     private String categoryIconPath;
     private ArrayList<SubCategory> subCategoryList;
-    private String basePath = "http://aapkatrade.com/laraveldemo/public/appicon/";
+    private String basePath = "http://aapkatrade.com/public/appicon/";
     private String iconExtention = ".png";
     public CategoryHome(String categoryId, String categoryName, String categoryIconName, ArrayList<SubCategory> subCategoryList) {
         this.categoryId = categoryId;

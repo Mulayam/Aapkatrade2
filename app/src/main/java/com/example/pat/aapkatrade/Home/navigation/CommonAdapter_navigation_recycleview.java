@@ -69,6 +69,7 @@ public class CommonAdapter_navigation_recycleview extends RecyclerView.Adapter<R
         viewHolder.imageViewIcon.setBackgroundResource(images.getResourceId(choice,R.drawable.circle_sienna));
         images.recycle();
         viewHolder.tv_categoryname.setText(_listDataHeader.get(position).getCategoryName());
+
         Ion.with(context).load(_listDataHeader.get(position).getCategoryIconPath()).withBitmap().asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                                  @Override

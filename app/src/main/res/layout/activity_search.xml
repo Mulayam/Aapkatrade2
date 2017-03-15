@@ -159,6 +159,30 @@ android:textSize="@dimen/textsize_small"
         android:layout_below="@+id/ll_search_container"
 
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:text="States"
+          android:id="@+id/tv_state"
+          android:textColor="@color/black"
+          android:layout_marginLeft="10dp"
+          android:layout_marginTop="5dp"
+          android:layout_height="wrap_content" />
+
+            <android.support.v4.view.ViewPager
+                android:layout_width="wrap_content"
+                android:id="@+id/viewpager_state"
+                android:layout_below="@+id/tv_state"
+                android:layout_height="wrap_content">
+
+
+
+            </android.support.v4.view.ViewPager>
+
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleview_search"
@@ -166,9 +190,10 @@ android:textSize="@dimen/textsize_small"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:dividerHeight="5dp"
+            android:layout_below="@+id/viewpager_state"
             android:divider="#E6E6E6"/>
 
-
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

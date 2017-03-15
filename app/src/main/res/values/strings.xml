@@ -194,7 +194,7 @@
     <string name="str_btn_show" translatable="false">Show Location in Map</string>
     <string name="your_location" translatable="false">Enter your Location</string>
     <string name="ref_number" translatable="false">Reference Number</string>
-    <string name="location_hint" translatable="false">Enter your location</string>
+    <string name="location_hint" translatable="false">Enter your State Name</string>
     <string name="filter" translatable="false">filter</string>
     <string name="oldPassword" translatable="false">Old Password</string>
     <string name="newPassword" translatable="false">New Password</string>
