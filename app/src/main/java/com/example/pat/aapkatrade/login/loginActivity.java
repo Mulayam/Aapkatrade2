@@ -93,21 +93,21 @@ public class loginActivity extends AppCompatActivity {
 
                                     Log.e("login------------", app_sharedpreference.getsharedpref("usertype", "0"));
 
-                                    String login_url = "http://aapkatrade.com/slim/businesslogin";
+                                    String login_url = "https://aapkatrade.com/slim/businesslogin";
 
                                     callwebservice_login(login_url, input_email, input_password);
 
 
                                 } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
 
-                                    String login_url = "http://aapkatrade.com/slim/buyerlogin";
+                                    String login_url = "https://aapkatrade.com/slim/buyerlogin";
 
                                     callwebservice_login(login_url, input_email, input_password);
 
 
                                 } else if (app_sharedpreference.getsharedpref("usertype", "0").equals("1")) {
 
-                                    String login_url = "http://aapkatrade.com/slim/sellerlogin";
+                                    String login_url = "https://aapkatrade.com/slim/sellerlogin";
 
                                     callwebservice_login(login_url, input_email, input_password);
 
@@ -288,7 +288,8 @@ public class loginActivity extends AppCompatActivity {
     }
 
 
-    private void InitView() {
+    private void InitView()
+    {
         forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
         login_text = (TextView) findViewById(R.id.tv_login);
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);

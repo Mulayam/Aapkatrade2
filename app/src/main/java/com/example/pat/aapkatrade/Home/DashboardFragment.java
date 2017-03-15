@@ -370,18 +370,21 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
 
-        switch (v.getId()) {
+        switch (v.getId())
+        {
             case R.id.rl_viewall_latest_post:
                 go_to_product_list_activity();
                 break;
 
             case R.id.rl_viewall_latest_update:
-
-                go_to_product_list_activity();
+                go_to_latest_update_list_activity();
                 break;
         }
+
+
 
     }
 
@@ -390,8 +393,24 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
         {
             Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
-            go_to_product_listactivity.putParcelableArrayListExtra("commomDatas_latestpost", commomDatas_latestpost);
-            go_to_product_listactivity.putParcelableArrayListExtra("commomDatas_latestupdate", commomDatas_latestupdate);
+            go_to_product_listactivity.putExtra("url","https://aapkatrade.com/slim/latestpost");
+
+            startActivity(go_to_product_listactivity);
+            ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
+        }
+        else{
+
+        }
+    }
+
+
+
+    private void go_to_latest_update_list_activity() {
+        if(home_result!=null)
+
+        {
+            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            go_to_product_listactivity.putExtra("url","https://aapkatrade.com/slim/latestupdate");
 
             startActivity(go_to_product_listactivity);
             ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);

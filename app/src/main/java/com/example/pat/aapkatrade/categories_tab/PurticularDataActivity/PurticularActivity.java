@@ -32,7 +32,8 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class PurticularActivity extends AppCompatActivity {
+public class PurticularActivity extends AppCompatActivity
+{
 
     RecyclerView mRecyclerView;
     CategoriesListAdapter categoriesListAdapter;
@@ -41,12 +42,22 @@ public class PurticularActivity extends AppCompatActivity {
     FrameLayout layout_container, layout_container_relativeSearch;
     MyRecyclerViewEffect myRecyclerViewEffect;
     JsonObject home_data;
+    String url;
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
-//
+
+        Intent intent = getIntent();
+
+         url = intent.getStringExtra("url");
+
+         System.out.println("url---------------"+url);
+
 //        Intent i = this.getIntent();
 //        ArrayList commomDatas_latestpost =  i.getParcelableArrayListExtra("commomDatas_latestpost");
 //        for(int j = 0; j < commomDatas_latestpost.size(); j++){
@@ -89,8 +100,6 @@ public class PurticularActivity extends AppCompatActivity {
 
         get_web_data();
 
-
-
     }
 
     private void get_web_data() {
@@ -98,9 +107,9 @@ public class PurticularActivity extends AppCompatActivity {
         progress_handler.show();
 
         Ion.with(PurticularActivity.this)
-                .load("http://aapkatrade.com/slim/productlist")
+                .load(url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                .setBodyParameter("type", "product_list")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -123,7 +132,9 @@ public class PurticularActivity extends AppCompatActivity {
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
 
-                            } else {
+                            }
+                            else
+                            {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
                                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -131,7 +142,7 @@ public class PurticularActivity extends AppCompatActivity {
 
                                     String product_id = jsonObject2.get("id").getAsString();
 
-                                    String product_name = jsonObject2.get("name").getAsString();
+                                    String product_name = jsonObject2.get("prodname").getAsString();
 
                                     String product_price = jsonObject2.get("price").getAsString();
 
@@ -140,14 +151,13 @@ public class PurticularActivity extends AppCompatActivity {
                                     String productlocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
                                             jsonObject2.get("country_name").getAsString();
                                     String product_image = jsonObject2.get("image_url").getAsString();
+
                                     productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image,productlocation));
 
                                     }
                                     categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
                                     myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
                                     mRecyclerView.setAdapter(categoriesListAdapter);
-
-
 
                                 }
 ////                                categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
@@ -167,7 +177,8 @@ public class PurticularActivity extends AppCompatActivity {
 
     }
 
-    private void setuptoolbar() {
+    private void setuptoolbar()
+    {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -179,13 +190,15 @@ public class PurticularActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user, menu);
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

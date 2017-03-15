@@ -6,7 +6,7 @@
     android:layout_height="250dp"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:background="#EEEEEE"
+    android:background="#F1F5F8"
     >
 
         <LinearLayout
