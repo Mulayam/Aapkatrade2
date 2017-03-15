@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.edit_product.EditProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.product_list.listproduct_detail.ListProductDetailActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -101,7 +102,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View v) {
 
-                Intent product_detail = new Intent(context, ListProductDetailActivity.class);
+                Intent product_detail = new Intent(context, EditProductActivity.class);
                 product_detail.putExtra("user_id", itemList.get(position).user_id);
                 product_detail.putExtra("product_name", itemList.get(position).product_name);
                 product_detail.putExtra("product_price", itemList.get(position).product_price);

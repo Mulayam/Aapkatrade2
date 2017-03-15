@@ -329,9 +329,6 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
                                     String delivery_area_name = jsonObject2.get("deliveryArea").getAsString();
 
                                     productListDatas.add(new ProductListData(app_sharedpreference.getsharedpref("userid"), product_id, product_name, product_price, product_cross_price, product_image, category_name, state, description, delivery_distance, delivery_area_name));
-
-
-
                                 }
 
                                 productListAdapter.notifyDataSetChanged();
