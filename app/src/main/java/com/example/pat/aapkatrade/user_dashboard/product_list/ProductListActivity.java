@@ -179,7 +179,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
         // layout_container.setVisibility(View.INVISIBLE);
         // progress_handler.show();
         Ion.with(ProductListActivity.this)
-                .load("http://aapkatrade.com/slim/productlist")
+                .load("https://aapkatrade.com/slim/productlist")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("type", "product_list")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -209,13 +209,15 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
                             System.out.println("message_data==================" + message_data);
 
-                            if (message_data.equals("No record found")) {
+                            if (message_data.equals("No record found"))
+                            {
                                 //progress_handler.hide();
 
                                 // layout_container.setVisibility(View.INVISIBLE);
 
                             } else {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
+
 
                                 for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
@@ -259,11 +261,11 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
     }
 
-    private void get_web_data() {
+    private void get_web_data()
+    {
         // layout_container.setVisibility(View.INVISIBLE);
         mSwipyRefreshLayout.setRefreshing(true);
         productListDatas.clear();
-
 
         Ion.with(ProductListActivity.this)
                 .load("http://aapkatrade.com/slim/productlist")
@@ -303,7 +305,8 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
                                 System.out.println("jsonArray----------------" + jsonArray.toString());
 
-                                for (int i = 0; i < jsonArray.size(); i++) {
+                                for (int i = 0; i < jsonArray.size(); i++)
+                                {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                     String product_id = jsonObject2.get("id").getAsString();
@@ -328,6 +331,8 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
                                     productListDatas.add(new ProductListData(product_id, product_name, product_price, product_cross_price, product_image, category_name, state, description, delivery_distance, delivery_area_name));
 
+
+
                                 }
 
                                 productListAdapter.notifyDataSetChanged();
@@ -340,7 +345,8 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }

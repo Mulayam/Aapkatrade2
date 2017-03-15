@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ public class ProfilePreviewActivity extends AppCompatActivity
     TextView tvTitle,textViewName,tvMobile,tvEmail,tvUserType;
     LinearLayout linearLayoutLagout,linearLayoutResetpassword,linearLayoutAddress;
     App_sharedpreference app_sharedpreference;
-    Button btnEdit;
+    ImageView btnEdit;
 
 
 
@@ -44,7 +45,7 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
     private void setup_layout()
     {
-        btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnEdit = (ImageView) findViewById(R.id.btnEdit);
 
         linearLayoutLagout = (LinearLayout) findViewById(R.id.linearLayoutLagout);
 
@@ -145,16 +146,13 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
     private void setuptoolbar()
     {
-
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("My Profile");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("My Profile");
-
+        if(getSupportActionBar()!=null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+        }
     }
 
 

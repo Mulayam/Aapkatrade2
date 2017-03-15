@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -31,7 +33,7 @@ public class ServiceEnquiryActivity extends AppCompatActivity
     App_sharedpreference app_sharedpreference;
     String user_id;
     private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
-
+    TextView tvTitle;
 
 
     @Override
@@ -41,6 +43,13 @@ public class ServiceEnquiryActivity extends AppCompatActivity
         setContentView(R.layout.activity_service_enquiry);
 
         setuptoolbar();
+
+        progress_handler = new ProgressBarHandler(this);
+
+        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+
+        user_id = app_sharedpreference.getsharedpref("userid", "");
+
 
         setup_layout();
     }
@@ -53,13 +62,19 @@ public class ServiceEnquiryActivity extends AppCompatActivity
         if(getSupportActionBar()!=null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setTitle("");
         }
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Enquiry Services List");
+
+
+
     }
 
 
     private void setup_layout()
     {
+
         relativeCompanylist = (RelativeLayout) findViewById(R.id.relativeCompanylist);
 
         recyclerViewcompanylist = (RecyclerView) findViewById(R.id.companylist);
@@ -81,30 +96,10 @@ public class ServiceEnquiryActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     public void get_company_list_data()
     {
+
         relativeCompanylist.setVisibility(View.INVISIBLE);
         progress_handler.show();
         serviceEnquiryDatas.clear();
@@ -119,6 +114,8 @@ public class ServiceEnquiryActivity extends AppCompatActivity
                     @Override
                     public void onCompleted(Exception e, JsonObject result)
                     {
+
+
                         if (result == null)
                         {
 
@@ -152,7 +149,9 @@ public class ServiceEnquiryActivity extends AppCompatActivity
 
                                 String created_date = jsonObject2.get("created_at").getAsString();
 
-                                serviceEnquiryDatas.add(new ServiceEnquiryData(service_enquiry_id, product_name, product_price,user_name,user_email,user_mobile,description,created_date));
+                                String category_name = jsonObject2.get("category_name").getAsString();
+
+                                serviceEnquiryDatas.add(new ServiceEnquiryData(service_enquiry_id, product_name, product_price,user_name,user_email,user_mobile,description,created_date,category_name));
 
                             }
 
@@ -162,12 +161,32 @@ public class ServiceEnquiryActivity extends AppCompatActivity
                             // progressView.setVisibility(View.INVISIBLE);
                             relativeCompanylist.setVisibility(View.VISIBLE);
 
-
                         }
 
                     }
 
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

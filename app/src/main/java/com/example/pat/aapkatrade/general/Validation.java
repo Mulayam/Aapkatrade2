@@ -73,7 +73,8 @@ public class Validation {
         return "";
     }
 
-    public static boolean isValidNumber(String number, String prefix) {
+    public static boolean isValidNumber(String number, String prefix)
+    {
         if (isNonEmptyStr(number)) {
 //            if (prefix == null) {
 //                prefix = "";
