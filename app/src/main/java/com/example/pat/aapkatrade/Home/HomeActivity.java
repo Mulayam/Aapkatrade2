@@ -219,12 +219,17 @@ Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
         switch (item.getItemId()) {
             case R.id.login:
 
-                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                {
                     Intent i = new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
-                } else {
+                }
+
+                else
+
+                    {
                     Intent i = new Intent(HomeActivity.this, ProfilePreviewActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);

@@ -92,6 +92,7 @@ public class AddProductActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ProductImages adapter;
     Bitmap imageForPreview;
+    ArrayList<Bitmap> multiple_images;
     List<Part> files_image = new ArrayList();
 
 
@@ -665,7 +666,7 @@ public class AddProductActivity extends AppCompatActivity {
 
 
     void picPhoto() {
-        String str[] = new String[]{"Camera", "Gallery", "PDF Files"};
+        String str[] = new String[]{"Camera", "Gallery"};
         new AlertDialog.Builder(this).setItems(str,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -683,15 +684,7 @@ public class AddProductActivity extends AppCompatActivity {
             in.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             in.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
-        } else if (which == 2) {
-            new MaterialFilePicker()
-                    .withActivity(this)
-                    .withRequestCode(1)
-                    .withFilter(Pattern.compile(".*\\.pdf$"))
-                    .withFilterDirectories(false)
-                    .withHiddenFiles(true)
-                    .start();
-        } else {
+        }  else {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
@@ -724,10 +717,13 @@ public class AddProductActivity extends AppCompatActivity {
                 option.inTempStorage = new byte[32 * 1024];
                 option.inPreferredConfig = Bitmap.Config.RGB_565;
                 if (Build.VERSION.SDK_INT < 19) {
+                    Log.e("hi_____", " versioncode<19 ");
                     // Uri selectedImageURI = data.getData();
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
 
-                } else {
+                }
+                else {
+                    Log.e("hi_____", " versioncod ");
                     if (data.getData() != null) {
 
                         ParcelFileDescriptor pfd;
@@ -749,38 +745,67 @@ public class AddProductActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             Log.e("IOException", e.toString());
                         }
-                    } else {
-                        imageForPreview = (Bitmap) data.getExtras().get("data");
-                        Log.e("data_not_found", "data_not_found");
+                    }
+
+                    else
+
+                        {
+
+
+
+                       // imageForPreview = (Bitmap) data.getExtras().get("data");
+
+                        multiple_images=new ArrayList<>();
+
+                        data.getClipData().getItemCount();
+                        for(int k=0;k<4;k++)
+                        {
+
+                            Uri selectedImage = data.getClipData().getItemAt(k).getUri();
+
+
+                            Bitmap   bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                            multiple_images.add(bitmap);
+
+
+                                Log.e("doc", "***START.****** ");
+                                if (ImageUtils.sizeOf(bitmap) > 2048) {
+                                    Log.e("doc", "if doc file path 1");
+
+                                    docFile = getFile(ImageUtils.resize(bitmap, bitmap.getHeight() / 2, bitmap.getWidth() / 2));
+                                    Log.e("doc", "if doc file path" + docFile.getAbsolutePath());
+                                } else {
+
+                                    Log.e("doc", " else doc file path 1");
+                                    docFile = getFile(bitmap);
+                                    Log.e("doc", " else doc file path" + docFile.getAbsolutePath());
+                                }
+
+                                productImagesDatas.add(new ProductImagesData(docFile.getAbsolutePath()));
+                                Log.e("docfile", docFile.getAbsolutePath());
+
+
+
+                            adapter.notifyDataSetChanged();
+
+
+
+
+                        }
+
                     }
 
                 }
-                try {
 
-                    Log.e("doc", "***START.****** ");
-                    if (ImageUtils.sizeOf(imageForPreview) > 2048) {
-                        Log.e("doc", "if doc file path 1");
 
-                        docFile = getFile(ImageUtils.resize(imageForPreview, imageForPreview.getHeight() / 2, imageForPreview.getWidth() / 2));
-                        Log.e("doc", "if doc file path" + docFile.getAbsolutePath());
-                    } else {
 
-                        Log.e("doc", " else doc file path 1");
-                        docFile = getFile(imageForPreview);
-                        Log.e("doc", " else doc file path" + docFile.getAbsolutePath());
-                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                productImagesDatas.add(new ProductImagesData(docFile.getAbsolutePath()));
                 // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
-                adapter.notifyDataSetChanged();
+
 
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           Log.e("Exception",e.toString());
         }
 
     }
