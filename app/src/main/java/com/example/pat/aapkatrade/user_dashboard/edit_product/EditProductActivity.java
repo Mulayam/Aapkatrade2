@@ -144,9 +144,7 @@ public class EditProductActivity extends AppCompatActivity {
         progressBar.show();
 
         for (int i = 0; i < productImagesDatas.size(); i++) {
-
             files_image.add(new FilePart("image[]", savebitmap(productImagesDatas.get(i).image_path)));
-
         }
 
         Log.e("files_image", "  ==>   " + productImagesDatas.size());

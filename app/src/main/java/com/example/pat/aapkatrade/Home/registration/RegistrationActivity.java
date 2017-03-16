@@ -953,15 +953,15 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         } else if (which == 2) {
 
 
-            new MaterialFilePicker()
-                    .withActivity(this)
+            MaterialFilePicker filePicker=        new MaterialFilePicker();
+
+
+            filePicker.withActivity(this)
                     .withRequestCode(1)
                     .withFilter(Pattern.compile(".*\\.pdf$"))
                     .withFilterDirectories(false)
                     .withHiddenFiles(true)
                     .start();
-
-
         } else {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
