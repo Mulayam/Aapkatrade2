@@ -1,12 +1,17 @@
 package com.example.pat.aapkatrade.search;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.CommomHolder;
+import com.example.pat.aapkatrade.Home.CommonHolder_grid;
 import com.example.pat.aapkatrade.R;
 
 import java.util.ArrayList;
@@ -15,7 +20,7 @@ import java.util.ArrayList;
  * Created by PPC21 on 06-Feb-17.
  */
 
-public class SearchResultsAdapter extends BaseAdapter
+public class SearchResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private LayoutInflater layoutInflater;
 
@@ -36,14 +41,42 @@ public class SearchResultsAdapter extends BaseAdapter
 
     }
 
+
+
+
+
     @Override
-    public int getCount() {
-        return count;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        CommomHolder_search_state viewHolder1;
+
+
+        //RecyclerView.ViewHolder viewHolder;
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+          View  v = inflater.inflate(R.layout.viewpager_search_state, parent, false);
+        viewHolder1 = new CommomHolder_search_state(v);
+
+
+
+
+
+
+
+        return viewHolder1;
     }
 
     @Override
-    public Object getItem(int arg0) {
-        return productDetails.get(arg0);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+
+        CommomHolder_search_state  viewHolder1 = (CommomHolder_search_state) holder;
+        viewHolder1.product_name.setText(productDetails.get(position));
+        GradientDrawable shape =  new GradientDrawable();
+        shape.setCornerRadius( 20 );
+        shape.setColor(ContextCompat.getColor(context, R.color.orange));
+        viewHolder1.product_name.setBackground(shape);
+
     }
 
     @Override
@@ -52,37 +85,10 @@ public class SearchResultsAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-
-        ViewHolder holder;
-        //Product tempProduct = productDetails.get(position);
-
-        if (convertView == null)
-        {
-            convertView = layoutInflater.inflate(R.layout.list_search, null);
-            holder = new ViewHolder();
-            holder.product_name = (TextView) convertView.findViewById(R.id.tv_productname);
-
-
-            convertView.setTag(holder);
-        }
-        else
-        {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-
-
-
-        return convertView;
+    public int getItemCount() {
+        return count;
     }
 
-    static class ViewHolder
-    {
-        TextView product_name;
 
-
-    }
 
 }
