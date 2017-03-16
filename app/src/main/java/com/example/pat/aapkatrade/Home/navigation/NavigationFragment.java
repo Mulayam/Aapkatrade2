@@ -168,7 +168,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             String Emailid = app_sharedpreference.getsharedpref("emailid", "notlogin");
 
 
+
             if (Username.equals("notlogin")) {
+
                 rl_logout.setVisibility(View.GONE);
 
                 Log.e("Shared_pref2", "null" + Username);

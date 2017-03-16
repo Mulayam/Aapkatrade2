@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
@@ -29,7 +31,7 @@ public class EditCompanyActivity extends AppCompatActivity
 {
 
     String company_id,company_name,creation_date, address,description,secondaryEmail;
-    Button btnSave;
+
     EditText etCompanyName,etPEmail,etSEmail,etAddress,etDiscription;
     ProgressDialog dialog;
     LinearLayout linearLayout;
@@ -37,7 +39,8 @@ public class EditCompanyActivity extends AppCompatActivity
     ProgressBarHandler progress_handler;
     App_sharedpreference app_sharedpreference;
     String user_id,email;
-
+    RelativeLayout relativeSubmit;
+    TextView tvTitle;
 
 
     @Override
@@ -87,12 +90,16 @@ public class EditCompanyActivity extends AppCompatActivity
 
         // getSupportActionBar().setIcon(R.drawable.home_logo);
 
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Edit Company");
+
+
     }
 
     private void setup_layout()
     {
 
-        btnSave = (Button) findViewById(R.id.btnSave);
+        relativeSubmit = (RelativeLayout) findViewById(R.id.relativeSubmit);
 
         etCompanyName = (EditText) findViewById(R.id.etCompanyName);
         etCompanyName.setText(company_name);
@@ -111,7 +118,7 @@ public class EditCompanyActivity extends AppCompatActivity
         etDiscription = (EditText) findViewById(R.id.etDiscription);
         etDiscription.setText(description);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        relativeSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {

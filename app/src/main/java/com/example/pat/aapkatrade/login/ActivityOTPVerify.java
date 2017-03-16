@@ -29,9 +29,9 @@ import java.util.HashMap;
 
 public class ActivityOTPVerify extends AppCompatActivity {
 
-    Button retryotp,verifyotp;
-    TextView toolbar_title_txt,tittleTxt,otpNotRespond,couter_textview;
-   public static EditText editText1,editText2,editText3,editText4;
+    Button retryotp, verifyotp;
+    TextView toolbar_title_txt, tittleTxt, otpNotRespond, couter_textview;
+    public static EditText editText1, editText2, editText3, editText4;
     int count = 00;
 
     CoordinatorLayout coordinatorLayout;
@@ -47,28 +47,23 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
         setup_layout();
 
-       // bManager = LocalBroadcastManager.getInstance(this);
+        // bManager = LocalBroadcastManager.getInstance(this);
 
 
-
-
-       // call_auto_retrive_sms(ActivityOTPVerify.this);
-
-
-
+        // call_auto_retrive_sms(ActivityOTPVerify.this);
 
 
     }
-    public  void update_otp(String message)
-    {
+
+    public void update_otp(String message) {
 
         //String code = parseCode(message).trim();//Parse verification code
 
-        message=message.replace("Your otp is ","").trim();
-        String a=message.substring(0,1).trim();
-        String b=message.substring(1,2).trim();
-        String c=message.substring(2,3).trim();
-        String d=message.substring(3,4).trim();
+        message = message.replace("Your otp is ", "").trim();
+        String a = message.substring(0, 1).trim();
+        String b = message.substring(1, 2).trim();
+        String c = message.substring(2, 3).trim();
+        String d = message.substring(3, 4).trim();
         editText1 = (EditText) findViewById(R.id.etotp1);
 
         editText2 = (EditText) findViewById(R.id.etotp2);
@@ -81,25 +76,15 @@ public class ActivityOTPVerify extends AppCompatActivity {
 //        Character c=code.charAt(2);
 //        Character d=code.charAt(3);
 
-                editText1.setText(a);
-                editText2.setText(b);
-                editText3.setText(c);
-                editText4.setText(d);
-        Log.e("message412354235",message);
+        editText1.setText(a);
+        editText2.setText(b);
+        editText3.setText(c);
+        editText4.setText(d);
+        Log.e("message412354235", message);
     }
 
 
-
-
-
-
-
-
-
-
-
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -116,13 +101,6 @@ public class ActivityOTPVerify extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        getMenuInflater().inflate(R.menu.user, menu);
@@ -130,10 +108,8 @@ public class ActivityOTPVerify extends AppCompatActivity {
 //    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
             case android.R.id.home:
                 finish();
@@ -145,15 +121,13 @@ public class ActivityOTPVerify extends AppCompatActivity {
     }
 
 
-
-
     private void setup_layout() {
 
 
-        coordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinate_otpverify);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinate_otpverify);
 
 
-        verifyotp=(Button) findViewById(R.id.btn_verify);
+        verifyotp = (Button) findViewById(R.id.btn_verify);
 
         couter_textview = (TextView) findViewById(R.id.couter_textview);
 
@@ -173,29 +147,30 @@ public class ActivityOTPVerify extends AppCompatActivity {
         otpNotRespond = (TextView) findViewById(R.id.otpNotRespond);
 
 
-
-        verifyotp.setOnClickListener(new View.OnClickListener() {
+        verifyotp.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
-if(editText1.getText().length()!=0)
+                if (editText1.getText().length() != 0)
+                {
+                    String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
 
-{
-    String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
+                    Log.e("otp ", otp);
+                    call_verifyotp_webservice(otp);
+                }
+                else
+                {
 
-    Log.e("otp ",otp);
-    call_verifyotp_webservice(otp);
-}
-                else {
+                    Log.e("otp null", "*****");
 
-    Log.e("otp null","*****");
+                }
 
-}
+
+
             }
         });
-
-
-
 
 
         retryotp.setOnClickListener(new View.OnClickListener() {
@@ -299,40 +274,36 @@ if(editText1.getText().length()!=0)
     }
 
     private void call_verifyotp_webservice(String otp) {
-        String getCurrentDeviceId= App_config.getCurrentDeviceId(ActivityOTPVerify.this);
+        String getCurrentDeviceId = App_config.getCurrentDeviceId(ActivityOTPVerify.this);
 
         // dialog.show();
-        HashMap<String,String> webservice_body_parameter=new HashMap<>();
-        webservice_body_parameter.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("client_id",getCurrentDeviceId);
-        webservice_body_parameter.put("otp",otp);
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("client_id", getCurrentDeviceId);
+        webservice_body_parameter.put("otp", otp);
 
 
-        HashMap<String,String> webservice_header_type=new HashMap<>();
-        webservice_header_type.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        HashMap<String, String> webservice_header_type = new HashMap<>();
+        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
+        String verifyotp_url = "http://aapkatrade.com/slim/varify_otp";
+        Call_webservice.verify_otp(ActivityOTPVerify.this, verifyotp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
 
-
-        String verifyotp_url="http://aapkatrade.com/slim/varify_otp";
-        Call_webservice.verify_otp(ActivityOTPVerify.this,verifyotp_url,"resend_otp",webservice_body_parameter,webservice_header_type);
-
-        Call_webservice.taskCompleteReminder=new TaskCompleteReminder() {
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
 //                Log.e("data2",webservice_returndata.toString());
 
-                if (webservice_returndata != null)
-                {
-                    Log.e("webservice_returndata",webservice_returndata.toString());
+                if (webservice_returndata != null) {
+                    Log.e("webservice_returndata", webservice_returndata.toString());
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
 
-                    String error=jsonObject.get("error").getAsString();
-                    String message=jsonObject.get("message").getAsString();
-                    if(error.equals("false"))
-                    {
-                        String user_id=jsonObject.get("user_id").getAsString();
+                    String error = jsonObject.get("error").getAsString();
+                    String message = jsonObject.get("message").getAsString();
+                    if (error.equals("false")) {
+                        String user_id = jsonObject.get("user_id").getAsString();
 
 
                         showMessage(message);
@@ -342,66 +313,50 @@ if(editText1.getText().length()!=0)
                         Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(Homedashboard);
 
-                    }
-                    else{
+                    } else {
                         showMessage(message);
                     }
-
 
 
                 }
 
             }
         };
-
-
-
-
 
 
     }
 
 
-
-
-
-
-
     private void call_otp_retry_webservice() {
 
 
-
         // dialog.show();
-        HashMap<String,String> webservice_body_parameter=new HashMap<>();
-        webservice_body_parameter.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("client_id","564735473442373");
+        HashMap<String, String> webservice_body_parameter = new HashMap<>();
+        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        webservice_body_parameter.put("client_id", "564735473442373");
 
 
-        HashMap<String,String> webservice_header_type=new HashMap<>();
-        webservice_header_type.put("authorization","xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
+        HashMap<String, String> webservice_header_type = new HashMap<>();
+        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
+        String otp_url = "http://aapkatrade.com/slim/resend_otp";
+        Call_webservice.resend_otp(ActivityOTPVerify.this, otp_url, "resend_otp", webservice_body_parameter, webservice_header_type);
 
-
-String otp_url="http://aapkatrade.com/slim/resend_otp";
-        Call_webservice.resend_otp(ActivityOTPVerify.this,otp_url,"resend_otp",webservice_body_parameter,webservice_header_type);
-
-        Call_webservice.taskCompleteReminder=new TaskCompleteReminder() {
+        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
             public void Taskcomplete(JsonObject webservice_returndata) {
 
-                Log.e("data2",webservice_returndata.toString());
+                Log.e("data2", webservice_returndata.toString());
 
-                if (webservice_returndata != null)
-                {
-                    Log.e("webservice_returndata",webservice_returndata.toString());
+                if (webservice_returndata != null) {
+                    Log.e("webservice_returndata", webservice_returndata.toString());
                     JsonObject jsonObject = webservice_returndata.getAsJsonObject();
 
-                    String error=jsonObject.get("error").getAsString();
-                    String message=jsonObject.get("message").getAsString();
-                    if(error.equals("false"))
-                    {
-                        String user_id=jsonObject.get("user_id").getAsString();
+                    String error = jsonObject.get("error").getAsString();
+                    String message = jsonObject.get("message").getAsString();
+                    if (error.equals("false")) {
+                        String user_id = jsonObject.get("user_id").getAsString();
 
 
                         showMessage(message);
@@ -411,25 +366,15 @@ String otp_url="http://aapkatrade.com/slim/resend_otp";
                         Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(Homedashboard);
 
-                    }
-                    else{
+                    } else {
                         showMessage(message);
                     }
-
 
 
                 }
 
             }
         };
-
-
-
-
-
-
-
-
 
 
     }
@@ -451,8 +396,6 @@ String otp_url="http://aapkatrade.com/slim/resend_otp";
     }
 
 
-
-
 //    @Override
 //    protected void onStart() {
 //        super.onStart();
@@ -464,7 +407,6 @@ String otp_url="http://aapkatrade.com/slim/resend_otp";
 //        super.onStop();
 //        smsVerifyCatcher.onStop();
 //    }
-
 
 
 }

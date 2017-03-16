@@ -58,7 +58,6 @@ public class loginActivity extends AppCompatActivity {
                     Log.e("null_sharedPreferences", "sharedPreferences");
                 }
 
-
             }
 
 
@@ -193,7 +192,8 @@ public class loginActivity extends AppCompatActivity {
 
     private void saveDataInSharedPreference(JsonObject webservice_returndata, int userType) {
 
-        if (userType == 1) {
+        if (userType == 1)
+        {
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
 
@@ -219,11 +219,13 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
             app_sharedpreference.setsharedpref("product", webservice_returndata.get("product").getAsString());
             app_sharedpreference.setsharedpref("company", webservice_returndata.get("company").getAsString());
+
         }
         else if (userType == 2)
         {
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
+
 
             app_sharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
             app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
@@ -243,9 +245,12 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
             app_sharedpreference.setsharedpref("createdAt", webservice_returndata.get("createdAt").getAsString());
 
+
+
         }
         else if (userType == 3)
         {
+
 
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
@@ -287,8 +292,6 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("register_mobile", jsonObject.get("register_mobile").getAsString());
             app_sharedpreference.setsharedpref("vendor", webservice_returndata.get("vendor").getAsString());
             app_sharedpreference.setsharedpref("network", webservice_returndata.get("network").getAsString());
-
-
 
         }
     }
