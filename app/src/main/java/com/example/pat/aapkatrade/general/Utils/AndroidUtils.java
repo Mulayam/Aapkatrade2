@@ -1,7 +1,9 @@
 package com.example.pat.aapkatrade.general.Utils;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,5 +69,10 @@ public class AndroidUtils {
     }
 
 
-
+    public static void setBackground(ViewGroup layout, Context context, int bgColor, int cornerRadius){
+        GradientDrawable shape = new GradientDrawable();
+        shape.setCornerRadius(cornerRadius);
+        shape.setColor(ContextCompat.getColor(context, bgColor));
+        layout.setBackground(shape);
+    }
 }

@@ -6,6 +6,7 @@
     <color name="hint_color">#606060</color>
     <color name="color_voilet">#FF6600</color>
    <color name="green">#63BEAC</color>
+    <color name="green_line">#05DB61</color>
     <color name="green_transparent">#8063BEAC</color>
     <color name="teal">#008080</color>
     <color name="purple">#800080</color>
@@ -51,6 +52,8 @@
     <color name="yellow">#FEF200</color>
 
     <color name="red">#FA2B33</color>
+
+    <color name="black_line">#4B4B4B</color>
 
     <array name="tab_colors">
         <item name="tab_1">#455C65</item>

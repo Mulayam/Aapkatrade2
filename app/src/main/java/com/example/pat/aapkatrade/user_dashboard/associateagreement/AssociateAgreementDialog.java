@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
@@ -32,6 +33,7 @@ public class AssociateAgreementDialog extends Dialog {
     private Context context;
     private Button imgCLose;
     private LinearLayout input_layout_agreement;
+    private RelativeLayout dialogue_toolbar;
 
 
     public AssociateAgreementDialog(Context context) {
@@ -120,10 +122,9 @@ public class AssociateAgreementDialog extends Dialog {
     public void initView() {
         app_sharedpreference = new App_sharedpreference(context);
         input_layout_agreement = (LinearLayout) findViewById(R.id.input_layout_agreement);
-        GradientDrawable shape = new GradientDrawable();
-        shape.setCornerRadius(8);
-        shape.setColor(ContextCompat.getColor(context, R.color.orange));
-        input_layout_agreement.setBackground(shape);
+        dialogue_toolbar = (RelativeLayout) findViewById(R.id.dialogue_toolbar);
+        AndroidUtils.setBackground(input_layout_agreement, context, R.color.orange, 10);
+        AndroidUtils.setBackground(dialogue_toolbar, context, R.color.green, 8);
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         tvDate = (TextView) findViewById(R.id.tvDate);
         tvReferenceNumber = (TextView) findViewById(R.id.tvReferenceNumber);

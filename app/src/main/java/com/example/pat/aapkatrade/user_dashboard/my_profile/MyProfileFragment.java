@@ -200,15 +200,16 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                             for (int i = 0; i < jsonResultArray.size(); i++) {
                                 JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                                 City cityEntity = new City(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
+                                cityList.add(cityEntity);
                                 if (city_id.equals(cityEntity.cityId)) {
-                                    selectedIndex = i;
+                                    selectedIndex = i+1;
                                     Log.e("HOooo434oooooo", jsonObject1.get("id").getAsString() + "  State Found  " + jsonObject1.get("name").getAsString());
-
+                                    Log.e("HOooooooooo", "selectedIndex @@: " + selectedIndex);
                                 }
                             }
 
                             Log.e("HOooooooooo", "State List Size : " + stateList.size());
-
+                            Log.e("HOooooooooo", "selectedIndex : " + selectedIndex);
                             SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
                             spcity.setAdapter(spCityAdapter);
                             spcity.setSelection(selectedIndex);
@@ -359,10 +360,6 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         }
         progressBarHandler.show();
         bankList.add("Please Select Bank Name");
-//        CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
-//        spSelectBank.setAdapter(bankListAdapter);
-
-
         Ion.with(context)
                 .load("https://aapkatrade.com/slim/bank_list")
                 .asJsonObject()
@@ -382,12 +379,14 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                     JsonObject jsonObject = (JsonObject) jsonResultArray.get(i);
                                     bankList.add(jsonObject.get("name").getAsString());
                                     if (bank_id.equals(jsonObject.get("id").getAsString())) {
-                                        selectedIndex = i;
+                                        selectedIndex = i+1;
+                                        Log.e("bank_id", bank_id+"        "+ selectedIndex);
                                     }
                                 }
                                 CustomSimpleListAdapter bankListAdapter = new CustomSimpleListAdapter(context, bankList);
                                 spSelectBank.setAdapter(bankListAdapter);
-                                spSelectBank.setSelection(selectedIndex + 1);
+                                Log.e("bank_id12", bank_id+"        "+ selectedIndex);
+                                spSelectBank.setSelection(selectedIndex);
                                 spSelectBank.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.Home.registration.spinner_adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class SpCityAdapter  extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.row_spinner, null);
         TextView names = (TextView) view.findViewById(R.id.tvSpCategory);
+        Log.e("HOooooooooo", "State List item : " + i);
         names.setText(cityList.get(i).cityName);
         return view;
     }
