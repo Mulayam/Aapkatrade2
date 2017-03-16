@@ -172,15 +172,21 @@ android:textSize="@dimen/textsize_small"
           android:layout_marginTop="5dp"
           android:layout_height="wrap_content" />
 
-            <android.support.v4.view.ViewPager
-                android:layout_width="wrap_content"
-                android:id="@+id/viewpager_state"
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/state_names_recycler"
+                android:clipToPadding="false"
+                android:background="#FFFFFF"
+                android:layout_height="50dp"
+
                 android:layout_below="@+id/tv_state"
-                android:layout_height="wrap_content">
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+               >
 
 
 
-            </android.support.v4.view.ViewPager>
+            </android.support.v7.widget.RecyclerView>
 
 
 
@@ -190,7 +196,7 @@ android:textSize="@dimen/textsize_small"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:dividerHeight="5dp"
-            android:layout_below="@+id/viewpager_state"
+            android:layout_below="@+id/state_names_recycler"
             android:divider="#E6E6E6"/>
 
         </RelativeLayout>

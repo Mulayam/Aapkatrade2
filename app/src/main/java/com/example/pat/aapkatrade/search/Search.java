@@ -3,8 +3,10 @@ package com.example.pat.aapkatrade.search;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -51,8 +53,10 @@ public class Search extends AppCompatActivity
     CustomAutocompleteAdapter categoryadapter;
     Context c;
     GridLayoutManager gridLayoutManager;
-    RecyclerView recyclerView_search;
+    RecyclerView recyclerView_search,state_names_recycler;
     CommomAdapter commomAdapter;
+
+
     ArrayList<String> state_names = new ArrayList<>();
     ArrayList<String> product_names = new ArrayList<>();
     ArrayList<CommomData> search_productlist = new ArrayList<>();
@@ -61,7 +65,11 @@ public class Search extends AppCompatActivity
     ProgressBarHandler progressBarHandler;
     CoordinatorLayout coordinate_search;
     private ArrayList<String> stateList = new ArrayList<>();
+    SearchResultsAdapter searchResultsAdapter;
     HashMap<String, String> webservice_header_type = new HashMap<>();
+
+
+   ViewPager viewpager_state;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -90,6 +98,7 @@ public class Search extends AppCompatActivity
 
     private void initview()
     {
+
         call_state_webservice();
 
 
@@ -99,6 +108,8 @@ public class Search extends AppCompatActivity
 
         c=Search.this;
         coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
+        state_names_recycler=(RecyclerView)findViewById(R.id.state_names_recycler);
+
         progressBarHandler=new ProgressBarHandler(Search.this);
         autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
         autocomplete_textview_product.setThreshold(1);
@@ -200,6 +211,8 @@ if(autocomplete_textview_state.getText().length()!=0)
 
     }
 
+
+
     private void call_state_webservice() {
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -225,6 +238,15 @@ if(autocomplete_textview_state.getText().length()!=0)
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                         stateList.add(jsonObject1.get("name").getAsString());
                     }
+
+                    searchResultsAdapter=new SearchResultsAdapter(c,stateList);
+
+                    RecyclerView.LayoutManager mLayoutManager =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+
+
+                    state_names_recycler.setLayoutManager(mLayoutManager);
+
+                    state_names_recycler.setAdapter(searchResultsAdapter);
 
                     Log.e("stateList",stateList.toString());
 

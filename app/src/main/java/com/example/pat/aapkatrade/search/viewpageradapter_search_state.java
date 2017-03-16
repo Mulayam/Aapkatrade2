@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 import com.koushikdutta.ion.Ion;
@@ -22,18 +23,18 @@ public class viewpageradapter_search_state extends PagerAdapter
 {
 
     private Context mContext;
-    ArrayList<String> imageurl;
+    ArrayList<String> statename;
 
 
-    public viewpageradapter_search_state(Context mContext, ArrayList<String> productImage_url) {
-        this. imageurl=productImage_url;
+    public viewpageradapter_search_state(Context mContext, ArrayList<String> statename) {
+        this. statename=statename;
         this.mContext=mContext;
 
     }
 
 
     public int getCount() {
-        return imageurl!=null?imageurl.size():-1;
+        return statename!=null?statename.size():-1;
 
 }
 
@@ -46,13 +47,9 @@ public class viewpageradapter_search_state extends PagerAdapter
     {
         View itemView = LayoutInflater.from(mContext).inflate(R.layout.viewpager_search_state, container, false);
 
-        ImageView imageView = (ImageView) itemView.findViewById(R.id.img_pager_item);
-        Ion.with(imageView)
-//               .placeholder(R.drawable.placeholder_image)
+        TextView imageView = (TextView) itemView.findViewById(R.id.tv_pager_search_state);
+        imageView.setText(statename.get(position));
 
-                .load(imageurl.get(position));
-        Log.e("banner-image",imageurl.get(position)+"");
-       // imageView.setImageResource(R.drawable.banner_home);
 
         container.addView(itemView);
 
