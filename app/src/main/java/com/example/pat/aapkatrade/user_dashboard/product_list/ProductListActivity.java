@@ -69,7 +69,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
         layout_container = (LinearLayout) findViewById(R.id.layout_container);
 
-        get_web_data2(0);
+      //  get_web_data2(0);
 
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -77,7 +77,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
         product_list.setLayoutManager(mLayoutManager);
 
-        productListAdapter = new ProductListAdapter(getApplicationContext(), productListDatas);
+        productListAdapter = new ProductListAdapter(ProductListActivity.this, productListDatas);
 
         product_list.setAdapter(productListAdapter);
 
@@ -199,6 +199,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
                         if (result == null) {
                             // progress_handler.hide();
                             // layout_container.setVisibility(View.INVISIBLE);
+                            //  mSwipyRefreshLayout.setRefreshing(false);
                         } else {
 
                             JsonObject jsonObject = result.getAsJsonObject();
@@ -215,7 +216,9 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
                                 // layout_container.setVisibility(View.INVISIBLE);
 
-                            } else {
+
+                            } else
+                                {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
 
@@ -273,7 +276,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
                 .setBodyParameter("type", "product_list")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("seller_id", user_id)
-                .setBodyParameter("page", "1")
+                .setBodyParameter("page", "0")
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override

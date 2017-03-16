@@ -36,6 +36,7 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -74,7 +75,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     // private SharedPreferences loginPreferences;
     List<String> categoryids;
     List<String> categoryname;
-    private Context context;
+    Context context;
     TextView footer;
     RelativeLayout header;
     TextView textViewName, emailid;
@@ -121,6 +122,18 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private void initView(View view) {
         navigation_close = (ImageView) view.findViewById(R.id.navigation_close);
         rl_logout=(RelativeLayout)view.findViewById(R.id.rl_logout) ;
+        rl_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save_shared_pref("notlogin", "notlogin", "notlogin");
+
+
+                Intent Homedashboard =new Intent(getActivity(), HomeActivity.class);
+                Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(Homedashboard);
+
+            }
+        });
         navigation_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,11 +164,11 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
 
-            String Username = app_sharedpreference.getsharedpref("username", "not");
-            String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+            String Username = app_sharedpreference.getsharedpref("username", "notlogin");
+            String Emailid = app_sharedpreference.getsharedpref("emailid", "notlogin");
 
 
-            if (Username.equals("not")) {
+            if (Username.equals("notlogin")) {
                 rl_logout.setVisibility(View.GONE);
 
                 Log.e("Shared_pref2", "null" + Username);
@@ -511,6 +524,16 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
         }
+    }
+
+
+
+    public void save_shared_pref(String user_id, String user_name, String email_id)
+    {
+        app_sharedpreference.setsharedpref("userid", user_id);
+        app_sharedpreference.setsharedpref("username", user_name);
+        app_sharedpreference.setsharedpref("emailid", email_id);
+
     }
 
 
