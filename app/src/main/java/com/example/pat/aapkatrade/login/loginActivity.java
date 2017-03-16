@@ -219,7 +219,9 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
             app_sharedpreference.setsharedpref("product", webservice_returndata.get("product").getAsString());
             app_sharedpreference.setsharedpref("company", webservice_returndata.get("company").getAsString());
-        } else if (userType == 2) {
+        }
+        else if (userType == 2)
+        {
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
 
@@ -241,11 +243,13 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
             app_sharedpreference.setsharedpref("createdAt", webservice_returndata.get("createdAt").getAsString());
 
-        } else if (userType == 3) {
+        }
+        else if (userType == 3)
+        {
+
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
-
-            app_sharedpreference.setsharedpref("userid", jsonObject.get("user_id").getAsString());
+            app_sharedpreference.setsharedpref("userid", webservice_returndata.get("user_id").getAsString());
             app_sharedpreference.setsharedpref("name", jsonObject.get("name").getAsString());
             app_sharedpreference.setsharedpref("username", jsonObject.get("name").getAsString());
             app_sharedpreference.setsharedpref("lname", jsonObject.get("lastname").getAsString());
@@ -269,10 +273,10 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("platform", jsonObject.get("platform").getAsString());
             app_sharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
             app_sharedpreference.setsharedpref("term_accepted", jsonObject.get("term_accepted").getAsString());
-            app_sharedpreference.setsharedpref("created_at", jsonObject.get("created_at").getAsString());
-            app_sharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
+            app_sharedpreference.setsharedpref("created_at", "");
+            app_sharedpreference.setsharedpref("updated_at", "");
             app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
-            app_sharedpreference.setsharedpref("id", jsonObject.get("id").getAsString());
+            app_sharedpreference.setsharedpref("id", "");
             app_sharedpreference.setsharedpref("bank_name", jsonObject.get("bank_name").getAsString());
             app_sharedpreference.setsharedpref("account_no", jsonObject.get("account_no").getAsString());
             app_sharedpreference.setsharedpref("branch_code", jsonObject.get("branch_code").getAsString());
@@ -284,12 +288,15 @@ public class loginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("vendor", webservice_returndata.get("vendor").getAsString());
             app_sharedpreference.setsharedpref("network", webservice_returndata.get("network").getAsString());
 
+
+
         }
     }
 
 
     private void InitView()
     {
+
         forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
         login_text = (TextView) findViewById(R.id.tv_login);
         cl = (CoordinatorLayout) findViewById(R.id.coordinator_layout);
@@ -306,6 +313,8 @@ public class loginActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     public void showMessage(String message) {
@@ -316,7 +325,6 @@ public class loginActivity extends AppCompatActivity {
                     public void onClick(View view) {
                     }
                 });
-
         snackbar.show();
     }
 

@@ -32,16 +32,17 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     List<ProductListData> itemList;
     Context context;
     ProductListHolder viewHolder;
-    //ProgressBarHandler progress_handler;
+    ProgressBarHandler progress_handler;
     int p;
 
 
     public ProductListAdapter(Context context, List<ProductListData> itemList)
     {
+        progress_handler = new ProgressBarHandler(context);
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-      //  progress_handler = new ProgressBarHandler(context);
+
     }
 
     @Override
@@ -84,7 +85,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 product_detail.putExtra("delivery_area_name", itemList.get(position).delivery_area_name);
                 product_detail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(product_detail);
-
 
             }
         });
@@ -149,7 +149,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });*/
 
-
     }
 
     private void showMessage(String s) {
@@ -169,9 +168,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private void delete_product(String product_id, int pos)
     {
-        //progress_handler.show();
+        progress_handler.show();
         p = pos;
-        System.out.println(" company--------"+product_id);
+        System.out.println("company--------"+product_id);
         Ion.with(context)
                 .load("https://aapkatrade.com/slim/delete_product")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -186,7 +185,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                         if (result == null)
                         {
-                           // progress_handler.hide();
+                            progress_handler.hide();
                         }
                         else
                         {
@@ -194,17 +193,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             String message = jsonObject.get("message").getAsString();
                             if (message.equals("Success"))
                             {
-
                                 itemList.remove(p);
                                 notifyItemRemoved(p);
                                 notifyItemRangeChanged(p, itemList.size());
-                               // progress_handler.hide();
-
+                                progress_handler.hide();
                             }
                             else
                             {
-                                Toast.makeText(context,message.toString(),Toast.LENGTH_SHORT).show();
-                                 //  progress_handler.hide();
+                                   Toast.makeText(context,message.toString(),Toast.LENGTH_SHORT).show();
+                                   progress_handler.hide();
                             }
                         }
                     }
