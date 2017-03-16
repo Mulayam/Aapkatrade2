@@ -68,7 +68,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 
-public class AddProductActivity extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity
+{
+
     private Context context;
     private LinearLayout contentAddProduct, add_product_root_container;
     private Spinner spCompanyName, spSubCategory, spCategory, spState, spCity, spdeliverydistance, spUnit;
@@ -93,6 +95,7 @@ public class AddProductActivity extends AppCompatActivity {
     ProductImages adapter;
     Bitmap imageForPreview;
     List<Part> files_image = new ArrayList();
+    TextView tvTitle;
 
 
     @Override
@@ -587,6 +590,9 @@ public class AddProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Add Product");
+
 
     }
 

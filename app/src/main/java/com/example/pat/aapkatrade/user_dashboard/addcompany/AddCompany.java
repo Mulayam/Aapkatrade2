@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,6 @@ import com.koushikdutta.ion.Ion;
 public class AddCompany extends AppCompatActivity
 {
 
-
     Button btnSave;
     EditText etCompanyName,etPEmail,etSEmail,etAddress,etDiscription;
     ProgressDialog dialog;
@@ -44,8 +44,8 @@ public class AddCompany extends AppCompatActivity
     ProgressBarHandler progress_handler;
     App_sharedpreference app_sharedpreference;
     String user_id,email;
-
-
+    TextView tvTitle;
+    RelativeLayout relativeSubmit;
 
 
     @Override
@@ -240,7 +240,7 @@ public class AddCompany extends AppCompatActivity
 
     private void initView()
     {
-        btnSave = (Button) findViewById(R.id.btnSave);
+        relativeSubmit = (RelativeLayout) findViewById(R.id.relativeSubmit);
 
         etCompanyName = (EditText) findViewById(R.id.etCompanyName);
 
@@ -253,7 +253,7 @@ public class AddCompany extends AppCompatActivity
 
         etDiscription = (EditText) findViewById(R.id.etDiscription);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        relativeSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -274,8 +274,11 @@ public class AddCompany extends AppCompatActivity
 
         getSupportActionBar().setTitle(null);
 
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Add Company");
 
+
+        // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 
 

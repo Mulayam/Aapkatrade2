@@ -154,7 +154,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
 
-
             if (Username.equals("not")) {
                 rl_logout.setVisibility(View.GONE);
 

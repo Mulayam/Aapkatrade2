@@ -28,7 +28,8 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 
-public class ChangePassword extends AppCompatActivity {
+public class ChangePassword extends AppCompatActivity
+{
 
     EditText OldPassword, NewPassword, ConfirmPassword;
     TextView saveNewPasswordButton;
@@ -36,6 +37,9 @@ public class ChangePassword extends AppCompatActivity {
     App_sharedpreference app_sharedpreference;
     String user_id, user_type;
     ProgressBarHandler progress_handler;
+    TextView tvTitle;
+
+
 
 
     @Override
@@ -162,6 +166,10 @@ public class ChangePassword extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
+
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Change Password");
+
     }
 
 

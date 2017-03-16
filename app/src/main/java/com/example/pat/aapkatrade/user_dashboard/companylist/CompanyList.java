@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -36,7 +38,7 @@ public class CompanyList extends AppCompatActivity
     private App_sharedpreference app_sharedpreference;
     String user_id;
     private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
-
+    TextView tvTitle;
 
 
     @Override
@@ -154,6 +156,10 @@ public class CompanyList extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
         }
+
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Company List");
+
     }
 
     @Override

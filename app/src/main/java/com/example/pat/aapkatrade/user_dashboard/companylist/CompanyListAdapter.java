@@ -29,6 +29,7 @@ import java.util.List;
  */
 public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
+
      final LayoutInflater inflater;
      List<CompanyData> itemList;
      Context context;
@@ -98,12 +99,10 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             e.printStackTrace();
         }
 
-
         SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
         String newDateStr = postFormater.format(date);
 
         homeHolder.tvDate.setText(newDateStr);
-
 
         homeHolder.imgNext.setOnClickListener(new View.OnClickListener()
         {
@@ -248,7 +247,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     notifyItemRemoved(p);
                                     notifyItemRangeChanged(p, itemList.size());
                                     progress_handler.hide();
-
                                 }
                                 else
                                 {
