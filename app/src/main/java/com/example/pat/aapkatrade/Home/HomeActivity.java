@@ -117,6 +117,7 @@ public class HomeActivity extends AppCompatActivity
                 setup_bottomNavigation();
 
                 checked_wifispeed();
+               App_config.deleteCache(HomeActivity.this);
 
             } else {
 
@@ -147,6 +148,7 @@ public class HomeActivity extends AppCompatActivity
                 Bundle b = iin.getExtras();
                 setup_bottomNavigation();
                 checked_wifispeed();
+                App_config.deleteCache(HomeActivity.this);
             }
         } else {
 Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");

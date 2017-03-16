@@ -680,6 +680,8 @@ public class AddProductActivity extends AppCompatActivity {
         Intent in;
         if (which == 1) {
             in = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            in.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            in.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
         } else if (which == 2) {
             new MaterialFilePicker()
