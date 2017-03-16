@@ -27,7 +27,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Created by Netforce on 7/25/2016.
  */
-public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
+
     Context context;
     ArrayList<CommomData> commomDatas;
     String arrangementtype, categorytype;
