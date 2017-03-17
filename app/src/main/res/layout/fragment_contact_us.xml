@@ -16,7 +16,9 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:isScrollContainer="false"
+            >
 
 
             <RelativeLayout
@@ -112,6 +114,8 @@
                         android:textSize="@dimen/textsize"
                         android:theme="@style/myedittext"
                         style="@style/myedittext"
+                        android:inputType="number"
+                        android:maxLength="10"
                         />
 
 
@@ -142,6 +146,7 @@
                        android:layout_below="@+id/etMobileNo"
                        android:textColorHint="@color/green"
                        android:textSize="@dimen/textsize"
+                       android:inputType="textEmailAddress"
                        android:theme="@style/myedittext"
                        style="@style/myedittext"
                        />

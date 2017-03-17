@@ -84,7 +84,7 @@
                 />
 
             <TextView
-                android:id="@+id/tvAddress"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
@@ -144,6 +144,7 @@
 
 
                       <TextView
+                          android:id="@+id/tvAddress"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:text="B-57 Pocket-1 Block-D Rohini New Delhi"
@@ -169,10 +170,13 @@
 
 
                       <TextView
+                          android:id="@+id/tvDescription"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:text="A dining table with two Chairs. Furniture refers to moveble objects intended to support...."
                           android:layout_marginLeft="10dp"
+                          android:maxLines="1"
+                          android:ellipsize="end"
                           />
 
 
