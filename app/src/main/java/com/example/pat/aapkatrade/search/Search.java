@@ -1,6 +1,7 @@
 package com.example.pat.aapkatrade.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
@@ -22,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.CommomAdapter;
@@ -53,8 +55,9 @@ public class Search extends AppCompatActivity
     CustomAutocompleteAdapter categoryadapter;
     Context c;
     GridLayoutManager gridLayoutManager;
-    RecyclerView recyclerView_search,state_names_recycler;
+    RecyclerView recyclerView_search,state_names_recycler,category_names_recycler;
     CommomAdapter commomAdapter;
+    Spinner state_list;
 
 
     ArrayList<String> state_names = new ArrayList<>();
@@ -67,6 +70,8 @@ public class Search extends AppCompatActivity
     private ArrayList<String> stateList = new ArrayList<>();
     SearchResultsAdapter searchResultsAdapter;
     HashMap<String, String> webservice_header_type = new HashMap<>();
+    String currentlocation_statename;
+    int current_state_index;
 
 
    ViewPager viewpager_state;
@@ -75,6 +80,9 @@ public class Search extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        Intent i= getIntent();
+        currentlocation_statename= i.getStringExtra("state_name");
 
         setuptoolbar();
 
@@ -100,15 +108,11 @@ public class Search extends AppCompatActivity
     {
 
         call_state_webservice();
-
-
-
-
-
-
         c=Search.this;
         coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
         state_names_recycler=(RecyclerView)findViewById(R.id.state_names_recycler);
+        state_list=(Spinner)findViewById(R.id.spin_select_state) ;
+        category_names_recycler=(RecyclerView)findViewById(R.id.category_names_recycler);
 
         progressBarHandler=new ProgressBarHandler(Search.this);
         autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
@@ -237,16 +241,31 @@ if(autocomplete_textview_state.getText().length()!=0)
                     for (int i = 0; i < jsonResultArray.size(); i++) {
                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                         stateList.add(jsonObject1.get("name").getAsString());
+                        if(currentlocation_statename.equals(jsonObject1.get("name").getAsString()))
+                        {
+
+                            current_state_index=i;
+                            Log.e("current_state_index",current_state_index+"");
+                        }
                     }
 
                     searchResultsAdapter=new SearchResultsAdapter(c,stateList);
 
                     RecyclerView.LayoutManager mLayoutManager =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+                    RecyclerView.LayoutManager mLayoutManager_category =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
 
 
                     state_names_recycler.setLayoutManager(mLayoutManager);
+                    category_names_recycler.setLayoutManager(mLayoutManager_category);
 
                     state_names_recycler.setAdapter(searchResultsAdapter);
+
+
+                    ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item,stateList);
+                    state_list.setAdapter(spinneradapter);
+                    state_list.setSelection(current_state_index);
+
+
 
                     Log.e("stateList",stateList.toString());
 

@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.categories_tab.PurticularDataActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,12 @@ import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
+import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
+import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
+import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -43,7 +48,7 @@ public class PurticularActivity extends AppCompatActivity
     MyRecyclerViewEffect myRecyclerViewEffect;
     JsonObject home_data;
     String url;
-
+    Mylocation mylocation;
 
 
     @Override
@@ -83,9 +88,50 @@ public class PurticularActivity extends AppCompatActivity
         findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goto_search = new Intent(PurticularActivity.this, Search.class);
-                startActivity(goto_search);
-                finish();
+
+                boolean permission_status = CheckPermission.checkPermissions(PurticularActivity.this);
+
+
+                if (permission_status)
+
+                { mylocation = new Mylocation(PurticularActivity.this);
+                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                            PurticularActivity.this);
+                    Location location = null;
+                    if (locationManagerCheck.isLocationServiceAvailable())
+                    {
+
+                        double latitude = mylocation.getLatitude();
+                        double longitude = mylocation.getLongitude();
+
+                        Intent goto_search = new Intent(PurticularActivity.this, Search.class);
+                        startActivity(goto_search);
+                        finish();
+
+
+
+
+                    }
+                    else
+                    {
+                        locationManagerCheck.createLocationServiceError(PurticularActivity.this);
+                    }
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
         });
 
