@@ -41,7 +41,6 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.add_product.ProductImages;
 import com.example.pat.aapkatrade.user_dashboard.add_product.ProductImagesData;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.CompanyData;
@@ -99,16 +98,16 @@ public class EditProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_product);
         setuptoolbar();
 
-        setupRecyclerView();
 
         initView();
 
+        setupRecyclerView();
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 count++;
-                callAddProductWebService();
+                callEditProductWebService();
             }
         });
 
@@ -140,7 +139,7 @@ public class EditProductActivity extends AppCompatActivity {
     }
 
 
-    private void callAddProductWebService() {
+    private void callEditProductWebService() {
         progressBar.show();
 
         for (int i = 0; i < productImagesDatas.size(); i++) {
@@ -698,8 +697,6 @@ public class EditProductActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(EditProductActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
-
     }
 
 

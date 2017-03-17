@@ -29,17 +29,16 @@ import java.util.HashMap;
 
 public class AndroidUtils {
     public static void showSnackBar(ViewGroup layout, String message) {
-
-        Snackbar snackbar = Snackbar
-                .make(layout, message, Snackbar.LENGTH_SHORT)
-                .setAction("", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    }
-                });
-        snackbar.show();
-
-
+        if(layout != null){
+            Snackbar snackbar = Snackbar
+                    .make(layout, message, Snackbar.LENGTH_SHORT)
+                    .setAction("", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        }
+                    });
+            snackbar.show();
+        }
     }
 
 
