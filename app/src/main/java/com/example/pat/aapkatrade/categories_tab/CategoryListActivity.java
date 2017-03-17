@@ -2,6 +2,7 @@ package com.example.pat.aapkatrade.categories_tab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +19,12 @@ import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.CheckPermission;
+import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
+import com.example.pat.aapkatrade.location.Mylocation;
+import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
@@ -45,6 +50,7 @@ public class CategoryListActivity extends AppCompatActivity
     MyRecyclerViewEffect myRecyclerViewEffect;
     String category_id,sub_category_id,user_id;
     App_sharedpreference app_sharedpreference;
+    Mylocation mylocation;
 
 
     @Override
@@ -79,9 +85,44 @@ public class CategoryListActivity extends AppCompatActivity
         findViewById(R.id.home_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 Intent goto_search=new Intent(CategoryListActivity.this,Search.class);
-                startActivity(goto_search);
-                finish();
+
+
+                boolean permission_status = CheckPermission.checkPermissions(CategoryListActivity.this);
+
+
+                if (permission_status)
+
+                {
+                    mylocation = new Mylocation(CategoryListActivity.this);
+                    LocationManager_check locationManagerCheck = new LocationManager_check(
+                            CategoryListActivity.this);
+                    Location location = null;
+                    if (locationManagerCheck.isLocationServiceAvailable())
+                    {
+                        double latitude = mylocation.getLatitude();
+                        double longitude = mylocation.getLongitude();
+
+                        Intent goto_search=new Intent(CategoryListActivity.this,Search.class);
+                        goto_search.putExtra("latitude",latitude);
+                        goto_search.putExtra("longitude",longitude);
+                        startActivity(goto_search);
+                        finish();
+
+
+
+
+                    }
+                    else
+                    {
+                        locationManagerCheck.createLocationServiceError(CategoryListActivity.this);
+                    }
+
+                }
+
+
+
+
+
             }
         });
 
