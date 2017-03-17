@@ -16,7 +16,7 @@ public class CompanyListHolder extends RecyclerView.ViewHolder
 {
 
     View view;
-    TextView tvCompanyname,tvDate,tvEmail;
+    TextView tvCompanyname,tvDate,tvEmail,tvAddress,tvDescription;
     ImageView imgEdtCompanyName,imgDeleteCompany,imgNext;
     RelativeLayout relativecompanyList;
     LinearLayout linearLayoutDetail;
@@ -46,6 +46,11 @@ public class CompanyListHolder extends RecyclerView.ViewHolder
         imgDeleteCompany = (ImageView)  itemView.findViewById(R.id.imgDelete);
 
         tvEmail = (TextView) itemView.findViewById(R.id.tvEmail);
+
+        tvAddress = (TextView) itemView.findViewById(R.id.tvAddress);
+
+        tvDescription = (TextView) itemView.findViewById(R.id.tvDescription) ;
+
 
         view = itemView;
     }
