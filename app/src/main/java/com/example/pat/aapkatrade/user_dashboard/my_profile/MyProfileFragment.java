@@ -12,8 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -40,10 +42,12 @@ import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.utils.Utils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -67,7 +71,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     private Context context;
     private EditText et_email, et_first_name, et_last_name, et_dob, et_father_name, et_mobile, et_ref_number, et_address, et_pincode, et_account_no, et_branch_code, et_branch_name, et_ifsc_code, et_micr_code, et_account_holder_name, et_registered_mobile_with_bank;
     private String state_id, stateName, city_id, qualification, total_exp, relevant_exp, id_proof, photo, bank_id;
-    public int stepNumber;
+    public int stepNumber = -1;
     private LinearLayout step1Photo, step2Photo;
     private CircleImageView circleImageView, circleImageView2;
     private Spinner spState, spcity, spQualification, spTotalExp, spRelExp, spSelectBank;
@@ -86,7 +90,9 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     private LinearLayout updateMyProfileLayout;
     private HashMap<String, String> webservice_header_type = new HashMap<>();
     private int step1FieldsSet = -1, step2FieldsSet = -1, step3FieldsSet = -1;
-    private File step1PhotoFile, step2PhotoFile;
+    private File step1PhotoFile = new File(""), step2PhotoFile = new File("");
+    private ViewPager htab_viewpager;
+
 
     public static MyProfileFragment newInstance(int page, boolean isLast) {
         Bundle args = new Bundle();
@@ -109,11 +115,17 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
                 Log.e("call web", "call web service" + stepNumber);
-                if (stepNumber + 1 == 3) {
-                    validateFields(stepNumber + 1);
-                    if (step3FieldsSet == 0) {
-                        callUpdateWebService(0);
-                    }
+                validateFields(stepNumber);
+                Log.e("validation", "step1FieldsSet = " + step1FieldsSet+"          step2FieldsSet = " + step2FieldsSet+"      step3FieldsSet = " + step3FieldsSet);
+                if(stepNumber == 1 && step1FieldsSet == 0){
+                    Log.e("calling", "stepNumber" + stepNumber);
+                    callUpdateWebService(stepNumber);
+                }else if(stepNumber == 2 && step2FieldsSet == 0){
+                    Log.e("calling", "stepNumber" + stepNumber);
+                    callUpdateWebService(stepNumber);
+                }else if(stepNumber == 3 && step3FieldsSet == 0){
+                    Log.e("calling", "stepNumber" + stepNumber);
+                    callUpdateWebService(stepNumber);
                 }
             }
         });
@@ -153,7 +165,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     }
 
 
-    void picPhoto() {
+    private void picPhoto() {
         String str[] = new String[]{"Camera", "Gallery"};
         new AlertDialog.Builder(context).setItems(str,
                 new DialogInterface.OnClickListener() {
@@ -164,7 +176,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                 }).show();
     }
 
-    void performImgPicAction(int which) {
+    private void performImgPicAction(int which) {
         Intent in;
         if (which == 1) {
             in = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -174,7 +186,6 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         }
         startActivityForResult(Intent.createChooser(in, "Select profile picture"), which);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -265,7 +276,6 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
 
     }
 
-
     private File getFile(Bitmap photo) {
         Uri tempUri = null;
         if (photo != null) {
@@ -284,7 +294,6 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         return Uri.parse(path);
     }
 
-
     public String getRealPathFromURI(Uri uri) {
         Cursor cursor = null;
         int idx = 0;
@@ -296,8 +305,6 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         }
         return cursor.getString(idx);
     }
-
-
 
     private void setUpSpinners() {
         setUpStateSpinner();
@@ -445,8 +452,6 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         et_micr_code.setText(app_sharedpreference.getsharedpref("micr_code"));
         et_account_holder_name.setText(app_sharedpreference.getsharedpref("account_holder"));
         et_registered_mobile_with_bank.setText(app_sharedpreference.getsharedpref("register_mobile"));
-        id_proof = app_sharedpreference.getsharedpref("id_proof");
-        photo = app_sharedpreference.getsharedpref("photo");
 
         state_id = app_sharedpreference.getsharedpref("state_id");
         city_id = app_sharedpreference.getsharedpref("city_id");
@@ -467,12 +472,16 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         updateMyProfileLayout = (LinearLayout) view.findViewById(R.id.updateMyProfileLayout);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         relativeAddress = (RelativeLayout) view.findViewById(R.id.relativeAddress);
+        htab_viewpager = (ViewPager) view.findViewById(R.id.htab_viewpager);
 
         step1aLayout = (CardView) view.findViewById(R.id.step1aLayout);
         step1bLayout = (CardView) view.findViewById(R.id.step1bLayout);
         step1cLayout = (CardView) view.findViewById(R.id.step1cLayout);
         step2Layout = (CardView) view.findViewById(R.id.step2Layout);
         step3Layout = (CardView) view.findViewById(R.id.step3Layout);
+
+        step1Photo = (LinearLayout) view.findViewById(R.id.step1Photo);
+        step2Photo = (LinearLayout) view.findViewById(R.id.step2Photo);
 
         et_email = (EditText) view.findViewById(R.id.et_email);
         et_first_name = (EditText) view.findViewById(R.id.et_first_name);
@@ -515,23 +524,42 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final int page = getArguments().getInt("page", 50);
-        stepNumber = page;
+        stepNumber = getArguments().getInt("page", 50);
 
         Log.e("page", "page number" + stepNumber + (step1aLayout == null));
-        if (stepNumber == 0) {
+        if (stepNumber == 1) {
             step1aLayout.setVisibility(View.VISIBLE);
             step1bLayout.setVisibility(View.VISIBLE);
             step1cLayout.setVisibility(View.VISIBLE);
             step2Layout.setVisibility(View.GONE);
             step3Layout.setVisibility(View.GONE);
-        } else if (stepNumber == 1) {
+            if(Validation.isNonEmptyStr(photo)) {
+                Log.e("hi", "file path Step1 "+ photo);
+                previewImageLayout.setVisibility(View.VISIBLE);
+                Picasso.with(context)
+                        .load(photo)
+                        .error(R.drawable.banner)
+                        .placeholder(R.drawable.default_noimage)
+                        .error(R.drawable.default_noimage)
+                        .into(circleImageView);
+            }
+        } else if (stepNumber == 2) {
             step1aLayout.setVisibility(View.GONE);
             step1bLayout.setVisibility(View.GONE);
             step1cLayout.setVisibility(View.GONE);
             step2Layout.setVisibility(View.VISIBLE);
             step3Layout.setVisibility(View.GONE);
-        } else if (stepNumber == 2) {
+            if(Validation.isNonEmptyStr(id_proof)) {
+                Log.e("hi", "file path step2 " + id_proof);
+                previewImageLayout2.setVisibility(View.VISIBLE);
+                Picasso.with(context)
+                        .load(id_proof)
+                        .error(R.drawable.banner)
+                        .placeholder(R.drawable.default_noimage)
+                        .error(R.drawable.default_noimage)
+                        .into(circleImageView2);
+            }
+        } else if (stepNumber == 3) {
             step1aLayout.setVisibility(View.GONE);
             step1bLayout.setVisibility(View.GONE);
             step1cLayout.setVisibility(View.GONE);
@@ -699,7 +727,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                                        Log.e("totalExp", "Selected Total Experience is " + qualificationList.get(position)+"     " + System.currentTimeMillis());
                                         if (position >= 1) {
-//                                            total_experience = totalExpList.get(position);
+                                            total_exp = totalExpList.get(position);
                                         }
                                     }
 
@@ -838,15 +866,15 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
             } else if (!agreement_check.isChecked()) {
                 putError(7);
                 step1FieldsSet++;
-//            } else if (step1PhotoFile.getAbsolutePath().equals("/")) {
-//                showMessage("Please Upload File");
-//                step1FieldsSet++;
+            } else if (step1PhotoFile == null){//step1PhotoFile.getAbsolutePath().equals("/")) {
+                showMessage("Please Upload File");
+                step1FieldsSet++;
             }
             Log.e("hi", "step1FieldsSet=" + step1FieldsSet);
 
-            if (step1FieldsSet == 0) {
-                stepNumber = 2;
-            }
+//            if (step1FieldsSet == 0) {
+//                stepNumber = 2;
+//            }
         } else if (stepNo == 2) {
             step2FieldsSet = 0;
             if (Validation.isEmptyStr(qualification) ||
@@ -861,13 +889,13 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     relevant_exp.equals(relaventExpList.get(0))) {
                 AndroidUtils.showSnackBar(updateMyProfileLayout, "Please Select Relavent Experience");
                 step2FieldsSet++;
-//            } else if ((step2PhotoFile == null) || step2PhotoFile.getAbsolutePath().equals("/")) {
-//                showMessage("Please Upload File");
-//                step2FieldsSet++;
+            } else if ((step2PhotoFile == null) /*|| step2PhotoFile.getAbsolutePath().equals("/")*/) {
+                showMessage("Please Upload File");
+                step2FieldsSet++;
             }
-            if (step2FieldsSet == 0) {
-                stepNumber = 3;
-            }
+//            if (step2FieldsSet == 0) {
+//                stepNumber = 3;
+//            }
 
         } else if (stepNo == 3) {
             step3FieldsSet = 0;
@@ -968,12 +996,53 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         }
     }
 
-    private void callUpdateWebService(int stepNo) {
-
-        if(stepNo == 2){
+    private void callUpdateWebService(final int stepNo) {
+        if(stepNo == 1){
+            Log.e("call web service", "called 11111111" );
             progressBarHandler.show();
             Ion.with(context)
-                    .load((new StringBuilder()).append(getResources().getString(R.string.webservice_base_url)).append("/bank_detail_update").toString())
+                    .load((new StringBuilder()).append(getResources().getString(R.string.webservice_base_url)).append("/my_account").toString())
+                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                    .setMultipartFile("photo", "image/jpeg", step1PhotoFile)
+                    .setMultipartParameter("emailid", et_email.getText().toString())
+                    .setMultipartParameter("name", et_first_name.getText().toString())
+                    .setMultipartParameter("lname", et_last_name.getText().toString())
+                    .setMultipartParameter("dob", et_dob.getText().toString())
+                    .setMultipartParameter("father_name", et_father_name.getText().toString())
+                    .setMultipartParameter("mobile", et_mobile.getText().toString())
+                    .setMultipartParameter("ref_no", et_ref_number.getText().toString())
+                    .setMultipartParameter("state_id", state_id)
+                    .setMultipartParameter("city_id", city_id)
+                    .setMultipartParameter("address", et_address.getText().toString())
+                    .setMultipartParameter("pincode", et_pincode.getText().toString())
+                    .setMultipartParameter("term_accepted", String.valueOf(isAgreementChecked))
+                    .setMultipartParameter("user_id", app_sharedpreference.getsharedpref("userid"))
+                    .setMultipartParameter("user_type", "1")
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            progressBarHandler.hide();
+                            if (result == null) {
+                                Log.e("result##", "Step 1 webservice");
+                                AndroidUtils.showSnackBar(updateMyProfileLayout, "Some Error Occurred, Please Try Again");
+                            } else {
+                                Log.e("result##", "Step 1 webservice else");
+                                if (result.get("message").getAsString().equals("Success")) {
+                                    Log.e("result##", "Successfully saved");
+                                    updateSharedPreferences(stepNo);
+//                                    htab_viewpager.setCurrentItem(stepNo+1);
+                                }
+                            }
+                        }
+                    });
+
+        } else if(stepNo == 2){
+            Log.e("call web service", "called 2222222" );
+            progressBarHandler.show();
+            Ion.with(context)
+                    .load((new StringBuilder()).append(getResources().getString(R.string.webservice_base_url)).append("/professional_detail_update").toString())
                     .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setMultipartParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setMultipartFile("id_proof", "image/jpeg", step2PhotoFile)
@@ -981,26 +1050,35 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                     .setMultipartParameter("total_exp", total_exp)
                     .setMultipartParameter("relevant_exp", relevant_exp)
                     .setMultipartParameter("user_id", app_sharedpreference.getsharedpref("userid"))
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
+                    .setMultipartParameter("user_type", "2")
+//                    .asJsonObject()
+                    .asString()
+                    .setCallback(new FutureCallback<String>() {
                         @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-                            progressBarHandler.hide();
-                            if (result == null) {
-                                Log.e("result##", "null123");
-                                AndroidUtils.showSnackBar(updateMyProfileLayout, "Some Error Occurred, Please Try Again");
-                            } else {
-                                Log.e("result##", "not null123");
-                                if (result.get("message").getAsString().equals("Success")) {
-                                    Log.e("result##", "Successfully saved");
-                                }
-                            }
+                        public void onCompleted(Exception e, String result) {
+                                Log.e("result##", "Step 2 webservice"+result);
                         }
                     });
+//                    .setCallback(new FutureCallback<JsonObject>() {
+//                        @Override
+//                        public void onCompleted(Exception e, JsonObject result) {
+//                            progressBarHandler.hide();
+//                            if (result == null) {
+//                                Log.e("result##", "Step 2 webservice");
+//                                AndroidUtils.showSnackBar(updateMyProfileLayout, "Some Error Occurred, Please Try Again");
+//                            } else {
+//                                Log.e("result##", "Step 2 webservice else");
+//                                if (result.get("message").getAsString().equals("Success")) {
+//                                    Log.e("result##", "Successfully saved");
+//                                    updateSharedPreferences(stepNo);
+////                                    htab_viewpager.setCurrentItem(stepNo+1);
+//                                }
+//                            }
+//                        }
+//                    });
 
-        }
-
-        if (stepNo == 3) {
+        } else if (stepNo == 3) {
+            Log.e("call web service", "called 333333333" );
             progressBarHandler.show();
             Ion.with(context)
                     .load((new StringBuilder()).append(getResources().getString(R.string.webservice_base_url)).append("/bank_detail_update").toString())
@@ -1021,16 +1099,55 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
                         public void onCompleted(Exception e, JsonObject result) {
                             progressBarHandler.hide();
                             if (result == null) {
-                                Log.e("result##", "null123");
+                                Log.e("result##", "Step 3 webservice ");
                                 AndroidUtils.showSnackBar(updateMyProfileLayout, "Some Error Occurred, Please Try Again");
                             } else {
-                                Log.e("result##", "not null123");
+                                Log.e("result##", "Step 3 webservice else");
                                 if (result.get("message").getAsString().equals("Success")) {
                                     Log.e("result##", "Successfully saved");
+                                    updateSharedPreferences(stepNo);
                                 }
                             }
                         }
                     });
+        }
+    }
+
+    private void updateSharedPreferences(int stepNo) {
+
+        if(stepNo == 1){;
+            app_sharedpreference.setsharedpref("photo", step1PhotoFile.getPath());
+            app_sharedpreference.setsharedpref("emailid", et_email.getText().toString());
+            app_sharedpreference.setsharedpref("name", et_first_name.getText().toString());
+            app_sharedpreference.setsharedpref("lname", et_last_name.getText().toString());
+            app_sharedpreference.setsharedpref("dob", et_dob.getText().toString());
+            app_sharedpreference.setsharedpref("father_name", et_father_name.getText().toString());
+            app_sharedpreference.setsharedpref("mobile", et_mobile.getText().toString());
+            app_sharedpreference.setsharedpref("ref_no", et_ref_number.getText().toString());
+            app_sharedpreference.setsharedpref("state_id", state_id);
+            app_sharedpreference.setsharedpref("city_id", city_id);
+            app_sharedpreference.setsharedpref("address", et_address.getText().toString());
+            app_sharedpreference.setsharedpref("pincode", et_pincode.getText().toString());
+            app_sharedpreference.setsharedpref("term_accepted", String.valueOf(isAgreementChecked));
+        }
+
+        if(stepNo == 2){
+            app_sharedpreference.setsharedpref("id_proof", step2PhotoFile.getPath());
+            app_sharedpreference.setsharedpref("qualification", qualification);
+            app_sharedpreference.setsharedpref("total_exp", total_exp);
+            app_sharedpreference.setsharedpref("relevant_exp", relevant_exp);
+        }
+
+        if(stepNo == 3){
+            app_sharedpreference.setsharedpref("bank_name", bank_id);
+            app_sharedpreference.setsharedpref("account_no", et_account_no.getText().toString());
+            app_sharedpreference.setsharedpref("account_holder", et_account_holder_name.getText().toString());
+            app_sharedpreference.setsharedpref("branch_code", et_branch_code.getText().toString());
+            app_sharedpreference.setsharedpref("branch_name", et_branch_name.getText().toString());
+            app_sharedpreference.setsharedpref("ifsc_code", et_ifsc_code.getText().toString());
+            app_sharedpreference.setsharedpref("micr_code", et_micr_code.getText().toString());
+            app_sharedpreference.setsharedpref("register_mobile", et_registered_mobile_with_bank.getText().toString());
+
         }
     }
 }
