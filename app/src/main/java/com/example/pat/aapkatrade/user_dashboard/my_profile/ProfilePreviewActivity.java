@@ -27,7 +27,6 @@ public class ProfilePreviewActivity extends AppCompatActivity
     ImageView btnEdit;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -86,13 +85,10 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
             @Override
             public void onClick(View v) {
-
                 Intent change_password = new Intent(ProfilePreviewActivity.this, ChangePassword.class);
                 startActivity(change_password);
-
             }
         });
-
 
         linearLayoutAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +96,6 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
                 Intent address = new Intent(ProfilePreviewActivity.this, AddAddressActivity.class);
                 startActivity(address);
-
             }
         });
 
@@ -111,13 +106,14 @@ public class ProfilePreviewActivity extends AppCompatActivity
         tvEmail = (TextView) findViewById(R.id.tvEmail);
         tvUserType = (TextView) findViewById(R.id.tvUserType);
 
-
         if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
         {
-            String Username = app_sharedpreference.getsharedpref("username", "not");
+            String Username = app_sharedpreference.getsharedpref("name", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
 
             String userType = app_sharedpreference.getsharedpref("usertype","0");
+
+            System.out.println("UserName-----------"+Username);
 
             textViewName.setText(Username);
             tvEmail.setText(Emailid);
@@ -137,8 +133,6 @@ public class ProfilePreviewActivity extends AppCompatActivity
                 tvUserType.setText("Welcome Bussiness Associate");
 
             }
-
-
         }
 
     }

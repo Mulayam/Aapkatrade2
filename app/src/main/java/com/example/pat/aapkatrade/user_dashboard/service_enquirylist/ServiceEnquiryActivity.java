@@ -29,7 +29,6 @@ public class ServiceEnquiryActivity extends AppCompatActivity implements SwipeRe
     ServiceEnquiryAdapter serviceEnquiryAdapter;
     ArrayList<ServiceEnquiryData> serviceEnquiryDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
-
     App_sharedpreference app_sharedpreference;
     String user_id;
     private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
@@ -37,6 +36,8 @@ public class ServiceEnquiryActivity extends AppCompatActivity implements SwipeRe
     LinearLayoutManager mLayoutManager;
     int page = 1;
     SwipeRefreshLayout mSwipyRefreshLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
