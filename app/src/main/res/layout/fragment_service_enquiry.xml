@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
 
             android:background="@drawable/bg_dialog"
-            android:layout_margin="10dp"
 
             >
 
@@ -187,13 +186,8 @@ android:singleLine="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
-
-
-
                         android:focusable="true"
-
-android:focusableInTouchMode="true"
-
+                        android:focusableInTouchMode="true"
                         android:layout_below="@+id/edtEmail"
                         android:textColorHint="@color/black">
 
@@ -243,8 +237,6 @@ android:layout_centerVertical="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginLeft="30dp"
-
-
                         android:focusable="true"
                         android:focusableInTouchMode="true"
 
@@ -267,8 +259,7 @@ android:layout_centerVertical="true"
                                 android:inputType="text"
                                 android:clickable="false"
                                 android:background="@color/transparent"
-android:layout_centerVertical="true"
-
+                                 android:layout_centerVertical="true"
                                 android:textColorHint="@color/black"
                                 android:textSize="@dimen/textsize_small"
                                 android:theme="@style/nofocus_edittext_theme" />
@@ -289,15 +280,6 @@ android:layout_centerVertical="true"
 
 
 
-
-
-
-
-
-
-
-
-
                     <EditText
                         android:id="@+id/edtDescription"
                         android:layout_width="match_parent"
@@ -310,11 +292,8 @@ android:layout_centerVertical="true"
                         android:layout_marginLeft="30dp"
                         android:textColorHint="@color/black"
                         android:padding="10dp"
-
                         android:inputType="textEmailAddress"
                         />
-
-
 
                 </RelativeLayout>
 
@@ -325,9 +304,7 @@ android:layout_centerVertical="true"
                 android:id="@+id/relativeSubmitButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty_dip"
-
                 android:background="@color/transparent"
-
                 android:layout_alignParentBottom="true"
 
                 >
@@ -337,25 +314,16 @@ android:layout_centerVertical="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/green_button_back"
-
-android:layout_margin="@dimen/five_dip"
+                    android:layout_margin="@dimen/five_dip"
                     android:text="Submit"
-
                     android:textColor="@color/white"
                     android:textSize="18dp"
-
-
                     />
 
 
             </RelativeLayout>
 
         </RelativeLayout>
-
-
-
-
-
 
 
 

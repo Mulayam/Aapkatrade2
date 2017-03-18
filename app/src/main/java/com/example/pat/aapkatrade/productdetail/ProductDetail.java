@@ -35,6 +35,7 @@ import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.address.AddressActivity;
+import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -68,7 +69,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     Timer banner_timer=new Timer();
     RelativeLayout relativeBuyNow,RelativeProductDetail,relativeRateReview;
     LinearLayout linearProductDetail;
-    TextView tvProductName,tvProPrice,tvCrossPrice,tvDuration,tvDiscription,tvSpecification,tvQuatity;
+    TextView tvProductName,tvProPrice,tvCrossPrice,tvDiscription,tvSpecification,tvQuatity;
     ProgressBarHandler progress_handler;
     String product_id,product_location;
     ImageView imgViewPlus,imgViewMinus;
@@ -76,7 +77,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     String productlocation;
     EditText firstName,quantity,price,mobile,email,etEndDate,etStatDate,description;
     TextView tvServiceBuy;
+    // TextView tvDurationHeading,tvDuration;
     Dialog dialog;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -191,8 +196,18 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                             tvProPrice.setText("\u20A8"+"."+" "+product_price);
                             tvCrossPrice.setText("\u20A8"+"."+" "+product_cross_price);
                             tvDiscription.setText(description);
-                            tvDuration.setText(duration);
 
+                          /*  if (duration.toString().equals("")){
+
+                                tvDuration.setVisibility(View.INVISIBLE);
+                                tvDurationHeading.setVisibility(View.INVISIBLE);
+                            }
+                            else {
+                                tvDuration.setVisibility(View.VISIBLE);
+                                tvDurationHeading.setVisibility(View.VISIBLE);
+
+                                tvDuration.setText(duration);
+                            }*/
                             setupviewpager();
 
                             progress_handler.hide();
@@ -403,8 +418,10 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
         tvCrossPrice.setPaintFlags(tvCrossPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-        tvDuration = (TextView) findViewById(R.id.tvDuration);
+     /*   tvDuration = (TextView) findViewById(R.id.tvDuration);
 
+        tvDurationHeading = (TextView) findViewById(R.id.tvDurationHeading);
+*/
         tvDiscription = (TextView) findViewById(R.id.tvDiscription);
 
         tvSpecification = (TextView) findViewById(R.id.tvSpecification);
@@ -492,7 +509,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                 if (tvServiceBuy.getText().toString().equals("Buy Now"))
                 {
 
-                            Intent i = new Intent(ProductDetail.this, AddressActivity.class);
+                            Intent i = new Intent(ProductDetail.this, AddAddressActivity.class);
                             startActivity(i);
 
                 }
@@ -606,10 +623,6 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         }
         dpd.show(getFragmentManager(), "DatePickerDialog");
     }
-
-
-
-
 
     private void setuptoolbar()
     {

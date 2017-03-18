@@ -90,7 +90,7 @@ public class EditProductActivity extends AppCompatActivity {
     ProductImages adapter;
     Bitmap imageForPreview;
     List<Part> files_image = new ArrayList();
-
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -582,6 +582,11 @@ public class EditProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
+
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Add Product");
+
+
 
     }
 

@@ -73,7 +73,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             @Override
             public void onClick(View v) {
 
-                Intent product_detail = new Intent(context, ListProductDetailActivity.class);
+              /*  Intent product_detail = new Intent(context, ListProductDetailActivity.class);
                 product_detail.putExtra("user_id", itemList.get(position).user_id);
                 product_detail.putExtra("product_name", itemList.get(position).product_name);
                 product_detail.putExtra("product_price", itemList.get(position).product_price);
@@ -85,7 +85,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 product_detail.putExtra("delivery_area_name", itemList.get(position).delivery_area_name);
                 product_detail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(product_detail);
-
+*/
             }
         });
 

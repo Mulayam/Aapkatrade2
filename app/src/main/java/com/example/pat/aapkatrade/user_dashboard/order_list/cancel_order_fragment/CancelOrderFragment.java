@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class CancelOrderFragment extends Fragment
 {
 
-
     ArrayList<OrderListData> orderListDatas = new ArrayList<>();
     RecyclerView order_list;
     OrderListAdapter orderListAdapter;
@@ -36,6 +35,7 @@ public class CancelOrderFragment extends Fragment
     App_sharedpreference app_sharedpreference;
     String user_id;
     private String user_type;
+
 
 
     @Override
@@ -58,8 +58,6 @@ public class CancelOrderFragment extends Fragment
         return view;
     }
 
-
-
     private void setup_layout(View view)
     {
         layout_container = (LinearLayout) view.findViewById(R.id.layout_container);
@@ -74,8 +72,8 @@ public class CancelOrderFragment extends Fragment
     {
         orderListDatas.clear();
         progress_handler.show();
-
         Log.e("hi1234", user_id+"##cancel##"+AndroidUtils.getUserType(user_type)+"@@@@"+user_type);
+
         Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -143,7 +141,6 @@ public class CancelOrderFragment extends Fragment
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
                                     orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at));
-
 
                                 }
 

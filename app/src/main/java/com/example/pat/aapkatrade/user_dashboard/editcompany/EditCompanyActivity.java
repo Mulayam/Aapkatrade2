@@ -159,6 +159,8 @@ public class EditCompanyActivity extends AppCompatActivity
                                 dialog.setInverseBackgroundForced(false);
                                 dialog.show();
                                 callAddCompanyWebService(user_id, etCompanyName.getText().toString(),etPEmail.getText().toString(),etSEmail.getText().toString() ,etAddress.getText().toString(),etDiscription.getText().toString());
+
+
                                 dialog.hide();
                             }
                             else
