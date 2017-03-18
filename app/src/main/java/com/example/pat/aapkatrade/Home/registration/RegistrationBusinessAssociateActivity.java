@@ -160,16 +160,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 .setMultipartParameter("register_mobile", formBusinessData.getRegisteredMobileWithBank())
                 .setMultipartParameter("client_id", App_config.getCurrentDeviceId(RegistrationBusinessAssociateActivity.this))
                 .asJsonObject()
-//                .asString()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        /*if (result != null) {
-                            Log.e("result", result);
-
-                        } else {
-                            Log.e("result_error", e.toString());
-                        }*/
                         progressBarHandler.hide();
                         if (result != null) {
                             Log.e("registration_seller", result.toString());
