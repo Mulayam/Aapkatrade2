@@ -68,15 +68,22 @@ public class AndroidUtils {
         return calendar;
     }
 
-
-    public static void setBackground(View layout, Context context, int bgColor, int cornerRadius){
-        GradientDrawable shape = new GradientDrawable();
+    public static void setBackgroundSolid(View layout, Context context, int bgColor, int cornerRadius){
+      GradientDrawable shape = new GradientDrawable();
         shape.setCornerRadius(cornerRadius);
         shape.setColor(ContextCompat.getColor(context, bgColor));
         layout.setBackground(shape);
     }
 
-    public static void setImageColor(ImageView imageView, Context context, int color){
+
+    public static void setBackgroundStroke(View layout, Context context, int bgColor, int cornerRadius, int strokeWidth){
+        GradientDrawable shape = new GradientDrawable();
+        shape.setStroke(3, ContextCompat.getColor(context, bgColor));
+        shape.setCornerRadius(cornerRadius);
+        layout.setBackground(shape);
+    }
+public static void setImageColor(ImageView imageView, Context context, int color){
         imageView.setColorFilter(ContextCompat.getColor(context, color));
     }
+
 }

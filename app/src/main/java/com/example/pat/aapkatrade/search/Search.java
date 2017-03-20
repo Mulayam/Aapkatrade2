@@ -2,8 +2,10 @@ package com.example.pat.aapkatrade.search;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,12 +24,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
@@ -45,7 +49,9 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Search extends AppCompatActivity
@@ -57,21 +63,29 @@ public class Search extends AppCompatActivity
     GridLayoutManager gridLayoutManager;
     RecyclerView recyclerView_search,state_names_recycler,category_names_recycler;
     CommomAdapter commomAdapter;
-    Spinner state_list;
+    Spinner state_list_spinner;
 
 
     ArrayList<String> state_names = new ArrayList<>();
     ArrayList<String> product_names = new ArrayList<>();
     ArrayList<CommomData> search_productlist = new ArrayList<>();
+    ArrayList<common_category_search>common_category_searchlist=new ArrayList<>();
+    ArrayList<common_state_search> common_state_searchlist=new ArrayList<>();
+    ArrayList<common_city_search> common_city_searchlist=new ArrayList<>();
     Toolbar toolbar;
     Webservice_search_autocompleteadapter product_autocompleteadapter;
     ProgressBarHandler progressBarHandler;
     CoordinatorLayout coordinate_search;
+
+
     private ArrayList<String> stateList = new ArrayList<>();
     SearchResultsAdapter searchResultsAdapter;
+    SearchcategoryAdapter searchResults_category_Adapter;
+    SearchStateAdapter searchResults_state_Adapter,searchResults_city_Adapter;
     HashMap<String, String> webservice_header_type = new HashMap<>();
     String currentlocation_statename;
     int current_state_index;
+    String class_name;
 
 
    ViewPager viewpager_state;
@@ -83,10 +97,13 @@ public class Search extends AppCompatActivity
 
         Intent i= getIntent();
         currentlocation_statename= i.getStringExtra("state_name");
+        class_name=  i.getStringExtra("classname");
+
 
         setuptoolbar();
 
         initview();
+        call_state_webservice();
 
     }
 
@@ -99,6 +116,7 @@ public class Search extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setElevation(0);
+       ((ImageView)toolbar.findViewById(R.id.img_vew_location)).setColorFilter(ContextCompat.getColor(Search.this,R.color.white));
 
         // getSupportActionBar().setIcon(R.drawable.home_logo);
 
@@ -106,12 +124,13 @@ public class Search extends AppCompatActivity
 
     private void initview()
     {
-
-        call_state_webservice();
+        stateList =  new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
         c=Search.this;
+
+
         coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
         state_names_recycler=(RecyclerView)findViewById(R.id.state_names_recycler);
-        state_list=(Spinner)findViewById(R.id.spin_select_state) ;
+        state_list_spinner=(Spinner)findViewById(R.id.spin_select_state) ;
         category_names_recycler=(RecyclerView)findViewById(R.id.category_names_recycler);
 
         progressBarHandler=new ProgressBarHandler(Search.this);
@@ -119,16 +138,18 @@ public class Search extends AppCompatActivity
         autocomplete_textview_product.setThreshold(1);
 
 
-        autocomplete_textview_state=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_state);
-        if(stateList!=null) {
-            categoryadapter = new CustomAutocompleteAdapter(c, stateList);
-            autocomplete_textview_state.setThreshold(1);
-            autocomplete_textview_state.setAdapter(categoryadapter);
-        } else {
-                    Log.e("stateList","statelist is nullll");
-        }
+//        autocomplete_textview_state=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_state);
+//        if(stateList!=null) {
+//            categoryadapter = new CustomAutocompleteAdapter(c, stateList);
+//            autocomplete_textview_state.setThreshold(1);
+//            autocomplete_textview_state.setAdapter(categoryadapter);
+//        } else {
+//                    Log.e("stateList","statelist is nullll");
+//        }
 
         recyclerView_search=(RecyclerView)findViewById(R.id.recycleview_search) ;
+
+
         gridLayoutManager = new GridLayoutManager(c, 2);
         autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
             @Override
@@ -143,22 +164,20 @@ public class Search extends AppCompatActivity
 
                 if (text.length() > 0) {
 
-if(autocomplete_textview_state.getText().length()!=0)
 
-{
     String product_search_url = (getResources().getString(R.string.webservice_base_url))+"/product_search";
 
 
 
-    call_search_suggest_webservice_product(product_search_url, text, autocomplete_textview_state.getText().toString().trim());
-    Log.e("product_search_data",text+"*****"+autocomplete_textview_state.getText().toString());
+    call_search_suggest_webservice_product(product_search_url, text, state_list_spinner.getSelectedItem().toString());
 
 
 
 
 
 
-}
+
+
 
                 }
 
@@ -179,18 +198,17 @@ if(autocomplete_textview_state.getText().length()!=0)
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
 
-                    if(autocomplete_textview_state.getText().length()!=0)
-                    {
+
                         if(autocomplete_textview_product.getText().length()!=0)
                         {
-                            Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
-                            call_search_webservice(autocomplete_textview_state.getText().toString(),autocomplete_textview_product.getText().toString());
+                           // Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
+                            call_search_webservice(state_list_spinner.getSelectedItem().toString(),autocomplete_textview_product.getText().toString());
 
                             App_config.hideKeyboard(Search.this);
 
                         }
 
-                    }
+
 
 
 
@@ -216,32 +234,18 @@ if(autocomplete_textview_state.getText().length()!=0)
     }
 
 
-
     private void call_state_webservice() {
-        HashMap<String, String> webservice_body_parameter = new HashMap<>();
-        webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        webservice_body_parameter.put("type", "state");
-        webservice_body_parameter.put("id", "101");//country id fixed 101 for India
+Log.e("statelist_state",stateList.toString()+""+c);
 
-        webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
-        Call_webservice.getcountrystatedata(Search.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
-
-        Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
-            @Override
-            public void Taskcomplete(JsonObject state_data_webservice) {
-                stateList.clear();
-                if (state_data_webservice != null) {
-
-                    JsonObject jsonObject = state_data_webservice.getAsJsonObject();
-                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(c,R.layout.white_textcolor_spinner,stateList);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.white_textcolor_spinner);
+        state_list_spinner.setAdapter(spinnerArrayAdapter);
 
 
 
+        for (int i = 0; i < stateList.size(); i++) {
 
-                    for (int i = 0; i < jsonResultArray.size(); i++) {
-                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                        stateList.add(jsonObject1.get("name").getAsString());
-                        if(currentlocation_statename.equals(jsonObject1.get("name").getAsString()))
+                        if(currentlocation_statename.equals(stateList.get(i)))
                         {
 
                             current_state_index=i;
@@ -249,38 +253,9 @@ if(autocomplete_textview_state.getText().length()!=0)
                         }
                     }
 
-                    searchResultsAdapter=new SearchResultsAdapter(c,stateList);
-
-                    RecyclerView.LayoutManager mLayoutManager =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-                    RecyclerView.LayoutManager mLayoutManager_category =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+        state_list_spinner.setSelection(current_state_index);
 
 
-                    state_names_recycler.setLayoutManager(mLayoutManager);
-                    category_names_recycler.setLayoutManager(mLayoutManager_category);
-
-                    state_names_recycler.setAdapter(searchResultsAdapter);
-
-
-                    ArrayAdapter<String> spinneradapter = new ArrayAdapter<String>(c, android.R.layout.simple_spinner_item,stateList);
-                    state_list.setAdapter(spinneradapter);
-                    state_list.setSelection(current_state_index);
-
-
-
-                    Log.e("stateList",stateList.toString());
-
-
-
-                }
-
-
-                else {
-                    Log.e("state_error",state_data_webservice.toString());
-
-                }
-            }
-
-        };
 
 
 
@@ -317,7 +292,7 @@ if(autocomplete_textview_state.getText().length()!=0)
                             }
                             else {
 
-                                Log.e("data2", result.toString());
+                                Log.e("data2_search", result.toString());
                                 if (jsonObject.get("result").isJsonNull()) {
                                     Log.e("data_jsonArray null", result.toString());
                                 }
@@ -340,11 +315,75 @@ if(autocomplete_textview_state.getText().length()!=0)
 
                                 }
 
-                                recyclerView_search.setLayoutManager(gridLayoutManager);
-                                commomAdapter = new CommomAdapter(Search.this, search_productlist, "gridtype", "latestupdate");
 
+                                JsonArray jsonarray_category = jsonObject.getAsJsonArray("category");
+
+
+                                for (int l = 0; l < jsonarray_category.size(); l++) {
+
+                                    JsonObject jsonObject_result = (JsonObject) jsonarray_category.get(l);
+                                    String cat_id = jsonObject_result.get("category_id").getAsString();
+                                    String catname = jsonObject_result.get("catname").getAsString();
+                                    String countprod = jsonObject_result.get("countprod").getAsString();
+
+                                    common_category_searchlist.add(new common_category_search(cat_id,catname, countprod));
+
+
+                                }
+
+                                JsonArray jsonarray_states = jsonObject.getAsJsonArray("states");
+
+
+                                for (int l = 0; l < jsonarray_states.size(); l++) {
+
+                                    JsonObject jsonObject_result = (JsonObject) jsonarray_states.get(l);
+                                    String state_id = jsonObject_result.get("state_id").getAsString();
+                                    String statename = jsonObject_result.get("statename").getAsString();
+                                    String countprod = jsonObject_result.get("countprod").getAsString();
+
+                                    common_state_searchlist.add(new common_state_search(state_id,statename, countprod));
+
+
+                                }
+
+
+                                JsonArray jsonarray_cities = jsonObject.getAsJsonArray("cities");
+
+
+                                for (int l = 0; l < jsonarray_cities.size(); l++) {
+
+                                    JsonObject jsonObject_result = (JsonObject) jsonarray_cities.get(l);
+                                    String city_id = jsonObject_result.get("city_id").getAsString();
+                                    String ctyname = jsonObject_result.get("ctyname").getAsString();
+                                    String countprod = jsonObject_result.get("countprod").getAsString();
+
+                                    common_city_searchlist.add(new common_city_search(city_id,ctyname, countprod));
+
+
+                                }
+
+
+                                RecyclerView.LayoutManager mLayoutManager =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+                                RecyclerView.LayoutManager mLayoutManager_category =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+
+
+
+                                category_names_recycler.setLayoutManager(mLayoutManager_category);
+                                searchResults_category_Adapter=new SearchcategoryAdapter(Search.this,common_category_searchlist);
+                                category_names_recycler.setAdapter(searchResults_category_Adapter);
+
+
+
+                                state_names_recycler.setLayoutManager(mLayoutManager);
+                                searchResults_state_Adapter=new SearchStateAdapter(Search.this,common_state_searchlist);
+                                state_names_recycler.setAdapter(searchResults_state_Adapter);
+
+//search recycleview set adapter
+                                recyclerView_search.setLayoutManager(gridLayoutManager);
+                                commomAdapter = new CommomAdapter(Search.this, search_productlist, "list", "latestupdate");
                                 recyclerView_search.setAdapter(commomAdapter);
                                 progressBarHandler.hide();
+                               findViewById(R.id.search_category_state_container).setVisibility(View.VISIBLE);
 
                             }
 
@@ -433,6 +472,10 @@ if(autocomplete_textview_state.getText().length()!=0)
                     }
 
                 });
+
+
+
+
     }
 
 
@@ -546,7 +589,7 @@ if(autocomplete_textview_state.getText().length()!=0)
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.empty_menu, menu);
+        getMenuInflater().inflate(R.menu.bottom_home_menu, menu);
         return true;
     }
 
@@ -556,7 +599,23 @@ if(autocomplete_textview_state.getText().length()!=0)
         switch (item.getItemId())
         {
             case android.R.id.home:
-                finish();
+                if(class_name.contains("homeactivity"))
+
+                { Intent goto_home = new Intent(Search.this, HomeActivity.class);
+                    startActivity(goto_home);
+                    finish();
+
+                }
+                else{
+
+                }
+
+
+
+
+
+
+
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -566,4 +625,55 @@ if(autocomplete_textview_state.getText().length()!=0)
 
 
 
+    public void selected_city_name(String state_name)
+    {
+
+        currentlocation_statename = state_name;
+        Log.e(" currentlocat;", stateList.toString());
+
+
+        for (int i = 0; i < stateList.size(); i++) {
+
+
+            if (currentlocation_statename.equals(stateList.get(i))) {
+                current_state_index = i;
+                state_list_spinner.setSelection(current_state_index);
+                Log.e("state_list",i+"");
+
+
+            }
+
+
+        }
+
+
+
+
+
+    }
+
+
+    @Override
+    public void onBackPressed()
+    {
+if(class_name.contains("homeactivity"))
+
+{ Intent goto_home = new Intent(Search.this, HomeActivity.class);
+        startActivity(goto_home);
+        finish();
+
+    }
+    else{
+
 }
+
+    }
+
+
+
+
+}
+
+
+
+

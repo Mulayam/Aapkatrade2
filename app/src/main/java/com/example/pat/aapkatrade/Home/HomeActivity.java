@@ -24,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -38,6 +39,7 @@ import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Geocoder;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.login.LoginDashboard;
@@ -71,7 +73,7 @@ public class HomeActivity extends AppCompatActivity
 
     Mylocation mylocation;
 
-
+ProgressBarHandler  progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class HomeActivity extends AppCompatActivity
 
 
         rl_main_content=(RelativeLayout)findViewById(R.id.rl_main_content);
+        progressBarHandler=new ProgressBarHandler(this);
 
     
         app_sharedpreference = new App_sharedpreference(HomeActivity.this);
@@ -108,29 +111,31 @@ public class HomeActivity extends AppCompatActivity
                         if (permission_status)
 
                         {
+                            progressBarHandler.show();
                             mylocation = new Mylocation(HomeActivity.this);
                             LocationManager_check locationManagerCheck = new LocationManager_check(
                                     HomeActivity.this);
                             Location location = null;
                             if (locationManagerCheck.isLocationServiceAvailable()) {
+                                Log.e("currenttime",""+System.currentTimeMillis());
 
                                 double latitude = mylocation.getLatitude();
                                 double longitude = mylocation.getLongitude();
-                                Geocoder  geocoder_statename=new Geocoder(HomeActivity.this,latitude,longitude);
-                                String state_name=geocoder_statename.get_state_name();
-
+                                Geocoder geocoder_statename = new Geocoder(HomeActivity.this, latitude, longitude);
+                                String state_name = geocoder_statename.get_state_name();
+                                Log.e("currenttime2",""+System.currentTimeMillis());
                                 Intent goto_search = new Intent(HomeActivity.this, Search.class);
-                                goto_search.putExtra("state_name",state_name);
+                                goto_search.putExtra("state_name", state_name);
+                                goto_search.putExtra("classname","homeactivity");
                                 startActivity(goto_search);
                                 finish();
+                                Log.e("currenttime",""+System.currentTimeMillis());
+                                progressBarHandler.hide();
 
 
                             } else {
                                 locationManagerCheck.createLocationServiceError(HomeActivity.this);
                             }
-
-
-
 
 
                         }
@@ -150,10 +155,13 @@ public class HomeActivity extends AppCompatActivity
                 Bundle b = iin.getExtras();
                 setup_bottomNavigation();
 
-                checked_wifispeed();
-               App_config.deleteCache(HomeActivity.this);
 
-            } else {
+                App_config.deleteCache(HomeActivity.this);
+
+            }
+
+
+            else {
 
                 setContentView(R.layout.activity_homeactivity);
 
@@ -177,16 +185,20 @@ public class HomeActivity extends AppCompatActivity
                             Location location = null;
                             if (locationManagerCheck.isLocationServiceAvailable()) {
 
+                                Log.e("currenttime",""+System.currentTimeMillis()/1000.0);
+
                                 double latitude = mylocation.getLatitude();
                                 double longitude = mylocation.getLongitude();
                                 Geocoder  geocoder_statename=new Geocoder(HomeActivity.this,latitude,longitude);
                                 String state_name=geocoder_statename.get_state_name();
                                 Log.e("latitude",latitude+"****"+longitude+"****"+state_name);
-
+                                Log.e("currenttime2",""+System.currentTimeMillis()/1000.0);
                                 Intent goto_search = new Intent(HomeActivity.this, Search.class);
+                                goto_search.putExtra("classname","homeactivity");
                                 goto_search.putExtra("state_name",state_name);
                                 startActivity(goto_search);
                                 finish();
+                                Log.e("currenttime3",""+System.currentTimeMillis()/ 1000.0);
 
 
                             } else {
@@ -272,7 +284,8 @@ Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
-
+        ImageView home_link=(ImageView)toolbar.findViewById(R.id.imgvew_icon);
+        home_link.setVisibility(View.GONE);
        // getSupportActionBar().setIcon(R.drawable.logo_word);
 
 

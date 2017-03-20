@@ -158,6 +158,7 @@ android:textSize="@dimen/textsize_small"
     android:layout_width="match_parent"
     android:layout_below="@+id/ll_search_container"
     android:id="@+id/search_category_state_container"
+    android:visibility="gone"
     android:layout_height="wrap_content">
 
     <TextView
@@ -253,6 +254,7 @@ android:textSize="@dimen/textsize_small"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:dividerHeight="5dp"
+            android:background="@color/transparent"
             android:layout_below="@+id/state_names_recycler"
             android:divider="#E6E6E6"/>
 

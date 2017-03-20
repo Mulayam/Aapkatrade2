@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
  */
 
 public class CheckPermission {
+
 
     public static final int MULTIPLE_PERMISSIONS = 10; // code you want.
 
@@ -28,6 +31,8 @@ public class CheckPermission {
 
 
     public static   boolean checkPermissions(Activity c) {
+
+
         int result;
         List<String> listPermissionsNeeded = new ArrayList<>();
         for (String p:permissions) {
@@ -38,11 +43,13 @@ public class CheckPermission {
         }
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(c, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),MULTIPLE_PERMISSIONS );
+
             return false;
         }
         else{
 
         }
+
         return true;
     }
 

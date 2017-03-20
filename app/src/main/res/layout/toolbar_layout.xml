@@ -19,12 +19,26 @@
         >
 
         <ImageView
+            android:layout_width="@dimen/twenty_five_dip"
+            android:layout_height="@dimen/twenty_five_dip"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:id="@+id/imgvew_icon"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="@dimen/ten_dip"
+            android:src="@drawable/ic_navigation_home" />
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+
+            android:layout_marginLeft="@dimen/ten_dip"
+            android:layout_toRightOf="@+id/imgvew_icon"
             android:src="@drawable/logo_word" />
+
 
 
     </RelativeLayout>
