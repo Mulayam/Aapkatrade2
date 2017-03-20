@@ -57,7 +57,7 @@
     <string name="quantity">Quantity</string>
     <string name="buy">Buy Now!</string>
     <string name="title_activity_product_list">ProductListActivity</string>
-    <string name="category">Footwear</string>
+    <string name="category">Category</string>
     <string name="phone_number">+91 9696969696</string>
     <string name="loginregisterfooter">Please Click one for Login/Register</string>
     <string name="tab_1">Home</string>

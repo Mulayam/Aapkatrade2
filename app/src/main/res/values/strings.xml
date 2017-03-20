@@ -60,7 +60,7 @@
 
     <string name="near_by_you" translatable="false">Near by you</string>
     <string name="availability" translatable="false">Availability</string>
-    <string name="product_name" translatable="false">LED TV</string>
+    <string name="product_name" translatable="false">Product Name</string>
     <string name="product_name1" translatable="false">Interior Decoration</string>
 
     <string name="offer_price" translatable="false">$74.0</string>
@@ -72,7 +72,7 @@
     <string name="quantity" translatable="false">Quantity</string>
     <string name="buy" translatable="false">Buy Now!</string>
     <string name="title_activity_product_list" translatable="false">ProductListActivity</string>
-    <string name="category" translatable="false">Footwear</string>
+    <string name="category" translatable="false">Category</string>
     <string name="phone_number" translatable="false">+91 9696969696</string>
     <string name="loginregisterfooter" translatable="false">Please Click one for Login/Register</string>
     <string name="tab_1" translatable="false">Home</string>
@@ -230,6 +230,9 @@
 
     <string name="hd">Hd</string>
     <string name="select_state">your state</string>
+    <string name="join_date">Join Date: 2017-01-31 06:46:54</string>
+    <string name="setvice_enquiry">Service Enquiry</string>
+    <string name="price1">Price*</string>
 
 
 </resources>

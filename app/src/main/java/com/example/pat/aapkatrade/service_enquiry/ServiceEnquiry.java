@@ -4,162 +4,119 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
-import com.example.pat.aapkatrade.productdetail.ProductDetail;
-import com.example.pat.aapkatrade.user_dashboard.payout.PayoutActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 
 public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSetListener {
-    EditText firstName,quantity,price,mobile,email,etEndDate,etStatDate,description;
-    TextInputLayout input_layout_start_date,input_layout_end_date;
-    int isStartDate;
-    private String date;
-    Context context;
+    private EditText firstName, quantity, price, mobile, email, etEndDate, etStartDate, description;
+    private TextInputLayout input_layout_start_date, input_layout_end_date;
+    private int isStartDate;
+    private String date, productName, categoryName;
+    private Context context;
+    private TextView submit, tvCategoryName, tvProductname;
+    private Button imgCLose;
+    private RelativeLayout dialogue_toolbar, startDateLayout, endDateLayout;
+    private ImageView openStartDateCal, openEndDateCal;
 
 
 
-    public ServiceEnquiry(Context context) {
+    public ServiceEnquiry(Context context, String productName, String categoryName) {
         super(context);
         this.context = context;
+        this.productName = productName;
+        this.categoryName = categoryName;
     }
-
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(getWindow()!=null)
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         setContentView(R.layout.fragment_service_enquiry);
 
 
-
-        initview();
-
-
-    }
-
-    private void initview() {
-
-        Button imgCLose = (Button)findViewById(R.id.imgCLose);
-
-        firstName  = (EditText)findViewById(R.id.edtFName);
-
-        quantity = (EditText)findViewById(R.id.edtQuantity);
-
-        price = (EditText)findViewById(R.id.edtPrice);
-
-        mobile = (EditText)findViewById(R.id.edtMobile);
-
-        email = (EditText)findViewById(R.id.edtEmail);
-
-        etEndDate = (EditText)findViewById(R.id.etEndDate);
-
-
-        etStatDate = (EditText)findViewById(R.id.etStartDate) ;
-        input_layout_start_date=(TextInputLayout)findViewById(R.id. input_layout_start_date);
-        input_layout_end_date=(TextInputLayout)findViewById(R.id. input_layout_end_date);
-
-        description = (EditText) findViewById(R.id.edtDescription);
-
-        Button submit = (Button) findViewById(R.id.buttonSubmit) ;
-
-
-
-
-        submit.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-
-            }
-        });
-
-
-        imgCLose.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-                //dialog.hide();
-            }
-        });
-        GradientDrawable shape =  new GradientDrawable();
-        shape.setCornerRadius( 8 );
-        shape.setColor(ContextCompat.getColor(context, R.color.orange));
-       findViewById(R.id.buttonSubmit).setBackground(shape);
-        GradientDrawable shape2 =  new GradientDrawable();
-        shape2.setCornerRadius( 8 );
-        shape2.setColor(ContextCompat.getColor(context, R.color.green));
-       findViewById(R.id.rl_service_enquiry).setBackground(shape2);
-        input_layout_start_date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        input_layout_end_date.setOnClickListener(new View.OnClickListener() {
+        initView();
+        tvProductname.setText(new StringBuilder().append("Product Name : ").append(productName));
+        tvCategoryName.setText(new StringBuilder().append("Category Name : ").append(categoryName));
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
             }
         });
-        etStatDate.setOnClickListener(new View.OnClickListener() {
+
+
+        imgCLose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("etStartDate","clicked");
+                onBackPressed();
+            }
+        });
+
+        openStartDateCal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("etStartDate", "clicked");
 
                 isStartDate = 0;
                 openCalender();
-
             }
         });
-        etEndDate.setOnClickListener(new View.OnClickListener() {
+
+        openEndDateCal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("etStartDate","clicked");
+                Log.e("etStartDate", "clicked");
                 isStartDate = 1;
                 openCalender();
             }
         });
 
 
+    }
 
-
-
-
-
-
-
-
+    private void initView() {
+        dialogue_toolbar = (RelativeLayout) findViewById(R.id.dialogue_toolbar);
+        startDateLayout = (RelativeLayout) findViewById(R.id.startDateLayout);
+        endDateLayout = (RelativeLayout) findViewById(R.id.endDateLayout);
+        imgCLose = (Button) findViewById(R.id.imgCLose);
+        firstName = (EditText) findViewById(R.id.etFirstName);
+        quantity = (EditText) findViewById(R.id.et_layout_quantity);
+        price = (EditText) findViewById(R.id.et_layout_price);
+        mobile = (EditText) findViewById(R.id.et_layout_mobile);
+        email = (EditText) findViewById(R.id.et_layout_email);
+        etEndDate = (EditText) findViewById(R.id.etEndDate);
+        etStartDate = (EditText) findViewById(R.id.etStartDate);
+        input_layout_start_date = (TextInputLayout) findViewById(R.id.input_layout_start_date);
+        input_layout_end_date = (TextInputLayout) findViewById(R.id.input_layout_end_date);
+        description = (EditText) findViewById(R.id.et_layout_description);
+        submit = (TextView) findViewById(R.id.buttonSubmit);
+        AndroidUtils.setBackground(submit, context, R.color.orange, 8);
+        AndroidUtils.setBackground(dialogue_toolbar, context, R.color.green, 15);
+        openStartDateCal = (ImageView) findViewById(R.id.openStartDateCal);
+        openEndDateCal = (ImageView) findViewById(R.id.openEndDateCal);
+        tvProductname = (TextView) findViewById(R.id.tvProductname);
+        tvCategoryName = (TextView) findViewById(R.id.tvCategoryName);
     }
 
 
-
     private void openCalender() {
+        Log.e("openCalender", "openCalender");
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 this,
@@ -168,25 +125,12 @@ public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSet
                 now.get(Calendar.DAY_OF_MONTH)
         );
         dpd.setMaxDate(now);
-        if(isStartDate == 1){
-            if(etStatDate.getText()!=null || etStatDate.getText().toString().length()>=8)
-                dpd.setMinDate(AndroidUtils.stringToCalender(etStatDate.getText().toString()));
+        if (isStartDate == 1) {
+            if (etStartDate.getText() != null || etStartDate.getText().toString().length() >= 8)
+                dpd.setMinDate(AndroidUtils.stringToCalender(etStartDate.getText().toString()));
         }
         final Activity activity = (Activity) context;
-
-        // Return the fragment manager
-
-
         dpd.show(activity.getFragmentManager(), "DatePickerDialog");
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -199,9 +143,9 @@ public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSet
 
     private void showDate(int year, int month, int day) {
         date = (new StringBuilder()).append(year).append("-").append(month).append("-").append(day).toString();
-        if(isStartDate == 0){
-            etStatDate.setText(date);
-        } else if(isStartDate == 1){
+        if (isStartDate == 0) {
+            etStartDate.setText(date);
+        } else if (isStartDate == 1) {
             etEndDate.setText(date);
         }
     }
