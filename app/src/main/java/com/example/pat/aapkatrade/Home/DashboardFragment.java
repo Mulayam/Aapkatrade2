@@ -273,7 +273,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                 String productlocation=jsonObject_latest_post.get("city_name").getAsString()+","+
                                         jsonObject_latest_post.get("state_name").getAsString()+","+
                                         jsonObject_latest_post.get("country_name").getAsString();
-                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl,productlocation));
+                                String categoryName = jsonObject_latest_post.get("category_name").getAsString();
+                                commomDatas_latestpost.add(new CommomData(product_id, product_name, "", imageurl,productlocation, categoryName));
 
                             }
 
@@ -299,7 +300,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
                                         jsonObject_latest_update.get("country_name").getAsString();
 
 
-                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "",imageurl,productlocation));
+                                String categoryName = jsonObject_latest_update.get("category_name").getAsString();
+                                commomDatas_latestupdate.add(new CommomData(update_product_id, update_product_name, "",imageurl,productlocation, categoryName));
 
                             }
 

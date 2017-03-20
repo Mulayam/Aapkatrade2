@@ -115,7 +115,7 @@ public class ServiceEnquiryActivity extends AppCompatActivity implements SwipeRe
             {
                 super.onScrolled(recyclerView, dx, dy);
 
-                int totalItemCount = mLayoutManager.getItemCount();
+              /*  int totalItemCount = mLayoutManager.getItemCount();
 
                 int firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
 
@@ -134,7 +134,7 @@ public class ServiceEnquiryActivity extends AppCompatActivity implements SwipeRe
                         //loadingProgress.setVisibility(View.GONE);
                     }
 
-                }
+                }*/
 
             }
 

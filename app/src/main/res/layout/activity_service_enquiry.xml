@@ -17,7 +17,7 @@
         android:id="@+id/swipe">
     <include
         layout="@layout/content_company_list"
-        ></include>
+        />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
@@ -68,10 +69,14 @@ public class AndroidUtils {
     }
 
 
-    public static void setBackground(ViewGroup layout, Context context, int bgColor, int cornerRadius){
+    public static void setBackground(View layout, Context context, int bgColor, int cornerRadius){
         GradientDrawable shape = new GradientDrawable();
         shape.setCornerRadius(cornerRadius);
         shape.setColor(ContextCompat.getColor(context, bgColor));
         layout.setBackground(shape);
+    }
+
+    public static void setImageColor(ImageView imageView, Context context, int color){
+        imageView.setColorFilter(ContextCompat.getColor(context, color));
     }
 }

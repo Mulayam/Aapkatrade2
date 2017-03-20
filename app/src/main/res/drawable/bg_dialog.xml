@@ -6,7 +6,7 @@
 
 
     <stroke
-        android:width="3dp"
+        android:width="@dimen/three_dip"
         android:color="@color/green" />
 
 

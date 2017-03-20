@@ -85,7 +85,7 @@ public class HomeActivity extends AppCompatActivity
 
         App_config.set_defaultfont(HomeActivity.this);
 
-        if(!(app_sharedpreference.getsharedpref("usertype", "0").equals("3") && app_sharedpreference.getsharedpref("term_accepted", "0").equals("0"))) {
+        if(!(app_sharedpreference.getsharedpref("usertype", "-1").equals("3") && app_sharedpreference.getsharedpref("term_accepted", "0").equals("0"))) {
             loadLocale();
 
             permission_status = CheckPermission.checkPermissions(HomeActivity.this);
