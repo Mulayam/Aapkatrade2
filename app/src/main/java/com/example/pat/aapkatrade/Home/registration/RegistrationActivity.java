@@ -78,7 +78,9 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
+{
+
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
@@ -203,6 +205,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 previewPDFLayout.setVisibility(View.GONE);
             }
         });
+
+
 
 
     }
@@ -564,7 +568,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
     public void getState() {
-
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");

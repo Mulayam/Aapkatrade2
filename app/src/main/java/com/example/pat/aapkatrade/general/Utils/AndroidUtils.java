@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
@@ -29,17 +30,16 @@ import java.util.HashMap;
 
 public class AndroidUtils {
     public static void showSnackBar(ViewGroup layout, String message) {
-
-        Snackbar snackbar = Snackbar
-                .make(layout, message, Snackbar.LENGTH_SHORT)
-                .setAction("", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                    }
-                });
-        snackbar.show();
-
-
+        if(layout != null){
+            Snackbar snackbar = Snackbar
+                    .make(layout, message, Snackbar.LENGTH_SHORT)
+                    .setAction("", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        }
+                    });
+            snackbar.show();
+        }
     }
 
 
@@ -68,13 +68,13 @@ public class AndroidUtils {
         return calendar;
     }
 
-
     public static void setBackgroundSolid(View layout, Context context, int bgColor, int cornerRadius){
-        GradientDrawable shape = new GradientDrawable();
+      GradientDrawable shape = new GradientDrawable();
         shape.setCornerRadius(cornerRadius);
         shape.setColor(ContextCompat.getColor(context, bgColor));
         layout.setBackground(shape);
     }
+
 
     public static void setBackgroundStroke(View layout, Context context, int bgColor, int cornerRadius, int strokeWidth){
         GradientDrawable shape = new GradientDrawable();
@@ -82,13 +82,8 @@ public class AndroidUtils {
         shape.setCornerRadius(cornerRadius);
         layout.setBackground(shape);
     }
-
-
-
-
-
-
-
-
+public static void setImageColor(ImageView imageView, Context context, int color){
+        imageView.setColorFilter(ContextCompat.getColor(context, color));
+    }
 
 }

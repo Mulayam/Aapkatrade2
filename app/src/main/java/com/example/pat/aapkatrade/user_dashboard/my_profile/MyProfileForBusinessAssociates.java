@@ -21,6 +21,7 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Context context;
+    private int currentTab;
 
     private int[] tabIcons = {
 
@@ -63,10 +64,11 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
 
     private void setupViewPager(ViewPager viewPager) {
         MyProfilePagerAdapter adapter = new MyProfilePagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(MyProfileFragment.newInstance(0, false), getResources().getString(R.string.personalInfo));
-        adapter.addFrag(MyProfileFragment.newInstance(1, false), getResources().getString(R.string.professionalDetails));
-        adapter.addFrag(MyProfileFragment.newInstance(2, true), getResources().getString(R.string.bank_details));
+        adapter.addFrag(MyProfileFragment.newInstance(1, false), getResources().getString(R.string.personalInfo));
+        adapter.addFrag(MyProfileFragment.newInstance(2, false), getResources().getString(R.string.professionalDetails));
+        adapter.addFrag(MyProfileFragment.newInstance(3, true), getResources().getString(R.string.bank_details));
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
     }
 
 
@@ -112,9 +114,6 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
         } else if (tab.getPosition() == 2) {
             tab.setIcon(tabIcons[5]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        } else if (tab.getPosition() == 3) {
-            tab.setIcon(tabIcons[7]);
-            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         }
     }
 
@@ -128,9 +127,6 @@ public class MyProfileForBusinessAssociates extends AppCompatActivity implements
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         } else if (tab.getPosition() == 2) {
             tab.setIcon(tabIcons[4]);
-            tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
-        } else if (tab.getPosition() == 3) {
-            tab.setIcon(tabIcons[6]);
             tabLayout.setTabTextColors(Color.parseColor("#066C57"), Color.parseColor("#ffffff"));
         }
     }

@@ -27,13 +27,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * Created by Netforce on 7/25/2016.
  */
-public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-{
+public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    Context context;
-    ArrayList<CommomData> commomDatas;
-    String arrangementtype, categorytype;
-    View v;
+    private Context context;
+    private ArrayList<CommomData> commomDatas;
+    private String arrangementtype, categorytype;
+    private View v;
 
 
     public CommomAdapter(Context context, ArrayList<CommomData> commomDatas, String arrangementtype, String categorytype) {
@@ -133,7 +132,7 @@ public class CommomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 public void onClick(View view) {
 
                     Intent intent = new Intent(context, ProductDetail.class);
-                    intent.putExtra("product_id", commomDatas.get(position).id.toString());
+                    intent.putExtra("product_id", commomDatas.get(position).id);
                     context.startActivity(intent);
                     ((AppCompatActivity) context).overridePendingTransition(R.anim.enter, R.anim.exit);
 

@@ -25,7 +25,7 @@
             android:layout_below="@+id/relativeCompanyDetailsList"
             android:layout_marginTop="10dp"
 
-            ></android.support.v7.widget.RecyclerView>
+           />
 
 
     </RelativeLayout>

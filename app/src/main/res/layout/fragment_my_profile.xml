@@ -261,6 +261,7 @@
                                     android:clickable="false"
                                     android:focusable="true"
                                     android:textColorHint="@color/hint_color"
+                                    android:hint="@string/date_of_birth"
                                     app:hintAnimationEnabled="true"
                                     app:hintEnabled="true"
                                     app:hintTextAppearance="@style/nofocus_edittext_theme">>
@@ -277,6 +278,7 @@
                                             android:enabled="false"
                                             android:focusableInTouchMode="true"
                                             android:hint="@string/date_of_birth"
+                                            android:textColorHint="@color/hint_color"
                                             android:inputType="text"
                                             android:paddingLeft="@dimen/ten_dip"
                                             android:theme="@style/nofocus_edittext_theme" />

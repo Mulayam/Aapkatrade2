@@ -25,13 +25,11 @@ import java.util.List;
 public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
-
     private final LayoutInflater inflater;
     private List<AddressData> itemList;
     private Context context;
     AddressListViewHolder viewHolder;
     private RadioButton lastCheckedRB = null;
-
 
 
 
@@ -107,12 +105,8 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View v)
             {
 
-
                /* Intent i = new Intent(context, CartCheckoutActivity.class);
                 context.startActivity(i);*/
-
-
-
             }
 
         });
@@ -135,12 +129,6 @@ public class AddressListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
         return new SimpleDateFormat("dd MMM yyyy HH:mm").format(new Date());
     }
-
-
-
-
-
-
 
 }
 
