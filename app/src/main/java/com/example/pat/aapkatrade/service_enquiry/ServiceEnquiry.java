@@ -106,8 +106,8 @@ public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSet
         input_layout_end_date = (TextInputLayout) findViewById(R.id.input_layout_end_date);
         description = (EditText) findViewById(R.id.et_layout_description);
         submit = (TextView) findViewById(R.id.buttonSubmit);
-        AndroidUtils.setBackground(submit, context, R.color.orange, 8);
-        AndroidUtils.setBackground(dialogue_toolbar, context, R.color.green, 15);
+        AndroidUtils.setBackgroundSolid(submit, context, R.color.orange, 8);
+        AndroidUtils.setBackgroundSolid(dialogue_toolbar, context, R.color.green, 15);
         openStartDateCal = (ImageView) findViewById(R.id.openStartDateCal);
         openEndDateCal = (ImageView) findViewById(R.id.openEndDateCal);
         tvProductname = (TextView) findViewById(R.id.tvProductname);
