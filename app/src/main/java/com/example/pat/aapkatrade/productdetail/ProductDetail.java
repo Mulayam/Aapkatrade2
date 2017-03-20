@@ -553,11 +553,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 //                    GradientDrawable shape =  new GradientDrawable();
 //                    shape.setCornerRadius( 8 );
 //                    shape.setColor(ContextCompat.getColor(ProductDetail.this, R.color.orange));
-//                    dialog.findViewById(R.id.buttonSubmit).setBackground(shape);
+//                    dialog.findViewById(R.id.buttonSubmit).setBackgroundSolid(shape);
 //                    GradientDrawable shape2 =  new GradientDrawable();
 //                    shape2.setCornerRadius( 8 );
 //                    shape2.setColor(ContextCompat.getColor(ProductDetail.this, R.color.green));
-//                    dialog.findViewById(R.id.rl_service_enquiry).setBackground(shape2);
+//                    dialog.findViewById(R.id.rl_service_enquiry).setBackgroundSolid(shape2);
 //
 //                    etStatDate.setOnClickListener(new View.OnClickListener() {
 //                        @Override

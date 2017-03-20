@@ -1,18 +1,13 @@
 package com.example.pat.aapkatrade.search;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.CommomHolder;
-import com.example.pat.aapkatrade.Home.CommonHolder_grid;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 
 import java.util.ArrayList;
 
@@ -20,7 +15,7 @@ import java.util.ArrayList;
  * Created by PPC21 on 06-Feb-17.
  */
 
-public class SearchResultsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class SearchcategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     private LayoutInflater layoutInflater;
 
@@ -28,16 +23,16 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<RecyclerView.View
     int count;
 
     Context context;
-    ArrayList<common_category_search> common_category_searchlist=new ArrayList<>();
+    ArrayList<common_category_search> common_category_searchlist;
     String type,state;
 
     //constructor method
-    public SearchResultsAdapter(Context context, ArrayList<String> product_details) {
+    public SearchcategoryAdapter(Context context, ArrayList<common_category_search> common_category_searchlist) {
 
         layoutInflater = LayoutInflater.from(context);
 
-        this.productDetails=product_details;
-        this.count= product_details.size();
+        this.common_category_searchlist=common_category_searchlist;
+        this.count= common_category_searchlist.size();
         this.context = context;
 
 
@@ -73,15 +68,30 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
 
-        CommomHolder_search_state  viewHolder1 = (CommomHolder_search_state) holder;
+        final CommomHolder_search_state  viewHolder1 = (CommomHolder_search_state) holder;
 
 
 
-        viewHolder1.product_name.setText(productDetails.get(position));
-        GradientDrawable shape =  new GradientDrawable();
-        shape.setCornerRadius( 20 );
-        shape.setColor(ContextCompat.getColor(context, R.color.orange));
-        viewHolder1.product_name.setBackground(shape);
+        viewHolder1.product_name.setText(common_category_searchlist.get(position).catname);
+
+        AndroidUtils.setBackgroundStroke(viewHolder1.product_name,context,R.color.green,20,5);
+        viewHolder1.product_name.setTextColor(context.getResources().getColor(R.color.green));
+
+
+
+
+        viewHolder1.product_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AndroidUtils.setBackgroundSolid(viewHolder1.product_name,context,R.color.green,20);
+
+
+
+                viewHolder1.product_name.setTextColor(context.getResources().getColor(R.color.white));
+            }
+        });
+
+
 
     }
 
