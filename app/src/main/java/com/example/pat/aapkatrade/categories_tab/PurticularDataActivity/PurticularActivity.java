@@ -25,6 +25,7 @@ import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
+import com.example.pat.aapkatrade.location.Geocoder;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.search.Search;
 import com.google.gson.JsonArray;
@@ -101,16 +102,23 @@ public class PurticularActivity extends AppCompatActivity
                     if (locationManagerCheck.isLocationServiceAvailable())
                     {
 
-                        double latitude = mylocation.getLatitude();
-                        double longitude = mylocation.getLongitude();
 
-                        Intent goto_search = new Intent(PurticularActivity.this, Search.class);
-                        startActivity(goto_search);
-                        finish();
+                            double latitude = mylocation.getLatitude();
+                            double longitude = mylocation.getLongitude();
+                            Geocoder geocoder_statename = new Geocoder(PurticularActivity.this, latitude, longitude);
+                            String state_name = geocoder_statename.get_state_name();
+                        if(state_name!=null) {
+                            Intent goto_search = new Intent(PurticularActivity.this, Search.class);
+                            goto_search.putExtra("latitude", latitude);
+                            goto_search.putExtra("longitude", longitude);
+                            goto_search.putExtra("state_name", state_name);
+                            startActivity(goto_search);
+                            finish();
+                        }
 
-
-
-
+                        else{
+                            Log.e("statenotfound",""+"statenotfound");
+                        }
                     }
                     else
                     {

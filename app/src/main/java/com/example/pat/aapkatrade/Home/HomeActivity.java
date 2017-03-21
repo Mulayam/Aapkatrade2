@@ -123,12 +123,18 @@ ProgressBarHandler  progressBarHandler;
                                 double longitude = mylocation.getLongitude();
                                 Geocoder geocoder_statename = new Geocoder(HomeActivity.this, latitude, longitude);
                                 String state_name = geocoder_statename.get_state_name();
-                                Log.e("currenttime2",""+System.currentTimeMillis());
-                                Intent goto_search = new Intent(HomeActivity.this, Search.class);
-                                goto_search.putExtra("state_name", state_name);
-                                goto_search.putExtra("classname","homeactivity");
-                                startActivity(goto_search);
-                                finish();
+                                if(state_name!=null){
+                                    Log.e("currenttime2",""+System.currentTimeMillis());
+                                    Intent goto_search = new Intent(HomeActivity.this, Search.class);
+                                    goto_search.putExtra("state_name", state_name);
+                                    goto_search.putExtra("classname","homeactivity");
+                                    startActivity(goto_search);
+                                    finish();
+                                }
+                                else{
+                                    Log.e("statenotfound",""+"statenotfound");
+                                }
+
                                 Log.e("currenttime",""+System.currentTimeMillis());
                                 progressBarHandler.hide();
 
