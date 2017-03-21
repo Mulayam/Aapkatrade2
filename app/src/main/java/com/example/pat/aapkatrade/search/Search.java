@@ -567,7 +567,6 @@ Log.e("statelist_state",stateList.toString()+""+c);
                             categoryadapter = new CustomAutocompleteAdapter(c, state_names);
                             autocomplete_textview_state.setAdapter(categoryadapter);
 
-
 //
 
 
@@ -609,14 +608,7 @@ Log.e("statelist_state",stateList.toString()+""+c);
                 else{
 
                 }
-
-
-
-
-
-
-
-                break;
+              break;
             default:
                 return super.onOptionsItemSelected(item);
         }
