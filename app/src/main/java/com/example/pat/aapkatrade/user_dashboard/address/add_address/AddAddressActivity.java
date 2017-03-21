@@ -1,49 +1,37 @@
 package com.example.pat.aapkatrade.user_dashboard.address.add_address;
-
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
-import com.example.pat.aapkatrade.Home.registration.entity.State;
-import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
-import com.example.pat.aapkatrade.general.Call_webservice;
-import com.example.pat.aapkatrade.general.TaskCompleteReminder;
-import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.editcompany.EditCompanyActivity;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+
 
 public class AddAddressActivity extends AppCompatActivity
 {
 
+    ArrayList<String> stateList = new ArrayList<>();
     TextView tvTitle;
     App_sharedpreference app_sharedpreference;
     String userid,firstName,lastName,address,mobile,state_id;
     EditText etFirstName,etLastName,etMobileNo,etAddress;
     Button buttonSave;
-    private ArrayList<State> stateList = new ArrayList<>();
     Spinner spState;
     RelativeLayout activity_add_address;
     ProgressBarHandler progress_handler;
@@ -56,6 +44,8 @@ public class AddAddressActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_address);
+
+        stateList =  new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
 
         progress_handler = new ProgressBarHandler(this);
 
@@ -77,9 +67,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         setup_layout();
 
-        getState() ;
-
-
+       //  getState() ;
 
     }
 
@@ -89,10 +77,32 @@ public class AddAddressActivity extends AppCompatActivity
 
         spState = (Spinner) findViewById(R.id.spStateCategory);
 
-        State stateEntity_init = new State("-1", "Please Select State");
-        stateList.add(stateEntity_init);
-        SpStateAdapter spStateAdapter = new SpStateAdapter(AddAddressActivity.this, stateList);
-        spState.setAdapter(spStateAdapter);
+
+        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+            {
+                // your code here
+                app_sharedpreference.setsharedpref("state_id",  String.valueOf(position));
+                state_id= app_sharedpreference.getsharedpref("state_id", "");
+                spState.setSelection(Integer.valueOf(state_id));
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+
+            }
+
+        });
+
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(AddAddressActivity.this,R.layout.white_textcolor_spinner,stateList);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.white_textcolor_spinner);
+        spState.setAdapter(spinnerArrayAdapter);
+
+        spState.setSelection(Integer.valueOf(state_id));
 
         etFirstName = (EditText) findViewById(R.id.etFirstName);
 
@@ -117,20 +127,15 @@ public class AddAddressActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-
                 callAddCompanyWebService(userid, etFirstName.getText().toString(),etLastName.getText().toString(),etAddress.getText().toString());
-
             }
         });
 
 
     }
 
-    private void callAddCompanyWebService(String userId,  String firstName, String lName , String address)
+    private void callAddCompanyWebService(String userId, final String firstName,final String lName , final String address)
     {
-
-        System.out.println("userId-----------------"+userId);
-
         progress_handler.show();
         Ion.with(AddAddressActivity.this)
                 .load((getResources().getString(R.string.webservice_base_url))+"/edit_shipping_address")
@@ -139,7 +144,7 @@ public class AddAddressActivity extends AppCompatActivity
                 .setBodyParameter("name", firstName)
                 .setBodyParameter("lastname",lName)
                 .setBodyParameter("address", address)
-                .setBodyParameter("state_id", "5")
+                .setBodyParameter("state_id", String.valueOf(spState.getSelectedItemPosition()))
                 .setBodyParameter("user_id", userId)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>()
@@ -149,7 +154,6 @@ public class AddAddressActivity extends AppCompatActivity
                     public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        System.out.println("message---------"+result.toString());
 
                         if (result == null){
 
@@ -164,14 +168,17 @@ public class AddAddressActivity extends AppCompatActivity
 
                             if (message.equals("Updated Successfully!"))
                             {
+                                app_sharedpreference.setsharedpref("username", firstName);
+                                app_sharedpreference.setsharedpref("lname", lName);
+                                app_sharedpreference.setsharedpref("address", address);
+                                app_sharedpreference.setsharedpref("state_id", String.valueOf(spState.getSelectedItemPosition()));
                                 progress_handler.hide();
-
                                 Toast.makeText(getApplicationContext(),"Updated Successfully!",Toast.LENGTH_SHORT).show();
 
-                                Intent companylist = new Intent(AddAddressActivity.this, AddAddressActivity.class);
-                                startActivity(companylist);
-                                finish();
+                               /* Intent companylist = new Intent(AddAddressActivity.this, .class);
+                                startActivity(companylist);*/
 
+                                finish();
                             }
                             else
                             {
@@ -187,22 +194,24 @@ public class AddAddressActivity extends AppCompatActivity
 
     private void setuptoolbar()
     {
+
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvTitle.setText("Add Address");
+        tvTitle.setText("Shipping Address");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Add Address");
+        getSupportActionBar().setTitle("Shipping Address");
         //getSupportActionBar().setIcon(R.drawable.home_logo);
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.button_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
@@ -221,7 +230,7 @@ public class AddAddressActivity extends AppCompatActivity
     }
 
 
-    public void getState() {
+    /*public void getState() {
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
@@ -232,9 +241,15 @@ public class AddAddressActivity extends AppCompatActivity
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
-            public void Taskcomplete(JsonObject state_data_webservice) {
+            public void Taskcomplete(JsonObject state_data_webservice)
+            {
 
-                if (state_data_webservice != null) {
+                System.out.println("Data is actualy--------"+stateList.size());
+
+
+
+                if (state_data_webservice != null)
+                {
                     Log.e("Taskcomplete", "TaskcompleteError" + state_data_webservice.toString());
                     JsonObject jsonObject = state_data_webservice.getAsJsonObject();
                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
@@ -255,16 +270,18 @@ public class AddAddressActivity extends AppCompatActivity
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
                         {
-                           /* stateID = stateList.get(position).stateId;
+                           *//* stateID = stateList.get(position).stateId;
                             cityList = new ArrayList<>();
                             if (position > 0) {
                                 getCity(stateList.get(position).stateId);
-                            }*/
+                            }*//*
                         }
 
                         @Override
                         public void onNothingSelected(AdapterView<?> parent)
                         {
+
+
 
                         }
 
@@ -278,6 +295,11 @@ public class AddAddressActivity extends AppCompatActivity
             }
 
         };
-    }
 
+        System.out.println("Data is actualy--------"+stateList.size());
+
+
+
+    }
+*/
 }
