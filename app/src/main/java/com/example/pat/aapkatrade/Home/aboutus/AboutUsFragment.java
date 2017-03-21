@@ -11,6 +11,7 @@ import com.example.pat.aapkatrade.R;
 public class AboutUsFragment extends Fragment
 {
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {

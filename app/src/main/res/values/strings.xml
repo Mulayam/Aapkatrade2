@@ -224,15 +224,24 @@
     <string name="yellowMark">Need to catch-up with the target</string>
     <string name="redMark">Danger Zone</string>
     <string name="blackMark">Out of System</string>
-
-
-<string name="dat">ghfrnfgjdr gkjhdfg </string>
-
+    <string name="dat">ghfrnfgjdr gkjhdfg </string>
     <string name="hd">Hd</string>
     <string name="select_state">your state</string>
     <string name="join_date">Join Date: 2017-01-31 06:46:54</string>
     <string name="setvice_enquiry">Service Enquiry</string>
     <string name="price1">Price*</string>
+
+
+    <string name="about_us_data1">Aapka trade is indias unique business platform where everybody can do the business. We are taking your services and products no matter how small or big to all over india from individual services to small scale businesses, startups or large corporations. </string>
+    <string name="about_us_data2">The Company mission is</string>
+    <string name="about_us_data3">ANYBODY CAN DO THE BUSINESS</string>
+    <string name="about_us_data4">Aapkatrade for Buyers</string>
+    <string name="about_us_data5">Convenience of connecting with sellers anytime, anywhere Wider marketplace with a range of products and suppliers One-stop shop for all requirements</string>
+    <string name="about_us_data6">You can shop all your needs</string>
+    <string name="about_us_data7">Aapkatrade for Suppliers</string>
+    <string name="about_us_data8"><li>Improved business visibility</li>.\n<li>Entrance to buyers from across the Globe Enlarged credibillity for your brand</li></string>
+    <string name="about_us_data9">You can sell any kind of services / products</string>
+
 
 
 </resources>

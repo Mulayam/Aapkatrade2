@@ -20,7 +20,10 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 
-public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSetListener {
+public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSetListener
+{
+
+
     private EditText firstName, quantity, price, mobile, email, etEndDate, etStartDate, description;
     private TextInputLayout input_layout_start_date, input_layout_end_date;
     private int isStartDate;
@@ -42,7 +45,8 @@ public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSet
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         if(getWindow()!=null)
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -90,7 +94,8 @@ public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSet
 
     }
 
-    private void initView() {
+    private void initView()
+    {
         dialogue_toolbar = (RelativeLayout) findViewById(R.id.dialogue_toolbar);
         startDateLayout = (RelativeLayout) findViewById(R.id.startDateLayout);
         endDateLayout = (RelativeLayout) findViewById(R.id.endDateLayout);
@@ -115,7 +120,8 @@ public class ServiceEnquiry extends Dialog implements DatePickerDialog.OnDateSet
     }
 
 
-    private void openCalender() {
+    private void openCalender()
+    {
         Log.e("openCalender", "openCalender");
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
