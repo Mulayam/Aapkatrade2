@@ -2,10 +2,8 @@ package com.example.pat.aapkatrade.search;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,24 +15,18 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.CommomAdapter;
 import com.example.pat.aapkatrade.Home.CommomData;
 import com.example.pat.aapkatrade.Home.HomeActivity;
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
-import com.example.pat.aapkatrade.Home.registration.entity.State;
-import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
@@ -51,17 +43,14 @@ import com.koushikdutta.ion.Ion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class Search extends AppCompatActivity
-{
+public class Search extends AppCompatActivity {
 
     AutoCompleteTextView autocomplete_textview_state, autocomplete_textview_product;
     CustomAutocompleteAdapter categoryadapter;
     Context c;
     GridLayoutManager gridLayoutManager;
-    RecyclerView recyclerView_search,state_names_recycler,category_names_recycler;
+    RecyclerView recyclerView_search, state_names_recycler, category_names_recycler;
     CommomAdapter commomAdapter;
     Spinner state_list_spinner;
 
@@ -69,9 +58,9 @@ public class Search extends AppCompatActivity
     ArrayList<String> state_names = new ArrayList<>();
     ArrayList<String> product_names = new ArrayList<>();
     ArrayList<CommomData> search_productlist = new ArrayList<>();
-    ArrayList<common_category_search>common_category_searchlist=new ArrayList<>();
-    ArrayList<common_state_search> common_state_searchlist=new ArrayList<>();
-    ArrayList<common_city_search> common_city_searchlist=new ArrayList<>();
+    ArrayList<common_category_search> common_category_searchlist = new ArrayList<>();
+    ArrayList<common_state_search> common_state_searchlist = new ArrayList<>();
+    ArrayList<common_city_search> common_city_searchlist = new ArrayList<>();
     Toolbar toolbar;
     Webservice_search_autocompleteadapter product_autocompleteadapter;
     ProgressBarHandler progressBarHandler;
@@ -81,60 +70,86 @@ public class Search extends AppCompatActivity
     private ArrayList<String> stateList = new ArrayList<>();
     SearchResultsAdapter searchResultsAdapter;
     SearchcategoryAdapter searchResults_category_Adapter;
-    SearchStateAdapter searchResults_state_Adapter,searchResults_city_Adapter;
+    SearchStateAdapter searchResults_state_Adapter, searchResults_city_Adapter;
     HashMap<String, String> webservice_header_type = new HashMap<>();
     String currentlocation_statename;
     int current_state_index;
     String class_name;
 
 
-   ViewPager viewpager_state;
+    ViewPager viewpager_state;
+    private Context context;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        Intent i= getIntent();
-        currentlocation_statename= i.getStringExtra("state_name");
-        class_name=  i.getStringExtra("classname");
-
-
-        setuptoolbar();
-
+        context = Search.this;
+        Intent i = getIntent();
+        currentlocation_statename = i.getStringExtra("state_name");
+        class_name = i.getStringExtra("classname");
+        setUpToolBar();
         initview();
         call_state_webservice();
 
     }
 
 
-    private void setuptoolbar()
-    {
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
+        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setElevation(0);
-       ((ImageView)toolbar.findViewById(R.id.img_vew_location)).setColorFilter(ContextCompat.getColor(Search.this,R.color.white));
-
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
-    private void initview()
-    {
-        stateList =  new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
-        c=Search.this;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (class_name.contains("homeactivity")) {
+                    Intent goto_home = new Intent(Search.this, HomeActivity.class);
+                    startActivity(goto_home);
+                    finish();
+                }
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
-        coordinate_search=(CoordinatorLayout)findViewById(R.id.coordinate_search) ;
-        state_names_recycler=(RecyclerView)findViewById(R.id.state_names_recycler);
-        state_list_spinner=(Spinner)findViewById(R.id.spin_select_state) ;
-        category_names_recycler=(RecyclerView)findViewById(R.id.category_names_recycler);
+    private void initview() {
+        stateList = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.state_list)));
+        c = Search.this;
 
-        progressBarHandler=new ProgressBarHandler(Search.this);
-        autocomplete_textview_product=(AutoCompleteTextView)findViewById(R.id.search_autocompletetext_products);
+
+        coordinate_search = (CoordinatorLayout) findViewById(R.id.coordinate_search);
+        state_names_recycler = (RecyclerView) findViewById(R.id.state_names_recycler);
+        state_list_spinner = (Spinner) findViewById(R.id.spin_select_state);
+        category_names_recycler = (RecyclerView) findViewById(R.id.category_names_recycler);
+
+        progressBarHandler = new ProgressBarHandler(Search.this);
+        autocomplete_textview_product = (AutoCompleteTextView) findViewById(R.id.search_autocompletetext_products);
         autocomplete_textview_product.setThreshold(1);
 
 
@@ -147,7 +162,7 @@ public class Search extends AppCompatActivity
 //                    Log.e("stateList","statelist is nullll");
 //        }
 
-        recyclerView_search=(RecyclerView)findViewById(R.id.recycleview_search) ;
+        recyclerView_search = (RecyclerView) findViewById(R.id.recycleview_search);
 
 
         gridLayoutManager = new GridLayoutManager(c, 2);
@@ -160,28 +175,20 @@ public class Search extends AppCompatActivity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                String text=s.toString();
+                String text = s.toString();
 
                 if (text.length() > 0) {
 
 
-    String product_search_url = (getResources().getString(R.string.webservice_base_url))+"/product_search";
+                    String product_search_url = (getResources().getString(R.string.webservice_base_url)) + "/product_search";
 
 
-
-    call_search_suggest_webservice_product(product_search_url, text, state_list_spinner.getSelectedItem().toString());
-
-
-
-
-
-
-
+                    call_search_suggest_webservice_product(product_search_url, text, state_list_spinner.getSelectedItem().toString());
 
 
                 }
 
-                }
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -198,19 +205,13 @@ public class Search extends AppCompatActivity
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
 
 
+                    if (autocomplete_textview_product.getText().length() != 0) {
+                        // Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
+                        call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString());
 
-                        if(autocomplete_textview_product.getText().length()!=0)
-                        {
-                           // Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
-                            call_search_webservice(state_list_spinner.getSelectedItem().toString(),autocomplete_textview_product.getText().toString());
+                        App_config.hideKeyboard(Search.this);
 
-                            App_config.hideKeyboard(Search.this);
-
-                        }
-
-
-
-
+                    }
 
 
                     return true;
@@ -218,51 +219,33 @@ public class Search extends AppCompatActivity
                 return false;
 
 
-
             }
         });
-
-
-
-
-
-
-
-
 
 
     }
 
 
     private void call_state_webservice() {
-Log.e("statelist_state",stateList.toString()+""+c);
+        Log.e("statelist_state", stateList.toString() + "" + c);
 
-        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(c,R.layout.white_textcolor_spinner,stateList);
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(c, R.layout.white_textcolor_spinner, stateList);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.white_textcolor_spinner);
         state_list_spinner.setAdapter(spinnerArrayAdapter);
 
 
-
         for (int i = 0; i < stateList.size(); i++) {
 
-                        if(currentlocation_statename.equals(stateList.get(i)))
-                        {
-
-                            current_state_index=i;
-                            Log.e("current_state_index",current_state_index+"");
-                        }
-                    }
-
+            if (currentlocation_statename.equals(stateList.get(i))) {
+                current_state_index = i;
+                Log.e("current_state_index", current_state_index + "");
+            }
+        }
         state_list_spinner.setSelection(current_state_index);
-
-
-
-
-
     }
 
     private void call_search_webservice(String location_text, String product_name1) {
-        String search_url = (getResources().getString(R.string.webservice_base_url))+"/search";
+        String search_url = (getResources().getString(R.string.webservice_base_url)) + "/search";
         progressBarHandler.show();
 
         Ion.with(Search.this)
@@ -277,20 +260,19 @@ Log.e("statelist_state",stateList.toString()+""+c);
                     public void onCompleted(Exception e, JsonObject result) {
                         if (result != null) {
 
-                            search_productlist=new ArrayList<CommomData>();
+                            search_productlist = new ArrayList<CommomData>();
 
                             JsonObject jsonObject = result.getAsJsonObject();
 
                             String error = jsonObject.get("error").getAsString();
                             String message = jsonObject.get("message").getAsString();
-                            if(message.contains("Failed")) {
+                            if (message.contains("Failed")) {
 
 
-                                AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
+                                AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
                                 progressBarHandler.hide();
 
-                            }
-                            else {
+                            } else {
 
                                 Log.e("data2_search", result.toString());
                                 if (jsonObject.get("result").isJsonNull()) {
@@ -308,9 +290,9 @@ Log.e("statelist_state",stateList.toString()+""+c);
                                     String productid = jsonObject_result.get("id").getAsString();
                                     String product_prize = jsonObject_result.get("price").getAsString();
                                     String imageurl = jsonObject_result.get("image_url").getAsString();
-                                    String productlocation=jsonObject_result.get("city_name").getAsString()+","+jsonObject_result.get("state_name").getAsString()+","+
+                                    String productlocation = jsonObject_result.get("city_name").getAsString() + "," + jsonObject_result.get("state_name").getAsString() + "," +
                                             jsonObject_result.get("country_name").getAsString();
-                                    search_productlist.add(new CommomData(productid, productname, product_prize, imageurl,productlocation));
+                                    search_productlist.add(new CommomData(productid, productname, product_prize, imageurl, productlocation));
 
 
                                 }
@@ -326,7 +308,7 @@ Log.e("statelist_state",stateList.toString()+""+c);
                                     String catname = jsonObject_result.get("catname").getAsString();
                                     String countprod = jsonObject_result.get("countprod").getAsString();
 
-                                    common_category_searchlist.add(new common_category_search(cat_id,catname, countprod));
+                                    common_category_searchlist.add(new common_category_search(cat_id, catname, countprod));
 
 
                                 }
@@ -341,7 +323,7 @@ Log.e("statelist_state",stateList.toString()+""+c);
                                     String statename = jsonObject_result.get("statename").getAsString();
                                     String countprod = jsonObject_result.get("countprod").getAsString();
 
-                                    common_state_searchlist.add(new common_state_search(state_id,statename, countprod));
+                                    common_state_searchlist.add(new common_state_search(state_id, statename, countprod));
 
 
                                 }
@@ -357,25 +339,23 @@ Log.e("statelist_state",stateList.toString()+""+c);
                                     String ctyname = jsonObject_result.get("ctyname").getAsString();
                                     String countprod = jsonObject_result.get("countprod").getAsString();
 
-                                    common_city_searchlist.add(new common_city_search(city_id,ctyname, countprod));
+                                    common_city_searchlist.add(new common_city_search(city_id, ctyname, countprod));
 
 
                                 }
 
 
-                                RecyclerView.LayoutManager mLayoutManager =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-                                RecyclerView.LayoutManager mLayoutManager_category =new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
-
+                                RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
+                                RecyclerView.LayoutManager mLayoutManager_category = new LinearLayoutManager(c, LinearLayoutManager.HORIZONTAL, false);
 
 
                                 category_names_recycler.setLayoutManager(mLayoutManager_category);
-                                searchResults_category_Adapter=new SearchcategoryAdapter(Search.this,common_category_searchlist);
+                                searchResults_category_Adapter = new SearchcategoryAdapter(Search.this, common_category_searchlist);
                                 category_names_recycler.setAdapter(searchResults_category_Adapter);
 
 
-
                                 state_names_recycler.setLayoutManager(mLayoutManager);
-                                searchResults_state_Adapter=new SearchStateAdapter(Search.this,common_state_searchlist);
+                                searchResults_state_Adapter = new SearchStateAdapter(Search.this, common_state_searchlist);
                                 state_names_recycler.setAdapter(searchResults_state_Adapter);
 
 //search recycleview set adapter
@@ -383,12 +363,11 @@ Log.e("statelist_state",stateList.toString()+""+c);
                                 commomAdapter = new CommomAdapter(Search.this, search_productlist, "list", "latestupdate");
                                 recyclerView_search.setAdapter(commomAdapter);
                                 progressBarHandler.hide();
-                               findViewById(R.id.search_category_state_container).setVisibility(View.VISIBLE);
+                                findViewById(R.id.search_category_state_container).setVisibility(View.VISIBLE);
 
                             }
 
-                        }
-                        else {
+                        } else {
                             progressBarHandler.hide();
                         }
 
@@ -451,10 +430,10 @@ Log.e("statelist_state",stateList.toString()+""+c);
 
 
                                     Log.e("product_names", product_names.toString());
-                                    product_autocompleteadapter=new Webservice_search_autocompleteadapter(c,product_names);
+                                    product_autocompleteadapter = new Webservice_search_autocompleteadapter(c, product_names);
 
-                                    if(product_names.size()!=0)
-                                    autocomplete_textview_product.setAdapter(product_autocompleteadapter);
+                                    if (product_names.size() != 0)
+                                        autocomplete_textview_product.setAdapter(product_autocompleteadapter);
 
 
 //
@@ -474,34 +453,10 @@ Log.e("statelist_state",stateList.toString()+""+c);
                 });
 
 
-
-
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void call_search_suggest_webservice_state(String url, String input_txt) {
-
 
 
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
@@ -529,15 +484,13 @@ Log.e("statelist_state",stateList.toString()+""+c);
                     String message = jsonObject.get("message").getAsString();
 
 
-                    if(message.contains("Failed")) {
+                    if (message.contains("Failed")) {
 
 
-                        AndroidUtils.showSnackBar(coordinate_search,"No Suggesstion found");
+                        AndroidUtils.showSnackBar(coordinate_search, "No Suggesstion found");
 
 
-                    }
-
-                    else {
+                    } else {
 
 
                         Log.e("data2", webservice_returndata.toString());
@@ -586,47 +539,7 @@ Log.e("statelist_state",stateList.toString()+""+c);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.bottom_home_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
-            case android.R.id.home:
-                if(class_name.contains("homeactivity"))
-
-                { Intent goto_home = new Intent(Search.this, HomeActivity.class);
-                    startActivity(goto_home);
-                    finish();
-
-                }
-                else{
-
-                }
-
-
-
-
-
-
-
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-
-    public void selected_city_name(String state_name)
-    {
+    public void selected_city_name(String state_name) {
 
         currentlocation_statename = state_name;
         Log.e(" currentlocat;", stateList.toString());
@@ -638,7 +551,7 @@ Log.e("statelist_state",stateList.toString()+""+c);
             if (currentlocation_statename.equals(stateList.get(i))) {
                 current_state_index = i;
                 state_list_spinner.setSelection(current_state_index);
-                Log.e("state_list",i+"");
+                Log.e("state_list", i + "");
 
 
             }
@@ -647,29 +560,23 @@ Log.e("statelist_state",stateList.toString()+""+c);
         }
 
 
-
-
-
     }
 
 
     @Override
-    public void onBackPressed()
-    {
-if(class_name.contains("homeactivity"))
+    public void onBackPressed() {
+        if (class_name.contains("homeactivity"))
 
-{ Intent goto_home = new Intent(Search.this, HomeActivity.class);
-        startActivity(goto_home);
-        finish();
+        {
+            Intent goto_home = new Intent(Search.this, HomeActivity.class);
+            startActivity(goto_home);
+            finish();
+
+        } else {
+
+        }
 
     }
-    else{
-
-}
-
-    }
-
-
 
 
 }

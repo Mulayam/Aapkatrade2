@@ -11,22 +11,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
-import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.editcompany.EditCompanyActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -39,7 +36,7 @@ public class AddAddressActivity extends AppCompatActivity
 {
 
     TextView tvTitle;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String userid,firstName,lastName,address,mobile,state_id;
     EditText etFirstName,etLastName,etMobileNo,etAddress;
     Button buttonSave;
@@ -47,7 +44,7 @@ public class AddAddressActivity extends AppCompatActivity
     Spinner spState;
     RelativeLayout activity_add_address;
     ProgressBarHandler progress_handler;
-
+    ImageView imageView;
 
 
     @Override
@@ -59,7 +56,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         userid = app_sharedpreference.getsharedpref("userid", "");
 
@@ -189,6 +186,9 @@ public class AddAddressActivity extends AppCompatActivity
     {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("Add Address");
+
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

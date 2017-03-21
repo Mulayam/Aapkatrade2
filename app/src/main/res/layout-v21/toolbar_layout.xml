@@ -42,11 +42,12 @@
         <TextView
             android:id="@+id/toolbarRightText"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/thirty_five_dip"
+            android:layout_marginRight="@dimen/ten_dip"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight = "true"
-            android:layout_marginRight="@dimen/twenty_dip"
-            android:textColor="@color/orange"
-            android:textSize="@dimen/textsize_medium"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="@dimen/textsize"
+            android:textStyle="bold"
             android:visibility="gone"
             />
 

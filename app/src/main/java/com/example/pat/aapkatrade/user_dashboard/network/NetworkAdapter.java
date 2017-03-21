@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
 import java.text.ParseException;
@@ -27,7 +27,7 @@ public class NetworkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     Context context;
     NetworkHolder viewHolder;
     NetworkActivity networkActivity;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     ProgressBarHandler progress_handler;
 
 
@@ -38,7 +38,7 @@ public class NetworkAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
         progress_handler = new ProgressBarHandler(context);
 
     }

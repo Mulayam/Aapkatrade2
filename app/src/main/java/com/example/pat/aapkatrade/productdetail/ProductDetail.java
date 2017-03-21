@@ -22,9 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
@@ -80,13 +82,14 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        context = ProductDetail.this;
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
         product_id = b.getString("product_id");
         Log.e("product_id", product_id);
         product_location = b.getString("product_location");
 
-        setuptoolbar();
+        setUpToolBar();
         initView();
         get_data();
     }
@@ -404,16 +407,24 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
     }
 
-    private void setuptoolbar() {
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -432,6 +443,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {

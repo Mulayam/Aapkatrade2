@@ -1,9 +1,7 @@
 package com.example.pat.aapkatrade.user_dashboard.payout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,13 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.address.AddressData;
-import com.example.pat.aapkatrade.user_dashboard.address.AddressListAdapter;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -44,7 +39,7 @@ public class PayoutActivity extends AppCompatActivity implements DatePickerDialo
     RecyclerView payoutList;
     PayoutAdapter payoutAdapter;
 RelativeLayout relativeAddress;
-    private App_sharedpreference app_sharedpreference;
+    private AppSharedPreference app_sharedpreference;
     ProgressBarHandler progressBarHandler;
 
 
@@ -166,7 +161,7 @@ RelativeLayout relativeAddress;
         openStartDateCal = (ImageView) findViewById(R.id.openStartDateCal);
         openEndDateCal = (ImageView) findViewById(R.id.openEndDateCal);
         relativeAddress=(RelativeLayout)findViewById(R.id.relativeAddress);
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
     }
 
 

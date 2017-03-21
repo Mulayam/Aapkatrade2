@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.companylist.compant_details.CompanyDetailActivity;
 import com.example.pat.aapkatrade.user_dashboard.editcompany.EditCompanyActivity;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -38,7 +36,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      Boolean showBoolean = false;
      int clickedposition=1000;
      int p;
-     App_sharedpreference app_sharedpreference;
+     AppSharedPreference app_sharedpreference;
      String email;
      ProgressBarHandler progress_handler;
 
@@ -53,7 +51,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.context = context;
         inflater = LayoutInflater.from(context);
 
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
         progress_handler = new ProgressBarHandler(context);
 
     }

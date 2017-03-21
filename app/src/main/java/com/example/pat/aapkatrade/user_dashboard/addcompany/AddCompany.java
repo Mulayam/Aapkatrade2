@@ -15,19 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.editcompany.EditCompanyActivity;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -42,7 +38,7 @@ public class AddCompany extends AppCompatActivity
     LinearLayout linearLayout;
     Snackbar snackbar;
     ProgressBarHandler progress_handler;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id,email;
     TextView tvTitle;
     RelativeLayout relativeSubmit;
@@ -55,7 +51,7 @@ public class AddCompany extends AppCompatActivity
 
         setContentView(R.layout.activity_add_company);
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 

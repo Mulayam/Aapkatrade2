@@ -1,28 +1,27 @@
 package com.example.pat.aapkatrade.categories_tab.PurticularDataActivity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
-import com.example.pat.aapkatrade.Home.CommomData;
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
-import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.location.Mylocation;
@@ -37,45 +36,31 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class PurticularActivity extends AppCompatActivity
-{
+public class ParticularActivity extends AppCompatActivity {
 
-    RecyclerView mRecyclerView;
-    CategoriesListAdapter categoriesListAdapter;
-    ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
-    ProgressBarHandler progress_handler;
-    FrameLayout layout_container, layout_container_relativeSearch;
-    MyRecyclerViewEffect myRecyclerViewEffect;
-    JsonObject home_data;
-    String url;
-    Mylocation mylocation;
-
+    private RecyclerView mRecyclerView;
+    private CategoriesListAdapter categoriesListAdapter;
+    private ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
+    private ProgressBarHandler progress_handler;
+    private FrameLayout layout_container;
+    private MyRecyclerViewEffect myRecyclerViewEffect;
+    private String url;
+    private Mylocation mylocation;
+    private Context context;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
 
-         url = intent.getStringExtra("url");
+        url = intent.getStringExtra("url");
 
-         System.out.println("url---------------"+url);
-
-//        Intent i = this.getIntent();
-//        ArrayList commomDatas_latestpost =  i.getParcelableArrayListExtra("commomDatas_latestpost");
-//        for(int j = 0; j < commomDatas_latestpost.size(); j++){
-//            CommomData commomData = (CommomData) commomDatas_latestpost.get(j);
-//            Log.e("getData1", commomData.toString());
-//
-//        }
-//
-//        productListDatas = commomDatas_latestpost;
-
+        System.out.println("url---------------" + url);
         setContentView(R.layout.activity_categories_list);
-
-        setuptoolbar();
+        context = ParticularActivity.this;
+        setUpToolBar();
 
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
 
@@ -89,47 +74,31 @@ public class PurticularActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                boolean permission_status = CheckPermission.checkPermissions(PurticularActivity.this);
+                boolean permission_status = CheckPermission.checkPermissions(ParticularActivity.this);
 
 
                 if (permission_status)
 
-                { mylocation = new Mylocation(PurticularActivity.this);
+                {
+                    mylocation = new Mylocation(ParticularActivity.this);
                     LocationManager_check locationManagerCheck = new LocationManager_check(
-                            PurticularActivity.this);
+                            ParticularActivity.this);
                     Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
 
                         double latitude = mylocation.getLatitude();
                         double longitude = mylocation.getLongitude();
 
-                        Intent goto_search = new Intent(PurticularActivity.this, Search.class);
+                        Intent goto_search = new Intent(ParticularActivity.this, Search.class);
                         startActivity(goto_search);
                         finish();
 
 
-
-
-                    }
-                    else
-                    {
-                        locationManagerCheck.createLocationServiceError(PurticularActivity.this);
+                    } else {
+                        locationManagerCheck.createLocationServiceError(ParticularActivity.this);
                     }
 
                 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             }
@@ -152,7 +121,7 @@ public class PurticularActivity extends AppCompatActivity
         productListDatas.clear();
         progress_handler.show();
 
-        Ion.with(PurticularActivity.this)
+        Ion.with(ParticularActivity.this)
                 .load(url)
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -178,9 +147,7 @@ public class PurticularActivity extends AppCompatActivity
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
 
-                            }
-                            else
-                            {
+                            } else {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
                                 for (int i = 0; i < jsonArray.size(); i++) {
@@ -194,57 +161,56 @@ public class PurticularActivity extends AppCompatActivity
 
                                     String product_cross_price = jsonObject2.get("cross_price").getAsString();
 
-                                    String productlocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
+                                    String productlocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
                                             jsonObject2.get("country_name").getAsString();
                                     String product_image = jsonObject2.get("image_url").getAsString();
 
-                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image,productlocation));
-
-                                    }
-                                    categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
-                                    myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
-                                    mRecyclerView.setAdapter(categoriesListAdapter);
+                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image, productlocation));
 
                                 }
-////                                categoriesListAdapter = new CategoriesListAdapter(PurticularActivity.this, productListDatas);
-////                                myRecyclerViewEffect = new MyRecyclerViewEffect(PurticularActivity.this);
-////                                mRecyclerView.setAdapter(categoriesListAdapter);
-//
-//                                categoriesListAdapter.notifyDataSetChanged();
+                                categoriesListAdapter = new CategoriesListAdapter(ParticularActivity.this, productListDatas);
+                                myRecyclerViewEffect = new MyRecyclerViewEffect(ParticularActivity.this);
+                                mRecyclerView.setAdapter(categoriesListAdapter);
 
-                                progress_handler.hide();
                             }
-
+                            progress_handler.hide();
                         }
 
+                    }
 
 
                 });
 
     }
 
-    private void setuptoolbar()
-    {
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
+        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setTitle(null);
-        //getSupportActionBar().setIcon(R.drawable.home_logo);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

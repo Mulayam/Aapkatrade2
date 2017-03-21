@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,19 +30,16 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.CompanyData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -52,8 +48,6 @@ import com.koushikdutta.async.http.body.FilePart;
 import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
-import com.nbsp.materialfilepicker.MaterialFilePicker;
-import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -65,7 +59,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 public class AddProductActivity extends AppCompatActivity
@@ -83,7 +76,7 @@ public class AddProductActivity extends AppCompatActivity
     private ArrayList<String> deliveryDistanceList = new ArrayList<>();
     private ArrayList<CompanyData> companyNames = new ArrayList<>();
     private ProgressBarHandler progressBar;
-    private App_sharedpreference app_sharedpreference;
+    private AppSharedPreference app_sharedpreference;
     private TextView btnUpload;
     private int count = -1;
     private EditText etProductName, etDeliverLocation, etPrice, etCrossedPrice, etDescription;
@@ -227,7 +220,7 @@ public class AddProductActivity extends AppCompatActivity
         add_product_root_container = (LinearLayout) findViewById(R.id.add_product_root_container);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         progressBar = new ProgressBarHandler(context);
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
 
         spCompanyName = (Spinner) findViewById(R.id.spCompanyName);
         spSubCategory = (Spinner) findViewById(R.id.spSubCategory);

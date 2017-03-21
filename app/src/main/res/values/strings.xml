@@ -233,6 +233,7 @@
     <string name="join_date">Join Date: 2017-01-31 06:46:54</string>
     <string name="setvice_enquiry">Service Enquiry</string>
     <string name="price1">Price*</string>
+    <string name="skip">Skip</string>
 
 
 </resources>

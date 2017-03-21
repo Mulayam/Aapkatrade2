@@ -13,11 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.service_enquirylist.ServiceEnquiryActivity;
-import com.example.pat.aapkatrade.user_dashboard.service_enquirylist.ServiceEnquiryAdapter;
-import com.example.pat.aapkatrade.user_dashboard.service_enquirylist.ServiceEnquiryData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -33,7 +30,7 @@ public class NetworkActivity extends AppCompatActivity
     ArrayList<NetworkData> networkDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
     ProgressBarHandler progress_handler;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String reference_id;
     TextView tvTitle;
 
@@ -50,7 +47,7 @@ public class NetworkActivity extends AppCompatActivity
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         reference_id = app_sharedpreference.getsharedpref("ref_no");
 
@@ -91,7 +88,7 @@ public class NetworkActivity extends AppCompatActivity
 
         recyclerViewcompanylist.setAdapter(networkAdapter);
 
-        app_sharedpreference = new App_sharedpreference(NetworkActivity.this);
+        app_sharedpreference = new AppSharedPreference(NetworkActivity.this);
     }
 
 

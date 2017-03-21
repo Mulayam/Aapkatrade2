@@ -7,14 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
 import com.example.pat.aapkatrade.user_dashboard.changepassword.ChangePassword;
 
@@ -23,7 +22,7 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
     TextView tvTitle,textViewName,tvMobile,tvEmail,tvUserType;
     LinearLayout linearLayoutLagout,linearLayoutResetpassword,linearLayoutAddress;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     ImageView btnEdit;
 
 
@@ -34,7 +33,7 @@ public class ProfilePreviewActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_profile_preview);
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
 
         setup_layout();
 

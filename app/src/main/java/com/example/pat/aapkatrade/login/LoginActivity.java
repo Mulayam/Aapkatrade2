@@ -1,13 +1,19 @@
 package com.example.pat.aapkatrade.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,30 +21,35 @@ import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    TextView login_text, forgot_password;
-    EditText username, password;
-    RelativeLayout rl_login, relativeRegister;
-    Validation vt;
-    App_sharedpreference app_sharedpreference;
-    CoordinatorLayout cl;
+    private TextView login_text, forgot_password;
+    private EditText username, password;
+    private RelativeLayout rl_login, relativeRegister;
+    private Validation vt;
+    private AppSharedPreference app_sharedpreference;
+    private CoordinatorLayout cl;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        app_sharedpreference = new App_sharedpreference(loginActivity.this);
-        InitView();
+        
+        context = LoginActivity.this;
+        app_sharedpreference = new AppSharedPreference(context);
+        setUpToolBar();
+        initView();
         putValues();
 
         relativeRegister.setOnClickListener(new View.OnClickListener() {
@@ -48,10 +59,10 @@ public class loginActivity extends AppCompatActivity {
                 if (app_sharedpreference.shared_pref != null) {
                     if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
-                        Intent registerUserActivity = new Intent(loginActivity.this, RegistrationBusinessAssociateActivity.class);
+                        Intent registerUserActivity = new Intent(context, RegistrationBusinessAssociateActivity.class);
                         startActivity(registerUserActivity);
                     } else if ((app_sharedpreference.getsharedpref("usertype", "0").equals("1")) || app_sharedpreference.getsharedpref("usertype", "0").equals("2")) {
-                        Intent registerUserActivity = new Intent(loginActivity.this, RegistrationActivity.class);
+                        Intent registerUserActivity = new Intent(context, RegistrationActivity.class);
                         startActivity(registerUserActivity);
                     }
                 } else {
@@ -63,6 +74,48 @@ public class loginActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        TextView toolbarRightText = (TextView) findViewById(R.id.toolbarRightText);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
+        toolbarRightText.setVisibility(View.VISIBLE);
+        toolbarRightText.setTextColor(ContextCompat.getColor(context, R.color.orange));
+        toolbarRightText.setText(getResources().getString(R.string.skip));
+        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -143,7 +196,7 @@ public class loginActivity extends AppCompatActivity {
         HashMap<String, String> webservice_header_type = new HashMap<>();
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
-        Call_webservice.call_login_webservice(loginActivity.this, login_url, "login", webservice_body_parameter, webservice_header_type);
+        Call_webservice.call_login_webservice(context, login_url, "login", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
@@ -180,7 +233,7 @@ public class loginActivity extends AppCompatActivity {
                         }
                     }
                     if (flag) {
-                        Intent Homedashboard = new Intent(loginActivity.this, HomeActivity.class);
+                        Intent Homedashboard = new Intent(context, HomeActivity.class);
                         Homedashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(Homedashboard);
                     }
@@ -297,7 +350,7 @@ public class loginActivity extends AppCompatActivity {
     }
 
 
-    private void InitView()
+    private void initView()
     {
 
         forgot_password = (TextView) findViewById(R.id.tv_forgotpassword);
@@ -311,7 +364,7 @@ public class loginActivity extends AppCompatActivity {
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forgotpassword_activity = new Intent(loginActivity.this, Forgot_Password.class);
+                Intent forgotpassword_activity = new Intent(context, ForgotPassword.class);
                 startActivity(forgotpassword_activity);
             }
         });

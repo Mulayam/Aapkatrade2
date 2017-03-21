@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -26,7 +26,7 @@ public class AssociateAgreementDialog extends Dialog {
 
     private TextView tvUserName, tvDate, tvReferenceNumber, tvBussinessHeading, tvBussinessDetails, tvMore;
     private boolean isTextViewClicked = false;
-    private App_sharedpreference app_sharedpreference;
+    private AppSharedPreference app_sharedpreference;
     private CheckBox agreement_check;
     private Context context;
     private Button imgCLose;
@@ -118,7 +118,7 @@ public class AssociateAgreementDialog extends Dialog {
     }
 
     public void initView() {
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
         input_layout_agreement = (LinearLayout) findViewById(R.id.input_layout_agreement);
         dialogue_toolbar = (RelativeLayout) findViewById(R.id.dialogue_toolbar);
         AndroidUtils.setBackgroundSolid(input_layout_agreement, context, R.color.orange, 10);

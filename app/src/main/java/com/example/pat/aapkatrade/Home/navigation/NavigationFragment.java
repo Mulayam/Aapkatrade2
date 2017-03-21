@@ -9,15 +9,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -32,23 +29,18 @@ import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.my_profile.ProfilePreviewActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.net.ssl.X509TrustManager;
 
@@ -70,7 +62,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     View view;
     String Fname;
     private int lastExpandedPosition = -1;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     public static final String PREFS_NAME = "call_recorder";
     // private SharedPreferences loginPreferences;
     List<String> categoryids;
@@ -111,7 +103,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         progressBarHandler = new ProgressBarHandler(context);
 
-        app_sharedpreference = new App_sharedpreference(getActivity());
+        app_sharedpreference = new AppSharedPreference(getActivity());
 
         initView(view);
 
@@ -212,32 +204,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
 
     }
-
-//       navigation_parent_scrollview.setOnTouchListener(new View.OnTouchListener() {
-//           @Override
-//           public boolean onTouch(View v, MotionEvent event) {
-//
-//               expListView.getParent().requestDisallowInterceptTouchEvent(false);
-//               Log.e("expListView__notwork","false");
-//               return false;
-//           }
-//       });
-
-
-//        expListView.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//
-//
-//                expListView.getParent().requestDisallowInterceptTouchEvent(true);
-//             // listAdapter.notifyDataSetChanged();
-//                Log.e("expListView_work","true");
-//                return false;
-//            }
-//        });
-//
-//    }
 
 
     private void Showmessage(String message) {

@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login.loginActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".user_dashboard.my_profile.MyProfileActivity" />
         <activity android:name=".user_dashboard.my_company_profile.MyCompanyProfile" />
@@ -77,8 +77,7 @@
             android:name=".Home.registration.RegistrationBusinessAssociateActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".login.Forgot_Password"
-            android:theme="@style/myedittext" />
+            android:name=".login.ForgotPassword" />
         <activity android:name=".categories_tab.CategoryListActivity" />
         <activity android:name=".categories_tab.FilterActivity" />
         <activity android:name=".user_dashboard.address.AddressActivity" />
@@ -104,7 +103,7 @@
         <activity android:name=".search.Search" />
         <activity android:name=".user_dashboard.vender_detail.VendorActivity" />
         <activity android:name=".map.GoogleMapActivity" />
-        <activity android:name=".categories_tab.PurticularDataActivity.PurticularActivity" />
+        <activity android:name=".categories_tab.PurticularDataActivity.ParticularActivity" />
         <activity android:name=".user_dashboard.order_list.OrderManagementActivity" />
         <activity
             android:name=".user_dashboard.bankmanagement.BankManagementActivity"

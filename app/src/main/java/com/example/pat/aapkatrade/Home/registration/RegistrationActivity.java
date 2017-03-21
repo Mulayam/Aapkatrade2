@@ -1,7 +1,5 @@
 package com.example.pat.aapkatrade.Home.registration;
 
-import android.app.Activity;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.BuyerRegistration;
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.Country;
@@ -42,11 +40,9 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpBussinessA
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
-
-
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -69,7 +65,6 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -78,8 +73,7 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
-{
+public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
@@ -98,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private File compIncorpFile = new File(""), docFile = new File("");
     private boolean isReqCode = false, isCompIncorp = false;
     private ImageView uploadImage, uploadPDFButton, openCalander, cancelImage, cancelFile;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     private CircleImageView circleImageView, previewPDF;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
@@ -108,13 +102,15 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     ProgressBarHandler progressBarHandler;
     private CardView businessDetailsCard;
     private RelativeLayout relativeCompanyListheader;
+    private Context context;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        app_sharedpreference = new App_sharedpreference(RegistrationActivity.this);
-        setuptoolbar();
+        context = RegistrationActivity.this;
+        app_sharedpreference = new AppSharedPreference(context);
+        setUpToolBar();
         initView();
         saveUserTypeInSharedPreferences();
         setUpBusinessCategory();
@@ -207,8 +203,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         });
 
 
-
-
     }
 
     private void showDate(int year, int month, int day) {
@@ -259,7 +253,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 } else {
                     progressBarHandler.show();
 
-                    Ion.with(RegistrationActivity.this)
+                    Ion.with(context)
                             .load("http://aapkatrade.com/slim/sellerregister")
                             .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
                         @Override
@@ -300,7 +294,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
                                             Log.e("registration_seller", "done");
                                             AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
-                                            startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                                            startActivity(new Intent(context, ActivityOTPVerify.class));
                                         } else {
                                             AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                                         }
@@ -319,7 +313,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 Log.e("work2", "work2");
                 progressBarHandler.show();
 
-                Ion.with(RegistrationActivity.this)
+                Ion.with(context)
                         .load("http://aapkatrade.com/slim/sellerregister")
                         .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3").progress(new ProgressCallback() {
                     @Override
@@ -360,7 +354,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                     if (result.get("error").getAsString().equals("false")) {
                                         AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
                                         Log.e("registration_seller", "done");
-                                        startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                                        startActivity(new Intent(context, ActivityOTPVerify.class));
                                     } else {
 
                                         AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
@@ -384,7 +378,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private File getFile(Bitmap photo) {
         Uri tempUri = null;
         if (photo != null) {
-            tempUri = getImageUri(RegistrationActivity.this, photo);
+            tempUri = getImageUri(context, photo);
         }
         File finalFile = new File(getRealPathFromURI(tempUri));
         Log.e("data", getRealPathFromURI(tempUri));
@@ -404,7 +398,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         Cursor cursor = null;
         int idx = 0;
         if (uri != null) {
-            cursor = RegistrationActivity.this.getContentResolver().query(uri, null, null, null, null);
+            cursor = context.getContentResolver().query(uri, null, null, null, null);
             assert cursor != null;
             cursor.moveToFirst();
             idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
@@ -416,7 +410,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private void callWebServiceForBuyerRegistration() {
         Log.e("reach", " Buyer Data--------->\n" + formBuyerData.toString());
         progressBarHandler.show();
-        Ion.with(RegistrationActivity.this)
+        Ion.with(context)
                 .load("http://aapkatrade.com/slim/buyerregister")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -442,7 +436,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                                 AndroidUtils.showSnackBar(registrationLayout, result.get("message").getAsString());
 
                                 progressBarHandler.hide();
-                                startActivity(new Intent(RegistrationActivity.this, ActivityOTPVerify.class));
+                                startActivity(new Intent(context, ActivityOTPVerify.class));
                             } else {
 
                                 progressBarHandler.hide();
@@ -516,7 +510,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
 
-        Call_webservice.getcountrystatedata(RegistrationActivity.this, "country", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+        Call_webservice.getcountrystatedata(context, "country", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
@@ -537,7 +531,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         Country countryEntity = new Country(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                         countryList.add(countryEntity);
                     }
-                    SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
+                    SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(context, countryList);
                     spCountry.setAdapter(spCountrysAdapter);
                     spCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -574,7 +568,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         webservice_body_parameter.put("type", "state");
         webservice_body_parameter.put("id", "101");//country id fixed 101 for India
 
-        Call_webservice.getcountrystatedata(RegistrationActivity.this, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+        Call_webservice.getcountrystatedata(context, "state", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
@@ -593,7 +587,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         State stateEntity = new State(jsonObject1.get("id").getAsString(), jsonObject1.get("name").getAsString());
                         stateList.add(stateEntity);
                     }
-                    SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
+                    SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
                     spState.setAdapter(spStateAdapter);
 
                     spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -631,7 +625,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         webservice_body_parameter.put("type", "city");
         webservice_body_parameter.put("id", stateId);
 
-        Call_webservice.getcountrystatedata(RegistrationActivity.this, "city", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
+        Call_webservice.getcountrystatedata(context, "city", getResources().getString(R.string.webservice_base_url) + "/dropdown", webservice_body_parameter, webservice_header_type);
 
         Call_webservice.taskCompleteReminder = new TaskCompleteReminder() {
             @Override
@@ -649,7 +643,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                         cityList.add(cityEntity);
                     }
 
-                    SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
+                    SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
                     spCity.setAdapter(spCityAdapter);
 
                     spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -674,17 +668,29 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
 
-    private void setuptoolbar() {
+
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
@@ -699,6 +705,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void initView() {
 
@@ -741,20 +748,14 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         dobLayout = (RelativeLayout) findViewById(R.id.dobLayout);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
 
-
-//        Country countryEntity_init = new Country("-1", "Please Select Country");
-//        countryList.add(countryEntity_init);
-//        SpCountrysAdapter spCountrysAdapter = new SpCountrysAdapter(RegistrationActivity.this, countryList);
-//        spCountry.setAdapter(spCountrysAdapter);
-
         State stateEntity_init = new State("-1", "Please Select State");
         stateList.add(stateEntity_init);
-        SpStateAdapter spStateAdapter = new SpStateAdapter(RegistrationActivity.this, stateList);
+        SpStateAdapter spStateAdapter = new SpStateAdapter(context, stateList);
         spState.setAdapter(spStateAdapter);
 
         City cityEntity_init = new City("-1", "Please Select City");
         cityList.add(cityEntity_init);
-        SpCityAdapter spCityAdapter = new SpCityAdapter(RegistrationActivity.this, cityList);
+        SpCityAdapter spCityAdapter = new SpCityAdapter(context, cityList);
         spCity.setAdapter(spCityAdapter);
 
 
@@ -956,7 +957,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         } else if (which == 2) {
 
 
-            MaterialFilePicker filePicker=        new MaterialFilePicker();
+            MaterialFilePicker filePicker = new MaterialFilePicker();
 
 
             filePicker.withActivity(this)
@@ -995,12 +996,12 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 if (!filePath.equals("result_file_path")) {
                     if (isCompIncorp) {
                         previewPDFLayout.setVisibility(View.VISIBLE);
-                        previewPDF.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
+                        previewPDF.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pdf));
                         compIncorpFile = file;
                         isCompIncorp = false;
                     } else {
                         previewImageLayout.setVisibility(View.VISIBLE);
-                        circleImageView.setImageDrawable(ContextCompat.getDrawable(RegistrationActivity.this, R.drawable.pdf));
+                        circleImageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pdf));
                         docFile = file;
                     }
                 }
@@ -1085,7 +1086,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         formSellerData.setMobile(etMobileNo.getText().toString());
         formSellerData.setPassword(etPassword.getText().toString());
         formSellerData.setConfirmPassword(etReenterPassword.getText().toString());
-        formSellerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
+        formSellerData.setClientId(App_config.getCurrentDeviceId(context));
         formSellerData.setBusinessType(busiType == null ? "" : busiType);
         formSellerData.setCountryId(countryID == null ? "" : countryID);
         formSellerData.setStateId(stateID == null ? "" : stateID);
@@ -1104,7 +1105,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         formBuyerData.setMobile(etMobileNo.getText().toString());
         formBuyerData.setPassword(etPassword.getText().toString());
         formBuyerData.setConfirmPassword(etReenterPassword.getText().toString());
-        formBuyerData.setClientId(App_config.getCurrentDeviceId(RegistrationActivity.this));
+        formBuyerData.setClientId(App_config.getCurrentDeviceId(context));
     }
 
     private String getBusiType(String busyType) {

@@ -1,9 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.companylist;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,9 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -35,7 +31,7 @@ public class CompanyList extends AppCompatActivity
     ArrayList<CompanyData> companyDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
     ProgressBarHandler progress_handler;
-    private App_sharedpreference app_sharedpreference;
+    private AppSharedPreference app_sharedpreference;
     String user_id;
     private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
     TextView tvTitle;
@@ -50,7 +46,7 @@ public class CompanyList extends AppCompatActivity
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 
@@ -142,7 +138,7 @@ public class CompanyList extends AppCompatActivity
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         recyclerViewcompanylist.setLayoutManager(mLayoutManager);
-        app_sharedpreference = new App_sharedpreference(CompanyList.this);
+        app_sharedpreference = new AppSharedPreference(CompanyList.this);
 
         get_company_list_data();
     }

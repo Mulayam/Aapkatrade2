@@ -8,16 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListAdapter;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -31,7 +25,7 @@ public class VendorActivity extends AppCompatActivity
     private ArrayList<VendorData> venderListDatas = new ArrayList<>();
     private RecyclerView vender_list;
     VendorAdapter vendorAdapter;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id;
     ProgressBarHandler progress_handler;
 
@@ -44,7 +38,7 @@ public class VendorActivity extends AppCompatActivity
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 

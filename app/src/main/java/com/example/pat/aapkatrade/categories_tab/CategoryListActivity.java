@@ -1,10 +1,9 @@
 package com.example.pat.aapkatrade.categories_tab;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,20 +14,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.search.Search;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -39,40 +36,39 @@ import java.util.ArrayList;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class CategoryListActivity extends AppCompatActivity
-{
+public class CategoryListActivity extends AppCompatActivity {
 
-    RecyclerView mRecyclerView;
-    CategoriesListAdapter categoriesListAdapter;
-    ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
-    ProgressBarHandler progress_handler;
-    FrameLayout layout_container,layout_container_relativeSearch;
-    MyRecyclerViewEffect myRecyclerViewEffect;
-    String category_id,sub_category_id,user_id;
-    App_sharedpreference app_sharedpreference;
-    Mylocation mylocation;
+    private RecyclerView mRecyclerView;
+    private CategoriesListAdapter categoriesListAdapter;
+    private ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
+    private ProgressBarHandler progress_handler;
+    private FrameLayout layout_container, layout_container_relativeSearch;
+    private MyRecyclerViewEffect myRecyclerViewEffect;
+    private String category_id, sub_category_id, user_id;
+    private AppSharedPreference app_sharedpreference;
+    private Mylocation mylocation;
+    private Context context;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_categories_list);
-
-        Intent intent= getIntent();
+        context = CategoryListActivity.this;
+        Intent intent = getIntent();
 
         Bundle b = intent.getExtras();
 
         category_id = b.getString("category_id");
 
-       // sub_category_id  = b.getString("sub_category_id");
+        // sub_category_id  = b.getString("sub_category_id");
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
 
-        user_id = app_sharedpreference.getsharedpref("userid","");
+        user_id = app_sharedpreference.getsharedpref("userid", "");
 
-        setuptoolbar();
+        setUpToolBar();
 
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
 
@@ -93,34 +89,26 @@ public class CategoryListActivity extends AppCompatActivity
                 if (permission_status)
 
                 {
-                    mylocation = new Mylocation(CategoryListActivity.this);
+                    mylocation = new Mylocation(context);
                     LocationManager_check locationManagerCheck = new LocationManager_check(
-                            CategoryListActivity.this);
+                            context);
                     Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
                         double latitude = mylocation.getLatitude();
                         double longitude = mylocation.getLongitude();
 
-                        Intent goto_search=new Intent(CategoryListActivity.this,Search.class);
-                        goto_search.putExtra("latitude",latitude);
-                        goto_search.putExtra("longitude",longitude);
+                        Intent goto_search = new Intent(context, Search.class);
+                        goto_search.putExtra("latitude", latitude);
+                        goto_search.putExtra("longitude", longitude);
                         startActivity(goto_search);
                         finish();
 
 
-
-
-                    }
-                    else
-                    {
+                    } else {
                         locationManagerCheck.createLocationServiceError(CategoryListActivity.this);
                     }
 
                 }
-
-
-
 
 
             }
@@ -140,197 +128,102 @@ public class CategoryListActivity extends AppCompatActivity
 
     }
 
-    private void get_web_data()
-    {
-       // layout_container.setVisibility(View.INVISIBLE);
+    private void get_web_data() {
         productListDatas.clear();
         progress_handler.show();
+        Ion.with(context)
+                .load("http://aapkatrade.com/slim/productlist")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("type", "product_list")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("category_id", category_id)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
 
-//        if(sub_category_id.equals("not_available"))
-//        {
-            //System.out.println("data----------"+category_id+sub_category_id+user_id);
+                        if (result == null) {
+                            progress_handler.hide();
+                            layout_container.setVisibility(View.INVISIBLE);
+                        } else {
+                            JsonObject jsonObject = result.getAsJsonObject();
 
-            Ion.with(CategoryListActivity.this)
-                    .load("http://aapkatrade.com/slim/productlist")
-                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setBodyParameter("type", "product_list")
-                    .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-                    .setBodyParameter("category_id",category_id)
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>()
-                    {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result)
-                        {
+                            String message = jsonObject.get("message").toString().substring(0, jsonObject.get("message").toString().length());
 
-                            if(result == null)
-                            {
+                            String message_data = message.replace("\"", "");
+
+                            Log.e("message_data", result.toString());
+
+                            if (message_data.toString().equals("No record found")) {
+
                                 progress_handler.hide();
                                 layout_container.setVisibility(View.INVISIBLE);
-                            }
-                            else
-                            {
-                                JsonObject jsonObject = result.getAsJsonObject();
 
-                                String message = jsonObject.get("message").toString().substring(0,jsonObject.get("message").toString().length());
+                            } else {
+                                JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
-                                String message_data = message.replace("\"", "");
+                                for (int i = 0; i < jsonArray.size(); i++) {
+                                    JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
-                                Log.e("message_data",result.toString());
+                                    String product_id = jsonObject2.get("id").getAsString();
 
-                                if (message_data.toString().equals("No record found"))
-                                {
+                                    String product_name = jsonObject2.get("name").getAsString();
 
-                                    progress_handler.hide();
-                                    layout_container.setVisibility(View.INVISIBLE);
+                                    String product_price = jsonObject2.get("price").getAsString();
+
+                                    String product_cross_price = jsonObject2.get("cross_price").getAsString();
+
+                                    String product_image = jsonObject2.get("image_url").getAsString();
+                                    String productlocation = jsonObject2.get("city_name").getAsString() + "," + jsonObject2.get("state_name").getAsString() + "," +
+                                            jsonObject2.get("country_name").getAsString();
+
+                                    productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image, productlocation));
 
                                 }
-                                else
-                                {
-                                    JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
-                                    for (int i = 0; i < jsonArray.size(); i++)
-                                    {
-                                        JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
+                                categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
+                                myRecyclerViewEffect = new MyRecyclerViewEffect(context);
+                                mRecyclerView.setAdapter(categoriesListAdapter);
 
-                                        String product_id = jsonObject2.get("id").getAsString();
+                                categoriesListAdapter.notifyDataSetChanged();
 
-                                        String product_name = jsonObject2.get("name").getAsString();
-
-                                        String product_price = jsonObject2.get("price").getAsString();
-
-                                        String product_cross_price = jsonObject2.get("cross_price").getAsString();
-
-                                        String product_image = jsonObject2.get("image_url").getAsString();
-                                        String productlocation=jsonObject2.get("city_name").getAsString()+","+jsonObject2.get("state_name").getAsString()+","+
-                                                jsonObject2.get("country_name").getAsString();
-
-                                        productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image,productlocation));
-
-                                    }
-
-                                    categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
-                                    myRecyclerViewEffect = new MyRecyclerViewEffect(CategoryListActivity.this);
-                                    mRecyclerView.setAdapter(categoriesListAdapter);
-
-                                    categoriesListAdapter.notifyDataSetChanged();
-
-                                    progress_handler.hide();
-                                }
-
-                                //   layout_container.setVisibility(View.VISIBLE);
+                                progress_handler.hide();
                             }
-
                         }
 
-                    });
+                    }
 
-//        }
-//        else
-//        {
-//            System.out.println("data   2----------"+category_id+sub_category_id+user_id);
-//
-//            Ion.with(CategoryListActivity.this)
-//                    .load("http://aapkatrade.com/slim/productlist")
-//                    .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-//                    .setBodyParameter("type", "product_list")
-//                    .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
-//                    .setBodyParameter("subcat_id",sub_category_id)
-//                    .asJsonObject()
-//                    .setCallback(new FutureCallback<JsonObject>()
-//                    {
-//                        @Override
-//                        public void onCompleted(Exception e, JsonObject result)
-//                        {
-//
-//
-//                            if(result == null)
-//                            {
-//                                progress_handler.hide();
-//                                layout_container.setVisibility(View.INVISIBLE);
-//                            }
-//                            else
-//                            {
-//                                JsonObject jsonObject = result.getAsJsonObject();
-//
-//                                String message = jsonObject.get("message").toString().substring(0,jsonObject.get("message").toString().length());
-//
-//                                String message_data = message.replace("\"", "");
-//
-//                                System.out.println("message_data=================="+message_data);
-//
-//                                if (message_data.toString().equals("No record found"))
-//                                {
-//                                    progress_handler.hide();
-//                                    layout_container.setVisibility(View.INVISIBLE);
-//
-//                                }
-//                                else
-//                                {
-//
-//                                    JsonArray jsonArray = jsonObject.getAsJsonArray("result");
-//
-//                                    for (int i = 0; i < jsonArray.size(); i++)
-//                                    {
-//                                        JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
-//
-//                                        String product_id = jsonObject2.get("id").getAsString();
-//
-//                                        String product_name = jsonObject2.get("name").getAsString();
-//
-//                                        String product_price = jsonObject2.get("price").getAsString();
-//
-//                                        String product_cross_price = jsonObject2.get("cross_price").getAsString();
-//
-//                                        String product_image = jsonObject2.get("image_url").getAsString();
-//
-//                                        productListDatas.add(new CategoriesListData(product_id, product_name, product_price, product_cross_price, product_image));
-//                                    }
-//                                    categoriesListAdapter = new CategoriesListAdapter(CategoryListActivity.this, productListDatas);
-//                                    myRecyclerViewEffect = new MyRecyclerViewEffect(CategoryListActivity.this);
-//                                    mRecyclerView.setAdapter(categoriesListAdapter);
-//
-//                                    categoriesListAdapter.notifyDataSetChanged();
-//                                    progress_handler.hide();
-//
-//
-//
-//                                }
-//                                //   layout_container.setVisibility(View.VISIBLE);
-//                            }
-//
-//                        }
-//
-//                    });
-//
-//        }
-
+                });
     }
 
-    private void setuptoolbar()
-    {
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setTitle(null);
-        //getSupportActionBar().setIcon(R.drawable.home_logo);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
-
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -339,6 +232,5 @@ public class CategoryListActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

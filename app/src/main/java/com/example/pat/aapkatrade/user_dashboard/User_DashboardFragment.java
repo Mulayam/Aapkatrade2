@@ -1,25 +1,20 @@
 package com.example.pat.aapkatrade.user_dashboard;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
-import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
@@ -34,7 +29,7 @@ public class User_DashboardFragment extends Fragment {
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     TextView tvMobile, tvEmail, textViewName, tvUserType;
     ImageView btnEdit;
     ProgressBarHandler progressBarHandler;
@@ -47,7 +42,7 @@ public class User_DashboardFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
-        app_sharedpreference = new App_sharedpreference(getActivity());
+        app_sharedpreference = new AppSharedPreference(getActivity());
         progressBarHandler = new ProgressBarHandler(getActivity());
         tvUserType = (TextView) v.findViewById(R.id.tvUserType);
         setup_layout(v);

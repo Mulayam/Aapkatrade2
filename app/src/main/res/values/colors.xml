@@ -32,7 +32,7 @@
     <color name="grey_gradient2">#737C7A</color>
     <color name="item_details_color">#585858</color>
     <color name="green_gradient2">#1C7B67</color>
-
+    <color name="transparent">#40d1cece</color>
 
     <color name="brown_light">#F1EEE4</color>
     <color name="cardview_background">#EEEEEE</color>

@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.product_list;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
-import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -21,31 +21,29 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class ProductListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
-{
+public class ProductListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-    RecyclerView product_list;
-    ProductListAdapter productListAdapter;
-    App_sharedpreference app_sharedpreference;
-    String user_id;
-    LinearLayout layout_container;
-    ArrayList<ProductListData> productListDatas = new ArrayList<>();
-    LinearLayoutManager mLayoutManager, linearLayoutManager;
-    boolean isLoading = false;
-    int mPageSize = 6;
+    private RecyclerView product_list;
+    private ProductListAdapter productListAdapter;
+    private AppSharedPreference app_sharedpreference;
+    private String user_id;
+    private LinearLayout layout_container;
+    private ArrayList<ProductListData> productListDatas = new ArrayList<>();
+    private LinearLayoutManager mLayoutManager, linearLayoutManager;
+    private boolean isLoading = false;
+    private int mPageSize = 6;
     private SwipeRefreshLayout mSwipyRefreshLayout;
-    int page = 1;
-
+    private int page = 1;
+    private Context context;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_list_product);
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 
@@ -57,8 +55,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
     }
 
-    private void setup_layout()
-    {
+    private void setup_layout() {
         mSwipyRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
 
         mSwipyRefreshLayout.setRefreshing(false);
@@ -69,7 +66,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
         layout_container = (LinearLayout) findViewById(R.id.layout_container);
 
-      //  get_web_data2(0);
+        //  get_web_data2(0);
 
         linearLayoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -82,19 +79,16 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
         product_list.setAdapter(productListAdapter);
 
 
-        product_list.setOnScrollListener(new RecyclerView.OnScrollListener()
-        {
+        product_list.setOnScrollListener(new RecyclerView.OnScrollListener() {
 
-            public void onScrollStateChanged(RecyclerView view, int scrollState)
-            {
+            public void onScrollStateChanged(RecyclerView view, int scrollState) {
 
                 super.onScrollStateChanged(product_list, scrollState);
 
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 int totalItemCount = mLayoutManager.getItemCount();
@@ -103,16 +97,12 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
                 int lastVisibleItemCount = mLayoutManager.findLastVisibleItemPosition();
 
-                if (totalItemCount > 0)
-                {
-                    if ((totalItemCount - 1) == lastVisibleItemCount)
-                    {
+                if (totalItemCount > 0) {
+                    if ((totalItemCount - 1) == lastVisibleItemCount) {
 
                         page = page + 1;
                         get_web_data2(page);
-                    }
-                    else
-                    {
+                    } else {
                         //loadingProgress.setVisibility(View.GONE);
                     }
 
@@ -156,14 +146,12 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     }
 
 
-    private int returnPageIndex(int sizeOfList)
-    {
+    private int returnPageIndex(int sizeOfList) {
         int index = sizeOfList / mPageSize;
         return index;
     }
 
-    private void setuptoolbar()
-    {
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -173,9 +161,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     }
 
 
-
-    public void get_web_data2(int page_number)
-    {
+    public void get_web_data2(int page_number) {
         // layout_container.setVisibility(View.INVISIBLE);
         // progress_handler.show();
         Ion.with(ProductListActivity.this)
@@ -210,15 +196,13 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
                             System.out.println("message_data==================" + message_data);
 
-                            if (message_data.equals("No record found"))
-                            {
+                            if (message_data.equals("No record found")) {
                                 //progress_handler.hide();
 
                                 // layout_container.setVisibility(View.INVISIBLE);
 
 
-                            } else
-                                {
+                            } else {
                                 JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
 
@@ -264,8 +248,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
     }
 
-    private void get_web_data()
-    {
+    private void get_web_data() {
         // layout_container.setVisibility(View.INVISIBLE);
         mSwipyRefreshLayout.setRefreshing(true);
         productListDatas.clear();
@@ -308,8 +291,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
                                 System.out.println("jsonArray----------------" + jsonArray.toString());
 
-                                for (int i = 0; i < jsonArray.size(); i++)
-                                {
+                                for (int i = 0; i < jsonArray.size(); i++) {
                                     JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
                                     String product_id = jsonObject2.get("id").getAsString();
 
@@ -344,17 +326,14 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -366,8 +345,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
 
     @Override
-    public void onRefresh()
-    {
+    public void onRefresh() {
         get_web_data();
     }
 
