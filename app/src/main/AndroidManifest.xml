@@ -66,7 +66,7 @@
         <activity android:name=".productdetail.ProductDetail" />
         <activity
             android:name=".Home.registration.RegistrationActivity"
-            android:theme="@style/AppTheme"
+
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".login.ActivityOTPVerify" />
         <activity android:name=".general.ConnectivityNotFound" />
@@ -75,7 +75,7 @@
         <activity android:name=".categories_tab.CategoriesTabActivity" />
         <activity
             android:name=".Home.registration.RegistrationBusinessAssociateActivity"
-            android:theme="@style/AppTheme" />
+            />
         <activity
             android:name=".login.Forgot_Password"
             android:theme="@style/myedittext" />
@@ -116,7 +116,7 @@
         <activity
             android:name=".user_dashboard.payout.PayoutActivity"
             android:label="@string/title_activity_payout"
-            android:theme="@style/AppTheme" />
+            />
         <activity android:name=".user_dashboard.editcompany.EditCompanyActivity" />
         <activity android:name=".user_dashboard.edit_product.EditProductActivity" />
         <activity android:name=".user_dashboard.service_enquirylist.ServiceEnquiryActivity"></activity>

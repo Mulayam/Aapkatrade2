@@ -17,12 +17,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
+import com.example.pat.aapkatrade.location.Geocoder;
 import com.example.pat.aapkatrade.location.Mylocation;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.search.Search;
@@ -101,14 +103,22 @@ public class CategoryListActivity extends AppCompatActivity
                     {
                         double latitude = mylocation.getLatitude();
                         double longitude = mylocation.getLongitude();
-
-                        Intent goto_search=new Intent(CategoryListActivity.this,Search.class);
-                        goto_search.putExtra("latitude",latitude);
-                        goto_search.putExtra("longitude",longitude);
-                        startActivity(goto_search);
-                        finish();
+                        Geocoder geocoder_statename = new Geocoder(CategoryListActivity.this, latitude, longitude);
+                        String state_name = geocoder_statename.get_state_name();
 
 
+                        if(state_name!=null) {
+                            Intent goto_search = new Intent(CategoryListActivity.this, Search.class);
+                            goto_search.putExtra("latitude", latitude);
+                            goto_search.putExtra("longitude", longitude);
+                            goto_search.putExtra("state_name", state_name);
+                            startActivity(goto_search);
+                            finish();
+
+                        }
+                        else{
+                            Log.e("statenotfound",""+"statenotfound");
+                        }
 
 
                     }
