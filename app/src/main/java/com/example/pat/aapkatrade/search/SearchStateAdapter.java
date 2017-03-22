@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Adapter_callback_interface;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class SearchStateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     int count;
 
     Context context;
+    Adapter_callback_interface callback_interface;
     public ArrayList<common_state_search> common_state_searchlist;
     String type,state;
 
@@ -39,7 +41,7 @@ public class SearchStateAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.common_state_searchlist=common_state_searchlist;
         this.count= common_state_searchlist.size();
         this.context = context;
-
+        this.callback_interface = ((Adapter_callback_interface) context);
 
     }
 
@@ -93,6 +95,7 @@ Log.e("common_state.statename",common_state_searchlist.get(position).statename);
 
 
                 viewHolder1.product_name.setTextColor(context.getResources().getColor(R.color.white));
+                callback_interface.callback(common_state_searchlist.get(position).state_id,"state");
 
 
             }

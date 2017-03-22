@@ -31,8 +31,10 @@ import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
+import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
+import com.google.android.gms.maps.MapFragment;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -40,6 +42,7 @@ import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
@@ -51,13 +54,14 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     public static String shared_pref_name = "aapkatrade";
     AppSharedPreference app_sharedpreference;
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
-    ImageView imgCalender,backbutton;
+//    ImageView imgCalender,backbutton;
     ProgressBarHandler p_handler;
     TextView tvDate, tvMyProfileDetailHeading;
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
     AppBarLayout aapbar_layout_myprofile;
     CoordinatorLayout coordinatorlayout_myprofile;
+    private MyProfileActivity context;
 
 
     @Override
@@ -68,10 +72,50 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
         app_sharedpreference = new AppSharedPreference(this);
         p_handler=new ProgressBarHandler(this);
-        setuptoolbar();
 
-        setup_layout();
+        context = MyProfileActivity.this;
+        setUpToolBar();
 
+    }
+
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
+
+        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setup_layout() {
@@ -79,7 +123,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         coordinatorlayout_myprofile=(CoordinatorLayout)findViewById(R.id.coordinate_myprofile) ;
         setupnewlayout();
         //imgCalender = (ImageView) findViewById(R.id.imgCalender);
-        backbutton=(ImageView)findViewById(R.id.back_imagview) ;
+//        backbutton=(ImageView)findViewById(R.id.back_imagview) ;
         tvMyProfileDetailHeading = (TextView) findViewById(R.id.tvMyProfileDetailHeading);
         etFName = (EditText) findViewById(R.id.etFName);
         String fname = app_sharedpreference.getsharedpref("name", "");
@@ -123,12 +167,12 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
       //  btnEdit = (Button) findViewById(R.id.btnEdit);
 
         //btnLogout = (Button) findViewById(R.id.btnlogout);
-        backbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        backbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         /*   imgCalender.setOnClickListener(new View.OnClickListener()
         {
@@ -341,36 +385,6 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     }
 
-    private void setuptoolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Profile");
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-
-            Log.e("working","working");
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.bottom_home_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity,
