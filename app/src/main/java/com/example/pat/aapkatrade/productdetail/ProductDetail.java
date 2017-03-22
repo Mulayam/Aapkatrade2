@@ -23,9 +23,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
@@ -66,6 +68,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     ImageView imgViewPlus, imgViewMinus;
     int quantity_value = 1;
     String productlocation, categoryName;
+    App_sharedpreference app_sharedpreference;
 
     EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description;
     TextView tvServiceBuy;
@@ -79,6 +82,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
+        app_sharedpreference = new App_sharedpreference(ProductDetail.this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
@@ -391,8 +395,22 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                 if (tvServiceBuy.getText().toString().equals("Buy Now")) {
 
-                    Intent i = new Intent(ProductDetail.this, AddAddressActivity.class);
-                    startActivity(i);
+                    if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
+                        String Username = app_sharedpreference.getsharedpref("username", "not");
+                        String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
+                        if (Username.equals("notlogin"))
+                        {
+                            Intent i = new Intent(ProductDetail.this, LoginDashboard.class);
+                            startActivity(i);
+
+                        }
+                        else
+                            {
+                                Intent i = new Intent(ProductDetail.this, AddAddressActivity.class);
+                                startActivity(i);
+
+                            }
+                    }
 
                 } else {
                     ServiceEnquiry serviceEnquiry = new ServiceEnquiry(context, product_name, categoryName);
