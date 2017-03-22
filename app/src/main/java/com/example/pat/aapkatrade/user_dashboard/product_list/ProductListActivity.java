@@ -280,14 +280,20 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        System.out.println("result----------------"+result.toString());
+
                         if (result == null) {
                             //progress_handler.hide();
                             layout_container.setVisibility(View.INVISIBLE);
                             mSwipyRefreshLayout.setRefreshing(false);
-                        } else {
+                        }
+                        else
+                        {
 
-
+                          
                             System.out.println("message_data==================" + result);
                             JsonObject jsonObject = result.getAsJsonObject();
 

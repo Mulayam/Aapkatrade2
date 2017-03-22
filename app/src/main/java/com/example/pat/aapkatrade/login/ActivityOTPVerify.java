@@ -17,13 +17,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
+import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
+import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.util.HashMap;
 
@@ -153,6 +158,7 @@ public class ActivityOTPVerify extends AppCompatActivity {
             public void onClick(View v)
             {
 
+
                 if (editText1.getText().length() != 0)
                 {
                     String otp = editText1.getText().toString().trim() + editText2.getText().toString().trim() + editText3.getText().toString().trim() + editText4.getText().toString().trim();
@@ -272,6 +278,38 @@ public class ActivityOTPVerify extends AppCompatActivity {
 
 
     }
+
+
+  /*  public void  call_verifyOtp(String otp){
+
+        progress_handler.show();
+
+        Ion.with(ActivityOTPVerify.this)
+                .load("http://aapkatrade.com/slim/addCompany")
+                .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
+                .setBodyParameter("user_id", userId)
+                .setBodyParameter("company_name", companyName)
+                .setBodyParameter("secondaryEmail",sEmail)
+                .setBodyParameter("address", address)
+                .setBodyParameter("description", description)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+
+
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+
+
+
+                    }
+                });
+
+    }*/
+
 
     private void call_verifyotp_webservice(String otp) {
         String getCurrentDeviceId = App_config.getCurrentDeviceId(ActivityOTPVerify.this);

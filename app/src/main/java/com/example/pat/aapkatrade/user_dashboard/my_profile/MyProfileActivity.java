@@ -45,7 +45,8 @@ import java.util.Calendar;
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
-public class MyProfileActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class MyProfileActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
+{
 
     Button btnSave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
@@ -61,28 +62,33 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_profile);
 
         app_sharedpreference = new AppSharedPreference(this);
         p_handler=new ProgressBarHandler(this);
+
         setuptoolbar();
 
         setup_layout();
 
     }
 
-    private void setup_layout() {
+    private void setup_layout()
+    {
 
         coordinatorlayout_myprofile=(CoordinatorLayout)findViewById(R.id.coordinate_myprofile) ;
         setupnewlayout();
         //imgCalender = (ImageView) findViewById(R.id.imgCalender);
         backbutton=(ImageView)findViewById(R.id.back_imagview) ;
         tvMyProfileDetailHeading = (TextView) findViewById(R.id.tvMyProfileDetailHeading);
+
         etFName = (EditText) findViewById(R.id.etFName);
         String fname = app_sharedpreference.getsharedpref("name", "");
+
         tvMyProfileDetailHeading.setText("Hello, " + fname + " To Update your account information.");
         etFName.setText(fname);
         etFName.setSelection(etFName.getText().length());
@@ -216,9 +222,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     private void setupnewlayout() {
 
-
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-
 
         collapsingToolbarLayout.setTitle("Motorcycle");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent)); // transperent color = #00000000
@@ -233,11 +237,9 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     }
 
-    private void edit_profile_webservice() {
+    private void edit_profile_webservice()
+    {
         p_handler.show();
-
-
-
 
         Ion.with(MyProfileActivity.this)
                 .load((getResources().getString(R.string.webservice_base_url))+"/my_account")
@@ -255,9 +257,10 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
 
-                        System.out.println("dvgsgf"+result);
 
-                        if (result == null) {
+                        if (result == null)
+                        {
+
                             p_handler.hide();
                             System.out.println("result-----------NULLLLLLL");
 
@@ -272,22 +275,12 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
                                     JsonObject jsonObject = result.getAsJsonObject();
 
                                     String message = jsonObject.get("message").getAsString();
-                                    showmessage(message);
-                                    p_handler.hide();
 
-                                }
-                                else
-                                {
-
-                                    JsonObject jsonObject = result.getAsJsonObject();
-
-                                    String message = jsonObject.get("message").getAsString();
-
-                                    if(message.equals("No any changes to update!")){
+                                    if(message.equals("No any changes to update!"))
+                                    {
 
                                         showmessage(message);
                                         p_handler.hide();
-
 
                                     }
                                     else
@@ -295,7 +288,8 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
                                         JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-                                        for (int i = 0; i < jsonResultArray.size(); i++) {
+                                        for (int i = 0; i < jsonResultArray.size(); i++)
+                                        {
 
                                             JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                                             String update_name = jsonObject1.get("name").getAsString();
@@ -303,31 +297,30 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
                                             String update_mobile = jsonObject1.get("mobile").getAsString();
                                             String update_address = jsonObject1.get("address").getAsString();
 
-
-                                            String Username = app_sharedpreference.getsharedpref("name", "");
-
-                                            System.out.println("Username Data-----------"+Username);
-
-
                                             app_sharedpreference.setsharedpref("name",update_name);
                                             app_sharedpreference.setsharedpref("lname",update_lastname);
                                             app_sharedpreference.setsharedpref("mobile", update_mobile);
                                             app_sharedpreference.setsharedpref("address",update_address);
 
+                                            System.out.println("Username Data-----------"+update_name);
+
+                                            showmessage(message);
+                                            p_handler.hide();
+
                                         }
-                                        showmessage(message);
-                                        p_handler.hide();
+
 
                                     }
 
-
+                                }
+                                else
+                                {
+                                    JsonObject jsonObject = result.getAsJsonObject();
+                                    String message = jsonObject.get("message").getAsString();
+                                    showmessage(message);
+                                    p_handler.hide();
 
                                 }
-
-
-
-
-
 
                         }
                     }
@@ -335,16 +328,19 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     }
 
-    private void showmessage(String message) {
+    private void showmessage(String message)
+    {
 
         AndroidUtils.showSnackBar(coordinatorlayout_myprofile,message);
 
     }
 
-    private void setuptoolbar() {
+    private void setuptoolbar()
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null) {
+        if(getSupportActionBar()!=null)
+        {
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Profile");
@@ -352,17 +348,21 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
             Log.e("working","working");
         }
+
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.bottom_home_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 break;
@@ -373,8 +373,8 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     }
 
 
-    public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity,
-                                 String product_quantity, String company_quantity, String vendor_quantity, String network_quantity) {
+    public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity, String product_quantity, String company_quantity, String vendor_quantity, String network_quantity)
+    {
 
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
@@ -389,7 +389,6 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         app_sharedpreference.setsharedpref("vendor_quantity", vendor_quantity);
         app_sharedpreference.setsharedpref("network_quantity", network_quantity);
 
-
     }
 
 
@@ -401,7 +400,8 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     }
 
     @Override
-    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second)
+    {
 
     }
 
@@ -410,6 +410,8 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         tvDate.setTextColor(ContextCompat.getColor(MyProfileActivity.this, R.color.black));
         tvDate.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
     }
+
+
 
 
 }
