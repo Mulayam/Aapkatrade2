@@ -359,8 +359,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void setUpToolBar() {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AndroidUtils.setImageColor(homeIcon, context, R.color.white);
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,7 +368,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                 startActivity(new Intent(context, HomeActivity.class));
             }
         });
-        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -377,6 +376,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
             getSupportActionBar().setElevation(0);
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -610,6 +610,13 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
 
             polylines.add(polyline);
+            travel_time.setText("(" + route_distance.get(0).toString() + ")");
+
+            tv_travel_duration.setText(route_timeduration.get(0).toString());
+
+            route.get(0).getDistanceValue();
+
+
 
 
         }

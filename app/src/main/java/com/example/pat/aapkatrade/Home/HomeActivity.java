@@ -121,6 +121,7 @@ ProgressBarHandler  progressBarHandler;
                                 progressBarHandler.show();
                                 double latitude = mylocation.getLatitude();
                                 double longitude = mylocation.getLongitude();
+                                Log.e("latest_latitude",latitude+longitude+"");
                                 Geocoder geocoder_statename = new Geocoder(HomeActivity.this, latitude, longitude);
                                 String state_name = geocoder_statename.get_state_name();
                                 if(state_name!=null){

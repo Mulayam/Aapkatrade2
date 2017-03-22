@@ -16,6 +16,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.Tabletsize;
+import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.productdetail.ProductDetail;
 import com.koushikdutta.ion.Ion;
@@ -35,12 +36,14 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private List<CategoriesListData> itemList;
     public Activity context;
     CategoriesListHolder viewHolder;
+    ProgressBarHandler progressBarHandler;
 
 
     public CategoriesListAdapter(Activity context, List<CategoriesListData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
+        progressBarHandler=new ProgressBarHandler(context);
     }
 
     @Override
@@ -143,15 +146,18 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 if (permission_status)
 
                 {
+
                     LocationManager_check locationManagerCheck = new LocationManager_check(
                             context);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable())
                     {
+                        progressBarHandler.show();
                         Intent intent = new Intent(context, GoogleMapActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("product_location", itemList.get(position).product_location);
                         context.startActivity(intent);
+                        progressBarHandler.hide();
                     }
                     else
                         {
