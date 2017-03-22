@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.ConnectivityNotFound;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -34,7 +34,7 @@ public class ChangePassword extends AppCompatActivity
     EditText OldPassword, NewPassword, ConfirmPassword;
     TextView saveNewPasswordButton;
     LinearLayout linearChangePassword;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id, user_type;
     ProgressBarHandler progress_handler;
     TextView tvTitle;
@@ -52,7 +52,7 @@ public class ChangePassword extends AppCompatActivity
 
         setuptoolbar();
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
         user_type = app_sharedpreference.getsharedpref("usertype","1");

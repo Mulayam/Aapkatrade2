@@ -26,7 +26,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -49,7 +49,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     Button btnSave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
     ImageView imgCalender,backbutton;
     ProgressBarHandler p_handler;
@@ -66,7 +66,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
         setContentView(R.layout.activity_my_profile);
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
         p_handler=new ProgressBarHandler(this);
         setuptoolbar();
 

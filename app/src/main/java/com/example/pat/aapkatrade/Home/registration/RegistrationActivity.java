@@ -23,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +34,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.BuyerRegistration;
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.Country;
@@ -45,8 +47,8 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapt
 
 
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -98,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private File compIncorpFile = new File(""), docFile = new File("");
     private boolean isReqCode = false, isCompIncorp = false;
     private ImageView uploadImage, uploadPDFButton, openCalander, cancelImage, cancelFile;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     private CircleImageView circleImageView, previewPDF;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
@@ -108,13 +110,15 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     ProgressBarHandler progressBarHandler;
     private CardView businessDetailsCard;
     private RelativeLayout relativeCompanyListheader;
+    private Context context;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        app_sharedpreference = new App_sharedpreference(RegistrationActivity.this);
-        setuptoolbar();
+        context = RegistrationActivity.this;
+        app_sharedpreference = new AppSharedPreference(context);
+        setUpToolBar();
         initView();
         saveUserTypeInSharedPreferences();
         setUpBusinessCategory();
@@ -674,17 +678,29 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
 
-    private void setuptoolbar() {
+
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
@@ -699,6 +715,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void initView() {
 

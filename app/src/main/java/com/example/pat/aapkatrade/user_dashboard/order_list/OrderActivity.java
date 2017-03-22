@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -28,7 +28,7 @@ public class OrderActivity extends AppCompatActivity {
     OrderListAdapter orderListAdapter;
     ProgressBarHandler progress_handler;
     LinearLayout layout_container;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id;
 
 
@@ -44,7 +44,7 @@ public class OrderActivity extends AppCompatActivity {
         progress_handler = new ProgressBarHandler(this);
 
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 
@@ -70,7 +70,7 @@ public class OrderActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
-        app_sharedpreference = new App_sharedpreference(OrderActivity.this);
+        app_sharedpreference = new AppSharedPreference(OrderActivity.this);
         // getSupportActionBar().setIcon(R.drawable.home_logo);
     }
 

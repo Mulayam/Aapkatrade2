@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.user_dashboard.product_list;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
-import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -24,18 +24,18 @@ import java.util.ArrayList;
 public class ProductListActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
 {
 
-    RecyclerView product_list;
-    ProductListAdapter productListAdapter;
-    App_sharedpreference app_sharedpreference;
-    String user_id;
-    LinearLayout layout_container;
-    ArrayList<ProductListData> productListDatas = new ArrayList<>();
-    LinearLayoutManager mLayoutManager, linearLayoutManager;
-    boolean isLoading = false;
-    int mPageSize = 6;
+    private RecyclerView product_list;
+    private ProductListAdapter productListAdapter;
+    private AppSharedPreference app_sharedpreference;
+    private String user_id;
+    private LinearLayout layout_container;
+    private ArrayList<ProductListData> productListDatas = new ArrayList<>();
+    private LinearLayoutManager mLayoutManager, linearLayoutManager;
+    private boolean isLoading = false;
+    private int mPageSize = 6;
     private SwipeRefreshLayout mSwipyRefreshLayout;
-    int page = 1;
-
+    private int page = 1;
+    private Context context;
 
 
     @Override
@@ -45,7 +45,7 @@ public class ProductListActivity extends AppCompatActivity implements SwipeRefre
 
         setContentView(R.layout.activity_list_product);
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 
