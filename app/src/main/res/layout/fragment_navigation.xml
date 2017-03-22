@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/welcome_guest"
 
-                    android:text="@string/user_name"
+
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name"
-                    android:text="demo@gmail.com"
+
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 

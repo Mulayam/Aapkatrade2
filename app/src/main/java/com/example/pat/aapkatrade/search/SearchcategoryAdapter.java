@@ -115,7 +115,7 @@ public class SearchcategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 viewHolder1.product_name.setTextColor(context.getResources().getColor(R.color.white));
                 Log.e("category_id",common_category_searchlist.get(position).cat_id);
 
-                callback_interface.callback(common_category_searchlist.get(position).cat_id);
+                callback_interface.callback(common_category_searchlist.get(position).cat_id,"category");
 
 //
 
