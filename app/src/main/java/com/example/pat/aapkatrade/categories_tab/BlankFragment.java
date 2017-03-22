@@ -1,7 +1,5 @@
 package com.example.pat.aapkatrade.categories_tab;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,10 +11,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderActivity;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
 import com.google.gson.JsonArray;
@@ -34,7 +31,7 @@ public class BlankFragment extends Fragment {
     OrderListAdapter orderListAdapter;
     ProgressBarHandler progress_handler;
     LinearLayout layout_container;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id, user_type;
 
 
@@ -45,7 +42,7 @@ public class BlankFragment extends Fragment {
 
         progress_handler = new ProgressBarHandler(getActivity());
 
-        app_sharedpreference = new App_sharedpreference(getActivity());
+        app_sharedpreference = new AppSharedPreference(getActivity());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
         user_type = app_sharedpreference.getsharedpref("usertype", "1");

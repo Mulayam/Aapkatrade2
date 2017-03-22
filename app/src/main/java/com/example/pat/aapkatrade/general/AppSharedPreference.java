@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
  * Created by PPC21 on 27-Jan-17.
  */
 
-public class App_sharedpreference extends Application {
+public class AppSharedPreference extends Application {
 
 
     public static String app_pref = "aapkatrade";
@@ -18,7 +18,7 @@ public class App_sharedpreference extends Application {
     public SharedPreferences.Editor editor;
 
 
-    public App_sharedpreference(Context c) {
+    public AppSharedPreference(Context c) {
         this.shared_pref = c.getSharedPreferences(app_pref, Activity.MODE_PRIVATE);
         this.editor = shared_pref.edit();
     }

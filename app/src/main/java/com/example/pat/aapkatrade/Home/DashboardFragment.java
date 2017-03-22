@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import com.example.pat.aapkatrade.Home.banner_home.viewpageradapter_home;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
 import com.example.pat.aapkatrade.general.Tabletsize;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 
@@ -394,7 +393,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         if(home_result!=null)
 
         {
-            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
             go_to_product_listactivity.putExtra("url","https://aapkatrade.com/slim/latestpost");
 
             startActivity(go_to_product_listactivity);
@@ -411,7 +410,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
         if(home_result!=null)
 
         {
-            Intent go_to_product_listactivity = new Intent(getActivity(), PurticularActivity.class);
+            Intent go_to_product_listactivity = new Intent(getActivity(), ParticularActivity.class);
             go_to_product_listactivity.putExtra("url","https://aapkatrade.com/slim/latestupdate");
 
             startActivity(go_to_product_listactivity);

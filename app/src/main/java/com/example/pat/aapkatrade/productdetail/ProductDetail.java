@@ -22,12 +22,12 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.login.LoginDashboard;
 import com.example.pat.aapkatrade.map.GoogleMapActivity;
 import com.example.pat.aapkatrade.service_enquiry.ServiceEnquiry;
 import com.example.pat.aapkatrade.user_dashboard.address.add_address.AddAddressActivity;
@@ -68,7 +68,6 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     ImageView imgViewPlus, imgViewMinus;
     int quantity_value = 1;
     String productlocation, categoryName;
-    App_sharedpreference app_sharedpreference;
 
     EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description;
     TextView tvServiceBuy;
@@ -82,15 +81,15 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
-        app_sharedpreference = new App_sharedpreference(ProductDetail.this);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        context = ProductDetail.this;
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
         product_id = b.getString("product_id");
         Log.e("product_id", product_id);
         product_location = b.getString("product_location");
 
-        setuptoolbar();
+        setUpToolBar();
         initView();
         get_data();
     }
@@ -395,22 +394,8 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
                 if (tvServiceBuy.getText().toString().equals("Buy Now")) {
 
-                    if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
-                        String Username = app_sharedpreference.getsharedpref("username", "not");
-                        String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
-                        if (Username.equals("notlogin"))
-                        {
-                            Intent i = new Intent(ProductDetail.this, LoginDashboard.class);
-                            startActivity(i);
-
-                        }
-                        else
-                            {
-                                Intent i = new Intent(ProductDetail.this, AddAddressActivity.class);
-                                startActivity(i);
-
-                            }
-                    }
+                    Intent i = new Intent(ProductDetail.this, AddAddressActivity.class);
+                    startActivity(i);
 
                 } else {
                     ServiceEnquiry serviceEnquiry = new ServiceEnquiry(context, product_name, categoryName);
@@ -422,16 +407,24 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
 
     }
 
-    private void setuptoolbar() {
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -450,6 +443,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {

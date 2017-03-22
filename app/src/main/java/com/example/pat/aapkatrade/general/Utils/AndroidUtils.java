@@ -78,11 +78,13 @@ public class AndroidUtils {
 
     public static void setBackgroundStroke(View layout, Context context, int bgColor, int cornerRadius, int strokeWidth){
         GradientDrawable shape = new GradientDrawable();
-        shape.setStroke(3, ContextCompat.getColor(context, bgColor));
+        shape.setStroke(strokeWidth, ContextCompat.getColor(context, bgColor));
         shape.setCornerRadius(cornerRadius);
         layout.setBackground(shape);
     }
-public static void setImageColor(ImageView imageView, Context context, int color){
+
+    public static void setImageColor(ImageView imageView, Context context, int color) {
+        if(imageView!=null)
         imageView.setColorFilter(ContextCompat.getColor(context, color));
     }
 

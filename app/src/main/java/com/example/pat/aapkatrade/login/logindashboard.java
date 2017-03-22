@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 
 
@@ -17,7 +17,7 @@ import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
  */
 public class LoginDashboard extends AppCompatActivity {
     FrameLayout fl_seller, fl_buyer, fl_business_assoc;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
 
 
 
@@ -26,7 +26,7 @@ public class LoginDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_logindashboard);
-        app_sharedpreference=new App_sharedpreference(this);
+        app_sharedpreference=new AppSharedPreference(this);
         Initview();
 
         fl_seller.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +35,7 @@ public class LoginDashboard extends AppCompatActivity {
                 if(app_sharedpreference.shared_pref!= null)
                     app_sharedpreference.setsharedpref("usertype","1");
 
-                Intent i = new Intent(LoginDashboard.this, loginActivity.class);
+                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
@@ -46,7 +46,7 @@ public class LoginDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 if(app_sharedpreference.shared_pref!= null)
                     app_sharedpreference.setsharedpref("usertype","2");
-                Intent i = new Intent(LoginDashboard.this, loginActivity.class);
+                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
@@ -58,7 +58,7 @@ public class LoginDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 if(app_sharedpreference.shared_pref!= null)
                     app_sharedpreference.setsharedpref("usertype","3");
-                Intent i = new Intent(LoginDashboard.this, loginActivity.class);
+                Intent i = new Intent(LoginDashboard.this, LoginActivity.class);
                 startActivity(i);
 
 

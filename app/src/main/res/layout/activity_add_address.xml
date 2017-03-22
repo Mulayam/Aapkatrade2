@@ -99,7 +99,7 @@
                         />
 
 
-                   <!-- <EditText
+                    <EditText
                         android:id="@+id/etPincode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -115,16 +115,15 @@
                         android:textColorHint="@color/hint_color"
                         android:textSize="14sp"
                         android:maxLength="6"
-                        android:visibility="invisible"
                         />
--->
+
 
                 <RelativeLayout
                     android:id="@+id/spBussinessCategoryLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/five_dip"
-                    android:layout_below="@+id/etMobileNo"
+                    android:layout_below="@+id/etPincode"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="20dp"

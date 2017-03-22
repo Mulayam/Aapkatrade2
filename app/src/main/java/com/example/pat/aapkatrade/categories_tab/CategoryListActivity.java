@@ -1,5 +1,6 @@
 package com.example.pat.aapkatrade.categories_tab;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -15,13 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
 import com.example.pat.aapkatrade.location.Geocoder;
@@ -44,15 +47,16 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 public class CategoryListActivity extends AppCompatActivity
 {
 
-    RecyclerView mRecyclerView;
-    CategoriesListAdapter categoriesListAdapter;
-    ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
-    ProgressBarHandler progress_handler;
-    FrameLayout layout_container,layout_container_relativeSearch;
-    MyRecyclerViewEffect myRecyclerViewEffect;
-    String category_id,sub_category_id,user_id;
-    App_sharedpreference app_sharedpreference;
-    Mylocation mylocation;
+    private RecyclerView mRecyclerView;
+    private CategoriesListAdapter categoriesListAdapter;
+    private ArrayList<CategoriesListData> productListDatas = new ArrayList<>();
+    private ProgressBarHandler progress_handler;
+    private FrameLayout layout_container, layout_container_relativeSearch;
+    private MyRecyclerViewEffect myRecyclerViewEffect;
+    private String category_id, sub_category_id, user_id;
+    private AppSharedPreference app_sharedpreference;
+    private Mylocation mylocation;
+    private Context context;
 
 
     @Override
@@ -61,20 +65,20 @@ public class CategoryListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_categories_list);
-
-        Intent intent= getIntent();
+        context = CategoryListActivity.this;
+        Intent intent = getIntent();
 
         Bundle b = intent.getExtras();
 
         category_id = b.getString("category_id");
 
-       // sub_category_id  = b.getString("sub_category_id");
+        // sub_category_id  = b.getString("sub_category_id");
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
 
-        user_id = app_sharedpreference.getsharedpref("userid","");
+        user_id = app_sharedpreference.getsharedpref("userid", "");
 
-        setuptoolbar();
+        setUpToolBar();
 
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
 
@@ -95,12 +99,11 @@ public class CategoryListActivity extends AppCompatActivity
                 if (permission_status)
 
                 {
-                    mylocation = new Mylocation(CategoryListActivity.this);
+                    mylocation = new Mylocation(context);
                     LocationManager_check locationManagerCheck = new LocationManager_check(
-                            CategoryListActivity.this);
+                            context);
                     Location location = null;
-                    if (locationManagerCheck.isLocationServiceAvailable())
-                    {
+                    if (locationManagerCheck.isLocationServiceAvailable()) {
                         double latitude = mylocation.getLatitude();
                         double longitude = mylocation.getLongitude();
                         Geocoder geocoder_statename = new Geocoder(CategoryListActivity.this, latitude, longitude);
@@ -317,30 +320,34 @@ public class CategoryListActivity extends AppCompatActivity
 
     }
 
-    private void setuptoolbar()
-    {
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setTitle(null);
-        //getSupportActionBar().setIcon(R.drawable.home_logo);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -349,6 +356,5 @@ public class CategoryListActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListHolder;
@@ -28,7 +28,7 @@ public class ServiceEnquiryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     Context context;
     ServiceEnquiryHolder viewHolder;
     ServiceEnquiryActivity  serviceEnquiryActivity;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     ProgressBarHandler progress_handler;
 
 
@@ -40,7 +40,7 @@ public class ServiceEnquiryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
         progress_handler = new ProgressBarHandler(context);
 
     }

@@ -441,7 +441,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvProPrice"
                             android:text="@string/delivery_area_heading"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:textColor="@color/orange"
                             />
 
@@ -453,7 +453,7 @@
                             android:layout_below="@+id/tvProPrice"
                             android:text="Sector 45, Chandigarh,"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:textColor="@color/black"
                             android:layout_toRightOf="@+id/tvDeliveryAreaHeading"
                             />
