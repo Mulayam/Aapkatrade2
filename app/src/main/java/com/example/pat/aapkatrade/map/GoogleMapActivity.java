@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -99,15 +100,15 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
 
         context = GoogleMapActivity.this;
-        setContentView(R.layout.activity_map);
         polylines = new ArrayList<>();
         MapFragment googleMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         googleMap.getMapAsync(GoogleMapActivity.this);
+        setUpToolBar();
 
         initView();
-        setUpToolBar();
 
 
         //done = (Button) findViewById(R.id.done_button);
@@ -359,8 +360,8 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void setUpToolBar() {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome);
         AndroidUtils.setImageColor(homeIcon, context, R.color.white);
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,7 +369,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                 startActivity(new Intent(context, HomeActivity.class));
             }
         });
-        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
