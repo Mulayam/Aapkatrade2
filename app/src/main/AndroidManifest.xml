@@ -99,7 +99,6 @@
         <activity android:name=".parallax_recyclerview.ParallaxActivity" />
         <activity android:name=".user_dashboard.address.add_address.AddAddressActivity" />
         <activity android:name=".user_dashboard.my_profile.ProfilePreviewActivity" />
-        <activity android:name=".productdetail.ImageViewActivity" />
         <activity android:name=".search.Search" />
         <activity android:name=".user_dashboard.vender_detail.VendorActivity" />
         <activity android:name=".map.GoogleMapActivity" />
@@ -109,15 +108,15 @@
             android:label="@string/title_activity_bank_management"
             android:theme="@style/AppTheme" />
         <activity android:name=".user_dashboard.my_profile.MyProfileForBusinessAssociates" />
-        <activity android:name=".user_dashboard.associateagreement.AssociateAgreementDialog" />
         <activity android:name=".user_dashboard.network.NetworkActivity" />
         <activity
             android:name=".user_dashboard.payout.PayoutActivity"
             android:label="@string/title_activity_payout"
             />
         <activity android:name=".user_dashboard.editcompany.EditCompanyActivity" />
+        <activity android:name=".categories_tab.PurticularDataActivity.PurticularActivity" />
         <activity android:name=".user_dashboard.edit_product.EditProductActivity" />
-        <activity android:name=".user_dashboard.service_enquirylist.ServiceEnquiryActivity"></activity>
+        <activity android:name=".user_dashboard.service_enquirylist.ServiceEnquiryActivity" />
     </application>
 
 </manifest>

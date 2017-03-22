@@ -91,6 +91,12 @@ public class LoginActivity extends AppCompatActivity {
         toolbarRightText.setTextColor(ContextCompat.getColor(context, R.color.orange));
         toolbarRightText.setText(getResources().getString(R.string.skip));
         AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
+        toolbarRightText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
