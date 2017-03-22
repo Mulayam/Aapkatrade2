@@ -292,24 +292,24 @@ public class LoginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("lname", jsonObject.get("lastname").getAsString());
             app_sharedpreference.setsharedpref("emailid", jsonObject.get("email").getAsString());
             app_sharedpreference.setsharedpref("mobile", jsonObject.get("mobile").getAsString());
-            app_sharedpreference.setsharedpref("dob", jsonObject.get("dob").getAsString());
+            app_sharedpreference.setsharedpref("dob", "");
             app_sharedpreference.setsharedpref("country_id", jsonObject.get("country_id").getAsString());
             app_sharedpreference.setsharedpref("state_id", jsonObject.get("state_id").getAsString());
             app_sharedpreference.setsharedpref("city_id", jsonObject.get("city_id").getAsString());
             app_sharedpreference.setsharedpref("address", jsonObject.get("address").getAsString());
-            app_sharedpreference.setsharedpref("platform", jsonObject.get("platform").getAsString());
-            app_sharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
-            app_sharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
-            app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
+            app_sharedpreference.setsharedpref("platform", "");
+            //app_sharedpreference.setsharedpref("device_id", jsonObject.get("device_id").getAsString());
+            app_sharedpreference.setsharedpref("device_id", "");
+            //app_sharedpreference.setsharedpref("updated_at", jsonObject.get("updated_at").getAsString());
+            app_sharedpreference.setsharedpref("updated_at", "");
+            //app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
+            app_sharedpreference.setsharedpref("status", "");
             app_sharedpreference.setsharedpref("order", webservice_returndata.get("order").getAsString());
             app_sharedpreference.setsharedpref("createdAt", webservice_returndata.get("createdAt").getAsString());
-
-
 
         }
         else if (userType == 3)
         {
-
 
             JsonObject jsonObject = webservice_returndata.getAsJsonObject("all_info");
             Log.e("hi", jsonObject.toString());
@@ -339,7 +339,9 @@ public class LoginActivity extends AppCompatActivity {
             app_sharedpreference.setsharedpref("term_accepted", jsonObject.get("term_accepted").getAsString());
             app_sharedpreference.setsharedpref("created_at", "");
             app_sharedpreference.setsharedpref("updated_at", "");
-            app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
+            app_sharedpreference.setsharedpref("status", "");
+           // app_sharedpreference.setsharedpref("status", jsonObject.get("status").getAsString());
+
             app_sharedpreference.setsharedpref("id", "");
             app_sharedpreference.setsharedpref("bank_name", jsonObject.get("bank_name").getAsString());
             app_sharedpreference.setsharedpref("account_no", jsonObject.get("account_no").getAsString());
