@@ -34,7 +34,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.BuyerRegistration;
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.Country;
@@ -44,8 +43,6 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpBussinessA
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
-
-
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
@@ -110,15 +107,13 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     ProgressBarHandler progressBarHandler;
     private CardView businessDetailsCard;
     private RelativeLayout relativeCompanyListheader;
-    private Context context;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        context = RegistrationActivity.this;
-        app_sharedpreference = new AppSharedPreference(context);
-        setUpToolBar();
+        app_sharedpreference = new AppSharedPreference(RegistrationActivity.this);
+        setuptoolbar();
         initView();
         saveUserTypeInSharedPreferences();
         setUpBusinessCategory();
@@ -678,29 +673,22 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     }
 
 
-
-    private void setUpToolBar() {
-        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+    private void setuptoolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
-        homeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(context, HomeActivity.class));
-            }
-        });
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(null);
-            getSupportActionBar().setElevation(0);
-        }
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(null);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_map, menu);
+
+
+
         return true;
     }
 
@@ -715,7 +703,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     private void initView() {
 

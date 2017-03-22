@@ -25,15 +25,17 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
-import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.App_config;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.LocationManager_check;
@@ -54,28 +56,39 @@ public class HomeActivity extends AppCompatActivity
     private Toolbar toolbar;
     private DashboardFragment homeFragment;
     private AboutUsFragment aboutUsFragment;
-    private Context context;
-    private AHBottomNavigation bottomNavigation;
-    private CoordinatorLayout coordinatorLayout;
-    private User_DashboardFragment user_dashboardFragment;
-    private ContactUsFragment contactUsFragment;
-    private Boolean permission_status;
+    Context context;
+    public static String shared_pref_name = "aapkatrade";
+    App_config aa;
+    AHBottomNavigation bottomNavigation;
+    CoordinatorLayout coordinatorLayout;
+    User_DashboardFragment user_dashboardFragment;
+    ContactUsFragment contactUsFragment;
+    ProgressBar progressBar;
+    Boolean permission_status;
     public static String userid, username;
-    private NestedScrollView scrollView;
-    public static RelativeLayout rl_main_content, rl_searchview_dashboard;
-    private AppSharedPreference app_sharedpreference;
-    private Mylocation mylocation;
-    private ProgressBarHandler progressBarHandler;
+    NestedScrollView scrollView;
+    float initialX, initialY;
+    public static  RelativeLayout rl_main_content,rl_searchview_dashboard;
+    AppSharedPreference app_sharedpreference;
+
+    Mylocation mylocation;
+
+ProgressBarHandler  progressBarHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rl_main_content = (RelativeLayout) findViewById(R.id.rl_main_content);
-        progressBarHandler = new ProgressBarHandler(this);
+
+
+        rl_main_content=(RelativeLayout)findViewById(R.id.rl_main_content);
+        progressBarHandler=new ProgressBarHandler(this);
+
+    
         app_sharedpreference = new AppSharedPreference(HomeActivity.this);
+
         App_config.set_defaultfont(HomeActivity.this);
 
-        if(!(app_sharedpreference.getsharedpref("usertype", "-1").equals("3") && app_sharedpreference.getsharedpref("term_accepted", "-1").equals("0"))) {
+        if(!(app_sharedpreference.getsharedpref("usertype", "-1").equals("3") && app_sharedpreference.getsharedpref("term_accepted", "0").equals("0"))) {
             loadLocale();
 
             permission_status = CheckPermission.checkPermissions(HomeActivity.this);
@@ -93,24 +106,36 @@ public class HomeActivity extends AppCompatActivity
                     public void onClick(View v) {
 
                         boolean permission_status = CheckPermission.checkPermissions(HomeActivity.this);
-                        if (permission_status) {
+
+
+                        if (permission_status)
+
+                        {
                             progressBarHandler.show();
                             mylocation = new Mylocation(HomeActivity.this);
-                            LocationManager_check locationManagerCheck = new LocationManager_check(HomeActivity.this);
+                            LocationManager_check locationManagerCheck = new LocationManager_check(
+                                    HomeActivity.this);
                             Location location = null;
                             if (locationManagerCheck.isLocationServiceAvailable()) {
                                 Log.e("currenttime",""+System.currentTimeMillis());
+
                                 double latitude = mylocation.getLatitude();
                                 double longitude = mylocation.getLongitude();
                                 Geocoder geocoder_statename = new Geocoder(HomeActivity.this, latitude, longitude);
                                 String state_name = geocoder_statename.get_state_name();
-                                Log.e("currenttime2", "" + System.currentTimeMillis());
-                                Intent goto_search = new Intent(HomeActivity.this, Search.class);
-                                goto_search.putExtra("state_name", state_name);
-                                goto_search.putExtra("classname", "homeactivity");
-                                startActivity(goto_search);
-                                finish();
-                                Log.e("currenttime", "" + System.currentTimeMillis());
+                                if(state_name!=null){
+                                    Log.e("currenttime2",""+System.currentTimeMillis());
+                                    Intent goto_search = new Intent(HomeActivity.this, Search.class);
+                                    goto_search.putExtra("state_name", state_name);
+                                    goto_search.putExtra("classname","homeactivity");
+                                    startActivity(goto_search);
+                                    finish();
+                                }
+                                else{
+                                    Log.e("statenotfound",""+"statenotfound");
+                                }
+
+                                Log.e("currenttime",""+System.currentTimeMillis());
                                 progressBarHandler.hide();
 
 
@@ -123,50 +148,98 @@ public class HomeActivity extends AppCompatActivity
                     }
 
                 });
-                context = HomeActivity.this;
+
+
+                //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+                context = this;
+                //  permissions  granted.
                 setupToolBar();
+                //setupNavigation();
                 setupNavigationCustom();
                 setupDashFragment();
                 Intent iin = getIntent();
                 Bundle b = iin.getExtras();
                 setup_bottomNavigation();
+
+
                 App_config.deleteCache(HomeActivity.this);
-            } else {
+
+            }
+
+
+            else {
+
                 setContentView(R.layout.activity_homeactivity);
+
                 rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
+
                 rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
 
 
                     @Override
                     public void onClick(View v) {
+
                         boolean permission_status = CheckPermission.checkPermissions(HomeActivity.this);
-                        if (permission_status) {
+
+
+                        if (permission_status)
+
+                        {
                             mylocation = new Mylocation(HomeActivity.this);
-                            LocationManager_check locationManagerCheck = new LocationManager_check(HomeActivity.this);
+                            LocationManager_check locationManagerCheck = new LocationManager_check(
+                                    HomeActivity.this);
+                            Location location = null;
                             if (locationManagerCheck.isLocationServiceAvailable()) {
-                                Log.e("currenttime", "" + System.currentTimeMillis() / 1000.0);
+
+                                Log.e("currenttime",""+System.currentTimeMillis()/1000.0);
+
                                 double latitude = mylocation.getLatitude();
                                 double longitude = mylocation.getLongitude();
-                                Geocoder geocoder_statename = new Geocoder(HomeActivity.this, latitude, longitude);
-                                String state_name = geocoder_statename.get_state_name();
-                                Log.e("latitude", latitude + "****" + longitude + "****" + state_name);
-                                Log.e("currenttime2", "" + System.currentTimeMillis() / 1000.0);
+                                Geocoder  geocoder_statename=new Geocoder(HomeActivity.this,latitude,longitude);
+                                String state_name=geocoder_statename.get_state_name();
+                                Log.e("latitude",latitude+"****"+longitude+"****"+state_name);
+                                Log.e("currenttime2",""+System.currentTimeMillis()/1000.0);
                                 Intent goto_search = new Intent(HomeActivity.this, Search.class);
-                                goto_search.putExtra("classname", "homeactivity");
-                                goto_search.putExtra("state_name", state_name);
+                                goto_search.putExtra("classname","homeactivity");
+                                goto_search.putExtra("state_name",state_name);
                                 startActivity(goto_search);
                                 finish();
-                                Log.e("currenttime3", "" + System.currentTimeMillis() / 1000.0);
+                                Log.e("currenttime3",""+System.currentTimeMillis()/ 1000.0);
+
+
                             } else {
                                 locationManagerCheck.createLocationServiceError(HomeActivity.this);
                             }
+
+
+
+
+
                         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     }
 
 
                 });
-                context = HomeActivity.this;
+
+                //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
+                context = this;
+                //  permissions  granted.
                 setupToolBar();
+                //setupNavigation();
                 setupNavigationCustom();
                 setupDashFragment();
                 Intent iin = getIntent();
@@ -176,7 +249,7 @@ public class HomeActivity extends AppCompatActivity
                 App_config.deleteCache(HomeActivity.this);
             }
         } else {
-            Log.e("HIIIIIIII", "UJUJUJUJUJUJUJUJUJUJ");
+Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
             AssociateAgreementDialog dialog = new AssociateAgreementDialog(HomeActivity.this);
             dialog.show();
 
@@ -188,6 +261,8 @@ public class HomeActivity extends AppCompatActivity
 
         int a = ConnetivityCheck.get_wifi_speed(this);
         Log.e("a", a + "");
+
+
 
 
     }
@@ -209,14 +284,15 @@ public class HomeActivity extends AppCompatActivity
     }
 
 
-    private void setupToolBar() {
+    private void setupToolBar()
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar_home);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
-        ImageView home_link = (ImageView) toolbar.findViewById(R.id.iconHome);
-        home_link.setVisibility(View.GONE);
-        // getSupportActionBar().setIcon(R.drawable.logo_word);
+      //  ImageView home_link=(ImageView)toolbar.findViewById(R.id.imgvew_icon);
+      //  home_link.setVisibility(View.GONE);
+       // getSupportActionBar().setIcon(R.drawable.logo_word);
 
 
     }
@@ -238,20 +314,27 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
         switch (item.getItemId()) {
             case R.id.login:
 
-                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
+                if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
+                {
                     Intent i = new Intent(HomeActivity.this, LoginDashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
-                } else {
+                }
+
+                else
+
+                    {
                     Intent i = new Intent(HomeActivity.this, ProfilePreviewActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
                 }
+                //finish();
 
 
             case R.id.language:
@@ -558,7 +641,8 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void setForceTitleHide(boolean forceTitleHide) {
+    private void setForceTitleHide(boolean forceTitleHide)
+    {
 
         AHBottomNavigation.TitleState state = forceTitleHide ? AHBottomNavigation.TitleState.ALWAYS_HIDE : AHBottomNavigation.TitleState.ALWAYS_SHOW;
         bottomNavigation.setTitleState(state);
