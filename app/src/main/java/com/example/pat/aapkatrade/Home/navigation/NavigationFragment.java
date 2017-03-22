@@ -32,7 +32,7 @@ import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -70,7 +70,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     View view;
     String Fname;
     private int lastExpandedPosition = -1;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     public static final String PREFS_NAME = "call_recorder";
     // private SharedPreferences loginPreferences;
     List<String> categoryids;
@@ -111,7 +111,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         progressBarHandler = new ProgressBarHandler(context);
 
-        app_sharedpreference = new App_sharedpreference(getActivity());
+        app_sharedpreference = new AppSharedPreference(getActivity());
 
         initView(view);
 

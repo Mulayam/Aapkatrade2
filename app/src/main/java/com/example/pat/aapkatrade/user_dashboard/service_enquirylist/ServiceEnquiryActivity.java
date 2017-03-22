@@ -13,8 +13,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
-import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -29,7 +28,7 @@ public class ServiceEnquiryActivity extends AppCompatActivity implements SwipeRe
     ServiceEnquiryAdapter serviceEnquiryAdapter;
     ArrayList<ServiceEnquiryData> serviceEnquiryDatas = new ArrayList<>();
     RelativeLayout relativeCompanylist;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id;
     private final static String TAG_FRAGMENT = "TAG_FRAGMENT";
     TextView tvTitle;
@@ -47,7 +46,7 @@ public class ServiceEnquiryActivity extends AppCompatActivity implements SwipeRe
 
         setuptoolbar();
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 
@@ -96,7 +95,7 @@ public class ServiceEnquiryActivity extends AppCompatActivity implements SwipeRe
         recyclerViewcompanylist.setAdapter(serviceEnquiryAdapter);
 
 
-        app_sharedpreference = new App_sharedpreference(ServiceEnquiryActivity.this);
+        app_sharedpreference = new AppSharedPreference(ServiceEnquiryActivity.this);
 
 
 

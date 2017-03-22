@@ -34,8 +34,8 @@ import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.LocationManager_check;
@@ -69,7 +69,7 @@ public class HomeActivity extends AppCompatActivity
     NestedScrollView scrollView;
     float initialX, initialY;
     public static  RelativeLayout rl_main_content,rl_searchview_dashboard;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
 
     Mylocation mylocation;
 
@@ -84,7 +84,7 @@ ProgressBarHandler  progressBarHandler;
         progressBarHandler=new ProgressBarHandler(this);
 
     
-        app_sharedpreference = new App_sharedpreference(HomeActivity.this);
+        app_sharedpreference = new AppSharedPreference(HomeActivity.this);
 
         App_config.set_defaultfont(HomeActivity.this);
 
@@ -290,8 +290,8 @@ Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(null);
-        ImageView home_link=(ImageView)toolbar.findViewById(R.id.imgvew_icon);
-        home_link.setVisibility(View.GONE);
+      //  ImageView home_link=(ImageView)toolbar.findViewById(R.id.imgvew_icon);
+      //  home_link.setVisibility(View.GONE);
        // getSupportActionBar().setIcon(R.drawable.logo_word);
 
 

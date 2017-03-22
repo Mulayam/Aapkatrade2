@@ -1,37 +1,18 @@
 package com.example.pat.aapkatrade.map;
 
-import android.content.IntentSender;
-import android.net.Uri;
-import android.provider.DocumentsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.directions.route.AbstractRouting;
-import com.directions.route.Route;
-import com.directions.route.RouteException;
-import com.directions.route.Routing;
-import com.directions.route.RoutingListener;
-import com.example.pat.aapkatrade.Home.HomeActivity;
-import com.example.pat.aapkatrade.R;
-
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -44,28 +25,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.directions.route.AbstractRouting;
+import com.directions.route.Route;
+import com.directions.route.RouteException;
+import com.directions.route.Routing;
+import com.directions.route.RoutingListener;
+import com.example.pat.aapkatrade.Home.HomeActivity;
+import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.CheckPermission;
 import com.example.pat.aapkatrade.general.LocationManager_check;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStates;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -76,33 +52,24 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
-import org.androidannotations.annotations.rest.Get;
-import org.w3c.dom.Document;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
-public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCallback,RoutingListener {
+public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCallback, RoutingListener {
 
 
-    LatLng currentLatLng;
+    private LatLng currentLatLng;
     public GoogleMap mMap;
     public LocationManager locationManager;
-    Context context;
+    private Context context;
 
     public Polyline newPolyline;
-    LatLng product_location_lat_lng, latLng;
-    Button search, done;
-    ImageView img_view_travelmode_car, img_view_travelmode_bus, img_view_travelmode_walking,imgview_navigation;
+    private LatLng product_location_lat_lng, latLng;
+    private Button search, done;
+    private ImageView img_view_travelmode_car, img_view_travelmode_bus, img_view_travelmode_walking, imgview_navigation;
 
     ProgressBarHandler pg_handler;
     String address = "Address not found";
@@ -117,31 +84,30 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     String drivingmode;
     LinearLayout location_container;
     double source_latitute, source_longitude;
-    ArrayList<String> polylineids=new ArrayList<>();
-    ArrayList<String> route_distance=new ArrayList<>();
-    ArrayList<String> route_timeduration=new ArrayList<>();
+    ArrayList<String> polylineids = new ArrayList<>();
+    ArrayList<String> route_distance = new ArrayList<>();
+    ArrayList<String> route_timeduration = new ArrayList<>();
 
     boolean permission_status;
 
     public static TextView tv_travel_duration, travel_time;
 
-    RelativeLayout location_car_selected,location_bus_selected,location_walking_selected;
+    RelativeLayout location_car_selected, location_bus_selected, location_walking_selected;
     private List<Polyline> polylines;
-    private static final int[] COLORS = new int[]{R.color.green,R.color.orange,R.color.dark_green};
+    private static final int[] COLORS = new int[]{R.color.green, R.color.orange, R.color.dark_green};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        context = GoogleMapActivity.this;
         setContentView(R.layout.activity_map);
         polylines = new ArrayList<>();
         MapFragment googleMap = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         googleMap.getMapAsync(GoogleMapActivity.this);
 
-        initview();
-        setupToolBar();
-
-
+        initView();
+        setUpToolBar();
 
 
         //done = (Button) findViewById(R.id.done_button);
@@ -177,20 +143,19 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         });
     }
 
-    public void initview() {
-        context = this;
-        pg_handler=new ProgressBarHandler(this);
+    public void initView() {
+        pg_handler = new ProgressBarHandler(this);
 
 
         final String product_location = getIntent().getStringExtra("product_location");
         product_location_lat_lng = getLocationFromAddress(GoogleMapActivity.this, product_location);
-        Log.e("product_",product_location_lat_lng+"");
-        location_walking_selected=(RelativeLayout)findViewById(R.id.location_walking_selected);
-        location_car_selected=(RelativeLayout)findViewById(R.id.location_car_selected);
-        location_bus_selected=(RelativeLayout)findViewById(R.id.location_bus_selected);
+        Log.e("product_", product_location_lat_lng + "");
+        location_walking_selected = (RelativeLayout) findViewById(R.id.location_walking_selected);
+        location_car_selected = (RelativeLayout) findViewById(R.id.location_car_selected);
+        location_bus_selected = (RelativeLayout) findViewById(R.id.location_bus_selected);
         img_view_travelmode_car = (ImageView) findViewById(R.id.img_view_travelmode_car);
         img_view_travelmode_bus = (ImageView) findViewById(R.id.img_view_travelmode_bus);
-        imgview_navigation=(ImageView)findViewById(R.id.img_view_direction) ;
+        imgview_navigation = (ImageView) findViewById(R.id.img_view_direction);
         img_view_travelmode_walking = (ImageView) findViewById(R.id.img_view_travelmode_walking);
         tv_travel_duration = (TextView) findViewById(R.id.tv_travel_duration);
         travel_time = (TextView) findViewById(R.id.travel_time);
@@ -245,8 +210,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                 location_walking_selected.setVisibility(View.VISIBLE);
                 img_view_travelmode_car.setVisibility(View.VISIBLE);
                 img_view_travelmode_bus.setVisibility(View.VISIBLE);
-               // location_walking_selected.setVisibility(View.GONE);
-
+                // location_walking_selected.setVisibility(View.GONE);
 
 
                 img_view_travelmode_car.setImageResource(R.drawable.ic_location_car_white);
@@ -259,7 +223,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         imgview_navigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
 
                 String format = "geo:0,0?q=" + product_location_lat_lng.latitude + "," + product_location_lat_lng.longitude + "(Product Location)";
@@ -275,8 +238,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
     }
 
     private void init_location_elements(AbstractRouting.TravelMode Travelmode) {
-
-
 
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -300,7 +261,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                         source_latitute = location.getLatitude();
                         source_longitude = location.getLongitude();
                         LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                        Log.e("source+source_longitude",source_longitude+"***"+source_latitute);
+                        Log.e("source+source_longitude", source_longitude + "***" + source_latitute);
 
                         ArrayList<LatLng> currenttoproduct = new ArrayList<>();
                         currenttoproduct.add(loc);
@@ -310,21 +271,18 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
                         //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16.0f));
                     }
                 };
-              // mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+                // mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 //
 //
 //                mMap.getUiSettings().setRotateGesturesEnabled(true);
-if(location!=null) {
+                if (location != null) {
 
 
+                    findDirections(location.getLatitude(), location.getLongitude(), product_location_lat_lng, Travelmode);
+                } else {
+                    Log.e("location not found", "location not found");
 
-
-    findDirections(location.getLatitude(), location.getLongitude(), product_location_lat_lng, Travelmode);
-}
-                else{
-    Log.e("location not found","location not found");
-
-}
+                }
 
             } else {
                 locationManagerCheck.createLocationServiceError(GoogleMapActivity.this);
@@ -351,14 +309,9 @@ if(location!=null) {
     }
 
 
-
-
-
     private void showMessage(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
-
-
 
 
     public void onMapReady(GoogleMap map) {
@@ -386,8 +339,7 @@ if(location!=null) {
     @Override
     protected void onPause() {
         super.onPause();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -406,28 +358,31 @@ if(location!=null) {
         }
     }
 
-    private void setupToolBar()
-    {
-        toolbar = (Toolbar) findViewById(R.id.toolbar_map);
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
+        AndroidUtils.setBackgroundSolid(toolbar, context, R.color.transparent, 0);
         setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-
-        // getSupportActionBar().setIcon(R.drawable.logo_word);
-
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -443,16 +398,9 @@ if(location!=null) {
 
 
 
-
-
-
-
-
-    private final LocationListener mLocationListener = new LocationListener()
-    {
+    private final LocationListener mLocationListener = new LocationListener() {
         @Override
-        public void onLocationChanged(final Location location)
-        {
+        public void onLocationChanged(final Location location) {
             //your code here
             try {
                 marker.remove();
@@ -464,7 +412,7 @@ if(location!=null) {
             currentLatLng = latLng;
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
             zoomLevel = 18;
-        //    setCompleteAddress(latLng);
+            //    setCompleteAddress(latLng);
             mMap.setMyLocationEnabled(true);
 
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -482,7 +430,7 @@ if(location!=null) {
                 mLocationManager = null;
 
             } catch (Exception ex) {
-                Log.e("Exception_ex",ex.toString());
+                Log.e("Exception_ex", ex.toString());
 
             }
 
@@ -504,8 +452,6 @@ if(location!=null) {
 
         }
     };
-
-
 
 
     private void setCompleteAddress(LatLng latLng) {
@@ -591,16 +537,13 @@ if(location!=null) {
     }
 
 
-
-
-    public void findDirections(double fromPositionDoubleLat, double fromPositionDoubleLong, LatLng product_location, AbstractRouting.TravelMode mode)
-    {
-pg_handler.show();
+    public void findDirections(double fromPositionDoubleLat, double fromPositionDoubleLong, LatLng product_location, AbstractRouting.TravelMode mode) {
+        pg_handler.show();
 
         Routing routing = new Routing.Builder()
                 .travelMode(mode)
                 .withListener(this)
-                .waypoints(new LatLng(fromPositionDoubleLat,fromPositionDoubleLong), product_location)
+                .waypoints(new LatLng(fromPositionDoubleLat, fromPositionDoubleLong), product_location)
                 .key(getResources().getString(R.string.google_api))
                 .alternativeRoutes(true)
                 .build();
@@ -608,7 +551,6 @@ pg_handler.show();
 
 
     }
-
 
 
     @Override
@@ -625,14 +567,12 @@ pg_handler.show();
     public void onRoutingSuccess(final ArrayList<Route> route, int shortestRouteIndex) {
 
 
-        route_distance=new ArrayList<>();
-        route_timeduration=new ArrayList<>();
-        polylineids=new ArrayList<>() ;
-
+        route_distance = new ArrayList<>();
+        route_timeduration = new ArrayList<>();
+        polylineids = new ArrayList<>();
 
 
         pg_handler.hide();
-
 
 
 //        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(route.get(0).getPoints().get(route.get(0).getPoints().size()-1).latitude, route.get(0).getPoints().get(route.get(0).getPoints().size()-1).longitude));
@@ -650,8 +590,8 @@ pg_handler.show();
 
         //add route(s) to the map.
         for (int i = 0; i < route.size(); i++) {
-            Log.e("route_distance",route.get(i).getDistanceText());
-            Log.e("route_duration",route.get(i).getDurationText());
+            Log.e("route_distance", route.get(i).getDistanceText());
+            Log.e("route_duration", route.get(i).getDurationText());
             route_distance.add(route.get(i).getDistanceText());
             route_timeduration.add(route.get(i).getDurationText());
             //In case of more than 5 alternative routes
@@ -659,7 +599,7 @@ pg_handler.show();
 
             PolylineOptions polyOptions = new PolylineOptions();
             polyOptions.color(getResources().getColor(COLORS[colorIndex]));
-            polyOptions.width(10 );
+            polyOptions.width(10);
             polyOptions.addAll(route.get(i).getPoints());
 
             Polyline polyline = mMap.addPolyline(polyOptions);
@@ -672,41 +612,36 @@ pg_handler.show();
             polylines.add(polyline);
 
 
-
         }
 
 
-        mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener()
-        {
+        mMap.setOnPolylineClickListener(new GoogleMap.OnPolylineClickListener() {
             @Override
             public void onPolylineClick(Polyline polyline)
 
             {
                 polyline.setColor(R.color.green);
-                for(int k=0;k<polylineids.size();k++)
-                {
+                for (int k = 0; k < polylineids.size(); k++) {
 
 
-                   if( polylineids.get(k).toString().trim().equals(polyline.getId().toString().trim()))
-                   {
-                       tv_travel_duration.setText(route_timeduration.get(k).toString());
-                       travel_time.setText("("+route_distance.get(k).toString()+")");
-                       route.get(k).getDistanceValue();
+                    if (polylineids.get(k).toString().trim().equals(polyline.getId().toString().trim())) {
+                        tv_travel_duration.setText(route_timeduration.get(k).toString());
+                        travel_time.setText("(" + route_distance.get(k).toString() + ")");
+                        route.get(k).getDistanceValue();
 
-                       Log.e("working","working");
+                        Log.e("working", "working");
 
-                     //  polyline.setColor(R.color.green);
-                       polyline.setColor(R.color.green);
-                       polyline.setZIndex(100);
+                        //  polyline.setColor(R.color.green);
+                        polyline.setColor(R.color.green);
+                        polyline.setZIndex(100);
 
-                   }
-                    else{
-                       Log.e("polyline_index",polylineids.get(k).toString().trim()+"***********"+polyline.getId().toString().trim());
+                    } else {
+                        Log.e("polyline_index", polylineids.get(k).toString().trim() + "***********" + polyline.getId().toString().trim());
 
-                       polyline.setZIndex(1);
+                        polyline.setZIndex(1);
 
 
-                   }
+                    }
 //                    if(polylineids.contains(polyline.getId()))
 //                    {
 //                        polyline.setColor(R.color.green);
@@ -716,27 +651,24 @@ pg_handler.show();
                 }
 
 
-
-
             }
         });
 
         MarkerOptions marker2 = new MarkerOptions().position(
                 new LatLng(route.get(0).getPoints().get(0).latitude, route.get(0).getPoints().get(0).longitude)).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_my_location_icon)).title(
                 "My Location");
-        Log.e("size_route",route.get(0).getPoints().get(route.get(0).getPoints().size()-1).latitude+"***"+(route.get(0).getPoints().size()-1));
+        Log.e("size_route", route.get(0).getPoints().get(route.get(0).getPoints().size() - 1).latitude + "***" + (route.get(0).getPoints().size() - 1));
 
 
         MarkerOptions marker3 = new MarkerOptions().position(
-               product_location_lat_lng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_product_location)).title(
+                product_location_lat_lng).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_product_location)).title(
                 "Product Location");
 
         mMap.addMarker(marker2);
         mMap.addMarker(marker3);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(route.get(0).getPoints().get(0).latitude, route.get(0).getPoints().get(0).longitude), 10.0f));
 
- //mMap.setTrafficEnabled(true);
-
+        //mMap.setTrafficEnabled(true);
 
 
     }
@@ -745,8 +677,6 @@ pg_handler.show();
     public void onRoutingCancelled() {
 
     }
-
-
 
 
     public interface AddressListner {
@@ -760,12 +690,11 @@ pg_handler.show();
                 pg_handler.hide();
                 // retrive the data by using getPlace() method.
                 Place place = PlaceAutocomplete.getPlace(this, data);
-                Log.e("Tag", "Place: " + place.getAddress()  +place.getLatLng());
+                Log.e("Tag", "Place: " + place.getAddress() + place.getLatLng());
                 Geocoder mGeocoder = new Geocoder(GoogleMapActivity.this, Locale.getDefault());
 
 
-                findDirections(place.getLatLng().latitude,place.getLatLng().longitude, new LatLng(product_location_lat_lng.latitude, product_location_lat_lng.longitude), AbstractRouting.TravelMode.DRIVING);
-
+                findDirections(place.getLatLng().latitude, place.getLatLng().longitude, new LatLng(product_location_lat_lng.latitude, product_location_lat_lng.longitude), AbstractRouting.TravelMode.DRIVING);
 
 
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
@@ -780,34 +709,6 @@ pg_handler.show();
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

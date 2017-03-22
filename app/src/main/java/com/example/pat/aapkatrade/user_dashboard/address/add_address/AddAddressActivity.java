@@ -14,7 +14,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.Call_webservice;
+import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -28,7 +30,7 @@ public class AddAddressActivity extends AppCompatActivity
 
     ArrayList<String> stateList = new ArrayList<>();
     TextView tvTitle;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String userid,firstName,lastName,address,mobile,state_id;
     EditText etFirstName,etLastName,etMobileNo,etAddress;
     Button buttonSave;
@@ -49,7 +51,7 @@ public class AddAddressActivity extends AppCompatActivity
 
         progress_handler = new ProgressBarHandler(this);
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         userid = app_sharedpreference.getsharedpref("userid", "");
 
@@ -67,7 +69,6 @@ public class AddAddressActivity extends AppCompatActivity
 
         setup_layout();
 
-       //  getState() ;
 
     }
 
@@ -211,7 +212,7 @@ public class AddAddressActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.menu_map, menu);
+        getMenuInflater().inflate(R.menu.button_menu, menu);
         return true;
     }
 
