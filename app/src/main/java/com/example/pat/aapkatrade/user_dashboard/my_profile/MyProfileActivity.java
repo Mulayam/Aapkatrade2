@@ -26,7 +26,7 @@ import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
 import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
 import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -49,7 +49,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     Button btnSave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
     ImageView imgCalender,backbutton;
     ProgressBarHandler p_handler;
@@ -60,14 +60,13 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     CoordinatorLayout coordinatorlayout_myprofile;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_profile);
 
-        app_sharedpreference = new App_sharedpreference(this);
+        app_sharedpreference = new AppSharedPreference(this);
         p_handler=new ProgressBarHandler(this);
         setuptoolbar();
 
@@ -83,7 +82,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         backbutton=(ImageView)findViewById(R.id.back_imagview) ;
         tvMyProfileDetailHeading = (TextView) findViewById(R.id.tvMyProfileDetailHeading);
         etFName = (EditText) findViewById(R.id.etFName);
-        String fname = app_sharedpreference.getsharedpref("username", "");
+        String fname = app_sharedpreference.getsharedpref("name", "");
         tvMyProfileDetailHeading.setText("Hello, " + fname + " To Update your account information.");
         etFName.setText(fname);
         etFName.setSelection(etFName.getText().length());
@@ -121,7 +120,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
         btnSave = (Button) findViewById(R.id.btnSave);
 
-        btnEdit = (Button) findViewById(R.id.btnEdit);
+      //  btnEdit = (Button) findViewById(R.id.btnEdit);
 
         //btnLogout = (Button) findViewById(R.id.btnlogout);
         backbutton.setOnClickListener(new View.OnClickListener() {
@@ -277,31 +276,50 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
                                     p_handler.hide();
 
                                 }
-                                else{
+                                else
+                                {
 
                                     JsonObject jsonObject = result.getAsJsonObject();
 
                                     String message = jsonObject.get("message").getAsString();
 
-                                    JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+                                    if(message.equals("No any changes to update!")){
 
-
-                                    for (int i = 0; i < jsonResultArray.size(); i++) {
-
-                                        JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
-                                        String update_name = jsonObject1.get("name").getAsString();
-                                        String update_lastname = jsonObject1.get("lastname").getAsString();
-                                        String update_mobile = jsonObject1.get("mobile").getAsString();
-                                        String update_address = jsonObject1.get("address").getAsString();
-                                        app_sharedpreference.setsharedpref("username",update_name);
-                                        app_sharedpreference.setsharedpref("lname",update_lastname);
-                                        app_sharedpreference.setsharedpref("mobile", update_mobile);
-                                        app_sharedpreference.setsharedpref("address",update_address);
+                                        showmessage(message);
+                                        p_handler.hide();
 
 
                                     }
-                                    showmessage(message);
-                                    p_handler.hide();
+                                    else
+                                    {
+
+                                        JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
+
+                                        for (int i = 0; i < jsonResultArray.size(); i++) {
+
+                                            JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
+                                            String update_name = jsonObject1.get("name").getAsString();
+                                            String update_lastname = jsonObject1.get("lastname").getAsString();
+                                            String update_mobile = jsonObject1.get("mobile").getAsString();
+                                            String update_address = jsonObject1.get("address").getAsString();
+
+
+                                            String Username = app_sharedpreference.getsharedpref("name", "");
+
+                                            System.out.println("Username Data-----------"+Username);
+
+
+                                            app_sharedpreference.setsharedpref("name",update_name);
+                                            app_sharedpreference.setsharedpref("lname",update_lastname);
+                                            app_sharedpreference.setsharedpref("mobile", update_mobile);
+                                            app_sharedpreference.setsharedpref("address",update_address);
+
+                                        }
+                                        showmessage(message);
+                                        p_handler.hide();
+
+                                    }
+
 
 
                                 }

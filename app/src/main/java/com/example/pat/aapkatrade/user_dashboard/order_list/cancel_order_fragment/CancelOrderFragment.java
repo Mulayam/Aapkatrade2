@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
@@ -27,15 +27,15 @@ import java.util.ArrayList;
 public class CancelOrderFragment extends Fragment
 {
 
-
     ArrayList<OrderListData> orderListDatas = new ArrayList<>();
     RecyclerView order_list;
     OrderListAdapter orderListAdapter;
     ProgressBarHandler progress_handler;
     LinearLayout layout_container;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id;
     private String user_type;
+
 
 
     @Override
@@ -46,7 +46,7 @@ public class CancelOrderFragment extends Fragment
 
         progress_handler = new ProgressBarHandler(getActivity());
 
-        app_sharedpreference = new App_sharedpreference(getActivity());
+        app_sharedpreference = new AppSharedPreference(getActivity());
 
         user_id = app_sharedpreference.getsharedpref("userid","");
         user_type = app_sharedpreference.getsharedpref("usertype", "1");
@@ -57,8 +57,6 @@ public class CancelOrderFragment extends Fragment
 
         return view;
     }
-
-
 
     private void setup_layout(View view)
     {
@@ -74,8 +72,8 @@ public class CancelOrderFragment extends Fragment
     {
         orderListDatas.clear();
         progress_handler.show();
-
         Log.e("hi1234", user_id+"##cancel##"+AndroidUtils.getUserType(user_type)+"@@@@"+user_type);
+
         Ion.with(getActivity())
                 .load("http://aapkatrade.com/slim/seller_order_list")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
@@ -143,7 +141,6 @@ public class CancelOrderFragment extends Fragment
                                     String created_at = jsonObject2.get("created_at").getAsString();
 
                                     orderListDatas.add(new OrderListData(order_id, product_name, product_price,product_qty,address,email,buyersmobile,buyersname,company_name,status,created_at));
-
 
                                 }
 

@@ -23,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,11 +43,9 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpBussinessA
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCountrysAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
-
-
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.TaskCompleteReminder;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -78,7 +77,9 @@ import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class RegistrationActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
+{
+
     private static SellerRegistration formSellerData = new SellerRegistration();
     private static BuyerRegistration formBuyerData = new BuyerRegistration();
     private int isAllFieldSet = 0;
@@ -96,7 +97,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     private File compIncorpFile = new File(""), docFile = new File("");
     private boolean isReqCode = false, isCompIncorp = false;
     private ImageView uploadImage, uploadPDFButton, openCalander, cancelImage, cancelFile;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     private CircleImageView circleImageView, previewPDF;
     private Bitmap imageForPreview;
     HashMap<String, String> webservice_header_type = new HashMap<>();
@@ -111,7 +112,7 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        app_sharedpreference = new App_sharedpreference(RegistrationActivity.this);
+        app_sharedpreference = new AppSharedPreference(RegistrationActivity.this);
         setuptoolbar();
         initView();
         saveUserTypeInSharedPreferences();
@@ -203,6 +204,8 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
                 previewPDFLayout.setVisibility(View.GONE);
             }
         });
+
+
 
 
     }
@@ -565,7 +568,6 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
     public void getState() {
 
-
         HashMap<String, String> webservice_body_parameter = new HashMap<>();
         webservice_body_parameter.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         webservice_body_parameter.put("type", "state");
@@ -681,7 +683,12 @@ public class RegistrationActivity extends AppCompatActivity implements TimePicke
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user, menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_map, menu);
+
+
+
         return true;
     }
 

@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.BusinessAssociateRegistration;
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
@@ -39,7 +40,7 @@ import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapte
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.App_config;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Call_webservice;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
@@ -95,11 +96,12 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     private ArrayList<String> qualificationList = new ArrayList<>();
     private ArrayList<String> totalExpList = new ArrayList<>(), relaventExpList = new ArrayList<>(), bankList = new ArrayList<>();
     ProgressBarHandler progressBarHandler;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_business_associate);
+        context = RegistrationBusinessAssociateActivity.this;
         initView();
         setStepLayout(1);
         uploadImageCall();
@@ -160,16 +162,9 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
                 .setMultipartParameter("register_mobile", formBusinessData.getRegisteredMobileWithBank())
                 .setMultipartParameter("client_id", App_config.getCurrentDeviceId(RegistrationBusinessAssociateActivity.this))
                 .asJsonObject()
-//                .asString()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        /*if (result != null) {
-                            Log.e("result", result);
-
-                        } else {
-                            Log.e("result_error", e.toString());
-                        }*/
                         progressBarHandler.hide();
                         if (result != null) {
                             Log.e("registration_seller", result.toString());
@@ -269,11 +264,10 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
     }
 
     private void initView() {
-        context = RegistrationBusinessAssociateActivity.this;
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         progressBarHandler = new ProgressBarHandler(this);
-        app_sharedpreference = new App_sharedpreference(context);
-        setuptoolbar();
+        app_sharedpreference = new AppSharedPreference(context);
+        setUpToolBar();
 
         step1Photo = (LinearLayout) findViewById(R.id.step1Photo);
         step2Photo = (LinearLayout) findViewById(R.id.step2Photo);
@@ -341,10 +335,28 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
 
     }
 
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, HomeActivity.class));
+            }
+        });
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
@@ -360,13 +372,6 @@ public class RegistrationBusinessAssociateActivity extends AppCompatActivity imp
         return super.onOptionsItemSelected(item);
     }
 
-    private void setuptoolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-    }
 
     private void setStepLayout(int stepNo) {
         if (stepNo == 1) {

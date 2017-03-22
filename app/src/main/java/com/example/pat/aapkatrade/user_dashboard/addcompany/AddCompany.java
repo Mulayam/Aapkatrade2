@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -42,7 +42,7 @@ public class AddCompany extends AppCompatActivity
     LinearLayout linearLayout;
     Snackbar snackbar;
     ProgressBarHandler progress_handler;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id,email;
     TextView tvTitle;
     RelativeLayout relativeSubmit;
@@ -55,7 +55,7 @@ public class AddCompany extends AppCompatActivity
 
         setContentView(R.layout.activity_add_company);
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 

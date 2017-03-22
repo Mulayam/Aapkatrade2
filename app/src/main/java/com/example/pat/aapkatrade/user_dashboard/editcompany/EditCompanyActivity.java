@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.ConnetivityCheck;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
@@ -37,7 +37,7 @@ public class EditCompanyActivity extends AppCompatActivity
     LinearLayout linearLayout;
     Snackbar snackbar;
     ProgressBarHandler progress_handler;
-    App_sharedpreference app_sharedpreference;
+    AppSharedPreference app_sharedpreference;
     String user_id,email;
     RelativeLayout relativeSubmit;
     TextView tvTitle;
@@ -64,7 +64,7 @@ public class EditCompanyActivity extends AppCompatActivity
 
         secondaryEmail = intent.getStringExtra("secondaryEmail");
 
-        app_sharedpreference = new App_sharedpreference(getApplicationContext());
+        app_sharedpreference = new AppSharedPreference(getApplicationContext());
 
         user_id = app_sharedpreference.getsharedpref("userid", "");
 
@@ -159,6 +159,8 @@ public class EditCompanyActivity extends AppCompatActivity
                                 dialog.setInverseBackgroundForced(false);
                                 dialog.show();
                                 callAddCompanyWebService(user_id, etCompanyName.getText().toString(),etPEmail.getText().toString(),etSEmail.getText().toString() ,etAddress.getText().toString(),etDiscription.getText().toString());
+
+
                                 dialog.hide();
                             }
                             else

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.companylist.compant_details.CompanyDetailActivity;
 import com.example.pat.aapkatrade.user_dashboard.editcompany.EditCompanyActivity;
@@ -38,9 +38,11 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
      Boolean showBoolean = false;
      int clickedposition=1000;
      int p;
-     App_sharedpreference app_sharedpreference;
+     AppSharedPreference app_sharedpreference;
      String email;
      ProgressBarHandler progress_handler;
+
+
 
 
     public CompanyListAdapter(Context context, List<CompanyData> itemList,CompanyList companylist)
@@ -51,7 +53,7 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.context = context;
         inflater = LayoutInflater.from(context);
 
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
         progress_handler = new ProgressBarHandler(context);
 
     }
@@ -104,11 +106,18 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         homeHolder.tvDate.setText(newDateStr);
 
+        homeHolder.tvAddress.setText(itemList.get(position).address);
+
+        homeHolder.tvDescription.setText(itemList.get(position).description);
+
         homeHolder.imgNext.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+
                 itemList.get(position).clicked=true;
+
                 if( itemList.get(position).clicked== false)
                 {
                     clickedposition = position;
@@ -146,24 +155,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     notifyDataSetChanged();
                 }
 
-                // check if item still exists
-//                if(position != RecyclerView.NO_POSITION){
-//                    homeHolder.linearLayoutDetail.setVisibility(View.GONE);
-//                    homeHolder.View1.setVisibility(View.GONE);
-//                    homeHolder.imgNext.setImageResource(R.drawable.ic_red_arw);
-//                }
-//                else{
-//
-//                    homeHolder.linearLayoutDetail.setVisibility(View.VISIBLE);
-//                    homeHolder.imgNext.setImageResource(R.drawable.ic_arw_down);
-//                    homeHolder.View1.setVisibility(View.VISIBLE);
-//
-//
-//                }
-
-
-
-
             }
         });
 
@@ -176,7 +167,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
              /*   Intent i = new Intent(context, CompanyDetailActivity.class);
                 context.startActivity(i);
             */
-
             }
         });
 
@@ -194,8 +184,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                  editCompany.putExtra("address",itemList.get(position).address);
                  editCompany.putExtra("description",itemList.get(position).description);
                  context.startActivity(editCompany);
-
-
             }
         });
 
@@ -209,8 +197,6 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 System.out.println("deiete company--------"+itemList.get(position).company_id);
 
                 delete_company(itemList.get(position).company_id, position);
-
-
             }
 
         });
@@ -268,10 +254,8 @@ public class CompanyListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount()
     {
-
         return itemList.size();
         //return itemList.size();
-
     }
 
     public String getCurrentTimeStamp()

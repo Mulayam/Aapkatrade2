@@ -19,7 +19,7 @@ import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.RegistrationBusinessAssociateActivity;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.user_dashboard.my_profile.MyProfileActivity;
@@ -29,14 +29,13 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class User_DashboardFragment extends Fragment
-{
+public class User_DashboardFragment extends Fragment {
 
     RecyclerView dashboardlist;
     DashboardAdapter dashboardAdapter;
     ArrayList<DashboardData> dashboardDatas = new ArrayList<>();
-    App_sharedpreference app_sharedpreference;
-    TextView tvMobile,tvEmail,textViewName,tvUserType;
+    AppSharedPreference app_sharedpreference;
+    TextView tvMobile, tvEmail, textViewName, tvUserType;
     ImageView btnEdit;
     ProgressBarHandler progressBarHandler;
     RecyclerView.LayoutManager layoutManager;
@@ -46,10 +45,9 @@ public class User_DashboardFragment extends Fragment
     }
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_dashboard, container, false);
-        app_sharedpreference = new App_sharedpreference(getActivity());
+        app_sharedpreference = new AppSharedPreference(getActivity());
         progressBarHandler = new ProgressBarHandler(getActivity());
         tvUserType = (TextView) v.findViewById(R.id.tvUserType);
         setup_layout(v);
@@ -60,8 +58,7 @@ public class User_DashboardFragment extends Fragment
         return v;
     }
 
-    private void setup_layout(View v)
-    {
+    private void setup_layout(View v) {
         textViewName = (TextView) v.findViewById(R.id.textViewName);
         tvMobile = (TextView) v.findViewById(R.id.tvMobile);
         tvEmail = (TextView) v.findViewById(R.id.tvEmail);
@@ -74,8 +71,7 @@ public class User_DashboardFragment extends Fragment
             }
         });
 
-        if (app_sharedpreference.getsharedpref("username", "notlogin") != null)
-        {
+        if (app_sharedpreference.getsharedpref("username", "notlogin") != null) {
             String Username = app_sharedpreference.getsharedpref("username", "not");
             String Emailid = app_sharedpreference.getsharedpref("emailid", "not");
             if (Username.equals("notlogin")) {
@@ -90,20 +86,17 @@ public class User_DashboardFragment extends Fragment
 
     }
 
-    private void setup_data()
-    {
+    private void setup_data() {
         dashboardDatas.clear();
         try {
 
-            if (app_sharedpreference.shared_pref != null)
-            {
+            if (app_sharedpreference.shared_pref != null) {
 
                 String userid = app_sharedpreference.getsharedpref("userid", "0");
 
-                String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url))+"/userdata";
+                String user_detail_webserviceurl = (getResources().getString(R.string.webservice_base_url)) + "/userdata";
 
-                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3"))
-                {
+                if (app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
 
                     userdata_webservice(user_detail_webserviceurl, "3", userid);
 
@@ -119,8 +112,7 @@ public class User_DashboardFragment extends Fragment
 
 
                 }
-            } else
-                {
+            } else {
                 Log.e("null_sharedPreferences", "sharedPreferences");
             }
 
@@ -130,8 +122,7 @@ public class User_DashboardFragment extends Fragment
 
     }
 
-    public void userdata_webservice(String url, final String user_type, String user_id)
-    {
+    public void userdata_webservice(String url, final String user_type, String user_id) {
         Log.e("url", url);
         Log.e("user_type", user_type);
         Log.e("user_id", user_id);
@@ -149,20 +140,15 @@ public class User_DashboardFragment extends Fragment
                         if (result == null) {
                             Log.e("result_myProfile", "result_myProfile is null");
                             progressBarHandler.hide();
-                        }
-                        else
-                            {
+                        } else {
                             Log.e("result_userdata", result.toString());
                             String error = result.get("error").getAsString();
                             if (error.contains("true")) {
                                 progressBarHandler.hide();
-                            }
-                            else
-                                {
+                            } else {
 
                                 progressBarHandler.hide();
-                                if (user_type.contains("1"))
-                                {
+                                if (user_type.contains("1")) {
 
                                     String order_quantity = result.get("order").getAsString();
                                     app_sharedpreference.setsharedpref("order_quantity", order_quantity);
@@ -177,9 +163,7 @@ public class User_DashboardFragment extends Fragment
                                     dashboardlist.setAdapter(dashboardAdapter);
 
 
-                                }
-                                else if (user_type.contains("2"))
-                                {
+                                } else if (user_type.contains("2")) {
                                     String order_quantity = result.get("order").getAsString();
                                     String product_quantity = result.get("product").getAsString();
                                     String company_quantity = result.get("company").getAsString();
@@ -206,13 +190,10 @@ public class User_DashboardFragment extends Fragment
 
                                     String Username = app_sharedpreference.getsharedpref("username", "not");
 
-                                    if (Username.equals("notlogin"))
-                                    {
+                                    if (Username.equals("notlogin")) {
                                         tvUserType.setText("Welcome Guest");
                                         NavigationFragment.usertype.setText("Welcome Guest");
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         tvUserType.setText("Welcome Seller");
                                     }
 
@@ -220,9 +201,7 @@ public class User_DashboardFragment extends Fragment
                                     dashboardlist.setLayoutManager(layoutManager);
                                     dashboardAdapter = new DashboardAdapter(getContext(), dashboardDatas);
                                     dashboardlist.setAdapter(dashboardAdapter);
-                                }
-                                else if (user_type.contains("3"))
-                                {
+                                } else if (user_type.contains("3")) {
 
                                     String vendor_quantity = result.get("vendor").getAsString();
                                     String network_quantity = result.get("network").getAsString();
@@ -254,4 +233,4 @@ public class User_DashboardFragment extends Fragment
                 });
     }
 
-    }
+}

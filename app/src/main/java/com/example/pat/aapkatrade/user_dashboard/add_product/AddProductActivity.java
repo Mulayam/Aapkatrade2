@@ -37,7 +37,7 @@ import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
@@ -83,7 +83,7 @@ public class AddProductActivity extends AppCompatActivity
     private ArrayList<String> deliveryDistanceList = new ArrayList<>();
     private ArrayList<CompanyData> companyNames = new ArrayList<>();
     private ProgressBarHandler progressBar;
-    private App_sharedpreference app_sharedpreference;
+    private AppSharedPreference app_sharedpreference;
     private TextView btnUpload;
     private int count = -1;
     private EditText etProductName, etDeliverLocation, etPrice, etCrossedPrice, etDescription;
@@ -227,7 +227,7 @@ public class AddProductActivity extends AppCompatActivity
         add_product_root_container = (LinearLayout) findViewById(R.id.add_product_root_container);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         progressBar = new ProgressBarHandler(context);
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
 
         spCompanyName = (Spinner) findViewById(R.id.spCompanyName);
         spSubCategory = (Spinner) findViewById(R.id.spSubCategory);

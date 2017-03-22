@@ -28,6 +28,8 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<RecyclerView.View
     int count;
 
     Context context;
+    ArrayList<common_category_search> common_category_searchlist=new ArrayList<>();
+    String type,state;
 
     //constructor method
     public SearchResultsAdapter(Context context, ArrayList<String> product_details) {
@@ -40,6 +42,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
     }
+
 
 
 
@@ -71,6 +74,9 @@ public class SearchResultsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
         CommomHolder_search_state  viewHolder1 = (CommomHolder_search_state) holder;
+
+
+
         viewHolder1.product_name.setText(productDetails.get(position));
         GradientDrawable shape =  new GradientDrawable();
         shape.setCornerRadius( 20 );

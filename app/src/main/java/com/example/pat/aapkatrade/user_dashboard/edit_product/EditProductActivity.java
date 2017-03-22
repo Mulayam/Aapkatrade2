@@ -36,12 +36,11 @@ import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.general.App_sharedpreference;
+import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.add_product.ProductImages;
 import com.example.pat.aapkatrade.user_dashboard.add_product.ProductImagesData;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.CompanyData;
@@ -79,7 +78,7 @@ public class EditProductActivity extends AppCompatActivity {
     private ArrayList<String> deliveryDistanceList = new ArrayList<>();
     private ArrayList<CompanyData> companyNames = new ArrayList<>();
     private ProgressBarHandler progressBar;
-    private App_sharedpreference app_sharedpreference;
+    private AppSharedPreference app_sharedpreference;
     private TextView btnUpload;
     private int count = -1;
     private EditText etProductName, etDeliverLocation, etPrice, etCrossedPrice, etDescription;
@@ -91,7 +90,7 @@ public class EditProductActivity extends AppCompatActivity {
     ProductImages adapter;
     Bitmap imageForPreview;
     List<Part> files_image = new ArrayList();
-
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,16 +98,16 @@ public class EditProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_product);
         setuptoolbar();
 
-        setupRecyclerView();
 
         initView();
 
+        setupRecyclerView();
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 count++;
-                callAddProductWebService();
+                callEditProductWebService();
             }
         });
 
@@ -140,7 +139,7 @@ public class EditProductActivity extends AppCompatActivity {
     }
 
 
-    private void callAddProductWebService() {
+    private void callEditProductWebService() {
         progressBar.show();
 
         for (int i = 0; i < productImagesDatas.size(); i++) {
@@ -219,7 +218,7 @@ public class EditProductActivity extends AppCompatActivity {
         add_product_root_container = (LinearLayout) findViewById(R.id.add_product_root_container);
         webservice_header_type.put("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3");
         progressBar = new ProgressBarHandler(context);
-        app_sharedpreference = new App_sharedpreference(context);
+        app_sharedpreference = new AppSharedPreference(context);
 
         spCompanyName = (Spinner) findViewById(R.id.spCompanyName);
         spSubCategory = (Spinner) findViewById(R.id.spSubCategory);
@@ -584,6 +583,11 @@ public class EditProductActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
 
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvTitle.setText("Add Product");
+
+
+
     }
 
     @Override
@@ -698,8 +702,6 @@ public class EditProductActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(EditProductActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
-
     }
 
 

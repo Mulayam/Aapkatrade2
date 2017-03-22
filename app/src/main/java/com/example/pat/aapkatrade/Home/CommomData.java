@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by Netforce on 7/25/2016.
  */
 public class CommomData implements Parcelable{
-    String imageurl,price,name,id,product_location;
+    public String imageurl,price,name,id,product_location, categoryName;
     public CommomData(String id, String name, String price, String imageurl){
         this.id=id;
         this.imageurl=imageurl;
@@ -21,6 +21,15 @@ public class CommomData implements Parcelable{
         this.price=price;
         this.name=name;
         this.product_location=product_location;
+    }
+
+    public CommomData(String id, String name, String price, String imageurl,String product_location, String categoryName){
+        this.id=id;
+        this.imageurl=imageurl;
+        this.price=price;
+        this.name=name;
+        this.product_location=product_location;
+        this.categoryName = categoryName;
     }
 
     protected CommomData(Parcel in) {
