@@ -88,7 +88,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
     int current_state_index;
     String class_name;
 
-
+String selected_categoryid;
     ViewPager viewpager_state;
 
     @Override
@@ -224,7 +224,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
     private void call_search_webservice(String location_text, final String product_name1, final String id, String stateid, String cityid, final String type) {
 
-        Log.e("call 2_sending",product_name1+"**"+id+"**"+stateid+"**"+cityid);
+        Log.e("callback_state",id+"***"+type);
 
 
         String search_url = (getResources().getString(R.string.webservice_base_url)) + "/search";
@@ -274,19 +274,20 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
                     .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                     .setBodyParameter("name", product_name1)
-                    .setBodyParameter("stateid",id)
+                    .setBodyParameter("state_id ",id)
+                    .setBodyParameter("category_id","")
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
 
-                            Log.e("first---",result.toString());
+                            Log.e("second---",result.toString());
 
                             if (result != null) {
 
                                 set_webservice_data(result,type);
 
-                                Log.e("call 2_sending",product_name1+"**"+id+"");
+                                Log.e("call 2_state",product_name1+"**"+id+"");
                                 // Log.e("call 2_receiving",result.toString());
 
 
@@ -476,7 +477,7 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
 //search recycleview set adapter
             recyclerView_search.setLayoutManager(gridLayoutManager);
-            commomAdapter = new CommomAdapter(Search.this, search_productlist, "list", "latestupdate");
+            commomAdapter = new CommomAdapter(Search.this, search_productlist, "grid", "latestupdate");
             recyclerView_search.setAdapter(commomAdapter);
             progressBarHandler.hide();
             findViewById(R.id.search_category_state_container).setVisibility(View.VISIBLE);
@@ -736,6 +737,9 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
     @Override
     public void callback(String id,String type) {
+
+
+        Log.e("callback_state",id+"***"+type);
         if(type.contains("category")) {
             call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(), id, null, "", "category");
 
@@ -747,6 +751,10 @@ public class Search extends AppCompatActivity  implements Adapter_callback_inter
 
     }
 }
+
+
+
+
 
 
 
