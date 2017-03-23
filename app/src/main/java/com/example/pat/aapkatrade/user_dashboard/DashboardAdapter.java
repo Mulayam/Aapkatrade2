@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
-import com.example.pat.aapkatrade.login.LoginDashboard;
+import com.example.pat.aapkatrade.login.loginDashboard;
 import com.example.pat.aapkatrade.user_dashboard.add_product.AddProductActivity;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
@@ -90,7 +89,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 if (itemList.get(position).dashboard_name.equals("My Company")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
                     } else {
@@ -104,7 +103,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else if (itemList.get(position).dashboard_name.equals("My Profile") && app_sharedpreference.getsharedpref("usertype", "0").equals("3")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
                     } else {
@@ -115,7 +114,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 } else if (itemList.get(position).dashboard_name.equals("My Profile")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -127,7 +126,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 } else if (itemList.get(position).dashboard_name.equals("Change Password")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -140,7 +139,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 } else if (itemList.get(position).dashboard_name.equals("Add Company")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -156,7 +155,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
                     {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
                     }
@@ -172,7 +171,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
                     {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
                     }
@@ -187,7 +186,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -217,7 +216,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else if (itemList.get(position).dashboard_name.equals("Vendor List")) {
 
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -231,7 +230,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 } else if (itemList.get(position).dashboard_name.equals("Add Product")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -246,7 +245,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else if (itemList.get(position).dashboard_name.equals("List Product")) {
 
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -260,7 +259,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 } else if (itemList.get(position).dashboard_name.equals("Order")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 
@@ -274,7 +273,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else if (itemList.get(position).dashboard_name.equals("Cancel Order")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
                     } else {
@@ -287,7 +286,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else if (itemList.get(position).dashboard_name.equals("Payout Reports")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
                     } else {
@@ -301,7 +300,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else if (itemList.get(position).dashboard_name.equals("Associate Agreement")) {
                     if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin")) {
 
-                        Intent i = new Intent(context, LoginDashboard.class);
+                        Intent i = new Intent(context, loginDashboard.class);
                         context.startActivity(i);
 
 

@@ -32,7 +32,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.pat.aapkatrade.Home.aboutus.AboutUsFragment;
 import com.example.pat.aapkatrade.Home.navigation.NavigationFragment;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.PurticularDataActivity.PurticularActivity;
 import com.example.pat.aapkatrade.contact_us.ContactUsFragment;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.App_config;
@@ -42,7 +41,7 @@ import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Geocoder;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.login.LoginDashboard;
+import com.example.pat.aapkatrade.login.loginDashboard;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
@@ -323,7 +322,7 @@ Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
 
                 if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
                 {
-                    Intent i = new Intent(HomeActivity.this, LoginDashboard.class);
+                    Intent i = new Intent(HomeActivity.this, loginDashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
@@ -545,7 +544,7 @@ Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
                         }
 
                         if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
-                            startActivity(new Intent(HomeActivity.this, LoginDashboard.class));
+                            startActivity(new Intent(HomeActivity.this, loginDashboard.class));
                         } else {
                             Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
                             String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();
