@@ -97,61 +97,6 @@ ProgressBarHandler  progressBarHandler;
 
                 setContentView(R.layout.activity_homeactivity);
 
-                rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
-
-                rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View v) {
-
-                        boolean permission_status = CheckPermission.checkPermissions(HomeActivity.this);
-
-
-                        if (permission_status)
-
-                        {
-
-                            mylocation = new Mylocation(HomeActivity.this);
-                            LocationManager_check locationManagerCheck = new LocationManager_check(
-                                    HomeActivity.this);
-                            Location location = null;
-                            if (locationManagerCheck.isLocationServiceAvailable()) {
-                                Log.e("currenttime",""+System.currentTimeMillis());
-                                progressBarHandler.show();
-                                double latitude = mylocation.getLatitude();
-                                double longitude = mylocation.getLongitude();
-                                Log.e("latest_latitude",latitude+longitude+"");
-                                Geocoder geocoder_statename = new Geocoder(HomeActivity.this, latitude, longitude);
-                                String state_name = geocoder_statename.get_state_name();
-                                if(state_name!=null){
-                                    Log.e("currenttime2",""+System.currentTimeMillis());
-                                    Intent goto_search = new Intent(HomeActivity.this, Search.class);
-                                    goto_search.putExtra("state_name", state_name);
-                                    goto_search.putExtra("classname","homeactivity");
-                                    startActivity(goto_search);
-                                    finish();
-                                    progressBarHandler.hide();
-                                }
-                                else{
-                                    Log.e("statenotfound",""+"statenotfound");
-                                }
-
-                                Log.e("currenttime",""+System.currentTimeMillis());
-                                progressBarHandler.hide();
-
-
-                            } else {
-                                locationManagerCheck.createLocationServiceError(HomeActivity.this);
-                            }
-
-
-                        }
-                    }
-
-                });
-
-
                 //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
                 context = this;
                 //  permissions  granted.
@@ -173,69 +118,7 @@ ProgressBarHandler  progressBarHandler;
 
                 setContentView(R.layout.activity_homeactivity);
 
-                rl_searchview_dashboard = (RelativeLayout) findViewById(R.id.rl_searchview);
 
-                rl_searchview_dashboard.setOnClickListener(new View.OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View v) {
-
-                        boolean permission_status = CheckPermission.checkPermissions(HomeActivity.this);
-
-
-                        if (permission_status)
-
-                        {
-                            mylocation = new Mylocation(HomeActivity.this);
-                            LocationManager_check locationManagerCheck = new LocationManager_check(
-                                    HomeActivity.this);
-                            Location location = null;
-                            if (locationManagerCheck.isLocationServiceAvailable()) {
-
-                                Log.e("currenttime",""+System.currentTimeMillis()/1000.0);
-
-                                double latitude = mylocation.getLatitude();
-                                double longitude = mylocation.getLongitude();
-                                Geocoder  geocoder_statename=new Geocoder(HomeActivity.this,latitude,longitude);
-                                String state_name=geocoder_statename.get_state_name();
-                                Log.e("latitude",latitude+"****"+longitude+"****"+state_name);
-                                Log.e("currenttime2",""+System.currentTimeMillis()/1000.0);
-                                Intent goto_search = new Intent(HomeActivity.this, Search.class);
-                                goto_search.putExtra("classname","homeactivity");
-                                goto_search.putExtra("state_name",state_name);
-                                startActivity(goto_search);
-                                finish();
-                                Log.e("currenttime3",""+System.currentTimeMillis()/ 1000.0);
-
-
-                            } else {
-                                locationManagerCheck.createLocationServiceError(HomeActivity.this);
-                            }
-
-
-
-
-
-                        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    }
-
-
-                });
 
                 //prefs = getSharedPreferences(shared_pref_name, Activity.MODE_PRIVATE);
                 context = this;
