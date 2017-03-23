@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.pat.aapkatrade.R;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.google.gson.JsonObject;
@@ -23,6 +25,7 @@ public class ContactUsFragment extends Fragment
     EditText etSubject,etUserName,etMobileNo,etEmail,etQuery;
     Button buttonSave;
     ProgressBarHandler progress_handler;
+    ImageView imgPhone,imgEmail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -41,6 +44,14 @@ public class ContactUsFragment extends Fragment
 
     private void setup_layout(View v)
     {
+
+        imgPhone = (ImageView) v.findViewById(R.id.imgPhone);
+
+        imgEmail = (ImageView) v.findViewById(R.id.imgEmail);
+
+        AndroidUtils.setImageColor(imgEmail,getActivity(),R.color.black);
+
+        AndroidUtils.setImageColor(imgPhone,getActivity(),R.color.black);
 
         etSubject = (EditText) v.findViewById(R.id.etSubject);
 
