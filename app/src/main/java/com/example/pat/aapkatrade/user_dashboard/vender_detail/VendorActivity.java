@@ -1,7 +1,9 @@
 package com.example.pat.aapkatrade.user_dashboard.vender_detail;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -9,15 +11,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
+import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyData;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyListAdapter;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListAdapter;
-import com.example.pat.aapkatrade.user_dashboard.order_list.OrderListData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -25,8 +26,7 @@ import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 
-public class VendorActivity extends AppCompatActivity
-{
+public class VendorActivity extends AppCompatActivity {
 
     private ArrayList<VendorData> venderListDatas = new ArrayList<>();
     private RecyclerView vender_list;
@@ -34,27 +34,20 @@ public class VendorActivity extends AppCompatActivity
     AppSharedPreference app_sharedpreference;
     String user_id;
     ProgressBarHandler progress_handler;
+    private Context context;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor);
-
+        context = VendorActivity.this;
         progress_handler = new ProgressBarHandler(this);
-
         app_sharedpreference = new AppSharedPreference(getApplicationContext());
-
         user_id = app_sharedpreference.getsharedpref("userid", "");
-
-
-        setuptoolbar();
-
+        setUpToolBar();
         setup_layout();
-
     }
-
 
 
     private void setup_layout() {
@@ -67,28 +60,23 @@ public class VendorActivity extends AppCompatActivity
         get_company_list_data();
     }
 
-    public void get_company_list_data()
-    {
+    public void get_company_list_data() {
 
         progress_handler.show();
         venderListDatas.clear();
         Ion.with(VendorActivity.this)
-                .load((getResources().getString(R.string.webservice_base_url))+"/list_vendor")
+                .load((getResources().getString(R.string.webservice_base_url)) + "/list_vendor")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("user_id", app_sharedpreference.getsharedpref("userid", "0"))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-                        if (result == null)
-                        {
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (result == null) {
 
                             progress_handler.hide();
-                        }
-                        else
-                        {
+                        } else {
                             Log.e("data===============", result.toString());
 
                             JsonObject jsonObject = result.getAsJsonObject();
@@ -96,8 +84,7 @@ public class VendorActivity extends AppCompatActivity
                             JsonArray jsonArray = jsonObject.getAsJsonArray("result");
 
 
-                            for (int i = 0; i < jsonArray.size(); i++)
-                            {
+                            for (int i = 0; i < jsonArray.size(); i++) {
                                 JsonObject jsonObject2 = (JsonObject) jsonArray.get(i);
 
                                 System.out.println("jsonArray jsonObject2" + jsonObject2.toString());
@@ -116,7 +103,7 @@ public class VendorActivity extends AppCompatActivity
 
                                 String creation_date = jsonObject2.get("created_at").getAsString();
 
-                                venderListDatas.add(new VendorData(vender_id, vender_name,vender_last_name,business_type,mobile,email, creation_date));
+                                venderListDatas.add(new VendorData(vender_id, vender_name, vender_last_name, business_type, mobile, email, creation_date));
 
                             }
 
@@ -137,15 +124,29 @@ public class VendorActivity extends AppCompatActivity
 
     }
 
-
-
-    private void setuptoolbar() {
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        findViewById(R.id.logoWord).setVisibility(View.GONE); ;
+        TextView header_name = (TextView) findViewById(R.id.header_name);
+        header_name.setVisibility(View.VISIBLE);
+        header_name.setText(getResources().getString(R.string.add_vender_heading));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(null);
-        // getSupportActionBar().setIcon(R.drawable.home_logo);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
+        }
     }
 
     @Override
