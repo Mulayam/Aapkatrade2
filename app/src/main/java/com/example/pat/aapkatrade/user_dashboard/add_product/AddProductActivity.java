@@ -37,6 +37,7 @@ import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
+
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
@@ -756,8 +757,6 @@ public class AddProductActivity extends AppCompatActivity
                     else
 
                         {
-
-
 
                        // imageForPreview = (Bitmap) data.getExtras().get("data");
 

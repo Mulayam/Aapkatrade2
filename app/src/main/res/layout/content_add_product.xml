@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/upload_image_layout" />
+                    <include layout="@layout/product_upload_image_layout" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler"

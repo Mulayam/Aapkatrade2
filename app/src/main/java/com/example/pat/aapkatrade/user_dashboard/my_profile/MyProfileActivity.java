@@ -1,7 +1,5 @@
 package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -18,21 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.pat.aapkatrade.Home.HomeActivity;
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
-import com.example.pat.aapkatrade.Home.registration.entity.Country;
 import com.example.pat.aapkatrade.R;
-import com.example.pat.aapkatrade.categories_tab.CategoriesListAdapter;
-import com.example.pat.aapkatrade.categories_tab.CategoriesListData;
-import com.example.pat.aapkatrade.categories_tab.CategoryListActivity;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Validation;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.general.recycleview_custom.MyRecyclerViewEffect;
-import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
-import com.example.pat.aapkatrade.user_dashboard.companylist.CompanyList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -40,9 +28,6 @@ import com.koushikdutta.ion.Ion;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import java.util.Calendar;
-
-import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 
 
 public class MyProfileActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
