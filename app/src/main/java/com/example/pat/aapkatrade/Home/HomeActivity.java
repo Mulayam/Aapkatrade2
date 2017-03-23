@@ -41,7 +41,7 @@ import com.example.pat.aapkatrade.general.LocationManager_check;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
 import com.example.pat.aapkatrade.location.Geocoder;
 import com.example.pat.aapkatrade.location.Mylocation;
-import com.example.pat.aapkatrade.login.loginDashboard;
+import com.example.pat.aapkatrade.login.logindashboard;
 import com.example.pat.aapkatrade.search.Search;
 import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
 import com.example.pat.aapkatrade.user_dashboard.associateagreement.AssociateAgreementDialog;
@@ -322,7 +322,7 @@ Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
 
                 if (app_sharedpreference.getsharedpref("userid", "notlogin").equals("notlogin"))
                 {
-                    Intent i = new Intent(HomeActivity.this, loginDashboard.class);
+                    Intent i = new Intent(HomeActivity.this, logindashboard.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
                     return true;
@@ -544,7 +544,7 @@ Log.e("HIIIIIIII","UJUJUJUJUJUJUJUJUJUJ");
                         }
 
                         if (app_sharedpreference.getsharedpref("username", "not").contains("not")) {
-                            startActivity(new Intent(HomeActivity.this, loginDashboard.class));
+                            startActivity(new Intent(HomeActivity.this, logindashboard.class));
                         } else {
                             Log.e("hiiii", app_sharedpreference.getsharedpref("username", "not"));
                             String tagName_dashboardFragment = user_dashboardFragment.getClass().getName();

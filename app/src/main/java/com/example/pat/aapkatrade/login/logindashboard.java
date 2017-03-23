@@ -24,7 +24,7 @@ import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class loginDashboard extends AppCompatActivity {
+public class logindashboard extends AppCompatActivity {
     FrameLayout fl_seller, fl_buyer, fl_business_assoc;
     AppSharedPreference app_sharedpreference;
     private Context context;
@@ -35,7 +35,7 @@ public class loginDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logindashboard);
         app_sharedpreference = new AppSharedPreference(this);
-        context = loginDashboard.this;
+        context = logindashboard.this;
         setUpToolBar();
         Initview();
 
@@ -45,7 +45,7 @@ public class loginDashboard extends AppCompatActivity {
                 if (app_sharedpreference.shared_pref != null)
                     app_sharedpreference.setsharedpref("usertype", "1");
 
-                Intent i = new Intent(loginDashboard.this, LoginActivity.class);
+                Intent i = new Intent(logindashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
@@ -56,7 +56,7 @@ public class loginDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 if (app_sharedpreference.shared_pref != null)
                     app_sharedpreference.setsharedpref("usertype", "2");
-                Intent i = new Intent(loginDashboard.this, LoginActivity.class);
+                Intent i = new Intent(logindashboard.this, LoginActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
@@ -68,7 +68,7 @@ public class loginDashboard extends AppCompatActivity {
             public void onClick(View v) {
                 if (app_sharedpreference.shared_pref != null)
                     app_sharedpreference.setsharedpref("usertype", "3");
-                Intent i = new Intent(loginDashboard.this, LoginActivity.class);
+                Intent i = new Intent(logindashboard.this, LoginActivity.class);
                 startActivity(i);
 
 
@@ -136,7 +136,7 @@ public class loginDashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(loginDashboard.this, User_DashboardFragment.class);
+                Intent i = new Intent(logindashboard.this, User_DashboardFragment.class);
 
 
                 startActivity(i);
