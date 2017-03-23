@@ -11,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,20 +30,16 @@ import android.widget.TextView;
 import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.Home.navigation.entity.CategoryHome;
 import com.example.pat.aapkatrade.Home.navigation.entity.SubCategory;
-import com.example.pat.aapkatrade.Home.registration.RegistrationActivity;
 import com.example.pat.aapkatrade.Home.registration.entity.City;
 import com.example.pat.aapkatrade.Home.registration.entity.State;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpCityAdapter;
 import com.example.pat.aapkatrade.Home.registration.spinner_adapter.SpStateAdapter;
 import com.example.pat.aapkatrade.R;
-
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
 import com.example.pat.aapkatrade.general.Utils.ImageUtils;
 import com.example.pat.aapkatrade.general.Utils.adapter.CustomSimpleListAdapter;
 import com.example.pat.aapkatrade.general.progressbar.ProgressBarHandler;
-import com.example.pat.aapkatrade.user_dashboard.User_DashboardFragment;
-import com.example.pat.aapkatrade.user_dashboard.addcompany.AddCompany;
 import com.example.pat.aapkatrade.user_dashboard.addcompany.CompanyData;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -53,8 +48,6 @@ import com.koushikdutta.async.http.body.FilePart;
 import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
-import com.nbsp.materialfilepicker.MaterialFilePicker;
-import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -66,11 +59,9 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
-public class AddProductActivity extends AppCompatActivity
-{
+public class AddProductActivity extends AppCompatActivity {
 
     private Context context;
     private LinearLayout contentAddProduct, add_product_root_container;
@@ -691,7 +682,7 @@ public class AddProductActivity extends AppCompatActivity
             in.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             in.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
-        }  else {
+        } else {
             in = new Intent();
             in.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(Intent.createChooser(in, "Select profile picture"), 11);
@@ -728,8 +719,7 @@ public class AddProductActivity extends AppCompatActivity
                     // Uri selectedImageURI = data.getData();
                     imageForPreview = BitmapFactory.decodeFile(getFilesDir().getPath(), option);
 
-                }
-                else {
+                } else {
                     Log.e("hi_____", " versioncod ");
                     if (data.getData() != null) {
 
@@ -752,48 +742,43 @@ public class AddProductActivity extends AppCompatActivity
                         } catch (IOException e) {
                             Log.e("IOException", e.toString());
                         }
-                    }
+                    } else
 
-                    else
+                    {
 
-                        {
 
-                       // imageForPreview = (Bitmap) data.getExtras().get("data");
+                        // imageForPreview = (Bitmap) data.getExtras().get("data");
 
-                        multiple_images=new ArrayList<>();
+                        multiple_images = new ArrayList<>();
 
                         data.getClipData().getItemCount();
-                        for(int k=0;k<4;k++)
-                        {
+                        for (int k = 0; k < 4; k++) {
 
                             Uri selectedImage = data.getClipData().getItemAt(k).getUri();
 
 
-                            Bitmap   bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                             multiple_images.add(bitmap);
 
 
-                                Log.e("doc", "***START.****** ");
-                                if (ImageUtils.sizeOf(bitmap) > 2048) {
-                                    Log.e("doc", "if doc file path 1");
+                            Log.e("doc", "***START.****** ");
+                            if (ImageUtils.sizeOf(bitmap) > 2048) {
+                                Log.e("doc", "if doc file path 1");
 
-                                    docFile = getFile(ImageUtils.resize(bitmap, bitmap.getHeight() / 2, bitmap.getWidth() / 2));
-                                    Log.e("doc", "if doc file path" + docFile.getAbsolutePath());
-                                } else {
+                                docFile = getFile(ImageUtils.resize(bitmap, bitmap.getHeight() / 2, bitmap.getWidth() / 2));
+                                Log.e("doc", "if doc file path" + docFile.getAbsolutePath());
+                            } else {
 
-                                    Log.e("doc", " else doc file path 1");
-                                    docFile = getFile(bitmap);
-                                    Log.e("doc", " else doc file path" + docFile.getAbsolutePath());
-                                }
+                                Log.e("doc", " else doc file path 1");
+                                docFile = getFile(bitmap);
+                                Log.e("doc", " else doc file path" + docFile.getAbsolutePath());
+                            }
 
-                                productImagesDatas.add(new ProductImagesData(docFile.getAbsolutePath()));
-                                Log.e("docfile", docFile.getAbsolutePath());
-
+                            productImagesDatas.add(new ProductImagesData(docFile.getAbsolutePath()));
+                            Log.e("docfile", docFile.getAbsolutePath());
 
 
                             adapter.notifyDataSetChanged();
-
-
 
 
                         }
@@ -803,14 +788,12 @@ public class AddProductActivity extends AppCompatActivity
                 }
 
 
-
                 // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
-
 
 
             }
         } catch (Exception e) {
-           Log.e("Exception",e.toString());
+            Log.e("Exception", e.toString());
         }
 
     }

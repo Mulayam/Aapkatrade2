@@ -1,5 +1,8 @@
 package com.example.pat.aapkatrade.user_dashboard.my_profile;
 
+
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -16,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.pat.aapkatrade.Home.HomeActivity;
 import com.example.pat.aapkatrade.R;
 import com.example.pat.aapkatrade.general.AppSharedPreference;
 import com.example.pat.aapkatrade.general.Utils.AndroidUtils;
@@ -29,20 +34,18 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 
-
-public class MyProfileActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener
-{
+public class MyProfileActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
     Button btnSave, btnEdit, btnLogout;
     public static String shared_pref_name = "aapkatrade";
     AppSharedPreference app_sharedpreference;
     EditText etFName, etLName, etEmail, etMobileNo, etAddress;
-    ImageView imgCalender,backbutton;
+//    ImageView imgCalender, backbutton;
     ProgressBarHandler p_handler;
     TextView tvDate, tvMyProfileDetailHeading;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    Toolbar toolbar;
     AppBarLayout aapbar_layout_myprofile;
+    private Context context;
     CoordinatorLayout coordinatorlayout_myprofile;
 
 
@@ -53,8 +56,9 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         setContentView(R.layout.activity_my_profile);
 
         app_sharedpreference = new AppSharedPreference(this);
-        p_handler=new ProgressBarHandler(this);
-        setuptoolbar();
+        p_handler = new ProgressBarHandler(this);
+        context = MyProfileActivity.this;
+        setUpToolBar();
 
         setup_layout();
 
@@ -62,15 +66,14 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     private void setup_layout() {
 
-        coordinatorlayout_myprofile=(CoordinatorLayout)findViewById(R.id.coordinate_myprofile) ;
+        coordinatorlayout_myprofile = (CoordinatorLayout) findViewById(R.id.coordinate_myprofile);
         setupnewlayout();
         //imgCalender = (ImageView) findViewById(R.id.imgCalender);
-        backbutton=(ImageView)findViewById(R.id.back_imagview) ;
+//        backbutton = (ImageView) findViewById(R.id.back_imagview);
         tvMyProfileDetailHeading = (TextView) findViewById(R.id.tvMyProfileDetailHeading);
 
         etFName = (EditText) findViewById(R.id.etFName);
         String fname = app_sharedpreference.getsharedpref("name", "");
-
 
 
         tvMyProfileDetailHeading.setText("Hello, " + fname + " To Update your account information.");
@@ -113,12 +116,12 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         //  btnEdit = (Button) findViewById(R.id.btnEdit);
 
         //btnLogout = (Button) findViewById(R.id.btnlogout);
-        backbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        backbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         /*   imgCalender.setOnClickListener(new View.OnClickListener()
         {
@@ -213,7 +216,6 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
 
 
-
 //        StikkyHeaderBuilder.stickTo(mRecyclerView)
 //                .setHeader(R.id.header_simple, view)
 //                .minHeightHeaderDim(R.dimen.min_header_height)
@@ -221,12 +223,11 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     }
 
-    private void edit_profile_webservice()
-    {
+    private void edit_profile_webservice() {
         p_handler.show();
 
         Ion.with(MyProfileActivity.this)
-                .load((getResources().getString(R.string.webservice_base_url))+"/my_account")
+                .load((getResources().getString(R.string.webservice_base_url)) + "/my_account")
                 .setHeader("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("authorization", "xvfdbgfdhbfdhtrh54654h54ygdgerwer3")
                 .setBodyParameter("name", etFName.getText().toString())
@@ -242,37 +243,29 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
                     public void onCompleted(Exception e, JsonObject result) {
 
 
-                        if (result == null)
-                        {
+                        if (result == null) {
                             p_handler.hide();
                             System.out.println("result-----------NULLLLLLL");
 
 
-                        }
-                        else
-                        {
+                        } else {
                             String error = result.get("error").getAsString();
-                            if(error.contains("false"))
-                            {
+                            if (error.contains("false")) {
 
                                 JsonObject jsonObject = result.getAsJsonObject();
 
                                 String message = jsonObject.get("message").getAsString();
 
-                                if(message.equals("No any changes to update!"))
-                                {
+                                if (message.equals("No any changes to update!")) {
 
                                     showmessage(message);
                                     p_handler.hide();
 
-                                }
-                                else
-                                {
+                                } else {
 
                                     JsonArray jsonResultArray = jsonObject.getAsJsonArray("result");
 
-                                    for (int i = 0; i < jsonResultArray.size(); i++)
-                                    {
+                                    for (int i = 0; i < jsonResultArray.size(); i++) {
 
                                         JsonObject jsonObject1 = (JsonObject) jsonResultArray.get(i);
                                         String update_name = jsonObject1.get("name").getAsString();
@@ -280,12 +273,12 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
                                         String update_mobile = jsonObject1.get("mobile").getAsString();
                                         String update_address = jsonObject1.get("address").getAsString();
 
-                                        app_sharedpreference.setsharedpref("name",update_name);
-                                        app_sharedpreference.setsharedpref("lname",update_lastname);
+                                        app_sharedpreference.setsharedpref("name", update_name);
+                                        app_sharedpreference.setsharedpref("lname", update_lastname);
                                         app_sharedpreference.setsharedpref("mobile", update_mobile);
-                                        app_sharedpreference.setsharedpref("address",update_address);
+                                        app_sharedpreference.setsharedpref("address", update_address);
 
-                                        System.out.println("Username Data-----------"+update_name);
+                                        System.out.println("Username Data-----------" + update_name);
 
                                         showmessage(message);
                                         p_handler.hide();
@@ -295,9 +288,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
                                 }
 
-                            }
-                            else
-                            {
+                            } else {
                                 JsonObject jsonObject = result.getAsJsonObject();
                                 String message = jsonObject.get("message").getAsString();
                                 showmessage(message);
@@ -311,41 +302,46 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
 
     }
 
-    private void showmessage(String message)
-    {
+    private void showmessage(String message) {
 
-        AndroidUtils.showSnackBar(coordinatorlayout_myprofile,message);
+        AndroidUtils.showSnackBar(coordinatorlayout_myprofile, message);
 
     }
 
-    private void setuptoolbar()
-    {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+    private void setUpToolBar() {
+        ImageView homeIcon = (ImageView) findViewById(R.id.iconHome) ;
+        findViewById(R.id.logoWord).setVisibility(View.GONE); ;
+        TextView header_name = (TextView) findViewById(R.id.header_name);
+        header_name.setVisibility(View.VISIBLE);
+        header_name.setText(getResources().getString(R.string.my_profile_heading));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        AndroidUtils.setImageColor(homeIcon, context, R.color.white);
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
         setSupportActionBar(toolbar);
-        if(getSupportActionBar()!=null)
-        {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Profile");
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-
-            Log.e("working","working");
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setElevation(0);
         }
-
-
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.bottom_home_menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
@@ -356,8 +352,7 @@ public class MyProfileActivity extends AppCompatActivity implements TimePickerDi
     }
 
 
-    public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity, String product_quantity, String company_quantity, String vendor_quantity, String network_quantity)
-    {
+    public void save_shared_pref(String user_id, String user_name, String email_id, String lname, String dob, String address, String mobile, String order_quantity, String product_quantity, String company_quantity, String vendor_quantity, String network_quantity) {
 
         app_sharedpreference.setsharedpref("userid", user_id);
         app_sharedpreference.setsharedpref("username", user_name);
