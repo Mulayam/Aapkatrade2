@@ -101,6 +101,7 @@ String selected_categoryid;
         class_name = i.getStringExtra("classname");
 
 
+
         setuptoolbar();
 
         initview();
@@ -201,6 +202,7 @@ String selected_categoryid;
 
 
     private void call_state_webservice() {
+        progressBarHandler.show();
         Log.e("statelist_state", stateList.toString() + "" + c);
 
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(c, R.layout.white_textcolor_spinner, stateList);
@@ -218,6 +220,7 @@ String selected_categoryid;
         }
 
         state_list_spinner.setSelection(current_state_index);
+        progressBarHandler.hide();
 
 
     }

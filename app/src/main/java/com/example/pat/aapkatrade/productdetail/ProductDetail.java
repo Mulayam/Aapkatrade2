@@ -67,6 +67,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
     String product_id, product_location;
     ImageView imgViewPlus, imgViewMinus;
     int quantity_value = 1;
+    ProgressBarHandler progressBarHandler;
     String productlocation, categoryName;
 
     EditText firstName, quantity, price, mobile, email, etEndDate, etStatDate, description;
@@ -88,7 +89,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
         product_id = b.getString("product_id");
         Log.e("product_id", product_id);
         product_location = b.getString("product_location");
-
+        progressBarHandler=new ProgressBarHandler(context);
         setUpToolBar();
         initView();
         get_data();
@@ -304,6 +305,7 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
             public void onClick(View v) {
                 boolean permission_status = CheckPermission.checkPermissions(ProductDetail.this);
                 if (permission_status) {
+                    progressBarHandler.show();
                     LocationManager_check locationManagerCheck = new LocationManager_check(ProductDetail.this);
                     Location location = null;
                     if (locationManagerCheck.isLocationServiceAvailable()) {
@@ -311,8 +313,11 @@ public class ProductDetail extends AppCompatActivity implements DatePickerDialog
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.putExtra("product_location", productlocation);
                         ProductDetail.this.startActivity(intent);
+                        progressBarHandler.hide();
                     } else {
+
                         locationManagerCheck.createLocationServiceError(ProductDetail.this);
+                        progress_handler.hide();
                     }
                 }
             }

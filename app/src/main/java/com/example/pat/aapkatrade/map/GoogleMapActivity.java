@@ -378,6 +378,7 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
@@ -610,6 +611,13 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
 
             polylines.add(polyline);
+            travel_time.setText("(" + route_distance.get(0).toString() + ")");
+
+            tv_travel_duration.setText(route_timeduration.get(0).toString());
+
+            route.get(0).getDistanceValue();
+
+
 
 
         }
