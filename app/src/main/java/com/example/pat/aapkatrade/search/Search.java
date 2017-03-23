@@ -96,6 +96,7 @@ String selected_categoryid;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+
         Intent i = getIntent();
         currentlocation_statename = i.getStringExtra("state_name");
         class_name = i.getStringExtra("classname");
@@ -106,6 +107,7 @@ String selected_categoryid;
 
         initview();
         call_state_webservice();
+
 
     }
 
@@ -141,61 +143,61 @@ String selected_categoryid;
 
 
         gridLayoutManager = new GridLayoutManager(c, 2);
-        autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                String text = s.toString();
-
-                if (text.length() > 4) {
-
-
-                    String product_search_url = (getResources().getString(R.string.webservice_base_url)) + "/product_search";
-
-
-                    call_search_suggest_webservice_product(product_search_url, text, state_list_spinner.getSelectedItem().toString());
-
-
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        autocomplete_textview_product.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//        autocomplete_textview_product.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//                String text = s.toString();
+//
+//                if (text.length() > 4) {
+//
+//
+//                    String product_search_url = (getResources().getString(R.string.webservice_base_url)) + "/product_search";
+//
+//
+//                    call_search_suggest_webservice_product(product_search_url, text, state_list_spinner.getSelectedItem().toString());
+//
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
 
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-
-                    if (autocomplete_textview_product.getText().length() != 0) {
-                        // Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
-                        call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(),"","","","");
-
-                        App_config.hideKeyboard(Search.this);
-
-                    }
-
-
-                    return true;
-                }
-                return false;
-
-
-            }
-        });
+//        autocomplete_textview_product.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//
+//
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//
+//
+//                    if (autocomplete_textview_product.getText().length() != 0) {
+//                        // Log.e("text_editor",autocomplete_textview_state.getText().toString()+"**********"+autocomplete_textview_state.getText().toString());
+//                        call_search_webservice(state_list_spinner.getSelectedItem().toString(), autocomplete_textview_product.getText().toString(),"","","","");
+//
+//                        App_config.hideKeyboard(Search.this);
+//
+//                    }
+//
+//
+//                    return true;
+//                }
+//                return false;
+//
+//
+//            }
+//        });
 
 
     }
