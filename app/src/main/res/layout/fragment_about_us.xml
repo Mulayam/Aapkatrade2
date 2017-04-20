@@ -62,7 +62,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvAbout_us_data3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvAbout_us_data2"
@@ -106,7 +105,6 @@
                 android:padding="10dp">
 
                 <TextView
-                    android:id="@+id/tvAbout_us_data6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/about_us_data6"
@@ -150,7 +148,6 @@
 
 
                 <TextView
-                    android:id="@+id/tvAbout_us_data9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/about_us_data9"

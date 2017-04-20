@@ -22,7 +22,6 @@
 
 
         <ImageView
-            android:id="@+id/imgvew_home_icon"
             android:layout_width="@dimen/twenty_five_dip"
             android:layout_height="@dimen/twenty_five_dip"
             android:layout_alignParentLeft="true"

@@ -86,7 +86,6 @@
 
 
                     <ScrollView
-                        android:id="@+id/nested_scrollview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -133,7 +132,6 @@
                                         android:padding="5dp">
 
                                         <TextView
-                                            android:id="@+id/textView67"
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
                                             android:layout_alignParentLeft="true"
@@ -208,7 +206,6 @@
                                         android:padding="5dp">
 
                                         <TextView
-                                            android:id="@+id/textView68"
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
                                             android:text="@string/viewall"
